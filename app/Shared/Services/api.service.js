@@ -14,7 +14,30 @@ var Observable_1 = require('rxjs/Observable');
 var ApiService = (function () {
     function ApiService(_http) {
         this._http = _http;
+        this.urlBaseForData = 'http://localhost:1337/data';
     }
+    ApiService.prototype.getOptions = function (type, url) {
+        return {
+            method: type,
+            url: url,
+            body: null,
+            headers: new http_1.Headers({
+                'Content-Type': 'application/json'
+            })
+        };
+    };
+    ApiService.prototype.crudGetRecords = function (table) {
+        var options = this.getOptions(http_1.RequestMethod.Get, this.urlBaseForData + "/" + table);
+        return this._http.request(new http_1.Request(options))
+            .map(function (res) { return res.json(); })
+            .catch(this.logError);
+    };
+    ApiService.prototype.crudGetRecord = function (table, id) {
+        var options = this.getOptions(http_1.RequestMethod.Get, this.urlBaseForData + "/" + table + "/" + id);
+        return this._http.request(new http_1.Request(options))
+            .map(function (res) { return res.json(); })
+            .catch(this.logError);
+    };
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required
     ApiService.prototype.send = function (name, item, id) {
         var url, // The url that we should post to 
@@ -24,19 +47,12 @@ var ApiService = (function () {
         switch (name) {
             // Get all users
             case 'getSuppliers':
-                url = 'http://localhost:1337/data/Suppliers';
+                url = this.urlBaseForData + "/Suppliers";
                 type = http_1.RequestMethod.Get;
                 break;
         }
         // Define the options for the request
-        var options = {
-            method: type,
-            url: url,
-            body: null,
-            headers: new http_1.Headers({
-                'Content-Type': 'application/json'
-            })
-        };
+        var options = this.getOptions(type, url);
         // If the passed item is a string use it
         // Otherwise json stringify it
         if (item) {

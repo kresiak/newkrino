@@ -20,6 +20,9 @@ var dashboard_component_1 = require('./dashboard.component');
 var hero_detail_component_1 = require('./hero-detail.component');
 var hero_service_1 = require('./hero.service');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
+var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
+var product_component_1 = require('./Products/product.component');
+var product_list_component_1 = require('./Products/product-list.component');
 var api_service_1 = require('./Shared/Services/api.service');
 var AppModule = (function () {
     function AppModule() {
@@ -39,7 +42,7 @@ var AppModule = (function () {
                     { path: 'detail/:id', component: hero_detail_component_1.HeroDetailComponent }
                 ])
             ],
-            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent],
+            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent],
             providers: [hero_service_1.HeroService, api_service_1.ApiService],
             bootstrap: [app_component_1.AppComponent]
         }), 

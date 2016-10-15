@@ -12,12 +12,16 @@ import { HeroDetailComponent }   from './hero-detail.component';
 import { HeroService} from './hero.service';
 
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
+import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
+import {ProductComponent} from './Products/product.component';
+import {ProductListComponent} from './Products/product-list.component';
+
 import {ApiService} from './Shared/Services/api.service';
 
 @NgModule({
   imports:      [ 
           BrowserModule, 
-          FormsModule,
+          FormsModule,  
           HttpModule,
           NgbModule.forRoot(),
           RouterModule.forRoot([
@@ -28,7 +32,7 @@ import {ApiService} from './Shared/Services/api.service';
             { path: 'detail/:id', component: HeroDetailComponent }
           ])
    ],
-  declarations: [ AppComponent, SupplierListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent ],
+  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent ],
   providers:    [ HeroService, ApiService ],
   bootstrap:    [ AppComponent ]
 })

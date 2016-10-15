@@ -14,7 +14,7 @@ export class SupplierListComponent implements OnInit{
     alex = 'hello';
 
     ngOnInit():void{
-        this.apiService.send('getSuppliers').subscribe(
+        this.apiService.crudGetRecords('Suppliers').subscribe(
             res =>
             {
                 this.suppliers= res;

@@ -9,28 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var api_service_1 = require('./../Shared/Services/api.service');
-var SupplierListComponent = (function () {
-    function SupplierListComponent(apiService) {
-        this.apiService = apiService;
-        this.suppliers = [];
-        this.alex = 'hello';
+var ProductListComponent = (function () {
+    function ProductListComponent() {
     }
-    SupplierListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.apiService.crudGetRecords('Suppliers').subscribe(function (res) {
-            _this.suppliers = res;
-            _this.alex = 'done ';
-        }, function (err) { return console.log(err); });
+    ProductListComponent.prototype.ngOnInit = function () {
     };
-    SupplierListComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ProductListComponent.prototype, "products", void 0);
+    ProductListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: './supplier-list.component.html'
+            selector: 'gg-product-list',
+            templateUrl: './product-list.component.html'
         }), 
-        __metadata('design:paramtypes', [api_service_1.ApiService])
-    ], SupplierListComponent);
-    return SupplierListComponent;
+        __metadata('design:paramtypes', [])
+    ], ProductListComponent);
+    return ProductListComponent;
 }());
-exports.SupplierListComponent = SupplierListComponent;
-//# sourceMappingURL=supplier-list.component.js.map
+exports.ProductListComponent = ProductListComponent;
+//# sourceMappingURL=product-list.component.js.map

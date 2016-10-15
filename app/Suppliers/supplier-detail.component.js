@@ -10,27 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var api_service_1 = require('./../Shared/Services/api.service');
-var SupplierListComponent = (function () {
-    function SupplierListComponent(apiService) {
+var Rx_1 = require('rxjs/Rx');
+var SupplierDetailComponent = (function () {
+    function SupplierDetailComponent(apiService) {
         this.apiService = apiService;
-        this.suppliers = [];
-        this.alex = 'hello';
     }
-    SupplierListComponent.prototype.ngOnInit = function () {
+    SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.apiService.crudGetRecords('Suppliers').subscribe(function (res) {
-            _this.suppliers = res;
-            _this.alex = 'done ';
-        }, function (err) { return console.log(err); });
+        Rx_1.Observable.forkJoin([
+            this.apiService.crudGetRecord('Suppliers', this.supplierId), this.apiService.crudGetRecords("Produits")
+        ]).subscribe(function (data) {
+            _this.supplier = data[0];
+            _this.supplier.products = data[1].filter(function (supplier) { return supplier.Supplier === _this.supplierId; });
+        });
     };
-    SupplierListComponent = __decorate([
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "supplierId", void 0);
+    SupplierDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: './supplier-list.component.html'
+            selector: 'gg-supplier-detail',
+            templateUrl: './supplier-detail.component.html'
         }), 
         __metadata('design:paramtypes', [api_service_1.ApiService])
-    ], SupplierListComponent);
-    return SupplierListComponent;
+    ], SupplierDetailComponent);
+    return SupplierDetailComponent;
 }());
-exports.SupplierListComponent = SupplierListComponent;
-//# sourceMappingURL=supplier-list.component.js.map
+exports.SupplierDetailComponent = SupplierDetailComponent;
+//# sourceMappingURL=supplier-detail.component.js.map

@@ -6,9 +6,34 @@ import {Observable} from 'rxjs/Observable'
 
 @Injectable()
 export class ApiService {
-    constructor (
-        private _http: Http
-    ) {}
+    private urlBaseForData= 'http://localhost:1337/data';
+    constructor (private _http: Http) {}
+
+    private getOptions(type:RequestMethod, url)
+    {
+        return          {
+            method: type,
+            url: url,
+            body: null,
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        };
+    }
+
+    crudGetRecords(table: string) {
+        let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}`); 
+        return this._http.request(new Request(options))
+            .map(res => res.json())
+            .catch(this.logError);
+    }
+
+    crudGetRecord(table: string, id: string) {
+        let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}/${id}`);
+        return this._http.request(new Request(options))
+            .map(res => res.json())
+            .catch(this.logError);
+    }
 
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required
     send(name, item?, id?) {
@@ -21,7 +46,7 @@ export class ApiService {
         switch (name) {
             // Get all users
             case 'getSuppliers':
-                url = 'http://localhost:1337/data/Suppliers';
+                url = `${this.urlBaseForData}/Suppliers`;  
                 type = RequestMethod.Get;
                 break;
 
@@ -29,14 +54,7 @@ export class ApiService {
         }
 
         // Define the options for the request
-        let options = {
-            method: type,
-            url: url,
-            body: null,
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        };
+        let options = this.getOptions(type, url); 
 
         // If the passed item is a string use it
         // Otherwise json stringify it

@@ -1,10 +1,15 @@
 <h3>Suppliers {{alex}} {{suppliers.length}}</h3>
 <ul>
-    <li *ngFor="let supplier of suppliers">
-            <h4>{{supplier.Nom}}</h4>
-    </li>
+	<li *ngFor="let supplier of suppliers">
+		<h4>{{supplier.Nom}}</h4>
+	</li>
 </ul>
-<button class="btn btn-primary">push me</button>
+
+    <gg-supplier-detail [supplierId]="'5800ba26d3b14d107020a88d'"></gg-supplier-detail>
+
+
+
+<!--<button class="btn btn-primary">push me</button>
 <ngb-tabset>
   <ngb-tab title="Simple">
     <template ngbTabContent>
@@ -34,3 +39,4 @@
     </template>
   </ngb-tab>
 </ngb-tabset>
+-->
