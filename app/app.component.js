@@ -13,12 +13,40 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var AppComponent = (function () {
     function AppComponent() {
-        this.title = 'Fournisseurs';
+        this.title = 'Krino';
+        this.menu = [
+            {
+                route: '/dashboard',
+                title: 'Dashboard',
+                active: true
+            },
+            {
+                route: '/heroes',
+                title: 'Heroes',
+                active: false
+            },
+            {
+                route: '/suppliers',
+                title: 'Suppliers',
+                active: false
+            },
+            {
+                route: '/equipes',
+                title: 'Equipes',
+                active: false
+            },
+        ];
     }
+    AppComponent.prototype.activateMenu = function (menuItem) {
+        this.menu.forEach(function (element) {
+            element.active = false;
+        });
+        menuItem.active = true;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'giga-app',
-            template: " \n        <h1>{{title}}</h1>\n        <nav>\n            <a routerLink=\"/dashboard\">Dashboard</a>\n            <a routerLink=\"/heroes\">Heroes</a>\n            <a routerLink=\"/suppliers\">Suppliers</a>\n        </nav>\n        \n        <router-outlet></router-outlet>    \n    "
+            template: " \n        <div class=\"card\">\n            <div class=\"card-block\">\n                <h3 class=\"card-title\">{{title}}</h3>\n                <nav>\n                    <a *ngFor=\"let menuItem of menu\" class=\"btn btn-outline-secondary\"  [class.active]=\"menuItem.active\" (click)=\"activateMenu(menuItem)\" routerLink=\"{{menuItem.route}}\">{{menuItem.title}}</a>\n                </nav>\n                \n                <router-outlet></router-outlet>    \n            </div>\n        </div>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

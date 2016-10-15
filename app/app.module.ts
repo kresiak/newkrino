@@ -16,6 +16,14 @@ import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductListComponent} from './Products/product-list.component';
 
+import {OtpComponent} from './Otps/otp.component';
+import {OtpListComponent} from './Otps/otp-list.component.js';
+
+import {UserComponent} from './Users/user.component';
+import {UserListComponent} from './Users/user-list.component.js';
+import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
+import {EquipeListComponent} from './Equipes/equipe-list.component'
+
 import {ApiService} from './Shared/Services/api.service';
 
 @NgModule({
@@ -26,13 +34,16 @@ import {ApiService} from './Shared/Services/api.service';
           NgbModule.forRoot(),
           RouterModule.forRoot([
             { path: "suppliers", component: SupplierListComponent},
+            { path: "equipes", component: EquipeListComponent},
             { path: "heroes", component: HeroesComponent},
             { path: "dashboard", component: DashboardComponent},
             { path: "", component: DashboardComponent, pathMatch: 'full'},
             { path: 'detail/:id', component: HeroDetailComponent }
           ])
    ],
-  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent ],
+  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
+                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent
+                 ],
   providers:    [ HeroService, ApiService ],
   bootstrap:    [ AppComponent ]
 })

@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let supplier of suppliers" title="{{supplier.Nom}}">
+			<ngb-panel *ngFor="let equipe of equipes" title="{{equipe.Name}}">
 				<template ngbPanelContent>
-					<gg-supplier-detail [supplierId]="supplier._id"></gg-supplier-detail>
+					<gg-equipe-detail [equipeId]="equipe._id"></gg-equipe-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

@@ -23,6 +23,12 @@ var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
 var product_list_component_1 = require('./Products/product-list.component');
+var otp_component_1 = require('./Otps/otp.component');
+var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
+var user_component_1 = require('./Users/user.component');
+var user_list_component_js_1 = require('./Users/user-list.component.js');
+var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
+var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var api_service_1 = require('./Shared/Services/api.service');
 var AppModule = (function () {
     function AppModule() {
@@ -36,13 +42,16 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 router_1.RouterModule.forRoot([
                     { path: "suppliers", component: supplier_list_component_1.SupplierListComponent },
+                    { path: "equipes", component: equipe_list_component_1.EquipeListComponent },
                     { path: "heroes", component: heroes_component_1.HeroesComponent },
                     { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "", component: dashboard_component_1.DashboardComponent, pathMatch: 'full' },
                     { path: 'detail/:id', component: hero_detail_component_1.HeroDetailComponent }
                 ])
             ],
-            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent],
+            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent,
+                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent
+            ],
             providers: [hero_service_1.HeroService, api_service_1.ApiService],
             bootstrap: [app_component_1.AppComponent]
         }), 
