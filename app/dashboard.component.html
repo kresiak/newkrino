@@ -1,8 +1,71 @@
 <h3>Top Heroes</h3>
 <div class="grid grid-pad">
-  <div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-4">
-    <div class="module hero">
-      <h4>{{hero.name}}</h4>
-    </div>
-  </div>
+	<gg-selector [data]="categories"></gg-selector>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">alexandre</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">henri</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">pauline</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">alexandre</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">alexandre</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">alexandre</div>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-1 vcenter">
+					<gg-checkbox [checked]="false"></gg-checkbox>
+				</div>
+				<div class="col-sm-3 vcenter">alexandre</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div *ngFor="let hero of heroes" (click)="gotoDetail(hero)" class="col-1-4">
+
+		<div class="module hero">
+			<h4>{{hero.name}}</h4>
+		</div>
+	</div>
 </div>

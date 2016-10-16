@@ -25,6 +25,8 @@ import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
 import {Editor} from './ui/editor/editor'
+import {Checkbox} from './ui/checkbox/checkbox'
+import {SelectorComponent} from './ui/selector/selector.component'
 
 import {ApiService} from './Shared/Services/api.service';
 
@@ -45,7 +47,7 @@ import {ApiService} from './Shared/Services/api.service';
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
                   OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent,
-                  Editor
+                  Editor, Checkbox, SelectorComponent
                  ],
   providers:    [ HeroService, ApiService ],
   bootstrap:    [ AppComponent ]

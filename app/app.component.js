@@ -46,7 +46,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'giga-app',
-            template: " \n        <div class=\"card\">\n            <div class=\"card-block\">\n                <h3 class=\"card-title\">{{title}}</h3>\n                <nav>\n                    <a *ngFor=\"let menuItem of menu\" class=\"btn btn-outline-secondary\"  [class.active]=\"menuItem.active\" (click)=\"activateMenu(menuItem)\" routerLink=\"{{menuItem.route}}\">{{menuItem.title}}</a>\n                </nav>\n                \n                <router-outlet></router-outlet>    \n            </div>\n        </div>\n    "
+            template: " \n        <template ngbModalContainer></template>\n        <div class=\"card\">\n            <div class=\"card-block\">\n                <h3 class=\"card-title\">{{title}}</h3>\n                <nav>\n                    <a *ngFor=\"let menuItem of menu\" class=\"btn btn-outline-secondary\"  [class.active]=\"menuItem.active\" (click)=\"activateMenu(menuItem)\" routerLink=\"{{menuItem.route}}\">{{menuItem.title}}</a>\n                </nav>\n                \n                <router-outlet></router-outlet>    \n            </div>\n        </div>\n    "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

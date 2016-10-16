@@ -1,0 +1,32 @@
+<template #mymodal let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<button type="button" class="close" (click)="cancel(); d('Cross click')">
+            <span >&times;</span>
+        </button>
+		<h4 class="modal-title">Please choose</h4>
+	</div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm-6" *ngFor="let item of data">
+                        <div class="row">
+                            <div class="col-sm-1 vcenter">
+                                <gg-checkbox [(checked)]="item.selected"></gg-checkbox>
+                            </div>
+                            <div class="col-sm-10 vcenter">{{item.name}}</div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="save(); c('Close click')">Close</button>
+    </div>
+</template>
+
+<div class="editor__output">{{content}}</div>
+<div *ngIf="!editMode" class="editor__controls">
+	<button (click)="openModal(mymodal)" class="editor__icon-edit"></button>
+</div>

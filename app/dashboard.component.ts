@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeroService } from './hero.service';
 import { Hero } from './hero';
 import { Router } from '@angular/router';
+import {SelectorData} from './ui/selector/selector-data';
 
 @Component(
     {
@@ -16,6 +17,16 @@ export class DashboardComponent implements OnInit {
     }
 
     heroes: Hero[] = [];
+
+    categories: SelectorData[]= [ 
+        new SelectorData("1", "Enzymes", false),
+        new SelectorData("2", "Produits chimiques", true),
+        new SelectorData("3", "Informatique", false),
+        new SelectorData("4", "Divers", false),
+        new SelectorData("5", "Taq", true),
+        new SelectorData("6", "Autres", false),
+        new SelectorData("7", "Enzymes", false),
+    ];
 
     ngOnInit(): void {
         this.heroService.getHeroes().then(

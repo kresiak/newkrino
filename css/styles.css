@@ -4,6 +4,60 @@
     float: none;
 }
 
+.checkbox{display:block}
+
+.checkbox__input:checked+.checkbox__text:before {
+    color: #68be60;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.checkbox:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: hsla(0,0%,100%,.26);
+    border: 2px solid rgba(0,0,0,.24);
+}
+
+.checkbox__text:before {
+    content: "✓";
+    font-family: entypo,sans-serif;
+    display: block;
+    position: absolute;
+    left: -2px;
+    top: -15px;
+    font-size: 40px;
+    color: transparent;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    -webkit-transform: scale(.5);
+    -ms-transform: scale(.5);
+    transform: scale(.5);
+}
+
+.checkbox__text {
+    display: block;
+    margin-left: 30px;
+}
+
+.checkbox__label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox__input{display:block;overflow:hidden;width:0;height:20px}
+
+
+
+
+
+
+
 
 body, html {
     box-sizing: border-box;

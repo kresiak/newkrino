@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 @Component({
     selector: 'giga-app',
     template: ` 
+        <template ngbModalContainer></template>
         <div class="card">
             <div class="card-block">
                 <h3 class="card-title">{{title}}</h3>
