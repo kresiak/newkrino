@@ -24,6 +24,8 @@ import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
+import {Editor} from './ui/editor/editor'
+
 import {ApiService} from './Shared/Services/api.service';
 
 @NgModule({
@@ -42,7 +44,8 @@ import {ApiService} from './Shared/Services/api.service';
           ])
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
-                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent
+                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent,
+                  Editor
                  ],
   providers:    [ HeroService, ApiService ],
   bootstrap:    [ AppComponent ]

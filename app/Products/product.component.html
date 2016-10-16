@@ -1,4 +1,6 @@
 <div class="row">
-    <div class="col-sm-3">{{product.Description}}</div>
-    <div class="col-sm-2">{{product.Prix |  currency:'EUR':true:'1.2-2'}}</div>
+	<div class="col-sm-5 vcenter">
+		<gg-editor [content]="product.Description" [showControls]="true" ></gg-editor>
+	</div>
+	<div class="col-sm-2 vcenter">{{product.Prix | currency:'EUR':true:'1.2-2'}}</div>
 </div>
