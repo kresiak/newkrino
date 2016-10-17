@@ -19,8 +19,16 @@ var SelectorComponent = (function () {
         this.editSaved = new core_1.EventEmitter();
     }
     SelectorComponent.prototype.openModal = function (template) {
+        var _this = this;
         this.data.forEach(function (d) { return d.savePresentState(); });
-        this.modalService.open(template);
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
+        var promise = ref.result;
+        promise.then(function (res) {
+            _this.save();
+        });
+        promise.catch(function (err) {
+            _this.cancel();
+        });
         this.editMode = true;
     };
     SelectorComponent.prototype.ngAfterViewInit = function () {

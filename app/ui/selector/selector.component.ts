@@ -26,35 +26,42 @@ export class SelectorComponent implements OnInit, AfterViewInit {
 
     openModal(template) {
         this.data.forEach(d => d.savePresentState());
-        this.modalService.open(template);
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
+        var promise = ref.result;
+        promise.then((res) => {
+            this.save();
+        });
+        promise.catch((err) => {
+           this.cancel();
+        });
+
         this.editMode = true;
     }
+
 
     ngAfterViewInit(): void {
         this.constructContent();
     }
 
     ngOnInit(): void {
-        
+
     }
 
     // We need to make sure to reflect to our editable element if content gets updated from outside
     onChanges(changes) {
         if (changes.data) {
-            this.data= changes.data;
-            if (this.editMode)
-            {
+            this.data = changes.data;
+            if (this.editMode) {
                 this.data.forEach(d => d.savePresentState());
             }
-            else
-            {
+            else {
                 this.constructContent();
-            }            
+            }
         }
     }
 
     constructContent() {
-        var list= this.data.filter(item => item.selected).map(item => item.name);
+        var list = this.data.filter(item => item.selected).map(item => item.name);
         this.content = list && list.length > 0 ? list.reduce((u, v) => u + ', ' + v) : 'nothing yet';
     }
 

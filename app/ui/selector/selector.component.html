@@ -1,6 +1,6 @@
 <template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
-		<button type="button" class="close" (click)="cancel(); d('Cross click')">
+		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
         </button>
 		<h4 class="modal-title">Please choose</h4>
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="save(); c('Close click')">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     </div>
 </template>
 
