@@ -38,6 +38,32 @@ var ApiService = (function () {
             .map(function (res) { return res.json(); })
             .catch(this.logError);
     };
+    ApiService.prototype.crudUpdateRecord = function (table, id, record) {
+        var options = this.getOptions(http_1.RequestMethod.Put, this.urlBaseForData + "/" + table + "/" + id);
+        if (record) {
+            var body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new http_1.Request(options))
+            .map(function (res) { return res.json(); })
+            .catch(this.logError);
+    };
+    ApiService.prototype.crudCreateRecord = function (table, record) {
+        var options = this.getOptions(http_1.RequestMethod.Post, this.urlBaseForData + "/" + table);
+        if (record) {
+            var body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new http_1.Request(options))
+            .map(function (res) { return res.json(); })
+            .catch(this.logError);
+    };
+    ApiService.prototype.crudDeleteRecord = function (table, id) {
+        var options = this.getOptions(http_1.RequestMethod.Delete, this.urlBaseForData + "/" + table + "/" + id);
+        return this._http.request(new http_1.Request(options))
+            .map(function (res) { return res.json(); })
+            .catch(this.logError);
+    };
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required
     ApiService.prototype.send = function (name, item, id) {
         var url, // The url that we should post to 

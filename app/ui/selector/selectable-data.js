@@ -8,4 +8,4 @@ var SelectableData = (function () {
     return SelectableData;
 }());
 exports.SelectableData = SelectableData;
-//# sourceMappingURL=selector-data.js.map
+//# sourceMappingURL=selectable-data.js.map

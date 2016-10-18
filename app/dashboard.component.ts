@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HeroService } from './hero.service';
 import { Hero } from './hero';
 import { Router } from '@angular/router';
-import {SelectorData} from './ui/selector/selector-data';
+import {SelectableData} from './ui/selector/selectable-data';
+import {Observable, BehaviorSubject} from 'rxjs/Rx'
 
 @Component(
     {
@@ -13,24 +14,42 @@ import {SelectorData} from './ui/selector/selector-data';
 )
 export class DashboardComponent implements OnInit {
     constructor(private heroService: HeroService, private router: Router) {
+        this.selectableDataObservable= Observable.from([this.selectableData]);
 
+        var self= this;
+        this.selectedIdsObservable= new BehaviorSubject<string[]>([]);
+        this.selectedIdsObservable.next(this.selectedIds);
+        var self= this;
+        window.setTimeout(function(){
+            self.selectedIds.push("2");
+            self.selectedIdsObservable.next(self.selectedIds);
+        },5000);
     }
 
     heroes: Hero[] = [];
+    
+    selectableDataObservable : Observable<SelectableData[]>; 
 
-    categories: SelectorData[]= [ 
-        new SelectorData("1", "Enzymes", false),
-        new SelectorData("2", "Produits chimiques", true),
-        new SelectorData("3", "Informatique", false),
-        new SelectorData("4", "Divers", false),
-        new SelectorData("5", "Taq", true),
-        new SelectorData("6", "Autres", false),
-        new SelectorData("7", "Enzymes", false),
+    selectableData: SelectableData[]= [ 
+        new SelectableData("1", "Enzymes"),
+        new SelectableData("2", "Produits chimiques"),
+        new SelectableData("3", "Informatique"),
+        new SelectableData("4", "Divers"),
+        new SelectableData("5", "Taq"),
+        new SelectableData("6", "Autres"),
+        new SelectableData("7", "Enzymes"),
     ];
 
+    selectedIds: string[]= ["1","5"];
+    selectedIdsObservable: BehaviorSubject<string[]>;
+
+    selectedChanged(newSelection: string[])
+    {
+       this.selectedIdsObservable.next(newSelection);
+    }
+
     ngOnInit(): void {
-        this.heroService.getHeroes().then(
-            h => this.heroes = h.slice(1, 5));
+        this.heroService.getHeroes().then(h => this.heroes = h.slice(1, 5));
     }
 
     gotoDetail(hero: Hero) {

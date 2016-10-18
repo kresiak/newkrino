@@ -11,22 +11,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var hero_service_1 = require('./hero.service');
 var router_1 = require('@angular/router');
-var selector_data_1 = require('./ui/selector/selector-data');
+var selectable_data_1 = require('./ui/selector/selectable-data');
+var Rx_1 = require('rxjs/Rx');
 var DashboardComponent = (function () {
     function DashboardComponent(heroService, router) {
         this.heroService = heroService;
         this.router = router;
         this.heroes = [];
-        this.categories = [
-            new selector_data_1.SelectorData("1", "Enzymes", false),
-            new selector_data_1.SelectorData("2", "Produits chimiques", true),
-            new selector_data_1.SelectorData("3", "Informatique", false),
-            new selector_data_1.SelectorData("4", "Divers", false),
-            new selector_data_1.SelectorData("5", "Taq", true),
-            new selector_data_1.SelectorData("6", "Autres", false),
-            new selector_data_1.SelectorData("7", "Enzymes", false),
+        this.selectableData = [
+            new selectable_data_1.SelectableData("1", "Enzymes"),
+            new selectable_data_1.SelectableData("2", "Produits chimiques"),
+            new selectable_data_1.SelectableData("3", "Informatique"),
+            new selectable_data_1.SelectableData("4", "Divers"),
+            new selectable_data_1.SelectableData("5", "Taq"),
+            new selectable_data_1.SelectableData("6", "Autres"),
+            new selectable_data_1.SelectableData("7", "Enzymes"),
         ];
+        this.selectedIds = ["1", "5"];
+        this.selectableDataObservable = Rx_1.Observable.from([this.selectableData]);
+        var self = this;
+        this.selectedIdsObservable = new Rx_1.BehaviorSubject([]);
+        this.selectedIdsObservable.next(this.selectedIds);
+        var self = this;
+        window.setTimeout(function () {
+            self.selectedIds.push("2");
+            self.selectedIdsObservable.next(self.selectedIds);
+        }, 5000);
     }
+    DashboardComponent.prototype.selectedChanged = function (newSelection) {
+        this.selectedIdsObservable.next(newSelection);
+    };
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.heroService.getHeroes().then(function (h) { return _this.heroes = h.slice(1, 5); });

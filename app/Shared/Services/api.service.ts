@@ -1,17 +1,16 @@
-import {Injectable} from '@angular/core'
-import {Http, Headers, RequestMethod, Request} from '@angular/http'
-import {Observable} from 'rxjs/Observable'
+import { Injectable } from '@angular/core'
+import { Http, Headers, RequestMethod, Request } from '@angular/http'
+import { Observable } from 'rxjs/Observable'
 
 
 
 @Injectable()
 export class ApiService {
-    private urlBaseForData= 'http://localhost:1337/data';
-    constructor (private _http: Http) {}
+    private urlBaseForData = 'http://localhost:1337/data';
+    constructor(private _http: Http) { }
 
-    private getOptions(type:RequestMethod, url)
-    {
-        return          {
+    private getOptions(type: RequestMethod, url) {
+        return {
             method: type,
             url: url,
             body: null,
@@ -22,7 +21,7 @@ export class ApiService {
     }
 
     crudGetRecords(table: string) {
-        let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}`); 
+        let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}`);
         return this._http.request(new Request(options))
             .map(res => res.json())
             .catch(this.logError);
@@ -35,6 +34,37 @@ export class ApiService {
             .catch(this.logError);
     }
 
+    crudUpdateRecord(table: string, id: string, record: any) {
+        let options = this.getOptions(RequestMethod.Put, `${this.urlBaseForData}/${table}/${id}`);
+        if (record) {
+            let body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new Request(options))
+            .map(res => res.json())
+            .catch(this.logError);
+    }
+
+    crudCreateRecord(table: string, record) {
+        let options = this.getOptions(RequestMethod.Post, `${this.urlBaseForData}/${table}`);
+        if (record) {
+            let body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new Request(options))
+            .map(res => res.json())
+            .catch(this.logError);
+
+    }
+
+    crudDeleteRecord(table: string, id: string) {
+        let options = this.getOptions(RequestMethod.Delete, `${this.urlBaseForData}/${table}/${id}`);
+        return this._http.request(new Request(options))
+            .map(res => res.json())
+            .catch(this.logError);
+    }
+
+
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required
     send(name, item?, id?) {
 
@@ -46,7 +76,7 @@ export class ApiService {
         switch (name) {
             // Get all users
             case 'getSuppliers':
-                url = `${this.urlBaseForData}/Suppliers`;  
+                url = `${this.urlBaseForData}/Suppliers`;
                 type = RequestMethod.Get;
                 break;
 
@@ -54,7 +84,7 @@ export class ApiService {
         }
 
         // Define the options for the request
-        let options = this.getOptions(type, url); 
+        let options = this.getOptions(type, url);
 
         // If the passed item is a string use it
         // Otherwise json stringify it
@@ -70,7 +100,7 @@ export class ApiService {
     }
 
     // Error handling 
-    private logError (error: Error) {
+    private logError(error: Error) {
         return Observable.throw(error || 'There was an error with the request');
     }
 }

@@ -9,10 +9,10 @@
         <div class="card">
             <div class="card-block">
                 <div class="row">
-                    <div class="col-sm-6" *ngFor="let item of data">
+                    <div class="col-sm-6" *ngFor="let item of selectableData | async">
                         <div class="row">
                             <div class="col-sm-1 vcenter">
-                                <gg-checkbox [(checked)]="item.selected"></gg-checkbox>
+                                <gg-checkbox [checked]="isItemSelected(item)" (checkedChange)="setItemSelection(item, $event)"></gg-checkbox>
                             </div>
                             <div class="col-sm-10 vcenter">{{item.name}}</div>
                         </div>
