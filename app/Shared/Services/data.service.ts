@@ -1,84 +1,67 @@
-/*import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { BehaviorSubject } from "rxjs/Rx";
-import {Observable} from 'rxjs/Rx'
-import 'rxjs/add/operator/asObservable';
+import { Observable } from 'rxjs/Rx'
+
 import { ApiService } from './api.service';
 
 
 
 @Injectable()
-export class TodoStore {
-
-    private dataStreams = {};
-
+class DataObservables {
     constructor(private apiService: ApiService) {
     }
 
-    dataObservable(table: string) {
-        if (this.dataStreams[table]) {
-            return (<BehaviorSubject<any[]>>this.dataStreams[table]).asObservable();
+    triggerNext(table: string) {
+        if (this[table]) {
+            this.apiService.crudGetRecords(table).subscribe(
+                res => {
+                    let data = (<Object[]>res.json());
+                    this[table].next(data);
+                },
+                err => console.log("Error retrieving Todos")
+            );
+        }
+        else {
+            console.log('DataObservables triggerNext ERROR');
         }
     }
 
-    allData(table: string): Observable<any> {
-        let obs = this.apiService.crudGetRecords(table);
-        obs.subscribe(
-            res => {
-                let data = (<Object[]>res.json());
+    getObservable(table: string): BehaviorSubject<any[]> {
+        if (!this[table]) {
+            this[table] = new BehaviorSubject<any[]>([]);
+            this.triggerNext(table);
+        }
+        return this[table];
+    }
+}
 
-                if (!this.dataStreams[table]) {
-                    this.dataStreams[table] = new BehaviorSubject<any[]>(data)
-                }
-                else {
-                    this.dataStreams[table].next(data);
-                }
-            },
-            err => console.log("Error retrieving Todos")
-        );
-        return obs;
+@Injectable()
+export class DataStore {
+
+    constructor(private apiService: ApiService, private dataObservables: DataObservables) {
+    }
+
+    getDataObservable(table: string) {
+        return this.dataObservables.getObservable(table);
     }
 
     addData(table: string, newRecord: any): Observable<any> {
-
         let obs = this.apiService.crudCreateRecord(table, newRecord);
+        obs.subscribe(res => this.dataObservables.triggerNext("table"));
+        return obs;
+    };
 
-        obs.subscribe(+
-                this._todos.next(this._todos.getValue().push(newTodo));
-            });
 
+    deleteData(table: string, id: string): Observable<any> {
+        let obs= this.apiService.crudDeleteRecord(table, id);
+        obs.subscribe(res => this.dataObservables.triggerNext("table"));
         return obs;
     }
 
-    toggleTodo(toggled: Todo): Observable {
-        let obs: Observable = this.apiService.toggleTodo(toggled);
-
-        obs.subscribe(
-            res => {
-                let todos = this._todos.getValue();
-                let index = todos.findIndex((todo: Todo) => todo.id === toggled.id);
-                let todo: Todo = todos.get(index);
-                this._todos.next(todos.set(index, new Todo({ id: toggled.id, description: toggled.description, completed: !toggled.completed })));
-            }
-        );
-
+    updateData(table: string, id: string, newRecord: any): Observable<any> {
+        let obs= this.apiService.crudUpdateRecord(table, id,newRecord);
+        obs.subscribe(res => this.dataObservables.triggerNext("table"));
         return obs;
     }
 
-
-    deleteTodo(deleted: Todo): Observable {
-        let obs: Observable = this.apiService.deleteTodo(deleted);
-
-        obs.subscribe(
-            res => {
-                let todos: List<Todo> = this._todos.getValue();
-                let index = todos.findIndex((todo) => todo.id === deleted.id);
-                this._todos.next(todos.delete(index));
-
-            }
-        );
-
-        return obs;
-    }
-
-
-}*/
+}

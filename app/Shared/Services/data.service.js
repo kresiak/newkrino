@@ -1,85 +1,77 @@
-/*import { Injectable } from '@angular/core'
-import { BehaviorSubject } from "rxjs/Rx";
-import {Observable} from 'rxjs/Rx'
-import 'rxjs/add/operator/asObservable';
-import { ApiService } from './api.service';
-
-
-
-@Injectable()
-export class TodoStore {
-
-    private dataStreams = {};
-
-    constructor(private apiService: ApiService) {
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var Rx_1 = require("rxjs/Rx");
+var api_service_1 = require('./api.service');
+var DataObservables = (function () {
+    function DataObservables(apiService) {
+        this.apiService = apiService;
     }
-
-    dataObservable(table: string) {
-        if (this.dataStreams[table]) {
-            return (<BehaviorSubject<any[]>>this.dataStreams[table]).asObservable();
+    DataObservables.prototype.triggerNext = function (table) {
+        var _this = this;
+        if (this[table]) {
+            this.apiService.crudGetRecords(table).subscribe(function (res) {
+                var data = res.json();
+                _this[table].next(data);
+            }, function (err) { return console.log("Error retrieving Todos"); });
         }
+        else {
+            console.log('DataObservables triggerNext ERROR');
+        }
+    };
+    DataObservables.prototype.getObservable = function (table) {
+        if (!this[table]) {
+            this[table] = new Rx_1.BehaviorSubject([]);
+            this.triggerNext(table);
+        }
+        return this[table];
+    };
+    DataObservables = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [api_service_1.ApiService])
+    ], DataObservables);
+    return DataObservables;
+}());
+var DataStore = (function () {
+    function DataStore(apiService, dataObservables) {
+        this.apiService = apiService;
+        this.dataObservables = dataObservables;
     }
-
-    allData(table: string): Observable<any> {
-        let obs = this.apiService.crudGetRecords(table);
-        obs.subscribe(
-            res => {
-                let data = (<Object[]>res.json());
-
-                if (!this.dataStreams[table]) {
-                    this.dataStreams[table] = new BehaviorSubject<any[]>(data)
-                }
-                else {
-                    this.dataStreams[table].next(data);
-                }
-            },
-            err => console.log("Error retrieving Todos")
-        );
+    DataStore.prototype.getDataObservable = function (table) {
+        return this.dataObservables.getObservable(table);
+    };
+    DataStore.prototype.addData = function (table, newRecord) {
+        var _this = this;
+        var obs = this.apiService.crudCreateRecord(table, newRecord);
+        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
         return obs;
-    }
-
-    addData(table: string, newRecord: any): Observable<any> {
-
-        let obs = this.apiService.crudCreateRecord(table, newRecord);
-
-        obs.subscribe(+
-                this._todos.next(this._todos.getValue().push(newTodo));
-            });
-
+    };
+    ;
+    DataStore.prototype.deleteData = function (table, id) {
+        var _this = this;
+        var obs = this.apiService.crudDeleteRecord(table, id);
+        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
         return obs;
-    }
-
-    toggleTodo(toggled: Todo): Observable {
-        let obs: Observable = this.apiService.toggleTodo(toggled);
-
-        obs.subscribe(
-            res => {
-                let todos = this._todos.getValue();
-                let index = todos.findIndex((todo: Todo) => todo.id === toggled.id);
-                let todo: Todo = todos.get(index);
-                this._todos.next(todos.set(index, new Todo({ id: toggled.id, description: toggled.description, completed: !toggled.completed })));
-            }
-        );
-
+    };
+    DataStore.prototype.updateData = function (table, id, newRecord) {
+        var _this = this;
+        var obs = this.apiService.crudUpdateRecord(table, id, newRecord);
+        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
         return obs;
-    }
-
-
-    deleteTodo(deleted: Todo): Observable {
-        let obs: Observable = this.apiService.deleteTodo(deleted);
-
-        obs.subscribe(
-            res => {
-                let todos: List<Todo> = this._todos.getValue();
-                let index = todos.findIndex((todo) => todo.id === deleted.id);
-                this._todos.next(todos.delete(index));
-
-            }
-        );
-
-        return obs;
-    }
-
-
-}*/ 
+    };
+    DataStore = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [api_service_1.ApiService, DataObservables])
+    ], DataStore);
+    return DataStore;
+}());
+exports.DataStore = DataStore;
 //# sourceMappingURL=data.service.js.map

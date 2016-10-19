@@ -33,6 +33,7 @@ var editor_1 = require('./ui/editor/editor');
 var checkbox_1 = require('./ui/checkbox/checkbox');
 var selector_component_1 = require('./ui/selector/selector.component');
 var api_service_1 = require('./Shared/Services/api.service');
+var data_service_1 = require('./Shared/Services/data.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -56,7 +57,7 @@ var AppModule = (function () {
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 editor_1.Editor, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [hero_service_1.HeroService, api_service_1.ApiService],
+            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
