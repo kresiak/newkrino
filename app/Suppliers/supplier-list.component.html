@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let supplier of suppliers" title="{{supplier.Nom}}">
+			<ngb-panel *ngFor="let supplier of suppliers | async" title="{{supplier.Nom}}">
 				<template ngbPanelContent>
-					<gg-supplier-detail [supplierId]="supplier._id"></gg-supplier-detail>
+					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier._id)"></gg-supplier-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

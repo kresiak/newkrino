@@ -45,7 +45,6 @@ var ApiService = (function () {
             options.body = body;
         }
         return this._http.request(new http_1.Request(options))
-            .map(function (res) { return res.json(); })
             .catch(this.logError);
     };
     ApiService.prototype.crudCreateRecord = function (table, record) {

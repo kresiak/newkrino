@@ -20,9 +20,8 @@
 			</ngb-tab>
 			<ngb-tab title="Products">
 				<template ngbTabContent>
-					<gg-product-list [products]="supplier.products"></gg-product-list>
+					<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
 				</template>
-
 			</ngb-tab>
 		</ngb-tabset>
 	</div>

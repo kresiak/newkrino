@@ -9,32 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var api_service_1 = require('./../Shared/Services/api.service');
+var data_service_1 = require('./../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(apiService) {
-        this.apiService = apiService;
+    function SupplierDetailComponent(dataStore) {
+        this.dataStore = dataStore;
     }
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        Rx_1.Observable.forkJoin([
-            this.apiService.crudGetRecord('Suppliers', this.supplierId), this.apiService.crudGetRecords("Produits")
-        ]).subscribe(function (data) {
-            _this.supplier = data[0];
-            _this.supplier.products = data[1].filter(function (supplier) { return supplier.Supplier === _this.supplierId; });
+        this.supplierObservable.subscribe(function (supplier) {
+            _this.supplier = supplier;
+            _this.productsObservable = _this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplier._id; }); });
         });
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], SupplierDetailComponent.prototype, "supplierId", void 0);
+        __metadata('design:type', Rx_1.Observable)
+    ], SupplierDetailComponent.prototype, "supplierObservable", void 0);
     SupplierDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [api_service_1.ApiService])
+        __metadata('design:paramtypes', [data_service_1.DataStore])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core'
-import {ApiService} from './../Shared/Services/api.service'
+import {DataStore} from './../Shared/Services/data.service'
+import {Observable} from 'rxjs/Rx'
 
 @Component(
  {
@@ -8,21 +9,19 @@ import {ApiService} from './../Shared/Services/api.service'
  }
 )
 export class SupplierListComponent implements OnInit{
-    constructor(private apiService: ApiService)    {}
+    constructor(private dataStore: DataStore)    {
 
-    suppliers= [];
-    alex = 'hello';
-
-    ngOnInit():void{
-        this.apiService.crudGetRecords('Suppliers').subscribe(
-            res =>
-            {
-                this.suppliers= res;
-                this.alex= 'done ';
-            },             
-            err => console.log(err)
-        );
     }
 
+    suppliers: Observable<any>;
+
+    ngOnInit():void{
+        this.suppliers= this.dataStore.getDataObservable('Suppliers');
+    }
+
+    getSupplierObservable(id: string) : Observable<any>
+    {
+        return this.suppliers.map(suppliers=> suppliers.filter(s => s._id===id)[0]);
+    }
 }
 

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Rx'
 
 @Component(
     {
@@ -9,9 +10,29 @@ import {Component, Input, OnInit} from '@angular/core';
 )
 export class ProductListComponent implements OnInit
 {
-    @Input() products;
+    @Input() productsObservable: Observable<any>;
 
-    ngOnInit() : void{
+    private products;
+
+    constructor()
+    {
         
     }
+
+    ngOnInit() : void{
+        this.productsObservable.subscribe(products =>
+            {
+                this.products= products;
+            }
+        );
+    }
+
+    getProductObservable(id: string) : Observable<any>
+    {
+        return this.productsObservable.map(products => products.filter(product => product._id === id)[0]);
+    }
+
+/*    getProductObservable(id: string): Observable<any> {
+        return this.productsObservable.map(products => products.filter(product => product._id === id)[0]);
+    }*/
 }

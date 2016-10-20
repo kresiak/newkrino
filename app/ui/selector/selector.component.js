@@ -19,12 +19,12 @@ var SelectorComponent = (function () {
         this.selectionChanged = new core_1.EventEmitter();
     }
     SelectorComponent.prototype.ngOnInit = function () {
-        this.initContent(this.selectableData, this.selectedIds);
+        this.initContent(this.selectedIds);
     };
-    SelectorComponent.prototype.initContent = function (selectableData, selectedIds) {
+    SelectorComponent.prototype.initContent = function (selectedIds) {
         var _this = this;
-        selectableData.combineLatest(selectedIds, function (data, ids) {
-            var selectedItems = data.filter(function (item) { return ids.includes(item.id); });
+        this.selectableData.combineLatest(selectedIds, function (sdata, ids) {
+            var selectedItems = sdata ? sdata.filter(function (item) { return ids.includes(item.id); }) : [];
             return selectedItems.length > 0 ? selectedItems.map(function (item) { return item.name; }).reduce(function (u, v) { return u + ', ' + v; }) : 'nothing yet';
         }).subscribe(function (txt) {
             return _this.content = txt;
@@ -56,7 +56,7 @@ var SelectorComponent = (function () {
         return this.pictureselectedIds.includes(item.id);
     };
     SelectorComponent.prototype.save = function () {
-        this.initContent(this.selectableData, Rx_1.Observable.from([this.pictureselectedIds]));
+        this.initContent(Rx_1.Observable.from([this.pictureselectedIds]));
         this.selectionChanged.next(this.pictureselectedIds);
         this.editMode = false;
     };

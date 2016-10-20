@@ -19,8 +19,7 @@ var DataObservables = (function () {
         var _this = this;
         if (this[table]) {
             this.apiService.crudGetRecords(table).subscribe(function (res) {
-                var data = res.json();
-                _this[table].next(data);
+                _this[table].next(res);
             }, function (err) { return console.log("Error retrieving Todos"); });
         }
         else {
@@ -40,6 +39,7 @@ var DataObservables = (function () {
     ], DataObservables);
     return DataObservables;
 }());
+exports.DataObservables = DataObservables;
 var DataStore = (function () {
     function DataStore(apiService, dataObservables) {
         this.apiService = apiService;
@@ -51,20 +51,22 @@ var DataStore = (function () {
     DataStore.prototype.addData = function (table, newRecord) {
         var _this = this;
         var obs = this.apiService.crudCreateRecord(table, newRecord);
-        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
+        obs.subscribe(function (res) { return _this.dataObservables.triggerNext(table); });
         return obs;
     };
     ;
     DataStore.prototype.deleteData = function (table, id) {
         var _this = this;
         var obs = this.apiService.crudDeleteRecord(table, id);
-        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
+        obs.subscribe(function (res) { return _this.dataObservables.triggerNext(table); });
         return obs;
     };
     DataStore.prototype.updateData = function (table, id, newRecord) {
         var _this = this;
         var obs = this.apiService.crudUpdateRecord(table, id, newRecord);
-        obs.subscribe(function (res) { return _this.dataObservables.triggerNext("table"); });
+        obs.subscribe(function (res) {
+            _this.dataObservables.triggerNext(table);
+        });
         return obs;
     };
     DataStore = __decorate([

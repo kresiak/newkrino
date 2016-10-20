@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiService} from './../Shared/Services/api.service'
+import {DataStore} from './../Shared/Services/data.service'
 import {Observable} from 'rxjs/Rx'
 
 
@@ -12,20 +12,17 @@ import {Observable} from 'rxjs/Rx'
 )
 export class SupplierDetailComponent implements OnInit
 {
-    constructor(private apiService: ApiService)    {}
+    constructor(private dataStore: DataStore)    {}
 
     ngOnInit(): void{
-        Observable.forkJoin([
-            this.apiService.crudGetRecord('Suppliers', this.supplierId), this.apiService.crudGetRecords("Produits")
-        ]).subscribe(
-            data =>
-            {
-                this.supplier= data[0];
-                this.supplier.products=data[1].filter(supplier => supplier.Supplier === this.supplierId);   
-            }
-        );
+        this.supplierObservable.subscribe(supplier => 
+        {
+            this.supplier= supplier;
+            this.productsObservable= this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier===supplier._id));
+        });
     }
 
-    @Input() supplierId;
-    supplier:any;    
+    @Input() supplierObservable: Observable<any>;
+    private productsObservable: Observable<any>;
+    private supplier: any;
 }

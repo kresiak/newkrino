@@ -41,7 +41,6 @@ export class ApiService {
             options.body = body;
         }
         return this._http.request(new Request(options))
-            .map(res => res.json())
             .catch(this.logError);
     }
 

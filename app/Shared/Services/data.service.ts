@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 
 
 @Injectable()
-class DataObservables {
+export class DataObservables {
     constructor(private apiService: ApiService) {
     }
 
@@ -15,8 +15,7 @@ class DataObservables {
         if (this[table]) {
             this.apiService.crudGetRecords(table).subscribe(
                 res => {
-                    let data = (<Object[]>res.json());
-                    this[table].next(data);
+                    this[table].next(res);
                 },
                 err => console.log("Error retrieving Todos")
             );
@@ -47,20 +46,23 @@ export class DataStore {
 
     addData(table: string, newRecord: any): Observable<any> {
         let obs = this.apiService.crudCreateRecord(table, newRecord);
-        obs.subscribe(res => this.dataObservables.triggerNext("table"));
+        obs.subscribe(res => this.dataObservables.triggerNext(table));
         return obs;
     };
 
-
     deleteData(table: string, id: string): Observable<any> {
         let obs= this.apiService.crudDeleteRecord(table, id);
-        obs.subscribe(res => this.dataObservables.triggerNext("table"));
+        obs.subscribe(res => this.dataObservables.triggerNext(table));
         return obs;
     }
 
     updateData(table: string, id: string, newRecord: any): Observable<any> {
         let obs= this.apiService.crudUpdateRecord(table, id,newRecord);
-        obs.subscribe(res => this.dataObservables.triggerNext("table"));
+        obs.subscribe(res => 
+        {
+            this.dataObservables.triggerNext(table)
+        }        
+        );
         return obs;
     }
 

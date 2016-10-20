@@ -23,19 +23,22 @@ export class SelectorComponent implements OnInit{
     @Output() selectionChanged = new EventEmitter();
     private content: string;
     private pictureselectedIds: string[];
+
+    private tmp;
+
     
     constructor(private modalService: NgbModal) {
     }
 
     ngOnInit() : void
     {
-        this.initContent(this.selectableData, this.selectedIds);
+        this.initContent(this.selectedIds);
     }
 
-    private initContent(selectableData: Observable<SelectableData[]>, selectedIds: Observable<string[]>) : void
+    private initContent(selectedIds: Observable<string[]>) : void
     {
-        selectableData.combineLatest(selectedIds, (data, ids) => {
-            var selectedItems= data.filter(item => ids.includes(item.id));
+        this.selectableData.combineLatest(selectedIds, (sdata, ids) => {
+            var selectedItems= sdata ? sdata.filter(item => ids.includes(item.id)) : [];
             return selectedItems.length > 0 ? selectedItems.map(item => item.name).reduce((u, v) => u + ', ' + v) : 'nothing yet';
         }).subscribe(txt => 
         this.content= txt
@@ -77,7 +80,7 @@ export class SelectorComponent implements OnInit{
     }
 
     private save() {        
-        this.initContent(this.selectableData, Observable.from([this.pictureselectedIds]));
+        this.initContent(Observable.from([this.pictureselectedIds]));
         this.selectionChanged.next(this.pictureselectedIds);
         this.editMode = false;
     }
