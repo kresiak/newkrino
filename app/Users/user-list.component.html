@@ -1,5 +1,5 @@
 <div class="card">
     <div class="card-block">
-        <gg-user *ngFor="let user of users" [user]="user"></gg-user>
+        <gg-user *ngFor="let user of users" [userObservable]="getUserObservable(user._id)"></gg-user>
     </div>
 </div>

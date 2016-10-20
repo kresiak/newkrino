@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core'
-import {ApiService} from './../Shared/Services/api.service'
+import {DataStore} from './../Shared/Services/data.service'
+import {Observable} from 'rxjs/Rx'
 
 @Component(
  {
@@ -8,19 +9,17 @@ import {ApiService} from './../Shared/Services/api.service'
  }
 )
 export class EquipeListComponent implements OnInit{
-    constructor(private apiService: ApiService)    {}
+    constructor(private dataStore: DataStore)    {}
 
-    equipes= [];
+    equipes: Observable<any>;
 
     ngOnInit():void{
-        this.apiService.crudGetRecords('equipes').subscribe(
-            res =>
-            {
-                this.equipes= res;
-            },             
-            err => console.log(err)
-        );
+        this.equipes= this.dataStore.getDataObservable('equipes');
     }
 
+   getEquipeObservable(id: string) : Observable<any>
+    {
+        return this.equipes.map(equipes=> equipes.filter(s => s._id===id)[0]);
+    }    
 }
 

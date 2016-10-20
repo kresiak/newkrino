@@ -2,7 +2,7 @@ import { SelectableData } from './selectable-data'
 
 import { Component, Input, Output, ViewEncapsulation, EventEmitter, Inject, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 
 
 @Component({
@@ -14,40 +14,39 @@ import {Observable} from 'rxjs/Rx'
     templateUrl: './selector.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class SelectorComponent implements OnInit{
+export class SelectorComponent implements OnInit {
     @Input() selectableData: Observable<SelectableData[]>;
     @Input() selectedIds: Observable<string[]>;
     //@Input() nbSelectable: number = 1;
 
     private editMode = false;
     @Output() selectionChanged = new EventEmitter();
+    @Output() selectionOptionAdded = new EventEmitter();
     private content: string;
     private pictureselectedIds: string[];
 
     private tmp;
 
-    
+
     constructor(private modalService: NgbModal) {
     }
 
-    ngOnInit() : void
-    {
+    ngOnInit(): void {
         this.initContent(this.selectedIds);
     }
 
-    private initContent(selectedIds: Observable<string[]>) : void
-    {
+    private initContent(selectedIds: Observable<string[]>): void {
         this.selectableData.combineLatest(selectedIds, (sdata, ids) => {
-            var selectedItems= sdata ? sdata.filter(item => ids.includes(item.id)) : [];
+            var selectedItems = sdata && ids ? sdata.filter(item => ids.includes(item.id)) : [];
             return selectedItems.length > 0 ? selectedItems.map(item => item.name).reduce((u, v) => u + ', ' + v) : 'nothing yet';
-        }).subscribe(txt => 
-        this.content= txt
-        );
+        }).subscribe(txt =>
+            this.content = txt
+            );
     }
 
 
     openModal(template) {
-        this.selectedIds.subscribe(ids=> this.pictureselectedIds= ids.slice(0));
+        this.selectedIds.subscribe(ids => this.pictureselectedIds = ids ? ids.slice(0) : []);
 
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
@@ -55,31 +54,27 @@ export class SelectorComponent implements OnInit{
             this.save();
         });
         promise.catch((err) => {
-           this.cancel();
+            this.cancel();
         });
 
         this.editMode = true;
     }
 
-    setItemSelection(item: SelectableData, isSelected: boolean)
-    {
-        if (isSelected && ! this.pictureselectedIds.includes(item.id))
-        {
+    setItemSelection(item: SelectableData, isSelected: boolean) {
+        if (isSelected && !this.pictureselectedIds.includes(item.id)) {
             this.pictureselectedIds.push(item.id);
         }
-        if (!isSelected && this.pictureselectedIds.includes(item.id))
-        {
-            var pos= this.pictureselectedIds.findIndex(id => item.id === id);
+        if (!isSelected && this.pictureselectedIds.includes(item.id)) {
+            var pos = this.pictureselectedIds.findIndex(id => item.id === id);
             this.pictureselectedIds.splice(pos, 1);
         }
     }
 
-    isItemSelected(item: SelectableData)
-    {
+    isItemSelected(item: SelectableData) {
         return this.pictureselectedIds.includes(item.id);
     }
 
-    private save() {        
+    private save() {
         this.initContent(Observable.from([this.pictureselectedIds]));
         this.selectionChanged.next(this.pictureselectedIds);
         this.editMode = false;
@@ -89,4 +84,16 @@ export class SelectorComponent implements OnInit{
         this.editMode = false;
     }
 
+    enterNewSelectableItem(newItem) {
+        if (newItem.value.trim().length < 2) return;
+        this.selectionOptionAdded.next(newItem.value);
+        newItem.value = '';
+        newItem.focus();
+    }
+
+    onKeyDown(event) {
+        if (event.keyCode === 13) {
+            this.enterNewSelectableItem(event.target);
+        }
+    } 
 }

@@ -4,6 +4,15 @@
     float: none;
 }
 
+.enter-newselectableitem-input {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 3px solid rgba(0,0,0,.12);
+    background-color: transparent;
+    color: rgba(64,64,64,.56);
+}
+
 .checkbox{display:block}
 
 .checkbox__input:checked+.checkbox__text:before {

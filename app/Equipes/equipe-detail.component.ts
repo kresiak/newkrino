@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ApiService} from './../Shared/Services/api.service'
+import {DataStore} from './../Shared/Services/data.service'
 import {Observable} from 'rxjs/Rx'
 
 
@@ -12,21 +12,19 @@ import {Observable} from 'rxjs/Rx'
 )
 export class EquipeDetailComponent implements OnInit
 {
-    constructor(private apiService: ApiService)    {}
+    constructor(private dataStore: DataStore)    {
 
-    ngOnInit(): void{
-        Observable.forkJoin([
-            this.apiService.crudGetRecord('equipes', this.equipeId), this.apiService.crudGetRecords("krinousers"), this.apiService.crudGetRecords("otps")
-        ]).subscribe(
-            data =>
-            {
-                this.equipe= data[0];
-                this.equipe.users=data[1].filter(user => this.equipe.Users.includes(user._id));
-                this.equipe.otps=data[2].filter(otp => otp.Equipe === this.equipeId);   
-            }
-        );
     }
 
-    @Input() equipeId;
+    ngOnInit(): void{
+        this.equipeObservable.subscribe(eq => this.equipe= eq);
+        this.usersObservable=  this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.Users.includes(user._id)));
+        this.otpsObservable= this.dataStore.getDataObservable('otps').map(otps => otps.filter(otp => otp.Equipe===this.equipe._id));
+    }
+
+    @Input() equipeObservable : Observable<any>;
+
+    private usersObservable : Observable<any>;
+    private otpsObservable : Observable<any>;
     equipe:any;    
 }

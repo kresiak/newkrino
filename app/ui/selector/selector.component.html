@@ -5,25 +5,43 @@
         </button>
 		<h4 class="modal-title">Please choose</h4>
 	</div>
-    <div class="modal-body">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm-6" *ngFor="let item of selectableData | async">
-                        <div class="row">
-                            <div class="col-sm-1 vcenter">
-                                <gg-checkbox [checked]="isItemSelected(item)" (checkedChange)="setItemSelection(item, $event)"></gg-checkbox>
-                            </div>
-                            <div class="col-sm-10 vcenter">{{item.name}}</div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    </div>
+	<div class="modal-body">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-sm-6" *ngFor="let item of selectableData | async">
+						<div class="row">
+							<div class="col-sm-1 vcenter">
+								<gg-checkbox [checked]="isItemSelected(item)" (checkedChange)="setItemSelection(item, $event)"></gg-checkbox>
+							</div>
+							<div class="col-sm-10 vcenter">{{item.name}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="enter-newselectableitem__l-container">
+			<div class="row">
+				<div class="col-sm-5">
+					<input type="text" class="enter-newselectableitem-input" placeholder="Enter new choice..." (keydown)="onKeyDown($event)"
+						#newselectableitemtitle>
+				</div>
+				<div class="col-sm-2">
+					<button class="button btn btn-default btn-sm" (click)="enterNewSelectableItem(newselectableitemtitle)">Add the choice</button>
+				</div>
+				<div class="col-sm-2">
+
+				</div>
+				<div class="col-sm-3">
+                    <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
 </template>
 
 <div class="editor__output">{{content}}</div>

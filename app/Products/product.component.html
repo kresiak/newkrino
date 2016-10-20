@@ -4,6 +4,7 @@
 	</div>
 	<div class="col-sm-2 vcenter">{{product.Prix | currency:'EUR':true:'1.2-2'}}</div>
 	<div class="col-sm-4 vcenter"> 
-		<gg-selector [selectableData]="selectableDataObservable" [selectedIds]="selectedDataObservable" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
+		<gg-selector [selectableData]="selectableDataObservable" [selectedIds]="selectedDataObservable" 
+		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 	</div>
 </div>

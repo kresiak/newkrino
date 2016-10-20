@@ -1,5 +1,5 @@
 <div class="card">
     <div class="card-block">
-        <gg-otp *ngFor="let otp of otps" [otp]="otp"></gg-otp>
+        <gg-otp *ngFor="let otp of otps" [otpObservable]="getOtpObservable(otp._id)"></gg-otp>
     </div>
 </div>

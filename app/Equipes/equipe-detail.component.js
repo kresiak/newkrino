@@ -9,33 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var api_service_1 = require('./../Shared/Services/api.service');
+var data_service_1 = require('./../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(apiService) {
-        this.apiService = apiService;
+    function EquipeDetailComponent(dataStore) {
+        this.dataStore = dataStore;
     }
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        Rx_1.Observable.forkJoin([
-            this.apiService.crudGetRecord('equipes', this.equipeId), this.apiService.crudGetRecords("krinousers"), this.apiService.crudGetRecords("otps")
-        ]).subscribe(function (data) {
-            _this.equipe = data[0];
-            _this.equipe.users = data[1].filter(function (user) { return _this.equipe.Users.includes(user._id); });
-            _this.equipe.otps = data[2].filter(function (otp) { return otp.Equipe === _this.equipeId; });
-        });
+        this.equipeObservable.subscribe(function (eq) { return _this.equipe = eq; });
+        this.usersObservable = this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.Users.includes(user._id); }); });
+        this.otpsObservable = this.dataStore.getDataObservable('otps').map(function (otps) { return otps.filter(function (otp) { return otp.Equipe === _this.equipe._id; }); });
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], EquipeDetailComponent.prototype, "equipeId", void 0);
+        __metadata('design:type', Rx_1.Observable)
+    ], EquipeDetailComponent.prototype, "equipeObservable", void 0);
     EquipeDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [api_service_1.ApiService])
+        __metadata('design:paramtypes', [data_service_1.DataStore])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());

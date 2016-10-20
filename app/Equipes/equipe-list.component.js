@@ -9,24 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var api_service_1 = require('./../Shared/Services/api.service');
+var data_service_1 = require('./../Shared/Services/data.service');
 var EquipeListComponent = (function () {
-    function EquipeListComponent(apiService) {
-        this.apiService = apiService;
-        this.equipes = [];
+    function EquipeListComponent(dataStore) {
+        this.dataStore = dataStore;
     }
     EquipeListComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.apiService.crudGetRecords('equipes').subscribe(function (res) {
-            _this.equipes = res;
-        }, function (err) { return console.log(err); });
+        this.equipes = this.dataStore.getDataObservable('equipes');
+    };
+    EquipeListComponent.prototype.getEquipeObservable = function (id) {
+        return this.equipes.map(function (equipes) { return equipes.filter(function (s) { return s._id === id; })[0]; });
     };
     EquipeListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './equipe-list.component.html'
         }), 
-        __metadata('design:paramtypes', [api_service_1.ApiService])
+        __metadata('design:paramtypes', [data_service_1.DataStore])
     ], EquipeListComponent);
     return EquipeListComponent;
 }());

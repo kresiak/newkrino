@@ -9,15 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var Rx_1 = require('rxjs/Rx');
 var UserListComponent = (function () {
     function UserListComponent() {
     }
     UserListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.usersObservable.subscribe(function (users) { return _this.users = users; });
+    };
+    UserListComponent.prototype.getUserObservable = function (id) {
+        return this.usersObservable.map(function (users) { return users.filter(function (user) { return user._id === id; })[0]; });
     };
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', Object)
-    ], UserListComponent.prototype, "users", void 0);
+        __metadata('design:type', Rx_1.Observable)
+    ], UserListComponent.prototype, "usersObservable", void 0);
     UserListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -17,6 +17,7 @@ var SelectorComponent = (function () {
         //@Input() nbSelectable: number = 1;
         this.editMode = false;
         this.selectionChanged = new core_1.EventEmitter();
+        this.selectionOptionAdded = new core_1.EventEmitter();
     }
     SelectorComponent.prototype.ngOnInit = function () {
         this.initContent(this.selectedIds);
@@ -24,7 +25,7 @@ var SelectorComponent = (function () {
     SelectorComponent.prototype.initContent = function (selectedIds) {
         var _this = this;
         this.selectableData.combineLatest(selectedIds, function (sdata, ids) {
-            var selectedItems = sdata ? sdata.filter(function (item) { return ids.includes(item.id); }) : [];
+            var selectedItems = sdata && ids ? sdata.filter(function (item) { return ids.includes(item.id); }) : [];
             return selectedItems.length > 0 ? selectedItems.map(function (item) { return item.name; }).reduce(function (u, v) { return u + ', ' + v; }) : 'nothing yet';
         }).subscribe(function (txt) {
             return _this.content = txt;
@@ -32,7 +33,7 @@ var SelectorComponent = (function () {
     };
     SelectorComponent.prototype.openModal = function (template) {
         var _this = this;
-        this.selectedIds.subscribe(function (ids) { return _this.pictureselectedIds = ids.slice(0); });
+        this.selectedIds.subscribe(function (ids) { return _this.pictureselectedIds = ids ? ids.slice(0) : []; });
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
         promise.then(function (res) {
@@ -63,6 +64,18 @@ var SelectorComponent = (function () {
     SelectorComponent.prototype.cancel = function () {
         this.editMode = false;
     };
+    SelectorComponent.prototype.enterNewSelectableItem = function (newItem) {
+        if (newItem.value.trim().length < 2)
+            return;
+        this.selectionOptionAdded.next(newItem.value);
+        newItem.value = '';
+        newItem.focus();
+    };
+    SelectorComponent.prototype.onKeyDown = function (event) {
+        if (event.keyCode === 13) {
+            this.enterNewSelectableItem(event.target);
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -75,6 +88,10 @@ var SelectorComponent = (function () {
         core_1.Output(), 
         __metadata('design:type', Object)
     ], SelectorComponent.prototype, "selectionChanged", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SelectorComponent.prototype, "selectionOptionAdded", void 0);
     SelectorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

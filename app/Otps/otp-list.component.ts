@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx'
 
 @Component(
     {
@@ -7,11 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
         templateUrl: './otp-list.component.html'
     }
 )
-export class OtpListComponent implements OnInit
-{
-    @Input() otps;
+export class OtpListComponent implements OnInit {
+    @Input() otpsObservable: Observable<any>;
+    private otps;
 
-    ngOnInit() : void{
-        
+    ngOnInit(): void {
+        this.otpsObservable.subscribe(otps => this.otps = otps);
+    }
+
+    getOtpObservable(id: string) {
+        return this.otpsObservable.map(otps => otps.filter(otp => otp._id === id)[0]);
     }
 }

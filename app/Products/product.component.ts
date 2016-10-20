@@ -41,4 +41,9 @@ export class ProductComponent implements OnInit {
         this.product.Categorie = selectedIds;
         this.dataStore.updateData('Produits', this.product._id, this.product);
     }
+
+    categoryHasBeenAdded(newCategory: string)
+    {
+        this.dataStore.addData('Categories', {'Description': newCategory});
+    }
 }

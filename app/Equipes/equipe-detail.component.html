@@ -20,12 +20,12 @@
 			</ngb-tab>
 			<ngb-tab title="Users">
 				<template ngbTabContent>
-					<gg-user-list [users]="equipe.users"></gg-user-list>
+					<gg-user-list [usersObservable]="usersObservable"></gg-user-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Otps">
 				<template ngbTabContent>
-					<gg-otp-list [otps]="equipe.otps"></gg-otp-list>
+					<gg-otp-list [otpsObservable]="otpsObservable"></gg-otp-list>
 				</template>
 			</ngb-tab>
 		</ngb-tabset>

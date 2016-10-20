@@ -36,6 +36,9 @@ var ProductComponent = (function () {
         this.product.Categorie = selectedIds;
         this.dataStore.updateData('Produits', this.product._id, this.product);
     };
+    ProductComponent.prototype.categoryHasBeenAdded = function (newCategory) {
+        this.dataStore.addData('Categories', { 'Description': newCategory });
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
