@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx'
 import {DataStore} from './../Shared/Services/data.service'
-import { SelectableData } from './../ui/selector/selectable-data'
+import { SelectableData } from './../Shared/Classes/selectable-data'
 
 
 @Component(
@@ -14,7 +14,7 @@ import { SelectableData } from './../ui/selector/selectable-data'
 export class OtpComponent implements OnInit
 {
     constructor(private dataStore: DataStore) {
-        this.selectableDataObservable = this.dataStore.getDataObservable('Categories').map(categories => {
+        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(categories => {
             return categories.map(category =>
                 new SelectableData(category._id, category.Description)
             )
@@ -29,7 +29,7 @@ export class OtpComponent implements OnInit
     
     @Input() otpObservable : Observable<any>;
     private otp ;
-    private selectableDataObservable: Observable<any>;
+    private selectableCategoriesObservable: Observable<any>;
     private selectedDataObservable: Observable<any>;
     
     categorySelectionChanged(selectedIds: string[]) {

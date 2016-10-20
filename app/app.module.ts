@@ -30,6 +30,7 @@ import {SelectorComponent} from './ui/selector/selector.component'
 
 import {ApiService} from './Shared/Services/api.service';
 import {DataStore, DataObservables} from './Shared/Services/data.service';
+import {AuthService} from './Shared/Services/auth.service'
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import {DataStore, DataObservables} from './Shared/Services/data.service';
                   OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent,
                   Editor, Checkbox, SelectorComponent
                  ],
-  providers:    [ HeroService, ApiService, DataStore, DataObservables ],
+  providers:    [ HeroService, ApiService, DataStore, DataObservables, AuthService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

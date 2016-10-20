@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeroService } from './hero.service';
 import { Hero } from './hero';
 import { Router } from '@angular/router';
-import {SelectableData} from './ui/selector/selectable-data';
+import {SelectableData} from './Shared/Classes/selectable-data';
 import {Observable, BehaviorSubject} from 'rxjs/Rx'
 
 @Component(
@@ -14,7 +14,7 @@ import {Observable, BehaviorSubject} from 'rxjs/Rx'
 )
 export class DashboardComponent implements OnInit {
     constructor(private heroService: HeroService, private router: Router) {
-        this.selectableDataObservable= Observable.from([this.selectableData]);
+        this.selectableCategoriesObservable= Observable.from([this.selectableData]);
 
         var self= this;
         this.selectedIdsObservable= new BehaviorSubject<string[]>([]);
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
     heroes: Hero[] = [];
     
-    selectableDataObservable : Observable<SelectableData[]>; 
+    selectableCategoriesObservable : Observable<SelectableData[]>; 
 
     selectableData: SelectableData[]= [ 
         new SelectableData("1", "Enzymes"),

@@ -11,23 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
-var selectable_data_1 = require('./../ui/selector/selectable-data');
+var selectable_data_1 = require('./../Shared/Classes/selectable-data');
 var ProductComponent = (function () {
     function ProductComponent(dataStore) {
         this.dataStore = dataStore;
-        this.selectableDataObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
+    }
+    ProductComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
             return categories.map(function (category) {
                 return new selectable_data_1.SelectableData(category._id, category.Description);
             });
         });
-    }
-    ProductComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.selectedDataObservable = this.productObservable.map(function (product) { return product.Categorie; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
         });
     };
+    // =======================
+    // Feedback from controls
+    // =======================
     ProductComponent.prototype.descriptionUpdated = function (desc) {
         this.product.Description = desc;
         this.dataStore.updateData('Produits', this.product._id, this.product);

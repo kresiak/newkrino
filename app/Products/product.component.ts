@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service';
-import { SelectableData } from './../ui/selector/selectable-data'
+import { SelectableData } from './../Shared/Classes/selectable-data'
 
 @Component(
     {
@@ -11,26 +11,28 @@ import { SelectableData } from './../ui/selector/selectable-data'
     }
 )
 export class ProductComponent implements OnInit {
-    constructor(private dataStore: DataStore) {
-        this.selectableDataObservable = this.dataStore.getDataObservable('Categories').map(categories => {
+    constructor(private dataStore: DataStore) {    }
+
+    ngOnInit(): void {
+        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(categories => {
             return categories.map(category =>
                 new SelectableData(category._id, category.Description)
             )
         });
-    }
-
-    ngOnInit(): void {
         this.selectedDataObservable = this.productObservable.map(product => product.Categorie);
         this.productObservable.subscribe(product => {
             this.product = product;
         });
-
     }
 
     @Input() productObservable: Observable<any>;
     private product;
-    private selectableDataObservable: Observable<any>;
+    private selectableCategoriesObservable: Observable<any>;
     private selectedDataObservable: Observable<any>;
+
+    // =======================
+    // Feedback from controls
+    // =======================
 
     descriptionUpdated(desc: string) {
         this.product.Description = desc;

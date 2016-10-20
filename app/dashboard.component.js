@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var hero_service_1 = require('./hero.service');
 var router_1 = require('@angular/router');
-var selectable_data_1 = require('./ui/selector/selectable-data');
+var selectable_data_1 = require('./Shared/Classes/selectable-data');
 var Rx_1 = require('rxjs/Rx');
 var DashboardComponent = (function () {
     function DashboardComponent(heroService, router) {
@@ -28,7 +28,7 @@ var DashboardComponent = (function () {
             new selectable_data_1.SelectableData("7", "Enzymes"),
         ];
         this.selectedIds = ["1", "5"];
-        this.selectableDataObservable = Rx_1.Observable.from([this.selectableData]);
+        this.selectableCategoriesObservable = Rx_1.Observable.from([this.selectableData]);
         var self = this;
         this.selectedIdsObservable = new Rx_1.BehaviorSubject([]);
         this.selectedIdsObservable.next(this.selectedIds);

@@ -11,11 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
-var selectable_data_1 = require('./../ui/selector/selectable-data');
+var selectable_data_1 = require('./../Shared/Classes/selectable-data');
 var OtpComponent = (function () {
     function OtpComponent(dataStore) {
         this.dataStore = dataStore;
-        this.selectableDataObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
+        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
             return categories.map(function (category) {
                 return new selectable_data_1.SelectableData(category._id, category.Description);
             });
