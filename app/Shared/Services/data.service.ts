@@ -52,7 +52,9 @@ export class DataStore {
 
     deleteData(table: string, id: string): Observable<any> {
         let obs= this.apiService.crudDeleteRecord(table, id);
-        obs.subscribe(res => this.dataObservables.triggerNext(table));
+        obs.subscribe(res => 
+        this.dataObservables.triggerNext(table)
+        );
         return obs;
     }
 

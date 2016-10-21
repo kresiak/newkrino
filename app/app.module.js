@@ -30,9 +30,11 @@ var user_list_component_js_1 = require('./Users/user-list.component.js');
 var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
 var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var editor_1 = require('./ui/editor/editor');
+var editor_number_1 = require('./ui/editor/editor-number');
 var checkbox_1 = require('./ui/checkbox/checkbox');
 var selector_component_1 = require('./ui/selector/selector.component');
 var api_service_1 = require('./Shared/Services/api.service');
+var product_service_1 = require('./Shared/Services/product.service');
 var data_service_1 = require('./Shared/Services/data.service');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var AppModule = (function () {
@@ -56,9 +58,9 @@ var AppModule = (function () {
             ],
             declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
-                editor_1.Editor, checkbox_1.Checkbox, selector_component_1.SelectorComponent
+                editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore, data_service_1.DataObservables, auth_service_1.AuthService],
+            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore, data_service_1.DataObservables, auth_service_1.AuthService, product_service_1.ProductService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

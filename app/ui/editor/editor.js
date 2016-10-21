@@ -25,8 +25,8 @@ var Editor = (function () {
         this.editableContentElement = this.elementRef.nativeElement.querySelector('.editor__editable-content');
     };
     // We need to make sure to reflect to our editable element if content gets updated from outside
-    Editor.prototype.onChanges = function (changes) {
-        if (changes.content) {
+    Editor.prototype.ngOnChanges = function (changes) {
+        if (changes.content && this.editableContentElement) {
             this.setEditableContent(changes.content.currentValue);
         }
     };

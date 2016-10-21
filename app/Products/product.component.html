@@ -1,10 +1,13 @@
 <div class="row">
-	<div class="col-sm-4 vcenter">
+	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor [content]="product.Description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
 	</div>
-	<div class="col-sm-2 vcenter">{{product.Prix | currency:'EUR':true:'1.2-2'}}</div>
-	<div class="col-sm-4 vcenter"> 
-		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedDataObservable" 
+	<div class="col-sm-2 col-md-2 vcenter">{{product.Prix | currency:'EUR':true:'1.2-2'}}</div>
+	<div class="col-sm-4 col-md-4 vcenter"> 
+		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
 		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
+	</div>
+	<div class="col-sm-3 col-md-3 vcenter">
+		<gg-editor-number [content]="basketItem ? basketItem['quantity'] : 0" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number>
 	</div>
 </div>

@@ -11,19 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
-var selectable_data_1 = require('./../Shared/Classes/selectable-data');
+var product_service_1 = require('./../Shared/Services/product.service');
 var OtpComponent = (function () {
-    function OtpComponent(dataStore) {
+    function OtpComponent(dataStore, productService) {
         this.dataStore = dataStore;
-        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
-            return categories.map(function (category) {
-                return new selectable_data_1.SelectableData(category._id, category.Description);
-            });
-        });
+        this.productService = productService;
     }
     OtpComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.selectedDataObservable = this.otpObservable.map(function (otp) { return otp.Categorie; });
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.Categorie; });
         this.otpObservable.subscribe(function (otp) { return _this.otp = otp; });
     };
     OtpComponent.prototype.categorySelectionChanged = function (selectedIds) {
@@ -31,7 +28,7 @@ var OtpComponent = (function () {
         this.dataStore.updateData('otps', this.otp._id, this.otp);
     };
     OtpComponent.prototype.categoryHasBeenAdded = function (newCategory) {
-        this.dataStore.addData('Categories', { 'Description': newCategory });
+        this.productService.createCategory(newCategory);
     };
     __decorate([
         core_1.Input(), 
@@ -43,7 +40,7 @@ var OtpComponent = (function () {
             selector: 'gg-otp',
             templateUrl: './otp.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService])
     ], OtpComponent);
     return OtpComponent;
 }());

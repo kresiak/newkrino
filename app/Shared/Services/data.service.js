@@ -58,7 +58,9 @@ var DataStore = (function () {
     DataStore.prototype.deleteData = function (table, id) {
         var _this = this;
         var obs = this.apiService.crudDeleteRecord(table, id);
-        obs.subscribe(function (res) { return _this.dataObservables.triggerNext(table); });
+        obs.subscribe(function (res) {
+            return _this.dataObservables.triggerNext(table);
+        });
         return obs;
     };
     DataStore.prototype.updateData = function (table, id, newRecord) {

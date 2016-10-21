@@ -59,7 +59,6 @@ export class ApiService {
     crudDeleteRecord(table: string, id: string) {
         let options = this.getOptions(RequestMethod.Delete, `${this.urlBaseForData}/${table}/${id}`);
         return this._http.request(new Request(options))
-            .map(res => res.json())
             .catch(this.logError);
     }
 

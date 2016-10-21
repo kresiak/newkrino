@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx'
 import {DataStore} from './../Shared/Services/data.service'
+import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'
 
 
@@ -13,24 +14,21 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 )
 export class OtpComponent implements OnInit
 {
-    constructor(private dataStore: DataStore) {
-        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(categories => {
-            return categories.map(category =>
-                new SelectableData(category._id, category.Description)
-            )
-        });        
+    constructor(private dataStore: DataStore, private productService: ProductService) {
+            
     }
 
     ngOnInit():void 
     {
-        this.selectedDataObservable = this.otpObservable.map(otp => otp.Categorie);
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();  
+        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.Categorie);
         this.otpObservable.subscribe(otp => this.otp=otp);
     }
     
     @Input() otpObservable : Observable<any>;
     private otp ;
     private selectableCategoriesObservable: Observable<any>;
-    private selectedDataObservable: Observable<any>;
+    private selectedCategoryIdsObservable: Observable<any>;
     
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.Categorie = selectedIds;
@@ -39,7 +37,7 @@ export class OtpComponent implements OnInit
 
     categoryHasBeenAdded(newCategory: string)
     {
-        this.dataStore.addData('Categories', {'Description': newCategory});
+        this.productService.createCategory(newCategory);
     }
     
 }

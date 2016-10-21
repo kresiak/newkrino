@@ -10,37 +10,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
-var data_service_1 = require('./../Shared/Services/data.service');
-var selectable_data_1 = require('./../Shared/Classes/selectable-data');
+var product_service_1 = require('./../Shared/Services/product.service');
 var ProductComponent = (function () {
-    function ProductComponent(dataStore) {
-        this.dataStore = dataStore;
+    function ProductComponent(productService) {
+        this.productService = productService;
     }
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(function (categories) {
-            return categories.map(function (category) {
-                return new selectable_data_1.SelectableData(category._id, category.Description);
-            });
-        });
-        this.selectedDataObservable = this.productObservable.map(function (product) { return product.Categorie; });
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.Categorie; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
+            _this.productService.getBasketItemForCurrentUser(_this.product).subscribe(function (item) { return _this.basketItem = item; });
         });
     };
     // =======================
     // Feedback from controls
     // =======================
     ProductComponent.prototype.descriptionUpdated = function (desc) {
-        this.product.Description = desc;
-        this.dataStore.updateData('Produits', this.product._id, this.product);
+        if (this.product.Description !== desc) {
+            this.product.Description = desc;
+            this.productService.updateProduct(this.product);
+        }
     };
     ProductComponent.prototype.categorySelectionChanged = function (selectedIds) {
         this.product.Categorie = selectedIds;
-        this.dataStore.updateData('Produits', this.product._id, this.product);
+        this.productService.updateProduct(this.product);
     };
     ProductComponent.prototype.categoryHasBeenAdded = function (newCategory) {
-        this.dataStore.addData('Categories', { 'Description': newCategory });
+        this.productService.createCategory(newCategory);
+    };
+    ProductComponent.prototype.quantityBasketUpdated = function (quantity) {
+        var q = +quantity && (+quantity) >= 0 ? +quantity : 0;
+        if (!this.basketItem && q > 0) {
+            this.productService.createBasketItem(this.product, q);
+        }
+        if (this.basketItem && q === 0) {
+            this.productService.removeBasketItem(this.basketItem);
+        }
+        if (this.basketItem && q > 0 && q !== this.basketItem[quantity]) {
+            this.basketItem.quantity = q;
+            this.productService.updateBasketItem(this.basketItem);
+        }
     };
     __decorate([
         core_1.Input(), 
@@ -52,7 +63,7 @@ var ProductComponent = (function () {
             selector: 'gg-product',
             templateUrl: './product.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], ProductComponent);
     return ProductComponent;
 }());

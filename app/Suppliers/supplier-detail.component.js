@@ -9,17 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var data_service_1 = require('./../Shared/Services/data.service');
+var product_service_1 = require('./../Shared/Services/product.service');
 var Rx_1 = require('rxjs/Rx');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(dataStore) {
-        this.dataStore = dataStore;
+    function SupplierDetailComponent(productService) {
+        this.productService = productService;
+        this.isThereABasket = false;
     }
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
-            _this.productsObservable = _this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplier._id; }); });
+            _this.productsObservable = _this.productService.getProductsBySupplier(supplier);
+            _this.productsBasketObservable = _this.productService.getProductsInBasketBySupplier(supplier);
+            _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
         });
     };
     __decorate([
@@ -32,7 +35,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

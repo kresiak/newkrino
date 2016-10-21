@@ -60,7 +60,6 @@ var ApiService = (function () {
     ApiService.prototype.crudDeleteRecord = function (table, id) {
         var options = this.getOptions(http_1.RequestMethod.Delete, this.urlBaseForData + "/" + table + "/" + id);
         return this._http.request(new http_1.Request(options))
-            .map(function (res) { return res.json(); })
             .catch(this.logError);
     };
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required

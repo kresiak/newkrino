@@ -25,13 +25,14 @@ import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
 import {Editor} from './ui/editor/editor'
+import {EditorNumber} from './ui/editor/editor-number'
 import {Checkbox} from './ui/checkbox/checkbox'
 import {SelectorComponent} from './ui/selector/selector.component'
 
 import {ApiService} from './Shared/Services/api.service';
+import {ProductService} from './Shared/Services/product.service'
 import {DataStore, DataObservables} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
-
 
 @NgModule({
   imports:      [ 
@@ -50,9 +51,9 @@ import {AuthService} from './Shared/Services/auth.service'
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
                   OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent,
-                  Editor, Checkbox, SelectorComponent
+                  Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ HeroService, ApiService, DataStore, DataObservables, AuthService ],
+  providers:    [ HeroService, ApiService, DataStore, DataObservables, AuthService, ProductService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

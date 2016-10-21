@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, AfterViewInit, ViewEncapsulation, EventEmitter, ElementRef, Inject, HostBinding, HostListener } from '@angular/core';
+import { Component, Input, Output, OnInit, OnChanges, AfterViewInit, ViewEncapsulation, EventEmitter, ElementRef, Inject, HostBinding, HostListener } from '@angular/core';
 
 @Component({
     moduleId: module.id,
@@ -9,7 +9,7 @@ import { Component, Input, Output, OnInit, AfterViewInit, ViewEncapsulation, Eve
     templateUrl: './editor.html',
     encapsulation: ViewEncapsulation.None
 })
-export class Editor implements OnInit, AfterViewInit{
+export class Editor implements OnInit, AfterViewInit, OnChanges{
     // Content that will be edited and displayed
     @Input() content;
     // Creating a host element class attribute binding from the editMode property
@@ -35,8 +35,8 @@ export class Editor implements OnInit, AfterViewInit{
     }
 
     // We need to make sure to reflect to our editable element if content gets updated from outside
-    onChanges(changes) {
-        if (changes.content) {
+    ngOnChanges(changes) {
+        if (changes.content && this.editableContentElement) {
             this.setEditableContent(changes.content.currentValue);
         }
     }

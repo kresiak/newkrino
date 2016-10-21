@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
-import { DataStore } from './../Shared/Services/data.service';
+import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'
 
 @Component(
@@ -11,41 +11,63 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
     }
 )
 export class ProductComponent implements OnInit {
-    constructor(private dataStore: DataStore) {    }
+    constructor(private productService: ProductService) { }
 
     ngOnInit(): void {
-        this.selectableCategoriesObservable = this.dataStore.getDataObservable('Categories').map(categories => {
-            return categories.map(category =>
-                new SelectableData(category._id, category.Description)
-            )
-        });
-        this.selectedDataObservable = this.productObservable.map(product => product.Categorie);
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = this.productObservable.map(product => product.Categorie);
+
         this.productObservable.subscribe(product => {
-            this.product = product;
+            this.product = product;            
+            this.productService.getBasketItemForCurrentUser(this.product).subscribe(
+                item => this.basketItem = item
+                );
         });
     }
 
     @Input() productObservable: Observable<any>;
     private product;
     private selectableCategoriesObservable: Observable<any>;
-    private selectedDataObservable: Observable<any>;
+    private selectedCategoryIdsObservable: Observable<any>;
+    private basketItem;
 
     // =======================
     // Feedback from controls
     // =======================
 
     descriptionUpdated(desc: string) {
-        this.product.Description = desc;
-        this.dataStore.updateData('Produits', this.product._id, this.product);
+        if (this.product.Description !== desc)
+        {
+            this.product.Description = desc;
+            this.productService.updateProduct(this.product);
+        }
     }
 
     categorySelectionChanged(selectedIds: string[]) {
         this.product.Categorie = selectedIds;
-        this.dataStore.updateData('Produits', this.product._id, this.product);
+        this.productService.updateProduct(this.product);
     }
 
-    categoryHasBeenAdded(newCategory: string)
+    categoryHasBeenAdded(newCategory: string) {
+        this.productService.createCategory(newCategory);
+    }
+
+
+    quantityBasketUpdated(quantity: string)
     {
-        this.dataStore.addData('Categories', {'Description': newCategory});
+        var q: number= +quantity && (+quantity) >= 0 ? +quantity : 0;
+        if (!this.basketItem && q > 0)
+        {
+            this.productService.createBasketItem(this.product, q);
+        }
+        if (this.basketItem && q === 0)
+        {
+            this.productService.removeBasketItem(this.basketItem);
+        }
+        if (this.basketItem && q > 0 && q !== this.basketItem[quantity])
+        {
+            this.basketItem.quantity= q;
+            this.productService.updateBasketItem(this.basketItem);
+        }
     }
 }

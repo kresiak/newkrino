@@ -23,6 +23,16 @@
 					<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>
+				<template ngbTabContent>
+					<div class="row">
+						<gg-product-list [productsObservable]="productsBasketObservable"></gg-product-list>	
+					</div>
+					<div class="row">
+						<button class="btn btn-warning">Proceed to Checkout</button>
+					</div>
+				</template>
+			</ngb-tab>
 		</ngb-tabset>
 	</div>
 </div>
