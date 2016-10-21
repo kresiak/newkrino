@@ -26,6 +26,10 @@ var ProductListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], ProductListComponent.prototype, "productsObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ProductListComponent.prototype, "config", void 0);
     ProductListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

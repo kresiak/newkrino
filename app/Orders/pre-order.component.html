@@ -1,0 +1,37 @@
+<div class="card" *ngIf="supplier">
+	<div class="card-block">
+		<h5 class="card-title">Checkout at {{supplier.Nom}}</h5>
+		<ngb-tabset>
+			<ngb-tab title="Shopping Basket">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category']}"></gg-product-list>
+							</div>
+							<div class="row">
+								<button class="btn btn-warning">Proceed to Checkout</button>
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="Info">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-2">Supplier:</div>
+								<div class="col-sm-6">{{supplier.Nom}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Location:</div>
+								<div class="col-sm-6">{{supplier.Ville}}</div>
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>

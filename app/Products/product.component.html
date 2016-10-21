@@ -3,7 +3,7 @@
 		<gg-editor [content]="product.Description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter">{{product.Prix | currency:'EUR':true:'1.2-2'}}</div>
-	<div class="col-sm-4 col-md-4 vcenter"> 
+	<div class="col-sm-4 col-md-4 vcenter" *ngIf="showColumn('category')"> 
 		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
 		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 	</div>

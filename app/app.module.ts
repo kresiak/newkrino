@@ -24,6 +24,8 @@ import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
+import {PreOrderComponent} from './Orders/pre-order.component'
+
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
 import {Checkbox} from './ui/checkbox/checkbox'
@@ -31,6 +33,7 @@ import {SelectorComponent} from './ui/selector/selector.component'
 
 import {ApiService} from './Shared/Services/api.service';
 import {ProductService} from './Shared/Services/product.service'
+import {SupplierService} from './Shared/Services/supplier.service'
 import {DataStore, DataObservables} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 
@@ -46,14 +49,15 @@ import {AuthService} from './Shared/Services/auth.service'
             { path: "heroes", component: HeroesComponent},
             { path: "dashboard", component: DashboardComponent},
             { path: "", component: DashboardComponent, pathMatch: 'full'},
-            { path: 'detail/:id', component: HeroDetailComponent }
+            { path: 'detail/:id', component: HeroDetailComponent },
+            { path: 'preorder/:id', component: PreOrderComponent }
           ])
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
-                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent,
+                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ HeroService, ApiService, DataStore, DataObservables, AuthService, ProductService ],
+  providers:    [ HeroService, ApiService, DataStore, DataObservables, AuthService, ProductService, SupplierService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

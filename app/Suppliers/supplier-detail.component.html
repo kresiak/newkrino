@@ -1,7 +1,7 @@
 <div class="card" *ngIf="supplier">
 	<div class="card-block">
-        <h5 class="card-title">{{supplier.Nom}}</h5>
-		<ngb-tabset >
+		<h5 class="card-title">{{supplier.Nom}}</h5>
+		<ngb-tabset>
 			<ngb-tab title="Info">
 				<template ngbTabContent>
 					<div class="card">
@@ -20,16 +20,24 @@
 			</ngb-tab>
 			<ngb-tab title="Products">
 				<template ngbTabContent>
-					<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
+					<div class="card">
+						<div class="card-block">
+							<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
+						</div>
+					</div>					
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>
 				<template ngbTabContent>
-					<div class="row">
-						<gg-product-list [productsObservable]="productsBasketObservable"></gg-product-list>	
-					</div>
-					<div class="row">
-						<button class="btn btn-warning">Proceed to Checkout</button>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category']}"></gg-product-list>
+							</div>
+							<div class="row">
+								<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
+							</div>
+						</div>
 					</div>
 				</template>
 			</ngb-tab>

@@ -35,14 +35,14 @@ var ProductService = (function () {
     ProductService.prototype.createCategory = function (newCategory) {
         this.dataStore.addData('Categories', { 'Description': newCategory });
     };
-    ProductService.prototype.getProductsBySupplier = function (supplier) {
-        return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplier._id; }); });
+    ProductService.prototype.getProductsBySupplier = function (supplierId) {
+        return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplierId; }); });
     };
-    ProductService.prototype.getBasketItemForCurrentUser = function (product) {
+    ProductService.prototype.getBasketItemForCurrentUser = function (productId) {
         var _this = this;
         return this.dataStore.getDataObservable('basket').map(function (basket) {
             var basketItems = basket.filter(function (basketItem) {
-                return basketItem.produit === product._id && basketItem.user === _this.authService.getUserId();
+                return basketItem.produit === productId && basketItem.user === _this.authService.getUserId();
             });
             return basketItems && basketItems.length > 0 ? basketItems[0] : null;
         });
@@ -55,8 +55,8 @@ var ProductService = (function () {
             });
         });
     };
-    ProductService.prototype.getProductsInBasketBySupplier = function (supplier) {
-        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplier), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
+    ProductService.prototype.getProductsInBasketBySupplier = function (supplierId) {
+        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
             return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); });
         });
     };

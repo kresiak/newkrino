@@ -19,17 +19,23 @@ export class ProductComponent implements OnInit {
 
         this.productObservable.subscribe(product => {
             this.product = product;            
-            this.productService.getBasketItemForCurrentUser(this.product).subscribe(
+            this.productService.getBasketItemForCurrentUser(this.product._id).subscribe(
                 item => this.basketItem = item
                 );
         });
     }
 
     @Input() productObservable: Observable<any>;
+    @Input() config;
     private product;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
     private basketItem;
+
+    showColumn(columnName: string)
+    {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
+    }
 
     // =======================
     // Feedback from controls

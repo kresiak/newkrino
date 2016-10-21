@@ -11,19 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
 var Rx_1 = require('rxjs/Rx');
+var router_1 = require('@angular/router');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(productService) {
+    function SupplierDetailComponent(productService, router) {
         this.productService = productService;
+        this.router = router;
         this.isThereABasket = false;
     }
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
-            _this.productsObservable = _this.productService.getProductsBySupplier(supplier);
-            _this.productsBasketObservable = _this.productService.getProductsInBasketBySupplier(supplier);
+            _this.productsObservable = _this.productService.getProductsBySupplier(supplier._id);
+            _this.productsBasketObservable = _this.productService.getProductsInBasketBySupplier(supplier._id);
             _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
         });
+    };
+    SupplierDetailComponent.prototype.gotoPreOrder = function () {
+        var link = ['/preorder', this.supplier._id];
+        this.router.navigate(link);
     };
     __decorate([
         core_1.Input(), 
@@ -35,7 +41,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.Router])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

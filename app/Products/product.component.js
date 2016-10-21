@@ -21,8 +21,11 @@ var ProductComponent = (function () {
         this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.Categorie; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
-            _this.productService.getBasketItemForCurrentUser(_this.product).subscribe(function (item) { return _this.basketItem = item; });
+            _this.productService.getBasketItemForCurrentUser(_this.product._id).subscribe(function (item) { return _this.basketItem = item; });
         });
+    };
+    ProductComponent.prototype.showColumn = function (columnName) {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     };
     // =======================
     // Feedback from controls
@@ -57,6 +60,10 @@ var ProductComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], ProductComponent.prototype, "productObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], ProductComponent.prototype, "config", void 0);
     ProductComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

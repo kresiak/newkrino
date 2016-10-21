@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Rx'
 export class ProductListComponent implements OnInit
 {
     @Input() productsObservable: Observable<any>;
+    @Input() config;
 
     private products;
 

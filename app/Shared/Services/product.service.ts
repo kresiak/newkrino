@@ -27,17 +27,17 @@ export class ProductService
        this.dataStore.addData('Categories', {'Description': newCategory});
     }
 
-    getProductsBySupplier(supplier): Observable<any>
+    getProductsBySupplier(supplierId): Observable<any>
     {
-        return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier===supplier._id));
+        return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier===supplierId));
     }
 
-    getBasketItemForCurrentUser(product) : Observable<any>
+    getBasketItemForCurrentUser(productId) : Observable<any>
     {
         return this.dataStore.getDataObservable('basket').map(basket =>
         {                                    
             var basketItems= basket.filter(basketItem => 
-            basketItem.produit === product._id && basketItem.user === this.authService.getUserId()
+            basketItem.produit === productId && basketItem.user === this.authService.getUserId()
             );
             return basketItems && basketItems.length > 0 ? basketItems[0] : null;  
         });         
@@ -53,9 +53,9 @@ export class ProductService
         });         
     }
 
-    getProductsInBasketBySupplier(supplier) : Observable<any>
+    getProductsInBasketBySupplier(supplierId) : Observable<any>
     {
-        return Observable.combineLatest(this.getProductsBySupplier(supplier), this.getBasketItemsForCurrentUser(),
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
             (products, basketItems) => 
             {
                 return products.filter(product => basketItems.map(item => item.produit).includes(product._id));
