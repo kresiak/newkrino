@@ -10,13 +10,13 @@
 								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category']}"></gg-product-list>
 							</div>
 							<div class="row">
-								<button class="btn btn-warning">Proceed to Checkout</button>
+								<button class="btn btn-warning" (click)="createOrder()">Pass the order</button>
 							</div>
 						</div>
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Info">
+			<ngb-tab title="Info about {{supplier.Nom}}">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -28,6 +28,15 @@
 								<div class="col-sm-2">Location:</div>
 								<div class="col-sm-6">{{supplier.Ville}}</div>
 							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="Budget of {{authService.getEquipeName()}}">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<h4>Work hard, but don't spend too much!!!</h4>
 						</div>
 					</div>
 				</template>

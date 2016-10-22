@@ -71,6 +71,9 @@ var DataStore = (function () {
         });
         return obs;
     };
+    DataStore.prototype.triggerDataNext = function (table) {
+        this.dataObservables.triggerNext(table);
+    };
     DataStore = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [api_service_1.ApiService, DataObservables])

@@ -68,4 +68,9 @@ export class DataStore {
         return obs;
     }
 
+    triggerDataNext(table: string)
+    {
+        this.dataObservables.triggerNext(table);
+    }
+
 }

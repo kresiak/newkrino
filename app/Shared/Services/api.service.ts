@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable'
 @Injectable()
 export class ApiService {
     private urlBaseForData = 'http://localhost:1337/data';
+    private urlBaseForService = 'http://localhost:1337/service';
+
     constructor(private _http: Http) { }
 
     private getOptions(type: RequestMethod, url) {
@@ -18,6 +20,17 @@ export class ApiService {
                 'Content-Type': 'application/json'
             })
         };
+    }
+
+    callWebService(service, record) : Observable<any>
+    {
+        let options = this.getOptions(RequestMethod.Post, `${this.urlBaseForService}/${service}`);
+        if (record) {
+            let body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new Request(options)).publishReplay(1).refCount()
+            .catch(this.logError);
     }
 
     crudGetRecords(table: string) {

@@ -15,6 +15,7 @@ var ApiService = (function () {
     function ApiService(_http) {
         this._http = _http;
         this.urlBaseForData = 'http://localhost:1337/data';
+        this.urlBaseForService = 'http://localhost:1337/service';
     }
     ApiService.prototype.getOptions = function (type, url) {
         return {
@@ -25,6 +26,15 @@ var ApiService = (function () {
                 'Content-Type': 'application/json'
             })
         };
+    };
+    ApiService.prototype.callWebService = function (service, record) {
+        var options = this.getOptions(http_1.RequestMethod.Post, this.urlBaseForService + "/" + service);
+        if (record) {
+            var body = typeof record === 'string' ? record : JSON.stringify(record);
+            options.body = body;
+        }
+        return this._http.request(new http_1.Request(options)).publishReplay(1).refCount()
+            .catch(this.logError);
     };
     ApiService.prototype.crudGetRecords = function (table) {
         var options = this.getOptions(http_1.RequestMethod.Get, this.urlBaseForData + "/" + table);
