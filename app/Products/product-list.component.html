@@ -1,5 +1,5 @@
 <div class="card">
     <div class="card-block">
-        <gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product._id)" [config]="config"></gg-product>
+        <gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>
     </div>
 </div>

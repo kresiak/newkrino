@@ -18,10 +18,9 @@ var ProductComponent = (function () {
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.Categorie; });
+        this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.Categorie; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
-            _this.productService.getBasketItemForCurrentUser(_this.product._id).subscribe(function (item) { return _this.basketItem = item; });
         });
     };
     ProductComponent.prototype.showColumn = function (columnName) {
@@ -45,15 +44,14 @@ var ProductComponent = (function () {
     };
     ProductComponent.prototype.quantityBasketUpdated = function (quantity) {
         var q = +quantity && (+quantity) >= 0 ? +quantity : 0;
-        if (!this.basketItem && q > 0) {
-            this.productService.createBasketItem(this.product, q);
+        if (!this.product.annotation.basketId && q > 0) {
+            this.productService.createBasketItem(this.product.data, q);
         }
-        if (this.basketItem && q === 0) {
-            this.productService.removeBasketItem(this.basketItem);
+        if (this.product.annotation.basketId && q === 0) {
+            this.productService.removeBasketItem(this.product.annotation.basketId);
         }
-        if (this.basketItem && q > 0 && q !== this.basketItem[quantity]) {
-            this.basketItem.quantity = q;
-            this.productService.updateBasketItem(this.basketItem);
+        if (this.product.annotation.basketId && q > 0 && q !== this.product.annotation[quantity]) {
+            this.productService.updateBasketItem(this.product.annotation.basketId, this.product.data, q);
         }
     };
     __decorate([

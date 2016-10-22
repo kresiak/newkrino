@@ -22,8 +22,8 @@ var SupplierDetailComponent = (function () {
         var _this = this;
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
-            _this.productsObservable = _this.productService.getProductsBySupplier(supplier._id);
-            _this.productsBasketObservable = _this.productService.getProductsInBasketBySupplier(supplier._id);
+            _this.productsObservable = _this.productService.getAnnotedProductsBySupplier(supplier._id);
+            _this.productsBasketObservable = _this.productService.getAnnotedProductsInBasketBySupplier(supplier._id);
             _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
         });
     };

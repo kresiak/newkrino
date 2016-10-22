@@ -32,6 +32,25 @@ export class ProductService
         return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier===supplierId));
     }
 
+    getAnnotedProductsBySupplier(supplierId): Observable<any>
+    {
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
+            (products, basketItems) => 
+            {
+                return products.map(product => 
+                                {
+                                    let basketItemFiltered= basketItems.filter(item => item.produit === product._id);
+                                    return {
+                                        data: product,
+                                        annotation: {
+                                            basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
+                                            quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0
+                                        }};                                    
+                                });
+            }
+        );
+    }
+
     getBasketItemForCurrentUser(productId) : Observable<any>
     {
         return this.dataStore.getDataObservable('basket').map(basket =>
@@ -53,12 +72,34 @@ export class ProductService
         });         
     }
 
-    getProductsInBasketBySupplier(supplierId) : Observable<any>
+/*    xxgetProductsInBasketBySupplier(supplierId) : Observable<any>
     {
         return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
             (products, basketItems) => 
             {
-                return products.filter(product => basketItems.map(item => item.produit).includes(product._id));
+                return products.filter(product => basketItems.map(item => item.produit).includes(product._id)).map;
+            }
+        );
+    }
+*/
+    getAnnotedProductsInBasketBySupplier(supplierId) : Observable<any>   // getAnnoted results cannot be used to resave into database
+    {
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
+            (products, basketItems) => 
+            {
+                return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
+                                .map(product => 
+                                {
+                                    let basketItemFiltered= basketItems.filter(item => item.produit === product._id);
+                                    return basketItemFiltered && basketItemFiltered.length > 0 ? {
+                                        data: product,
+                                        annotation: {
+                                            basketId: basketItemFiltered[0]._id,
+                                            quantity: basketItemFiltered[0].quantity,
+                                            totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
+                                            otp: { _id: '5802120e93e81802c5936b06', Name: 'R.EURO.0712-J-F'} // Todo Otp service
+                                        }}: null;                                    
+                                });
             }
         );
     }
@@ -68,13 +109,13 @@ export class ProductService
         this.dataStore.addData('basket', {user: this.authService.getUserId(), produit: product._id, quantity: quantity});
     }
 
-    updateBasketItem(basketItem)
+    updateBasketItem(basketItemId, product, quantity: number)
     {
-        this.dataStore.updateData('basket', basketItem._id, basketItem);
+        this.dataStore.updateData('basket', basketItemId, {user: this.authService.getUserId(), produit: product._id, quantity: quantity});
     }    
 
-    removeBasketItem(basketItem)
+    removeBasketItem(basketItemId)
     {
-        this.dataStore.deleteData('basket', basketItem._id);
+        this.dataStore.deleteData('basket', basketItemId);
     }
 }

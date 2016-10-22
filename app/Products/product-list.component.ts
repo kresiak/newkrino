@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit
 
     getProductObservable(id: string) : Observable<any>
     {
-        return this.productsObservable.map(products => products.filter(product => product._id === id)[0]);
+        return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
     }
 
 /*    getProductObservable(id: string): Observable<any> {

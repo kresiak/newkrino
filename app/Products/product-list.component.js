@@ -20,7 +20,7 @@ var ProductListComponent = (function () {
         });
     };
     ProductListComponent.prototype.getProductObservable = function (id) {
-        return this.productsObservable.map(function (products) { return products.filter(function (product) { return product._id === id; })[0]; });
+        return this.productsObservable.map(function (products) { return products.filter(function (product) { return product.data._id === id; })[0]; });
     };
     __decorate([
         core_1.Input(), 

@@ -38,6 +38,19 @@ var ProductService = (function () {
     ProductService.prototype.getProductsBySupplier = function (supplierId) {
         return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplierId; }); });
     };
+    ProductService.prototype.getAnnotedProductsBySupplier = function (supplierId) {
+        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
+            return products.map(function (product) {
+                var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
+                return {
+                    data: product,
+                    annotation: {
+                        basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
+                        quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0
+                    } };
+            });
+        });
+    };
     ProductService.prototype.getBasketItemForCurrentUser = function (productId) {
         var _this = this;
         return this.dataStore.getDataObservable('basket').map(function (basket) {
@@ -55,19 +68,40 @@ var ProductService = (function () {
             });
         });
     };
-    ProductService.prototype.getProductsInBasketBySupplier = function (supplierId) {
+    /*    xxgetProductsInBasketBySupplier(supplierId) : Observable<any>
+        {
+            return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
+                (products, basketItems) =>
+                {
+                    return products.filter(product => basketItems.map(item => item.produit).includes(product._id)).map;
+                }
+            );
+        }
+    */
+    ProductService.prototype.getAnnotedProductsInBasketBySupplier = function (supplierId) {
         return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
-            return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); });
+            return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); })
+                .map(function (product) {
+                var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
+                return basketItemFiltered && basketItemFiltered.length > 0 ? {
+                    data: product,
+                    annotation: {
+                        basketId: basketItemFiltered[0]._id,
+                        quantity: basketItemFiltered[0].quantity,
+                        totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,
+                        otp: { _id: '5802120e93e81802c5936b06', Name: 'R.EURO.0712-J-F' } // Todo Otp service
+                    } } : null;
+            });
         });
     };
     ProductService.prototype.createBasketItem = function (product, quantity) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     };
-    ProductService.prototype.updateBasketItem = function (basketItem) {
-        this.dataStore.updateData('basket', basketItem._id, basketItem);
+    ProductService.prototype.updateBasketItem = function (basketItemId, product, quantity) {
+        this.dataStore.updateData('basket', basketItemId, { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     };
-    ProductService.prototype.removeBasketItem = function (basketItem) {
-        this.dataStore.deleteData('basket', basketItem._id);
+    ProductService.prototype.removeBasketItem = function (basketItemId) {
+        this.dataStore.deleteData('basket', basketItemId);
     };
     ProductService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),

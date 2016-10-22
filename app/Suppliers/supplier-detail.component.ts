@@ -19,8 +19,8 @@ export class SupplierDetailComponent implements OnInit
         this.supplierObservable.subscribe(supplier => 
         {
             this.supplier= supplier;
-            this.productsObservable= this.productService.getProductsBySupplier(supplier._id);
-            this.productsBasketObservable= this.productService.getProductsInBasketBySupplier(supplier._id);
+            this.productsObservable= this.productService.getAnnotedProductsBySupplier(supplier._id);
+            this.productsBasketObservable= this.productService.getAnnotedProductsInBasketBySupplier(supplier._id);
             this.productsBasketObservable.subscribe(products => this.isThereABasket= products && products.length > 0);            
         });
     }

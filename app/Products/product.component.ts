@@ -15,13 +15,10 @@ export class ProductComponent implements OnInit {
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.productObservable.map(product => product.Categorie);
+        this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.Categorie);
 
         this.productObservable.subscribe(product => {
             this.product = product;            
-            this.productService.getBasketItemForCurrentUser(this.product._id).subscribe(
-                item => this.basketItem = item
-                );
         });
     }
 
@@ -30,7 +27,6 @@ export class ProductComponent implements OnInit {
     private product;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
-    private basketItem;
 
     showColumn(columnName: string)
     {
@@ -62,18 +58,17 @@ export class ProductComponent implements OnInit {
     quantityBasketUpdated(quantity: string)
     {
         var q: number= +quantity && (+quantity) >= 0 ? +quantity : 0;
-        if (!this.basketItem && q > 0)
+        if (!this.product.annotation.basketId && q > 0)
         {
-            this.productService.createBasketItem(this.product, q);
+            this.productService.createBasketItem(this.product.data, q);
         }
-        if (this.basketItem && q === 0)
+        if (this.product.annotation.basketId && q === 0)
         {
-            this.productService.removeBasketItem(this.basketItem);
+            this.productService.removeBasketItem(this.product.annotation.basketId);
         }
-        if (this.basketItem && q > 0 && q !== this.basketItem[quantity])
+        if (this.product.annotation.basketId && q > 0 && q !== this.product.annotation[quantity])
         {
-            this.basketItem.quantity= q;
-            this.productService.updateBasketItem(this.basketItem);
+            this.productService.updateBasketItem(this.product.annotation.basketId, this.product.data, q);
         }
     }
 }

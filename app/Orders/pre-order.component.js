@@ -24,7 +24,7 @@ var PreOrderComponent = (function () {
             var supplierId = params['id'];
             if (supplierId) {
                 _this.supplierService.getSupplier(supplierId).subscribe(function (supplier) { return _this.supplier = supplier; });
-                _this.productsBasketObservable = _this.productService.getProductsInBasketBySupplier(supplierId);
+                _this.productsBasketObservable = _this.productService.getAnnotedProductsInBasketBySupplier(supplierId);
             }
         });
     };
