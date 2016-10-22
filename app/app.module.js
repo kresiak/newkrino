@@ -63,7 +63,7 @@ var AppModule = (function () {
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, pre_order_component_1.PreOrderComponent,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore, data_service_1.DataObservables, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService],
+            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

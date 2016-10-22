@@ -29,7 +29,7 @@ export class ApiService {
             let body = typeof record === 'string' ? record : JSON.stringify(record);
             options.body = body;
         }
-        return this._http.request(new Request(options)).publishReplay(1).refCount()
+        return this._http.request(new Request(options)).share()
             .catch(this.logError);
     }
 

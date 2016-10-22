@@ -40,14 +40,14 @@ export class ProductComponent implements OnInit {
     descriptionUpdated(desc: string) {
         if (this.product.Description !== desc)
         {
-            this.product.Description = desc;
-            this.productService.updateProduct(this.product);
+            this.product.data.Description = desc;
+            this.productService.updateProduct(this.product.data);
         }
     }
 
     categorySelectionChanged(selectedIds: string[]) {
-        this.product.Categorie = selectedIds;
-        this.productService.updateProduct(this.product);
+        this.product.data.Categorie = selectedIds;
+        this.productService.updateProduct(this.product.data);
     }
 
     categoryHasBeenAdded(newCategory: string) {

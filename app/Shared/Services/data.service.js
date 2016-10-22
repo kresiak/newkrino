@@ -11,47 +11,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require("rxjs/Rx");
 var api_service_1 = require('./api.service');
-var DataObservables = (function () {
-    function DataObservables(apiService) {
+var DataStore = (function () {
+    function DataStore(apiService) {
         this.apiService = apiService;
     }
-    DataObservables.prototype.triggerNext = function (table) {
+    DataStore.prototype.triggerNext = function (table) {
         var _this = this;
-        if (this[table]) {
-            this.apiService.crudGetRecords(table).subscribe(function (res) {
-                _this[table].next(res);
-            }, function (err) { return console.log("Error retrieving Todos"); });
+        if (!this[table]) {
+            this[table] = new Rx_1.BehaviorSubject([]);
         }
-        else {
-            console.log('DataObservables triggerNext ERROR');
-        }
+        this.apiService.crudGetRecords(table).subscribe(function (res) {
+            _this[table].next(res);
+        }, function (err) { return console.log("Error retrieving Todos"); });
     };
-    DataObservables.prototype.getObservable = function (table) {
+    DataStore.prototype.getObservable = function (table) {
         if (!this[table]) {
             this[table] = new Rx_1.BehaviorSubject([]);
             this.triggerNext(table);
         }
         return this[table];
     };
-    DataObservables = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [api_service_1.ApiService])
-    ], DataObservables);
-    return DataObservables;
-}());
-exports.DataObservables = DataObservables;
-var DataStore = (function () {
-    function DataStore(apiService, dataObservables) {
-        this.apiService = apiService;
-        this.dataObservables = dataObservables;
-    }
     DataStore.prototype.getDataObservable = function (table) {
-        return this.dataObservables.getObservable(table);
+        return this.getObservable(table);
     };
     DataStore.prototype.addData = function (table, newRecord) {
         var _this = this;
         var obs = this.apiService.crudCreateRecord(table, newRecord);
-        obs.subscribe(function (res) { return _this.dataObservables.triggerNext(table); });
+        obs.subscribe(function (res) { return _this.triggerNext(table); });
         return obs;
     };
     ;
@@ -59,7 +45,7 @@ var DataStore = (function () {
         var _this = this;
         var obs = this.apiService.crudDeleteRecord(table, id);
         obs.subscribe(function (res) {
-            return _this.dataObservables.triggerNext(table);
+            return _this.triggerNext(table);
         });
         return obs;
     };
@@ -67,16 +53,16 @@ var DataStore = (function () {
         var _this = this;
         var obs = this.apiService.crudUpdateRecord(table, id, newRecord);
         obs.subscribe(function (res) {
-            _this.dataObservables.triggerNext(table);
+            _this.triggerNext(table);
         });
         return obs;
     };
     DataStore.prototype.triggerDataNext = function (table) {
-        this.dataObservables.triggerNext(table);
+        this.triggerNext(table);
     };
     DataStore = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [api_service_1.ApiService, DataObservables])
+        __metadata('design:paramtypes', [api_service_1.ApiService])
     ], DataStore);
     return DataStore;
 }());

@@ -24,8 +24,8 @@ export class SupplierService {
 
         obs.subscribe(res =>
             {
-                //this.dataStore.triggerDataNext('basket');
-                //this.dataStore.triggerDataNext('orders');
+                this.dataStore.triggerDataNext('basket');
+                this.dataStore.triggerDataNext('orders');
             }            
         );
 

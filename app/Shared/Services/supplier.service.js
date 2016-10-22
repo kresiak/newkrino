@@ -27,10 +27,11 @@ var SupplierService = (function () {
         });
     };
     SupplierService.prototype.passCommand = function (record) {
+        var _this = this;
         var obs = this.apiService.callWebService('passOrder', record).map(function (res) { return res.json(); });
         obs.subscribe(function (res) {
-            //this.dataStore.triggerDataNext('basket');
-            //this.dataStore.triggerDataNext('orders');
+            _this.dataStore.triggerDataNext('basket');
+            _this.dataStore.triggerDataNext('orders');
         });
         return obs;
     };

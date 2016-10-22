@@ -33,7 +33,7 @@ var ApiService = (function () {
             var body = typeof record === 'string' ? record : JSON.stringify(record);
             options.body = body;
         }
-        return this._http.request(new http_1.Request(options)).publishReplay(1).refCount()
+        return this._http.request(new http_1.Request(options)).share()
             .catch(this.logError);
     };
     ApiService.prototype.crudGetRecords = function (table) {

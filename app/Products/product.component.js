@@ -31,13 +31,13 @@ var ProductComponent = (function () {
     // =======================
     ProductComponent.prototype.descriptionUpdated = function (desc) {
         if (this.product.Description !== desc) {
-            this.product.Description = desc;
-            this.productService.updateProduct(this.product);
+            this.product.data.Description = desc;
+            this.productService.updateProduct(this.product.data);
         }
     };
     ProductComponent.prototype.categorySelectionChanged = function (selectedIds) {
-        this.product.Categorie = selectedIds;
-        this.productService.updateProduct(this.product);
+        this.product.data.Categorie = selectedIds;
+        this.productService.updateProduct(this.product.data);
     };
     ProductComponent.prototype.categoryHasBeenAdded = function (newCategory) {
         this.productService.createCategory(newCategory);
