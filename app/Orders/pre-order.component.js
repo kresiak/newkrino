@@ -14,11 +14,12 @@ var product_service_1 = require('./../Shared/Services/product.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
 var PreOrderComponent = (function () {
-    function PreOrderComponent(supplierService, productService, route, authService) {
+    function PreOrderComponent(supplierService, productService, route, authService, router) {
         this.supplierService = supplierService;
         this.productService = productService;
         this.route = route;
         this.authService = authService;
+        this.router = router;
     }
     PreOrderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -52,7 +53,8 @@ var PreOrderComponent = (function () {
                 };
                 _this.supplierService.passCommand(record).subscribe(function (res) {
                     var orderId = res._id;
-                    // todo: goto new order view
+                    var link = ['/order', orderId];
+                    _this.router.navigate(link);
                 });
             }
         });
@@ -62,7 +64,7 @@ var PreOrderComponent = (function () {
             moduleId: module.id,
             templateUrl: './pre-order.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService, product_service_1.ProductService, router_1.ActivatedRoute, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService, product_service_1.ProductService, router_1.ActivatedRoute, auth_service_1.AuthService, router_1.Router])
     ], PreOrderComponent);
     return PreOrderComponent;
 }());

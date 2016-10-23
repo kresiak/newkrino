@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 
 
 @Injectable()
-export class DataStore {
+export class DataStore { // contains one observable property by database table/collection
 
     constructor(private apiService: ApiService) {
     }

@@ -25,6 +25,7 @@ import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
+import {OrderComponent} from './Orders/order.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
@@ -34,6 +35,7 @@ import {SelectorComponent} from './ui/selector/selector.component'
 import {ApiService} from './Shared/Services/api.service';
 import {ProductService} from './Shared/Services/product.service'
 import {SupplierService} from './Shared/Services/supplier.service'
+import {OrderService} from './Shared/Services/order.service'
 import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 
@@ -50,14 +52,15 @@ import {AuthService} from './Shared/Services/auth.service'
             { path: "dashboard", component: DashboardComponent},
             { path: "", component: DashboardComponent, pathMatch: 'full'},
             { path: 'detail/:id', component: HeroDetailComponent },
-            { path: 'preorder/:id', component: PreOrderComponent }
+            { path: 'preorder/:id', component: PreOrderComponent },
+            { path: 'order/:id', component: OrderComponent }
           ])
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
-                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent,
+                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent, OrderComponent,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ HeroService, ApiService, DataStore, AuthService, ProductService, SupplierService ],
+  providers:    [ HeroService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

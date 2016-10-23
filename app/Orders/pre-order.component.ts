@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ProductService } from './../Shared/Services/product.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthService } from './../Shared/Services/auth.service'
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class PreOrderComponent implements OnInit {
-    constructor(private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, private authService: AuthService) {
+    constructor(private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
 
     }
 
@@ -48,10 +48,11 @@ export class PreOrderComponent implements OnInit {
                     },
                     basketItems: products.filter(product => product.annotation.quantity > 0).map(product => product.annotation.basketId)
                 };
-                this.supplierService.passCommand(record).subscribe(res =>
-                {
-                    var orderId= res._id;
-                    // todo: goto new order view
+                this.supplierService.passCommand(record).subscribe(res => {
+                    var orderId = res._id;
+                    let link = ['/order', orderId];
+                    this.router.navigate(link);
+
                 });
             }
         });

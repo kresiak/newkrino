@@ -1,0 +1,26 @@
+<div class="card" *ngIf="order">
+	<div class="card-block">
+		<h5 class="card-title">Order</h5>
+		<ngb-tabset>
+			<ngb-tab title="Details">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+                                {{order.annotation.supplier}}
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="Commentaries">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>
