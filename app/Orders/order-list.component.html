@@ -1,7 +1,7 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let order of orders | async" >
+			<ngb-panel *ngFor="let order of ordersObservable | async" >
                 <template ngbPanelTitle>
                     <div class="row">
                         <div class="col-sm-3">{{order.data._id}}</div>
