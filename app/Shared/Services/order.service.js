@@ -76,6 +76,12 @@ var OrderService = (function () {
             });
         });
     };
+    OrderService.prototype.getAnnotedOrdersBySupplier = function (supplierId) {
+        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.supplierId === supplierId; }); });
+    };
+    OrderService.prototype.getAnnotedOrdersByEquipe = function (equipeId) {
+        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.equipeId === equipeId; }); });
+    };
     OrderService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(auth_service_1.AuthService)), 

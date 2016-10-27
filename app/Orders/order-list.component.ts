@@ -32,6 +32,7 @@ export class OrderListComponent implements OnInit {
     }
 
     @Input() ordersObservable: Observable<any>;
+    @Input() config;
 
     ngOnInit(): void {
     }
@@ -42,6 +43,11 @@ export class OrderListComponent implements OnInit {
 
     formatDate(date: string): string {
         return (new Date(date)).toLocaleDateString()
+    }
+
+    showColumn(columnName: string)
+    {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
 }
 

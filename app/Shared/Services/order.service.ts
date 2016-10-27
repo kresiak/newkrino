@@ -79,5 +79,14 @@ export class OrderService {
             })
     }
 
+    getAnnotedOrdersBySupplier(supplierId: string) : Observable<any>
+    {
+        return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.supplierId === supplierId));
+    }
+
+    getAnnotedOrdersByEquipe(equipeId: string) : Observable<any>
+    {
+        return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.equipeId === equipeId));
+    }
 
 }

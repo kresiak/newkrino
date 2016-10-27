@@ -10,11 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
+var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(productService, router) {
+    function SupplierDetailComponent(productService, orderService, router) {
         this.productService = productService;
+        this.orderService = orderService;
         this.router = router;
         this.isThereABasket = false;
     }
@@ -25,6 +27,8 @@ var SupplierDetailComponent = (function () {
             _this.productsObservable = _this.productService.getAnnotedProductsBySupplier(supplier._id);
             _this.productsBasketObservable = _this.productService.getAnnotedProductsInBasketBySupplier(supplier._id);
             _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
+            _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier._id);
+            _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
         });
     };
     SupplierDetailComponent.prototype.gotoPreOrder = function () {
@@ -41,7 +45,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.Router])
+        __metadata('design:paramtypes', [product_service_1.ProductService, order_service_1.OrderService, router_1.Router])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

@@ -1,7 +1,7 @@
 <div class="card" *ngIf="equipe">
 	<div class="card-block">
-        <h5 class="card-title">{{equipe.Name}}</h5>
-		<ngb-tabset >
+		<h5 class="card-title">{{equipe.Name}}</h5>
+		<ngb-tabset>
 			<ngb-tab title="Info">
 				<template ngbTabContent>
 					<div class="card">
@@ -26,6 +26,11 @@
 			<ngb-tab title="Otps">
 				<template ngbTabContent>
 					<gg-otp-list [otpsObservable]="otpsObservable"></gg-otp-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="Orders" *ngIf="anyOrder">
+				<template ngbTabContent>
+					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
 				</template>
 			</ngb-tab>
 		</ngb-tabset>

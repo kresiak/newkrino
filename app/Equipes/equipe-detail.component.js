@@ -10,16 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var data_service_1 = require('./../Shared/Services/data.service');
+var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(dataStore) {
+    function EquipeDetailComponent(dataStore, orderService) {
         this.dataStore = dataStore;
+        this.orderService = orderService;
     }
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.equipeObservable.subscribe(function (eq) { return _this.equipe = eq; });
-        this.usersObservable = this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.Users.includes(user._id); }); });
-        this.otpsObservable = this.dataStore.getDataObservable('otps').map(function (otps) { return otps.filter(function (otp) { return otp.Equipe === _this.equipe._id; }); });
+        this.equipeObservable.subscribe(function (eq) {
+            _this.equipe = eq;
+            _this.usersObservable = _this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.Users.includes(user._id); }); });
+            _this.otpsObservable = _this.dataStore.getDataObservable('otps').map(function (otps) { return otps.filter(function (otp) { return otp.Equipe === _this.equipe._id; }); });
+            _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq._id);
+            _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+        });
     };
     __decorate([
         core_1.Input(), 
@@ -31,7 +37,7 @@ var EquipeDetailComponent = (function () {
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore])
+        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());

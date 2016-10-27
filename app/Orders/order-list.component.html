@@ -7,7 +7,7 @@
                         <div class="col-sm-3">{{order.data._id}}</div>
                         <div class="col-sm-2">{{formatDate(order.data.date)}}</div>
                         <div class="col-sm-3">{{order.annotation.user}}/{{order.annotation.equipe}}</div>
-                        <div class="col-sm-2">{{order.annotation.supplier}}</div>
+                        <div class="col-sm-2" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
                         <div class="col-sm-2">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                     </div>
                 </template>

@@ -39,10 +39,17 @@ var OrderListComponent = (function () {
     OrderListComponent.prototype.formatDate = function (date) {
         return (new Date(date)).toLocaleDateString();
     };
+    OrderListComponent.prototype.showColumn = function (columnName) {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OrderListComponent.prototype, "ordersObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OrderListComponent.prototype, "config", void 0);
     OrderListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
