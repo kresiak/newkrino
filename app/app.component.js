@@ -16,6 +16,11 @@ var AppComponent = (function () {
         this.title = 'Krino';
         this.menu = [
             {
+                route: '/orders',
+                title: 'Orders',
+                active: false
+            },
+            {
                 route: '/suppliers',
                 title: 'Suppliers',
                 active: false

@@ -21,7 +21,8 @@ import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
-import {OrderComponent} from './Orders/order.component'
+import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
+import {OrderListComponent} from './Orders/order-list.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
@@ -44,13 +45,15 @@ import {AuthService} from './Shared/Services/auth.service'
           RouterModule.forRoot([
             { path: "suppliers", component: SupplierListComponent},
             { path: "equipes", component: EquipeListComponent},
+            { path: "orders", component: OrderListComponent},
             { path: "", component: SupplierListComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
-            { path: 'order/:id', component: OrderComponent }
+            { path: 'order/:id', component: OrderComponentRoutable }
           ])
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
-                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent, OrderComponent,
+                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
+                  OrderListComponent,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
   providers:    [ ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService ],

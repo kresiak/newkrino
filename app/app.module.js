@@ -26,7 +26,8 @@ var user_list_component_js_1 = require('./Users/user-list.component.js');
 var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
 var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
-var order_component_1 = require('./Orders/order.component');
+var order_detail_component_1 = require('./Orders/order-detail.component');
+var order_list_component_1 = require('./Orders/order-list.component');
 var editor_1 = require('./ui/editor/editor');
 var editor_number_1 = require('./ui/editor/editor-number');
 var checkbox_1 = require('./ui/checkbox/checkbox');
@@ -50,13 +51,15 @@ var AppModule = (function () {
                 router_1.RouterModule.forRoot([
                     { path: "suppliers", component: supplier_list_component_1.SupplierListComponent },
                     { path: "equipes", component: equipe_list_component_1.EquipeListComponent },
+                    { path: "orders", component: order_list_component_1.OrderListComponent },
                     { path: "", component: supplier_list_component_1.SupplierListComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
-                    { path: 'order/:id', component: order_component_1.OrderComponent }
+                    { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable }
                 ])
             ],
             declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
-                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, pre_order_component_1.PreOrderComponent, order_component_1.OrderComponent,
+                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
+                order_list_component_1.OrderListComponent,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
             providers: [api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService],
