@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var auth_service_1 = require('./auth.service');
+var selectable_data_1 = require('./../Classes/selectable-data');
 var Rx_1 = require('rxjs/Rx');
 core_1.Injectable();
 var OrderService = (function () {
@@ -21,6 +22,13 @@ var OrderService = (function () {
         this.dataStore = dataStore;
         this.authService = authService;
     }
+    OrderService.prototype.getSelectableOtps = function () {
+        return this.dataStore.getDataObservable('otps').map(function (otps) {
+            return otps.map(function (otp) {
+                return new selectable_data_1.SelectableData(otp._id, otp.Name);
+            });
+        });
+    };
     OrderService.prototype.getAnnotedOrder = function (id) {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), function (order, products, otps, users, equipes, suppliers) {
             if (!order)
@@ -42,7 +50,7 @@ var OrderService = (function () {
                             annotation: {
                                 otp: otp ? otp.Name : 'Unknown otp',
                                 description: product ? product.Description : 'Unknown product',
-                                prix: product ? product.Prix : '0'
+                                price: product ? product.Prix : '0'
                             }
                         };
                     })

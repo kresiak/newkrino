@@ -15,10 +15,6 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var app_component_1 = require('./app.component');
-var heroes_component_1 = require('./heroes.component');
-var dashboard_component_1 = require('./dashboard.component');
-var hero_detail_component_1 = require('./hero-detail.component');
-var hero_service_1 = require('./hero.service');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
@@ -54,19 +50,16 @@ var AppModule = (function () {
                 router_1.RouterModule.forRoot([
                     { path: "suppliers", component: supplier_list_component_1.SupplierListComponent },
                     { path: "equipes", component: equipe_list_component_1.EquipeListComponent },
-                    { path: "heroes", component: heroes_component_1.HeroesComponent },
-                    { path: "dashboard", component: dashboard_component_1.DashboardComponent },
-                    { path: "", component: dashboard_component_1.DashboardComponent, pathMatch: 'full' },
-                    { path: 'detail/:id', component: hero_detail_component_1.HeroDetailComponent },
+                    { path: "", component: supplier_list_component_1.SupplierListComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
                     { path: 'order/:id', component: order_component_1.OrderComponent }
                 ])
             ],
-            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, heroes_component_1.HeroesComponent, hero_detail_component_1.HeroDetailComponent, dashboard_component_1.DashboardComponent,
+            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, user_component_1.UserComponent, user_list_component_js_1.UserListComponent, equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, pre_order_component_1.PreOrderComponent, order_component_1.OrderComponent,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [hero_service_1.HeroService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService],
+            providers: [api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var order_service_1 = require('../Shared/Services/order.service');
+var Rx_1 = require('rxjs/Rx');
 var OrderComponent = (function () {
     function OrderComponent(orderService, route) {
         this.orderService = orderService;
@@ -22,7 +23,14 @@ var OrderComponent = (function () {
             var orderId = params['id'];
             if (orderId) {
                 _this.orderService.getAnnotedOrder(orderId).subscribe(function (order) {
-                    return _this.order = order;
+                    _this.order = order;
+                    if (_this.order && _this.order.data && _this.order.data.date)
+                        _this.order.annotation.date = (new Date(_this.order.data.date)).toLocaleDateString();
+                    _this.selectableOtpsObservable = _this.orderService.getSelectableOtps();
+                    if (_this.order && _this.order.annotation)
+                        _this.order.annotation.items.forEach(function (item) {
+                            item.annotation.idObservable = Rx_1.Observable.from([item.data.otp]);
+                        });
                 });
             }
         });

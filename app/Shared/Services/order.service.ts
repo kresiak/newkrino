@@ -10,6 +10,15 @@ export class OrderService
 {
     constructor(@Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) {}
 
+    getSelectableOtps() : Observable<SelectableData[]>
+    {
+        return this.dataStore.getDataObservable('otps').map(otps => {
+            return otps.map(otp =>
+                new SelectableData(otp._id, otp.Name)
+            )
+        });
+    }
+
     getAnnotedOrder(id: string) : Observable<any> 
     {
         return Observable.combineLatest(
@@ -40,7 +49,7 @@ export class OrderService
                                     annotation: {
                                         otp: otp ? otp.Name : 'Unknown otp',
                                         description: product ? product.Description : 'Unknown product',
-                                        prix: product ? product.Prix : '0'
+                                        price: product ? product.Prix : '0'
                                     }
                                 }
                             })

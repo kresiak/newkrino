@@ -1,4 +1,5 @@
 <div class="card" *ngIf="order">
+    
 	<div class="card-block">
 		<h5 class="card-title">Order</h5>
 		<ngb-tabset>
@@ -6,8 +7,53 @@
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
-							<div class="row">
-                                {{order.annotation.supplier}}
+                            <br><br>
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-6 col-md-6">
+										<div class="row">
+											{{order.annotation.supplier}}
+										</div>
+										<div class="row">
+											{{order.annotation.date}}
+										</div>
+										<div class="row">
+											Reference: {{order.data._id}}
+										</div>
+									</div>
+									<div class="col-sm-6 col-md-6">
+										<div class="row">
+											{{order.annotation.user}}
+										</div>
+										<div class="row">
+											{{order.annotation.equipe}}
+										</div>
+									</div>
+								</div> <br><br>
+                                <div class="row">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                            <th>Otp</th>                                            
+                                        </thead>
+                                            
+                                        <tbody>
+                                            <tr style="height:85px" *ngFor="let item of order.annotation.items">
+                                                <td vertical-align="middle">{{item.annotation.description}}</td>
+                                                <td vertical-align="middle">{{item.data.quantity}}</td>
+                                                <td vertical-align="middle">{{item.annotation.price}}</td>
+                                                <td vertical-align="middle">{{item.data.total}}</td>
+                                                <td vertical-align="middle">
+                                                    <gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable"></gg-selector>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 							</div>
 						</div>
 					</div>

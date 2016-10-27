@@ -77,7 +77,7 @@ body, html {
     margin: 0;
 }
 
-a, body, button, html, input, select {
+a, body, button, html, input, select, table {
     font-family: Roboto,Arial,Helvetica Neue,Helvetica,sans-serif;
     font-weight: 300;
     line-height: 1.25;

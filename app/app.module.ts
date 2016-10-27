@@ -6,10 +6,6 @@ import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { HeroesComponent }   from './heroes.component';
-import { DashboardComponent} from './dashboard.component';
-import { HeroDetailComponent }   from './hero-detail.component';
-import { HeroService} from './hero.service';
 
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
@@ -48,19 +44,16 @@ import {AuthService} from './Shared/Services/auth.service'
           RouterModule.forRoot([
             { path: "suppliers", component: SupplierListComponent},
             { path: "equipes", component: EquipeListComponent},
-            { path: "heroes", component: HeroesComponent},
-            { path: "dashboard", component: DashboardComponent},
-            { path: "", component: DashboardComponent, pathMatch: 'full'},
-            { path: 'detail/:id', component: HeroDetailComponent },
+            { path: "", component: SupplierListComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponent }
           ])
    ],
-  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, HeroesComponent, HeroDetailComponent, DashboardComponent,
+  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
                   OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent, OrderComponent,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ HeroService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService ],
+  providers:    [ ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

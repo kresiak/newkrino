@@ -1,0 +1,5 @@
+{"_id":{"$oid":"58020f2693e81802c5936afa"},"Name":"SMA","Description":"European project for enzymes","Users":["58020b9893e81802c5936af9","58020b9893e81802c5936af8"]}
+{"_id":{"$oid":"58020f2693e81802c5936afb"},"Name":"Genetic Defect","Description":"Region wallone for defects","Users":["58020b9893e81802c5936af5","58020b9893e81802c5936af4","58020b9893e81802c5936af7"]}
+{"_id":{"$oid":"58020f2693e81802c5936afc"},"Name":"Crohn","Description":"Crohn disease for human medicine","Users":["58020b9893e81802c5936af5","58020b9893e81802c5936af3","58020b9893e81802c5936af9"]}
+{"_id":{"$oid":"58020f2693e81802c5936afd"},"Name":"Krino","Description":"Develop Krino for the whole Giga","Users":["58020b9893e81802c5936af3","58020b9893e81802c5936af7","58020b9893e81802c5936af6"]}
+{"_id":{"$oid":"58020f2693e81802c5936afe"},"Name":"Pfizer","Description":"Sponsored by Pfizer for antibiotucs","Users":["58020b9893e81802c5936af4","58020b9893e81802c5936af9","58020b9893e81802c5936af6","58020b9893e81802c5936af7"]}

@@ -1,0 +1,17 @@
+{"_id":{"$oid":"58014d0fbfd9155014c32df5"},"Description":"Animalerie"}
+{"_id":{"$oid":"58014d0fbfd9155014c32df6"},"Description":"Enzymes"}
+{"_id":{"$oid":"58014d0fbfd9155014c32df7"},"Description":"TAQ DNA"}
+{"_id":{"$oid":"58014d0fbfd9155014c32df8"},"Description":"Produits chimiques"}
+{"_id":{"$oid":"58014d0fbfd9155014c32df9"},"Description":"Produits communs"}
+{"_id":{"$oid":"58014d0fbfd9155014c32dfa"},"Description":"Réactifs biologie moléculaire"}
+{"_id":{"$oid":"58014d0fbfd9155014c32dfb"},"Description":"Petit matériel"}
+{"_id":{"$oid":"58014d0fbfd9155014c32dfc"},"Description":"Oligonucléotides"}
+{"_id":{"$oid":"58014d0fbfd9155014c32dfd"},"Description":"Informatique"}
+{"_id":{"$oid":"58014d0fbfd9155014c32dfe"},"Description":"Appareillage"}
+{"_id":{"$oid":"58089ade2f657a74dc8ba780"},"Description":"Papeterie","createDate":{"$date":"2016-10-20T10:22:22.372Z"}}
+{"_id":{"$oid":"58089c9f2f657a74dc8ba781"},"Description":"Voyages","createDate":{"$date":"2016-10-20T10:29:51.866Z"}}
+{"_id":{"$oid":"5808db742f657a74dc8ba78a"},"Description":"Medicaments","createDate":{"$date":"2016-10-20T14:57:56.691Z"}}
+{"_id":{"$oid":"580938cc2f657a74dc8ba78b"},"Description":"Aliments","createDate":{"$date":"2016-10-20T21:36:12.180Z"}}
+{"_id":{"$oid":"580b60b7c4869053882cb101"},"Description":"Tuyauterie","createDate":{"$date":"2016-10-22T12:51:03.857Z"}}
+{"_id":{"$oid":"580b68cbc4869053882cb10c"},"Description":"Boissons","createDate":{"$date":"2016-10-22T13:25:31.117Z"}}
+{"_id":{"$oid":"580b68e4c4869053882cb10d"},"Description":"Vignettes","createDate":{"$date":"2016-10-22T13:25:56.872Z"}}

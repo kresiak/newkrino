@@ -16,16 +16,6 @@ var AppComponent = (function () {
         this.title = 'Krino';
         this.menu = [
             {
-                route: '/dashboard',
-                title: 'Dashboard',
-                active: true
-            },
-            {
-                route: '/heroes',
-                title: 'Heroes',
-                active: false
-            },
-            {
                 route: '/suppliers',
                 title: 'Suppliers',
                 active: false

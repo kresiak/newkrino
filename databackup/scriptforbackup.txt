@@ -1,0 +1,8 @@
+mongoexport -d giga -c Categories --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\Categories.json
+mongoexport -d giga -c Produits --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\Produits.json
+mongoexport -d giga -c Suppliers --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\Suppliers.json
+mongoexport -d giga -c equipes --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\equipes.json
+mongoexport -d giga -c krinousers --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\krinousers.json
+mongoexport -d giga -c orders --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\orders.json
+mongoexport -d giga -c otps --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\otps.json
+
