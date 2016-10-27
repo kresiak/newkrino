@@ -47,7 +47,8 @@
                                                 <td vertical-align="middle">{{item.annotation.price}}</td>
                                                 <td vertical-align="middle">{{item.data.total}}</td>
                                                 <td vertical-align="middle">
-                                                    <gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable"></gg-selector>
+                                                    <gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable"
+                                                       (selectionChanged)="otpUpdated(item, $event)"></gg-selector>
                                                 </td>
 
                                             </tr>

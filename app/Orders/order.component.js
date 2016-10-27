@@ -29,11 +29,18 @@ var OrderComponent = (function () {
                     _this.selectableOtpsObservable = _this.orderService.getSelectableOtps();
                     if (_this.order && _this.order.annotation)
                         _this.order.annotation.items.forEach(function (item) {
-                            item.annotation.idObservable = Rx_1.Observable.from([item.data.otp]);
+                            item.annotation.idObservable = new Rx_1.BehaviorSubject([item.data.otp]);
                         });
                 });
             }
         });
+    };
+    OrderComponent.prototype.otpUpdated = function (orderItem, newOtpIds) {
+        if (newOtpIds && newOtpIds.length > 0) {
+            orderItem.data.otp = newOtpIds[0];
+            orderItem.annotation.idObservable.next([orderItem.data.otp]);
+            this.orderService.updateOrder(this.order.data);
+        }
     };
     OrderComponent = __decorate([
         core_1.Component({

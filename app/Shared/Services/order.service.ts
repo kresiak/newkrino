@@ -19,6 +19,10 @@ export class OrderService
         });
     }
 
+    updateOrder(order): void{
+       this.dataStore.updateData('orders', order._id, order);
+    }    
+
     getAnnotedOrder(id: string) : Observable<any> 
     {
         return Observable.combineLatest(

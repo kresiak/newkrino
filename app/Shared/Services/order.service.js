@@ -29,6 +29,9 @@ var OrderService = (function () {
             });
         });
     };
+    OrderService.prototype.updateOrder = function (order) {
+        this.dataStore.updateData('orders', order._id, order);
+    };
     OrderService.prototype.getAnnotedOrder = function (id) {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), function (order, products, otps, users, equipes, suppliers) {
             if (!order)

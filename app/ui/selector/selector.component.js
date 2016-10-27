@@ -38,6 +38,8 @@ var SelectorComponent = (function () {
         var promise = ref.result;
         promise.then(function (res) {
             _this.save();
+        }, function (res) {
+            _this.cancel();
         });
         promise.catch(function (err) {
             _this.cancel();

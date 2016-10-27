@@ -52,6 +52,8 @@ export class SelectorComponent implements OnInit {
         var promise = ref.result;
         promise.then((res) => {
             this.save();
+        }, (res) => {
+            this.cancel();
         });
         promise.catch((err) => {
             this.cancel();

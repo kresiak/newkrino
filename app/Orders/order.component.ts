@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 
 @Component(
     {
@@ -25,7 +25,7 @@ export class OrderComponent implements OnInit {
                     this.selectableOtpsObservable = this.orderService.getSelectableOtps();
                     if (this.order && this.order.annotation)
                         this.order.annotation.items.forEach(item => {
-                            item.annotation.idObservable=Observable.from([item.data.otp])
+                            item.annotation.idObservable= new BehaviorSubject<any[]>([item.data.otp]); 
                         });
                     
                 });
@@ -35,5 +35,15 @@ export class OrderComponent implements OnInit {
 
     private order;
     private selectableOtpsObservable: Observable<any>;
+
+    otpUpdated(orderItem, newOtpIds) : void
+    {
+        if (newOtpIds && newOtpIds.length > 0)
+        {
+            orderItem.data.otp= newOtpIds[0];
+            orderItem.annotation.idObservable.next([orderItem.data.otp]);
+            this.orderService.updateOrder(this.order.data);
+        }             
+    }
 
 }
