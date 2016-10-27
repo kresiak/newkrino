@@ -15,9 +15,14 @@ var Editor = (function () {
         this.elementRef = elementRef;
         // Creating a host element class attribute binding from the editMode property
         this.editMode = false;
+        this.isMonetary = false;
         this.editSaved = new core_1.EventEmitter();
         this.editableInput = new core_1.EventEmitter();
     }
+    Editor.prototype.resetContent = function (newcontent) {
+        this.content = newcontent;
+        this.setEditableContent(newcontent);
+    };
     Editor.prototype.ngAfterViewInit = function () {
         this.setEditableContent(this.content);
     };
@@ -79,6 +84,10 @@ var Editor = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], Editor.prototype, "showControls", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Boolean)
+    ], Editor.prototype, "isMonetary", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

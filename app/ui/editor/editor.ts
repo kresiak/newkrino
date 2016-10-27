@@ -15,6 +15,7 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
     // Creating a host element class attribute binding from the editMode property
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Input() showControls;
+    @Input() isMonetary: boolean= false;
     @Output() editSaved = new EventEmitter();
     @Output() editableInput = new EventEmitter();
     private editableContentElement;
@@ -22,6 +23,12 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
     // We use ElementRef in order to obtain our editable element for later use
     constructor( private elementRef:ElementRef) {
         
+    }
+
+    resetContent(newcontent)
+    {
+        this.content= newcontent;
+        this.setEditableContent(newcontent);
     }
 
     ngAfterViewInit():void

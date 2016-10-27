@@ -35,6 +35,18 @@ var ProductComponent = (function () {
             this.productService.updateProduct(this.product.data);
         }
     };
+    ProductComponent.prototype.prixUpdated = function (prix) {
+        var p = +prix && (+prix) >= 0 ? +prix : -1;
+        if (p !== -1) {
+            if (this.product.Prix !== p) {
+                this.product.data.Prix = p;
+                this.productService.updateProduct(this.product.data);
+            }
+        }
+        else {
+            this.priceChild.resetContent(this.product.data.Prix);
+        }
+    };
     ProductComponent.prototype.categorySelectionChanged = function (selectedIds) {
         this.product.data.Categorie = selectedIds;
         this.productService.updateProduct(this.product.data);
@@ -54,6 +66,10 @@ var ProductComponent = (function () {
             this.productService.updateBasketItem(this.product.annotation.basketId, this.product.data, q);
         }
     };
+    __decorate([
+        core_1.ViewChild('prix'), 
+        __metadata('design:type', Object)
+    ], ProductComponent.prototype, "priceChild", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
