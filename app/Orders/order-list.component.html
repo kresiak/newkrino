@@ -1,7 +1,16 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let order of orders | async" title="{{order.data._id}}">
+			<ngb-panel *ngFor="let order of orders | async" >
+                <template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3">{{order.data._id}}</div>
+                        <div class="col-sm-2">{{formatDate(order.data.date)}}</div>
+                        <div class="col-sm-3">{{order.annotation.user}}/{{order.annotation.equipe}}</div>
+                        <div class="col-sm-2">{{order.annotation.supplier}}</div>
+                        <div class="col-sm-2">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                    </div>
+                </template>
 				<template ngbPanelContent>
 					<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)"></gg-order-detail>
 				</template>

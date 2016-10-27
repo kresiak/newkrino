@@ -44,6 +44,9 @@ var OrderService = (function () {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
+                total: order.items.map(function (item) { return item.total; }).reduce(function (a, b) {
+                    return a + b;
+                }),
                 items: order.items.map(function (item) {
                     var product = products.filter(function (product) { return product._id === item.product; })[0];
                     var otp = otps.filter(function (otp) { return otp._id === item.otp; })[0];

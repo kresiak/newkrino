@@ -44,8 +44,8 @@
                                             <tr style="height:85px" *ngFor="let item of order.annotation.items">
                                                 <td vertical-align="middle">{{item.annotation.description}}</td>
                                                 <td vertical-align="middle">{{item.data.quantity}}</td>
-                                                <td vertical-align="middle">{{item.annotation.price}}</td>
-                                                <td vertical-align="middle">{{item.data.total}}</td>
+                                                <td vertical-align="middle">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</td>
+                                                <td vertical-align="middle">{{item.data.total | currency:'EUR':true:'1.2-2'}}</td>
                                                 <td vertical-align="middle">
                                                     <gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable"
                                                        (selectionChanged)="otpUpdated(item, $event)"></gg-selector>

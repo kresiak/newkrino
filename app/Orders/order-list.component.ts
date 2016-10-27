@@ -23,5 +23,10 @@ export class OrderListComponent implements OnInit{
     {
         return this.orders.map(orders=> orders.filter(s => s.data._id===id)[0]);
     }
+
+    formatDate(date: string): string
+    {
+        return (new Date(date)).toLocaleDateString()
+    }
 }
 

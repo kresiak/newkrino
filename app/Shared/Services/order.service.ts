@@ -32,6 +32,9 @@ export class OrderService {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
+                total: order.items.map(item => item.total).reduce((a, b) => 
+                    a + b
+                ),
                 items: order.items.map(item => {
                     let product = products.filter(product => product._id === item.product)[0];
                     let otp = otps.filter(otp => otp._id === item.otp)[0];

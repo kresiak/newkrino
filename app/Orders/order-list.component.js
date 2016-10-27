@@ -20,6 +20,9 @@ var OrderListComponent = (function () {
     OrderListComponent.prototype.getOrderObservable = function (id) {
         return this.orders.map(function (orders) { return orders.filter(function (s) { return s.data._id === id; })[0]; });
     };
+    OrderListComponent.prototype.formatDate = function (date) {
+        return (new Date(date)).toLocaleDateString();
+    };
     OrderListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
