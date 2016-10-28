@@ -53,12 +53,6 @@ var AuthService = (function () {
     AuthService.prototype.setEquipeId = function (id) {
         this.currentEquipeId = id;
     };
-    AuthService.prototype.getUserName = function () {
-        return 'Alexander Kvasz';
-    };
-    AuthService.prototype.getEquipeName = function () {
-        return 'Crohn';
-    };
     AuthService = __decorate([
         core_1.Injectable(),
         __param(0, core_1.Inject(data_service_1.DataStore)), 

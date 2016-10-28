@@ -54,11 +54,4 @@ export class AuthService {
         this.currentEquipeId= id;
     }
 
-    getUserName(): string {
-        return 'Alexander Kvasz';
-    }
-
-    getEquipeName(): string {
-        return 'Crohn';
-    }
 }
