@@ -32,6 +32,9 @@ var OrderService = (function () {
     OrderService.prototype.updateOrder = function (order) {
         this.dataStore.updateData('orders', order._id, order);
     };
+    OrderService.prototype.getTotalOfOrder = function (order) {
+        return order.items && order.items.length > 0 ? order.items.map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }) : 0;
+    };
     OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers) {
         if (!order)
             return null;
@@ -44,9 +47,7 @@ var OrderService = (function () {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
-                total: order.items.map(function (item) { return item.total; }).reduce(function (a, b) {
-                    return a + b;
-                }),
+                total: this.getTotalOfOrder(order),
                 items: order.items.map(function (item) {
                     var product = products.filter(function (product) { return product._id === item.product; })[0];
                     var otp = otps.filter(function (otp) { return otp._id === item.otp; })[0];
@@ -81,6 +82,25 @@ var OrderService = (function () {
     };
     OrderService.prototype.getAnnotedOrdersByEquipe = function (equipeId) {
         return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.equipeId === equipeId; }); });
+    };
+    OrderService.prototype.createAnnotatedEquipe = function (equipe, orders, otps) {
+        var _this = this;
+        if (!equipe)
+            return null;
+        var ordersFiltered = orders.filter(function (order) { return order.equipeId === equipe._id; });
+        var amountSpent = ordersFiltered.length === 0 ? 0 : ordersFiltered.map(function (order) { return _this.getTotalOfOrder(order); }).reduce(function (a, b) { return a + b; });
+        return {
+            data: equipe,
+            annotation: {
+                amountSpent: amountSpent
+            }
+        };
+    };
+    OrderService.prototype.getAnnotatedEquipes = function () {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('otps'), function (equipes, orders, otps) {
+            return equipes.map(function (equipe) { return _this.createAnnotatedEquipe(equipe, orders, otps); });
+        });
     };
     OrderService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),

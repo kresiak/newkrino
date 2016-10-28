@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {DataStore} from './../Shared/Services/data.service'
+import {OrderService} from './../Shared/Services/order.service'
 import {Observable} from 'rxjs/Rx'
 
 @Component(
@@ -9,17 +9,17 @@ import {Observable} from 'rxjs/Rx'
  }
 )
 export class EquipeListComponent implements OnInit{
-    constructor(private dataStore: DataStore)    {}
+    constructor(private orderService: OrderService)    {}
 
     equipes: Observable<any>;
 
     ngOnInit():void{
-        this.equipes= this.dataStore.getDataObservable('equipes');
+        this.equipes= this.orderService.getAnnotatedEquipes();
     }
 
    getEquipeObservable(id: string) : Observable<any>
     {
-        return this.equipes.map(equipes=> equipes.filter(s => s._id===id)[0]);
+        return this.equipes.map(equipes=> equipes.filter(s => s.data._id===id)[0]);
     }    
 }
 

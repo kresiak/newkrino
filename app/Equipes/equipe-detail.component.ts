@@ -19,9 +19,9 @@ export class EquipeDetailComponent implements OnInit {
     ngOnInit(): void {
         this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
-            this.usersObservable = this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.Users.includes(user._id)));
-            this.otpsObservable = this.dataStore.getDataObservable('otps').map(otps => otps.filter(otp => otp.Equipe === this.equipe._id));
-            this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq._id);
+            this.usersObservable = this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.data.Users.includes(user._id)));
+            this.otpsObservable = this.dataStore.getDataObservable('otps').map(otps => otps.filter(otp => otp.Equipe === this.equipe.data._id));
+            this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
             this.ordersObservable.subscribe(orders => this.anyOrder= orders && orders.length > 0);
         });
     }

@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let equipe of equipes | async" title="{{equipe.Name}}">
+			<ngb-panel *ngFor="let equipe of equipes | async" title="{{equipe.data.Name}}">
 				<template ngbPanelContent>
-					<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe._id)"></gg-equipe-detail>
+					<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)"></gg-equipe-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

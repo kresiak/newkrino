@@ -1,6 +1,6 @@
 <div class="card" *ngIf="equipe">
 	<div class="card-block">
-		<h5 class="card-title">{{equipe.Name}}</h5>
+		<h5 class="card-title">{{equipe.data.Name}}</h5>
 		<ngb-tabset>
 			<ngb-tab title="Info">
 				<template ngbTabContent>
@@ -8,11 +8,15 @@
 						<div class="card-block">
 							<div class="row">
 								<div class="col-sm-2">equipe:</div>
-								<div class="col-sm-6">{{equipe.Name}}</div>
+								<div class="col-sm-6">{{equipe.data.Name}}</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2">description:</div>
-								<div class="col-sm-6">{{equipe.Description}}</div>
+								<div class="col-sm-6">{{equipe.data.Description}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">money spent:</div>
+								<div class="col-sm-6">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 							</div>
 						</div>
 					</div>

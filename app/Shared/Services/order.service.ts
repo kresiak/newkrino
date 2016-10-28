@@ -21,6 +21,11 @@ export class OrderService {
         this.dataStore.updateData('orders', order._id, order);
     }
 
+    private getTotalOfOrder(order): number {
+        return order.items && order.items.length > 0 ? order.items.map(item => item.total).reduce((a, b) => a + b) : 0;
+    }
+
+
     private createAnnotedOrder(order, products, otps, users, equipes, suppliers) {
         if (!order) return null;
         let supplier = suppliers.filter(supplier => supplier._id === order.supplierId)[0];
@@ -32,9 +37,7 @@ export class OrderService {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
-                total: order.items.map(item => item.total).reduce((a, b) => 
-                    a + b
-                ),
+                total: this.getTotalOfOrder(order),
                 items: order.items.map(item => {
                     let product = products.filter(product => product._id === item.product)[0];
                     let otp = otps.filter(otp => otp._id === item.otp)[0];
@@ -73,20 +76,42 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('Suppliers'),
             (orders, products, otps, users, equipes, suppliers) => {
-                return orders.map(order => 
+                return orders.map(order =>
                     this.createAnnotedOrder(order, products, otps, users, equipes, suppliers)
-                );                   
+                );
             })
     }
 
-    getAnnotedOrdersBySupplier(supplierId: string) : Observable<any>
-    {
+    getAnnotedOrdersBySupplier(supplierId: string): Observable<any> {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.supplierId === supplierId));
     }
 
-    getAnnotedOrdersByEquipe(equipeId: string) : Observable<any>
-    {
+    getAnnotedOrdersByEquipe(equipeId: string): Observable<any> {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.equipeId === equipeId));
     }
 
+    private createAnnotatedEquipe(equipe, orders: any[], otps: any[]) {
+        if (!equipe) return null;
+
+        let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
+        let amountSpent = ordersFiltered.length === 0 ? 0 : ordersFiltered.map(order => this.getTotalOfOrder(order)).reduce((a, b) => a + b);
+
+        return {
+            data: equipe,
+            annotation:
+            {
+                amountSpent: amountSpent
+            }
+        };
+    }
+
+    getAnnotatedEquipes(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('equipes'),
+            this.dataStore.getDataObservable('orders'),
+            this.dataStore.getDataObservable('otps'),
+            (equipes, orders, otps) => {
+                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps))
+            });
+    }
 }
