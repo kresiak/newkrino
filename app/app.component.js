@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
+var auth_service_1 = require('./Shared/Services/auth.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(authService) {
+        this.authService = authService;
         this.title = 'Krino';
         this.menu = [
             {
@@ -36,18 +38,47 @@ var AppComponent = (function () {
                 active: false
             },];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.usersObservable = this.authService.getAnnotatedUsers();
+        this.usersObservable.subscribe(function (users) {
+            _this.users = users;
+            _this.initLoginData();
+        });
+    };
+    AppComponent.prototype.initLoginData = function () {
+        var _this = this;
+        this.currentUserId = this.authService.getUserId();
+        this.currentEquipeId = this.authService.getEquipeId();
+        var currentUserAnnotated = this.users.filter(function (user) { return user.data._id === _this.currentUserId; })[0];
+        this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
+        if (!this.possibleEquipes.map(function (equipe) { return equipe._id; }).includes(this.currentEquipeId) && this.possibleEquipes.length > 0) {
+            var idToTake = this.possibleEquipes[0]._id;
+            this.authService.setEquipeId(idToTake);
+            this.currentEquipeId = idToTake;
+        }
+    };
     AppComponent.prototype.activateMenu = function (menuItem) {
         this.menu.forEach(function (element) {
             element.active = false;
         });
         menuItem.active = true;
     };
+    AppComponent.prototype.userSelected = function (value) {
+        this.authService.setUserId(value);
+        this.initLoginData();
+    };
+    AppComponent.prototype.equipeSelected = function (value) {
+        this.authService.setEquipeId(value);
+        this.initLoginData();
+    };
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'giga-app',
-            template: " \n        <template ngbModalContainer></template>\n        <div class=\"card\">\n            <div class=\"card-block\">\n                <h3 class=\"card-title\">{{title}}</h3>\n                <nav>\n                    <a *ngFor=\"let menuItem of menu\" class=\"btn btn-outline-secondary\"  [class.active]=\"menuItem.active\" (click)=\"activateMenu(menuItem)\" routerLink=\"{{menuItem.route}}\">{{menuItem.title}}</a>\n                </nav>\n                \n                <router-outlet></router-outlet>    \n            </div>\n        </div>\n    "
+            templateUrl: './app.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [auth_service_1.AuthService])
     ], AppComponent);
     return AppComponent;
 }());

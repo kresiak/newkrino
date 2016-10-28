@@ -1,6 +1,20 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
+            <ngb-panel>
+                <template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3"><b>Id</b></div>
+                        <div class="col-sm-2"><b>Date</b></div>
+                        <div class="col-sm-3"><b>Who</b></div>
+                        <div class="col-sm-2" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
+                        <div class="col-sm-2"><b>Total (with VAT)</b></div>
+                    </div>
+                </template>
+				<template ngbPanelContent>
+				</template>
+                
+            </ngb-panel>
 			<ngb-panel *ngFor="let order of ordersObservable | async" >
                 <template ngbPanelTitle>
                     <div class="row">

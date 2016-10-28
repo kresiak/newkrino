@@ -1,7 +1,23 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
-			<ngb-panel *ngFor="let supplier of suppliers | async" title="{{supplier.Nom}}">
+			<ngb-panel>
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3"><b>Fournisseur</b></div>
+                        <div class="col-sm-3"><b>Ville</b></div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+				</template>				
+			</ngb-panel>
+			<ngb-panel *ngFor="let supplier of suppliers | async">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3">{{supplier.Nom}}</div>
+                        <div class="col-sm-3">{{supplier.Ville}}</div>
+                    </div>														
+				</template>
 				<template ngbPanelContent>
 					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier._id)"></gg-supplier-detail>
 				</template>
