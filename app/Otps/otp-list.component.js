@@ -10,6 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
+var order_service_1 = require('./../Shared/Services/order.service');
+var OtpListComponentRoutable = (function () {
+    function OtpListComponentRoutable(orderService) {
+        this.orderService = orderService;
+    }
+    OtpListComponentRoutable.prototype.ngOnInit = function () {
+        this.otpsObservable = this.orderService.getAnnotatedOtps();
+    };
+    OtpListComponentRoutable = __decorate([
+        core_1.Component({
+            template: "<gg-otp-list [otpsObservable]= \"otpsObservable\"></gg-otp-list>"
+        }), 
+        __metadata('design:paramtypes', [order_service_1.OrderService])
+    ], OtpListComponentRoutable);
+    return OtpListComponentRoutable;
+}());
+exports.OtpListComponentRoutable = OtpListComponentRoutable;
 var OtpListComponent = (function () {
     function OtpListComponent() {
     }
@@ -18,12 +35,19 @@ var OtpListComponent = (function () {
         this.otpsObservable.subscribe(function (otps) { return _this.otps = otps; });
     };
     OtpListComponent.prototype.getOtpObservable = function (id) {
-        return this.otpsObservable.map(function (otps) { return otps.filter(function (otp) { return otp._id === id; })[0]; });
+        return this.otpsObservable.map(function (otps) { return otps.filter(function (otp) { return otp.data._id === id; })[0]; });
+    };
+    OtpListComponent.prototype.showColumn = function (columnName) {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OtpListComponent.prototype, "otpsObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OtpListComponent.prototype, "config", void 0);
     OtpListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

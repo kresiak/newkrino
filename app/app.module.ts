@@ -13,7 +13,8 @@ import {ProductComponent} from './Products/product.component';
 import {ProductListComponent} from './Products/product-list.component';
 
 import {OtpComponent} from './Otps/otp.component';
-import {OtpListComponent} from './Otps/otp-list.component.js';
+import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
+import {OtpDetailComponent} from './Otps/otp-detail.component';
 
 import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
@@ -46,13 +47,17 @@ import {AuthService} from './Shared/Services/auth.service'
             { path: "suppliers", component: SupplierListComponent},
             { path: "equipes", component: EquipeListComponent},
             { path: "orders", component: OrderListComponentRoutable},
+            { path: "otps", component: OtpListComponentRoutable},
             { path: "", component: SupplierListComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable }
           ])
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
-                  OtpComponent, OtpListComponent, UserComponent, UserListComponent, EquipeDetailComponent, EquipeListComponent, PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
+                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
+                  UserComponent, UserListComponent, 
+                  EquipeDetailComponent, EquipeListComponent, 
+                  PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],

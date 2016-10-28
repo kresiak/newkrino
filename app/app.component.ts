@@ -38,7 +38,11 @@ export class AppComponent {
             title: 'Equipes',
             active: false
         },
-    ];
+            {
+            route: '/otps',
+            title: 'Otps',
+            active: false
+        },];
 
     activateMenu(menuItem)
     {

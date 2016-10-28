@@ -12,37 +12,43 @@ var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
-var OtpComponent = (function () {
-    function OtpComponent(dataStore, productService) {
+var order_service_1 = require('./../Shared/Services/order.service');
+var OtpDetailComponent = (function () {
+    function OtpDetailComponent(dataStore, productService, orderService) {
         this.dataStore = dataStore;
         this.productService = productService;
+        this.orderService = orderService;
     }
-    OtpComponent.prototype.ngOnInit = function () {
+    OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.Categorie; });
-        this.otpObservable.subscribe(function (otp) { return _this.otp = otp; });
+        this.otpObservable.subscribe(function (otp) {
+            _this.otp = otp;
+            _this.ordersObservable = _this.orderService.getAnnotedOrdersByOtp(otp.data._id);
+            _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+        });
     };
-    OtpComponent.prototype.categorySelectionChanged = function (selectedIds) {
+    OtpDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
         this.otp.data.Categorie = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
-    OtpComponent.prototype.categoryHasBeenAdded = function (newCategory) {
+    OtpDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {
         this.productService.createCategory(newCategory);
     };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
-    ], OtpComponent.prototype, "otpObservable", void 0);
-    OtpComponent = __decorate([
+    ], OtpDetailComponent.prototype, "otpObservable", void 0);
+    OtpDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'gg-otp',
-            templateUrl: './otp.component.html'
+            selector: 'gg-otp-detail',
+            templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService])
-    ], OtpComponent);
-    return OtpComponent;
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
+    ], OtpDetailComponent);
+    return OtpDetailComponent;
 }());
-exports.OtpComponent = OtpComponent;
-//# sourceMappingURL=otp.component.js.map
+exports.OtpDetailComponent = OtpDetailComponent;
+//# sourceMappingURL=otp-detail.component.js.map

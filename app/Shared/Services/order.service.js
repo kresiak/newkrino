@@ -22,6 +22,8 @@ var OrderService = (function () {
         this.dataStore = dataStore;
         this.authService = authService;
     }
+    // otps
+    // ======
     OrderService.prototype.getSelectableOtps = function () {
         return this.dataStore.getDataObservable('otps').map(function (otps) {
             return otps.map(function (otp) {
@@ -29,11 +31,41 @@ var OrderService = (function () {
             });
         });
     };
+    OrderService.prototype.createAnnotatedOtp = function (otp, orders, equipes) {
+        if (!otp)
+            return null;
+        var amountSpent = orders.map(function (order) { return order.items.filter(function (item) { return item.otp === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
+        var equipe = equipes.filter(function (equipe) { return equipe._id === otp.Equipe; })[0];
+        return {
+            data: otp,
+            annotation: {
+                budget: (+(otp.Budget)),
+                amountSpent: amountSpent,
+                amountAvailable: (+(otp.Budget)) - amountSpent,
+                equipe: equipe ? equipe.Name : 'no equipe'
+            }
+        };
+    };
+    OrderService.prototype.getAnnotatedOtps = function () {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), function (otps, equipes, orders) {
+            return otps.map(function (otp) { return _this.createAnnotatedOtp(otp, orders, equipes); });
+        });
+    };
+    OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {
+        return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return otp.data.Equipe === equipeId; }); });
+    };
+    // orders
+    // ======
     OrderService.prototype.updateOrder = function (order) {
         this.dataStore.updateData('orders', order._id, order);
     };
     OrderService.prototype.getTotalOfOrder = function (order) {
         return order.items && order.items.length > 0 ? order.items.map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }) : 0;
+    };
+    OrderService.prototype.getTotalOfOrders = function (orders) {
+        var _this = this;
+        return orders.length === 0 ? 0 : orders.map(function (order) { return _this.getTotalOfOrder(order); }).reduce(function (a, b) { return a + b; });
     };
     OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers) {
         if (!order)
@@ -83,16 +115,24 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotedOrdersByEquipe = function (equipeId) {
         return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.equipeId === equipeId; }); });
     };
+    OrderService.prototype.getAnnotedOrdersByOtp = function (otpId) {
+        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items.map(function (item) { return item.otp; }).includes(otpId); }); });
+    };
+    // equipes
+    // =======
     OrderService.prototype.createAnnotatedEquipe = function (equipe, orders, otps) {
-        var _this = this;
         if (!equipe)
             return null;
         var ordersFiltered = orders.filter(function (order) { return order.equipeId === equipe._id; });
-        var amountSpent = ordersFiltered.length === 0 ? 0 : ordersFiltered.map(function (order) { return _this.getTotalOfOrder(order); }).reduce(function (a, b) { return a + b; });
+        var otpsFiltered = otps.filter(function (otp) { return otp.Equipe === equipe._id; });
+        var budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(function (otp) { return +otp.Budget; }).reduce(function (a, b) { return a + b; }) : 0;
+        var amountSpent = this.getTotalOfOrders(ordersFiltered);
         return {
             data: equipe,
             annotation: {
-                amountSpent: amountSpent
+                amountSpent: amountSpent,
+                budget: budget,
+                amountAvailable: budget - amountSpent
             }
         };
     };

@@ -22,7 +22,7 @@ var EquipeDetailComponent = (function () {
         this.equipeObservable.subscribe(function (eq) {
             _this.equipe = eq;
             _this.usersObservable = _this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.data.Users.includes(user._id); }); });
-            _this.otpsObservable = _this.dataStore.getDataObservable('otps').map(function (otps) { return otps.filter(function (otp) { return otp.Equipe === _this.equipe.data._id; }); });
+            _this.otpsObservable = _this.orderService.getAnnotatedOtpsByEquipe(_this.equipe.data._id);
             _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
             _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
         });

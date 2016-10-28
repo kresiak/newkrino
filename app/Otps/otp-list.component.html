@@ -1,5 +1,31 @@
 <div class="card">
-    <div class="card-block">
-        <gg-otp *ngFor="let otp of otps" [otpObservable]="getOtpObservable(otp._id)"></gg-otp>
-    </div>
+	<div class="card-block">
+
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+			<ngb-panel>
+				<template ngbPanelTitle>
+					<div class="row">
+						<div class="col-sm-3"><b>Otp</b></div>
+						<div class="col-sm-3" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
+						<div class="col-sm-2"><b>Available</b></div>
+					</div>
+				</template>
+				<template ngbPanelContent>
+
+				</template>
+			</ngb-panel>
+			<ngb-panel *ngFor="let otp of otps">
+				<template ngbPanelTitle>
+					<div class="row">
+						<div class="col-sm-3">{{otp.data.Name}}</div>
+						<div class="col-sm-3" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
+						<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+				</template>
+				<template ngbPanelContent>
+					<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)"></gg-otp-detail>
+				</template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
 </div>

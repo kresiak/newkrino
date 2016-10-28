@@ -24,16 +24,12 @@
 						<div class="card-block">
 							<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
 						</div>
-					</div>					
+					</div>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Orders" *ngIf="anyOrder">
 				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}"></gg-order-list>
-						</div>
-					</div>					
+					<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}"></gg-order-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>

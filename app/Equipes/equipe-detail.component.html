@@ -15,8 +15,16 @@
 								<div class="col-sm-6">{{equipe.data.Description}}</div>
 							</div>
 							<div class="row">
+								<div class="col-sm-2">total budget:</div>
+								<div class="col-sm-6">{{equipe.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
+							</div>
+							<div class="row">
 								<div class="col-sm-2">money spent:</div>
 								<div class="col-sm-6">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">money available:</div>
+								<div class="col-sm-6">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							</div>
 						</div>
 					</div>
@@ -29,7 +37,7 @@
 			</ngb-tab>
 			<ngb-tab title="Otps">
 				<template ngbTabContent>
-					<gg-otp-list [otpsObservable]="otpsObservable"></gg-otp-list>
+					<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}"></gg-otp-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Orders" *ngIf="anyOrder">

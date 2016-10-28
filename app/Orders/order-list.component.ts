@@ -11,7 +11,7 @@ export class OrderListComponentRoutable implements OnInit {
     constructor(private orderService: OrderService) { }
 
     ngOnInit(): void {
-        this.ordersObservable= this.orderService.getAnnotedOrders();
+        this.ordersObservable = this.orderService.getAnnotedOrders();
     }
 
     private ordersObservable: Observable<any>;
@@ -27,7 +27,7 @@ export class OrderListComponentRoutable implements OnInit {
     }
 )
 export class OrderListComponent implements OnInit {
-    constructor(private orderService: OrderService) {
+    constructor() {
 
     }
 
@@ -45,8 +45,7 @@ export class OrderListComponent implements OnInit {
         return (new Date(date)).toLocaleDateString()
     }
 
-    showColumn(columnName: string)
-    {
+    showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
 }

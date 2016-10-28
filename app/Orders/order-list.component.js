@@ -28,8 +28,7 @@ var OrderListComponentRoutable = (function () {
 }());
 exports.OrderListComponentRoutable = OrderListComponentRoutable;
 var OrderListComponent = (function () {
-    function OrderListComponent(orderService) {
-        this.orderService = orderService;
+    function OrderListComponent() {
     }
     OrderListComponent.prototype.ngOnInit = function () {
     };
@@ -56,7 +55,7 @@ var OrderListComponent = (function () {
             selector: 'gg-order-list',
             templateUrl: './order-list.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
+        __metadata('design:paramtypes', [])
     ], OrderListComponent);
     return OrderListComponent;
 }());

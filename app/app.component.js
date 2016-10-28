@@ -30,7 +30,11 @@ var AppComponent = (function () {
                 title: 'Equipes',
                 active: false
             },
-        ];
+            {
+                route: '/otps',
+                title: 'Otps',
+                active: false
+            },];
     }
     AppComponent.prototype.activateMenu = function (menuItem) {
         this.menu.forEach(function (element) {
