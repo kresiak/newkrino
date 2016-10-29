@@ -62,21 +62,17 @@ var ProductService = (function () {
     // ======
     // get basket
     // ==========
-    ProductService.prototype.getBasketItemForCurrentUser = function (productId) {
-        var _this = this;
-        return this.dataStore.getDataObservable('basket').map(function (basket) {
-            var basketItems = basket.filter(function (basketItem) {
-                return basketItem.produit === productId && basketItem.user === _this.authService.getUserId();
+    /*    getBasketItemForCurrentUser(productId): Observable<any> {
+            return this.dataStore.getDataObservable('basket').map(basket => {
+                var basketItems = basket.filter(basketItem =>
+                    basketItem.produit === productId && basketItem.user === this.authService.getUserId()
+                );
+                return basketItems && basketItems.length > 0 ? basketItems[0] : null;
             });
-            return basketItems && basketItems.length > 0 ? basketItems[0] : null;
-        });
-    };
+        }*/
     ProductService.prototype.getBasketItemsForCurrentUser = function () {
-        var _this = this;
-        return this.dataStore.getDataObservable('basket').map(function (basket) {
-            return basket.filter(function (basketItem) {
-                return basketItem.user === _this.authService.getUserId();
-            });
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('basket'), this.authService.getUserIdObservable(), function (basket, userId) {
+            return basket.filter(function (basketItem) { return basketItem.user === userId; });
         });
     };
     ProductService.prototype.getAnnotedProductsInBasketBySupplier = function (supplierId) {

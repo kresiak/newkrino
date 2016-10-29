@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
 
 
@@ -10,6 +10,8 @@ export class AuthService {
 
     private currentUserId='58020b9893e81802c5936af3';
     private currentEquipeId= '58020f2693e81802c5936afc';
+
+    private currentUserIdObservable= new BehaviorSubject(this.currentUserId);
 
     private createAnnotatedUser(user, equipes) {
         if (!user) return null;
@@ -37,8 +39,13 @@ export class AuthService {
         return this.currentUserId;
     }
 
+    getUserIdObservable(): Observable<any> {
+        return this.currentUserIdObservable;
+    }
+
     setUserId(id: string): void{
         this.currentUserId= id;
+        this.currentUserIdObservable.next(id);
     }
 
     isAuthenticated(): boolean {

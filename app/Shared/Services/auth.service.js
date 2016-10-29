@@ -19,6 +19,7 @@ var AuthService = (function () {
         this.dataStore = dataStore;
         this.currentUserId = '58020b9893e81802c5936af3';
         this.currentEquipeId = '58020f2693e81802c5936afc';
+        this.currentUserIdObservable = new Rx_1.BehaviorSubject(this.currentUserId);
     }
     AuthService.prototype.createAnnotatedUser = function (user, equipes) {
         if (!user)
@@ -41,8 +42,12 @@ var AuthService = (function () {
     AuthService.prototype.getUserId = function () {
         return this.currentUserId;
     };
+    AuthService.prototype.getUserIdObservable = function () {
+        return this.currentUserIdObservable;
+    };
     AuthService.prototype.setUserId = function (id) {
         this.currentUserId = id;
+        this.currentUserIdObservable.next(id);
     };
     AuthService.prototype.isAuthenticated = function () {
         return true;

@@ -60,21 +60,22 @@ export class ProductService {
     // get basket
     // ==========
 
-    getBasketItemForCurrentUser(productId): Observable<any> {
+/*    getBasketItemForCurrentUser(productId): Observable<any> {
         return this.dataStore.getDataObservable('basket').map(basket => {
             var basketItems = basket.filter(basketItem =>
                 basketItem.produit === productId && basketItem.user === this.authService.getUserId()
             );
             return basketItems && basketItems.length > 0 ? basketItems[0] : null;
         });
-    }
+    }*/
 
-    getBasketItemsForCurrentUser(): Observable<any> {
-        return this.dataStore.getDataObservable('basket').map(basket => {
-            return basket.filter(basketItem =>
-                basketItem.user === this.authService.getUserId()
-            );
-        });
+    private getBasketItemsForCurrentUser(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('basket'),
+            this.authService.getUserIdObservable(),
+            (basket, userId) => {
+                return basket.filter(basketItem => basketItem.user === userId);}    
+        );        
     }
 
     getAnnotedProductsInBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
@@ -122,8 +123,7 @@ export class ProductService {
         obs.subscribe(res => {
             this.dataStore.triggerDataNext('basket');
             this.dataStore.triggerDataNext('orders');
-        }
-        );
+        });
         return obs;
     }
 
