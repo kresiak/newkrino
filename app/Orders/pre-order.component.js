@@ -28,36 +28,20 @@ var PreOrderComponent = (function () {
             if (supplierId) {
                 _this.supplierService.getSupplier(supplierId).subscribe(function (supplier) { return _this.supplier = supplier; });
                 _this.productsBasketObservable = _this.productService.getAnnotedProductsInBasketBySupplier(supplierId);
+                _this.productsBasketObservable.subscribe(function (products) { return _this.productsInBasket = products; });
             }
         });
     };
     PreOrderComponent.prototype.createOrder = function () {
         var _this = this;
-        this.productsBasketObservable.subscribe(function (products) {
-            if (products && products.length > 0) {
-                var record = {
-                    data: {
-                        userId: _this.authService.getUserId(),
-                        equipeId: _this.authService.getEquipeId(),
-                        supplierId: _this.supplier._id,
-                        items: products.filter(function (product) { return product.annotation.quantity > 0; }).map(function (product) {
-                            return {
-                                product: product.data._id,
-                                quantity: product.annotation.quantity,
-                                otp: product.annotation.otp._id,
-                                total: product.annotation.totalPrice
-                            };
-                        })
-                    },
-                    basketItems: products.filter(function (product) { return product.annotation.quantity > 0; }).map(function (product) { return product.annotation.basketId; })
-                };
-                _this.supplierService.passCommand(record).subscribe(function (res) {
-                    var orderId = res._id;
-                    var link = ['/order', orderId];
-                    _this.router.navigate(link);
-                });
-            }
-        });
+        var observable = this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id);
+        if (observable) {
+            observable.subscribe(function (res) {
+                var orderId = res._id;
+                var link = ['/order', orderId];
+                _this.router.navigate(link);
+            });
+        }
     };
     PreOrderComponent = __decorate([
         core_1.Component({

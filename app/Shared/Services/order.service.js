@@ -57,9 +57,8 @@ var OrderService = (function () {
     };
     // orders
     // ======
-    OrderService.prototype.updateOrder = function (order) {
-        this.dataStore.updateData('orders', order._id, order);
-    };
+    // order helper functions for viewing orders
+    // =========================================
     OrderService.prototype.getTotalOfOrder = function (order) {
         return order.items && order.items.length > 0 ? order.items.map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }) : 0;
     };
@@ -95,6 +94,8 @@ var OrderService = (function () {
             }
         };
     };
+    // viewing orders
+    // ==============
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), function (order, products, otps, users, equipes, suppliers) {
@@ -117,6 +118,11 @@ var OrderService = (function () {
     };
     OrderService.prototype.getAnnotedOrdersByOtp = function (otpId) {
         return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items.map(function (item) { return item.otp; }).includes(otpId); }); });
+    };
+    // updating orders
+    // ==============
+    OrderService.prototype.updateOrder = function (order) {
+        this.dataStore.updateData('orders', order._id, order);
     };
     // equipes
     // =======

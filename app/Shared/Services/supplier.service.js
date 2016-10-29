@@ -13,12 +13,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
-var api_service_1 = require('./api.service');
 core_1.Injectable();
 var SupplierService = (function () {
-    function SupplierService(dataStore, apiService) {
+    function SupplierService(dataStore) {
         this.dataStore = dataStore;
-        this.apiService = apiService;
     }
     SupplierService.prototype.getSupplier = function (supplierId) {
         return this.dataStore.getDataObservable('Suppliers').map(function (suppliers) {
@@ -26,19 +24,9 @@ var SupplierService = (function () {
             return x && x.length > 0 ? x[0] : null;
         });
     };
-    SupplierService.prototype.passCommand = function (record) {
-        var _this = this;
-        var obs = this.apiService.callWebService('passOrder', record).map(function (res) { return res.json(); });
-        obs.subscribe(function (res) {
-            _this.dataStore.triggerDataNext('basket');
-            _this.dataStore.triggerDataNext('orders');
-        });
-        return obs;
-    };
     SupplierService = __decorate([
-        __param(0, core_1.Inject(data_service_1.DataStore)),
-        __param(1, core_1.Inject(api_service_1.ApiService)), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, api_service_1.ApiService])
+        __param(0, core_1.Inject(data_service_1.DataStore)), 
+        __metadata('design:paramtypes', [data_service_1.DataStore])
     ], SupplierService);
     return SupplierService;
 }());

@@ -54,9 +54,8 @@ export class OrderService {
     // orders
     // ======
 
-    updateOrder(order): void {
-        this.dataStore.updateData('orders', order._id, order);
-    }
+        // order helper functions for viewing orders
+        // =========================================
 
     private getTotalOfOrder(order): number {
         return order.items && order.items.length > 0 ? order.items.map(item => item.total).reduce((a, b) => a + b) : 0;
@@ -93,6 +92,9 @@ export class OrderService {
             }
         };
     }
+
+        // viewing orders
+        // ==============
 
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
@@ -133,6 +135,16 @@ export class OrderService {
     getAnnotedOrdersByOtp(otpId: string): Observable<any> {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.items.map(item => item.otp).includes(otpId)));
     }
+
+        // updating orders
+        // ==============
+
+    updateOrder(order): void {
+        this.dataStore.updateData('orders', order._id, order);
+    }
+
+
+
 
     // equipes
     // =======

@@ -22,39 +22,25 @@ export class PreOrderComponent implements OnInit {
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier);
                 this.productsBasketObservable = this.productService.getAnnotedProductsInBasketBySupplier(supplierId);
+                this.productsBasketObservable.subscribe(products => this.productsInBasket= products);
             }
         });
     }
 
     private productsBasketObservable: Observable<any>;
+    private productsInBasket: any[];
     private supplier;
 
     createOrder(): void {
-        this.productsBasketObservable.subscribe(products => {
-            if (products && products.length > 0) {
-                var record = {
-                    data: {
-                        userId: this.authService.getUserId(),
-                        equipeId: this.authService.getEquipeId(),
-                        supplierId: this.supplier._id,
-                        items: products.filter(product => product.annotation.quantity > 0).map(product => {
-                            return {
-                                product: product.data._id,
-                                quantity: product.annotation.quantity,
-                                otp: product.annotation.otp._id,
-                                total: product.annotation.totalPrice
-                            };
-                        })
-                    },
-                    basketItems: products.filter(product => product.annotation.quantity > 0).map(product => product.annotation.basketId)
-                };
-                this.supplierService.passCommand(record).subscribe(res => {
+        var observable= this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id);
+
+        if (observable)
+        {
+            observable.subscribe(res => {
                     var orderId = res._id;
                     let link = ['/order', orderId];
                     this.router.navigate(link);
-
                 });
-            }
-        });
+        }
     }
 }
