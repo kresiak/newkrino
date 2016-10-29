@@ -2,13 +2,17 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { ApiService } from './api.service'
+import { OtpChoiceService } from './otp-choice.service'
+import { OrderService } from './order.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable } from 'rxjs/Rx'
 
 
 Injectable()
 export class ProductService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(ApiService) private apiService: ApiService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, 
+        @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
+        @Inject(OrderService) private orderService: OrderService) { }
 
     // categories
     // ==========
@@ -69,7 +73,12 @@ export class ProductService {
         });
     }*/
 
-    private getBasketItemsForCurrentUser(): Observable<any> {
+    hasSupplierBasketItems(supplier, produits, basketitems: any[]) : boolean
+    {
+        return produits.filter(produit => produit.Supplier === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
+    }
+
+    getBasketItemsForCurrentUser(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('basket'),
             this.authService.getUserIdObservable(),
@@ -80,8 +89,8 @@ export class ProductService {
 
     getAnnotedProductsInBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
     {
-        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(),
-            (products, basketItems) => {
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(),
+            (products, basketItems, otps) => {
                 return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
                     .map(product => {
                         let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
@@ -91,7 +100,7 @@ export class ProductService {
                                 basketId: basketItemFiltered[0]._id,
                                 quantity: basketItemFiltered[0].quantity,
                                 totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
-                                otp: { _id: '5802120e93e81802c5936b06', Name: 'R.EURO.0712-J-F' } // Todo Otp service
+                                otp: this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                             }
                         } : null;
                     });
@@ -130,6 +139,8 @@ export class ProductService {
 
     createOrderFromBasket(products, supplierId): Observable<any> {   // return an observable with the db id of new order 
         if (!products || products.length < 1) return null;
+
+        if (products.filter(product => !product.annotation.otp._id).length > 0) return null;
 
         var record = {
             data: {

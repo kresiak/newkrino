@@ -14,12 +14,13 @@
 			<ngb-panel *ngFor="let supplier of suppliers | async">
 				<template ngbPanelTitle>
                     <div class="row">
-                        <div class="col-sm-3">{{supplier.Nom}}</div>
-                        <div class="col-sm-3">{{supplier.Ville}}</div>
+                        <div class="col-sm-3">{{supplier.data.Nom}}</div>
+                        <div class="col-sm-3">{{supplier.data.Ville}}</div>
+						<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="./images/shopping-basket-info-icon.png" /></div>
                     </div>														
 				</template>
 				<template ngbPanelContent>
-					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier._id)"></gg-supplier-detail>
+					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"></gg-supplier-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

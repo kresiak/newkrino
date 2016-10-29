@@ -15,14 +15,18 @@ var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var auth_service_1 = require('./auth.service');
 var api_service_1 = require('./api.service');
+var otp_choice_service_1 = require('./otp-choice.service');
+var order_service_1 = require('./order.service');
 var selectable_data_1 = require('./../Classes/selectable-data');
 var Rx_1 = require('rxjs/Rx');
 core_1.Injectable();
 var ProductService = (function () {
-    function ProductService(dataStore, authService, apiService) {
+    function ProductService(dataStore, authService, apiService, otpChoiceService, orderService) {
         this.dataStore = dataStore;
         this.authService = authService;
         this.apiService = apiService;
+        this.otpChoiceService = otpChoiceService;
+        this.orderService = orderService;
     }
     // categories
     // ==========
@@ -70,13 +74,17 @@ var ProductService = (function () {
                 return basketItems && basketItems.length > 0 ? basketItems[0] : null;
             });
         }*/
+    ProductService.prototype.hasSupplierBasketItems = function (supplier, produits, basketitems) {
+        return produits.filter(function (produit) { return produit.Supplier === supplier._id; }).filter(function (produit) { return basketitems.map(function (item) { return item.produit; }).includes(produit._id); }).length > 0;
+    };
     ProductService.prototype.getBasketItemsForCurrentUser = function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('basket'), this.authService.getUserIdObservable(), function (basket, userId) {
             return basket.filter(function (basketItem) { return basketItem.user === userId; });
         });
     };
     ProductService.prototype.getAnnotedProductsInBasketBySupplier = function (supplierId) {
-        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), function (products, basketItems, otps) {
             return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); })
                 .map(function (product) {
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
@@ -86,7 +94,7 @@ var ProductService = (function () {
                         basketId: basketItemFiltered[0]._id,
                         quantity: basketItemFiltered[0].quantity,
                         totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,
-                        otp: { _id: '5802120e93e81802c5936b06', Name: 'R.EURO.0712-J-F' } // Todo Otp service
+                        otp: _this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                     }
                 } : null;
             });
@@ -117,6 +125,8 @@ var ProductService = (function () {
     ProductService.prototype.createOrderFromBasket = function (products, supplierId) {
         if (!products || products.length < 1)
             return null;
+        if (products.filter(function (product) { return !product.annotation.otp._id; }).length > 0)
+            return null;
         var record = {
             data: {
                 userId: this.authService.getUserId(),
@@ -138,8 +148,10 @@ var ProductService = (function () {
     ProductService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(auth_service_1.AuthService)),
-        __param(2, core_1.Inject(api_service_1.ApiService)), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, auth_service_1.AuthService, api_service_1.ApiService])
+        __param(2, core_1.Inject(api_service_1.ApiService)),
+        __param(3, core_1.Inject(otp_choice_service_1.OtpChoiceService)),
+        __param(4, core_1.Inject(order_service_1.OrderService)), 
+        __metadata('design:paramtypes', [data_service_1.DataStore, auth_service_1.AuthService, api_service_1.ApiService, otp_choice_service_1.OtpChoiceService, order_service_1.OrderService])
     ], ProductService);
     return ProductService;
 }());
