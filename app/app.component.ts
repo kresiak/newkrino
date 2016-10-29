@@ -56,6 +56,11 @@ export class AppComponent implements OnInit {
             active: false
         },
         {
+            route: '/categories',
+            title: 'Categories',
+            active: false
+        },
+        {
             route: '/equipes',
             title: 'Equipes',
             active: false

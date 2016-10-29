@@ -40,6 +40,31 @@ var ProductService = (function () {
     ProductService.prototype.createCategory = function (newCategory) {
         this.dataStore.addData('Categories', { 'Description': newCategory });
     };
+    ProductService.prototype.getAnnotatedCategories = function () {
+        return Rx_1.Observable.combineLatest(this.getAnnotatedProducts(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
+            return categories.map(function (category) {
+                var suppliersInCategory = productsAnnotated.filter(function (product) { return product.data.Categorie && product.data.Categorie.includes(category._id); }).map(function (product) { return product.annotation.supplierName; })
+                    .reduce(function (a, b) {
+                    if (a.indexOf(b) < 0)
+                        a.push(b);
+                    return a;
+                }, []).slice(0, 2);
+                var otpInCategory = otps.filter(function (otp) { return otp.Categorie && otp.Categorie.includes(category._id); }).map(function (otp) { return otp.Name; })
+                    .reduce(function (a, b) {
+                    if (a.indexOf(b) < 0)
+                        a.push(b);
+                    return a;
+                }, []).slice(0, 2);
+                return {
+                    data: category,
+                    annotation: {
+                        supplierNames: suppliersInCategory,
+                        otpNames: otpInCategory
+                    }
+                };
+            });
+        });
+    };
     // products
     // ========
     ProductService.prototype.updateProduct = function (product) {
@@ -62,18 +87,23 @@ var ProductService = (function () {
             });
         });
     };
+    ProductService.prototype.getAnnotatedProducts = function () {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"), function (produits, suppliers) {
+            return produits.map(function (produit) {
+                var supplier = suppliers.filter(function (supplier) { return supplier._id === produit.Supplier; })[0];
+                return {
+                    data: produit,
+                    annotation: {
+                        supplierName: supplier ? supplier.Nom : "unknown"
+                    }
+                };
+            });
+        });
+    };
     // basket
     // ======
-    // get basket
-    // ==========
-    /*    getBasketItemForCurrentUser(productId): Observable<any> {
-            return this.dataStore.getDataObservable('basket').map(basket => {
-                var basketItems = basket.filter(basketItem =>
-                    basketItem.produit === productId && basketItem.user === this.authService.getUserId()
-                );
-                return basketItems && basketItems.length > 0 ? basketItems[0] : null;
-            });
-        }*/
+    //    get basket
+    //    ==========
     ProductService.prototype.hasSupplierBasketItems = function (supplier, produits, basketitems) {
         return produits.filter(function (produit) { return produit.Supplier === supplier._id; }).filter(function (produit) { return basketitems.map(function (item) { return item.produit; }).includes(produit._id); }).length > 0;
     };
@@ -100,8 +130,8 @@ var ProductService = (function () {
             });
         });
     };
-    // modify basket
-    // =============
+    //     modify basket
+    //     =============
     ProductService.prototype.createBasketItem = function (product, quantity) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     };
@@ -111,8 +141,8 @@ var ProductService = (function () {
     ProductService.prototype.removeBasketItem = function (basketItemId) {
         this.dataStore.deleteData('basket', basketItemId);
     };
-    // create order from basket
-    // ========================
+    //     create order from basket
+    //     ========================
     ProductService.prototype.passCommand = function (record) {
         var _this = this;
         var obs = this.apiService.callWebService('passOrder', record).map(function (res) { return res.json(); });

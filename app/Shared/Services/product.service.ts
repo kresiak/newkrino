@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Rx'
 
 Injectable()
 export class ProductService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, 
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
         @Inject(OrderService) private orderService: OrderService) { }
 
@@ -28,6 +28,34 @@ export class ProductService {
     createCategory(newCategory): void {
         this.dataStore.addData('Categories', { 'Description': newCategory });
     }
+
+    getAnnotatedCategories() : Observable<any>
+    {
+        return Observable.combineLatest(this.getAnnotatedProducts(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'),
+            (productsAnnotated: any[], categories, otps: any[]) => {
+                return categories.map(category => {
+                    let suppliersInCategory= productsAnnotated.filter(product => product.data.Categorie && product.data.Categorie.includes(category._id)).map(product =>  product.annotation.supplierName)
+                                            .reduce((a: any[], b: string) => {   //take distincs
+                                                if (a.indexOf(b) < 0) a.push(b); 
+                                                return a;
+                                            }, []).slice(0, 2);
+                    let otpInCategory= otps.filter(otp => otp.Categorie && otp.Categorie.includes(category._id)).map(otp => otp.Name)
+                                            .reduce((a: any[], b: string) => {   //take distincs
+                                                if (a.indexOf(b) < 0) a.push(b); 
+                                                return a;
+                                            }, []).slice(0, 2);
+
+                    return {
+                        data: category,
+                        annotation: {
+                            supplierNames: suppliersInCategory,
+                            otpNames: otpInCategory
+                        }
+                    };
+                })
+            } );
+    }
+
 
     // products
     // ========
@@ -58,23 +86,31 @@ export class ProductService {
         );
     }
 
+    getAnnotatedProducts() : Observable<any>
+    {
+        return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"),
+            (produits, suppliers) => {
+                return produits.map(produit => {
+                    let supplier= suppliers.filter(supplier => supplier._id === produit.Supplier)[0];
+                    return {
+                        data: produit,
+                        annotation: {
+                            supplierName: supplier ? supplier.Nom : "unknown"
+                        }
+                    };
+                });
+            }
+        );
+    }
+
     // basket
     // ======
 
-    // get basket
-    // ==========
+    //    get basket
+    //    ==========
 
-/*    getBasketItemForCurrentUser(productId): Observable<any> {
-        return this.dataStore.getDataObservable('basket').map(basket => {
-            var basketItems = basket.filter(basketItem =>
-                basketItem.produit === productId && basketItem.user === this.authService.getUserId()
-            );
-            return basketItems && basketItems.length > 0 ? basketItems[0] : null;
-        });
-    }*/
 
-    hasSupplierBasketItems(supplier, produits, basketitems: any[]) : boolean
-    {
+    hasSupplierBasketItems(supplier, produits, basketitems: any[]): boolean {
         return produits.filter(produit => produit.Supplier === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
     }
 
@@ -83,8 +119,9 @@ export class ProductService {
             this.dataStore.getDataObservable('basket'),
             this.authService.getUserIdObservable(),
             (basket, userId) => {
-                return basket.filter(basketItem => basketItem.user === userId);}    
-        );        
+                return basket.filter(basketItem => basketItem.user === userId);
+            }
+        );
     }
 
     getAnnotedProductsInBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
@@ -108,8 +145,8 @@ export class ProductService {
         );
     }
 
-    // modify basket
-    // =============
+    //     modify basket
+    //     =============
 
     createBasketItem(product, quantity: number) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
@@ -123,8 +160,8 @@ export class ProductService {
         this.dataStore.deleteData('basket', basketItemId);
     }
 
-    // create order from basket
-    // ========================
+    //     create order from basket
+    //     ========================
 
     private passCommand(record): Observable<any> {
         var obs = this.apiService.callWebService('passOrder', record).map(res => res.json());

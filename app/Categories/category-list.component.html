@@ -1,0 +1,33 @@
+<div class="card">
+	<div class="card-block">
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
+			<ngb-panel>
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3"><b>Category</b></div>
+                        <div class="col-sm-4"><b>Supplier example</b></div>
+                        <div class="col-sm-4"><b>Otp example</b></div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+				</template>				
+			</ngb-panel>
+			<ngb-panel *ngFor="let category of categories | async">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3">{{category.data.Description}}</div>
+                        <div class="col-sm-4">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
+                        <div class="col-sm-4">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+					nothing yet
+				</template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
+</div>
+
+
+
+

@@ -12,6 +12,8 @@ import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductListComponent} from './Products/product-list.component';
 
+import {CategoryListComponent} from './Categories/category-list.component'
+
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
 import {OtpDetailComponent} from './Otps/otp-detail.component';
@@ -48,6 +50,7 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
             { path: "suppliers", component: SupplierListComponent},
             { path: "equipes", component: EquipeListComponent},
             { path: "orders", component: OrderListComponentRoutable},
+            { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
             { path: "", component: SupplierListComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
@@ -56,6 +59,7 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
    ],
   declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
+                  CategoryListComponent,
                   UserComponent, UserListComponent, 
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
