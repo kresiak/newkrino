@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
 @Injectable()
 export class UserService {
     readonly symOtp= 'otp'
+    readonly symEquipe= 'equipe'
     readonly symTableDashlets= 'dashlets'
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
@@ -66,6 +67,24 @@ export class UserService {
     isOtpDashlet(category: string) : boolean
     {
         return category === this.symOtp;
+    }
+
+    // Equipe specific
+    // ===============
+
+    getEquipeDashletsForCurrentUser() : Observable<any>
+    {
+        return this.getDashletsForCurrentUser().map(dashlets => dashlets.filter(dashlet => dashlet.category===this.symEquipe))
+    }
+
+    createEquipeDashletForCurrentUser(otpId: string)
+    {
+        return this.createDashletForCurrentUser(this.symEquipe, otpId);
+    }
+
+    isEquipeDashlet(category: string) : boolean
+    {
+        return category === this.symEquipe;
     }
  
 }

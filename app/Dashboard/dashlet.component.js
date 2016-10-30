@@ -20,17 +20,25 @@ var DashletComponent = (function () {
         var _this = this;
         if (this.isOtpDashlet()) {
             this.dataObservable = this.orderService.getAnnotatedOtpById(this.id);
-            this.dataObservable.subscribe(function (x) {
-                _this.dataObject = x;
-            });
         }
+        if (this.isEquipeDashlet()) {
+            this.dataObservable = this.orderService.getAnnotatedEquipeById(this.id);
+        }
+        this.dataObservable.subscribe(function (x) {
+            _this.dataObject = x;
+        });
     };
     DashletComponent.prototype.isOtpDashlet = function () {
         return this.userService.isOtpDashlet(this.category);
     };
+    DashletComponent.prototype.isEquipeDashlet = function () {
+        return this.userService.isEquipeDashlet(this.category);
+    };
     DashletComponent.prototype.getTitle = function () {
         if (this.isOtpDashlet())
             return 'Otp: ' + this.dataObject.data.Name;
+        if (this.isEquipeDashlet())
+            return 'Equipe: ' + this.dataObject.data.Name;
     };
     __decorate([
         core_1.Input(), 

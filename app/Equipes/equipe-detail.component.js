@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var data_service_1 = require('./../Shared/Services/data.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
+var user_service_1 = require('./../Shared/Services/user.service');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(dataStore, orderService) {
+    function EquipeDetailComponent(dataStore, orderService, userService) {
         this.dataStore = dataStore;
         this.orderService = orderService;
+        this.userService = userService;
     }
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,6 +29,13 @@ var EquipeDetailComponent = (function () {
             _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
         });
     };
+    EquipeDetailComponent.prototype.setDashlet = function () {
+        this.userService.createEquipeDashletForCurrentUser(this.equipe.data._id);
+    };
+    EquipeDetailComponent.prototype.removeDashlet = function (dashletId) {
+        if (dashletId)
+            this.userService.removeDashletForCurrentUser(dashletId);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -37,7 +46,7 @@ var EquipeDetailComponent = (function () {
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());

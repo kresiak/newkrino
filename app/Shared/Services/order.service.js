@@ -136,26 +136,34 @@ var OrderService = (function () {
     };
     // equipes
     // =======
-    OrderService.prototype.createAnnotatedEquipe = function (equipe, orders, otps) {
+    OrderService.prototype.createAnnotatedEquipe = function (equipe, orders, otps, dashlets) {
         if (!equipe)
             return null;
         var ordersFiltered = orders.filter(function (order) { return order.equipeId === equipe._id; });
         var otpsFiltered = otps.filter(function (otp) { return otp.Equipe === equipe._id; });
         var budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(function (otp) { return +otp.Budget; }).reduce(function (a, b) { return a + b; }) : 0;
         var amountSpent = this.getTotalOfOrders(ordersFiltered);
+        var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === equipe._id; });
         return {
             data: equipe,
             annotation: {
                 amountSpent: amountSpent,
                 budget: budget,
-                amountAvailable: budget - amountSpent
+                amountAvailable: budget - amountSpent,
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         };
     };
     OrderService.prototype.getAnnotatedEquipes = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('otps'), function (equipes, orders, otps) {
-            return equipes.map(function (equipe) { return _this.createAnnotatedEquipe(equipe, orders, otps); });
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('otps'), this.userService.getEquipeDashletsForCurrentUser(), function (equipes, orders, otps, dashlets) {
+            return equipes.map(function (equipe) { return _this.createAnnotatedEquipe(equipe, orders, otps, dashlets); });
+        });
+    };
+    OrderService.prototype.getAnnotatedEquipeById = function (equipeId) {
+        return this.getAnnotatedEquipes().map(function (equipes) {
+            var equipesFiltered = equipes.filter(function (equipe) { return equipe.data._id === equipeId; });
+            return equipesFiltered.length === 0 ? null : equipesFiltered[0];
         });
     };
     OrderService = __decorate([

@@ -161,13 +161,14 @@ export class OrderService {
     // equipes
     // =======
 
-    private createAnnotatedEquipe(equipe, orders: any[], otps: any[]) {
+    private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[]) {
         if (!equipe) return null;
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
         let otpsFiltered= otps.filter(otp => otp.Equipe === equipe._id);
         let budget= otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => +otp.Budget).reduce((a, b) => a + b) : 0;
         let amountSpent= this.getTotalOfOrders(ordersFiltered);
+        let dashlet= dashlets.filter(dashlet => dashlet.id === equipe._id);
 
         return {
             data: equipe,
@@ -175,7 +176,8 @@ export class OrderService {
             {
                 amountSpent: amountSpent,
                 budget: budget,
-                amountAvailable: budget - amountSpent
+                amountAvailable: budget - amountSpent,
+                dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined 
             }
         };
     }
@@ -185,8 +187,19 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('orders'),
             this.dataStore.getDataObservable('otps'),
-            (equipes, orders, otps) => {
-                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps))
+            this.userService.getEquipeDashletsForCurrentUser(),
+            (equipes, orders, otps, dashlets) => {
+                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets))
             });
     }
+
+    getAnnotatedEquipeById(equipeId) : Observable<any>
+    {
+        return this.getAnnotatedEquipes().map(equipes =>
+        {
+            let equipesFiltered= equipes.filter(equipe => equipe.data._id === equipeId);
+            return equipesFiltered.length === 0 ? null : equipesFiltered[0];
+        }); 
+    }
+    
 }

@@ -1,10 +1,11 @@
 <div *ngIf="dataObject" class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-	<div class="card text-xs-center card-outline-success">
+	<div class="card text-xs-center " [class.card-outline-success]="isOtpDashlet()" [class.card-outline-warning]="isEquipeDashlet()">
 		<div class="card-header">
             {{getTitle()}}
 		</div>
         <div class="card-block text-xs-left">
             <gg-otp-detail *ngIf="isOtpDashlet()" [otpObservable]="dataObservable"></gg-otp-detail>
+            <gg-equipe-detail *ngIf="isEquipeDashlet()" [equipeObservable]="dataObservable"></gg-equipe-detail>
         </div>
 	</div>
 </div>

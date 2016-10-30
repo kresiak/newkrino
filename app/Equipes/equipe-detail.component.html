@@ -1,50 +1,51 @@
-<div class="card" *ngIf="equipe">
-	<div class="card-block">
-		<h5 class="card-title">{{equipe.data.Name}}</h5>
-		<ngb-tabset>
-			<ngb-tab title="Info">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<div class="row">
-								<div class="col-sm-2">equipe:</div>
-								<div class="col-sm-6">{{equipe.data.Name}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">description:</div>
-								<div class="col-sm-6">{{equipe.data.Description}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">total budget:</div>
-								<div class="col-sm-6">{{equipe.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">money spent:</div>
-								<div class="col-sm-6">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">money available:</div>
-								<div class="col-sm-6">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
+<ngb-tabset *ngIf="equipe">
+	<ngb-tab title="Info">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4">equipe:</div>
+						<div class="col-sm-6">{{equipe.data.Name}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">description:</div>
+						<div class="col-sm-6">{{equipe.data.Description}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">total budget:</div>
+						<div class="col-sm-6">{{equipe.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money spent:</div>
+						<div class="col-sm-6">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money available:</div>
+						<div class="col-sm-6">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							<img *ngIf="!equipe.annotation.dashletId" src="./images/pin.png" (click)="setDashlet()" />
+							<img *ngIf="equipe.annotation.dashletId" src="./images/unpin.png" (click)="removeDashlet(equipe.annotation.dashletId)" />
 						</div>
 					</div>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Users">
-				<template ngbTabContent>
-					<gg-user-list [usersObservable]="usersObservable"></gg-user-list>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Otps">
-				<template ngbTabContent>
-					<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}"></gg-otp-list>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Orders" *ngIf="anyOrder">
-				<template ngbTabContent>
-					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
-				</template>
-			</ngb-tab>
-		</ngb-tabset>
-	</div>
-</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Users">
+		<template ngbTabContent>
+			<gg-user-list [usersObservable]="usersObservable"></gg-user-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Otps">
+		<template ngbTabContent>
+			<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}"></gg-otp-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Orders" *ngIf="anyOrder">
+		<template ngbTabContent>
+			<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+		</template>
+	</ngb-tab>
+</ngb-tabset>

@@ -1,51 +1,46 @@
-<div class="card" *ngIf="supplier">
-	<div class="card-block">
-		<h5 class="card-title">{{supplier.Nom}}</h5>
-		<ngb-tabset>
-			<ngb-tab title="Info">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<div class="row">
-								<div class="col-sm-2">Supplier:</div>
-								<div class="col-sm-6">{{supplier.Nom}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">Location:</div>
-								<div class="col-sm-6">{{supplier.Ville}}</div>
-							</div>
-						</div>
+<ngb-tabset *ngIf="supplier">
+	<ngb-tab title="Info">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-2">Supplier:</div>
+						<div class="col-sm-6">{{supplier.Nom}}</div>
 					</div>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Products">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
-						</div>
+					<div class="row">
+						<div class="col-sm-2">Location:</div>
+						<div class="col-sm-6">{{supplier.Ville}}</div>
 					</div>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Orders" *ngIf="anyOrder">
-				<template ngbTabContent>
-					<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}"></gg-order-list>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<div class="row">
-								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-list>
-							</div>
-							<div class="row">
-								<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
-							</div>
-						</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Products">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Orders" *ngIf="anyOrder">
+		<template ngbTabContent>
+			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}"></gg-order-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-list>
 					</div>
-				</template>
-			</ngb-tab>
-		</ngb-tabset>
-	</div>
-</div>
+					<div class="row">
+						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+</ngb-tabset>

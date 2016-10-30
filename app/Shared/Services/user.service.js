@@ -20,6 +20,7 @@ var UserService = (function () {
         this.dataStore = dataStore;
         this.authService = authService;
         this.symOtp = 'otp';
+        this.symEquipe = 'equipe';
         this.symTableDashlets = 'dashlets';
     }
     //   CRUD Changes
@@ -61,6 +62,18 @@ var UserService = (function () {
     };
     UserService.prototype.isOtpDashlet = function (category) {
         return category === this.symOtp;
+    };
+    // Equipe specific
+    // ===============
+    UserService.prototype.getEquipeDashletsForCurrentUser = function () {
+        var _this = this;
+        return this.getDashletsForCurrentUser().map(function (dashlets) { return dashlets.filter(function (dashlet) { return dashlet.category === _this.symEquipe; }); });
+    };
+    UserService.prototype.createEquipeDashletForCurrentUser = function (otpId) {
+        return this.createDashletForCurrentUser(this.symEquipe, otpId);
+    };
+    UserService.prototype.isEquipeDashlet = function (category) {
+        return category === this.symEquipe;
     };
     UserService = __decorate([
         core_1.Injectable(),

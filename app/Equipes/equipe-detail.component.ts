@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { Observable } from 'rxjs/Rx'
+import { UserService } from './../Shared/Services/user.service'
 
 
 @Component(
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService) {
 
     }
 
@@ -33,4 +34,14 @@ export class EquipeDetailComponent implements OnInit {
     private ordersObservable: Observable<any>;
     private equipe: any;
     private anyOrder: boolean;
+
+    setDashlet() {
+        this.userService.createEquipeDashletForCurrentUser(this.equipe.data._id);
+    }
+
+    removeDashlet(dashletId) {
+        if (dashletId)
+            this.userService.removeDashletForCurrentUser(dashletId);
+    }
+    
 }
