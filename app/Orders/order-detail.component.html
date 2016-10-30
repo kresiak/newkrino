@@ -4,7 +4,7 @@
 			<div class="card">
 				<div class="card-block">
 					<br><br>
-					<div class="container">
+					<div class="container-fluid">
 						<div class="row">
 							<div class="col-sm-6 col-md-6">
 								<div class="row">
@@ -50,6 +50,13 @@
 								</tbody>
 							</table>
 						</div>
+						<div class="row">
+							<div class="col-sm-2">
+								<img *ngIf="!order.annotation.dashletId" src="./images/pin.png" (click)="setDashlet()" />
+								<img *ngIf="order.annotation.dashletId" src="./images/unpin.png" (click)="removeDashlet(order.annotation.dashletId)" />
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>

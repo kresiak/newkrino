@@ -21,6 +21,7 @@ var UserService = (function () {
         this.authService = authService;
         this.symOtp = 'otp';
         this.symEquipe = 'equipe';
+        this.symOrder = 'order';
         this.symTableDashlets = 'dashlets';
     }
     //   CRUD Changes
@@ -69,11 +70,23 @@ var UserService = (function () {
         var _this = this;
         return this.getDashletsForCurrentUser().map(function (dashlets) { return dashlets.filter(function (dashlet) { return dashlet.category === _this.symEquipe; }); });
     };
-    UserService.prototype.createEquipeDashletForCurrentUser = function (otpId) {
-        return this.createDashletForCurrentUser(this.symEquipe, otpId);
+    UserService.prototype.createEquipeDashletForCurrentUser = function (equipeId) {
+        return this.createDashletForCurrentUser(this.symEquipe, equipeId);
     };
     UserService.prototype.isEquipeDashlet = function (category) {
         return category === this.symEquipe;
+    };
+    // Order specific
+    // ===============
+    UserService.prototype.getOrderDashletsForCurrentUser = function () {
+        var _this = this;
+        return this.getDashletsForCurrentUser().map(function (dashlets) { return dashlets.filter(function (dashlet) { return dashlet.category === _this.symOrder; }); });
+    };
+    UserService.prototype.createOrderDashletForCurrentUser = function (orderId) {
+        return this.createDashletForCurrentUser(this.symOrder, orderId);
+    };
+    UserService.prototype.isOrderDashlet = function (category) {
+        return category === this.symOrder;
     };
     UserService = __decorate([
         core_1.Injectable(),

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { UserService } from './../Shared/Services/user.service'
 
 @Component(
     {
@@ -31,7 +32,7 @@ export class OrderComponentRoutable implements OnInit {
     }
 )
 export class OrderDetailComponent implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute) {     }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService) {     }
 
     @Input() orderObservable : Observable<any>;
 
@@ -57,6 +58,15 @@ export class OrderDetailComponent implements OnInit {
             orderItem.annotation.idObservable.next([orderItem.data.otp]);
             this.orderService.updateOrder(this.order.data);
         }
+    }
+
+    setDashlet() {
+        this.userService.createOrderDashletForCurrentUser(this.order.data._id);
+    }
+
+    removeDashlet(dashletId) {
+        if (dashletId)
+            this.userService.removeDashletForCurrentUser(dashletId);
     }
 
 }

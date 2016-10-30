@@ -27,6 +27,10 @@ export class DashletComponent implements OnInit {
             this.dataObservable = this.orderService.getAnnotatedEquipeById(this.id);
         }
 
+        if (this.isOrderDashlet()) {
+            this.dataObservable = this.orderService.getAnnotedOrder(this.id);
+        }
+
         this.dataObservable.subscribe(x => {
             this.dataObject = x;
         });
@@ -44,10 +48,15 @@ export class DashletComponent implements OnInit {
         return this.userService.isEquipeDashlet(this.category);
     }
 
+    private isOrderDashlet() {
+        return this.userService.isOrderDashlet(this.category);
+    }
+
 
     private getTitle(): string {
         if (this.isOtpDashlet()) return 'Otp: ' + this.dataObject.data.Name;
         if (this.isEquipeDashlet()) return 'Equipe: ' + this.dataObject.data.Name;
+        if (this.isOrderDashlet()) return 'Order: ' + this.dataObject.data._id + ' (' + this.dataObject.annotation.supplier + ')';
     }
 
 }

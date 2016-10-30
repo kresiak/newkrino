@@ -77,11 +77,12 @@ export class OrderService {
         return orders.length === 0 ? 0 : orders.map(order => this.getTotalOfOrder(order)).reduce((a, b) => a + b);
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, suppliers) {
+    private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[]) {
         if (!order) return null;
         let supplier = suppliers.filter(supplier => supplier._id === order.supplierId)[0];
         let equipe = equipes.filter(equipe => equipe._id === order.equipeId)[0];
         let user = users.filter(user => user._id === order.userId)[0];
+        let dashlet= dashlets.filter(dashlet => dashlet.id === order._id);
         return {
             data: order,
             annotation: {
@@ -89,6 +90,7 @@ export class OrderService {
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
+                dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined ,
                 items: order.items.map(item => {
                     let product = products.filter(product => product._id === item.product)[0];
                     let otp = otps.filter(otp => otp._id === item.otp)[0];
@@ -116,8 +118,9 @@ export class OrderService {
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('Suppliers'),
-            (order, products, otps, users, equipes, suppliers) => {
-                return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers);
+            this.userService.getOrderDashletsForCurrentUser(),
+            (order, products, otps, users, equipes, suppliers, dashlets) => {
+                return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             })
     }
 
@@ -129,9 +132,10 @@ export class OrderService {
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('Suppliers'),
-            (orders, products, otps, users, equipes, suppliers) => {
+            this.userService.getOrderDashletsForCurrentUser(),
+            (orders, products, otps, users, equipes, suppliers, dashlets) => {
                 return orders.map(order =>
-                    this.createAnnotedOrder(order, products, otps, users, equipes, suppliers)
+                    this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets)
                 );
             })
     }

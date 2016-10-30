@@ -8,6 +8,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
 export class UserService {
     readonly symOtp= 'otp'
     readonly symEquipe= 'equipe'
+    readonly symOrder= 'order'
     readonly symTableDashlets= 'dashlets'
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
@@ -77,9 +78,9 @@ export class UserService {
         return this.getDashletsForCurrentUser().map(dashlets => dashlets.filter(dashlet => dashlet.category===this.symEquipe))
     }
 
-    createEquipeDashletForCurrentUser(otpId: string)
+    createEquipeDashletForCurrentUser(equipeId: string)
     {
-        return this.createDashletForCurrentUser(this.symEquipe, otpId);
+        return this.createDashletForCurrentUser(this.symEquipe, equipeId);
     }
 
     isEquipeDashlet(category: string) : boolean
@@ -87,4 +88,21 @@ export class UserService {
         return category === this.symEquipe;
     }
  
+     // Order specific
+    // ===============
+
+    getOrderDashletsForCurrentUser() : Observable<any>
+    {
+        return this.getDashletsForCurrentUser().map(dashlets => dashlets.filter(dashlet => dashlet.category===this.symOrder))
+    }
+
+    createOrderDashletForCurrentUser(orderId: string)
+    {
+        return this.createDashletForCurrentUser(this.symOrder, orderId);
+    }
+
+    isOrderDashlet(category: string) : boolean
+    {
+        return category === this.symOrder;
+    }
 }

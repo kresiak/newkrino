@@ -24,6 +24,9 @@ var DashletComponent = (function () {
         if (this.isEquipeDashlet()) {
             this.dataObservable = this.orderService.getAnnotatedEquipeById(this.id);
         }
+        if (this.isOrderDashlet()) {
+            this.dataObservable = this.orderService.getAnnotedOrder(this.id);
+        }
         this.dataObservable.subscribe(function (x) {
             _this.dataObject = x;
         });
@@ -34,11 +37,16 @@ var DashletComponent = (function () {
     DashletComponent.prototype.isEquipeDashlet = function () {
         return this.userService.isEquipeDashlet(this.category);
     };
+    DashletComponent.prototype.isOrderDashlet = function () {
+        return this.userService.isOrderDashlet(this.category);
+    };
     DashletComponent.prototype.getTitle = function () {
         if (this.isOtpDashlet())
             return 'Otp: ' + this.dataObject.data.Name;
         if (this.isEquipeDashlet())
             return 'Equipe: ' + this.dataObject.data.Name;
+        if (this.isOrderDashlet())
+            return 'Order: ' + this.dataObject.data._id + ' (' + this.dataObject.annotation.supplier + ')';
     };
     __decorate([
         core_1.Input(), 

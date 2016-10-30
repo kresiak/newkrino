@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var order_service_1 = require('../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
+var user_service_1 = require('./../Shared/Services/user.service');
 var OrderComponentRoutable = (function () {
     function OrderComponentRoutable(orderService, route) {
         this.orderService = orderService;
@@ -36,9 +37,10 @@ var OrderComponentRoutable = (function () {
 }());
 exports.OrderComponentRoutable = OrderComponentRoutable;
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route) {
+    function OrderDetailComponent(orderService, route, userService) {
         this.orderService = orderService;
         this.route = route;
+        this.userService = userService;
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -60,6 +62,13 @@ var OrderDetailComponent = (function () {
             this.orderService.updateOrder(this.order.data);
         }
     };
+    OrderDetailComponent.prototype.setDashlet = function () {
+        this.userService.createOrderDashletForCurrentUser(this.order.data._id);
+    };
+    OrderDetailComponent.prototype.removeDashlet = function (dashletId) {
+        if (dashletId)
+            this.userService.removeDashletForCurrentUser(dashletId);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -70,7 +79,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

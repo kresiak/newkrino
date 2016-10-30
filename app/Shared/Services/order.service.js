@@ -76,12 +76,13 @@ var OrderService = (function () {
         var _this = this;
         return orders.length === 0 ? 0 : orders.map(function (order) { return _this.getTotalOfOrder(order); }).reduce(function (a, b) { return a + b; });
     };
-    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers) {
+    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers, dashlets) {
         if (!order)
             return null;
         var supplier = suppliers.filter(function (supplier) { return supplier._id === order.supplierId; })[0];
         var equipe = equipes.filter(function (equipe) { return equipe._id === order.equipeId; })[0];
         var user = users.filter(function (user) { return user._id === order.userId; })[0];
+        var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === order._id; });
         return {
             data: order,
             annotation: {
@@ -89,6 +90,7 @@ var OrderService = (function () {
                 supplier: supplier ? supplier.Nom : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: order.items.map(function (item) {
                     var product = products.filter(function (product) { return product._id === item.product; })[0];
                     var otp = otps.filter(function (otp) { return otp._id === item.otp; })[0];
@@ -108,15 +110,15 @@ var OrderService = (function () {
     // ==============
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), function (order, products, otps, users, equipes, suppliers) {
-            return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers);
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets) {
+            return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
         });
     };
     OrderService.prototype.getAnnotedOrders = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), function (orders, products, otps, users, equipes, suppliers) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('Produits'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('Suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
             return orders.map(function (order) {
-                return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers);
+                return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             });
         });
     };
