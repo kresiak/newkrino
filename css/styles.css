@@ -1,3 +1,7 @@
+ul.mail{
+    list-style-image: url('../images/i_mail.gif');
+}
+
 #ulgLogo {
     padding: 10px 0 0 5px;
     width: 120px;

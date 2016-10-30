@@ -18,6 +18,11 @@ var AppComponent = (function () {
         this.title = 'Krino';
         this.menu = [
             {
+                route: '/home',
+                title: 'Home',
+                active: false
+            },
+            {
                 route: '/orders',
                 title: 'Orders',
                 active: false

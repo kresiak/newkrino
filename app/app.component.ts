@@ -46,6 +46,11 @@ export class AppComponent implements OnInit {
 
     menu = [
         {
+            route: '/home',
+            title: 'Home',
+            active: false
+        },
+        {
             route: '/orders',
             title: 'Orders',
             active: false

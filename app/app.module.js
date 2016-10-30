@@ -15,6 +15,7 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var app_component_1 = require('./app.component');
+var home_component_1 = require('./home.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
@@ -57,12 +58,14 @@ var AppModule = (function () {
                     { path: "orders", component: order_list_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_component_1.CategoryListComponent },
                     { path: "otps", component: otp_list_component_js_1.OtpListComponentRoutable },
-                    { path: "", component: supplier_list_component_1.SupplierListComponent, pathMatch: 'full' },
+                    { path: "home", component: home_component_1.HomeComponent },
+                    { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
                     { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable }
                 ])
             ],
-            declarations: [app_component_1.AppComponent, supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
+            declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
+                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,

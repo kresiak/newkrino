@@ -5,7 +5,8 @@ import { RouterModule }   from '@angular/router';
 import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component'
+import { HomeComponent} from './home.component'
 
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
@@ -52,12 +53,14 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
             { path: "orders", component: OrderListComponentRoutable},
             { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
-            { path: "", component: SupplierListComponent, pathMatch: 'full'},
+            { path: "home", component: HomeComponent},
+            { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable }
           ])
    ],
-  declarations: [ AppComponent, SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
+  declarations: [ AppComponent, HomeComponent, 
+                  SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
                   UserComponent, UserListComponent, 
