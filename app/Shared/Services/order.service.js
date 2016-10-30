@@ -14,13 +14,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var auth_service_1 = require('./auth.service');
+var user_service_1 = require('./user.service');
 var selectable_data_1 = require('./../Classes/selectable-data');
 var Rx_1 = require('rxjs/Rx');
 core_1.Injectable();
 var OrderService = (function () {
-    function OrderService(dataStore, authService) {
+    function OrderService(dataStore, authService, userService) {
         this.dataStore = dataStore;
         this.authService = authService;
+        this.userService = userService;
     }
     // otps
     // ======
@@ -31,25 +33,27 @@ var OrderService = (function () {
             });
         });
     };
-    OrderService.prototype.createAnnotatedOtp = function (otp, orders, equipes) {
+    OrderService.prototype.createAnnotatedOtp = function (otp, orders, equipes, dashlets) {
         if (!otp)
             return null;
         var amountSpent = orders.map(function (order) { return order.items.filter(function (item) { return item.otp === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
         var equipe = equipes.filter(function (equipe) { return equipe._id === otp.Equipe; })[0];
+        var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === otp._id; });
         return {
             data: otp,
             annotation: {
                 budget: (+(otp.Budget)),
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.Budget)) - amountSpent,
-                equipe: equipe ? equipe.Name : 'no equipe'
+                equipe: equipe ? equipe.Name : 'no equipe',
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         };
     };
     OrderService.prototype.getAnnotatedOtps = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), function (otps, equipes, orders) {
-            return otps.map(function (otp) { return _this.createAnnotatedOtp(otp, orders, equipes); });
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), this.userService.getOtpDashletsForCurrentUser(), function (otps, equipes, orders, dashlets) {
+            return otps.map(function (otp) { return _this.createAnnotatedOtp(otp, orders, equipes, dashlets); });
         });
     };
     OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {
@@ -150,8 +154,9 @@ var OrderService = (function () {
     };
     OrderService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
-        __param(1, core_1.Inject(auth_service_1.AuthService)), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, auth_service_1.AuthService])
+        __param(1, core_1.Inject(auth_service_1.AuthService)),
+        __param(2, core_1.Inject(user_service_1.UserService)), 
+        __metadata('design:paramtypes', [data_service_1.DataStore, auth_service_1.AuthService, user_service_1.UserService])
     ], OrderService);
     return OrderService;
 }());

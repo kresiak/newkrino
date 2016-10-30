@@ -42,6 +42,7 @@ var order_service_1 = require('./Shared/Services/order.service');
 var data_service_1 = require('./Shared/Services/data.service');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var otp_choice_service_1 = require('./Shared/Services/otp-choice.service');
+var user_service_1 = require('./Shared/Services/user.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -74,7 +75,7 @@ var AppModule = (function () {
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService],
+            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -13,11 +13,13 @@ var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
+var user_service_1 = require('./../Shared/Services/user.service');
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
     OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,6 +38,15 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {
         this.productService.createCategory(newCategory);
     };
+    OtpDetailComponent.prototype.setDashlet = function (isChecked, dashletId) {
+        if (isChecked) {
+            this.userService.createOtpDashletForCurrentUser(this.otp.data._id);
+        }
+        else {
+            if (dashletId)
+                this.userService.removeDashletForCurrentUser(dashletId);
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -46,7 +57,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

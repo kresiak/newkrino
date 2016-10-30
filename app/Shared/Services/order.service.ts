@@ -1,13 +1,14 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
+import {UserService} from './user.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable } from 'rxjs/Rx'
 
 
 Injectable()
 export class OrderService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService) { }
 
     // otps
     // ======
@@ -20,18 +21,20 @@ export class OrderService {
         });
     }
 
-    private createAnnotatedOtp(otp, orders, equipes)
+    private createAnnotatedOtp(otp, orders, equipes, dashlets: any[])
     {
         if (!otp) return null;
         let amountSpent= orders.map(order => order.items.filter(item => item.otp === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b)=> a + b, 0);
         let equipe= equipes.filter(equipe => equipe._id===otp.Equipe)[0];
+        let dashlet= dashlets.filter(dashlet => dashlet.id === otp._id);
         return {
             data: otp,
             annotation: {
                 budget: (+(otp.Budget)),
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.Budget)) - amountSpent, 
-                equipe: equipe ? equipe.Name : 'no equipe'
+                equipe: equipe ? equipe.Name : 'no equipe',
+                dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined 
             }
         }
     }
@@ -41,8 +44,9 @@ export class OrderService {
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('orders'),
-            (otps, equipes, orders) => {
-                return otps.map(otp => this.createAnnotatedOtp(otp, orders, equipes))
+            this.userService.getOtpDashletsForCurrentUser(),
+            (otps, equipes, orders, dashlets) => {
+                return otps.map(otp => this.createAnnotatedOtp(otp, orders, equipes, dashlets))
             });
     }
 

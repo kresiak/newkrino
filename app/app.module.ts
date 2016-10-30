@@ -40,6 +40,7 @@ import {OrderService} from './Shared/Services/order.service'
 import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
+import {UserService} from './Shared/Services/user.service'
 
 @NgModule({
   imports:      [ 
@@ -69,7 +70,7 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService ],
+  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

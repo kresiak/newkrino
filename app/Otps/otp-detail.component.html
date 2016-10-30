@@ -1,47 +1,49 @@
-
-		<ngb-tabset>
-			<ngb-tab title="Info">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<div class="row">
-								<div class="col-sm-2">otp:</div>
-								<div class="col-sm-6">{{otp.data.Name}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">equipe:</div>
-								<div class="col-sm-6">{{otp.annotation.equipe}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">total budget:</div>
-								<div class="col-sm-6">{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">money spent:</div>
-								<div class="col-sm-6">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">money available:</div>
-								<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-2">allowed products:</div>
-								<div class="col-sm-6">
-									<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-										(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
-								</div>
-							</div>
+<ngb-tabset>
+	<ngb-tab title="Info">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-2">otp:</div>
+						<div class="col-sm-6">{{otp.data.Name}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">equipe:</div>
+						<div class="col-sm-6">{{otp.annotation.equipe}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">total budget:</div>
+						<div class="col-sm-6">{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">money spent:</div>
+						<div class="col-sm-6">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">money available:</div>
+						<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">allowed products:</div>
+						<div class="col-sm-6">
+							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 						</div>
 					</div>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Comments">
-				<template ngbTabContent>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Orders" *ngIf="anyOrder">
-				<template ngbTabContent>
-					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
-				</template>
-			</ngb-tab>
-		</ngb-tabset>
+					<div class="row">
+						<input type="checkbox" [checked]="otp.annotation.dashletId" (change)="setDashlet($event.target.checked, otp.annotation.dashletId)" /> 
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Comments">
+		<template ngbTabContent>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Orders" *ngIf="anyOrder">
+		<template ngbTabContent>
+			<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+		</template>
+	</ngb-tab>
+</ngb-tabset>

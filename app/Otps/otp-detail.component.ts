@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Rx'
 import {DataStore} from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
+import {UserService} from './../Shared/Services/user.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 
 
@@ -15,7 +16,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 )
 export class OtpDetailComponent implements OnInit
 {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService) {
             
     }
 
@@ -47,4 +48,16 @@ export class OtpDetailComponent implements OnInit
         this.productService.createCategory(newCategory);
     }
     
+    setDashlet(isChecked, dashletId)
+    {
+        if (isChecked) 
+        {
+            this.userService.createOtpDashletForCurrentUser(this.otp.data._id);
+        }
+        else
+        {
+            if (dashletId) 
+                this.userService.removeDashletForCurrentUser(dashletId);
+        }        
+    }
 }
