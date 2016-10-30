@@ -59,6 +59,12 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {
         return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return otp.data.Equipe === equipeId; }); });
     };
+    OrderService.prototype.getAnnotatedOtpById = function (otpId) {
+        return this.getAnnotatedOtps().map(function (otps) {
+            var otpFiltered = otps.filter(function (otp) { return otp.data._id === otpId; });
+            return otpFiltered.length === 0 ? null : otpFiltered[0];
+        });
+    };
     // orders
     // ======
     // order helper functions for viewing orders

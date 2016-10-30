@@ -22,6 +22,8 @@ var UserService = (function () {
         this.symOtp = 'otp';
         this.symTableDashlets = 'dashlets';
     }
+    //   CRUD Changes
+    //   =============
     UserService.prototype.createDashletForCurrentUser = function (category, id) {
         var _this = this;
         var userId = this.authService.getUserId();
@@ -30,9 +32,6 @@ var UserService = (function () {
                 _this.dataStore.addData(_this.symTableDashlets, { user: userId, category: category, id: id });
             }
         });
-    };
-    UserService.prototype.createOtpDashletForCurrentUser = function (otpId) {
-        return this.createDashletForCurrentUser(this.symOtp, otpId);
     };
     UserService.prototype.removeDashletForCurrentUser = function (dbid) {
         var _this = this;
@@ -51,9 +50,17 @@ var UserService = (function () {
             return dashlets.filter(function (dashlet) { return dashlet.user === userId; });
         });
     };
+    // Otp specific
+    // ============
     UserService.prototype.getOtpDashletsForCurrentUser = function () {
         var _this = this;
         return this.getDashletsForCurrentUser().map(function (dashlets) { return dashlets.filter(function (dashlet) { return dashlet.category === _this.symOtp; }); });
+    };
+    UserService.prototype.createOtpDashletForCurrentUser = function (otpId) {
+        return this.createDashletForCurrentUser(this.symOtp, otpId);
+    };
+    UserService.prototype.isOtpDashlet = function (category) {
+        return category === this.symOtp;
     };
     UserService = __decorate([
         core_1.Injectable(),

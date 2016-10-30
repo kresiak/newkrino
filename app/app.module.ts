@@ -28,6 +28,9 @@ import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
 import {OrderListComponent, OrderListComponentRoutable} from './Orders/order-list.component'
 
+import {DashboardComponent} from './Dashboard/dashboard.component'
+import {DashletComponent} from './Dashboard/dashlet.component'
+
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
 import {Checkbox} from './ui/checkbox/checkbox'
@@ -54,6 +57,7 @@ import {UserService} from './Shared/Services/user.service'
             { path: "orders", component: OrderListComponentRoutable},
             { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
+            { path: "dashboard", component: DashboardComponent},
             { path: "home", component: HomeComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
@@ -64,6 +68,7 @@ import {UserService} from './Shared/Services/user.service'
                   SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
+                  DashboardComponent, DashletComponent,
                   UserComponent, UserListComponent, 
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,

@@ -1,0 +1,6 @@
+<div class="container-fluid">
+    <br/>
+    <div class="row">
+        <gg-dashlet *ngFor="let dashlet of dashletsObservable | async" [category]="dashlet.category" [id]="dashlet.id"></gg-dashlet>
+    </div>
+</div>

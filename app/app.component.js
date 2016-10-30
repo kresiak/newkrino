@@ -23,6 +23,11 @@ var AppComponent = (function () {
                 active: false
             },
             {
+                route: '/dashboard',
+                title: 'Dashboard',
+                active: false
+            },
+            {
                 route: '/orders',
                 title: 'Orders',
                 active: false

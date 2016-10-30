@@ -54,6 +54,14 @@ export class OrderService {
         return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.Equipe===equipeId));
     }
     
+    getAnnotatedOtpById(otpId) : Observable<any>
+    {
+        return this.getAnnotatedOtps().map(otps =>
+        {
+            let otpFiltered= otps.filter(otp => otp.data._id === otpId);
+            return otpFiltered.length === 0 ? null : otpFiltered[0];
+        }); 
+    }
 
     // orders
     // ======

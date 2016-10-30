@@ -11,6 +11,9 @@ export class UserService {
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
+    //   CRUD Changes
+    //   =============
+
     private createDashletForCurrentUser(category: string, id: string)
     {
         let userId= this.authService.getUserId();
@@ -23,11 +26,6 @@ export class UserService {
             }
         });        
     }    
-
-    createOtpDashletForCurrentUser(otpId: string)
-    {
-        return this.createDashletForCurrentUser(this.symOtp, otpId);
-    }
 
     removeDashletForCurrentUser(dbid)
     {
@@ -52,8 +50,22 @@ export class UserService {
         });
     }
 
+    // Otp specific
+    // ============
+
     getOtpDashletsForCurrentUser() : Observable<any>
     {
         return this.getDashletsForCurrentUser().map(dashlets => dashlets.filter(dashlet => dashlet.category===this.symOtp))
     }
+
+    createOtpDashletForCurrentUser(otpId: string)
+    {
+        return this.createDashletForCurrentUser(this.symOtp, otpId);
+    }
+
+    isOtpDashlet(category: string) : boolean
+    {
+        return category === this.symOtp;
+    }
+ 
 }

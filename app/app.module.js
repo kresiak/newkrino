@@ -31,6 +31,8 @@ var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
 var order_detail_component_1 = require('./Orders/order-detail.component');
 var order_list_component_1 = require('./Orders/order-list.component');
+var dashboard_component_1 = require('./Dashboard/dashboard.component');
+var dashlet_component_1 = require('./Dashboard/dashlet.component');
 var editor_1 = require('./ui/editor/editor');
 var editor_number_1 = require('./ui/editor/editor-number');
 var checkbox_1 = require('./ui/checkbox/checkbox');
@@ -59,6 +61,7 @@ var AppModule = (function () {
                     { path: "orders", component: order_list_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_component_1.CategoryListComponent },
                     { path: "otps", component: otp_list_component_js_1.OtpListComponentRoutable },
+                    { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "home", component: home_component_1.HomeComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
@@ -69,6 +72,7 @@ var AppModule = (function () {
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
+                dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
