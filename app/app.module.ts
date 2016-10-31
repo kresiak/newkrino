@@ -1,6 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -53,7 +53,7 @@ import {MomentModule} from 'angular2-moment';
   imports:      [ 
           MomentModule,
           BrowserModule, 
-          FormsModule,  
+          FormsModule, ReactiveFormsModule,
           HttpModule,
           NgbModule.forRoot(),
           RouterModule.forRoot([

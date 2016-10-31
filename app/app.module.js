@@ -56,7 +56,7 @@ var AppModule = (function () {
             imports: [
                 angular2_moment_1.MomentModule,
                 platform_browser_1.BrowserModule,
-                forms_1.FormsModule,
+                forms_1.FormsModule, forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 router_1.RouterModule.forRoot([

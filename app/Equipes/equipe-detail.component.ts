@@ -42,7 +42,6 @@ export class EquipeDetailComponent implements OnInit {
     removeDashlet(dashletId) {
         if (dashletId)
             this.userService.removeDashletForCurrentUser(dashletId);
-        //this.commentsUpdated([]);
     }
 
     commentsUpdated(comments)

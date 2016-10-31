@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
 var order_service_1 = require('./../Shared/Services/order.service');
 var OtpListComponentRoutable = (function () {
@@ -29,10 +30,20 @@ var OtpListComponentRoutable = (function () {
 exports.OtpListComponentRoutable = OtpListComponentRoutable;
 var OtpListComponent = (function () {
     function OtpListComponent() {
+        this.searchControl = new forms_1.FormControl();
+        this.searchForm = new forms_1.FormGroup({
+            searchControl: new forms_1.FormControl()
+        });
     }
     OtpListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.otpsObservable.subscribe(function (otps) { return _this.otps = otps; });
+        Rx_1.Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), function (otps, searchTxt) {
+            if (searchTxt.trim() === '')
+                return otps;
+            return otps.filter(function (otp) { return otp.data.Name.toUpperCase().includes(searchTxt.toUpperCase())
+                || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()); });
+        }).subscribe(function (otps) { return _this.otps = otps; });
+        ;
     };
     OtpListComponent.prototype.getOtpObservable = function (id) {
         return this.otpsObservable.map(function (otps) { return otps.filter(function (otp) { return otp.data._id === id; })[0]; });

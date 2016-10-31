@@ -35,7 +35,6 @@ var EquipeDetailComponent = (function () {
     EquipeDetailComponent.prototype.removeDashlet = function (dashletId) {
         if (dashletId)
             this.userService.removeDashletForCurrentUser(dashletId);
-        //this.commentsUpdated([]);
     };
     EquipeDetailComponent.prototype.commentsUpdated = function (comments) {
         if (this.equipe && comments) {
