@@ -34,7 +34,7 @@ export class CommentsComponent implements OnInit {
   }
 
   addNewComment() {
-    this.userService.getCurrentUserObjectForComment().subscribe(userrecord =>
+    this.userService.getCurrentUserObjectForComment().first().subscribe(userrecord =>
     {
       const comments = this.comments.slice();
       comments.splice(0, 0, {

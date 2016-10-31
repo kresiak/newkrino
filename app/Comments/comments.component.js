@@ -28,7 +28,7 @@ var CommentsComponent = (function () {
     };
     CommentsComponent.prototype.addNewComment = function () {
         var _this = this;
-        this.userService.getCurrentUserObjectForComment().subscribe(function (userrecord) {
+        this.userService.getCurrentUserObjectForComment().first().subscribe(function (userrecord) {
             var comments = _this.comments.slice();
             comments.splice(0, 0, {
                 user: userrecord,
