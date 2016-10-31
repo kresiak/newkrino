@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
+import {DataStore} from '../Shared/Services/data.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 
@@ -32,7 +33,7 @@ export class OrderComponentRoutable implements OnInit {
     }
 )
 export class OrderDetailComponent implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService) {     }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService, private dataStore: DataStore) {     }
 
     @Input() orderObservable : Observable<any>;
 
@@ -67,4 +68,13 @@ export class OrderDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
+    commentsUpdated(comments)
+    {
+        if (this.order && comments)
+        {
+            this.order.data.comments= comments;
+            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+        }
+        
+    }
 }

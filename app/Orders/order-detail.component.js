@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var order_service_1 = require('../Shared/Services/order.service');
+var data_service_1 = require('../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
 var OrderComponentRoutable = (function () {
@@ -37,10 +38,11 @@ var OrderComponentRoutable = (function () {
 }());
 exports.OrderComponentRoutable = OrderComponentRoutable;
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService) {
+    function OrderDetailComponent(orderService, route, userService, dataStore) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
+        this.dataStore = dataStore;
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -67,6 +69,12 @@ var OrderDetailComponent = (function () {
         if (dashletId)
             this.userService.removeDashletForCurrentUser(dashletId);
     };
+    OrderDetailComponent.prototype.commentsUpdated = function (comments) {
+        if (this.order && comments) {
+            this.order.data.comments = comments;
+            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -77,7 +85,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

@@ -64,10 +64,7 @@
 	</ngb-tab>
 	<ngb-tab title="Commentaries">
 		<template ngbTabContent>
-			<div class="card">
-				<div class="card-block">
-				</div>
-			</div>
+			<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
 </ngb-tabset>
