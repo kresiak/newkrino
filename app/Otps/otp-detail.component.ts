@@ -16,7 +16,8 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService) {
-
+  /*      this.otpComments=[{user: {fullName:'Alexis Dali'}, time:new Date(), content:'This is my first comment' },
+            {user: {fullName:'Alex Kvasz'}, time:new Date(), content:'This is my second comment' }];*/
     }
 
     ngOnInit(): void {
@@ -34,6 +35,7 @@ export class OtpDetailComponent implements OnInit {
 
     @Input() otpObservable: Observable<any>;
     private otp;
+    //private otpComments;
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
@@ -56,4 +58,15 @@ export class OtpDetailComponent implements OnInit {
         if (dashletId)
             this.userService.removeDashletForCurrentUser(dashletId);
     }
+
+    commentsUpdated(comments)
+    {
+        if (this.otp && comments)
+        {
+            this.otp.data.comments= comments;
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+        }
+        
+    }
+
 }

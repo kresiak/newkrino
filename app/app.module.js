@@ -37,6 +37,8 @@ var editor_1 = require('./ui/editor/editor');
 var editor_number_1 = require('./ui/editor/editor-number');
 var checkbox_1 = require('./ui/checkbox/checkbox');
 var selector_component_1 = require('./ui/selector/selector.component');
+var comment_component_1 = require('./Comments/comment.component');
+var comments_component_1 = require('./Comments/comments.component');
 var api_service_1 = require('./Shared/Services/api.service');
 var product_service_1 = require('./Shared/Services/product.service');
 var supplier_service_1 = require('./Shared/Services/supplier.service');
@@ -45,12 +47,14 @@ var data_service_1 = require('./Shared/Services/data.service');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var otp_choice_service_1 = require('./Shared/Services/otp-choice.service');
 var user_service_1 = require('./Shared/Services/user.service');
+var angular2_moment_1 = require('angular2-moment');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [
+                angular2_moment_1.MomentModule,
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 http_1.HttpModule,
@@ -69,6 +73,7 @@ var AppModule = (function () {
                 ])
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
+                comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,

@@ -46,8 +46,6 @@ var OrderDetailComponent = (function () {
         var _this = this;
         this.orderObservable.subscribe(function (order) {
             _this.order = order;
-            if (_this.order && _this.order.data && _this.order.data.date)
-                _this.order.annotation.date = (new Date(_this.order.data.date)).toLocaleDateString();
             _this.selectableOtpsObservable = _this.orderService.getSelectableOtps();
             if (_this.order && _this.order.annotation)
                 _this.order.annotation.items.forEach(function (item) {

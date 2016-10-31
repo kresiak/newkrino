@@ -39,8 +39,6 @@ export class OrderDetailComponent implements OnInit {
     ngOnInit(): void {
             this.orderObservable.subscribe(order => {
                 this.order = order
-                if (this.order && this.order.data && this.order.data.date)
-                    this.order.annotation.date = (new Date(this.order.data.date)).toLocaleDateString();
                 this.selectableOtpsObservable = this.orderService.getSelectableOtps();
                 if (this.order && this.order.annotation)
                     this.order.annotation.items.forEach(item => {

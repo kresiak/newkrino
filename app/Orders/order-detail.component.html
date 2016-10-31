@@ -11,7 +11,7 @@
 									{{order.annotation.supplier}}
 								</div>
 								<div class="row">
-									{{order.annotation.date}}
+									{{order.data.date | amDateFormat:'LLL'}}
 								</div>
 								<div class="row">
 									Reference: {{order.data._id}}

@@ -39,6 +39,13 @@ var AuthService = (function () {
             return users.map(function (user) { return _this.createAnnotatedUser(user, equipes); });
         });
     };
+    AuthService.prototype.getAnnotatedCurrentUser = function () {
+        var currentUserId = this.getUserId();
+        return this.getAnnotatedUsers().map(function (users) {
+            var usersFiltered = users.filter(function (user) { return user.data._id === currentUserId; });
+            return usersFiltered.length === 0 ? null : usersFiltered[0];
+        });
+    };
     AuthService.prototype.getUserId = function () {
         return this.currentUserId;
     };

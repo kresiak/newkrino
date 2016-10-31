@@ -1,0 +1,23 @@
+<br/>
+<div class="comments__title">Add new comment</div>
+<div class="comments__add-comment-section">
+  <div class="comments__add-comment-box">
+    <gg-editor [editMode]="true" [showControls]="false"></gg-editor>
+  </div>
+  <button (click)="addNewComment()" 
+          [disabled]="newCommentEditor?.getEditableContent()?.length === 0"
+          class="btn btn-primary btn-sm" >Add comment</button>
+</div>
+
+<div *ngIf="comments?.length > 0">
+  <div class="comments__title">All comments</div>
+  <ul class="comments__list">
+    <li *ngFor="let comment of comments">
+      <gg-comment [content]="comment.content"
+                   [time]="comment.time"
+                   [user]="comment.user"
+                   (comment-edited)="onCommentEdited(comment, $event)">
+      </gg-comment>
+    </li>
+  </ul>
+</div>

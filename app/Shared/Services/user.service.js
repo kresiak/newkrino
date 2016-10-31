@@ -24,6 +24,14 @@ var UserService = (function () {
         this.symOrder = 'order';
         this.symTableDashlets = 'dashlets';
     }
+    UserService.prototype.getCurrentUserObjectForComment = function () {
+        return this.authService.getAnnotatedCurrentUser().map(function (user) {
+            return {
+                id: user.data._id,
+                fullName: user.annotation.fullName
+            };
+        });
+    };
     //   CRUD Changes
     //   =============
     UserService.prototype.createDashletForCurrentUser = function (category, id) {

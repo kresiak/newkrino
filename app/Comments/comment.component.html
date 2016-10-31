@@ -1,0 +1,15 @@
+<div class="comment__l-meta">
+  <div class="comment__user-picture">
+    <img [attr.src]="'./images/user.png'" src="">
+  </div>
+  <div class="comment__user-name">{{user.fullName}}</div>
+  <div class="comment__time">{{time | amTimeAgo}}</div>
+</div>
+<div class="comment__l-main">
+  <div class="comment__message">
+    <gg-editor [content]="content"
+                [editMode]="false" [showControls]="true"
+                (editSaved)="onEditSaved($event)">
+    </gg-editor>
+  </div>
+</div>

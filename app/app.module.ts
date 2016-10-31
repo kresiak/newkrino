@@ -35,6 +35,8 @@ import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
 import {Checkbox} from './ui/checkbox/checkbox'
 import {SelectorComponent} from './ui/selector/selector.component'
+import {CommentComponent} from './Comments/comment.component'
+import {CommentsComponent} from './Comments/comments.component'
 
 import {ApiService} from './Shared/Services/api.service';
 import {ProductService} from './Shared/Services/product.service'
@@ -45,8 +47,11 @@ import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
 
+import {MomentModule} from 'angular2-moment';
+
 @NgModule({
   imports:      [ 
+          MomentModule,
           BrowserModule, 
           FormsModule,  
           HttpModule,
@@ -65,6 +70,7 @@ import {UserService} from './Shared/Services/user.service'
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 
+                  CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,

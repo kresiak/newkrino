@@ -42,6 +42,7 @@
 	</ngb-tab>
 	<ngb-tab title="Comments">
 		<template ngbTabContent>
+			<gg-comments [comments]="otp.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder">

@@ -13,6 +13,16 @@ export class UserService {
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
+    getCurrentUserObjectForComment() : Observable<any> 
+    {
+        return this.authService.getAnnotatedCurrentUser().map(user => {
+            return {
+                id: user.data._id,
+                fullName: user.annotation.fullName
+            }
+        });
+    }
+
     //   CRUD Changes
     //   =============
 

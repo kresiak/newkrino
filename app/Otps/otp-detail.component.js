@@ -20,6 +20,8 @@ var OtpDetailComponent = (function () {
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
+        /*      this.otpComments=[{user: {fullName:'Alexis Dali'}, time:new Date(), content:'This is my first comment' },
+                  {user: {fullName:'Alex Kvasz'}, time:new Date(), content:'This is my second comment' }];*/
     }
     OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -46,6 +48,12 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.removeDashlet = function (dashletId) {
         if (dashletId)
             this.userService.removeDashletForCurrentUser(dashletId);
+    };
+    OtpDetailComponent.prototype.commentsUpdated = function (comments) {
+        if (this.otp && comments) {
+            this.otp.data.comments = comments;
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+        }
     };
     __decorate([
         core_1.Input(), 
