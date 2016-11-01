@@ -39,13 +39,13 @@ var ApiService = (function () {
     ApiService.prototype.crudGetRecords = function (table) {
         var options = this.getOptions(http_1.RequestMethod.Get, this.urlBaseForData + "/" + table);
         return this._http.request(new http_1.Request(options))
-            .map(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); }).share()
             .catch(this.logError);
     };
     ApiService.prototype.crudGetRecord = function (table, id) {
         var options = this.getOptions(http_1.RequestMethod.Get, this.urlBaseForData + "/" + table + "/" + id);
         return this._http.request(new http_1.Request(options))
-            .map(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); }).share()
             .catch(this.logError);
     };
     ApiService.prototype.crudUpdateRecord = function (table, id, record) {
@@ -54,7 +54,7 @@ var ApiService = (function () {
             var body = typeof record === 'string' ? record : JSON.stringify(record);
             options.body = body;
         }
-        return this._http.request(new http_1.Request(options))
+        return this._http.request(new http_1.Request(options)).share()
             .catch(this.logError);
     };
     ApiService.prototype.crudCreateRecord = function (table, record) {
@@ -64,12 +64,12 @@ var ApiService = (function () {
             options.body = body;
         }
         return this._http.request(new http_1.Request(options))
-            .map(function (res) { return res.json(); })
+            .map(function (res) { return res.json(); }).share()
             .catch(this.logError);
     };
     ApiService.prototype.crudDeleteRecord = function (table, id) {
         var options = this.getOptions(http_1.RequestMethod.Delete, this.urlBaseForData + "/" + table + "/" + id);
-        return this._http.request(new http_1.Request(options))
+        return this._http.request(new http_1.Request(options)).share()
             .catch(this.logError);
     };
     // Our primary method. It accepts the name of the api request we want to make, an item if the request is a post request and the id if required

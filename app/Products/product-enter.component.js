@@ -10,18 +10,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var product_service_1 = require('../Shared/Services/product.service');
 var ProductEnterComponent = (function () {
-    function ProductEnterComponent(formBuilder) {
+    function ProductEnterComponent(formBuilder, productService) {
         this.formBuilder = formBuilder;
+        this.productService = productService;
     }
+    ProductEnterComponent.prototype.isCategoryIdSelected = function (control) {
+        if (control.value === '-1') {
+            return { "category": true };
+        }
+        return null;
+    };
     ProductEnterComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.productService.getSelectableCategories().subscribe(function (cd) { return _this.categoryData = cd; });
+        var priceRegEx = "^\\d+(.\\d*)?$";
         this.productForm = this.formBuilder.group({
-            description: ['', forms_1.Validators.required],
-            price: ['0', forms_1.Validators.required]
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+            price: ['', [forms_1.Validators.required, forms_1.Validators.pattern(priceRegEx)]],
+            category: ['-1', this.isCategoryIdSelected]
         });
     };
     ProductEnterComponent.prototype.save = function (formValue, isValid) {
-        var x = formValue;
+        var _this = this;
+        this.productService.createProduct({
+            Description: formValue.description,
+            Supplier: this.supplierId,
+            Prix: formValue.price,
+            Categorie: [formValue.category]
+        }).subscribe(function (res) {
+            var x = res;
+            _this.reset();
+        });
+    };
+    ProductEnterComponent.prototype.reset = function () {
+        this.productForm.reset();
+        this.productForm.controls['category'].setValue('-1');
     };
     __decorate([
         core_1.Input(), 
@@ -33,7 +58,7 @@ var ProductEnterComponent = (function () {
             selector: 'gg-product-enter',
             templateUrl: './product-enter.component.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, product_service_1.ProductService])
     ], ProductEnterComponent);
     return ProductEnterComponent;
 }());

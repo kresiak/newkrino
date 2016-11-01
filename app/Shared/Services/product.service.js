@@ -32,7 +32,7 @@ var ProductService = (function () {
     // ==========
     ProductService.prototype.getSelectableCategories = function () {
         return this.dataStore.getDataObservable('Categories').map(function (categories) {
-            return categories.map(function (category) {
+            return categories.sort(function (cat1, cat2) { return cat1.Description < cat2.Description ? -1 : 1; }).map(function (category) {
                 return new selectable_data_1.SelectableData(category._id, category.Description);
             });
         });
@@ -69,6 +69,9 @@ var ProductService = (function () {
     // ========
     ProductService.prototype.updateProduct = function (product) {
         this.dataStore.updateData('Produits', product._id, product);
+    };
+    ProductService.prototype.createProduct = function (product) {
+        return this.dataStore.addData('Produits', product);
     };
     ProductService.prototype.getProductsBySupplier = function (supplierId) {
         return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplierId; }); });

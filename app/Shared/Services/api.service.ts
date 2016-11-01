@@ -36,14 +36,14 @@ export class ApiService {
     crudGetRecords(table: string) {
         let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}`);
         return this._http.request(new Request(options))
-            .map(res => res.json())
+            .map(res => res.json()).share()
             .catch(this.logError);
     }
 
     crudGetRecord(table: string, id: string) {
         let options = this.getOptions(RequestMethod.Get, `${this.urlBaseForData}/${table}/${id}`);
         return this._http.request(new Request(options))
-            .map(res => res.json())
+            .map(res => res.json()).share()
             .catch(this.logError);
     }
 
@@ -53,7 +53,7 @@ export class ApiService {
             let body = typeof record === 'string' ? record : JSON.stringify(record);
             options.body = body;
         }
-        return this._http.request(new Request(options))
+        return this._http.request(new Request(options)).share()
             .catch(this.logError);
     }
 
@@ -64,14 +64,14 @@ export class ApiService {
             options.body = body;
         }
         return this._http.request(new Request(options))
-            .map(res => res.json())
+            .map(res => res.json()).share()
             .catch(this.logError);
 
     }
 
     crudDeleteRecord(table: string, id: string) {
         let options = this.getOptions(RequestMethod.Delete, `${this.urlBaseForData}/${table}/${id}`);
-        return this._http.request(new Request(options))
+        return this._http.request(new Request(options)).share()
             .catch(this.logError);
     }
 

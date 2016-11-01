@@ -19,7 +19,7 @@ export class ProductService {
 
     getSelectableCategories(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('Categories').map(categories => {
-            return categories.map(category =>
+            return categories.sort((cat1, cat2) => {return cat1.Description < cat2.Description ? -1 : 1;}).map(category =>
                 new SelectableData(category._id, category.Description)
             )
         });
@@ -64,6 +64,9 @@ export class ProductService {
         this.dataStore.updateData('Produits', product._id, product);
     }
 
+    createProduct(product): Observable<any> {
+        return this.dataStore.addData('Produits', product);
+    }
 
     getProductsBySupplier(supplierId): Observable<any> {
         return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier === supplierId));
