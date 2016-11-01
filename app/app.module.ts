@@ -12,6 +12,7 @@ import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductListComponent} from './Products/product-list.component';
+import {ProductEnterComponent} from './Products/product-enter.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
 
@@ -71,7 +72,7 @@ import {MomentModule} from 'angular2-moment';
    ],
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent,
+                  SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, ProductEnterComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
                   DashboardComponent, DashletComponent,

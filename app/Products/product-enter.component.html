@@ -1,0 +1,11 @@
+<form [formGroup]="productForm" (ngSubmit)="save(productForm.value, productForm.valid)">
+  <label>Description:</label>
+  <input type="text" formControlName="description">
+  <p *ngIf="productForm.controls.description.errors">This field is required!</p>
+
+  <label>Price:</label>
+  <input type="text" formControlName="price">
+  <p *ngIf="productForm.controls.price.errors">This field is required!</p>
+
+  <button class="btn btn-success" type="submit" [disabled]="!productForm.valid">Submit</button>
+</form>

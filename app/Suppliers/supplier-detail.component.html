@@ -17,11 +17,7 @@
 	</ngb-tab>
 	<ngb-tab title="Products">
 		<template ngbTabContent>
-			<div class="card">
-				<div class="card-block">
-					<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
-				</div>
-			</div>
+			<gg-product-list [productsObservable]="productsObservable"></gg-product-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder">
@@ -38,6 +34,17 @@
 					</div>
 					<div class="row">
 						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Add a product">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<gg-product-enter [supplierId]="supplier._id" ></gg-product-enter>
 					</div>
 				</div>
 			</div>
