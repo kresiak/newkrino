@@ -236,9 +236,9 @@ a, body, button, html, input, select, table {
     line-height: 1.25;
 }
 
-a, button, input, select {
+/*a, button, input, select {
     font-size: 16px;
-}
+}*/
 
 button {
     cursor: pointer;

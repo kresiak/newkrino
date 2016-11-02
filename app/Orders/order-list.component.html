@@ -21,11 +21,11 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-lg-3 hidden-md-down"><b>Id</b></div>
-							<div class="col-sm-2"><b>Date</b></div>
+							<!--<div class="col-lg-3 hidden-md-down"><b>Id</b></div>-->
+							<div class="col-sm-3"><b>Date</b></div>
 							<div class="col-sm-3"><b>Who</b></div>
-							<div class="col-sm-2" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
-							<div class="col-sm-2"><b>Total (with VAT)</b></div>
+							<div class="col-sm-3" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
+							<div class="col-sm-3"><b>Total (with VAT)</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -35,11 +35,11 @@
 				<ngb-panel *ngFor="let order of orders2Observable | async">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>
-							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
+							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
+							<div class="col-sm-3">{{formatDate(order.data.date)}}</div>
 							<div class="col-sm-3">{{order.annotation.user}}/{{order.annotation.equipe}}</div>
-							<div class="col-sm-2" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
-							<div class="col-sm-2">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-3" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
+							<div class="col-sm-3">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

@@ -6,6 +6,7 @@
                     <div class="row">
                         <div class="col-sm-3"><b>Equipe</b></div>
                         <div class="col-sm-2"><b>Available</b></div>
+						<div class="col-sm-2"><b>Spent</b></div>
                     </div>									
 				</template>
 				<template ngbPanelContent>
@@ -17,6 +18,7 @@
                     <div class="row">
                         <div class="col-sm-3">{{equipe.data.Name}}</div>
                         <div class="col-sm-2">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-2">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
                     </div>									
 				</template>
 				<template ngbPanelContent>

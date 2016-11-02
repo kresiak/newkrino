@@ -1,3 +1,4 @@
+<div class="orderDetailClass">
 <ngb-tabset *ngIf="order">
 	<ngb-tab title="Details">
 		<template ngbTabContent>
@@ -27,28 +28,24 @@
 							</div>
 						</div> <br><br>
 						<div class="row">
-							<table class="table table-bordered table-striped">
-								<thead>
-									<th>Product</th>
-									<th>Quantity</th>
-									<th>Price</th>
-									<th>Total</th>
-									<th>Otp</th>
-								</thead>
-
-								<tbody>
-									<tr style="height:85px" *ngFor="let item of order.annotation.items">
-										<td vertical-align="middle">{{item.annotation.description}}</td>
-										<td vertical-align="middle">{{item.data.quantity}}</td>
-										<td vertical-align="middle">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</td>
-										<td vertical-align="middle">{{item.data.total | currency:'EUR':true:'1.2-2'}}</td>
-										<td vertical-align="middle">
+							<div class="row">
+									<div class="col-sm-3 vcenter"><b>Product</b></div>
+									<div class="col-sm-1 vcenter"><b>Qty</b></div>
+									<div class="col-sm-2 vcenter"><b>Price</b></div>
+									<div class="col-sm-2 vcenter"><b>Total</b></div>
+									<div class="col-sm-3 vcenter"><b>Otp</b></div>								
+							</div>
+							<div class="row" *ngFor="let item of order.annotation.items">
+										<div class="col-sm-3 vcenter">{{item.annotation.description}}</div>
+										<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
+										<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
+										<div class="col-sm-2 vcenter">{{item.data.total | currency:'EUR':true:'1.2-2'}}</div>
+										<div class="col-sm-3 vcenter" *ngIf="!smallScreen">
 											<gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable" (selectionChanged)="otpUpdated(item, $event)"></gg-selector>
-										</td>
+										</div>								
+										<div class="col-sm-3 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 
-									</tr>
-								</tbody>
-							</table>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-2">
@@ -68,3 +65,4 @@
 		</template>
 	</ngb-tab>
 </ngb-tabset>
+</div>

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
-import {DataStore} from '../Shared/Services/data.service'
+import { DataStore } from '../Shared/Services/data.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 
@@ -11,17 +11,17 @@ import { UserService } from './../Shared/Services/user.service'
     }
 )
 export class OrderComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute) {    }
+    constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             let orderId = params['id'];
-            if (orderId){
-               this.orderObservable=  this.orderService.getAnnotedOrder(orderId);
+            if (orderId) {
+                this.orderObservable = this.orderService.getAnnotedOrder(orderId);
             }
         });
     }
-    orderObservable : Observable<any>;
+    orderObservable: Observable<any>;
 }
 
 
@@ -33,20 +33,30 @@ export class OrderComponentRoutable implements OnInit {
     }
 )
 export class OrderDetailComponent implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService, private dataStore: DataStore) {     }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService,
+        private dataStore: DataStore, private elementRef: ElementRef) { }
 
-    @Input() orderObservable : Observable<any>;
+    @Input() orderObservable: Observable<any>;
+    private smallScreen: boolean;
+    
 
     ngOnInit(): void {
-            this.orderObservable.subscribe(order => {
-                this.order = order
-                this.selectableOtpsObservable = this.orderService.getSelectableOtps();
-                if (this.order && this.order.annotation)
-                    this.order.annotation.items.forEach(item => {
-                        item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otp]);
-                    });
-            });
+        this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
+
+        this.orderObservable.subscribe(order => {
+            this.order = order
+            this.selectableOtpsObservable = this.orderService.getSelectableOtps();
+            if (this.order && this.order.annotation)
+                this.order.annotation.items.forEach(item => {
+                    item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otp]);
+                });
+        });
     }
+
+    ngAfterViewInit() {
+        
+    }
+
 
     private order;
     private selectableOtpsObservable: Observable<any>;
@@ -68,13 +78,11 @@ export class OrderDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
-    commentsUpdated(comments)
-    {
-        if (this.order && comments)
-        {
-            this.order.data.comments= comments;
+    commentsUpdated(comments) {
+        if (this.order && comments) {
+            this.order.data.comments = comments;
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
         }
-        
+
     }
 }

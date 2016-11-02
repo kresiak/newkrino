@@ -38,14 +38,16 @@ var OrderComponentRoutable = (function () {
 }());
 exports.OrderComponentRoutable = OrderComponentRoutable;
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService, dataStore) {
+    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
         this.dataStore = dataStore;
+        this.elementRef = elementRef;
     }
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
         this.orderObservable.subscribe(function (order) {
             _this.order = order;
             _this.selectableOtpsObservable = _this.orderService.getSelectableOtps();
@@ -54,6 +56,8 @@ var OrderDetailComponent = (function () {
                     item.annotation.idObservable = new Rx_1.BehaviorSubject([item.data.otp]);
                 });
         });
+    };
+    OrderDetailComponent.prototype.ngAfterViewInit = function () {
     };
     OrderDetailComponent.prototype.otpUpdated = function (orderItem, newOtpIds) {
         if (newOtpIds && newOtpIds.length > 0) {
@@ -85,7 +89,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());
