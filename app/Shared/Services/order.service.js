@@ -128,6 +128,11 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotedOrdersByEquipe = function (equipeId) {
         return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.equipeId === equipeId; }); });
     };
+    OrderService.prototype.getAnnotedOrdersOfCurrentUser = function () {
+        return Rx_1.Observable.combineLatest(this.getAnnotedOrders(), this.authService.getUserIdObservable(), function (orders, userId) {
+            return orders.filter(function (order) { return order.data.userId === userId; });
+        });
+    };
     OrderService.prototype.getAnnotedOrdersByOtp = function (otpId) {
         return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items.map(function (item) { return item.otp; }).includes(otpId); }); });
     };

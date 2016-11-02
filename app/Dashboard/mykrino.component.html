@@ -1,0 +1,23 @@
+<ngb-tabset >
+	<ngb-tab title="Account">
+		<template ngbTabContent>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Comments">
+		<template ngbTabContent>
+		</template>
+	</ngb-tab>	
+	<ngb-tab title="My Equipes">
+		<template ngbTabContent>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="My Otps">
+		<template ngbTabContent>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="My Orders" >
+		<template ngbTabContent>
+			<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+		</template>
+	</ngb-tab>
+</ngb-tabset>

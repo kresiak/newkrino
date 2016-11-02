@@ -148,6 +148,13 @@ export class OrderService {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.equipeId === equipeId));
     }
 
+    getAnnotedOrdersOfCurrentUser(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotedOrders(), this.authService.getUserIdObservable(), (orders, userId) =>
+        {
+            return orders.filter(order => order.data.userId === userId);
+        });        
+    }
+
     getAnnotedOrdersByOtp(otpId: string): Observable<any> {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.items.map(item => item.otp).includes(otpId)));
     }

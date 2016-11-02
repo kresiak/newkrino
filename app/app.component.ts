@@ -56,6 +56,11 @@ export class AppComponent implements OnInit {
             active: false
         },
         {
+            route: '/mykrino',
+            title: 'My Krino',
+            active: false
+        },
+        {
             route: '/orders',
             title: 'Orders',
             active: false

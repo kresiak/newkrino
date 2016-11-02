@@ -31,6 +31,7 @@ import {OrderListComponent, OrderListComponentRoutable} from './Orders/order-lis
 
 import {DashboardComponent} from './Dashboard/dashboard.component'
 import {DashletComponent} from './Dashboard/dashlet.component'
+import {MyKrinoComponent} from './Dashboard/mykrino.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
@@ -64,6 +65,7 @@ import {MomentModule} from 'angular2-moment';
             { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
+            { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
@@ -75,7 +77,7 @@ import {MomentModule} from 'angular2-moment';
                   SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, ProductEnterComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
-                  DashboardComponent, DashletComponent,
+                  DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
