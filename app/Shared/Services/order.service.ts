@@ -212,5 +212,12 @@ export class OrderService {
             return equipesFiltered.length === 0 ? null : equipesFiltered[0];
         }); 
     }
-    
+
+    getAnnotatedEquipesOfCurrentUser() : Observable<any>
+    {
+        return Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), (equipes, userId) => { 
+            return equipes.filter(equipe => 
+                equipe.data.Users.includes(userId));
+        });
+    }    
 }

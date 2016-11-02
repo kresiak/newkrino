@@ -37,12 +37,10 @@ export class AuthService {
 
     getAnnotatedCurrentUser(): Observable<any>
     {
-        let currentUserId= this.getUserId();
-        return this.getAnnotatedUsers().map(users =>
-        {
-            let usersFiltered=users.filter(user => user.data._id===currentUserId);
+        return Observable.combineLatest(this.getAnnotatedUsers(), this.currentUserIdObservable, (users, userId) => {
+            let usersFiltered=users.filter(user => user.data._id===userId);
             return usersFiltered.length === 0 ? null : usersFiltered[0]; 
-        });        
+        });
     }
 
     getUserId(): string {

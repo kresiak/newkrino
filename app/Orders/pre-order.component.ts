@@ -21,7 +21,7 @@ export class PreOrderComponent implements OnInit {
             let supplierId = params['id'];
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier);
-                this.productsBasketObservable = this.productService.getAnnotedProductsInBasketBySupplier(supplierId);
+                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplierId);
                 this.productsBasketObservable.subscribe(products => this.productsInBasket= products);
             }
         });

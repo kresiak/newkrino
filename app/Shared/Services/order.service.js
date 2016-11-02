@@ -173,6 +173,13 @@ var OrderService = (function () {
             return equipesFiltered.length === 0 ? null : equipesFiltered[0];
         });
     };
+    OrderService.prototype.getAnnotatedEquipesOfCurrentUser = function () {
+        return Rx_1.Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), function (equipes, userId) {
+            return equipes.filter(function (equipe) {
+                return equipe.data.Users.includes(userId);
+            });
+        });
+    };
     OrderService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(auth_service_1.AuthService)),

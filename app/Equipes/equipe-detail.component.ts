@@ -20,10 +20,12 @@ export class EquipeDetailComponent implements OnInit {
     ngOnInit(): void {
         this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
-            this.usersObservable = this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.data.Users.includes(user._id)));
-            this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id); 
-            this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
-            this.ordersObservable.subscribe(orders => this.anyOrder= orders && orders.length > 0);
+            if (eq) {
+                this.usersObservable = this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.data.Users.includes(user._id)));
+                this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
+                this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
+                this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
+            }
         });
     }
 
@@ -44,14 +46,12 @@ export class EquipeDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
-    commentsUpdated(comments)
-    {
-        if (this.equipe && comments)
-        {
-            this.equipe.data.comments= comments;
+    commentsUpdated(comments) {
+        if (this.equipe && comments) {
+            this.equipe.data.comments = comments;
             this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
-        }        
+        }
     }
-    
-    
+
+
 }

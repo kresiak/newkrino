@@ -40,9 +40,8 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.getAnnotatedCurrentUser = function () {
-        var currentUserId = this.getUserId();
-        return this.getAnnotatedUsers().map(function (users) {
-            var usersFiltered = users.filter(function (user) { return user.data._id === currentUserId; });
+        return Rx_1.Observable.combineLatest(this.getAnnotatedUsers(), this.currentUserIdObservable, function (users, userId) {
+            var usersFiltered = users.filter(function (user) { return user.data._id === userId; });
             return usersFiltered.length === 0 ? null : usersFiltered[0];
         });
     };

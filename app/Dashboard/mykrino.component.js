@@ -10,19 +10,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var order_service_1 = require('./../Shared/Services/order.service');
+var product_service_1 = require('./../Shared/Services/product.service');
+var auth_service_1 = require('./../Shared/Services/auth.service');
+var data_service_1 = require('./../Shared/Services/data.service');
 var MyKrinoComponent = (function () {
-    function MyKrinoComponent(orderService) {
+    function MyKrinoComponent(orderService, productService, authService, dataStore) {
         this.orderService = orderService;
+        this.productService = productService;
+        this.authService = authService;
+        this.dataStore = dataStore;
     }
     MyKrinoComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
+        this.productsObservable = this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
+        this.authService.getAnnotatedCurrentUser().subscribe(function (res) {
+            _this.currentUser = res;
+        });
+        this.equipesObservable = this.orderService.getAnnotatedEquipesOfCurrentUser();
+    };
+    MyKrinoComponent.prototype.commentsUpdated = function (comments) {
+        if (this.currentUser && comments) {
+            this.currentUser.data.notes = comments;
+            this.dataStore.updateData('krinousers', this.currentUser.data._id, this.currentUser.data);
+        }
+    };
+    MyKrinoComponent.prototype.getEquipeObservable = function (id) {
+        return this.equipesObservable.map(function (equipes) { return equipes.filter(function (s) { return s.data._id === id; })[0]; });
     };
     MyKrinoComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './mykrino.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, product_service_1.ProductService, auth_service_1.AuthService, data_service_1.DataStore])
     ], MyKrinoComponent);
     return MyKrinoComponent;
 }());

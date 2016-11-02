@@ -1,23 +1,54 @@
-<ngb-tabset >
-	<ngb-tab title="Account">
-		<template ngbTabContent>
-		</template>
-	</ngb-tab>
-	<ngb-tab title="Comments">
-		<template ngbTabContent>
-		</template>
-	</ngb-tab>	
-	<ngb-tab title="My Equipes">
-		<template ngbTabContent>
-		</template>
-	</ngb-tab>
-	<ngb-tab title="My Otps">
-		<template ngbTabContent>
-		</template>
-	</ngb-tab>
-	<ngb-tab title="My Orders" >
-		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
-		</template>
-	</ngb-tab>
-</ngb-tabset>
+<div class="card" *ngIf="currentUser">
+	<div class="card-block">
+		<ngb-tabset>
+			<ngb-tab title="My Account">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-2">full name:</div>
+								<div class="col-sm-6">{{currentUser.annotation.fullName}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">email:</div>
+								<div class="col-sm-6">{{currentUser.data.email}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">name:</div>
+								<div class="col-sm-6">{{currentUser.data.name}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">first name:</div>
+								<div class="col-sm-6">{{currentUser.data.firstName}}</div>
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My Notes">
+				<template ngbTabContent>
+					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My Products">
+				<template ngbTabContent>
+					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category']}"></gg-product-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My Orders">
+				<template ngbTabContent>
+					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.Name}}">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)"></gg-equipe-detail>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>

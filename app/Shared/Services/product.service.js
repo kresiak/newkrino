@@ -41,7 +41,7 @@ var ProductService = (function () {
         this.dataStore.addData('Categories', { 'Description': newCategory });
     };
     ProductService.prototype.getAnnotatedCategories = function () {
-        return Rx_1.Observable.combineLatest(this.getAnnotatedProducts(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
+        return Rx_1.Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
             return categories.map(function (category) {
                 var suppliersInCategory = productsAnnotated.filter(function (product) { return product.data.Categorie && product.data.Categorie.includes(category._id); }).map(function (product) { return product.annotation.supplierName; })
                     .reduce(function (a, b) {
@@ -76,8 +76,22 @@ var ProductService = (function () {
     ProductService.prototype.getProductsBySupplier = function (supplierId) {
         return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplierId; }); });
     };
-    ProductService.prototype.getAnnotedProductsBySupplier = function (supplierId) {
-        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), function (products, basketItems) {
+    ProductService.prototype.getProductsBoughtByUser = function (userIdObservable, ordersObservable) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('Produits'), ordersObservable, userIdObservable, function (products, orders, userId) {
+            var distinctProductIdsByUser = orders.filter(function (order) { return order.userId === userId; }).reduce(function (acc, order) {
+                var items = order.items;
+                items.forEach(function (item) {
+                    if (!acc.includes(item.product)) {
+                        acc.push(item.product);
+                    }
+                });
+                return acc;
+            }, []);
+            return products.filter(function (product) { return distinctProductIdsByUser.includes(product._id); });
+        });
+    };
+    ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
+        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), function (products, basketItems) {
             return products.map(function (product) {
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
                 return {
@@ -90,7 +104,14 @@ var ProductService = (function () {
             });
         });
     };
-    ProductService.prototype.getAnnotatedProducts = function () {
+    ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId));
+    };
+    ProductService.prototype.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo = function () {
+        var productsObservable = this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));
+        return this.getAnnotatedProductsWithBasketInfo(productsObservable);
+    };
+    ProductService.prototype.getAnnotatedProductsWithSupplierInfo = function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"), function (produits, suppliers) {
             return produits.map(function (produit) {
                 var supplier = suppliers.filter(function (supplier) { return supplier._id === produit.Supplier; })[0];
@@ -115,7 +136,7 @@ var ProductService = (function () {
             return basket.filter(function (basketItem) { return basketItem.user === userId; });
         });
     };
-    ProductService.prototype.getAnnotedProductsInBasketBySupplier = function (supplierId) {
+    ProductService.prototype.getAnnotatedProductsInBasketBySupplier = function (supplierId) {
         var _this = this;
         return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), function (products, basketItems, otps) {
             return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); })
