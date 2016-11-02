@@ -22,6 +22,9 @@ var ProductListComponent = (function () {
     ProductListComponent.prototype.getProductObservable = function (id) {
         return this.productsObservable.map(function (products) { return products.filter(function (product) { return product.data._id === id; })[0]; });
     };
+    ProductListComponent.prototype.showColumn = function (columnName) {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

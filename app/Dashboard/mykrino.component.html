@@ -1,7 +1,7 @@
 <div class="card" *ngIf="currentUser">
 	<div class="card-block">
 		<ngb-tabset>
-			<ngb-tab title="My Account">
+			<ngb-tab title="My account">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -25,17 +25,17 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My Notes">
+			<ngb-tab title="My notes">
 				<template ngbTabContent>
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My Products">
+			<ngb-tab title="My ordered products">
 				<template ngbTabContent>
 					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category']}"></gg-product-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My Orders">
+			<ngb-tab title="My orders">
 				<template ngbTabContent>
 					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
 				</template>

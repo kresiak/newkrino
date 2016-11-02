@@ -1,5 +1,19 @@
 <div class="card">
-    <div class="card-block">
-        <gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>
-    </div>
+	<div class="card-block">
+		<div class="row">
+			<div class="col-sm-2 col-md-2 vcenter">
+				<b>Product</b>
+			</div>
+			<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
+			<div class="col-sm-2 col-md-2 vcenter">
+				<b>Price</b>
+			</div>
+			<div class="col-sm-4 col-md-4 vcenter" *ngIf="showColumn('category')"><b>Category</b>
+			</div>
+			<div class="col-sm-2 col-md-2 vcenter">
+                    <b>Qty in basket</b>
+			</div>
+		</div>
+		<gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>
+	</div>
 </div>

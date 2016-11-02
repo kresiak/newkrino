@@ -2,6 +2,7 @@
 	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor [content]="product.data.Description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
 	</div>
+	<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('supplier')">{{product.annotation.supplierName}}</div>
 	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor #prix [content]="product.data.Prix" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)"></gg-editor>
 	</div>

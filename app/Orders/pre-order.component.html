@@ -7,7 +7,7 @@
 					<div class="card">
 						<div class="card-block">
 							<div class="row">
-								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category']}"></gg-product-list>
+								<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'supplier']}"></gg-product-list>
 							</div>
 							<div class="row">
 								<button class="btn btn-warning" (click)="createOrder()">Pass the order</button>

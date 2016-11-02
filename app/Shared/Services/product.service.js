@@ -91,14 +91,16 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
-        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), function (products, basketItems) {
+        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"), function (products, basketItems, suppliers) {
             return products.map(function (product) {
+                var supplier = suppliers.filter(function (supplier) { return supplier._id === product.Supplier; })[0];
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
                 return {
                     data: product,
                     annotation: {
                         basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
-                        quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0
+                        quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
+                        supplierName: supplier ? supplier.Nom : "unknown"
                     }
                 };
             });

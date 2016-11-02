@@ -89,15 +89,17 @@ export class ProductService {
     }
 
     private getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(),
-            (products, basketItems) => {
+        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"),
+            (products, basketItems, suppliers) => {
                 return products.map(product => {
+                    let supplier= suppliers.filter(supplier => supplier._id === product.Supplier)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
                         data: product,
                         annotation: {
                             basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
-                            quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0
+                            quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
+                            supplierName: supplier ? supplier.Nom : "unknown"
                         }
                     };
                 });
