@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ChartistModule, ChartistComponent} from 'angular2-chartist';
 
 import { AppComponent } from './app.component'
 import { HomeComponent} from './home.component'
@@ -48,12 +49,14 @@ import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
+import {ChartService} from './Shared/Services/chart.service'
 
 import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   imports:      [ 
           MomentModule,
+          ChartistModule,
           BrowserModule, 
           FormsModule, ReactiveFormsModule,
           HttpModule,
@@ -84,7 +87,7 @@ import {MomentModule} from 'angular2-moment';
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService ],
+  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

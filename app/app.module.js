@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
+var angular2_chartist_1 = require('angular2-chartist');
 var app_component_1 = require('./app.component');
 var home_component_1 = require('./home.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
@@ -49,6 +50,7 @@ var data_service_1 = require('./Shared/Services/data.service');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var otp_choice_service_1 = require('./Shared/Services/otp-choice.service');
 var user_service_1 = require('./Shared/Services/user.service');
+var chart_service_1 = require('./Shared/Services/chart.service');
 var angular2_moment_1 = require('angular2-moment');
 var AppModule = (function () {
     function AppModule() {
@@ -57,6 +59,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 angular2_moment_1.MomentModule,
+                angular2_chartist_1.ChartistModule,
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule, forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
@@ -87,7 +90,7 @@ var AppModule = (function () {
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService],
+            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

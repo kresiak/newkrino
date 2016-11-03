@@ -40,6 +40,25 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Graphics">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class='akbox'>
+								<div class='akcontent'>
+									<x-chartist [data]="pieSpentChart.data" [type]="pieSpentChart.type"></x-chartist>
+								</div>
+							</div>
+							
+						</div>"
+					</div>
+
+				</div>
+			</div>
+		</template>
+	</ngb-tab>	
 	<ngb-tab title="Comments">
 		<template ngbTabContent>
 			<gg-comments [comments]="otp.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>

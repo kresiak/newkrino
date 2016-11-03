@@ -24,7 +24,9 @@
       // other libraries
       'rxjs': 'npm:rxjs',
       'moment': 'npm:moment',
+      'chartist': 'npm:chartist',      
       'angular2-moment': 'npm:angular2-moment',
+      'angular2-chartist': 'npm:angular2-chartist',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
     },
@@ -45,10 +47,18 @@
         main: './moment.js',
         defaultExtension: 'js'
       },
+      'chartist': {
+        main: './dist/chartist.js',
+        defaultExtension: 'js'
+      },
       'angular2-moment': {
         main: './index.js',
         defaultExtension: 'js'
-      }
+      },
+      'angular2-chartist': {
+        main: './dist/angular2-chartist.js',
+        defaultExtension: 'js'
+      }      
     }
   });
 })(this);

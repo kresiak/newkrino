@@ -14,14 +14,14 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
+var chart_service_1 = require('./../Shared/Services/chart.service');
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService, userService) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
-        /*      this.otpComments=[{user: {fullName:'Alexis Dali'}, time:new Date(), content:'This is my first comment' },
-                  {user: {fullName:'Alex Kvasz'}, time:new Date(), content:'This is my second comment' }];*/
+        this.chartService = chartService;
     }
     OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -30,6 +30,7 @@ var OtpDetailComponent = (function () {
         this.otpObservable.subscribe(function (otp) {
             _this.otp = otp;
             if (otp) {
+                _this.pieSpentChart = _this.chartService.getSpentPieData(_this.otp.annotation.amountSpent / _this.otp.annotation.budget * 100);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
             }
@@ -65,7 +66,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

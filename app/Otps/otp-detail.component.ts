@@ -5,6 +5,7 @@ import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
 import { UserService } from './../Shared/Services/user.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
+import {ChartService} from './../Shared/Services/chart.service'
 
 
 @Component(
@@ -15,10 +16,10 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
     }
 )
 export class OtpDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService) {
-  /*      this.otpComments=[{user: {fullName:'Alexis Dali'}, time:new Date(), content:'This is my first comment' },
-            {user: {fullName:'Alex Kvasz'}, time:new Date(), content:'This is my second comment' }];*/
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
+                private chartService: ChartService) {
     }
+    private pieSpentChart;
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -27,6 +28,7 @@ export class OtpDetailComponent implements OnInit {
             this.otp = otp;
             if (otp)
             {
+                this.pieSpentChart= this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
             }
@@ -35,7 +37,6 @@ export class OtpDetailComponent implements OnInit {
 
     @Input() otpObservable: Observable<any>;
     private otp;
-    //private otpComments;
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;

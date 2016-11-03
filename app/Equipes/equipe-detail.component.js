@@ -13,17 +13,20 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
+var chart_service_1 = require('./../Shared/Services/chart.service');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(dataStore, orderService, userService) {
+    function EquipeDetailComponent(dataStore, orderService, userService, chartService) {
         this.dataStore = dataStore;
         this.orderService = orderService;
         this.userService = userService;
+        this.chartService = chartService;
     }
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.equipeObservable.subscribe(function (eq) {
             _this.equipe = eq;
             if (eq) {
+                _this.pieSpentChart = _this.chartService.getSpentPieData(_this.equipe.annotation.amountSpent / _this.equipe.annotation.budget * 100);
                 _this.usersObservable = _this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.data.Users.includes(user._id); }); });
                 _this.otpsObservable = _this.orderService.getAnnotatedOtpsByEquipe(_this.equipe.data._id);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
@@ -54,7 +57,7 @@ var EquipeDetailComponent = (function () {
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());
