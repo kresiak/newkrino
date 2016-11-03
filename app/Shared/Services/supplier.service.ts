@@ -33,4 +33,19 @@ export class SupplierService {
         );
     }
 
+    getAnnotatedSuppliers2(): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'),
+            (suppliers) => {
+                return suppliers.map(supplier => {
+                    return {
+                        data: supplier,
+                        annotation: {
+                            hasBasket: false
+                        }
+                    }
+                });
+            }
+        );
+    }
+
 }

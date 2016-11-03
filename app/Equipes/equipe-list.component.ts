@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {OrderService} from './../Shared/Services/order.service'
 import {Observable} from 'rxjs/Rx'
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
  {
@@ -12,6 +13,7 @@ export class EquipeListComponent implements OnInit{
     constructor(private orderService: OrderService)    {}
 
     equipes: Observable<any>;
+    openPanelId: string= "";
 
     ngOnInit():void{
         this.equipes= this.orderService.getAnnotatedEquipes();
@@ -20,6 +22,12 @@ export class EquipeListComponent implements OnInit{
    getEquipeObservable(id: string) : Observable<any>
     {
         return this.equipes.map(equipes=> equipes.filter(s => s.data._id===id)[0]);
-    }    
+    }
+
+    public beforeChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState) 
+            this.openPanelId= $event.panelId;
+    };
+        
 }
 

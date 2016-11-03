@@ -18,6 +18,7 @@ var SupplierDetailComponent = (function () {
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
+        this.tabChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
     }
     SupplierDetailComponent.prototype.ngOnInit = function () {
@@ -35,10 +36,27 @@ var SupplierDetailComponent = (function () {
         var link = ['/preorder', this.supplier._id];
         this.router.navigate(link);
     };
+    SupplierDetailComponent.prototype.beforeChange = function ($event) {
+        this.selectedTabId = $event.nextId;
+        this.tabChanged.next(this.selectedTabId);
+    };
+    ;
+    __decorate([
+        core_1.ViewChild('tabset'), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "tabset", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], SupplierDetailComponent.prototype, "supplierObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "selectedTabId", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "tabChanged", void 0);
     SupplierDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

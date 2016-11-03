@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="card-block">
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforePanelChange($event)" [activeIds]="openPanelId">
 			<ngb-panel [disabled]="true">
 				<template ngbPanelTitle>
                     <div class="row">
@@ -11,7 +11,7 @@
 				<template ngbPanelContent>
 				</template>				
 			</ngb-panel>
-			<ngb-panel *ngFor="let supplier of suppliers | async">
+			<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
 				<template ngbPanelTitle>
                     <div class="row">
                         <div class="col-sm-3">{{supplier.data.Nom}}</div>
@@ -20,7 +20,7 @@
                     </div>														
 				</template>
 				<template ngbPanelContent>
-					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"></gg-supplier-detail>
+					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"  [selectedTabId]="openSupplierTabs[supplier.data._id]" (tabChanged)="supplierDetailTabChanged($event, supplier.data._id)"></gg-supplier-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

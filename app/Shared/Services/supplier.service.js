@@ -40,6 +40,18 @@ var SupplierService = (function () {
             });
         });
     };
+    SupplierService.prototype.getAnnotatedSuppliers2 = function () {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'), function (suppliers) {
+            return suppliers.map(function (supplier) {
+                return {
+                    data: supplier,
+                    annotation: {
+                        hasBasket: false
+                    }
+                };
+            });
+        });
+    };
     SupplierService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(product_service_1.ProductService)), 

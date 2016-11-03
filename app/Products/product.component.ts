@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'

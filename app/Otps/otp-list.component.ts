@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
@@ -32,6 +33,7 @@ export class OtpListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
+    openPanelId: string= "";
 
     private otps;
 
@@ -56,5 +58,10 @@ export class OtpListComponent implements OnInit {
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
+
+    public beforeChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState) 
+            this.openPanelId= $event.panelId;
+    };
 
 }

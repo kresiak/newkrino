@@ -31,6 +31,7 @@ exports.OtpListComponentRoutable = OtpListComponentRoutable;
 var OtpListComponent = (function () {
     function OtpListComponent() {
         this.searchControl = new forms_1.FormControl();
+        this.openPanelId = "";
         this.searchForm = new forms_1.FormGroup({
             searchControl: new forms_1.FormControl()
         });
@@ -51,6 +52,11 @@ var OtpListComponent = (function () {
     OtpListComponent.prototype.showColumn = function (columnName) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     };
+    OtpListComponent.prototype.beforeChange = function ($event) {
+        if ($event.nextState)
+            this.openPanelId = $event.panelId;
+    };
+    ;
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

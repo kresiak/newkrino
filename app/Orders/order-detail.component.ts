@@ -34,7 +34,9 @@ export class OrderComponentRoutable implements OnInit {
 )
 export class OrderDetailComponent implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService,
-        private dataStore: DataStore, private elementRef: ElementRef) { }
+        private dataStore: DataStore, private elementRef: ElementRef) { 
+
+        }
 
     @Input() orderObservable: Observable<any>;
     private smallScreen: boolean;

@@ -15,13 +15,29 @@ var SupplierListComponent = (function () {
     function SupplierListComponent(dataStore, supplierService) {
         this.dataStore = dataStore;
         this.supplierService = supplierService;
+        // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
+        this.openPanelId = "";
+        // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+        this.openSupplierTabs = {};
     }
     SupplierListComponent.prototype.ngOnInit = function () {
-        this.suppliers = this.supplierService.getAnnotatedSuppliers();
+        var _this = this;
+        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
+        this.suppliersObservable.subscribe(function (suppliers) {
+            return _this.suppliers = suppliers;
+        });
         //this.dataStore.getDataObservable('Suppliers');
     };
     SupplierListComponent.prototype.getSupplierObservable = function (id) {
-        return this.suppliers.map(function (suppliers) { return suppliers.filter(function (s) { return s.data._id === id; })[0].data; });
+        return this.suppliersObservable.map(function (suppliers) { return suppliers.filter(function (s) { return s.data._id === id; })[0].data; });
+    };
+    SupplierListComponent.prototype.beforePanelChange = function ($event) {
+        if ($event.nextState)
+            this.openPanelId = $event.panelId;
+    };
+    ;
+    SupplierListComponent.prototype.supplierDetailTabChanged = function (tabId, supplierId) {
+        this.openSupplierTabs[supplierId] = tabId;
     };
     SupplierListComponent = __decorate([
         core_1.Component({

@@ -13,6 +13,7 @@ var product_service_1 = require('./../Shared/Services/product.service');
 var CategoryListComponent = (function () {
     function CategoryListComponent(productService) {
         this.productService = productService;
+        this.openPanelId = "";
     }
     CategoryListComponent.prototype.ngOnInit = function () {
         this.categories = this.productService.getAnnotatedCategories();
@@ -23,6 +24,11 @@ var CategoryListComponent = (function () {
     CategoryListComponent.prototype.getCategoryObservable = function (id) {
         return this.categories.map(function (categories) { return categories.filter(function (s) { return s.data._id === id; })[0]; });
     };
+    CategoryListComponent.prototype.beforeChange = function ($event) {
+        if ($event.nextState)
+            this.openPanelId = $event.panelId;
+    };
+    ;
     CategoryListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

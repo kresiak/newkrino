@@ -13,6 +13,7 @@ var order_service_1 = require('./../Shared/Services/order.service');
 var EquipeListComponent = (function () {
     function EquipeListComponent(orderService) {
         this.orderService = orderService;
+        this.openPanelId = "";
     }
     EquipeListComponent.prototype.ngOnInit = function () {
         this.equipes = this.orderService.getAnnotatedEquipes();
@@ -20,6 +21,11 @@ var EquipeListComponent = (function () {
     EquipeListComponent.prototype.getEquipeObservable = function (id) {
         return this.equipes.map(function (equipes) { return equipes.filter(function (s) { return s.data._id === id; })[0]; });
     };
+    EquipeListComponent.prototype.beforeChange = function ($event) {
+        if ($event.nextState)
+            this.openPanelId = $event.panelId;
+    };
+    ;
     EquipeListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

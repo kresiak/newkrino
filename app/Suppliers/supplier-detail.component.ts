@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
 import {ProductService} from './../Shared/Services/product.service'
 import {OrderService} from './../Shared/Services/order.service'
 import {Observable} from 'rxjs/Rx'
 import { Router } from '@angular/router';
+import {NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component(
@@ -14,7 +15,11 @@ import { Router } from '@angular/router';
 )
 export class SupplierDetailComponent implements OnInit
 {
-    constructor(private productService: ProductService, private orderService: OrderService,  private router: Router)    {}
+    constructor(private productService: ProductService, private orderService: OrderService,  private router: Router)    {
+        
+    }
+
+    @ViewChild('tabset') tabset;
 
     ngOnInit(): void{
         this.supplierObservable.subscribe(supplier => 
@@ -29,6 +34,9 @@ export class SupplierDetailComponent implements OnInit
     }
 
     @Input() supplierObservable: Observable<any>;
+    @Input() selectedTabId;
+    @Output() tabChanged= new EventEmitter();
+
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;
@@ -41,4 +49,9 @@ export class SupplierDetailComponent implements OnInit
         let link = ['/preorder', this.supplier._id];
         this.router.navigate(link);        
     }
+
+    public beforeChange($event: NgbTabChangeEvent) {
+        this.selectedTabId= $event.nextId;
+        this.tabChanged.next(this.selectedTabId);
+    };    
 }
