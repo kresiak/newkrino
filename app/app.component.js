@@ -65,8 +65,9 @@ var AppComponent = (function () {
         var _this = this;
         this.router.events.filter(function (event) { return event instanceof router_1.NavigationEnd; }).subscribe(function (event) {
             var e = event;
+            var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
             try {
-                _this.activateMenu(_this.menu.filter(function (menuitem) { return menuitem.route === e.urlAfterRedirects; })[0]);
+                _this.activateMenu(_this.menu.filter(function (menuitem) { return menuitem.route === r; })[0]);
             }
             finally { }
         });

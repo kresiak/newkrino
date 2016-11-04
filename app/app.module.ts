@@ -72,7 +72,8 @@ import {MomentModule} from 'angular2-moment';
             { path: "home", component: HomeComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
-            { path: 'order/:id', component: OrderComponentRoutable }
+            { path: 'order/:id', component: OrderComponentRoutable },
+            { path: '**', redirectTo: '/home'}
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 

@@ -75,7 +75,8 @@ var AppModule = (function () {
                     { path: "home", component: home_component_1.HomeComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
-                    { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable }
+                    { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable },
+                    { path: '**', redirectTo: '/home' }
                 ])
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,

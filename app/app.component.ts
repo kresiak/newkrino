@@ -18,8 +18,9 @@ export class AppComponent implements OnInit {
         this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event =>
             {
                 var e= <NavigationEnd>event;
+                var r= e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
                 try{
-                    this.activateMenu(this.menu.filter(menuitem => menuitem.route===e.urlAfterRedirects)[0]);
+                    this.activateMenu(this.menu.filter(menuitem => menuitem.route===r)[0]);
                 }
                 finally{}
             }
