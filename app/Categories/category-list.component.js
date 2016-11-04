@@ -24,7 +24,7 @@ var CategoryListComponent = (function () {
     CategoryListComponent.prototype.getCategoryObservable = function (id) {
         return this.categories.map(function (categories) { return categories.filter(function (s) { return s.data._id === id; })[0]; });
     };
-    CategoryListComponent.prototype.beforeChange = function ($event) {
+    CategoryListComponent.prototype.beforeAccordionChange = function ($event) {
         if ($event.nextState)
             this.openPanelId = $event.panelId;
     };

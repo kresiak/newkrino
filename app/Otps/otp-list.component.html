@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeChange($event)" [activeIds]="openPanelId">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
@@ -31,7 +31,7 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)"></gg-otp-detail>
+						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

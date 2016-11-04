@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {ProductService} from './../Shared/Services/product.service'
 import {OrderService} from './../Shared/Services/order.service'
 import {Observable} from 'rxjs/Rx'
@@ -19,9 +19,18 @@ export class SupplierDetailComponent implements OnInit
         
     }
 
-    @ViewChild('tabset') tabset;
+    @Input() supplierObservable: Observable<any>;
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
+
+    private stateInit()
+    {
+        if (!this.state) this.state= {};
+        if (!this.state.selectedTabId) this.state.selectedTabId = '';
+    }    
 
     ngOnInit(): void{
+        this.stateInit();
         this.supplierObservable.subscribe(supplier => 
         {
             this.supplier= supplier;
@@ -33,9 +42,6 @@ export class SupplierDetailComponent implements OnInit
         });
     }
 
-    @Input() supplierObservable: Observable<any>;
-    @Input() selectedTabId;
-    @Output() tabChanged= new EventEmitter();
 
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
@@ -50,8 +56,15 @@ export class SupplierDetailComponent implements OnInit
         this.router.navigate(link);        
     }
 
-    public beforeChange($event: NgbTabChangeEvent) {
-        this.selectedTabId= $event.nextId;
-        this.tabChanged.next(this.selectedTabId);
-    };    
+   public beforeTabChange($event: NgbTabChangeEvent) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };  
+
+    private childOrdersStateChanged($event)
+    {
+        this.state.Orders= $event;
+        this.stateChanged.next(this.state);
+    }
+    
 }

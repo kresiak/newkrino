@@ -1,33 +1,53 @@
-import {Component, OnInit} from '@angular/core'
-import {OrderService} from './../Shared/Services/order.service'
-import {Observable} from 'rxjs/Rx'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { OrderService } from './../Shared/Services/order.service'
+import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
- {
-     moduleId: module.id,
-     templateUrl: './equipe-list.component.html'
- }
+    {
+        moduleId: module.id,
+        templateUrl: './equipe-list.component.html'
+    }
 )
-export class EquipeListComponent implements OnInit{
-    constructor(private orderService: OrderService)    {}
+export class EquipeListComponent implements OnInit {
+    constructor(private orderService: OrderService) { }
 
     equipes: Observable<any>;
-    openPanelId: string= "";
+    
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
 
-    ngOnInit():void{
-        this.equipes= this.orderService.getAnnotatedEquipes();
-    }
-
-   getEquipeObservable(id: string) : Observable<any>
+    private stateInit()
     {
-        return this.equipes.map(equipes=> equipes.filter(s => s.data._id===id)[0]);
+        if (!this.state) this.state= {};
+        if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    public beforeChange($event: NgbPanelChangeEvent) {
-        if ($event.nextState) 
-            this.openPanelId= $event.panelId;
+    ngOnInit(): void {
+        this.stateInit();
+        this.equipes = this.orderService.getAnnotatedEquipes();
+    }
+
+    getEquipeObservable(id: string): Observable<any> {
+        return this.equipes.map(equipes => equipes.filter(s => s.data._id === id)[0]);
+    }
+
+    
+
+    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
+    private beforeAccordionChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState)
+        {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }            
     };
-        
+
+    // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    private childStateChanged(newState, objectId)
+    {
+            this.state[objectId]= newState;
+            this.stateChanged.next(this.state);
+    }
 }
 

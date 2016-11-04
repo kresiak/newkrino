@@ -44,9 +44,17 @@ var OrderDetailComponent = (function () {
         this.userService = userService;
         this.dataStore = dataStore;
         this.elementRef = elementRef;
+        this.stateChanged = new core_1.EventEmitter();
     }
+    OrderDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = '';
+    };
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
         this.orderObservable.subscribe(function (order) {
             _this.order = order;
@@ -79,10 +87,23 @@ var OrderDetailComponent = (function () {
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
         }
     };
+    OrderDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+    ;
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OrderDetailComponent.prototype, "orderObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OrderDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], OrderDetailComponent.prototype, "stateChanged", void 0);
     OrderDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -18,11 +18,18 @@ var SupplierDetailComponent = (function () {
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
-        this.tabChanged = new core_1.EventEmitter();
+        this.stateChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
     }
+    SupplierDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = '';
+    };
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
             _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier._id);
@@ -36,15 +43,15 @@ var SupplierDetailComponent = (function () {
         var link = ['/preorder', this.supplier._id];
         this.router.navigate(link);
     };
-    SupplierDetailComponent.prototype.beforeChange = function ($event) {
-        this.selectedTabId = $event.nextId;
-        this.tabChanged.next(this.selectedTabId);
+    SupplierDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
     };
     ;
-    __decorate([
-        core_1.ViewChild('tabset'), 
-        __metadata('design:type', Object)
-    ], SupplierDetailComponent.prototype, "tabset", void 0);
+    SupplierDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -52,11 +59,11 @@ var SupplierDetailComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)
-    ], SupplierDetailComponent.prototype, "selectedTabId", void 0);
+    ], SupplierDetailComponent.prototype, "state", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
-    ], SupplierDetailComponent.prototype, "tabChanged", void 0);
+    ], SupplierDetailComponent.prototype, "stateChanged", void 0);
     SupplierDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -31,7 +31,7 @@ export class CategoryListComponent implements OnInit{
         return this.categories.map(categories=> categories.filter(s => s.data._id===id)[0]);
     }
 
-    public beforeChange($event: NgbPanelChangeEvent) {
+    public beforeAccordionChange($event: NgbPanelChangeEvent) {
         if ($event.nextState) 
             this.openPanelId= $event.panelId;
     };

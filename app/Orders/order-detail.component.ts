@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
 import { DataStore } from '../Shared/Services/data.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
@@ -34,15 +35,26 @@ export class OrderComponentRoutable implements OnInit {
 )
 export class OrderDetailComponent implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService,
-        private dataStore: DataStore, private elementRef: ElementRef) { 
+        private dataStore: DataStore, private elementRef: ElementRef) {
 
-        }
+    }
 
     @Input() orderObservable: Observable<any>;
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
+
+    private stateInit()
+    {
+        if (!this.state) this.state= {};
+        if (!this.state.selectedTabId) this.state.selectedTabId = '';
+    }    
+
+
     private smallScreen: boolean;
-    
+
 
     ngOnInit(): void {
+        this.stateInit();
         this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
 
         this.orderObservable.subscribe(order => {
@@ -56,7 +68,7 @@ export class OrderDetailComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        
+
     }
 
 
@@ -87,4 +99,9 @@ export class OrderDetailComponent implements OnInit {
         }
 
     }
+
+    public beforeTabChange($event: NgbTabChangeEvent) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
 }

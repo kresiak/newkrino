@@ -20,9 +20,17 @@ var EquipeDetailComponent = (function () {
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.stateChanged = new core_1.EventEmitter();
     }
+    EquipeDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = '';
+    };
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.equipeObservable.subscribe(function (eq) {
             _this.equipe = eq;
             if (eq) {
@@ -47,10 +55,31 @@ var EquipeDetailComponent = (function () {
             this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
         }
     };
+    EquipeDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+    ;
+    EquipeDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
+    EquipeDetailComponent.prototype.childOtpsStateChanged = function ($event) {
+        this.state.Otps = $event;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], EquipeDetailComponent.prototype, "equipeObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], EquipeDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], EquipeDetailComponent.prototype, "stateChanged", void 0);
     EquipeDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

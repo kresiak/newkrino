@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable } from 'rxjs/Rx'
@@ -17,9 +17,17 @@ export class SupplierListComponent implements OnInit {
 
     private suppliers; //: Observable<any>;
     private suppliersObservable: Observable<any>;
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
 
+    private stateInit()
+    {
+        if (!this.state) this.state= {};
+        if (!this.state.openPanelId) this.state.openPanelId = '';
+    }
 
     ngOnInit(): void {
+        this.stateInit();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
         this.suppliersObservable.subscribe(suppliers => 
             this.suppliers = suppliers);
@@ -30,19 +38,19 @@ export class SupplierListComponent implements OnInit {
         return this.suppliersObservable.map(suppliers => suppliers.filter(s => s.data._id === id)[0].data);
     }
 
-    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
-    private openPanelId: string= "";
-    public beforePanelChange($event: NgbPanelChangeEvent) {
-        if ($event.nextState) 
-            this.openPanelId= $event.panelId;
+   // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
+    private beforeAccordionChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState)
+        {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }            
     };
 
-
     // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
-    private openSupplierTabs= {};
-    supplierDetailTabChanged(tabId, supplierId)
+    private childStateChanged(newState, objectId)
     {
-        this.openSupplierTabs[supplierId]= tabId;
-    }
-}
+            this.state[objectId]= newState;
+            this.stateChanged.next(this.state);
+    }}
 
