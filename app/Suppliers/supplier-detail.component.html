@@ -1,5 +1,5 @@
-<ngb-tabset *ngIf="supplier">
-	<ngb-tab title="Info">
+<ngb-tabset #tabset *ngIf="supplier" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+	<ngb-tab title="Info" id="tabInfo">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -15,17 +15,17 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Products">
+	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
 			<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" *ngIf="anyOrder">
+	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}"></gg-order-list>
+			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Shopping Basket" *ngIf='isThereABasket'>
+	<ngb-tab title="Shopping Basket" *ngIf='isThereABasket' id="tabBasket">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -39,7 +39,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Add a product">
+	<ngb-tab title="Add a product" id="tabAddProduct">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">

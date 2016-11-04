@@ -18,27 +18,59 @@ var SupplierDetailComponent = (function () {
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
+        this.initialTab = '';
+        this.stateChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
     }
+    SupplierDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = this.initialTab;
+    };
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
-            _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier._id);
-            _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
-            _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
-            _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier._id);
-            _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+            if (supplier) {
+                _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier._id);
+                _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
+                _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
+                _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier._id);
+                _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+            }
         });
     };
     SupplierDetailComponent.prototype.gotoPreOrder = function () {
         var link = ['/preorder', this.supplier._id];
         this.router.navigate(link);
     };
+    SupplierDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+    ;
+    SupplierDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], SupplierDetailComponent.prototype, "supplierObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SupplierDetailComponent.prototype, "initialTab", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "stateChanged", void 0);
     SupplierDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

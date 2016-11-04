@@ -65,7 +65,7 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 router_1.RouterModule.forRoot([
-                    { path: "suppliers", component: supplier_list_component_1.SupplierListComponent },
+                    { path: "suppliers", component: supplier_list_component_1.SupplierListComponentRoutable },
                     { path: "equipes", component: equipe_list_component_1.EquipeListComponent },
                     { path: "orders", component: order_list_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_component_1.CategoryListComponent },
@@ -75,12 +75,13 @@ var AppModule = (function () {
                     { path: "home", component: home_component_1.HomeComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
-                    { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable }
+                    { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable },
+                    { path: '**', redirectTo: '/home' }
                 ])
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
-                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, product_enter_component_1.ProductEnterComponent,
+                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, product_enter_component_1.ProductEnterComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,

@@ -11,21 +11,83 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./../Shared/Services/data.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
+var Rx_1 = require('rxjs/Rx');
+var SupplierListComponentRoutable = (function () {
+    function SupplierListComponentRoutable(supplierService) {
+        this.supplierService = supplierService;
+    }
+    SupplierListComponentRoutable.prototype.ngOnInit = function () {
+        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
+    };
+    SupplierListComponentRoutable = __decorate([
+        core_1.Component({
+            template: "<gg-supplier-list [suppliersObservable]= \"suppliersObservable\"></gg-supplier-list>"
+        }), 
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService])
+    ], SupplierListComponentRoutable);
+    return SupplierListComponentRoutable;
+}());
+exports.SupplierListComponentRoutable = SupplierListComponentRoutable;
 var SupplierListComponent = (function () {
     function SupplierListComponent(dataStore, supplierService) {
         this.dataStore = dataStore;
         this.supplierService = supplierService;
+        this.initialTabInSupplierDetail = '';
+        this.stateChanged = new core_1.EventEmitter();
     }
+    SupplierListComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.openPanelId)
+            this.state.openPanelId = '';
+    };
     SupplierListComponent.prototype.ngOnInit = function () {
-        this.suppliers = this.supplierService.getAnnotatedSuppliers();
-        //this.dataStore.getDataObservable('Suppliers');
+        var _this = this;
+        this.stateInit();
+        this.suppliersObservable.subscribe(function (suppliers) {
+            return _this.suppliers = suppliers;
+        });
     };
     SupplierListComponent.prototype.getSupplierObservable = function (id) {
-        return this.suppliers.map(function (suppliers) { return suppliers.filter(function (s) { return s.data._id === id; })[0].data; });
+        return this.suppliersObservable.map(function (suppliers) {
+            var supplier = suppliers.filter(function (s) { return s.data._id === id; })[0];
+            return supplier ? supplier.data : null;
+        });
     };
+    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
+    SupplierListComponent.prototype.beforeAccordionChange = function ($event) {
+        if ($event.nextState) {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }
+    };
+    ;
+    // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    SupplierListComponent.prototype.childStateChanged = function (newState, objectId) {
+        this.state[objectId] = newState;
+        this.stateChanged.next(this.state);
+    };
+    __decorate([
+        //: Observable<any>;
+        core_1.Input(), 
+        __metadata('design:type', Rx_1.Observable)
+    ], SupplierListComponent.prototype, "suppliersObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], SupplierListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SupplierListComponent.prototype, "initialTabInSupplierDetail", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], SupplierListComponent.prototype, "stateChanged", void 0);
     SupplierListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
+            selector: 'gg-supplier-list',
             templateUrl: './supplier-list.component.html'
         }), 
         __metadata('design:paramtypes', [data_service_1.DataStore, supplier_service_1.SupplierService])

@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="card-block">
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" >
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 			<ngb-panel [disabled]="true">
 				<template ngbPanelTitle>
                     <div class="row">
@@ -13,7 +13,7 @@
 					
 				</template>				
 			</ngb-panel>
-			<ngb-panel *ngFor="let equipe of equipes | async" >
+			<ngb-panel *ngFor="let equipe of equipes | async"  [id]="equipe.data._id">
 				<template ngbPanelTitle>
                     <div class="row">
                         <div class="col-sm-3">{{equipe.data.Name}}</div>
@@ -22,7 +22,7 @@
                     </div>									
 				</template>
 				<template ngbPanelContent>
-					<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)"></gg-equipe-detail>
+					<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [state]="state[equipe.data._id]" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

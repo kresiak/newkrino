@@ -31,11 +31,19 @@ exports.OrderListComponentRoutable = OrderListComponentRoutable;
 var OrderListComponent = (function () {
     function OrderListComponent() {
         this.searchControl = new forms_1.FormControl();
+        this.stateChanged = new core_1.EventEmitter();
         this.searchForm = new forms_1.FormGroup({
             searchControl: new forms_1.FormControl()
         });
     }
+    OrderListComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.openPanelId)
+            this.state.openPanelId = '';
+    };
     OrderListComponent.prototype.ngOnInit = function () {
+        this.stateInit();
         this.orders2Observable = Rx_1.Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), function (orders, searchTxt) {
             var txt = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#')
@@ -70,10 +78,31 @@ var OrderListComponent = (function () {
     OrderListComponent.prototype.showColumn = function (columnName) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     };
+    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
+    OrderListComponent.prototype.beforeAccordionChange = function ($event) {
+        if ($event.nextState) {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }
+    };
+    ;
+    // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    OrderListComponent.prototype.childStateChanged = function (newState, objectId) {
+        this.state[objectId] = newState;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OrderListComponent.prototype, "ordersObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OrderListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], OrderListComponent.prototype, "stateChanged", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)

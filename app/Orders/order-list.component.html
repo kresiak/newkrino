@@ -17,7 +17,7 @@
 		</div>
 		<div class="row">
 
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
@@ -32,7 +32,7 @@
 					</template>
 
 				</ngb-panel>
-				<ngb-panel *ngFor="let order of orders2Observable | async">
+				<ngb-panel *ngFor="let order of orders2Observable | async " [id]="order.data._id">
 					<template ngbPanelTitle>
 						<div class="row">
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
@@ -43,7 +43,7 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)"></gg-order-detail>
+						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" (stateChanged)="childStateChanged($event, order.data._id)"></gg-order-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

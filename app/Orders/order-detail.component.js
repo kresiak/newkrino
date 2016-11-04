@@ -14,6 +14,7 @@ var order_service_1 = require('../Shared/Services/order.service');
 var data_service_1 = require('../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
+var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var OrderComponentRoutable = (function () {
     function OrderComponentRoutable(orderService, route) {
         this.orderService = orderService;
@@ -38,15 +39,24 @@ var OrderComponentRoutable = (function () {
 }());
 exports.OrderComponentRoutable = OrderComponentRoutable;
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef) {
+    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
         this.dataStore = dataStore;
         this.elementRef = elementRef;
+        this.modalService = modalService;
+        this.stateChanged = new core_1.EventEmitter();
     }
+    OrderDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = '';
+    };
     OrderDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
         this.orderObservable.subscribe(function (order) {
             _this.order = order;
@@ -58,6 +68,22 @@ var OrderDetailComponent = (function () {
         });
     };
     OrderDetailComponent.prototype.ngAfterViewInit = function () {
+    };
+    OrderDetailComponent.prototype.openModal = function (template, orderItem) {
+        var _this = this;
+        this.selectedDeliveryItem = orderItem;
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
+        var promise = ref.result;
+        promise.then(function (qtyDelivered) {
+            if (!_this.selectedDeliveryItem.data.deliveries)
+                _this.selectedDeliveryItem.data.deliveries = [];
+            _this.selectedDeliveryItem.data.deliveries.push({ quantity: +qtyDelivered });
+            _this.dataStore.updateData('orders', _this.order.data._id, _this.order.data);
+            _this.selectedDeliveryItem = undefined;
+        }, function (res) {
+        });
+        promise.catch(function (err) {
+        });
     };
     OrderDetailComponent.prototype.otpUpdated = function (orderItem, newOtpIds) {
         if (newOtpIds && newOtpIds.length > 0) {
@@ -79,17 +105,30 @@ var OrderDetailComponent = (function () {
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
         }
     };
+    OrderDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+    ;
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OrderDetailComponent.prototype, "orderObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OrderDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], OrderDetailComponent.prototype, "stateChanged", void 0);
     OrderDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

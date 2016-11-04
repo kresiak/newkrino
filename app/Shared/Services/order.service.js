@@ -99,7 +99,13 @@ var OrderService = (function () {
                         annotation: {
                             otp: otp ? otp.Name : 'Unknown otp',
                             description: product ? product.Description : 'Unknown product',
-                            price: product ? product.Prix : '0'
+                            price: product ? product.Prix : '0',
+                            nbDelivered: (item.deliveries || []).reduce(function (acc, delivery) { return acc + (+delivery.quantity); }, 0),
+                            deliveries: (item.deliveries || []).map(function (delivery) {
+                                return {
+                                    data: delivery
+                                };
+                            })
                         }
                     };
                 })

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
 import { Observable } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
@@ -39,11 +40,21 @@ export class OrderListComponent implements OnInit {
 
 
     @Input() ordersObservable: Observable<any>;
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
+
+    private stateInit()
+    {
+        if (!this.state) this.state= {};
+        if (!this.state.openPanelId) this.state.openPanelId = '';
+    }
+
     @Input() config;
 
     private orders2Observable: Observable<any>; 
 
     ngOnInit(): void {
+        this.stateInit();
         this.orders2Observable= Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), (orders, searchTxt: string) => {
             let txt: string= searchTxt.trim().toUpperCase(); 
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders;
@@ -82,6 +93,22 @@ export class OrderListComponent implements OnInit {
 
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
+    }
+
+   // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
+    private beforeAccordionChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState)
+        {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }            
+    };
+    
+    // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    private childStateChanged(newState, objectId)
+    {
+            this.state[objectId]= newState;
+            this.stateChanged.next(this.state);
     }
 }
 

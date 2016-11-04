@@ -22,9 +22,17 @@ var OtpDetailComponent = (function () {
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.stateChanged = new core_1.EventEmitter();
     }
+    OtpDetailComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.selectedTabId)
+            this.state.selectedTabId = '';
+    };
     OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.Categorie; });
         this.otpObservable.subscribe(function (otp) {
@@ -56,10 +64,27 @@ var OtpDetailComponent = (function () {
             this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
         }
     };
+    OtpDetailComponent.prototype.beforeTabChange = function ($event) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+    ;
+    OtpDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
     ], OtpDetailComponent.prototype, "otpObservable", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], OtpDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], OtpDetailComponent.prototype, "stateChanged", void 0);
     OtpDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
