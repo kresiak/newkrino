@@ -1,7 +1,7 @@
 <div class="card" *ngIf="currentUser">
 	<div class="card-block">
-		<ngb-tabset>
-			<ngb-tab title="My account">
+		<ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+			<ngb-tab title="My account" id='tabMyAccount'>
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -32,26 +32,26 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My notes">
+			<ngb-tab title="My notes" id="tabNotes">
 				<template ngbTabContent>
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My ordered products">
+			<ngb-tab title="My ordered products" id="tabProducts">
 				<template ngbTabContent>
 					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category']}"></gg-product-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My orders">
+			<ngb-tab title="My orders" id="tabOrders">
 				<template ngbTabContent>
-					<gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.Name}}">
+			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.Name}}" [id]="equipe.data._id">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
-							<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)"></gg-equipe-detail>
+							<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [state]="state[equipe.data._id]" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
 						</div>
 					</div>
 				</template>

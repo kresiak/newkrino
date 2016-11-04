@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core'
 import {OrderService} from './../Shared/Services/order.service'
 import {ProductService} from './../Shared/Services/product.service'
 import {AuthService} from './../Shared/Services/auth.service'
 import {DataStore} from './../Shared/Services/data.service'
 import {Observable} from 'rxjs/Rx'
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
  {
@@ -19,7 +20,18 @@ export class MyKrinoComponent implements OnInit{
     equipesObservable: Observable<any>;
     currentUser;
 
+    @Input() state;
+    @Output() stateChanged= new EventEmitter();
+
+    private stateInit()
+    {
+        if (!this.state) this.state= {};
+        if (!this.state.selectedTabId) this.state.selectedTabId = '';
+    }    
+    
+
     ngOnInit():void{
+        this.stateInit();
         this.ordersObservable= this.orderService.getAnnotedOrdersOfCurrentUser();
         this.productsObservable= this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
         this.authService.getAnnotatedCurrentUser().subscribe(res => {
@@ -42,5 +54,23 @@ export class MyKrinoComponent implements OnInit{
         return this.equipesObservable.map(equipes=> equipes.filter(s => s.data._id===id)[0]);
     }    
 
+   public beforeTabChange($event: NgbTabChangeEvent) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+
+   // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    private childStateChanged(newState, objectId)
+    {
+            this.state[objectId]= newState;
+            this.stateChanged.next(this.state);
+    }    
+
+    private childOrdersStateChanged($event)
+    {
+        this.state.Orders= $event;
+        this.stateChanged.next(this.state);
+    }
+    
 }
 
