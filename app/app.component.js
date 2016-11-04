@@ -9,12 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var AppComponent = (function () {
-    function AppComponent(authService) {
+    function AppComponent(authService, route, router) {
         this.authService = authService;
+        this.route = route;
+        this.router = router;
         this.title = 'Krino';
         this.menu = [
             {
@@ -60,6 +63,13 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.router.events.filter(function (event) { return event instanceof router_1.NavigationEnd; }).subscribe(function (event) {
+            var e = event;
+            try {
+                _this.activateMenu(_this.menu.filter(function (menuitem) { return menuitem.route === e.urlAfterRedirects; })[0]);
+            }
+            finally { }
+        });
         this.usersObservable = this.authService.getAnnotatedUsers();
         this.usersObservable.subscribe(function (users) {
             _this.users = users;
@@ -98,7 +108,7 @@ var AppComponent = (function () {
             selector: 'giga-app',
             templateUrl: './app.component.html'
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.ActivatedRoute, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

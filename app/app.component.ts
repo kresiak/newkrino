@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthService } from './Shared/Services/auth.service'
@@ -11,9 +12,18 @@ import { AuthService } from './Shared/Services/auth.service'
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router ) { }
 
     ngOnInit(): void {
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event =>
+            {
+                var e= <NavigationEnd>event;
+                try{
+                    this.activateMenu(this.menu.filter(menuitem => menuitem.route===e.urlAfterRedirects)[0]);
+                }
+                finally{}
+            }
+        );
         this.usersObservable = this.authService.getAnnotatedUsers();
         this.usersObservable.subscribe(users => {
             this.users = users;
