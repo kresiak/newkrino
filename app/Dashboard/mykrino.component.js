@@ -11,14 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var order_service_1 = require('./../Shared/Services/order.service');
 var product_service_1 = require('./../Shared/Services/product.service');
+var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
 var data_service_1 = require('./../Shared/Services/data.service');
 var MyKrinoComponent = (function () {
-    function MyKrinoComponent(orderService, productService, authService, dataStore) {
+    function MyKrinoComponent(orderService, productService, authService, dataStore, supplierService) {
         this.orderService = orderService;
         this.productService = productService;
         this.authService = authService;
         this.dataStore = dataStore;
+        this.supplierService = supplierService;
         this.stateChanged = new core_1.EventEmitter();
     }
     MyKrinoComponent.prototype.stateInit = function () {
@@ -30,6 +32,7 @@ var MyKrinoComponent = (function () {
     MyKrinoComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
+        this.suppliersWithBasketObservable = this.supplierService.getAnnotatedSuppliers().map(function (suppliers) { return suppliers.filter(function (supplier) { return supplier.annotation.hasBasket; }); });
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
         this.productsObservable = this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
         this.authService.getAnnotatedCurrentUser().subscribe(function (res) {
@@ -73,7 +76,7 @@ var MyKrinoComponent = (function () {
             moduleId: module.id,
             templateUrl: './mykrino.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, product_service_1.ProductService, auth_service_1.AuthService, data_service_1.DataStore])
+        __metadata('design:paramtypes', [order_service_1.OrderService, product_service_1.ProductService, auth_service_1.AuthService, data_service_1.DataStore, supplier_service_1.SupplierService])
     ], MyKrinoComponent);
     return MyKrinoComponent;
 }());

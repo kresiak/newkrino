@@ -4,9 +4,27 @@ import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
+
+@Component(
+    {
+        template: `<gg-supplier-list [suppliersObservable]= "suppliersObservable"></gg-supplier-list>`
+    }
+)
+export class SupplierListComponentRoutable implements OnInit {
+    constructor(private supplierService: SupplierService) { }
+
+    ngOnInit(): void {
+        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
+    }
+
+    private suppliersObservable: Observable<any>;
+}
+
+
 @Component(
     {
         moduleId: module.id,
+        selector: 'gg-supplier-list',
         templateUrl: './supplier-list.component.html'
     }
 )
@@ -16,9 +34,11 @@ export class SupplierListComponent implements OnInit {
     }
 
     private suppliers; //: Observable<any>;
-    private suppliersObservable: Observable<any>;
+    @Input() suppliersObservable: Observable<any>;
     @Input() state;
+    @Input() initialTabInSupplierDetail: string = '';
     @Output() stateChanged= new EventEmitter();
+
 
     private stateInit()
     {
@@ -28,14 +48,16 @@ export class SupplierListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
         this.suppliersObservable.subscribe(suppliers => 
             this.suppliers = suppliers);
-        //this.dataStore.getDataObservable('Suppliers');
     }
 
     getSupplierObservable(id: string): Observable<any> {
-        return this.suppliersObservable.map(suppliers => suppliers.filter(s => s.data._id === id)[0].data);
+        return this.suppliersObservable.map(suppliers => 
+        {
+            let supplier= suppliers.filter(s => s.data._id === id)[0];
+            return supplier ? supplier.data : null; 
+        } );
     }
 
    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)

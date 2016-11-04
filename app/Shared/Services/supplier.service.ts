@@ -33,7 +33,7 @@ export class SupplierService {
         );
     }
 
-    getAnnotatedSuppliers2(): Observable<any> {
+/*    getAnnotatedSuppliers2(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'),
             (suppliers) => {
                 return suppliers.map(supplier => {
@@ -46,6 +46,6 @@ export class SupplierService {
                 });
             }
         );
-    }
+    }*/
 
 }

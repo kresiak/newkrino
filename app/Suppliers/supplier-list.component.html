@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="suppliers && suppliers.length > 0">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 			<ngb-panel [disabled]="true">
@@ -20,7 +20,8 @@
                     </div>														
 				</template>
 				<template ngbPanelContent>
-					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"  [state]="state[supplier.data._id]" (stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
+					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"  [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail" 
+							(stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

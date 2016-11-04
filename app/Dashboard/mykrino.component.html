@@ -32,17 +32,22 @@
 					</div>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="My basket" id="tabBaskets" *ngIf="(suppliersWithBasketObservable |async).length>0">
+				<template ngbTabContent>
+					<gg-supplier-list [suppliersObservable]= "suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
+				</template>
+			</ngb-tab>
 			<ngb-tab title="My notes" id="tabNotes">
 				<template ngbTabContent>
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My ordered products" id="tabProducts">
+			<ngb-tab title="My ordered products" id="tabProducts" *ngIf="(productsObservable |async).length>0">
 				<template ngbTabContent>
 					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category']}"></gg-product-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My orders" id="tabOrders">
+			<ngb-tab title="My orders" id="tabOrders" *ngIf="(ordersObservable |async).length>0">
 				<template ngbTabContent>
 					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 				</template>

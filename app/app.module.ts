@@ -9,7 +9,7 @@ import {ChartistModule, ChartistComponent} from 'angular2-chartist';
 import { AppComponent } from './app.component'
 import { HomeComponent} from './home.component'
 
-import {SupplierListComponent} from './Suppliers/supplier-list.component';
+import {SupplierListComponent, SupplierListComponentRoutable} from './Suppliers/supplier-list.component';
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductListComponent} from './Products/product-list.component';
@@ -62,7 +62,7 @@ import {MomentModule} from 'angular2-moment';
           HttpModule,
           NgbModule.forRoot(),
           RouterModule.forRoot([
-            { path: "suppliers", component: SupplierListComponent},
+            { path: "suppliers", component: SupplierListComponentRoutable},
             { path: "equipes", component: EquipeListComponent},
             { path: "orders", component: OrderListComponentRoutable},
             { path: "categories", component: CategoryListComponent},
@@ -78,7 +78,7 @@ import {MomentModule} from 'angular2-moment';
    ],
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, ProductComponent, ProductListComponent, ProductEnterComponent,
+                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, ProductComponent, ProductListComponent, ProductEnterComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
