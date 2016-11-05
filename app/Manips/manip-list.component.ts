@@ -25,7 +25,7 @@ export class ManipListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.manips = this.prestationService.getAnnotatedManips();
+        this.manips = this.prestationService.getAnnotatedManipsAll();
     }
 
     getManipObservable(id: string): Observable<any> {

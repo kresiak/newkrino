@@ -35,11 +35,17 @@ var PrestationService = (function () {
             }
         };
     };
-    PrestationService.prototype.getAnnotatedManips = function () {
+    PrestationService.prototype.getAnnotatedManips = function (manipsObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("manips"), this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(function (products) { return products.filter(function (product) { return product.manipIds; }); })), function (labels, manips, products) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), manipsObservable, this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(function (products) { return products.filter(function (product) { return product.manipIds; }); })), function (labels, manips, products) {
             return manips.map(function (manip) { return _this.createAnnotatedManip(manip, labels, products); });
         });
+    };
+    PrestationService.prototype.getAnnotatedManipsAll = function () {
+        return this.getAnnotatedManips(this.dataStore.getDataObservable("manips"));
+    };
+    PrestationService.prototype.getAnnotatedManipsByLabel = function (labelId) {
+        return this.getAnnotatedManips(this.dataStore.getDataObservable("manips").map(function (manips) { return manips.filter(function (manip) { return manip.labelId === labelId; }); }));
     };
     PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels) {
         if (!prestation)
@@ -57,6 +63,9 @@ var PrestationService = (function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), function (labels, prestations) {
             return prestations.sort(function (cat1, cat2) { return cat1.reference < cat2.reference ? -1 : 1; }).map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels); });
         });
+    };
+    PrestationService.prototype.updatePrestation = function (prestation) {
+        this.dataStore.updateData('prestations', prestation._id, prestation);
     };
     PrestationService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),

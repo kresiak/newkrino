@@ -23,7 +23,7 @@ var ManipListComponent = (function () {
     };
     ManipListComponent.prototype.ngOnInit = function () {
         this.stateInit();
-        this.manips = this.prestationService.getAnnotatedManips();
+        this.manips = this.prestationService.getAnnotatedManipsAll();
     };
     ManipListComponent.prototype.getManipObservable = function (id) {
         return this.manips.map(function (manips) { return manips.filter(function (s) { return s.data._id === id; })[0]; });

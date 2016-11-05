@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
+var forms_1 = require('@angular/forms');
+var prestation_service_1 = require('./../Shared/Services/prestation.service');
 var PrestationDetailComponent = (function () {
-    function PrestationDetailComponent() {
+    function PrestationDetailComponent(formBuilder, prestationService) {
+        this.formBuilder = formBuilder;
+        this.prestationService = prestationService;
         this.stateChanged = new core_1.EventEmitter();
     }
     PrestationDetailComponent.prototype.stateInit = function () {
@@ -25,11 +29,34 @@ var PrestationDetailComponent = (function () {
             return this.prestationObservable.map(prestation => prestation.annotation.manips);
         }
     */
+    PrestationDetailComponent.prototype.formBuild = function (manips, prestation) {
+        var _this = this;
+        var groupConfig = {};
+        var manipsSheet = prestation.data.manips;
+        manips.forEach(function (manip) {
+            var groupConfig2 = {};
+            var manipSheet = manipsSheet && manipsSheet[manip.data._id] ? manipsSheet[manip.data._id] : null;
+            groupConfig2['useManip'] = [manipSheet ? manipSheet.useManip : ''];
+            manip.annotation.products.forEach(function (product) {
+                groupConfig2[product.data._id] = _this.formBuilder.group({
+                    nbUnits: [manipSheet && manipSheet[product.data._id] ? manipSheet[product.data._id].nbUnits : '']
+                });
+            });
+            groupConfig[manip.data._id] = _this.formBuilder.group(groupConfig2);
+        });
+        this.formManipSheet = this.formBuilder.group(groupConfig);
+    };
     PrestationDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
         this.prestationObservable.subscribe(function (prestation) {
             _this.prestation = prestation;
+            _this.manipsObservable = _this.prestationService.getAnnotatedManipsByLabel(_this.prestation.data.labelId);
+            _this.manipsObservable.subscribe(function (manips) {
+                _this.manipsPossible = manips;
+                if (manips)
+                    _this.formBuild(manips, prestation);
+            });
         });
     };
     PrestationDetailComponent.prototype.beforeTabChange = function ($event) {
@@ -37,6 +64,15 @@ var PrestationDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     ;
+    PrestationDetailComponent.prototype.reset = function () {
+        this.formBuild(this.manipsPossible, this.prestation);
+    };
+    PrestationDetailComponent.prototype.save = function (formValue, isValid) {
+        if (!isValid)
+            return;
+        this.prestation.data.manips = formValue;
+        this.prestationService.updatePrestation(this.prestation.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -55,7 +91,7 @@ var PrestationDetailComponent = (function () {
             selector: 'gg-prestation-detail',
             templateUrl: './prestation-detail.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, prestation_service_1.PrestationService])
     ], PrestationDetailComponent);
     return PrestationDetailComponent;
 }());
