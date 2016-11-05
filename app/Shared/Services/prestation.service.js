@@ -47,21 +47,22 @@ var PrestationService = (function () {
     PrestationService.prototype.getAnnotatedManipsByLabel = function (labelId) {
         return this.getAnnotatedManips(this.dataStore.getDataObservable("manips").map(function (manips) { return manips.filter(function (manip) { return manip.labelId === labelId; }); }));
     };
-    PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels) {
+    PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels, annotatedManips, users) {
         if (!prestation)
             return null;
         var label = labels.filter(function (label) { return label._id === prestation.labelId; })[0];
         return {
             data: prestation,
             annotation: {
-                label: label ? label.name : 'unknown label'
+                label: label ? label.name : 'unknown label',
             }
         };
     };
     PrestationService.prototype.getAnnotatedPrestations = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), function (labels, prestations) {
-            return prestations.sort(function (cat1, cat2) { return cat1.reference < cat2.reference ? -1 : 1; }).map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels); });
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(), this.dataStore.getDataObservable("krinousers"), function (labels, prestations, manipsAnnotated, users) {
+            return prestations.sort(function (cat1, cat2) { return cat1.reference < cat2.reference ? -1 : 1; })
+                .map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, users); });
         });
     };
     PrestationService.prototype.updatePrestation = function (prestation) {

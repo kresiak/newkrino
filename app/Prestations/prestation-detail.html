@@ -61,4 +61,31 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Working hours" id="tabWorkingHours">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+						<div class="row" *ngFor="let manip of manipsObservable | async" [formGroupName]="manip.data._id">
+							<div class="col-sm-3">
+								<label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" formControlName="useManip"/>
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">{{manip.data.name}}</span>
+                            </label>
+							</div>
+							<div class="col-sm-8">
+								<div class="row" *ngFor="let product of manip.annotation.products" [formGroupName]="product.data._id">
+									<div class="form-group row">
+										<label class="col-sm-5 col-form-label">Nb of {{product.data.Description}}:</label>
+										<div class="col-sm-6">
+											<input type="number" min="0" class="form-control" placeholder="number of units" formControlName="nbUnits" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 </ngb-tabset>

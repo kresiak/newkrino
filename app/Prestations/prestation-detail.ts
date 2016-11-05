@@ -36,17 +36,17 @@ export class PrestationDetailComponent implements OnInit {
     */
 
 
-    formBuild(manips, prestation) {
-
+    formManipSheetBuild(manips, prestation) {
         let groupConfig = {};
         let manipsSheet= prestation.data.manips;
         manips.forEach(manip => {
             let groupConfig2 = {};
-            let manipSheet= manipsSheet && manipsSheet[manip.data._id] ? manipsSheet[manip.data._id] : null;
-            groupConfig2['useManip'] = [manipSheet ? manipSheet.useManip  : ''];
+            let manipSheet= manipsSheet ? manipsSheet.filter(manipInSheet => manipInSheet.manipId===manip.data._id)[0] : null;
+            groupConfig2['useManip'] = [manipSheet ? manipSheet : ''];
             manip.annotation.products.forEach(product => {
+                let prodInSheet= manipSheet && manipSheet.products ? manipSheet.products.filter(prod => prod.productId===product.data._id)[0] : null; 
                 groupConfig2[product.data._id] = this.formBuilder.group({
-                    nbUnits: [manipSheet && manipSheet[product.data._id] ? manipSheet[product.data._id].nbUnits : '']
+                    nbUnits: [prodInSheet ? prodInSheet.quantity : '']
                 });
             })
             groupConfig[manip.data._id] = this.formBuilder.group(groupConfig2);
@@ -59,11 +59,11 @@ export class PrestationDetailComponent implements OnInit {
 
         this.stateInit();
         this.prestationObservable.subscribe(prestation => {
-            this.prestation = prestation;
+            this.prestation = prestation;            
             this.manipsObservable = this.prestationService.getAnnotatedManipsByLabel(this.prestation.data.labelId);
             this.manipsObservable.subscribe(manips => {
                 this.manipsPossible= manips;
-                if (manips) this.formBuild(manips, prestation);
+                if (manips) this.formManipSheetBuild(manips, prestation);
             });
 
         });
@@ -75,12 +75,25 @@ export class PrestationDetailComponent implements OnInit {
     };
 
     reset() {
-        this.formBuild(this.manipsPossible, this.prestation);
+        this.formManipSheetBuild(this.manipsPossible, this.prestation);
     }
 
     save(formValue, isValid) {
         if (!isValid) return;
-        this.prestation.data.manips= formValue;
+        let manipsData= this.manipsPossible.filter(manip => formValue[manip.data._id] && formValue[manip.data._id].useManip).map(manip => {
+            return {
+                manipId: manip.data._id,                
+                products: manip.annotation.products.filter(product => formValue[manip.data._id][product.data._id] && +formValue[manip.data._id][product.data._id].nbUnits).map(product =>
+                    {
+                        return {
+                            productId: product.data._id,
+                            quantity: +formValue[manip.data._id][product.data._id].nbUnits
+                        }
+                    }
+                )
+            };
+        })
+        this.prestation.data.manips= manipsData;
 
         this.prestationService.updatePrestation(this.prestation.data);
     }

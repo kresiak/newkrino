@@ -29,17 +29,18 @@ var PrestationDetailComponent = (function () {
             return this.prestationObservable.map(prestation => prestation.annotation.manips);
         }
     */
-    PrestationDetailComponent.prototype.formBuild = function (manips, prestation) {
+    PrestationDetailComponent.prototype.formManipSheetBuild = function (manips, prestation) {
         var _this = this;
         var groupConfig = {};
         var manipsSheet = prestation.data.manips;
         manips.forEach(function (manip) {
             var groupConfig2 = {};
-            var manipSheet = manipsSheet && manipsSheet[manip.data._id] ? manipsSheet[manip.data._id] : null;
-            groupConfig2['useManip'] = [manipSheet ? manipSheet.useManip : ''];
+            var manipSheet = manipsSheet ? manipsSheet.filter(function (manipInSheet) { return manipInSheet.manipId === manip.data._id; })[0] : null;
+            groupConfig2['useManip'] = [manipSheet ? manipSheet : ''];
             manip.annotation.products.forEach(function (product) {
+                var prodInSheet = manipSheet && manipSheet.products ? manipSheet.products.filter(function (prod) { return prod.productId === product.data._id; })[0] : null;
                 groupConfig2[product.data._id] = _this.formBuilder.group({
-                    nbUnits: [manipSheet && manipSheet[product.data._id] ? manipSheet[product.data._id].nbUnits : '']
+                    nbUnits: [prodInSheet ? prodInSheet.quantity : '']
                 });
             });
             groupConfig[manip.data._id] = _this.formBuilder.group(groupConfig2);
@@ -55,7 +56,7 @@ var PrestationDetailComponent = (function () {
             _this.manipsObservable.subscribe(function (manips) {
                 _this.manipsPossible = manips;
                 if (manips)
-                    _this.formBuild(manips, prestation);
+                    _this.formManipSheetBuild(manips, prestation);
             });
         });
     };
@@ -65,12 +66,23 @@ var PrestationDetailComponent = (function () {
     };
     ;
     PrestationDetailComponent.prototype.reset = function () {
-        this.formBuild(this.manipsPossible, this.prestation);
+        this.formManipSheetBuild(this.manipsPossible, this.prestation);
     };
     PrestationDetailComponent.prototype.save = function (formValue, isValid) {
         if (!isValid)
             return;
-        this.prestation.data.manips = formValue;
+        var manipsData = this.manipsPossible.filter(function (manip) { return formValue[manip.data._id] && formValue[manip.data._id].useManip; }).map(function (manip) {
+            return {
+                manipId: manip.data._id,
+                products: manip.annotation.products.filter(function (product) { return formValue[manip.data._id][product.data._id] && +formValue[manip.data._id][product.data._id].nbUnits; }).map(function (product) {
+                    return {
+                        productId: product.data._id,
+                        quantity: +formValue[manip.data._id][product.data._id].nbUnits
+                    };
+                })
+            };
+        });
+        this.prestation.data.manips = manipsData;
         this.prestationService.updatePrestation(this.prestation.data);
     };
     __decorate([

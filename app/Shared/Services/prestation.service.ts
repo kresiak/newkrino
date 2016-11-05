@@ -43,21 +43,23 @@ export class PrestationService {
 
 
 
-    private createAnnotatedPrestation(prestation, labels: any[]) {
+    private createAnnotatedPrestation(prestation, labels: any[], annotatedManips: any[], users: any[]) {
         if (!prestation) return null;
         let label = labels.filter(label => label._id === prestation.labelId)[0];
         return {
             data: prestation,
             annotation: {
-                label: label ? label.name : 'unknown label'
+                label: label ? label.name : 'unknown label',
             }
         };
     }
 
     getAnnotatedPrestations(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"),
-            (labels, prestations) => {
-                return prestations.sort((cat1, cat2) => { return cat1.reference < cat2.reference ? -1 : 1; }).map(prestation => this.createAnnotatedPrestation(prestation, labels));
+        return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(),
+                this.dataStore.getDataObservable("krinousers"),
+            (labels, prestations, manipsAnnotated, users) => {
+                return prestations.sort((cat1, cat2) => { return cat1.reference < cat2.reference ? -1 : 1; })
+                            .map(prestation => this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, users));
             });
     }
 
