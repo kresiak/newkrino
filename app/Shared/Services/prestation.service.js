@@ -23,7 +23,7 @@ var PrestationService = (function () {
         this.authService = authService;
         this.productService = productService;
     }
-    PrestationService.prototype.createAnnotedManip = function (manip, labels, productsAnnotated) {
+    PrestationService.prototype.createAnnotatedManip = function (manip, labels, productsAnnotated) {
         if (!manip)
             return null;
         var label = labels.filter(function (label) { return label._id === manip.labelId; })[0];
@@ -38,7 +38,24 @@ var PrestationService = (function () {
     PrestationService.prototype.getAnnotatedManips = function () {
         var _this = this;
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("manips"), this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(function (products) { return products.filter(function (product) { return product.manipIds; }); })), function (labels, manips, products) {
-            return manips.map(function (manip) { return _this.createAnnotedManip(manip, labels, products); });
+            return manips.map(function (manip) { return _this.createAnnotatedManip(manip, labels, products); });
+        });
+    };
+    PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels) {
+        if (!prestation)
+            return null;
+        var label = labels.filter(function (label) { return label._id === prestation.labelId; })[0];
+        return {
+            data: prestation,
+            annotation: {
+                label: label ? label.name : 'unknown label'
+            }
+        };
+    };
+    PrestationService.prototype.getAnnotatedPrestations = function () {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), function (labels, prestations) {
+            return prestations.sort(function (cat1, cat2) { return cat1.reference < cat2.reference ? -1 : 1; }).map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels); });
         });
     };
     PrestationService = __decorate([

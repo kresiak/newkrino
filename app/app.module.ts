@@ -23,6 +23,8 @@ import {OtpDetailComponent} from './Otps/otp-detail.component';
 
 import {ManipDetailComponent} from './Manips/manip-detail.component'
 import {ManipListComponent} from './Manips/manip-list.component'
+import {PrestationDetailComponent} from './Prestations/prestation-detail'
+import {PrestationListComponent} from './Prestations/prestation-list'
 
 import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
@@ -75,6 +77,7 @@ import {MomentModule} from 'angular2-moment';
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
             { path: "manips", component: ManipListComponent},
+            { path: "prestations", component: PrestationListComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
@@ -88,7 +91,7 @@ import {MomentModule} from 'angular2-moment';
                   CategoryListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
-                  ManipDetailComponent, ManipListComponent,
+                  ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,

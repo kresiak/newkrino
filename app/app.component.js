@@ -64,6 +64,11 @@ var AppComponent = (function () {
                 route: '/manips',
                 title: 'Manips',
                 active: false
+            },
+            {
+                route: '/prestations',
+                title: 'Prestations',
+                active: false
             }
         ];
     }

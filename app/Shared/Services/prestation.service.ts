@@ -12,7 +12,7 @@ export class PrestationService {
 
     }
 
-    private createAnnotedManip(manip, labels: any[], productsAnnotated: any[]) 
+    private createAnnotatedManip(manip, labels: any[], productsAnnotated: any[]) 
     {
         if (!manip) return null;
         let label= labels.filter(label => label._id===manip.labelId)[0];
@@ -29,7 +29,26 @@ export class PrestationService {
         return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("manips"),
             this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(products => products.filter(product => product.manipIds))),
             (labels, manips, products) => {
-                return manips.map(manip => this.createAnnotedManip(manip, labels, products));
+                return manips.map(manip => this.createAnnotatedManip(manip, labels, products));
+            });
+    }
+
+    private createAnnotatedPrestation(prestation, labels: any[]) 
+    {
+        if (!prestation) return null;
+        let label= labels.filter(label => label._id===prestation.labelId)[0];
+        return {
+            data: prestation,
+            annotation: {
+                label: label ? label.name : 'unknown label'
+            }
+        };
+    }
+
+    getAnnotatedPrestations(): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"),
+            (labels, prestations) => {
+                return prestations.sort((cat1, cat2) => {return cat1.reference < cat2.reference ? -1 : 1;}).map(prestation => this.createAnnotatedPrestation(prestation, labels));
             });
     }
 

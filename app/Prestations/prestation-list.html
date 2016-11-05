@@ -1,0 +1,32 @@
+<div class="card">
+	<div class="card-block">
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+			<ngb-panel [disabled]="true">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3"><b>Prestation</b></div>
+                        <div class="col-sm-2"><b>Label</b></div>
+                    </div>									
+				</template>
+				<template ngbPanelContent>
+					
+				</template>				
+			</ngb-panel>
+			<ngb-panel *ngFor="let prestation of prestations | async"  [id]="prestation.data._id">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3">{{prestation.data.reference}}</div>
+                        <div class="col-sm-2">{{prestation.annotation.label}}</div>
+                    </div>									
+				</template>
+				<template ngbPanelContent>
+					<gg-prestation-detail [prestationObservable]="getPrestationObservable(prestation.data._id)" [state]="state[prestation.data._id]" (stateChanged)="childStateChanged($event, prestation.data._id)"></gg-prestation-detail>
+				</template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
+</div>
+
+
+
+

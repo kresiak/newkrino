@@ -28,6 +28,8 @@ var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
 var otp_detail_component_1 = require('./Otps/otp-detail.component');
 var manip_detail_component_1 = require('./Manips/manip-detail.component');
 var manip_list_component_1 = require('./Manips/manip-list.component');
+var prestation_detail_1 = require('./Prestations/prestation-detail');
+var prestation_list_1 = require('./Prestations/prestation-list');
 var user_component_1 = require('./Users/user.component');
 var user_list_component_js_1 = require('./Users/user-list.component.js');
 var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
@@ -77,6 +79,7 @@ var AppModule = (function () {
                     { path: "mykrino", component: mykrino_component_1.MyKrinoComponent },
                     { path: "home", component: home_component_1.HomeComponent },
                     { path: "manips", component: manip_list_component_1.ManipListComponent },
+                    { path: "prestations", component: prestation_list_1.PrestationListComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
                     { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable },
@@ -90,7 +93,7 @@ var AppModule = (function () {
                 category_list_component_1.CategoryListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
-                manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent,
+                manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
