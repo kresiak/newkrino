@@ -44,7 +44,7 @@
 			</ngb-tab>
 			<ngb-tab title="My ordered products" id="tabProducts" *ngIf="(productsObservable |async).length>0">
 				<template ngbTabContent>
-					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category']}"></gg-product-list>
+					<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['category', 'manip']}"></gg-product-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My orders" id="tabOrders" *ngIf="(ordersObservable |async).length>0">

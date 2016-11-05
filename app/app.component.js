@@ -59,7 +59,13 @@ var AppComponent = (function () {
                 route: '/otps',
                 title: 'Otps',
                 active: false
-            },];
+            },
+            {
+                route: '/manips',
+                title: 'Manips',
+                active: false
+            }
+        ];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;

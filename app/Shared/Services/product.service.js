@@ -28,6 +28,13 @@ var ProductService = (function () {
         this.otpChoiceService = otpChoiceService;
         this.orderService = orderService;
     }
+    ProductService.prototype.getSelectableManips = function () {
+        return this.dataStore.getDataObservable('manips').map(function (manips) {
+            return manips.sort(function (cat1, cat2) { return cat1.name < cat2.name ? -1 : 1; }).map(function (manip) {
+                return new selectable_data_1.SelectableData(manip._id, manip.name);
+            });
+        });
+    };
     // categories
     // ==========
     ProductService.prototype.getSelectableCategories = function () {

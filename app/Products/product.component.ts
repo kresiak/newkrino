@@ -17,6 +17,9 @@ export class ProductComponent implements OnInit {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.Categorie);
 
+        this.selectableManipsObservable = this.productService.getSelectableManips();
+        this.selectedManipIdsObservable = this.productObservable.map(product => product.data.manipIds);
+
         this.productObservable.subscribe(product => {
             this.product = product;
         });
@@ -29,6 +32,10 @@ export class ProductComponent implements OnInit {
     private product;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
+
+    private selectableManipsObservable: Observable<any>;
+    private selectedManipIdsObservable: Observable<any>;
+
 
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
@@ -66,6 +73,11 @@ export class ProductComponent implements OnInit {
 
     categoryHasBeenAdded(newCategory: string) {
         this.productService.createCategory(newCategory);
+    }
+
+    manipSelectionChanged(selectedIds: string[]) {
+        this.product.data.manipIds = selectedIds;
+        this.productService.updateProduct(this.product.data);
     }
 
 

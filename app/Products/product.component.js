@@ -19,6 +19,8 @@ var ProductComponent = (function () {
         var _this = this;
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.Categorie; });
+        this.selectableManipsObservable = this.productService.getSelectableManips();
+        this.selectedManipIdsObservable = this.productObservable.map(function (product) { return product.data.manipIds; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
         });
@@ -53,6 +55,10 @@ var ProductComponent = (function () {
     };
     ProductComponent.prototype.categoryHasBeenAdded = function (newCategory) {
         this.productService.createCategory(newCategory);
+    };
+    ProductComponent.prototype.manipSelectionChanged = function (selectedIds) {
+        this.product.data.manipIds = selectedIds;
+        this.productService.updateProduct(this.product.data);
     };
     ProductComponent.prototype.quantityBasketUpdated = function (quantity) {
         var q = +quantity && (+quantity) >= 0 ? +quantity : 0;

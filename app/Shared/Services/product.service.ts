@@ -14,6 +14,17 @@ export class ProductService {
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
         @Inject(OrderService) private orderService: OrderService) { }
 
+
+    getSelectableManips(): Observable<SelectableData[]> {
+        return this.dataStore.getDataObservable('manips').map(manips => {
+            return manips.sort((cat1, cat2) => {return cat1.name < cat2.name ? -1 : 1;}).map(manip =>
+                new SelectableData(manip._id, manip.name)
+            )
+        });
+    }
+
+
+
     // categories
     // ==========
 
@@ -88,7 +99,7 @@ export class ProductService {
         }) ;
     }
 
-    private getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
+    getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"),
             (products, basketItems, suppliers) => {
                 return products.map(product => {
@@ -117,7 +128,7 @@ export class ProductService {
     }
 
 
-    private getAnnotatedProductsWithSupplierInfo() : Observable<any>
+    getAnnotatedProductsWithSupplierInfo() : Observable<any>
     {
         return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"),
             (produits, suppliers) => {

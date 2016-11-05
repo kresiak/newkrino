@@ -21,6 +21,9 @@ import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
 import {OtpDetailComponent} from './Otps/otp-detail.component';
 
+import {ManipDetailComponent} from './Manips/manip-detail.component'
+import {ManipListComponent} from './Manips/manip-list.component'
+
 import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
@@ -50,6 +53,7 @@ import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
 import {ChartService} from './Shared/Services/chart.service'
+import {PrestationService} from './Shared/Services/prestation.service'
 
 import {MomentModule} from 'angular2-moment';
 
@@ -70,6 +74,7 @@ import {MomentModule} from 'angular2-moment';
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
+            { path: "manips", component: ManipListComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
@@ -83,12 +88,13 @@ import {MomentModule} from 'angular2-moment';
                   CategoryListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
+                  ManipDetailComponent, ManipListComponent,
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, Checkbox, SelectorComponent
                  ],
-  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService ],
+  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

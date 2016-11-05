@@ -95,7 +95,13 @@ export class AppComponent implements OnInit {
             route: '/otps',
             title: 'Otps',
             active: false
-        },];
+        },
+        {
+            route: '/manips',
+            title: 'Manips',
+            active: false
+        }
+        ];
 
     activateMenu(menuItem) {
         this.menu.forEach(element => {

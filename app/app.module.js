@@ -26,6 +26,8 @@ var category_list_component_1 = require('./Categories/category-list.component');
 var otp_component_1 = require('./Otps/otp.component');
 var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
 var otp_detail_component_1 = require('./Otps/otp-detail.component');
+var manip_detail_component_1 = require('./Manips/manip-detail.component');
+var manip_list_component_1 = require('./Manips/manip-list.component');
 var user_component_1 = require('./Users/user.component');
 var user_list_component_js_1 = require('./Users/user-list.component.js');
 var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
@@ -51,6 +53,7 @@ var auth_service_1 = require('./Shared/Services/auth.service');
 var otp_choice_service_1 = require('./Shared/Services/otp-choice.service');
 var user_service_1 = require('./Shared/Services/user.service');
 var chart_service_1 = require('./Shared/Services/chart.service');
+var prestation_service_1 = require('./Shared/Services/prestation.service');
 var angular2_moment_1 = require('angular2-moment');
 var AppModule = (function () {
     function AppModule() {
@@ -73,6 +76,7 @@ var AppModule = (function () {
                     { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "mykrino", component: mykrino_component_1.MyKrinoComponent },
                     { path: "home", component: home_component_1.HomeComponent },
+                    { path: "manips", component: manip_list_component_1.ManipListComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
                     { path: 'order/:id', component: order_detail_component_1.OrderComponentRoutable },
@@ -86,12 +90,13 @@ var AppModule = (function () {
                 category_list_component_1.CategoryListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
+                manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent,
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
             ],
-            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService],
+            providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
