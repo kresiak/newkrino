@@ -43,23 +43,38 @@ export class PrestationService {
 
 
 
-    private createAnnotatedPrestation(prestation, labels: any[], annotatedManips: any[], users: any[]) {
+    private createAnnotatedPrestation(prestation, labels: any[], annotatedManips: any[], usersAnnotated: any[]) {
         if (!prestation) return null;
         let label = labels.filter(label => label._id === prestation.labelId)[0];
         return {
             data: prestation,
             annotation: {
                 label: label ? label.name : 'unknown label',
+                manips: !prestation.manips || prestation.manips.length === 0 ? null : prestation.manips.map(manip => {
+                    let manipAnnotated= annotatedManips.filter(annotatedManip => annotatedManip.data._id===manip.manipId)[0];
+                    return {
+                        data: manip,
+                        annotation: {
+                            manip: manipAnnotated ? manipAnnotated.data.name : 'unknown manip',
+                            worklogs: !manip.worklogs ? null : manip.worklogs.map(log => {
+                                let logUserAnnotated= usersAnnotated.filter(user => user.data._id===log.userId)[0];
+                                return {
+                                    data: log,
+                                    annotation: {
+                                        userFullName: logUserAnnotated ? logUserAnnotated.annotation.fullName : 'unknown user'
+                                    }};
+                            })}};
+                }) 
             }
         };
     }
 
     getAnnotatedPrestations(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(),
-                this.dataStore.getDataObservable("krinousers"),
-            (labels, prestations, manipsAnnotated, users) => {
+                this.authService.getAnnotatedUsers(),
+            (labels, prestations, manipsAnnotated, usersAnnotated) => {
                 return prestations.sort((cat1, cat2) => { return cat1.reference < cat2.reference ? -1 : 1; })
-                            .map(prestation => this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, users));
+                            .map(prestation => this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, usersAnnotated));
             });
     }
 

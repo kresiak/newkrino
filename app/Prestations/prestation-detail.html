@@ -61,29 +61,41 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Working hours" id="tabWorkingHours">
+	<ngb-tab title="Working hours" id="tabWorkingHours" *ngIf="prestation.annotation.manips">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-						<div class="row" *ngFor="let manip of manipsObservable | async" [formGroupName]="manip.data._id">
-							<div class="col-sm-3">
-								<label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" formControlName="useManip"/>
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">{{manip.data.name}}</span>
-                            </label>
-							</div>
-							<div class="col-sm-8">
-								<div class="row" *ngFor="let product of manip.annotation.products" [formGroupName]="product.data._id">
-									<div class="form-group row">
-										<label class="col-sm-5 col-form-label">Nb of {{product.data.Description}}:</label>
-										<div class="col-sm-6">
-											<input type="number" min="0" class="form-control" placeholder="number of units" formControlName="nbUnits" />
+					<ngb-tabset>
+						<ngb-tab title="Logged hours">
+							<template ngbTabContent>
+								<div class="card">
+									<div class="card-block">
+										<div class="row" *ngFor="let manip of prestation.annotation.manips">
+											<div class="col-sm-3">{{manip.annotation.manip}}</div>
+											<div class="col-sm-8">
+												<div *ngIf="manip.annotation.worklogs && manip.annotation.worklogs.length>0">
+													<div class="row" *ngFor="let log of manip.annotation.worklogs" style="margin:5px">
+														<div class="col-sm-3">{{log.annotation.userFullName}}</div>
+														<div class="col-sm-4">{{log.data.nbHours}} hours of work</div>
+                                                        <div class="col-sm-4">{{log.data.date | amTimeAgo}}</div>
+													</div>
+												</div>
+												<div class="row" style="margin:5px" *ngIf="!(manip.annotation.worklogs && manip.annotation.worklogs.length>0)">
+													<i>no hours logged yet</i>
+												</div>
+                                                <div class="row" style="margin:5px">
+                                                    <div class="col-sm-3 btn btn-success btn-sm" (click)="logHours(nbHours.value, manip.data)">Log following hours</div>
+                                                    <div class="col-sm-4">
+                                                        <input type="number" min="0" #nbHours/>
+                                                    </div>
+                                                </div>
+											</div><br/>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
+							</template>
+						</ngb-tab>
+					</ngb-tabset>
 				</div>
 			</div>
 		</template>

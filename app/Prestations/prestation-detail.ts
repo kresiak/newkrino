@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PrestationService } from './../Shared/Services/prestation.service'
+import {AuthService} from './../Shared/Services/auth.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
@@ -12,10 +13,8 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class PrestationDetailComponent implements OnInit {
-    constructor(private formBuilder: FormBuilder, private prestationService: PrestationService) {
+    constructor(private formBuilder: FormBuilder, private prestationService: PrestationService, private authService: AuthService) {
     }
-
-    private formManipSheet: FormGroup;
 
     @Input() prestationObservable: Observable<any>;
     @Input() state;
@@ -29,12 +28,8 @@ export class PrestationDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
-    /*    private getManipsObservable(): Observable<any>
-        {
-            return this.prestationObservable.map(prestation => prestation.annotation.manips);
-        }
-    */
 
+    private formManipSheet: FormGroup;
 
     formManipSheetBuild(manips, prestation) {
         let groupConfig = {};
@@ -56,7 +51,6 @@ export class PrestationDetailComponent implements OnInit {
 
 
     ngOnInit(): void {
-
         this.stateInit();
         this.prestationObservable.subscribe(prestation => {
             this.prestation = prestation;            
@@ -95,6 +89,20 @@ export class PrestationDetailComponent implements OnInit {
         })
         this.prestation.data.manips= manipsData;
 
+        this.prestationService.updatePrestation(this.prestation.data);
+    }
+
+    logHours(nbHours, manip)
+    {
+        if (! +nbHours || +nbHours <= 0) return;
+        if (!manip.worklogs) 
+            manip.worklogs=[];
+        manip.worklogs.push({
+            nbHours: + nbHours,
+            userId: this.authService.getUserId(),
+            date: new Date()
+        });
+        
         this.prestationService.updatePrestation(this.prestation.data);
     }
 }

@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var forms_1 = require('@angular/forms');
 var prestation_service_1 = require('./../Shared/Services/prestation.service');
+var auth_service_1 = require('./../Shared/Services/auth.service');
 var PrestationDetailComponent = (function () {
-    function PrestationDetailComponent(formBuilder, prestationService) {
+    function PrestationDetailComponent(formBuilder, prestationService, authService) {
         this.formBuilder = formBuilder;
         this.prestationService = prestationService;
+        this.authService = authService;
         this.stateChanged = new core_1.EventEmitter();
     }
     PrestationDetailComponent.prototype.stateInit = function () {
@@ -24,11 +26,6 @@ var PrestationDetailComponent = (function () {
         if (!this.state.selectedTabId)
             this.state.selectedTabId = '';
     };
-    /*    private getManipsObservable(): Observable<any>
-        {
-            return this.prestationObservable.map(prestation => prestation.annotation.manips);
-        }
-    */
     PrestationDetailComponent.prototype.formManipSheetBuild = function (manips, prestation) {
         var _this = this;
         var groupConfig = {};
@@ -85,6 +82,18 @@ var PrestationDetailComponent = (function () {
         this.prestation.data.manips = manipsData;
         this.prestationService.updatePrestation(this.prestation.data);
     };
+    PrestationDetailComponent.prototype.logHours = function (nbHours, manip) {
+        if (!+nbHours || +nbHours <= 0)
+            return;
+        if (!manip.worklogs)
+            manip.worklogs = [];
+        manip.worklogs.push({
+            nbHours: +nbHours,
+            userId: this.authService.getUserId(),
+            date: new Date()
+        });
+        this.prestationService.updatePrestation(this.prestation.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -103,7 +112,7 @@ var PrestationDetailComponent = (function () {
             selector: 'gg-prestation-detail',
             templateUrl: './prestation-detail.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, prestation_service_1.PrestationService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, prestation_service_1.PrestationService, auth_service_1.AuthService])
     ], PrestationDetailComponent);
     return PrestationDetailComponent;
 }());
