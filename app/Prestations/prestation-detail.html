@@ -31,10 +31,10 @@
 						<div class="row" *ngFor="let manip of manipsObservable | async" [formGroupName]="manip.data._id">
 							<div class="col-sm-3">
 								<label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" formControlName="useManip"/>
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">{{manip.data.name}}</span>
-                            </label>
+									<input type="checkbox" class="custom-control-input" formControlName="useManip"/>
+									<span class="custom-control-indicator"></span>
+									<span class="custom-control-description">{{manip.data.name}}</span>
+	                            </label>
 							</div>
 							<div class="col-sm-8">
 								<div class="row" *ngFor="let product of manip.annotation.products" [formGroupName]="product.data._id">

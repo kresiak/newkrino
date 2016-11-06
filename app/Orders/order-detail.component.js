@@ -69,16 +69,39 @@ var OrderDetailComponent = (function () {
     };
     OrderDetailComponent.prototype.ngAfterViewInit = function () {
     };
+    OrderDetailComponent.prototype.saveDelivery = function (orderItem, formData) {
+        var _this = this;
+        if (+formData.qty < 1)
+            return;
+        if (!orderItem.data.deliveries)
+            orderItem.data.deliveries = [];
+        var deliveryData = {
+            quantity: +formData.qty,
+            lotNb: formData.lot };
+        if (formData.resell) {
+            var prodData = {
+                produitId: orderItem.data.product,
+                orderId: this.order.data._id,
+                quantity: formData.qty,
+                factor: formData.factor };
+            this.dataStore.addData('productsStock', prodData).first().subscribe(function (res) {
+                deliveryData['stockId'] = res._id;
+                orderItem.data.deliveries.push(deliveryData);
+                _this.dataStore.updateData('orders', _this.order.data._id, _this.order.data);
+            });
+        }
+        else {
+            orderItem.data.deliveries.push(deliveryData);
+            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+        }
+    };
     OrderDetailComponent.prototype.openModal = function (template, orderItem) {
         var _this = this;
         this.selectedDeliveryItem = orderItem;
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
-        promise.then(function (qtyDelivered) {
-            if (!_this.selectedDeliveryItem.data.deliveries)
-                _this.selectedDeliveryItem.data.deliveries = [];
-            _this.selectedDeliveryItem.data.deliveries.push({ quantity: +qtyDelivered });
-            _this.dataStore.updateData('orders', _this.order.data._id, _this.order.data);
+        promise.then(function (data) {
+            _this.saveDelivery(_this.selectedDeliveryItem, data);
             _this.selectedDeliveryItem = undefined;
         }, function (res) {
         });

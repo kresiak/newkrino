@@ -41,13 +41,12 @@ export class OrderDetailComponent implements OnInit {
 
     @Input() orderObservable: Observable<any>;
     @Input() state;
-    @Output() stateChanged= new EventEmitter();
+    @Output() stateChanged = new EventEmitter();
 
-    private stateInit()
-    {
-        if (!this.state) this.state= {};
+    private stateInit() {
+        if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
-    }    
+    }
 
 
     private smallScreen: boolean;
@@ -71,16 +70,40 @@ export class OrderDetailComponent implements OnInit {
 
     }
 
+    private saveDelivery(orderItem, formData) {
+        if (+formData.qty < 1) return;
+        if (!orderItem.data.deliveries) orderItem.data.deliveries = [];
+        let deliveryData= { 
+            quantity: +formData.qty, 
+            lotNb: formData.lot };
+        if (formData.resell)
+        {
+            let prodData= {
+                produitId: orderItem.data.product,
+                orderId: this.order.data._id,
+                quantity: formData.qty,
+                factor: formData.factor };
+            this.dataStore.addData('productsStock', prodData).first().subscribe(res => {
+                deliveryData['stockId']= res._id;
+                orderItem.data.deliveries.push(deliveryData);
+                this.dataStore.updateData('orders', this.order.data._id, this.order.data);                
+            });
+        }
+        else
+        {
+            orderItem.data.deliveries.push(deliveryData);
+            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+        }        
+    }
+
     private selectedDeliveryItem;
     openModal(template, orderItem) {
-        this.selectedDeliveryItem= orderItem;
+        this.selectedDeliveryItem = orderItem;
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
-        promise.then((qtyDelivered) => {
-            if (!this.selectedDeliveryItem.data.deliveries) this.selectedDeliveryItem.data.deliveries= [];
-            this.selectedDeliveryItem.data.deliveries.push({quantity:+qtyDelivered})
-            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
-            this.selectedDeliveryItem= undefined;
+        promise.then((data) => {
+            this.saveDelivery(this.selectedDeliveryItem, data);
+            this.selectedDeliveryItem = undefined;
         }, (res) => {
         });
         promise.catch((err) => {
@@ -121,4 +144,5 @@ export class OrderDetailComponent implements OnInit {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
+
 }

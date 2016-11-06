@@ -18,7 +18,10 @@
 	right: 0;
 }
 
-
+.row
+{
+    margin: 3px
+}
 
 /*   x-chartist {
       display: block;
