@@ -38,7 +38,8 @@ var StockDetailComponent = (function () {
         this.stateInit();
         this.productObservable.subscribe(function (product) {
             _this.product = product;
-            _this.formStockInit(product);
+            if (product)
+                _this.formStockInit(product);
         });
     };
     StockDetailComponent.prototype.save = function (formValue, isValid) {

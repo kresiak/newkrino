@@ -42,7 +42,8 @@ export class StockDetailComponent implements OnInit {
 
         this.productObservable.subscribe(product => {
             this.product = product;
-            this.formStockInit(product);
+            if (product)
+                this.formStockInit(product);
         });
     }
 

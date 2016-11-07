@@ -29,19 +29,31 @@
 				<div class="card-block">
 					<form [formGroup]="formManipSheet" (ngSubmit)="save(formManipSheet.value, formManipSheet.valid)">
 						<div class="row" *ngFor="let manip of manipsObservable | async" [formGroupName]="manip.data._id">
-							<div class="col-sm-3">
+							<div class="col-sm-2">
 								<label class="custom-control custom-checkbox">
 									<input type="checkbox" class="custom-control-input" formControlName="useManip"/>
 									<span class="custom-control-indicator"></span>
 									<span class="custom-control-description">{{manip.data.name}}</span>
 	                            </label>
 							</div>
-							<div class="col-sm-8">
+							<div class="col-sm-10">
 								<div class="row" *ngFor="let product of manip.annotation.products" [formGroupName]="product.data._id">
 									<div class="form-group row">
-										<label class="col-sm-5 col-form-label">Nb of {{product.data.Description}}:</label>
-										<div class="col-sm-6">
-											<input type="number" min="0" class="form-control" placeholder="number of units" formControlName="nbUnits" />
+										<label class="col-sm-4 col-form-label">Nb of {{product.data.Description}}:</label>
+										<div class="col-sm-7">
+											<div class="row">												
+												<div class="col-sm-8">
+													<input type="number" min="0" class="form-control" placeholder="number of units" formControlName="nbUnits" />
+												</div>
+												<div class="col-sm-2">
+													<div class="btn btn-info" (click)="toggleCollapse(product.data._id)">+</div>
+												</div>												
+											</div>
+											<div class="row" [ngbCollapse]="isCollapseOpen(product.data._id)">
+												<div class="col-sm-12">
+													<gg-stock-detail [productObservable]="getStockProductObservable(product.data._id)"></gg-stock-detail>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>

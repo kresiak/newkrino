@@ -13,18 +13,31 @@ var Rx_1 = require('rxjs/Rx');
 var forms_1 = require('@angular/forms');
 var prestation_service_1 = require('./../Shared/Services/prestation.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
+var product_service_1 = require('./../Shared/Services/product.service');
 var PrestationDetailComponent = (function () {
-    function PrestationDetailComponent(formBuilder, prestationService, authService) {
+    function PrestationDetailComponent(formBuilder, prestationService, authService, productService) {
         this.formBuilder = formBuilder;
         this.prestationService = prestationService;
         this.authService = authService;
+        this.productService = productService;
         this.stateChanged = new core_1.EventEmitter();
+        this.collapseStatus = {};
     }
     PrestationDetailComponent.prototype.stateInit = function () {
         if (!this.state)
             this.state = {};
         if (!this.state.selectedTabId)
             this.state.selectedTabId = '';
+    };
+    PrestationDetailComponent.prototype.isCollapseOpen = function (id) {
+        if (!(id in this.collapseStatus))
+            this.collapseStatus[id] = true;
+        return this.collapseStatus[id];
+    };
+    PrestationDetailComponent.prototype.toggleCollapse = function (id) {
+        if (!(id in this.collapseStatus))
+            this.collapseStatus[id] = true;
+        this.collapseStatus[id] = !this.collapseStatus[id];
     };
     PrestationDetailComponent.prototype.formManipSheetBuild = function (manips, prestation) {
         var _this = this;
@@ -44,9 +57,16 @@ var PrestationDetailComponent = (function () {
         });
         this.formManipSheet = this.formBuilder.group(groupConfig);
     };
+    PrestationDetailComponent.prototype.getStockProductObservable = function (id) {
+        return this.stockProductsObservable.map(function (products) {
+            var product = products.filter(function (s) { return s.key === id; })[0];
+            return product;
+        });
+    };
     PrestationDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
+        this.stockProductsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
         this.prestationObservable.subscribe(function (prestation) {
             _this.prestation = prestation;
             _this.manipsObservable = _this.prestationService.getAnnotatedManipsByLabel(_this.prestation.data.labelId);
@@ -112,7 +132,7 @@ var PrestationDetailComponent = (function () {
             selector: 'gg-prestation-detail',
             templateUrl: './prestation-detail.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, prestation_service_1.PrestationService, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, prestation_service_1.PrestationService, auth_service_1.AuthService, product_service_1.ProductService])
     ], PrestationDetailComponent);
     return PrestationDetailComponent;
 }());

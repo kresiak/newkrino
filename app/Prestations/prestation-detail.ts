@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PrestationService } from './../Shared/Services/prestation.service'
 import {AuthService} from './../Shared/Services/auth.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { ProductService } from './../Shared/Services/product.service'
 
 @Component(
     {
@@ -13,7 +14,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class PrestationDetailComponent implements OnInit {
-    constructor(private formBuilder: FormBuilder, private prestationService: PrestationService, private authService: AuthService) {
+    constructor(private formBuilder: FormBuilder, private prestationService: PrestationService, private authService: AuthService, private productService: ProductService) {
     }
 
     @Input() prestationObservable: Observable<any>;
@@ -30,6 +31,21 @@ export class PrestationDetailComponent implements OnInit {
 
 
     private formManipSheet: FormGroup;
+    private stockProductsObservable: Observable<any>;
+    private collapseStatus= {};
+
+    isCollapseOpen(id)
+    {
+        if (! (id in this.collapseStatus)) this.collapseStatus[id]= true;
+        return this.collapseStatus[id];
+    }
+
+    toggleCollapse(id)
+    {
+        if (! (id in this.collapseStatus)) this.collapseStatus[id]= true;
+        this.collapseStatus[id] = ! this.collapseStatus[id];  
+    }
+
 
     formManipSheetBuild(manips, prestation) {
         let groupConfig = {};
@@ -49,9 +65,19 @@ export class PrestationDetailComponent implements OnInit {
         this.formManipSheet = this.formBuilder.group(groupConfig);
     }
 
+    getStockProductObservable(id: string): Observable<any> {
+        return this.stockProductsObservable.map(products => 
+        {
+            let product= products.filter(s => s.key === id)[0];
+            return product; 
+        } );
+    }
 
     ngOnInit(): void {
         this.stateInit();
+
+        this.stockProductsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
+
         this.prestationObservable.subscribe(prestation => {
             this.prestation = prestation;            
             this.manipsObservable = this.prestationService.getAnnotatedManipsByLabel(this.prestation.data.labelId);
