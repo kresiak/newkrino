@@ -23,6 +23,50 @@ export class ProductService {
         });
     }
 
+    // stock
+    // ==========
+
+    private createAnnotatedStockProduct(productStock, annotatedOrders: any[])
+    {
+        if (!productStock) return null;
+        let annotatedOrder= annotatedOrders.filter(order => order.data._id === productStock.orderId)[0];
+        if (!annotatedOrder) return null;
+        let annotatedOrderItem= annotatedOrder.annotation.items.filter(item => item.data.deliveries && item.data.deliveries.filter(delivery => delivery.stockId===productStock._id).length > 0)[0];
+        if (!annotatedOrderItem) return null;
+        let delivery= annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId===productStock._id)[0];
+        if (!delivery) return null;
+        let nbSold= ! productStock.sales ? 0 : productStock.sales.reduce((acc, sale) => acc + sale.quantity, 0);
+        return {
+            data: productStock,
+            annotation: {
+                supplier: annotatedOrder.annotation.supplier,
+                product: annotatedOrderItem.annotation.description,
+                nbInitialInStock: delivery.quantity,
+                lotNb: delivery.lotNb,
+                nbSold: nbSold,
+                nbAvailable: delivery.quantity - nbSold,
+                orderId: annotatedOrder.data._id
+            }
+        };
+    }
+
+    getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any>
+    {
+        return Observable.combineLatest(productsStockObservable, this. orderService.getAnnotedOrders(), (productsStock, annotatedOrders)=> {
+            return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders));
+        });
+    }
+
+     getAnnotatedAvailableStockProducts(productsStockObservable: Observable<any>): Observable<any>
+     {
+         return this.getAnnotatedStockProducts(productsStockObservable)
+                        .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
+     }
+
+     xx(): Observable<any>
+     {
+         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.annotation.product));
+     }     
 
 
     // categories

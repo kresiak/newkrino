@@ -35,6 +35,47 @@ var ProductService = (function () {
             });
         });
     };
+    // stock
+    // ==========
+    ProductService.prototype.createAnnotatedStockProduct = function (productStock, annotatedOrders) {
+        if (!productStock)
+            return null;
+        var annotatedOrder = annotatedOrders.filter(function (order) { return order.data._id === productStock.orderId; })[0];
+        if (!annotatedOrder)
+            return null;
+        var annotatedOrderItem = annotatedOrder.annotation.items.filter(function (item) { return item.data.deliveries && item.data.deliveries.filter(function (delivery) { return delivery.stockId === productStock._id; }).length > 0; })[0];
+        if (!annotatedOrderItem)
+            return null;
+        var delivery = annotatedOrderItem.data.deliveries.filter(function (delivery) { return delivery.stockId === productStock._id; })[0];
+        if (!delivery)
+            return null;
+        var nbSold = !productStock.sales ? 0 : productStock.sales.reduce(function (acc, sale) { return acc + sale.quantity; }, 0);
+        return {
+            data: productStock,
+            annotation: {
+                supplier: annotatedOrder.annotation.supplier,
+                product: annotatedOrderItem.annotation.description,
+                nbInitialInStock: delivery.quantity,
+                lotNb: delivery.lotNb,
+                nbSold: nbSold,
+                nbAvailable: delivery.quantity - nbSold,
+                orderId: annotatedOrder.data._id
+            }
+        };
+    };
+    ProductService.prototype.getAnnotatedStockProducts = function (productsStockObservable) {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrders(), function (productsStock, annotatedOrders) {
+            return productsStock.map(function (productStock) { return _this.createAnnotatedStockProduct(productStock, annotatedOrders); });
+        });
+    };
+    ProductService.prototype.getAnnotatedAvailableStockProducts = function (productsStockObservable) {
+        return this.getAnnotatedStockProducts(productsStockObservable)
+            .map(function (annotatedStockProducts) { return annotatedStockProducts.filter(function (annotatedStockProduct) { return annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0; }); });
+    };
+    ProductService.prototype.xx = function () {
+        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.annotation.product; }); });
+    };
     // categories
     // ==========
     ProductService.prototype.getSelectableCategories = function () {

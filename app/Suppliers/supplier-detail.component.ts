@@ -30,6 +30,11 @@ export class SupplierDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+
+        this.productService.xx().subscribe(res => {
+            var a = res;
+        })
+
         this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
             if (supplier) {

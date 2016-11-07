@@ -31,6 +31,9 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
+        this.productService.xx().subscribe(function (res) {
+            var a = res;
+        });
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
             if (supplier) {
