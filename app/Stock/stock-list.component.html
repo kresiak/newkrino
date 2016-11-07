@@ -1,0 +1,34 @@
+<div class="card" *ngIf="products && products.length > 0">
+	<div class="card-block">
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+			<ngb-panel [disabled]="true">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3"><b>Product</b></div>
+                        <div class="col-sm-3"><b>Supplier</b></div>
+                        <div class="col-sm-3"><b>Available</b></div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+				</template>				
+			</ngb-panel>
+			<ngb-panel *ngFor="let product of products" [id]="product.key">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-3">{{product.values[0].annotation.product}}</div>
+                        <div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
+                        <div class="col-sm-3">{{nbAvailable(product)}}</div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
+							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
+				</template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
+</div>
+
+
+
+

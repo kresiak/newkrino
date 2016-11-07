@@ -34,7 +34,7 @@
 			</ngb-tab>
 			<ngb-tab title="My basket" id="tabBaskets" *ngIf="(suppliersWithBasketObservable |async).length>0">
 				<template ngbTabContent>
-					<gg-supplier-list [suppliersObservable]= "suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
+					<gg-supplier-list [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My notes" id="tabNotes">
@@ -50,6 +50,15 @@
 			<ngb-tab title="My orders" id="tabOrders" *ngIf="(ordersObservable |async).length>0">
 				<template ngbTabContent>
 					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My Stock Orders" id="tabStockOrders">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<h5>todo still</h5>
+						</div>
+					</div>
 				</template>
 			</ngb-tab>
 			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.Name}}" [id]="equipe.data._id">

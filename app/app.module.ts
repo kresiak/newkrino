@@ -35,6 +35,9 @@ import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
 import {OrderListComponent, OrderListComponentRoutable} from './Orders/order-list.component'
 
+import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list.component'
+import {StockDetailComponent} from './Stock/stock-detail.component'
+
 import {DashboardComponent} from './Dashboard/dashboard.component'
 import {DashletComponent} from './Dashboard/dashlet.component'
 import {MyKrinoComponent} from './Dashboard/mykrino.component'
@@ -76,6 +79,7 @@ import {MomentModule} from 'angular2-moment';
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
+            { path: "stock", component: StockListComponentRoutable},
             { path: "manips", component: ManipListComponent},
             { path: "prestations", component: PrestationListComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
@@ -89,6 +93,7 @@ import {MomentModule} from 'angular2-moment';
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, ProductComponent, ProductListComponent, ProductEnterComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
+                  StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,

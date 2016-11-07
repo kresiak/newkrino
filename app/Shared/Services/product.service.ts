@@ -63,9 +63,9 @@ export class ProductService {
                         .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
      }
 
-     xx(): Observable<any>
+     getAnnotatedAvailableStockProductsAll(): Observable<any>
      {
-         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.annotation.product));
+         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.data.produitId));
      }     
 
 

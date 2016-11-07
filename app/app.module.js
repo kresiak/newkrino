@@ -37,6 +37,8 @@ var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
 var order_detail_component_1 = require('./Orders/order-detail.component');
 var order_list_component_1 = require('./Orders/order-list.component');
+var stock_list_component_1 = require('./Stock/stock-list.component');
+var stock_detail_component_1 = require('./Stock/stock-detail.component');
 var dashboard_component_1 = require('./Dashboard/dashboard.component');
 var dashlet_component_1 = require('./Dashboard/dashlet.component');
 var mykrino_component_1 = require('./Dashboard/mykrino.component');
@@ -78,6 +80,7 @@ var AppModule = (function () {
                     { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "mykrino", component: mykrino_component_1.MyKrinoComponent },
                     { path: "home", component: home_component_1.HomeComponent },
+                    { path: "stock", component: stock_list_component_1.StockListComponentRoutable },
                     { path: "manips", component: manip_list_component_1.ManipListComponent },
                     { path: "prestations", component: prestation_list_1.PrestationListComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
@@ -91,6 +94,7 @@ var AppModule = (function () {
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, product_enter_component_1.ProductEnterComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
+                stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
                 manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
