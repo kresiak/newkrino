@@ -1,6 +1,6 @@
 <div class="card" *ngIf="supplier">
 	<div class="card-block">
-		<h5 class="card-title">Checkout at {{supplier.Nom}}</h5>
+		<h5 class="card-title">Checkout at {{supplier.name}}</h5>
 		<ngb-tabset>
 			<ngb-tab title="Shopping Basket">
 				<template ngbTabContent>
@@ -16,17 +16,17 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Info about {{supplier.Nom}}">
+			<ngb-tab title="Info about {{supplier.name}}">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
 							<div class="row">
 								<div class="col-sm-2">Supplier:</div>
-								<div class="col-sm-6">{{supplier.Nom}}</div>
+								<div class="col-sm-6">{{supplier.name}}</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-2">Location:</div>
-								<div class="col-sm-6">{{supplier.Ville}}</div>
+								<div class="col-sm-6">{{supplier.city}}</div>
 							</div>
 						</div>
 					</div>

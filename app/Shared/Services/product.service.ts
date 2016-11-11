@@ -149,7 +149,7 @@ export class ProductService {
     }
 
     getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"),
+        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
             (products, basketItems, suppliers) => {
                 return products.map(product => {
                     let supplier = suppliers.filter(supplier => supplier._id === product.Supplier)[0];
@@ -159,7 +159,7 @@ export class ProductService {
                         annotation: {
                             basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                             quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
-                            supplierName: supplier ? supplier.Nom : "unknown"
+                            supplierName: supplier ? supplier.name : "unknown"
                         }
                     };
                 });
@@ -178,14 +178,14 @@ export class ProductService {
 
 
     getAnnotatedProductsWithSupplierInfo(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"),
+        return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("suppliers"),
             (produits, suppliers) => {
                 return produits.map(produit => {
                     let supplier = suppliers.filter(supplier => supplier._id === produit.Supplier)[0];
                     return {
                         data: produit,
                         annotation: {
-                            supplierName: supplier ? supplier.Nom : "unknown"
+                            supplierName: supplier ? supplier.name : "unknown"
                         }
                     };
                 });

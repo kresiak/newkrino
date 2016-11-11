@@ -149,7 +149,7 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
-        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"), function (products, basketItems, suppliers) {
+        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), function (products, basketItems, suppliers) {
             return products.map(function (product) {
                 var supplier = suppliers.filter(function (supplier) { return supplier._id === product.Supplier; })[0];
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
@@ -158,7 +158,7 @@ var ProductService = (function () {
                     annotation: {
                         basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                         quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
-                        supplierName: supplier ? supplier.Nom : "unknown"
+                        supplierName: supplier ? supplier.name : "unknown"
                     }
                 };
             });
@@ -172,13 +172,13 @@ var ProductService = (function () {
         return this.getAnnotatedProductsWithBasketInfo(productsObservable);
     };
     ProductService.prototype.getAnnotatedProductsWithSupplierInfo = function () {
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"), function (produits, suppliers) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("suppliers"), function (produits, suppliers) {
             return produits.map(function (produit) {
                 var supplier = suppliers.filter(function (supplier) { return supplier._id === produit.Supplier; })[0];
                 return {
                     data: produit,
                     annotation: {
-                        supplierName: supplier ? supplier.Nom : "unknown"
+                        supplierName: supplier ? supplier.name : "unknown"
                     }
                 };
             });

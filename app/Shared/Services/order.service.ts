@@ -87,7 +87,7 @@ export class OrderService {
             data: order,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
-                supplier: supplier ? supplier.Nom : 'Unknown supllier',
+                supplier: supplier ? supplier.name : 'Unknown supllier',
                 equipe: equipe ? equipe.Name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined ,
@@ -123,7 +123,7 @@ export class OrderService {
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),
-            this.dataStore.getDataObservable('Suppliers'),
+            this.dataStore.getDataObservable('suppliers'),
             this.userService.getOrderDashletsForCurrentUser(),
             (order, products, otps, users, equipes, suppliers, dashlets) => {
                 return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
@@ -137,7 +137,7 @@ export class OrderService {
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),
-            this.dataStore.getDataObservable('Suppliers'),
+            this.dataStore.getDataObservable('suppliers'),
             this.userService.getOrderDashletsForCurrentUser(),
             (orders, products, otps, users, equipes, suppliers, dashlets) => {
                 return orders.map(order =>

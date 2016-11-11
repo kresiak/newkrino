@@ -12,14 +12,14 @@ export class SupplierService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(ProductService) private productService: ProductService) { }
 
     getSupplier(supplierId): Observable<any> {
-        return this.dataStore.getDataObservable('Suppliers').map(suppliers => {
+        return this.dataStore.getDataObservable('suppliers').map(suppliers => {
             var x = suppliers.filter(supplier => supplier._id === supplierId);
             return x && x.length > 0 ? x[0] : null;
         })
     }
 
     getAnnotatedSuppliers(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(),
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(),
             (suppliers, produits, basketItems) => {
                 return suppliers.map(supplier => {
                     return {
@@ -34,7 +34,7 @@ export class SupplierService {
     }
 
 /*    getAnnotatedSuppliers2(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'),
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'),
             (suppliers) => {
                 return suppliers.map(supplier => {
                     return {

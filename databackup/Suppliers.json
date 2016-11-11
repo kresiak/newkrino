@@ -1,4 +1,4 @@
-{"_id":{"$oid":"5800ba26d3b14d107020a88d"},"Nom":"Laborimpex","Ville":"Bruxelles"}
-{"_id":{"$oid":"5800ba26d3b14d107020a88e"},"Nom":"Microsoft","Ville":"Anvers"}
-{"_id":{"$oid":"5800ba26d3b14d107020a88f"},"Nom":"Microtech","Ville":"Gand"}
-{"_id":{"$oid":"5800ba26d3b14d107020a890"},"Nom":"Illumina","Ville":"Liège"}
+{"_id":{"$oid":"5800ba26d3b14d107020a88d"},"name":"Laborimpex","city":"Bruxelles"}
+{"_id":{"$oid":"5800ba26d3b14d107020a88e"},"name":"Microsoft","city":"Anvers"}
+{"_id":{"$oid":"5800ba26d3b14d107020a88f"},"name":"Microtech","city":"Gand"}
+{"_id":{"$oid":"5800ba26d3b14d107020a890"},"name":"Illumina","city":"Liège"}

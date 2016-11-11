@@ -87,7 +87,7 @@ export class ApiService {
         switch (name) {
             // Get all users
             case 'getSuppliers':
-                url = `${this.urlBaseForData}/Suppliers`;
+                url = `${this.urlBaseForData}/suppliers`;
                 type = RequestMethod.Get;
                 break;
 

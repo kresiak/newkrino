@@ -81,7 +81,7 @@ var ApiService = (function () {
         switch (name) {
             // Get all users
             case 'getSuppliers':
-                url = this.urlBaseForData + "/Suppliers";
+                url = this.urlBaseForData + "/suppliers";
                 type = http_1.RequestMethod.Get;
                 break;
         }

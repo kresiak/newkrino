@@ -22,14 +22,14 @@ var SupplierService = (function () {
         this.productService = productService;
     }
     SupplierService.prototype.getSupplier = function (supplierId) {
-        return this.dataStore.getDataObservable('Suppliers').map(function (suppliers) {
+        return this.dataStore.getDataObservable('suppliers').map(function (suppliers) {
             var x = suppliers.filter(function (supplier) { return supplier._id === supplierId; });
             return x && x.length > 0 ? x[0] : null;
         });
     };
     SupplierService.prototype.getAnnotatedSuppliers = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('Suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(), function (suppliers, produits, basketItems) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(), function (suppliers, produits, basketItems) {
             return suppliers.map(function (supplier) {
                 return {
                     data: supplier,
