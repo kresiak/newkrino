@@ -29,6 +29,7 @@ var ProductEnterComponent = (function () {
         this.productForm = this.formBuilder.group({
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             price: ['', [forms_1.Validators.required, forms_1.Validators.pattern(priceRegEx)]],
+            size: ['', forms_1.Validators.required],
             category: ['-1', this.isCategoryIdSelected]
         });
     };
@@ -38,6 +39,7 @@ var ProductEnterComponent = (function () {
             Description: formValue.description,
             Supplier: this.supplierId,
             Prix: formValue.price,
+            Size: formValue.size,
             Categorie: [formValue.category]
         }).subscribe(function (res) {
             var x = res;

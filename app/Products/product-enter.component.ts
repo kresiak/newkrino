@@ -36,6 +36,7 @@ export class ProductEnterComponent implements OnInit {
         this.productForm= this.formBuilder.group({
             description: ['', [Validators.required, Validators.minLength(5)]],
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]],
+            size: ['', Validators.required],
             category: ['-1', this.isCategoryIdSelected]
         });
     }
@@ -46,6 +47,7 @@ export class ProductEnterComponent implements OnInit {
             Description: formValue.description,
             Supplier: this.supplierId,
             Prix: formValue.price,
+            Size: formValue.size,
             Categorie: [formValue.category]
         }).subscribe(res =>
         {
