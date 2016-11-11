@@ -17,7 +17,7 @@ export class ProductService {
 
     getSelectableManips(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('manips').map(manips => {
-            return manips.sort((cat1, cat2) => {return cat1.name < cat2.name ? -1 : 1;}).map(manip =>
+            return manips.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(manip =>
                 new SelectableData(manip._id, manip.name)
             )
         });
@@ -26,16 +26,15 @@ export class ProductService {
     // stock
     // ==========
 
-    private createAnnotatedStockProduct(productStock, annotatedOrders: any[])
-    {
+    private createAnnotatedStockProduct(productStock, annotatedOrders: any[]) {
         if (!productStock) return null;
-        let annotatedOrder= annotatedOrders.filter(order => order.data._id === productStock.orderId)[0];
+        let annotatedOrder = annotatedOrders.filter(order => order.data._id === productStock.orderId)[0];
         if (!annotatedOrder) return null;
-        let annotatedOrderItem= annotatedOrder.annotation.items.filter(item => item.data.deliveries && item.data.deliveries.filter(delivery => delivery.stockId===productStock._id).length > 0)[0];
+        let annotatedOrderItem = annotatedOrder.annotation.items.filter(item => item.data.deliveries && item.data.deliveries.filter(delivery => delivery.stockId === productStock._id).length > 0)[0];
         if (!annotatedOrderItem) return null;
-        let delivery= annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId===productStock._id)[0];
+        let delivery = annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId === productStock._id)[0];
         if (!delivery) return null;
-        let nbSold= ! productStock.sales ? 0 : productStock.sales.reduce((acc, sale) => acc + sale.quantity, 0);
+        let nbSold = !productStock.sales ? 0 : productStock.sales.reduce((acc, sale) => acc + sale.quantity, 0);
         return {
             data: productStock,
             annotation: {
@@ -50,23 +49,31 @@ export class ProductService {
         };
     }
 
-    getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any>
-    {
-        return Observable.combineLatest(productsStockObservable, this. orderService.getAnnotedOrders(), (productsStock, annotatedOrders)=> {
+    getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
+        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrders(), (productsStock, annotatedOrders) => {
             return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders));
         });
     }
 
-     getAnnotatedAvailableStockProducts(productsStockObservable: Observable<any>): Observable<any>
-     {
-         return this.getAnnotatedStockProducts(productsStockObservable)
-                        .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
-     }
+    getAnnotatedAvailableStockProducts(productsStockObservable: Observable<any>): Observable<any> {
+        return this.getAnnotatedStockProducts(productsStockObservable)
+            .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
+    }
 
-     getAnnotatedAvailableStockProductsAll(): Observable<any>
-     {
-         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.data.produitId));
-     }     
+    getAnnotatedAvailableStockProductsAll(): Observable<any> {
+        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.data.produitId));
+    }
+
+    getNbAvailableInStockByProduct(): Observable<any> {
+        return this.getAnnotatedAvailableStockProductsAll().map(groups =>
+            groups.map(group => {
+                return {
+                    productId: group.key,
+                    nbAvailable: group.values.reduce((acc, stockItem) => acc + stockItem.annotation.nbAvailable, 0)
+                }
+            }));
+    }
+
 
 
     // categories
@@ -74,7 +81,7 @@ export class ProductService {
 
     getSelectableCategories(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('Categories').map(categories => {
-            return categories.sort((cat1, cat2) => {return cat1.Description < cat2.Description ? -1 : 1;}).map(category =>
+            return categories.sort((cat1, cat2) => { return cat1.Description < cat2.Description ? -1 : 1; }).map(category =>
                 new SelectableData(category._id, category.Description)
             )
         });
@@ -84,21 +91,20 @@ export class ProductService {
         this.dataStore.addData('Categories', { 'Description': newCategory });
     }
 
-    getAnnotatedCategories() : Observable<any>
-    {
+    getAnnotatedCategories(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'),
             (productsAnnotated: any[], categories, otps: any[]) => {
                 return categories.map(category => {
-                    let suppliersInCategory= productsAnnotated.filter(product => product.data.Categorie && product.data.Categorie.includes(category._id)).map(product =>  product.annotation.supplierName)
-                                            .reduce((a: any[], b: string) => {   //take distincs
-                                                if (a.indexOf(b) < 0) a.push(b); 
-                                                return a;
-                                            }, []).slice(0, 2);
-                    let otpInCategory= otps.filter(otp => otp.Categorie && otp.Categorie.includes(category._id)).map(otp => otp.Name)
-                                            .reduce((a: any[], b: string) => {   //take distincs
-                                                if (a.indexOf(b) < 0) a.push(b); 
-                                                return a;
-                                            }, []).slice(0, 2);
+                    let suppliersInCategory = productsAnnotated.filter(product => product.data.Categorie && product.data.Categorie.includes(category._id)).map(product => product.annotation.supplierName)
+                        .reduce((a: any[], b: string) => {   //take distincs
+                            if (a.indexOf(b) < 0) a.push(b);
+                            return a;
+                        }, []).slice(0, 2);
+                    let otpInCategory = otps.filter(otp => otp.Categorie && otp.Categorie.includes(category._id)).map(otp => otp.Name)
+                        .reduce((a: any[], b: string) => {   //take distincs
+                            if (a.indexOf(b) < 0) a.push(b);
+                            return a;
+                        }, []).slice(0, 2);
 
                     return {
                         data: category,
@@ -108,7 +114,7 @@ export class ProductService {
                         }
                     };
                 })
-            } );
+            });
     }
 
 
@@ -127,27 +133,26 @@ export class ProductService {
         return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier === supplierId));
     }
 
-    private getProductsBoughtByUser(userIdObservable: Observable<any>, ordersObservable: Observable<any>): Observable<any> {        
+    private getProductsBoughtByUser(userIdObservable: Observable<any>, ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('Produits'), ordersObservable, userIdObservable, (products: any[], orders: any[], userId: string) => {
-            let distinctProductIdsByUser: any[]= orders.filter(order => order.userId === userId).reduce((acc: any[], order) => {
-                let items: any[]= order.items;
+            let distinctProductIdsByUser: any[] = orders.filter(order => order.userId === userId).reduce((acc: any[], order) => {
+                let items: any[] = order.items;
                 items.forEach(item => {
-                    if (!acc.includes(item.product))
-                    {
+                    if (!acc.includes(item.product)) {
                         acc.push(item.product);
-                    }                    
+                    }
                 });
                 return acc;
             }, []);
             return products.filter(product => distinctProductIdsByUser.includes(product._id));
-        }) ;
+        });
     }
 
     getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("Suppliers"),
             (products, basketItems, suppliers) => {
                 return products.map(product => {
-                    let supplier= suppliers.filter(supplier => supplier._id === product.Supplier)[0];
+                    let supplier = suppliers.filter(supplier => supplier._id === product.Supplier)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
                         data: product,
@@ -160,24 +165,23 @@ export class ProductService {
                 });
             }
         );
-    } 
+    }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {
         return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId));
     }
 
     getAnnotatedProductsBoughtByCurrentUserWithBasketInfo(): Observable<any> {
-        let productsObservable= this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));
+        let productsObservable = this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));
         return this.getAnnotatedProductsWithBasketInfo(productsObservable);
     }
 
 
-    getAnnotatedProductsWithSupplierInfo() : Observable<any>
-    {
+    getAnnotatedProductsWithSupplierInfo(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("Suppliers"),
             (produits, suppliers) => {
                 return produits.map(produit => {
-                    let supplier= suppliers.filter(supplier => supplier._id === produit.Supplier)[0];
+                    let supplier = suppliers.filter(supplier => supplier._id === produit.Supplier)[0];
                     return {
                         data: produit,
                         annotation: {

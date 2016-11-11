@@ -76,6 +76,16 @@ var ProductService = (function () {
     ProductService.prototype.getAnnotatedAvailableStockProductsAll = function () {
         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.data.produitId; }); });
     };
+    ProductService.prototype.getNbAvailableInStockByProduct = function () {
+        return this.getAnnotatedAvailableStockProductsAll().map(function (groups) {
+            return groups.map(function (group) {
+                return {
+                    productId: group.key,
+                    nbAvailable: group.values.reduce(function (acc, stockItem) { return acc + stockItem.annotation.nbAvailable; }, 0)
+                };
+            });
+        });
+    };
     // categories
     // ==========
     ProductService.prototype.getSelectableCategories = function () {

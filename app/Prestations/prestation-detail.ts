@@ -46,23 +46,22 @@ export class PrestationDetailComponent implements OnInit {
         this.collapseStatus[id] = ! this.collapseStatus[id];  
     }
 
-
-    formManipSheetBuild(manips, prestation) {
-        let groupConfig = {};
-        let manipsSheet= prestation.data.manips;
-        manips.forEach(manip => {
-            let groupConfig2 = {};
+    formManipSheetBuild(possibleManips, currentPrestation) {
+        this.formManipSheet= new FormGroup({});
+        let manipsSheet= currentPrestation.data.manips;
+        possibleManips.forEach(manip => {
+            var grpManip= new FormGroup({});
+            this.formManipSheet.addControl(manip.data._id, grpManip );
             let manipSheet= manipsSheet ? manipsSheet.filter(manipInSheet => manipInSheet.manipId===manip.data._id)[0] : null;
-            groupConfig2['useManip'] = [manipSheet ? manipSheet : ''];
+            grpManip.addControl('useManip', new FormControl(manipSheet));
+
             manip.annotation.products.forEach(product => {
                 let prodInSheet= manipSheet && manipSheet.products ? manipSheet.products.filter(prod => prod.productId===product.data._id)[0] : null; 
-                groupConfig2[product.data._id] = this.formBuilder.group({
-                    nbUnits: [prodInSheet ? prodInSheet.quantity : '']
-                });
+                var grpProduct= new FormGroup({});
+                grpManip.addControl(product.data._id, grpProduct);
+                grpProduct.addControl('nbUnits', new FormControl(prodInSheet ? prodInSheet.quantity : ''))
             })
-            groupConfig[manip.data._id] = this.formBuilder.group(groupConfig2);
         });
-        this.formManipSheet = this.formBuilder.group(groupConfig);
     }
 
     getStockProductObservable(id: string): Observable<any> {

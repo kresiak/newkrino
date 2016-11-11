@@ -39,23 +39,22 @@ var PrestationDetailComponent = (function () {
             this.collapseStatus[id] = true;
         this.collapseStatus[id] = !this.collapseStatus[id];
     };
-    PrestationDetailComponent.prototype.formManipSheetBuild = function (manips, prestation) {
+    PrestationDetailComponent.prototype.formManipSheetBuild = function (possibleManips, currentPrestation) {
         var _this = this;
-        var groupConfig = {};
-        var manipsSheet = prestation.data.manips;
-        manips.forEach(function (manip) {
-            var groupConfig2 = {};
+        this.formManipSheet = new forms_1.FormGroup({});
+        var manipsSheet = currentPrestation.data.manips;
+        possibleManips.forEach(function (manip) {
+            var grpManip = new forms_1.FormGroup({});
+            _this.formManipSheet.addControl(manip.data._id, grpManip);
             var manipSheet = manipsSheet ? manipsSheet.filter(function (manipInSheet) { return manipInSheet.manipId === manip.data._id; })[0] : null;
-            groupConfig2['useManip'] = [manipSheet ? manipSheet : ''];
+            grpManip.addControl('useManip', new forms_1.FormControl(manipSheet));
             manip.annotation.products.forEach(function (product) {
                 var prodInSheet = manipSheet && manipSheet.products ? manipSheet.products.filter(function (prod) { return prod.productId === product.data._id; })[0] : null;
-                groupConfig2[product.data._id] = _this.formBuilder.group({
-                    nbUnits: [prodInSheet ? prodInSheet.quantity : '']
-                });
+                var grpProduct = new forms_1.FormGroup({});
+                grpManip.addControl(product.data._id, grpProduct);
+                grpProduct.addControl('nbUnits', new forms_1.FormControl(prodInSheet ? prodInSheet.quantity : ''));
             });
-            groupConfig[manip.data._id] = _this.formBuilder.group(groupConfig2);
         });
-        this.formManipSheet = this.formBuilder.group(groupConfig);
     };
     PrestationDetailComponent.prototype.getStockProductObservable = function (id) {
         return this.stockProductsObservable.map(function (products) {

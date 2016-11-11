@@ -43,7 +43,7 @@ export class PrestationService {
 
 
 
-    private createAnnotatedPrestation(prestation, labels: any[], annotatedManips: any[], usersAnnotated: any[]) {
+    private createAnnotatedPrestation(prestation, labels: any[], annotatedManips: any[], usersAnnotated: any[], nbAvailableInStockByProduct: any[]) {
         if (!prestation) return null;
         let label = labels.filter(label => label._id === prestation.labelId)[0];
         return {
@@ -55,7 +55,7 @@ export class PrestationService {
                     return {
                         data: manip,
                         annotation: {
-                            manip: manipAnnotated ? manipAnnotated.data.name : 'unknown manip',
+                            manipName: manipAnnotated ? manipAnnotated.data.name : 'unknown manip',
                             worklogs: !manip.worklogs ? null : manip.worklogs.map(log => {
                                 let logUserAnnotated= usersAnnotated.filter(user => user.data._id===log.userId)[0];
                                 return {
@@ -63,7 +63,20 @@ export class PrestationService {
                                     annotation: {
                                         userFullName: logUserAnnotated ? logUserAnnotated.annotation.fullName : 'unknown user'
                                     }};
-                            })}};
+                            }),
+                            products: !manip.products ? null : manip.products.map(product => {
+                                let productAnnotated= manipAnnotated && manipAnnotated.annotation.products ?
+                                     manipAnnotated.annotation.products.filter(prodAnnot => prodAnnot.data._id ===product.productId)[0] : null;  
+                                let nbAvailableInStockRecord= nbAvailableInStockByProduct.filter(stockProd => stockProd.productId===product.productId)[0];
+                                return {
+                                    data: product,
+                                    annotation: {
+                                        productName: productAnnotated ? productAnnotated.data.Description : 'unknowProduit',
+                                        nbAvailableInStock: nbAvailableInStockRecord ? nbAvailableInStockRecord : 0
+                                    }
+                                };
+                            })
+                        }};
                 }) 
             }
         };
@@ -71,10 +84,10 @@ export class PrestationService {
 
     getAnnotatedPrestations(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(),
-                this.authService.getAnnotatedUsers(),
-            (labels, prestations, manipsAnnotated, usersAnnotated) => {
+                this.authService.getAnnotatedUsers(), this.productService.getNbAvailableInStockByProduct(),
+            (labels, prestations, manipsAnnotated, usersAnnotated, nbAvailableInStockByProduct,) => {
                 return prestations.sort((cat1, cat2) => { return cat1.reference < cat2.reference ? -1 : 1; })
-                            .map(prestation => this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, usersAnnotated));
+                            .map(prestation => this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, usersAnnotated, nbAvailableInStockByProduct));
             });
     }
 

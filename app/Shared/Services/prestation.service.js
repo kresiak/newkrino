@@ -47,7 +47,7 @@ var PrestationService = (function () {
     PrestationService.prototype.getAnnotatedManipsByLabel = function (labelId) {
         return this.getAnnotatedManips(this.dataStore.getDataObservable("manips").map(function (manips) { return manips.filter(function (manip) { return manip.labelId === labelId; }); }));
     };
-    PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels, annotatedManips, usersAnnotated) {
+    PrestationService.prototype.createAnnotatedPrestation = function (prestation, labels, annotatedManips, usersAnnotated, nbAvailableInStockByProduct) {
         if (!prestation)
             return null;
         var label = labels.filter(function (label) { return label._id === prestation.labelId; })[0];
@@ -60,7 +60,7 @@ var PrestationService = (function () {
                     return {
                         data: manip,
                         annotation: {
-                            manip: manipAnnotated ? manipAnnotated.data.name : 'unknown manip',
+                            manipName: manipAnnotated ? manipAnnotated.data.name : 'unknown manip',
                             worklogs: !manip.worklogs ? null : manip.worklogs.map(function (log) {
                                 var logUserAnnotated = usersAnnotated.filter(function (user) { return user.data._id === log.userId; })[0];
                                 return {
@@ -68,16 +68,29 @@ var PrestationService = (function () {
                                     annotation: {
                                         userFullName: logUserAnnotated ? logUserAnnotated.annotation.fullName : 'unknown user'
                                     } };
-                            }) } };
+                            }),
+                            products: !manip.products ? null : manip.products.map(function (product) {
+                                var productAnnotated = manipAnnotated && manipAnnotated.annotation.products ?
+                                    manipAnnotated.annotation.products.filter(function (prodAnnot) { return prodAnnot.data._id === product.productId; })[0] : null;
+                                var nbAvailableInStockRecord = nbAvailableInStockByProduct.filter(function (stockProd) { return stockProd.productId === product.productId; })[0];
+                                return {
+                                    data: product,
+                                    annotation: {
+                                        productName: productAnnotated ? productAnnotated.data.Description : 'unknowProduit',
+                                        nbAvailableInStock: nbAvailableInStockRecord ? nbAvailableInStockRecord : 0
+                                    }
+                                };
+                            })
+                        } };
                 })
             }
         };
     };
     PrestationService.prototype.getAnnotatedPrestations = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(), this.authService.getAnnotatedUsers(), function (labels, prestations, manipsAnnotated, usersAnnotated) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), this.dataStore.getDataObservable("prestations"), this.getAnnotatedManipsAll(), this.authService.getAnnotatedUsers(), this.productService.getNbAvailableInStockByProduct(), function (labels, prestations, manipsAnnotated, usersAnnotated, nbAvailableInStockByProduct) {
             return prestations.sort(function (cat1, cat2) { return cat1.reference < cat2.reference ? -1 : 1; })
-                .map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, usersAnnotated); });
+                .map(function (prestation) { return _this.createAnnotatedPrestation(prestation, labels, manipsAnnotated, usersAnnotated, nbAvailableInStockByProduct); });
         });
     };
     PrestationService.prototype.updatePrestation = function (prestation) {
