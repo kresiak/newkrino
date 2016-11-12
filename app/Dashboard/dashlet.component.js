@@ -42,9 +42,9 @@ var DashletComponent = (function () {
     };
     DashletComponent.prototype.getTitle = function () {
         if (this.isOtpDashlet())
-            return 'Otp: ' + this.dataObject.data.Name;
+            return 'Otp: ' + this.dataObject.data.name;
         if (this.isEquipeDashlet())
-            return 'Equipe: ' + this.dataObject.data.Name;
+            return 'Equipe: ' + this.dataObject.data.name;
         if (this.isOrderDashlet())
             return 'Order: ' + this.dataObject.data._id + ' (' + this.dataObject.annotation.supplier + ')';
     };

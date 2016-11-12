@@ -29,7 +29,7 @@
 				<ngb-panel *ngFor="let otp of otps" [id]="otp.data._id">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3">{{otp.data.Name}}</div>
+							<div class="col-sm-3">{{otp.data.name}}</div>
 							<div class="col-sm-3" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>

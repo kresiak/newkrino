@@ -61,7 +61,7 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.Name}}" [id]="equipe.data._id">
+			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.name}}" [id]="equipe.data._id">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">

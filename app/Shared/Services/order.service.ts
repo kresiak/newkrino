@@ -16,7 +16,7 @@ export class OrderService {
     getSelectableOtps(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('otps').map(otps => {
             return otps.map(otp =>
-                new SelectableData(otp._id, otp.Name)
+                new SelectableData(otp._id, otp.name)
             )
         });
     }
@@ -33,7 +33,7 @@ export class OrderService {
                 budget: (+(otp.Budget)),
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.Budget)) - amountSpent, 
-                equipe: equipe ? equipe.Name : 'no equipe',
+                equipe: equipe ? equipe.name : 'no equipe',
                 dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined 
             }
         }
@@ -88,7 +88,7 @@ export class OrderService {
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
-                equipe: equipe ? equipe.Name : 'Unknown equipe',
+                equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined ,
                 items: order.items.map(item => {
@@ -97,7 +97,7 @@ export class OrderService {
                     return {
                         data: item,
                         annotation: {
-                            otp: otp ? otp.Name : 'Unknown otp',
+                            otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name : 'Unknown product',
                             price: product ? product.price : '0',
                             nbDelivered: (item.deliveries||[]).reduce((acc,delivery) => acc + (+delivery.quantity), 0), 

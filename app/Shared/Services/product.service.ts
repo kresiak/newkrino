@@ -100,7 +100,7 @@ export class ProductService {
                             if (a.indexOf(b) < 0) a.push(b);
                             return a;
                         }, []).slice(0, 2);
-                    let otpInCategory = otps.filter(otp => otp.categoryIds && otp.categoryIds.includes(category._id)).map(otp => otp.Name)
+                    let otpInCategory = otps.filter(otp => otp.categoryIds && otp.categoryIds.includes(category._id)).map(otp => otp.name)
                         .reduce((a: any[], b: string) => {   //take distincs
                             if (a.indexOf(b) < 0) a.push(b);
                             return a;

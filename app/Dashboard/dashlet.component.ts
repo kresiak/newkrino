@@ -54,8 +54,8 @@ export class DashletComponent implements OnInit {
 
 
     private getTitle(): string {
-        if (this.isOtpDashlet()) return 'Otp: ' + this.dataObject.data.Name;
-        if (this.isEquipeDashlet()) return 'Equipe: ' + this.dataObject.data.Name;
+        if (this.isOtpDashlet()) return 'Otp: ' + this.dataObject.data.name;
+        if (this.isEquipeDashlet()) return 'Equipe: ' + this.dataObject.data.name;
         if (this.isOrderDashlet()) return 'Order: ' + this.dataObject.data._id + ' (' + this.dataObject.annotation.supplier + ')';
     }
 

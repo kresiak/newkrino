@@ -18,7 +18,7 @@
                     <option *ngFor="let user of users" [value]="user.data._id" [selected]="user.data._id===currentUserId">{{user.annotation.fullName}}</option>
                 </select>
 				<select class="form-control" style="margin-top:8px" (change)="equipeSelected($event.target.value)">
-                    <option *ngFor="let equipe of possibleEquipes" [value]="equipe._id" [selected]="equipe._id===currentEquipeId">{{equipe.Name}}</option>
+                    <option *ngFor="let equipe of possibleEquipes" [value]="equipe._id" [selected]="equipe._id===currentEquipeId">{{equipe.name}}</option>
                 </select>
 			</div>
 		</div>

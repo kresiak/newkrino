@@ -48,7 +48,7 @@ var OtpListComponent = (function () {
         Rx_1.Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), function (otps, searchTxt) {
             if (searchTxt.trim() === '')
                 return otps;
-            return otps.filter(function (otp) { return otp.data.Name.toUpperCase().includes(searchTxt.toUpperCase())
+            return otps.filter(function (otp) { return otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                 || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()); });
         }).subscribe(function (otps) { return _this.otps = otps; });
         ;

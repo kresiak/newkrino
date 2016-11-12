@@ -29,7 +29,7 @@ var OrderService = (function () {
     OrderService.prototype.getSelectableOtps = function () {
         return this.dataStore.getDataObservable('otps').map(function (otps) {
             return otps.map(function (otp) {
-                return new selectable_data_1.SelectableData(otp._id, otp.Name);
+                return new selectable_data_1.SelectableData(otp._id, otp.name);
             });
         });
     };
@@ -45,7 +45,7 @@ var OrderService = (function () {
                 budget: (+(otp.Budget)),
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.Budget)) - amountSpent,
-                equipe: equipe ? equipe.Name : 'no equipe',
+                equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         };
@@ -88,7 +88,7 @@ var OrderService = (function () {
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
-                equipe: equipe ? equipe.Name : 'Unknown equipe',
+                equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: order.items.map(function (item) {
@@ -97,7 +97,7 @@ var OrderService = (function () {
                     return {
                         data: item,
                         annotation: {
-                            otp: otp ? otp.Name : 'Unknown otp',
+                            otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name : 'Unknown product',
                             price: product ? product.price : '0',
                             nbDelivered: (item.deliveries || []).reduce(function (acc, delivery) { return acc + (+delivery.quantity); }, 0),

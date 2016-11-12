@@ -16,7 +16,7 @@
 			<ngb-panel *ngFor="let equipe of equipes | async"  [id]="equipe.data._id">
 				<template ngbPanelTitle>
                     <div class="row">
-                        <div class="col-sm-3">{{equipe.data.Name}}</div>
+                        <div class="col-sm-3">{{equipe.data.name}}</div>
                         <div class="col-sm-2">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 						<div class="col-sm-2">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
                     </div>									

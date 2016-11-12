@@ -107,7 +107,7 @@ var ProductService = (function () {
                         a.push(b);
                     return a;
                 }, []).slice(0, 2);
-                var otpInCategory = otps.filter(function (otp) { return otp.categoryIds && otp.categoryIds.includes(category._id); }).map(function (otp) { return otp.Name; })
+                var otpInCategory = otps.filter(function (otp) { return otp.categoryIds && otp.categoryIds.includes(category._id); }).map(function (otp) { return otp.name; })
                     .reduce(function (a, b) {
                     if (a.indexOf(b) < 0)
                         a.push(b);

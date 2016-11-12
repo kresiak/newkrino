@@ -33,7 +33,7 @@ var OtpChoiceService = (function () {
             });
         return possibleOtps.length > 0 ? {
             _id: possibleOtps[0].data._id,
-            Name: possibleOtps[0].data.Name } : {
+            name: possibleOtps[0].data.name } : {
             _id: undefined,
             Name: 'no available Otp'
         };
