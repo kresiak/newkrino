@@ -1,0 +1,5 @@
+{"_id":{"$oid":"581d19d23485aa0faa0f1ffc"},"name":"Run Seq","labelId":"581d189b3485aa0faa0f1ffb"}
+{"_id":{"$oid":"581d19d23485aa0faa0f1ffd"},"name":"Extraction","labelId":"581d189b3485aa0faa0f1ff9"}
+{"_id":{"$oid":"581d19d23485aa0faa0f1ffe"},"name":"Dosage","labelId":"581d189b3485aa0faa0f1ff9"}
+{"_id":{"$oid":"581d19d23485aa0faa0f1fff"},"name":"RNASeq","labelId":"581d189b3485aa0faa0f1ff9"}
+{"_id":{"$oid":"581d19d23485aa0faa0f2000"},"name":"Réaction SEQ","labelId":"581d189b3485aa0faa0f1ffb"}

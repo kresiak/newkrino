@@ -1,6 +1,0 @@
-{"_id":{"$oid":"5807c6da69dd537bf4af1c32"},"Description":"Enzyme XY","Supplier":"5800ba26d3b14d107020a88d","Categorie":["58014d0fbfd9155014c32df6","58014d0fbfd9155014c32df7"],"Prix":"24"}
-{"_id":{"$oid":"5807c6da69dd537bf4af1c33"},"Description":"Acide Fluorique","Supplier":"5800ba26d3b14d107020a88d","Categorie":["58014d0fbfd9155014c32df8"],"Prix":"12"}
-{"_id":{"$oid":"5807c6da69dd537bf4af1c34"},"Description":"Stick USB 2 GB","Supplier":"5800ba26d3b14d107020a88d","Categorie":["5800ba26d3b14d107020a88d","58014d0fbfd9155014c32dfd","58089ade2f657a74dc8ba780"],"Prix":"18"}
-{"_id":{"$oid":"5807c6da69dd537bf4af1c35"},"Description":"Eau oxygénée 10%","Supplier":"5800ba26d3b14d107020a88d","Categorie":["58014d0fbfd9155014c32df8"],"Prix":"8"}
-{"_id":{"$oid":"5807c6da69dd537bf4af1c36"},"Description":"Souris optique","Supplier":"5800ba26d3b14d107020a88e","Categorie":["5800ba26d3b14d107020a88d","58014d0fbfd9155014c32dfd"],"Prix":"85"}
-{"_id":{"$oid":"5807c6da69dd537bf4af1c37"},"Description":"Clavier anglais","Supplier":"5800ba26d3b14d107020a88e","Categorie":["5800ba26d3b14d107020a88d","58014d0fbfd9155014c32dfd"],"Prix":"18"}

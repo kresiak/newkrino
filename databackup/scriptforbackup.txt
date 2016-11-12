@@ -1,8 +1,13 @@
-mongoexport -d giga -c Categories --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\Categories.json
-mongoexport -d giga -c Produits --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\Produits.json
+mongoexport -d giga -c categories --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\categories.json
+mongoexport -d giga -c products --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\products.json
 mongoexport -d giga -c suppliers --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\suppliers.json
 mongoexport -d giga -c equipes --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\equipes.json
-mongoexport -d giga -c krinousers --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\krinousers.json
+mongoexport -d giga -c users.krino --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\users.krino.json
 mongoexport -d giga -c orders --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\orders.json
 mongoexport -d giga -c otps --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\otps.json
+mongoexport -d giga -c dashlets --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\dashlets.json
+mongoexport -d giga -c labels --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\labels.json
+mongoexport -d giga -c manips --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\manips.json
+mongoexport -d giga -c prestations --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\prestations.json
+
 

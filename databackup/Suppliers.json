@@ -2,3 +2,5 @@
 {"_id":{"$oid":"5800ba26d3b14d107020a88e"},"name":"Microsoft","city":"Anvers"}
 {"_id":{"$oid":"5800ba26d3b14d107020a88f"},"name":"Microtech","city":"Gand"}
 {"_id":{"$oid":"5800ba26d3b14d107020a890"},"name":"Illumina","city":"Liège"}
+{"_id":{"$oid":"581d1ba43485aa0faa0f2001"},"name":"Qiagen","city":"Bruxelles"}
+{"_id":{"$oid":"581d1ba43485aa0faa0f2002"},"name":"Thermofischer","city":"Bruxelles"}
