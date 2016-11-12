@@ -35,7 +35,7 @@ var EquipeDetailComponent = (function () {
             _this.equipe = eq;
             if (eq) {
                 _this.pieSpentChart = _this.chartService.getSpentPieData(_this.equipe.annotation.amountSpent / _this.equipe.annotation.budget * 100);
-                _this.usersObservable = _this.dataStore.getDataObservable('krinousers').map(function (users) { return users.filter(function (user) { return _this.equipe.data.Users.includes(user._id); }); });
+                _this.usersObservable = _this.dataStore.getDataObservable('users.krino').map(function (users) { return users.filter(function (user) { return _this.equipe.data.Users.includes(user._id); }); });
                 _this.otpsObservable = _this.orderService.getAnnotatedOtpsByEquipe(_this.equipe.data._id);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });

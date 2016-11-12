@@ -74,7 +74,7 @@ var ProductService = (function () {
             .map(function (annotatedStockProducts) { return annotatedStockProducts.filter(function (annotatedStockProduct) { return annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0; }); });
     };
     ProductService.prototype.getAnnotatedAvailableStockProductsAll = function () {
-        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.data.productId; }); });
+        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('products.stock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.data.productId; }); });
     };
     ProductService.prototype.getNbAvailableInStockByProduct = function () {
         return this.getAnnotatedAvailableStockProductsAll().map(function (groups) {

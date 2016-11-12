@@ -36,7 +36,7 @@ export class EquipeDetailComponent implements OnInit {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
-                this.usersObservable = this.dataStore.getDataObservable('krinousers').map(users => users.filter(user => this.equipe.data.Users.includes(user._id)));
+                this.usersObservable = this.dataStore.getDataObservable('users.krino').map(users => users.filter(user => this.equipe.data.Users.includes(user._id)));
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);

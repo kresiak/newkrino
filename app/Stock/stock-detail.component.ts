@@ -60,7 +60,7 @@ export class StockDetailComponent implements OnInit {
                     equipeId: equipeId,
                     date: now
                 });
-                this.dataStore.updateData('productsStock', stockItem.data._id, stockItem.data);
+                this.dataStore.updateData('products.stock', stockItem.data._id, stockItem.data);
             }
         });
     }

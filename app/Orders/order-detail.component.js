@@ -84,7 +84,7 @@ var OrderDetailComponent = (function () {
                 orderId: this.order.data._id,
                 quantity: formData.qty,
                 factor: formData.factor };
-            this.dataStore.addData('productsStock', prodData).first().subscribe(function (res) {
+            this.dataStore.addData('products.stock', prodData).first().subscribe(function (res) {
                 deliveryData['stockId'] = res._id;
                 orderItem.data.deliveries.push(deliveryData);
                 _this.dataStore.updateData('orders', _this.order.data._id, _this.order.data);

@@ -83,7 +83,7 @@ export class OrderDetailComponent implements OnInit {
                 orderId: this.order.data._id,
                 quantity: formData.qty,
                 factor: formData.factor };
-            this.dataStore.addData('productsStock', prodData).first().subscribe(res => {
+            this.dataStore.addData('products.stock', prodData).first().subscribe(res => {
                 deliveryData['stockId']= res._id;
                 orderItem.data.deliveries.push(deliveryData);
                 this.dataStore.updateData('orders', this.order.data._id, this.order.data);                

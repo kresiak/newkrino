@@ -57,7 +57,7 @@ var StockDetailComponent = (function () {
                     equipeId: equipeId,
                     date: now
                 });
-                _this.dataStore.updateData('productsStock', stockItem.data._id, stockItem.data);
+                _this.dataStore.updateData('products.stock', stockItem.data._id, stockItem.data);
             }
         });
     };

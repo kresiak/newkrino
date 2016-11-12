@@ -116,13 +116,13 @@ var OrderService = (function () {
     // ==============
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets) {
             return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
         });
     };
     OrderService.prototype.getAnnotedOrders = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
             return orders.map(function (order) {
                 return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             });

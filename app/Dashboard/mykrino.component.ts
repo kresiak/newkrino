@@ -49,7 +49,7 @@ export class MyKrinoComponent implements OnInit{
         if (this.currentUser && comments)
         {
             this.currentUser.data.notes= comments;
-            this.dataStore.updateData('krinousers', this.currentUser.data._id, this.currentUser.data);
+            this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
         }        
     }    
 

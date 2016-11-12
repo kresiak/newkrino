@@ -35,7 +35,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.getAnnotatedUsers = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('krinousers'), this.dataStore.getDataObservable('equipes'), function (users, equipes) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), function (users, equipes) {
             return users.map(function (user) { return _this.createAnnotatedUser(user, equipes); });
         });
     };

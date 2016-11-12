@@ -27,7 +27,7 @@ export class AuthService {
 
     getAnnotatedUsers(): Observable<any> {
         return Observable.combineLatest(
-            this.dataStore.getDataObservable('krinousers'),
+            this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
             (users, equipes) =>
             {
