@@ -34,7 +34,7 @@ export class UserService {
         {
             if (dashlets.filter(dashlet => dashlet.user === userId && dashlet.category === category && dashlet.id === id).length === 0)
             {
-                this.dataStore.addData(this.symTableDashlets, { user: userId, category: category, id: id });
+                this.dataStore.addData(this.symTableDashlets, { userId: userId, category: category, id: id });
             }
         });        
     }    
@@ -47,7 +47,7 @@ export class UserService {
             {
                 let userId= this.authService.getUserId();
                 let dashlet= dashlets[0];
-                if (dashlet.user===userId)
+                if (dashlet.userId===userId)
                 {
                     this.dataStore.deleteData(this.symTableDashlets, dbid);
                 }
@@ -58,7 +58,7 @@ export class UserService {
     getDashletsForCurrentUser() : Observable<any>
     {
         return Observable.combineLatest(this.dataStore.getDataObservable(this.symTableDashlets), this.authService.getUserIdObservable(), (dashlets, userId) => {
-            return dashlets.filter(dashlet => dashlet.user === userId);
+            return dashlets.filter(dashlet => dashlet.userId === userId);
         });
     }
 

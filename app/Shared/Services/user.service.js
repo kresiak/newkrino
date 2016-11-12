@@ -39,7 +39,7 @@ var UserService = (function () {
         var userId = this.authService.getUserId();
         this.dataStore.getDataObservable(this.symTableDashlets).first().subscribe(function (dashlets) {
             if (dashlets.filter(function (dashlet) { return dashlet.user === userId && dashlet.category === category && dashlet.id === id; }).length === 0) {
-                _this.dataStore.addData(_this.symTableDashlets, { user: userId, category: category, id: id });
+                _this.dataStore.addData(_this.symTableDashlets, { userId: userId, category: category, id: id });
             }
         });
     };
@@ -49,7 +49,7 @@ var UserService = (function () {
             if (dashlets.length > 0) {
                 var userId = _this.authService.getUserId();
                 var dashlet = dashlets[0];
-                if (dashlet.user === userId) {
+                if (dashlet.userId === userId) {
                     _this.dataStore.deleteData(_this.symTableDashlets, dbid);
                 }
             }
@@ -57,7 +57,7 @@ var UserService = (function () {
     };
     UserService.prototype.getDashletsForCurrentUser = function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable(this.symTableDashlets), this.authService.getUserIdObservable(), function (dashlets, userId) {
-            return dashlets.filter(function (dashlet) { return dashlet.user === userId; });
+            return dashlets.filter(function (dashlet) { return dashlet.userId === userId; });
         });
     };
     // Otp specific
