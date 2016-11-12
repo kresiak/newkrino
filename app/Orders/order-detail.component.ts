@@ -79,7 +79,7 @@ export class OrderDetailComponent implements OnInit {
         if (formData.resell)
         {
             let prodData= {
-                produitId: orderItem.data.product,
+                productId: orderItem.data.product,
                 orderId: this.order.data._id,
                 quantity: formData.qty,
                 factor: formData.factor };

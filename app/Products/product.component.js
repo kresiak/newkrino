@@ -18,7 +18,7 @@ var ProductComponent = (function () {
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.Categorie; });
+        this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.categoryIds; });
         this.selectableManipsObservable = this.productService.getSelectableManips();
         this.selectedManipIdsObservable = this.productObservable.map(function (product) { return product.data.manipIds; });
         this.productObservable.subscribe(function (product) {
@@ -50,7 +50,7 @@ var ProductComponent = (function () {
         }
     };
     ProductComponent.prototype.categorySelectionChanged = function (selectedIds) {
-        this.product.data.Categorie = selectedIds;
+        this.product.data.categoryIds = selectedIds;
         this.productService.updateProduct(this.product.data);
     };
     ProductComponent.prototype.categoryHasBeenAdded = function (newCategory) {

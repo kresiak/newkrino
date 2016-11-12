@@ -61,7 +61,7 @@ export class ProductService {
     }
 
     getAnnotatedAvailableStockProductsAll(): Observable<any> {
-        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.data.produitId));
+        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(sps => sps.groupBy(sp => sp.data.productId));
     }
 
     getNbAvailableInStockByProduct(): Observable<any> {
@@ -95,12 +95,12 @@ export class ProductService {
         return Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('otps'),
             (productsAnnotated: any[], categories, otps: any[]) => {
                 return categories.map(category => {
-                    let suppliersInCategory = productsAnnotated.filter(product => product.data.Categorie && product.data.Categorie.includes(category._id)).map(product => product.annotation.supplierName)
+                    let suppliersInCategory = productsAnnotated.filter(product => product.data.categoryIds && product.data.categoryIds.includes(category._id)).map(product => product.annotation.supplierName)
                         .reduce((a: any[], b: string) => {   //take distincs
                             if (a.indexOf(b) < 0) a.push(b);
                             return a;
                         }, []).slice(0, 2);
-                    let otpInCategory = otps.filter(otp => otp.Categorie && otp.Categorie.includes(category._id)).map(otp => otp.Name)
+                    let otpInCategory = otps.filter(otp => otp.categoryIds && otp.categoryIds.includes(category._id)).map(otp => otp.Name)
                         .reduce((a: any[], b: string) => {   //take distincs
                             if (a.indexOf(b) < 0) a.push(b);
                             return a;

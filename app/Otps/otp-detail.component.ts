@@ -35,7 +35,7 @@ export class OtpDetailComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.Categorie);
+        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => {
             this.otp = otp;
             if (otp) {
@@ -54,7 +54,7 @@ export class OtpDetailComponent implements OnInit {
     private anyOrder: boolean;
 
     categorySelectionChanged(selectedIds: string[]) {
-        this.otp.data.Categorie = selectedIds;
+        this.otp.data.categoryIds = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

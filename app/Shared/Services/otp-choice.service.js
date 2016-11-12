@@ -27,8 +27,8 @@ var OtpChoiceService = (function () {
         var totalPrice = +product.price * quantity * 1.21;
         var possibleOtps = !annotatedOtps ? [] :
             annotatedOtps.filter(function (otp) { return otp.annotation.amountAvailable > totalPrice; }).filter(function (otp) {
-                var productCategories = product.Categorie ? product.Categorie : [];
-                var allowedCategories = otp.data.Categorie ? otp.data.Categorie : [];
+                var productCategories = product.categoryIds ? product.categoryIds : [];
+                var allowedCategories = otp.data.categoryIds ? otp.data.categoryIds : [];
                 return allowedCategories.filter(function (otpCategory) { return productCategories.includes(otpCategory); }).length > 0;
             });
         return possibleOtps.length > 0 ? {

@@ -20,11 +20,11 @@ var OtpComponent = (function () {
     OtpComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.Categorie; });
+        this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.categoryIds; });
         this.otpObservable.subscribe(function (otp) { return _this.otp = otp; });
     };
     OtpComponent.prototype.categorySelectionChanged = function (selectedIds) {
-        this.otp.data.Categorie = selectedIds;
+        this.otp.data.categoryIds = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
     OtpComponent.prototype.categoryHasBeenAdded = function (newCategory) {

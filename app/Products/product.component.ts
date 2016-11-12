@@ -15,7 +15,7 @@ export class ProductComponent implements OnInit {
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.Categorie);
+        this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.categoryIds);
 
         this.selectableManipsObservable = this.productService.getSelectableManips();
         this.selectedManipIdsObservable = this.productObservable.map(product => product.data.manipIds);
@@ -67,7 +67,7 @@ export class ProductComponent implements OnInit {
     }
 
     categorySelectionChanged(selectedIds: string[]) {
-        this.product.data.Categorie = selectedIds;
+        this.product.data.categoryIds = selectedIds;
         this.productService.updateProduct(this.product.data);
     }
 

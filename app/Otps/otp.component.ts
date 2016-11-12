@@ -21,7 +21,7 @@ export class OtpComponent implements OnInit
     ngOnInit():void 
     {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();  
-        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.Categorie);
+        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => this.otp=otp);
     }
     
@@ -31,7 +31,7 @@ export class OtpComponent implements OnInit
     private selectedCategoryIdsObservable: Observable<any>;
     
     categorySelectionChanged(selectedIds: string[]) {
-        this.otp.data.Categorie = selectedIds;
+        this.otp.data.categoryIds = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

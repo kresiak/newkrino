@@ -34,7 +34,7 @@ var OtpDetailComponent = (function () {
         var _this = this;
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.Categorie; });
+        this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.categoryIds; });
         this.otpObservable.subscribe(function (otp) {
             _this.otp = otp;
             if (otp) {
@@ -45,7 +45,7 @@ var OtpDetailComponent = (function () {
         });
     };
     OtpDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
-        this.otp.data.Categorie = selectedIds;
+        this.otp.data.categoryIds = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
     OtpDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {

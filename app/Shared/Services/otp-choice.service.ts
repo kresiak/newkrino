@@ -21,8 +21,8 @@ export class OtpChoiceService {
 
         let possibleOtps= !annotatedOtps ? [] : 
             annotatedOtps.filter(otp => otp.annotation.amountAvailable > totalPrice).filter(otp => {
-            let productCategories: string[]= product.Categorie ? product.Categorie : [];
-            let allowedCategories: string[]= otp.data.Categorie ? otp.data.Categorie : [];
+            let productCategories: string[]= product.categoryIds ? product.categoryIds : [];
+            let allowedCategories: string[]= otp.data.categoryIds ? otp.data.categoryIds : [];
             return allowedCategories.filter(otpCategory => productCategories.includes(otpCategory)).length > 0;
         });
 

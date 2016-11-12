@@ -74,7 +74,7 @@ var ProductService = (function () {
             .map(function (annotatedStockProducts) { return annotatedStockProducts.filter(function (annotatedStockProduct) { return annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0; }); });
     };
     ProductService.prototype.getAnnotatedAvailableStockProductsAll = function () {
-        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.data.produitId; }); });
+        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('productsStock')).map(function (sps) { return sps.groupBy(function (sp) { return sp.data.productId; }); });
     };
     ProductService.prototype.getNbAvailableInStockByProduct = function () {
         return this.getAnnotatedAvailableStockProductsAll().map(function (groups) {
@@ -101,13 +101,13 @@ var ProductService = (function () {
     ProductService.prototype.getAnnotatedCategories = function () {
         return Rx_1.Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
             return categories.map(function (category) {
-                var suppliersInCategory = productsAnnotated.filter(function (product) { return product.data.Categorie && product.data.Categorie.includes(category._id); }).map(function (product) { return product.annotation.supplierName; })
+                var suppliersInCategory = productsAnnotated.filter(function (product) { return product.data.categoryIds && product.data.categoryIds.includes(category._id); }).map(function (product) { return product.annotation.supplierName; })
                     .reduce(function (a, b) {
                     if (a.indexOf(b) < 0)
                         a.push(b);
                     return a;
                 }, []).slice(0, 2);
-                var otpInCategory = otps.filter(function (otp) { return otp.Categorie && otp.Categorie.includes(category._id); }).map(function (otp) { return otp.Name; })
+                var otpInCategory = otps.filter(function (otp) { return otp.categoryIds && otp.categoryIds.includes(category._id); }).map(function (otp) { return otp.Name; })
                     .reduce(function (a, b) {
                     if (a.indexOf(b) < 0)
                         a.push(b);
