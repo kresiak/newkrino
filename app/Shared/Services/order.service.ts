@@ -25,14 +25,14 @@ export class OrderService {
     {
         if (!otp) return null;
         let amountSpent= orders.map(order => order.items.filter(item => item.otp === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b)=> a + b, 0);
-        let equipe= equipes.filter(equipe => equipe._id===otp.Equipe)[0];
+        let equipe= equipes.filter(equipe => equipe._id===otp.equipeId)[0];
         let dashlet= dashlets.filter(dashlet => dashlet.id === otp._id);
         return {
             data: otp,
             annotation: {
-                budget: (+(otp.Budget)),
+                budget: (+(otp.budget)),
                 amountSpent: amountSpent,
-                amountAvailable: (+(otp.Budget)) - amountSpent, 
+                amountAvailable: (+(otp.budget)) - amountSpent, 
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined 
             }
@@ -51,7 +51,7 @@ export class OrderService {
     }
 
     getAnnotatedOtpsByEquipe(equipeId): Observable<any> {
-        return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.Equipe===equipeId));
+        return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.equipeId===equipeId));
     }
     
     getAnnotatedOtpById(otpId) : Observable<any>
@@ -182,8 +182,8 @@ export class OrderService {
         if (!equipe) return null;
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
-        let otpsFiltered= otps.filter(otp => otp.Equipe === equipe._id);
-        let budget= otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => +otp.Budget).reduce((a, b) => a + b) : 0;
+        let otpsFiltered= otps.filter(otp => otp.equipeId === equipe._id);
+        let budget= otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => +otp.budget).reduce((a, b) => a + b) : 0;
         let amountSpent= this.getTotalOfOrders(ordersFiltered);
         let dashlet= dashlets.filter(dashlet => dashlet.id === equipe._id);
 
@@ -223,7 +223,7 @@ export class OrderService {
     {
         return Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), (equipes, userId) => { 
             return equipes.filter(equipe => 
-                equipe.data.Users.includes(userId));
+                equipe.data.userIds.includes(userId));
         });
     }    
 }

@@ -15,7 +15,7 @@ export class AuthService {
 
     private createAnnotatedUser(user, equipes) {
         if (!user) return null;
-        let filteredEquipes= equipes.filter(equipe => equipe.Users.includes(user._id));
+        let filteredEquipes= equipes.filter(equipe => equipe.userIds.includes(user._id));
         return {
             data: user,
             annotation: {

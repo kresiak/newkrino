@@ -37,14 +37,14 @@ var OrderService = (function () {
         if (!otp)
             return null;
         var amountSpent = orders.map(function (order) { return order.items.filter(function (item) { return item.otp === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
-        var equipe = equipes.filter(function (equipe) { return equipe._id === otp.Equipe; })[0];
+        var equipe = equipes.filter(function (equipe) { return equipe._id === otp.equipeId; })[0];
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === otp._id; });
         return {
             data: otp,
             annotation: {
-                budget: (+(otp.Budget)),
+                budget: (+(otp.budget)),
                 amountSpent: amountSpent,
-                amountAvailable: (+(otp.Budget)) - amountSpent,
+                amountAvailable: (+(otp.budget)) - amountSpent,
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
@@ -57,7 +57,7 @@ var OrderService = (function () {
         });
     };
     OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {
-        return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return otp.data.Equipe === equipeId; }); });
+        return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return otp.data.equipeId === equipeId; }); });
     };
     OrderService.prototype.getAnnotatedOtpById = function (otpId) {
         return this.getAnnotatedOtps().map(function (otps) {
@@ -153,8 +153,8 @@ var OrderService = (function () {
         if (!equipe)
             return null;
         var ordersFiltered = orders.filter(function (order) { return order.equipeId === equipe._id; });
-        var otpsFiltered = otps.filter(function (otp) { return otp.Equipe === equipe._id; });
-        var budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(function (otp) { return +otp.Budget; }).reduce(function (a, b) { return a + b; }) : 0;
+        var otpsFiltered = otps.filter(function (otp) { return otp.equipeId === equipe._id; });
+        var budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(function (otp) { return +otp.budget; }).reduce(function (a, b) { return a + b; }) : 0;
         var amountSpent = this.getTotalOfOrders(ordersFiltered);
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === equipe._id; });
         return {
@@ -182,7 +182,7 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotatedEquipesOfCurrentUser = function () {
         return Rx_1.Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), function (equipes, userId) {
             return equipes.filter(function (equipe) {
-                return equipe.data.Users.includes(userId);
+                return equipe.data.userIds.includes(userId);
             });
         });
     };
