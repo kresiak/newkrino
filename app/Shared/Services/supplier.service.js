@@ -29,7 +29,7 @@ var SupplierService = (function () {
     };
     SupplierService.prototype.getAnnotatedSuppliers = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(), function (suppliers, produits, basketItems) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(), function (suppliers, produits, basketItems) {
             return suppliers.map(function (supplier) {
                 return {
                     data: supplier,

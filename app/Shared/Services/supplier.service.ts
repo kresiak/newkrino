@@ -19,7 +19,7 @@ export class SupplierService {
     }
 
     getAnnotatedSuppliers(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('Produits'), this.productService.getBasketItemsForCurrentUser(),
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(),
             (suppliers, produits, basketItems) => {
                 return suppliers.map(supplier => {
                     return {

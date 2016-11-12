@@ -37,7 +37,7 @@ var PrestationService = (function () {
     };
     PrestationService.prototype.getAnnotatedManips = function (manipsObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), manipsObservable, this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(function (products) { return products.filter(function (product) { return product.manipIds; }); })), function (labels, manips, products) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("labels"), manipsObservable, this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products').map(function (products) { return products.filter(function (product) { return product.manipIds; }); })), function (labels, manips, products) {
             return manips.map(function (manip) { return _this.createAnnotatedManip(manip, labels, products); });
         });
     };
@@ -76,7 +76,7 @@ var PrestationService = (function () {
                                 return {
                                     data: product,
                                     annotation: {
-                                        productName: productAnnotated ? productAnnotated.data.Description : 'unknowProduit',
+                                        productName: productAnnotated ? productAnnotated.data.name : 'unknowProduit',
                                         nbAvailableInStock: nbAvailableInStockRecord ? nbAvailableInStockRecord : 0
                                     }
                                 };

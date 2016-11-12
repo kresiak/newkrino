@@ -32,21 +32,21 @@ var ProductComponent = (function () {
     // Feedback from controls
     // =======================
     ProductComponent.prototype.descriptionUpdated = function (desc) {
-        if (this.product.Description !== desc) {
-            this.product.data.Description = desc;
+        if (this.product.data.name !== desc) {
+            this.product.data.name = desc;
             this.productService.updateProduct(this.product.data);
         }
     };
     ProductComponent.prototype.prixUpdated = function (prix) {
         var p = +prix && (+prix) >= 0 ? +prix : -1;
         if (p !== -1) {
-            if (this.product.Prix !== p) {
-                this.product.data.Prix = p;
+            if (this.product.price !== p) {
+                this.product.data.price = p;
                 this.productService.updateProduct(this.product.data);
             }
         }
         else {
-            this.priceChild.resetContent(this.product.data.Prix);
+            this.priceChild.resetContent(this.product.data.price);
         }
     };
     ProductComponent.prototype.categorySelectionChanged = function (selectedIds) {

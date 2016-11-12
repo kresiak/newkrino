@@ -89,17 +89,17 @@ var ProductService = (function () {
     // categories
     // ==========
     ProductService.prototype.getSelectableCategories = function () {
-        return this.dataStore.getDataObservable('Categories').map(function (categories) {
-            return categories.sort(function (cat1, cat2) { return cat1.Description < cat2.Description ? -1 : 1; }).map(function (category) {
-                return new selectable_data_1.SelectableData(category._id, category.Description);
+        return this.dataStore.getDataObservable('categories').map(function (categories) {
+            return categories.sort(function (cat1, cat2) { return cat1.name < cat2.name ? -1 : 1; }).map(function (category) {
+                return new selectable_data_1.SelectableData(category._id, category.name);
             });
         });
     };
     ProductService.prototype.createCategory = function (newCategory) {
-        this.dataStore.addData('Categories', { 'Description': newCategory });
+        this.dataStore.addData('categories', { 'name': newCategory });
     };
     ProductService.prototype.getAnnotatedCategories = function () {
-        return Rx_1.Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
+        return Rx_1.Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('otps'), function (productsAnnotated, categories, otps) {
             return categories.map(function (category) {
                 var suppliersInCategory = productsAnnotated.filter(function (product) { return product.data.Categorie && product.data.Categorie.includes(category._id); }).map(function (product) { return product.annotation.supplierName; })
                     .reduce(function (a, b) {
@@ -126,16 +126,16 @@ var ProductService = (function () {
     // products
     // ========
     ProductService.prototype.updateProduct = function (product) {
-        this.dataStore.updateData('Produits', product._id, product);
+        this.dataStore.updateData('products', product._id, product);
     };
     ProductService.prototype.createProduct = function (product) {
-        return this.dataStore.addData('Produits', product);
+        return this.dataStore.addData('products', product);
     };
     ProductService.prototype.getProductsBySupplier = function (supplierId) {
-        return this.dataStore.getDataObservable('Produits').map(function (produits) { return produits.filter(function (produit) { return produit.Supplier === supplierId; }); });
+        return this.dataStore.getDataObservable('products').map(function (produits) { return produits.filter(function (produit) { return produit.supplierId === supplierId; }); });
     };
     ProductService.prototype.getProductsBoughtByUser = function (userIdObservable, ordersObservable) {
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('Produits'), ordersObservable, userIdObservable, function (products, orders, userId) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('products'), ordersObservable, userIdObservable, function (products, orders, userId) {
             var distinctProductIdsByUser = orders.filter(function (order) { return order.userId === userId; }).reduce(function (acc, order) {
                 var items = order.items;
                 items.forEach(function (item) {
@@ -151,7 +151,7 @@ var ProductService = (function () {
     ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
         return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), function (products, basketItems, suppliers) {
             return products.map(function (product) {
-                var supplier = suppliers.filter(function (supplier) { return supplier._id === product.Supplier; })[0];
+                var supplier = suppliers.filter(function (supplier) { return supplier._id === product.supplierId; })[0];
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
                 return {
                     data: product,
@@ -172,9 +172,9 @@ var ProductService = (function () {
         return this.getAnnotatedProductsWithBasketInfo(productsObservable);
     };
     ProductService.prototype.getAnnotatedProductsWithSupplierInfo = function () {
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("suppliers"), function (produits, suppliers) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("products"), this.dataStore.getDataObservable("suppliers"), function (produits, suppliers) {
             return produits.map(function (produit) {
-                var supplier = suppliers.filter(function (supplier) { return supplier._id === produit.Supplier; })[0];
+                var supplier = suppliers.filter(function (supplier) { return supplier._id === produit.supplierId; })[0];
                 return {
                     data: produit,
                     annotation: {
@@ -189,7 +189,7 @@ var ProductService = (function () {
     //    get basket
     //    ==========
     ProductService.prototype.hasSupplierBasketItems = function (supplier, produits, basketitems) {
-        return produits.filter(function (produit) { return produit.Supplier === supplier._id; }).filter(function (produit) { return basketitems.map(function (item) { return item.produit; }).includes(produit._id); }).length > 0;
+        return produits.filter(function (produit) { return produit.supplierId === supplier._id; }).filter(function (produit) { return basketitems.map(function (item) { return item.produit; }).includes(produit._id); }).length > 0;
     };
     ProductService.prototype.getBasketItemsForCurrentUser = function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('basket'), this.authService.getUserIdObservable(), function (basket, userId) {
@@ -207,7 +207,7 @@ var ProductService = (function () {
                     annotation: {
                         basketId: basketItemFiltered[0]._id,
                         quantity: basketItemFiltered[0].quantity,
-                        totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,
+                        totalPrice: product.price * basketItemFiltered[0].quantity * 1.21,
                         otp: _this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                     }
                 } : null;

@@ -98,8 +98,8 @@ export class OrderService {
                         data: item,
                         annotation: {
                             otp: otp ? otp.Name : 'Unknown otp',
-                            description: product ? product.Description : 'Unknown product',
-                            price: product ? product.Prix : '0',
+                            description: product ? product.name : 'Unknown product',
+                            price: product ? product.price : '0',
                             nbDelivered: (item.deliveries||[]).reduce((acc,delivery) => acc + (+delivery.quantity), 0), 
                             deliveries: (item.deliveries||[]).map(delivery => {
                                 return {
@@ -119,7 +119,7 @@ export class OrderService {
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id)[0]),
-            this.dataStore.getDataObservable('Produits'),
+            this.dataStore.getDataObservable('products'),
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),
@@ -133,7 +133,7 @@ export class OrderService {
     getAnnotedOrders(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('orders'),
-            this.dataStore.getDataObservable('Produits'),
+            this.dataStore.getDataObservable('products'),
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('krinousers'),
             this.dataStore.getDataObservable('equipes'),

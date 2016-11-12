@@ -26,7 +26,7 @@ export class PrestationService {
 
     getAnnotatedManips(manipsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable("labels"), manipsObservable,
-            this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('Produits').map(products => products.filter(product => product.manipIds))),
+            this.productService.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products').map(products => products.filter(product => product.manipIds))),
             (labels, manips, products) => {
                 return manips.map(manip => this.createAnnotatedManip(manip, labels, products));
             });
@@ -71,7 +71,7 @@ export class PrestationService {
                                 return {
                                     data: product,
                                     annotation: {
-                                        productName: productAnnotated ? productAnnotated.data.Description : 'unknowProduit',
+                                        productName: productAnnotated ? productAnnotated.data.name : 'unknowProduit',
                                         nbAvailableInStock: nbAvailableInStockRecord ? nbAvailableInStockRecord : 0
                                     }
                                 };

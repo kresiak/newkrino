@@ -46,8 +46,8 @@ export class ProductComponent implements OnInit {
     // =======================
 
     descriptionUpdated(desc: string) {
-        if (this.product.Description !== desc) {
-            this.product.data.Description = desc;
+        if (this.product.data.name !== desc) {
+            this.product.data.name = desc;
             this.productService.updateProduct(this.product.data);
         }
     }
@@ -55,14 +55,14 @@ export class ProductComponent implements OnInit {
     prixUpdated(prix: string) {
         var p: number = +prix && (+prix) >= 0 ? +prix : -1;
         if (p !== -1) {
-            if (this.product.Prix !== p) {
-                this.product.data.Prix = p;
+            if (this.product.price !== p) {
+                this.product.data.price = p;
                 this.productService.updateProduct(this.product.data);
             }
         }
         else
         {
-            this.priceChild.resetContent(this.product.data.Prix);
+            this.priceChild.resetContent(this.product.data.price);
         }
     }
 

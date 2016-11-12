@@ -80,19 +80,19 @@ export class ProductService {
     // ==========
 
     getSelectableCategories(): Observable<SelectableData[]> {
-        return this.dataStore.getDataObservable('Categories').map(categories => {
-            return categories.sort((cat1, cat2) => { return cat1.Description < cat2.Description ? -1 : 1; }).map(category =>
-                new SelectableData(category._id, category.Description)
+        return this.dataStore.getDataObservable('categories').map(categories => {
+            return categories.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(category =>
+                new SelectableData(category._id, category.name)
             )
         });
     }
 
     createCategory(newCategory): void {
-        this.dataStore.addData('Categories', { 'Description': newCategory });
+        this.dataStore.addData('categories', { 'name': newCategory });
     }
 
     getAnnotatedCategories(): Observable<any> {
-        return Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('Categories'), this.dataStore.getDataObservable('otps'),
+        return Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('otps'),
             (productsAnnotated: any[], categories, otps: any[]) => {
                 return categories.map(category => {
                     let suppliersInCategory = productsAnnotated.filter(product => product.data.Categorie && product.data.Categorie.includes(category._id)).map(product => product.annotation.supplierName)
@@ -122,19 +122,19 @@ export class ProductService {
     // ========
 
     updateProduct(product): void {
-        this.dataStore.updateData('Produits', product._id, product);
+        this.dataStore.updateData('products', product._id, product);
     }
 
     createProduct(product): Observable<any> {
-        return this.dataStore.addData('Produits', product);
+        return this.dataStore.addData('products', product);
     }
 
     getProductsBySupplier(supplierId): Observable<any> {
-        return this.dataStore.getDataObservable('Produits').map(produits => produits.filter(produit => produit.Supplier === supplierId));
+        return this.dataStore.getDataObservable('products').map(produits => produits.filter(produit => produit.supplierId === supplierId));
     }
 
     private getProductsBoughtByUser(userIdObservable: Observable<any>, ordersObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('Produits'), ordersObservable, userIdObservable, (products: any[], orders: any[], userId: string) => {
+        return Observable.combineLatest(this.dataStore.getDataObservable('products'), ordersObservable, userIdObservable, (products: any[], orders: any[], userId: string) => {
             let distinctProductIdsByUser: any[] = orders.filter(order => order.userId === userId).reduce((acc: any[], order) => {
                 let items: any[] = order.items;
                 items.forEach(item => {
@@ -152,7 +152,7 @@ export class ProductService {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
             (products, basketItems, suppliers) => {
                 return products.map(product => {
-                    let supplier = suppliers.filter(supplier => supplier._id === product.Supplier)[0];
+                    let supplier = suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
                         data: product,
@@ -178,10 +178,10 @@ export class ProductService {
 
 
     getAnnotatedProductsWithSupplierInfo(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable("Produits"), this.dataStore.getDataObservable("suppliers"),
+        return Observable.combineLatest(this.dataStore.getDataObservable("products"), this.dataStore.getDataObservable("suppliers"),
             (produits, suppliers) => {
                 return produits.map(produit => {
-                    let supplier = suppliers.filter(supplier => supplier._id === produit.Supplier)[0];
+                    let supplier = suppliers.filter(supplier => supplier._id === produit.supplierId)[0];
                     return {
                         data: produit,
                         annotation: {
@@ -201,7 +201,7 @@ export class ProductService {
 
 
     hasSupplierBasketItems(supplier, produits, basketitems: any[]): boolean {
-        return produits.filter(produit => produit.Supplier === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
+        return produits.filter(produit => produit.supplierId === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
     }
 
     getBasketItemsForCurrentUser(): Observable<any> {
@@ -226,7 +226,7 @@ export class ProductService {
                             annotation: {
                                 basketId: basketItemFiltered[0]._id,
                                 quantity: basketItemFiltered[0].quantity,
-                                totalPrice: product.Prix * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
+                                totalPrice: product.price * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
                                 otp: this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                             }
                         } : null;

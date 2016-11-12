@@ -24,7 +24,7 @@ var OtpChoiceService = (function () {
     }
     OtpChoiceService.prototype.determineOtp = function (product, quantity, annotatedOtps) {
         var equipeId = this.authService.getEquipeId();
-        var totalPrice = +product.Prix * quantity * 1.21;
+        var totalPrice = +product.price * quantity * 1.21;
         var possibleOtps = !annotatedOtps ? [] :
             annotatedOtps.filter(function (otp) { return otp.annotation.amountAvailable > totalPrice; }).filter(function (otp) {
                 var productCategories = product.Categorie ? product.Categorie : [];
