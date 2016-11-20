@@ -73,6 +73,12 @@ var OtpDetailComponent = (function () {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     };
+    OtpDetailComponent.prototype.dateUpdated = function (date) {
+        if (this.otp.data.date !== date) {
+            this.otp.data.date = date;
+            this.productService.updateProduct(this.otp.data);
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

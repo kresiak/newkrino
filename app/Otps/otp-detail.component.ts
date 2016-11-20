@@ -90,5 +90,10 @@ export class OtpDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
     
-
+    dateUpdated(date: string) {
+        if (this.otp.data.date !== date) {
+            this.otp.data.date = date;
+            this.productService.updateProduct(this.otp.data);
+        }
+    }
 }

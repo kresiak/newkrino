@@ -20,6 +20,7 @@
 							<div class="col-sm-3" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
 							<div class="col-sm-2"><b>Available</b></div>
 							<div class="col-sm-2"><b>Spent</b></div>
+							<div class="col-sm-2"><b>Date limite</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -33,6 +34,7 @@
 							<div class="col-sm-3" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">{{otp.data.date | date:'dd.MM.yyyy'}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

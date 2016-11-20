@@ -31,6 +31,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4">Date limite:</div>
+						<div class="col-sm-6">
+							<gg-editor [content]="otp.data.date"  [showControls]="true" (editSaved)="dateUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-2">
 							<img *ngIf="!otp.annotation.dashletId" src="./images/pin.png" (click)="setDashlet()" />
 							<img *ngIf="otp.annotation.dashletId" src="./images/unpin.png" (click)="removeDashlet(otp.annotation.dashletId)" />
