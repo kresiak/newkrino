@@ -8,7 +8,6 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
-
 @Component(
     {
         moduleId: module.id,
@@ -16,6 +15,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
         templateUrl: './otp-detail.component.html'
     }
 )
+
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
         private chartService: ChartService) {
@@ -24,7 +24,7 @@ export class OtpDetailComponent implements OnInit {
 
     @Input() otpObservable: Observable<any>;
     @Input() state;
-    @Output() stateChanged = new EventEmitter();
+    @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
         if (!this.state) this.state = {};
