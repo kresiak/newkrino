@@ -32,27 +32,27 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4">Date limite:{{ otp.data.date | json }}</div>
+						<div class="col-sm-6">
 <!--<gg-editor [content]="otp.data.date"  [showControls]="true" (editSaved)="dateUpdated($event)"></gg-editor>-->
 <!--<ngb-Datepicker>{{model}}</ngb-Datepicker>-->
-						<div class="col-sm-6">
 <!--<ngb-Datepicker [(startDate)]="otp.data.date"  (navigate)="dateUpdated($event)"></ngb-Datepicker>-->
-
 <!--<ngb-datepicker [startDate]="otp.data.date" (navigate)="dateUpdated($event)"></ngb-datepicker> la page se bloque-->
 <!--<ngb-datepicker [(ngModel)]="otp.data.date" (navigate)="dateUpdated($event)"></ngb-datepicker>-->
-<ngb-datepicker [ngModel]="otp.data.date" (ngModelChange)="dateUpdated($event)"></ngb-datepicker>
-							<!--
+
+<!--<ngb-datepicker [ngModel]="otp.data.date" (ngModelChange)="dateUpdated($event)"></ngb-datepicker>-->
+							
 							<form class="form-inline">
   								<div class="form-group">
     								<div class="input-group">
-									
-<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="otp.data.date" ngbDatepicker #d="ngbDatepicker">
+<!--<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">-->									
+<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" (ngModelChange)="dateUpdated($event)" ngbDatepicker #d="ngbDatepicker">
       									<div class="input-group-addon" (click)="d.toggle()" >
         									<img src="../../images/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
       									</div>
     								</div>
   								</div>
 							</form>
-							-->
+							
 						</div>
 					</div>
 					<div class="row">
