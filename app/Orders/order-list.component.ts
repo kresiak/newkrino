@@ -77,7 +77,8 @@ export class OrderListComponent implements OnInit {
                 }
                 return order.annotation.user.toUpperCase().includes(txt) 
                                     || order.annotation.supplier.toUpperCase().includes(txt)
-                                    || order.annotation.equipe.toUpperCase().includes(txt)  ;                                    
+                                    || order.annotation.equipe.toUpperCase().includes(txt) 
+                                    || order.data.kid === +txt ;                                    
 
             } );
         });
