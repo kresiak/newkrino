@@ -38,6 +38,15 @@ export class OtpDetailComponent implements OnInit {
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => {
             this.otp = otp;
+         
+            var dat = (otp.data.date);
+            if (dat) {
+                var day1 = +dat.substr(0, 2);
+                var month1 = +dat.substr(3, 2);
+                var year1 = +dat.substr(6, 4);
+                this.model = {year: year1, month: month1, day: day1};
+            }
+
             if (otp) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
@@ -46,7 +55,7 @@ export class OtpDetailComponent implements OnInit {
         });
     }
 
-
+    private model;
     private otp;
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
@@ -84,16 +93,29 @@ export class OtpDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     };
 
-    private childOrdersStateChanged($event)
-    {
-        this.state.Orders= $event;
+    private childOrdersStateChanged($event) {
+        this.state.Orders = $event;
         this.stateChanged.next(this.state);
     }
-    
-    dateUpdated(date: string) {
-        if (this.otp.data.date !== date) {
+
+    dateUpdated(dateParam) {
+        
+        if (this.model.day < 10){
+            this.model.day = "0" + this.model.day
+        }
+        else {
+            this.model.day
+        }
+        if (this.model.month < 10){
+            this.model.month = "0" + this.model.month 
+        }
+        else {
+            this.model.month
+        }
+        var date = this.model.day + "." + this.model.month + "." + this.model.year;
+        if (this.otp.data.date !== date) { 
             this.otp.data.date = date;
-            this.productService.updateProduct(this.otp.data);
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
         }
     }
 }

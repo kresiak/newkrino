@@ -37,6 +37,13 @@ var OtpDetailComponent = (function () {
         this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.categoryIds; });
         this.otpObservable.subscribe(function (otp) {
             _this.otp = otp;
+            var dat = (otp.data.date);
+            if (dat) {
+                var day1 = +dat.substr(0, 2);
+                var month1 = +dat.substr(3, 2);
+                var year1 = +dat.substr(6, 4);
+                _this.model = { year: year1, month: month1, day: day1 };
+            }
             if (otp) {
                 _this.pieSpentChart = _this.chartService.getSpentPieData(_this.otp.annotation.amountSpent / _this.otp.annotation.budget * 100);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByOtp(otp.data._id);
@@ -73,10 +80,23 @@ var OtpDetailComponent = (function () {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     };
-    OtpDetailComponent.prototype.dateUpdated = function (date) {
+    OtpDetailComponent.prototype.dateUpdated = function (dateParam) {
+        if (this.model.day < 10) {
+            this.model.day = "0" + this.model.day;
+        }
+        else {
+            this.model.day;
+        }
+        if (this.model.month < 10) {
+            this.model.month = "0" + this.model.month;
+        }
+        else {
+            this.model.month;
+        }
+        var date = this.model.day + "." + this.model.month + "." + this.model.year;
         if (this.otp.data.date !== date) {
             this.otp.data.date = date;
-            this.productService.updateProduct(this.otp.data);
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
         }
     };
     __decorate([
