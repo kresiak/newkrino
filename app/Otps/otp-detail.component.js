@@ -81,23 +81,17 @@ var OtpDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     OtpDetailComponent.prototype.dateUpdated = function (dateParam) {
-        if (this.model.day < 10) {
-            this.model.day = "0" + this.model.day;
-        }
-        else {
-            this.model.day;
-        }
-        if (this.model.month < 10) {
-            this.model.month = "0" + this.model.month;
-        }
-        else {
-            this.model.month;
-        }
-        var date = this.model.day + "." + this.model.month + "." + this.model.year;
+        var date = this.pad(this.model.day, 2) + "." + this.pad(this.model.month, 2) + "." + this.pad(this.model.year, 4);
         if (this.otp.data.date !== date) {
             this.otp.data.date = date;
             this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
         }
+    };
+    OtpDetailComponent.prototype.pad = function (num, size) {
+        var s = num + "";
+        while (s.length < size)
+            s = "0" + s;
+        return s;
     };
     __decorate([
         core_1.Input(), 
