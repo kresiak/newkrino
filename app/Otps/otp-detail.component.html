@@ -31,6 +31,24 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4">Date limite:</div>
+						<div class="col-sm-6">
+							<!--<ngb-datepicker #dp [(ngModel)]="model" (ngModelChange)="dateUpdated($event)"></ngb-datepicker>-->  
+							
+							<form class="form-inline">
+  								<div class="form-group">
+    								<div class="input-group">
+									<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" (ngModelChange)="dateUpdated($event)" ngbDatepicker #d="ngbDatepicker">
+      									<div class="input-group-addon" (click)="d.toggle()" >
+        									<img src="../../images/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+      									</div>
+    								</div>
+  								</div>
+							</form>
+							
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-2">
 							<img *ngIf="!otp.annotation.dashletId" src="./images/pin.png" (click)="setDashlet()" />
 							<img *ngIf="otp.annotation.dashletId" src="./images/unpin.png" (click)="removeDashlet(otp.annotation.dashletId)" />
