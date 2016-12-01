@@ -31,6 +31,14 @@ export class OtpDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
+    createDateObject(date: string)
+    {
+           var day1 = +date.substr(0, 2);
+           var month1 = +date.substr(3, 2);
+           var year1 = +date.substr(6, 4);
+           var obj = {year: year1, month: month1, day: day1};
+           return obj;
+    }
 
     ngOnInit(): void {
         this.stateInit();
@@ -41,10 +49,7 @@ export class OtpDetailComponent implements OnInit {
          
             var dat = (otp.data.date);
             if (dat) {
-                var day1 = +dat.substr(0, 2);
-                var month1 = +dat.substr(3, 2);
-                var year1 = +dat.substr(6, 4);
-                this.model = {year: year1, month: month1, day: day1};
+                 this.model = this.createDateObject(dat);
             }
 
             if (otp) {
