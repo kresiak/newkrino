@@ -30,6 +30,13 @@ var OtpDetailComponent = (function () {
         if (!this.state.selectedTabId)
             this.state.selectedTabId = '';
     };
+    OtpDetailComponent.prototype.createDateObject = function (date) {
+        var day1 = +date.substr(0, 2);
+        var month1 = +date.substr(3, 2);
+        var year1 = +date.substr(6, 4);
+        var obj = { year: year1, month: month1, day: day1 };
+        return obj;
+    };
     OtpDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
@@ -39,10 +46,7 @@ var OtpDetailComponent = (function () {
             _this.otp = otp;
             var dat = (otp.data.date);
             if (dat) {
-                var day1 = +dat.substr(0, 2);
-                var month1 = +dat.substr(3, 2);
-                var year1 = +dat.substr(6, 4);
-                _this.model = { year: year1, month: month1, day: day1 };
+                _this.model = _this.createDateObject(dat);
             }
             if (otp) {
                 _this.pieSpentChart = _this.chartService.getSpentPieData(_this.otp.annotation.amountSpent / _this.otp.annotation.budget * 100);
