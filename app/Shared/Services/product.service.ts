@@ -138,8 +138,8 @@ export class ProductService {
             let distinctProductIdsByUser: any[] = orders.filter(order => order.userId === userId).reduce((acc: any[], order) => {
                 let items: any[] = order.items;
                 items.forEach(item => {
-                    if (!acc.includes(item.product)) {
-                        acc.push(item.product);
+                    if (!acc.includes(item.productId)) {
+                        acc.push(item.productId);
                     }
                 });
                 return acc;

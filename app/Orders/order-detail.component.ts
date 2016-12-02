@@ -61,7 +61,7 @@ export class OrderDetailComponent implements OnInit {
             this.selectableOtpsObservable = this.orderService.getSelectableOtps();
             if (this.order && this.order.annotation)
                 this.order.annotation.items.forEach(item => {
-                    item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otp]);
+                    item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otpId]);
                 });
         });
     }
@@ -79,7 +79,7 @@ export class OrderDetailComponent implements OnInit {
         if (formData.resell)
         {
             let prodData= {
-                productId: orderItem.data.product,
+                productId: orderItem.data.productId,
                 orderId: this.order.data._id,
                 quantity: formData.qty,
                 factor: formData.factor };
@@ -117,8 +117,8 @@ export class OrderDetailComponent implements OnInit {
 
     otpUpdated(orderItem, newOtpIds): void {
         if (newOtpIds && newOtpIds.length > 0) {
-            orderItem.data.otp = newOtpIds[0];
-            orderItem.annotation.idObservable.next([orderItem.data.otp]);
+            orderItem.data.otpId = newOtpIds[0];
+            orderItem.annotation.idObservable.next([orderItem.data.otpId]);
             this.orderService.updateOrder(this.order.data);
         }
     }

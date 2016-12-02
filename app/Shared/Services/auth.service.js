@@ -24,7 +24,7 @@ var AuthService = (function () {
     AuthService.prototype.createAnnotatedUser = function (user, equipes) {
         if (!user)
             return null;
-        var filteredEquipes = equipes.filter(function (equipe) { return equipe.userIds.includes(user._id); });
+        var filteredEquipes = equipes.filter(function (equipe) { return equipe.userIds && equipe.userIds.includes(user._id); });
         return {
             data: user,
             annotation: {
