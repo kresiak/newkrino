@@ -34,9 +34,12 @@ var OrderService = (function () {
         });
     };
     OrderService.prototype.createAnnotatedOtp = function (otp, orders, equipes, dashlets) {
+        if (orders.length > 0) {
+            var xss = true;
+        }
         if (!otp)
             return null;
-        var amountSpent = orders.map(function (order) { return order.items.filter(function (item) { return item.otp === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
+        var amountSpent = orders.map(function (order) { return !order.items ? 0 : order.items.filter(function (item) { return item.otpId === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
         var equipe = equipes.filter(function (equipe) { return equipe._id === otp.equipeId; })[0];
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === otp._id; });
         return {
@@ -91,9 +94,9 @@ var OrderService = (function () {
                 equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
-                items: order.items.map(function (item) {
-                    var product = products.filter(function (product) { return product._id === item.product; })[0];
-                    var otp = otps.filter(function (otp) { return otp._id === item.otp; })[0];
+                items: !order.items ? [] : order.items.map(function (item) {
+                    var product = products.filter(function (product) { return product._id === item.productId; })[0];
+                    var otp = otps.filter(function (otp) { return otp._id === item.otpId; })[0];
                     return {
                         data: item,
                         annotation: {
@@ -140,7 +143,7 @@ var OrderService = (function () {
         });
     };
     OrderService.prototype.getAnnotedOrdersByOtp = function (otpId) {
-        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items.map(function (item) { return item.otp; }).includes(otpId); }); });
+        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items && order.data.items.map(function (item) { return item.otpId; }).includes(otpId); }); });
     };
     // updating orders
     // ==============

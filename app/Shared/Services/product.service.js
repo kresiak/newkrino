@@ -139,8 +139,8 @@ var ProductService = (function () {
             var distinctProductIdsByUser = orders.filter(function (order) { return order.userId === userId; }).reduce(function (acc, order) {
                 var items = order.items;
                 items.forEach(function (item) {
-                    if (!acc.includes(item.product)) {
-                        acc.push(item.product);
+                    if (!acc.includes(item.productId)) {
+                        acc.push(item.productId);
                     }
                 });
                 return acc;

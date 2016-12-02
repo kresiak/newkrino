@@ -23,8 +23,12 @@ export class OrderService {
 
     private createAnnotatedOtp(otp, orders, equipes, dashlets: any[])
     {
+        if (orders.length > 0){
+            let xss= true;
+        }
+
         if (!otp) return null;
-        let amountSpent= orders.map(order => order.items.filter(item => item.otp === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b)=> a + b, 0);
+        let amountSpent= orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b)=> a + b, 0);
         let equipe= equipes.filter(equipe => equipe._id===otp.equipeId)[0];
         let dashlet= dashlets.filter(dashlet => dashlet.id === otp._id);
         return {
@@ -91,9 +95,9 @@ export class OrderService {
                 equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId:  dashlet.length > 0 ? dashlet[0]._id : undefined ,
-                items: order.items.map(item => {
-                    let product = products.filter(product => product._id === item.product)[0];
-                    let otp = otps.filter(otp => otp._id === item.otp)[0];
+                items: !order.items ? [] : order.items.map(item => {
+                    let product = products.filter(product => product._id === item.productId)[0];
+                    let otp = otps.filter(otp => otp._id === item.otpId)[0];
                     return {
                         data: item,
                         annotation: {
@@ -162,7 +166,7 @@ export class OrderService {
     }
 
     getAnnotedOrdersByOtp(otpId: string): Observable<any> {
-        return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.items.map(item => item.otp).includes(otpId)));
+        return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.items && order.data.items.map(item => item.otpId).includes(otpId)));
     }
 
         // updating orders
