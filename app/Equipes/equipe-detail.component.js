@@ -38,7 +38,7 @@ var EquipeDetailComponent = (function () {
                 _this.usersObservable = _this.dataStore.getDataObservable('users.krino').map(function (users) { return users.filter(function (user) { return _this.equipe.data.userIds.includes(user._id); }); });
                 _this.otpsObservable = _this.orderService.getAnnotatedOtpsByEquipe(_this.equipe.data._id);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
-                _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+                _this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
         });
     };

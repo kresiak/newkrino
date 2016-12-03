@@ -166,6 +166,10 @@ export class OrderService {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.equipeId === equipeId));
     }
 
+    hasEquipeAnyOrder(equipeId: string): Observable<boolean> {
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId).length>0);
+    }
+
     getAnnotedOrdersOfCurrentUser(): Observable<any> {
         return Observable.combineLatest(this.getAnnotedOrders(), this.authService.getUserIdObservable(), (orders, userId) => {
             return orders.filter(order => order.data.userId === userId);
@@ -175,6 +179,11 @@ export class OrderService {
     getAnnotedOrdersByOtp(otpId: string): Observable<any> {
         return this.getAnnotedOrders().map(orders => orders.filter(order => order.data.items && order.data.items.map(item => item.otpId).includes(otpId)));
     }
+
+    hasOtpAnyOrder(otpId: string): Observable<boolean> {
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.otpId).includes(otpId)).length>0);
+    }
+
 
     // updating orders
     // ==============

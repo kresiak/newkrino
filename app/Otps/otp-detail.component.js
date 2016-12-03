@@ -51,7 +51,7 @@ var OtpDetailComponent = (function () {
             if (otp) {
                 _this.pieSpentChart = _this.chartService.getSpentPieData(_this.otp.annotation.amountSpent / _this.otp.annotation.budget * 100);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByOtp(otp.data._id);
-                _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+                _this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
         });
     };

@@ -55,7 +55,7 @@ export class OtpDetailComponent implements OnInit {
             if (otp) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
-                this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
+                this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
     }
