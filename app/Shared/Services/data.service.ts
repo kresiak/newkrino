@@ -21,7 +21,8 @@ export class DataStore { // contains one observable property by database table/c
             res => {
                 this[table].next(res);
             },
-            err => console.log("Error retrieving Todos")
+            err => console.log("Error retrieving Todos"),
+            () => console.log("completed " + table)
         );
     }
 

@@ -33,13 +33,24 @@ var OrderService = (function () {
             });
         });
     };
-    OrderService.prototype.createAnnotatedOtp = function (otp, orders, equipes, dashlets) {
-        if (orders.length > 0) {
-            var xss = true;
-        }
+    OrderService.prototype.getOtpMoneySpentMapObservable = function () {
+        return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.reduce(function (map, order) {
+            if (order.items) {
+                order.items.filter(function (item) { return item.otpId && item.total; }).forEach(function (item) {
+                    var otpId = item.otpId;
+                    if (!map.has(otpId))
+                        map.set(otpId, 0);
+                    map.set(otpId, map.get(otpId) + item.total);
+                });
+            }
+            return map;
+        }, new Map()); });
+    };
+    OrderService.prototype.createAnnotatedOtp = function (otp, otpSpentMap, equipes, dashlets) {
         if (!otp)
             return null;
-        var amountSpent = orders.map(function (order) { return !order.items ? 0 : order.items.filter(function (item) { return item.otpId === otp._id; }).map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }, 0); }).reduce(function (a, b) { return a + b; }, 0);
+        var amountSpent = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0;
+        //orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
         var equipe = equipes.filter(function (equipe) { return equipe._id === otp.equipeId; })[0];
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === otp._id; });
         return {
@@ -55,8 +66,8 @@ var OrderService = (function () {
     };
     OrderService.prototype.getAnnotatedOtps = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('orders'), this.userService.getOtpDashletsForCurrentUser(), function (otps, equipes, orders, dashlets) {
-            return otps.map(function (otp) { return _this.createAnnotatedOtp(otp, orders, equipes, dashlets); });
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('equipes'), this.getOtpMoneySpentMapObservable(), this.userService.getOtpDashletsForCurrentUser(), function (otps, equipes, otpSpentMap, dashlets) {
+            return otps.map(function (otp) { return _this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets); });
         });
     };
     OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {

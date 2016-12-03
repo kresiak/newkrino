@@ -51,7 +51,6 @@ var OtpListComponent = (function () {
             return otps.filter(function (otp) { return otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                 || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()); });
         }).subscribe(function (otps) { return _this.otps = otps; });
-        ;
     };
     OtpListComponent.prototype.getOtpObservable = function (id) {
         return this.otpsObservable.map(function (otps) { return otps.filter(function (otp) { return otp.data._id === id; })[0]; });
