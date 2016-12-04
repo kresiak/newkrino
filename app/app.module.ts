@@ -59,12 +59,14 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
 import {ChartService} from './Shared/Services/chart.service'
 import {PrestationService} from './Shared/Services/prestation.service'
+import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
+import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
 
-import {MomentModule} from 'angular2-moment';
+//import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   imports:      [ 
-          MomentModule,
+  //        MomentModule,
           ChartistModule,
           BrowserModule, 
           FormsModule, ReactiveFormsModule,
@@ -100,7 +102,8 @@ import {MomentModule} from 'angular2-moment';
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
-                  Editor, EditorNumber, Checkbox, SelectorComponent
+                  Editor, EditorNumber, Checkbox, SelectorComponent,
+                  FullDatePipe, ShortDatePipe
                  ],
   providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
   bootstrap:    [ AppComponent ]

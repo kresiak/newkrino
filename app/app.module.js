@@ -58,14 +58,16 @@ var otp_choice_service_1 = require('./Shared/Services/otp-choice.service');
 var user_service_1 = require('./Shared/Services/user.service');
 var chart_service_1 = require('./Shared/Services/chart.service');
 var prestation_service_1 = require('./Shared/Services/prestation.service');
-var angular2_moment_1 = require('angular2-moment');
+var fulldate_pipe_1 = require('./Shared/Pipes/fulldate.pipe');
+var shortdate_pipe_1 = require('./Shared/Pipes/shortdate.pipe');
+//import {MomentModule} from 'angular2-moment';
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [
-                angular2_moment_1.MomentModule,
+                //        MomentModule,
                 angular2_chartist_1.ChartistModule,
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule, forms_1.ReactiveFormsModule,
@@ -101,7 +103,8 @@ var AppModule = (function () {
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
-                editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent
+                editor_1.Editor, editor_number_1.EditorNumber, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
+                fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe
             ],
             providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],
             bootstrap: [app_component_1.AppComponent]

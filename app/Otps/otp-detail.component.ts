@@ -7,6 +7,8 @@ import { UserService } from './../Shared/Services/user.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from "moment"
+
 
 @Component(
     {
@@ -31,13 +33,10 @@ export class OtpDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
-    createDateObject(date: string)
-    {
-           var day1 = +date.substr(0, 2);
-           var month1 = +date.substr(3, 2);
-           var year1 = +date.substr(6, 4);
-           var obj = {year: year1, month: month1, day: day1};
-           return obj;
+    createDateObject(date: string) {
+        var md = moment(date, 'DD/MM/YYYY hh:mm:ss')
+        var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
+        return obj;
     }
 
     ngOnInit(): void {
@@ -46,10 +45,10 @@ export class OtpDetailComponent implements OnInit {
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => {
             this.otp = otp;
-         
-            var dat = (otp.data.date);
+
+            var dat = (otp.data.datEnd);
             if (dat) {
-                 this.model = this.createDateObject(dat);
+                this.model = this.createDateObject(dat);
             }
 
             if (otp) {
@@ -104,16 +103,19 @@ export class OtpDetailComponent implements OnInit {
     }
 
     dateUpdated(dateParam) {
-        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4); 
-        if (this.otp.data.date !== date) { 
-            this.otp.data.date = date;
-            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-        }
+        //        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4);
+        var md = moment()
+        md.date(this.model.day)
+        md.month(this.model.month - 1)
+        md.year(this.model.year)
+
+        this.otp.data.datEnd = md.format('DD/MM/YYYY');
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    numberToFixString(inputNumber: number, nbOfPositions: number) : string {
+    numberToFixString(inputNumber: number, nbOfPositions: number): string {
         var number = inputNumber + "";
-			while (number.length < nbOfPositions) number = "0" + number;
-			return number;
+        while (number.length < nbOfPositions) number = "0" + number;
+        return number;
     }
 }

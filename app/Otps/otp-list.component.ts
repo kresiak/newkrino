@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component(
     {
         template: `<gg-otp-list [otpsObservable]= "otpsObservable"></gg-otp-list>`
@@ -53,6 +54,7 @@ export class OtpListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        
         
         Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), (otps, searchTxt: string) => {
             if (searchTxt.trim() === '') return otps;

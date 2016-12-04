@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 
+
+
 @Component(
     {
         moduleId: module.id,
@@ -11,7 +13,8 @@ export class HomeComponent {
     private errFn = function (err) { console.log('Error: ' + err); }
 
     constructor() {
-        var interval = Observable.interval(1000);
+        
+/*        var interval = Observable.interval(1000);
 
         var source = interval
             .take(2)
@@ -28,7 +31,7 @@ export class HomeComponent {
         setTimeout(function () {
             published.subscribe(x => console.log('Next sourceC: ' + x), this.errFn, () => console.log('Complete sourceC'));
         }, 6000);
-    }
+*/    }
 
 
 }

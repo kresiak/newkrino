@@ -3,6 +3,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { Observable } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from "moment"
 
 @Component(
     {
@@ -89,7 +90,12 @@ export class OrderListComponent implements OnInit {
     }
 
     formatDate(date: string): string {
-        return (new Date(date)).toLocaleDateString()
+        var now= moment()
+        var then= moment(date, 'DD/MM/YYYY hh:mm:ss')
+        var diff= now.diff(then, 'days');
+
+        //var md= moment(date, 'DD/MM/YYYY hh:mm:ss').fromNow()
+        return diff < 15 ? then.fromNow() : then.format('LLLL') 
     }
 
     showColumn(columnName: string) {

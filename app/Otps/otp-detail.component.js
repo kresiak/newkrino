@@ -15,6 +15,7 @@ var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
+var moment = require("moment");
 var OtpDetailComponent = (function () {
     function OtpDetailComponent(dataStore, productService, orderService, userService, chartService) {
         this.dataStore = dataStore;
@@ -31,10 +32,8 @@ var OtpDetailComponent = (function () {
             this.state.selectedTabId = '';
     };
     OtpDetailComponent.prototype.createDateObject = function (date) {
-        var day1 = +date.substr(0, 2);
-        var month1 = +date.substr(3, 2);
-        var year1 = +date.substr(6, 4);
-        var obj = { year: year1, month: month1, day: day1 };
+        var md = moment(date, 'DD/MM/YYYY hh:mm:ss');
+        var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
         return obj;
     };
     OtpDetailComponent.prototype.ngOnInit = function () {
@@ -44,7 +43,7 @@ var OtpDetailComponent = (function () {
         this.selectedCategoryIdsObservable = this.otpObservable.map(function (otp) { return otp.data.categoryIds; });
         this.otpObservable.subscribe(function (otp) {
             _this.otp = otp;
-            var dat = (otp.data.date);
+            var dat = (otp.data.datEnd);
             if (dat) {
                 _this.model = _this.createDateObject(dat);
             }
@@ -85,11 +84,13 @@ var OtpDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     OtpDetailComponent.prototype.dateUpdated = function (dateParam) {
-        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4);
-        if (this.otp.data.date !== date) {
-            this.otp.data.date = date;
-            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-        }
+        //        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4);
+        var md = moment();
+        md.date(this.model.day);
+        md.month(this.model.month - 1);
+        md.year(this.model.year);
+        this.otp.data.datEnd = md.format('DD/MM/YYYY');
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
     OtpDetailComponent.prototype.numberToFixString = function (inputNumber, nbOfPositions) {
         var number = inputNumber + "";
