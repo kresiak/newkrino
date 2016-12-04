@@ -17,7 +17,7 @@ var OrderListComponentRoutable = (function () {
         this.orderService = orderService;
     }
     OrderListComponentRoutable.prototype.ngOnInit = function () {
-        this.ordersObservable = this.orderService.getAnnotedOrders();
+        this.ordersObservable = this.orderService.getAnnotedOrdersFromAll();
     };
     OrderListComponentRoutable = __decorate([
         core_1.Component({

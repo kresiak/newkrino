@@ -134,30 +134,41 @@ var OrderService = (function () {
             return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
         });
     };
-    OrderService.prototype.getAnnotedOrders = function () {
+    OrderService.prototype.getAnnotedOrders = function (ordersObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
+        return Rx_1.Observable.combineLatest(ordersObservable, this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('suppliers'), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
             return orders.map(function (order) {
                 return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             });
         });
     };
+    OrderService.prototype.getAnnotedOrdersFromAll = function () {
+        return this.getAnnotedOrders(this.dataStore.getDataObservable('orders'));
+    };
     OrderService.prototype.getAnnotedOrdersBySupplier = function (supplierId) {
-        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.supplierId === supplierId; }); });
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }); });
+        return this.getAnnotedOrders(ordersObservable);
+    };
+    OrderService.prototype.hasSupplierAnyOrder = function (supplierId) {
+        return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }).length > 0; });
     };
     OrderService.prototype.getAnnotedOrdersByEquipe = function (equipeId) {
-        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.equipeId === equipeId; }); });
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.equipeId === equipeId; }); });
+        return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.hasEquipeAnyOrder = function (equipeId) {
         return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.equipeId === equipeId; }).length > 0; });
     };
     OrderService.prototype.getAnnotedOrdersOfCurrentUser = function () {
-        return Rx_1.Observable.combineLatest(this.getAnnotedOrders(), this.authService.getUserIdObservable(), function (orders, userId) {
-            return orders.filter(function (order) { return order.data.userId === userId; });
+        var _this = this;
+        return this.authService.getUserIdObservable().switchMap(function (userId) {
+            var ordersObservable = _this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.userId === userId; }); });
+            return _this.getAnnotedOrders(ordersObservable);
         });
     };
     OrderService.prototype.getAnnotedOrdersByOtp = function (otpId) {
-        return this.getAnnotedOrders().map(function (orders) { return orders.filter(function (order) { return order.data.items && order.data.items.map(function (item) { return item.otpId; }).includes(otpId); }); });
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.items && order.items.map(function (item) { return item.otpId; }).includes(otpId); }); });
+        return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.hasOtpAnyOrder = function (otpId) {
         return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.items && order.items.map(function (item) { return item.otpId; }).includes(otpId); }).length > 0; });
@@ -202,7 +213,7 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotatedEquipesOfCurrentUser = function () {
         return Rx_1.Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), function (equipes, userId) {
             return equipes.filter(function (equipe) {
-                return equipe.data.userIds.includes(userId);
+                return equipe.data.userIds && equipe.data.userIds.includes(userId);
             });
         });
     };

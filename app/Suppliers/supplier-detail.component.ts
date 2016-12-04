@@ -38,7 +38,7 @@ export class SupplierDetailComponent implements OnInit {
                 this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
                 this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
                 this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier._id);
-                this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
+                this.orderService.hasSupplierAnyOrder(supplier._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
     }

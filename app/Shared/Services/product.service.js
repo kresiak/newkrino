@@ -65,7 +65,7 @@ var ProductService = (function () {
     };
     ProductService.prototype.getAnnotatedStockProducts = function (productsStockObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrders(), function (productsStock, annotatedOrders) {
+        return Rx_1.Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrdersFromAll(), function (productsStock, annotatedOrders) {
             return productsStock.map(function (productStock) { return _this.createAnnotatedStockProduct(productStock, annotatedOrders); });
         });
     };
@@ -137,7 +137,7 @@ var ProductService = (function () {
     ProductService.prototype.getProductsBoughtByUser = function (userIdObservable, ordersObservable) {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('products'), ordersObservable, userIdObservable, function (products, orders, userId) {
             var distinctProductIdsByUser = orders.filter(function (order) { return order.userId === userId; }).reduce(function (acc, order) {
-                var items = order.items;
+                var items = order.items || [];
                 items.forEach(function (item) {
                     if (!acc.includes(item.productId)) {
                         acc.push(item.productId);
