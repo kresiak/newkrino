@@ -91,9 +91,9 @@ export class OrderService {
 
     private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[]) {
         if (!order) return null;
-        let supplier = suppliers.filter(supplier => supplier._id === order.supplierId)[0];
-        let equipe = equipes.filter(equipe => equipe._id === order.equipeId)[0];
-        let user = users.filter(user => user._id === order.userId)[0];
+        let supplier = suppliers.get(order.supplierId)
+        let equipe = equipes.get(order.equipeId) 
+        let user = users.get(order.userId) 
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
         return {
             data: order,
@@ -104,8 +104,8 @@ export class OrderService {
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: !order.items ? [] : order.items.map(item => {
-                    let product = products.filter(product => product._id === item.productId)[0];
-                    let otp = otps.filter(otp => otp._id === item.otpId)[0];
+                    let product = products.get(item.productId)
+                    let otp = otps.get(item.otpId) 
                     return {
                         data: item,
                         annotation: {
@@ -128,29 +128,36 @@ export class OrderService {
     // viewing orders
     // ==============
 
+    private hashMapFactory= list => {
+        return list.reduce((map, p) => {
+                map.set(p._id, p)
+                return map
+            }, new Map())
+    }            
+
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id)[0]),
-            this.dataStore.getDataObservable('products'),
-            this.dataStore.getDataObservable('otps'),
-            this.dataStore.getDataObservable('users.krino'),
-            this.dataStore.getDataObservable('equipes'),
-            this.dataStore.getDataObservable('suppliers'),
+            this.dataStore.getDataObservable('products').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             (order, products, otps, users, equipes, suppliers, dashlets) => {
                 return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             })
     }
-    
+        
 
     getAnnotedOrders(ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
             ordersObservable,
-            this.dataStore.getDataObservable('products'),
-            this.dataStore.getDataObservable('otps'),
-            this.dataStore.getDataObservable('users.krino'),
-            this.dataStore.getDataObservable('equipes'),
-            this.dataStore.getDataObservable('suppliers'),
+            this.dataStore.getDataObservable('products').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             (orders, products, otps, users, equipes, suppliers, dashlets) => {
                 return orders.map(order =>
@@ -161,6 +168,11 @@ export class OrderService {
 
     getAnnotedOrdersFromAll(): Observable<any> {
         return this.getAnnotedOrders(this.dataStore.getDataObservable('orders'));
+    }
+
+    getNewestAnnotedOrders(nb: number): Observable<any> {
+        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid).slice(0, nb)) 
+        return this.getAnnotedOrders(ordersObservable);
     }
 
     getAnnotedOrdersBySupplier(supplierId: string): Observable<any> {

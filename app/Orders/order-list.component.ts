@@ -13,7 +13,7 @@ export class OrderListComponentRoutable implements OnInit {
     constructor(private orderService: OrderService) { }
 
     ngOnInit(): void {
-        this.ordersObservable = this.orderService.getAnnotedOrdersFromAll();
+        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
     }
 
     private ordersObservable: Observable<any>;
