@@ -33,23 +33,12 @@ export class OtpDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
-    createDateObject(date: string) {
-        var md = moment(date, 'DD/MM/YYYY hh:mm:ss')
-        var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
-        return obj;
-    }
-
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => {
             this.otp = otp;
-
-            var dat = (otp.data.datEnd);
-            if (dat) {
-                this.model = this.createDateObject(dat);
-            }
 
             if (otp) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
@@ -59,7 +48,7 @@ export class OtpDetailComponent implements OnInit {
         });
     }
 
-    private model;
+    //private model;
     private otp;
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
@@ -102,20 +91,8 @@ export class OtpDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    dateUpdated(dateParam) {
-        //        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4);
-        var md = moment()
-        md.date(this.model.day)
-        md.month(this.model.month - 1)
-        md.year(this.model.year)
-
-        this.otp.data.datEnd = md.format('DD/MM/YYYY');
+    dateUpdated(date) {
+        this.otp.data.datEnd= date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    numberToFixString(inputNumber: number, nbOfPositions: number): string {
-        var number = inputNumber + "";
-        while (number.length < nbOfPositions) number = "0" + number;
-        return number;
     }
 }

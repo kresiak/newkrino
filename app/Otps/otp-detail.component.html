@@ -33,16 +33,7 @@
 					<div class="row">
 						<div class="col-sm-4">Date limite:</div>
 						<div class="col-sm-6">
-							<form class="form-inline">
-  								<div class="form-group">
-    								<div class="input-group">
-									<input class="form-control" readonly="readonly" name="dp" [(ngModel)]="model" (ngModelChange)="dateUpdated($event)" ngbDatepicker #d="ngbDatepicker">
-      									<div class="input-group-addon" (click)="d.toggle()" >
-        									<img src="../../images/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-      									</div>
-    								</div>
-  								</div>
-							</form>
+							<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)"></gg-editor-date>
 						</div>
 					</div>
 					<div class="row">
@@ -66,14 +57,14 @@
 									<x-chartist [data]="pieSpentChart.data" [type]="pieSpentChart.type"></x-chartist>
 								</div>
 							</div>
-							
+
 						</div>"
 					</div>
 
 				</div>
 			</div>
 		</template>
-	</ngb-tab>	
+	</ngb-tab>
 	<ngb-tab title="Comments" id="tabComments">
 		<template ngbTabContent>
 			<gg-comments [comments]="otp.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>

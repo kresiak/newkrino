@@ -44,6 +44,7 @@ import {MyKrinoComponent} from './Dashboard/mykrino.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
+import {EditorDate} from './ui/editor/editor-date'
 import {Checkbox} from './ui/checkbox/checkbox'
 import {SelectorComponent} from './ui/selector/selector.component'
 import {CommentComponent} from './Comments/comment.component'
@@ -102,7 +103,7 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
-                  Editor, EditorNumber, Checkbox, SelectorComponent,
+                  Editor, EditorNumber, EditorDate, Checkbox, SelectorComponent,
                   FullDatePipe, ShortDatePipe
                  ],
   providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
