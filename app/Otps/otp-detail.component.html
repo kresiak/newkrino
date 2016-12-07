@@ -31,6 +31,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4">Date start:</div>
+						<div class="col-sm-6">
+							<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4">Date limite:</div>
 						<div class="col-sm-6">
 							<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)"></gg-editor-date>

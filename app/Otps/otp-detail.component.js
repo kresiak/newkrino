@@ -77,6 +77,10 @@ var OtpDetailComponent = (function () {
         this.otp.data.datEnd = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
+    OtpDetailComponent.prototype.dateUpdatedStart = function (date) {
+        this.otp.data.datStart = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
