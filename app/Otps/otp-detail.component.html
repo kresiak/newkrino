@@ -24,22 +24,22 @@
 						<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">allowed products:</div>
-						<div class="col-sm-6">
-							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">Date start:</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4 vcenter">from:</div>
+						<div class="col-sm-6 vcenter">
 							<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">Date limite:</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4 vcenter">to:</div>
+						<div class="col-sm-6 vcenter">
 							<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)"></gg-editor-date>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">allowed products:</div>
+						<div class="col-sm-6">
+							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
