@@ -107,7 +107,7 @@ export class OtpDetailComponent implements OnInit {
     }
 
     budgetUpdated(budget) {
-        this.otp.annotation.budget = budget;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.annotation);
+        this.otp.data.budget = budget;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }

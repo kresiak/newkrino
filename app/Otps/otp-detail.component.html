@@ -16,7 +16,7 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">total budget:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="otp.annotation.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)"></gg-editor>
+							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)"></gg-editor>
 						<!-- {{ | currency:'EUR':true:'1.2-2'}} -->
 						</div>
 					</div>
