@@ -100,4 +100,14 @@ export class OtpDetailComponent implements OnInit {
         this.otp.data.datStart = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
+
+    nameUpdated(name) {
+        this.otp.data.name = name;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    budgetUpdated(budget) {
+        this.otp.annotation.budget = budget;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.annotation);
+    }
 }
