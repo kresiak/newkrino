@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs/Rx'
-import { OrderService } from './../Shared/Services/order.service'
+import { ProductService } from './../Shared/Services/product.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -11,10 +11,10 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class ProductListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService) { }
+    constructor(private productService: ProductService) { }
 
     ngOnInit(): void {
-        this.productsObservable = this.orderService.getAnnotatedProducts();
+        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
     }
 
     private productsObservable: Observable<any>;
@@ -32,17 +32,16 @@ export class ProductListComponent implements OnInit {
     @Input() productsObservable: Observable<any>;
     @Input() config;
     @Input() state;
-    @Output() stateChanged= new EventEmitter();
+    @Output() stateChanged = new EventEmitter();
 
-    private stateInit()
-    {
-        if (!this.state) this.state= {};
+    private stateInit() {
+        if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
     searchControl = new FormControl();
     searchForm;
-    
+
 
     private products;
 
@@ -54,13 +53,33 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        
-        
+
+
         Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
-            if (searchTxt.trim() === '') return products;
-            return products.filter(product => product.data.name.toUpperCase().includes(searchTxt.toUpperCase()) 
-                                    || product.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(products => this.products = products);
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '' || txt === '!' ||txt === '$' || txt === '$>' || txt === '$<') return products;
+
+            return products.filter(product => {
+                if (txt.startsWith('!'))
+                {
+                    let txt2= txt.slice(1);
+                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
+                }                
+                if (txt.startsWith('$>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + product.data.price >= montant;
+                }
+                if (txt.startsWith('$<') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + product.data.price <= montant;
+                }
+
+                return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt)
+            });
+        }).subscribe(products => {
+            this.products = products.slice(0, 250)
+        });
+
     }
 
     getProductObservable(id: string) {
@@ -73,18 +92,16 @@ export class ProductListComponent implements OnInit {
 
     // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
-        if ($event.nextState)
-        {
+        if ($event.nextState) {
             this.state.openPanelId = $event.panelId;
             this.stateChanged.next(this.state);
-        }            
+        }
     };
-    
+
     // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
-    private childStateChanged(newState, objectId)
-    {
-            this.state[objectId]= newState;
-            this.stateChanged.next(this.state);
+    private childStateChanged(newState, objectId) {
+        this.state[objectId] = newState;
+        this.stateChanged.next(this.state);
     }
 
 }

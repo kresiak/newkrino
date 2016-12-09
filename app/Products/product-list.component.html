@@ -1,6 +1,9 @@
 <template #searchPopContent>
     <ul>
-        <li>RWAL: si l'OTP ou l'équipe associée contient 'RWAL'</li>
+        <li>liquid: the product or the supplier should contain the string 'liquid'</li>
+        <li>$>200: montants supérieurs à 200 euros</li>
+        <li>$<50: montants inférieurs à 200 euros</li>
+        <li>!labmanager: neither the product nor the supplier should contains the string 'labmanager'</li>
     </ul>    
 </template>
 
@@ -17,10 +20,9 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-3"><b>Product</b></div>
-							<div class="col-sm-3" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
-							<div class="col-sm-2"><b>Available</b></div>
-							<div class="col-sm-2"><b>Spent</b></div>
-							<div class="col-sm-2"><b>Date limite</b></div>
+							<div class="col-sm-2"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>Price</b></div>
+							<div class="col-sm-2"><b>Category</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -31,10 +33,9 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-3">{{product.data.name}}</div>
-							<div class="col-sm-3" *ngIf="showColumn('equipe')">{{product.annotation.equipe}}</div>
-							<div class="col-sm-2">{{product.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-2">{{product.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-2">{{ product.data.datEnd | shortDate }}</div>
+							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
+							<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">still todo</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

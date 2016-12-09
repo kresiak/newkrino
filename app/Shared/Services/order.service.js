@@ -91,6 +91,19 @@ var OrderService = (function () {
     // ======
     // order helper functions for viewing orders
     // =========================================
+    OrderService.prototype.getProductFrequenceMapObservable = function () {
+        return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.reduce(function (map, order) {
+            if (order.items) {
+                order.items.filter(function (item) { return item.productId && item.quantity; }).forEach(function (item) {
+                    var productId = item.productId;
+                    if (!map.has(productId))
+                        map.set(productId, 0);
+                    map.set(productId, map.get(productId) + 1);
+                });
+            }
+            return map;
+        }, new Map()); });
+    };
     OrderService.prototype.getTotalOfOrder = function (order) {
         return order.items && order.items.length > 0 ? order.items.map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }) : 0;
     };

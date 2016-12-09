@@ -13,7 +13,9 @@ import {SupplierListComponent, SupplierListComponentRoutable} from './Suppliers/
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductGridComponent} from './Products/product-grid.component';
+import {ProductListComponentRoutable, ProductListComponent} from './Products/product-list.component';
 import {ProductEnterComponent} from './Products/product-enter.component'
+import {ProductDetailComponent} from './Products/product-detail.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
 
@@ -79,6 +81,7 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
             { path: "orders", component: OrderListComponentRoutable},
             { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
+            { path: "products", component: ProductListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
@@ -93,7 +96,8 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
    ],
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, ProductComponent, ProductGridComponent, ProductEnterComponent,
+                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
+                  ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,

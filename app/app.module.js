@@ -21,7 +21,9 @@ var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
 var product_grid_component_1 = require('./Products/product-grid.component');
+var product_list_component_1 = require('./Products/product-list.component');
 var product_enter_component_1 = require('./Products/product-enter.component');
+var product_detail_component_1 = require('./Products/product-detail.component');
 var category_list_component_1 = require('./Categories/category-list.component');
 var otp_component_1 = require('./Otps/otp.component');
 var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
@@ -80,6 +82,7 @@ var AppModule = (function () {
                     { path: "orders", component: order_list_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_component_1.CategoryListComponent },
                     { path: "otps", component: otp_list_component_js_1.OtpListComponentRoutable },
+                    { path: "products", component: product_list_component_1.ProductListComponentRoutable },
                     { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "mykrino", component: mykrino_component_1.MyKrinoComponent },
                     { path: "home", component: home_component_1.HomeComponent },
@@ -94,7 +97,8 @@ var AppModule = (function () {
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
-                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable, product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent,
+                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable,
+                product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,

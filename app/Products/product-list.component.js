@@ -11,19 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
-var order_service_1 = require('./../Shared/Services/order.service');
+var product_service_1 = require('./../Shared/Services/product.service');
 var ProductListComponentRoutable = (function () {
-    function ProductListComponentRoutable(orderService) {
-        this.orderService = orderService;
+    function ProductListComponentRoutable(productService) {
+        this.productService = productService;
     }
     ProductListComponentRoutable.prototype.ngOnInit = function () {
-        this.productsObservable = this.orderService.getAnnotatedProducts();
+        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
     };
     ProductListComponentRoutable = __decorate([
         core_1.Component({
             template: "<gg-product-list [productsObservable]= \"productsObservable\"></gg-product-list>"
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], ProductListComponentRoutable);
     return ProductListComponentRoutable;
 }());
@@ -46,11 +46,27 @@ var ProductListComponent = (function () {
         var _this = this;
         this.stateInit();
         Rx_1.Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), function (products, searchTxt) {
-            if (searchTxt.trim() === '')
+            var txt = searchTxt.trim().toUpperCase();
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<')
                 return products;
-            return products.filter(function (product) { return product.data.name.toUpperCase().includes(searchTxt.toUpperCase())
-                || product.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()); });
-        }).subscribe(function (products) { return _this.products = products; });
+            return products.filter(function (product) {
+                if (txt.startsWith('!')) {
+                    var txt2 = txt.slice(1);
+                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2);
+                }
+                if (txt.startsWith('$>') && +txt.slice(2)) {
+                    var montant = +txt.slice(2);
+                    return +product.data.price >= montant;
+                }
+                if (txt.startsWith('$<') && +txt.slice(2)) {
+                    var montant = +txt.slice(2);
+                    return +product.data.price <= montant;
+                }
+                return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt);
+            });
+        }).subscribe(function (products) {
+            _this.products = products.slice(0, 250);
+        });
     };
     ProductListComponent.prototype.getProductObservable = function (id) {
         return this.productsObservable.map(function (products) { return products.filter(function (product) { return product.data._id === id; })[0]; });

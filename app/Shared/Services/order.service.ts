@@ -81,6 +81,19 @@ export class OrderService {
     // order helper functions for viewing orders
     // =========================================
 
+    getProductFrequenceMapObservable() : Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
+        return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
+                if (order.items) {
+                    order.items.filter(item => item.productId && item.quantity).forEach(item => {
+                        let productId = item.productId
+                        if (!map.has(productId)) map.set(productId, 0)
+                        map.set(productId, map.get(productId) + 1)
+                    })
+                }
+                return map
+            }, new Map()))        
+    }
+
     private getTotalOfOrder(order): number {
         return order.items && order.items.length > 0 ? order.items.map(item => item.total).reduce((a, b) => a + b) : 0;
     }

@@ -41,6 +41,11 @@ var AppComponent = (function () {
                 active: false
             },
             {
+                route: '/products',
+                title: 'Products',
+                active: false
+            },
+            {
                 route: '/suppliers',
                 title: 'Suppliers',
                 active: false

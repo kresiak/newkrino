@@ -149,22 +149,32 @@ export class ProductService {
     }
 
     getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
-            (products, basketItems, suppliers) => {
-                return products.map(product => {
-                    let supplier = suppliers.filter(supplier => supplier._id === product.supplierId)[0];
+        return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), 
+                    this.orderService.getProductFrequenceMapObservable(),
+            (products, basketItems, suppliers, productFrequenceMap) => {
+                let mapSuppliers= suppliers.reduce((map, supplier)=> {
+                    map.set(supplier._id, supplier)
+                    return map
+                }, new Map());
+                return products.filter(p => +p.oldSupplierId > 0).map(product => {
+                    let supplier =  mapSuppliers.get(product.supplierId) //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
                         data: product,
                         annotation: {
                             basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                             quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
-                            supplierName: supplier ? supplier.name : "unknown"
+                            supplierName: supplier ? supplier.name : "unknown",
+                            productFrequence: productFrequenceMap.get(product._id) || 0
                         }
                     };
                 });
             }
         );
+    }
+
+    getAnnotatedProductsWithBasketInfoAll(): Observable<any> {
+        return this.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products')).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence));
     }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {

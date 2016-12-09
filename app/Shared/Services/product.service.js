@@ -149,20 +149,28 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
-        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), function (products, basketItems, suppliers) {
-            return products.map(function (product) {
-                var supplier = suppliers.filter(function (supplier) { return supplier._id === product.supplierId; })[0];
+        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), this.orderService.getProductFrequenceMapObservable(), function (products, basketItems, suppliers, productFrequenceMap) {
+            var mapSuppliers = suppliers.reduce(function (map, supplier) {
+                map.set(supplier._id, supplier);
+                return map;
+            }, new Map());
+            return products.filter(function (p) { return +p.oldSupplierId > 0; }).map(function (product) {
+                var supplier = mapSuppliers.get(product.supplierId); //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
                 return {
                     data: product,
                     annotation: {
                         basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                         quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
-                        supplierName: supplier ? supplier.name : "unknown"
+                        supplierName: supplier ? supplier.name : "unknown",
+                        productFrequence: productFrequenceMap.get(product._id) || 0
                     }
                 };
             });
         });
+    };
+    ProductService.prototype.getAnnotatedProductsWithBasketInfoAll = function () {
+        return this.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products')).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
         return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId));
