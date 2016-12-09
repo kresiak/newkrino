@@ -37,6 +37,12 @@ var ProductComponent = (function () {
             this.productService.updateProduct(this.product.data);
         }
     };
+    ProductComponent.prototype.sizeUpdated = function (size) {
+        if (this.product.data.size !== size) {
+            this.product.data.size = size;
+            this.productService.updateProduct(this.product.data);
+        }
+    };
     ProductComponent.prototype.prixUpdated = function (prix) {
         var p = +prix && (+prix) >= 0 ? +prix : -1;
         if (p !== -1) {

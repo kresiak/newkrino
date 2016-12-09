@@ -3,10 +3,13 @@
 		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('supplier')">{{product.annotation.supplierName}}</div>
+	<div class="col-sm-1 col-md-1 vcenter">
+		<gg-editor [content]="product.data.size" [showControls]="true" (editSaved)="sizeUpdated($event)"></gg-editor>
+	</div>
 	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor #prix [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)"></gg-editor>
 	</div>
-	<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('category')"> 
+	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('category')"> 
 		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
 		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 	</div>

@@ -52,6 +52,13 @@ export class ProductComponent implements OnInit {
         }
     }
 
+     sizeUpdated(size: string) {
+        if (this.product.data.size !== size) {
+            this.product.data.size = size;
+            this.productService.updateProduct(this.product.data);
+        }
+    }
+
     prixUpdated(prix: string) {
         var p: number = +prix && (+prix) >= 0 ? +prix : -1;
         if (p !== -1) {
