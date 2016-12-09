@@ -39,7 +39,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.usersObservable = this.dataStore.getDataObservable('users.krino').map(users => users.filter(user => this.equipe.data.userIds.includes(user._id)));
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
-                this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
+                this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder=anyOrder);
             }
         });
     }

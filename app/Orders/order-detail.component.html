@@ -71,7 +71,7 @@
 										{{order.annotation.supplier}}
 									</div>
 									<div class="row">
-										{{order.data.date | amDateFormat:'LLL'}}
+										{{order.data.date | fullDate }}
 									</div>
 									<div class="row">
 										Reference: {{order.data.kid}}
@@ -135,7 +135,7 @@
 										{{order.annotation.supplier}}
 									</div>
 									<div class="row">
-										{{order.data.date | amDateFormat:'LLL'}}
+										{{order.data.date }}
 									</div>
 									<div class="row">
 										Reference: {{order.data._id}}

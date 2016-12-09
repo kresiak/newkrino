@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import {AuthService} from './auth.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 
 
 @Injectable()

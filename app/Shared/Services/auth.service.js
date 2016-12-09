@@ -17,14 +17,14 @@ var Rx_1 = require('rxjs/Rx');
 var AuthService = (function () {
     function AuthService(dataStore) {
         this.dataStore = dataStore;
-        this.currentUserId = '58020b9893e81802c5936af3';
-        this.currentEquipeId = '58020f2693e81802c5936afc';
+        this.currentUserId = '58402ef9f9690561d454c337';
+        this.currentEquipeId = '58404ee1280a8833c87528d8';
         this.currentUserIdObservable = new Rx_1.BehaviorSubject(this.currentUserId);
     }
     AuthService.prototype.createAnnotatedUser = function (user, equipes) {
         if (!user)
             return null;
-        var filteredEquipes = equipes.filter(function (equipe) { return equipe.userIds.includes(user._id); });
+        var filteredEquipes = equipes.filter(function (equipe) { return equipe.userIds && equipe.userIds.includes(user._id); });
         return {
             data: user,
             annotation: {

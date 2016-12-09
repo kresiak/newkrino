@@ -44,6 +44,7 @@ import {MyKrinoComponent} from './Dashboard/mykrino.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
+import {EditorDate} from './ui/editor/editor-date'
 import {Checkbox} from './ui/checkbox/checkbox'
 import {SelectorComponent} from './ui/selector/selector.component'
 import {CommentComponent} from './Comments/comment.component'
@@ -59,12 +60,14 @@ import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
 import {ChartService} from './Shared/Services/chart.service'
 import {PrestationService} from './Shared/Services/prestation.service'
+import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
+import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
 
-import {MomentModule} from 'angular2-moment';
+//import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   imports:      [ 
-          MomentModule,
+  //        MomentModule,
           ChartistModule,
           BrowserModule, 
           FormsModule, ReactiveFormsModule,
@@ -100,7 +103,8 @@ import {MomentModule} from 'angular2-moment';
                   EquipeDetailComponent, EquipeListComponent, 
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
-                  Editor, EditorNumber, Checkbox, SelectorComponent
+                  Editor, EditorNumber, EditorDate, Checkbox, SelectorComponent,
+                  FullDatePipe, ShortDatePipe
                  ],
   providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
   bootstrap:    [ AppComponent ]

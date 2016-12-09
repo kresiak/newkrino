@@ -89,7 +89,7 @@
 													<div class="row" *ngFor="let log of manip.annotation.worklogs" style="margin:5px">
 														<div class="col-sm-3">{{log.annotation.userFullName}}</div>
 														<div class="col-sm-4">{{log.data.nbHours}} hours of work</div>
-                                                        <div class="col-sm-4">{{log.data.date | amTimeAgo}}</div>
+                                                        <div class="col-sm-4">{{log.data.date }}</div>
 													</div>
 												</div>
 												<div class="row" style="margin:5px" *ngIf="!(manip.annotation.worklogs && manip.annotation.worklogs.length>0)">

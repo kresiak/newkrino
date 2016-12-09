@@ -12,12 +12,13 @@ var core_1 = require('@angular/core');
 var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var forms_1 = require('@angular/forms');
+var moment = require("moment");
 var OrderListComponentRoutable = (function () {
     function OrderListComponentRoutable(orderService) {
         this.orderService = orderService;
     }
     OrderListComponentRoutable.prototype.ngOnInit = function () {
-        this.ordersObservable = this.orderService.getAnnotedOrders();
+        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
     };
     OrderListComponentRoutable = __decorate([
         core_1.Component({
@@ -74,7 +75,11 @@ var OrderListComponent = (function () {
         return this.ordersObservable.map(function (orders) { return orders.filter(function (s) { return s.data._id === id; })[0]; });
     };
     OrderListComponent.prototype.formatDate = function (date) {
-        return (new Date(date)).toLocaleDateString();
+        var now = moment();
+        var then = moment(date, 'DD/MM/YYYY hh:mm:ss');
+        var diff = now.diff(then, 'days');
+        //var md= moment(date, 'DD/MM/YYYY hh:mm:ss').fromNow()
+        return diff < 15 ? then.fromNow() : then.format('LLLL');
     };
     OrderListComponent.prototype.showColumn = function (columnName) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);

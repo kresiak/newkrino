@@ -22,7 +22,7 @@ var DataStore = (function () {
         }
         this.apiService.crudGetRecords(table).subscribe(function (res) {
             _this[table].next(res);
-        }, function (err) { return console.log("Error retrieving Todos"); });
+        }, function (err) { return console.log("Error retrieving Todos"); }, function () { return console.log("completed " + table); });
     };
     DataStore.prototype.getObservable = function (table) {
         if (!this[table]) {

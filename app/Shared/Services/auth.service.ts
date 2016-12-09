@@ -8,14 +8,14 @@ import { SelectableData } from './../Classes/selectable-data'
 export class AuthService {
     constructor( @Inject(DataStore) private dataStore: DataStore) { }
 
-    private currentUserId='58020b9893e81802c5936af3';
-    private currentEquipeId= '58020f2693e81802c5936afc';
+    private currentUserId='58402ef9f9690561d454c337';
+    private currentEquipeId= '58404ee1280a8833c87528d8';
 
     private currentUserIdObservable= new BehaviorSubject(this.currentUserId);
 
     private createAnnotatedUser(user, equipes) {
         if (!user) return null;
-        let filteredEquipes= equipes.filter(equipe => equipe.userIds.includes(user._id));
+        let filteredEquipes= equipes.filter(equipe => equipe.userIds && equipe.userIds.includes(user._id));
         return {
             data: user,
             annotation: {

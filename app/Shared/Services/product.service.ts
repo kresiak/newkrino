@@ -50,7 +50,7 @@ export class ProductService {
     }
 
     getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrders(), (productsStock, annotatedOrders) => {
+        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrdersFromAll(), (productsStock, annotatedOrders) => {
             return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders));
         });
     }
@@ -136,10 +136,10 @@ export class ProductService {
     private getProductsBoughtByUser(userIdObservable: Observable<any>, ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('products'), ordersObservable, userIdObservable, (products: any[], orders: any[], userId: string) => {
             let distinctProductIdsByUser: any[] = orders.filter(order => order.userId === userId).reduce((acc: any[], order) => {
-                let items: any[] = order.items;
+                let items: any[] = order.items || [];
                 items.forEach(item => {
-                    if (!acc.includes(item.product)) {
-                        acc.push(item.product);
+                    if (!acc.includes(item.productId)) {
+                        acc.push(item.productId);
                     }
                 });
                 return acc;

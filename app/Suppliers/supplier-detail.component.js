@@ -38,7 +38,7 @@ var SupplierDetailComponent = (function () {
                 _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
                 _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier._id);
-                _this.ordersObservable.subscribe(function (orders) { return _this.anyOrder = orders && orders.length > 0; });
+                _this.orderService.hasSupplierAnyOrder(supplier._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
         });
     };

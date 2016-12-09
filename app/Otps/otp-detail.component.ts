@@ -7,6 +7,8 @@ import { UserService } from './../Shared/Services/user.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from "moment"
+
 
 @Component(
     {
@@ -31,36 +33,22 @@ export class OtpDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
-    createDateObject(date: string)
-    {
-           var day1 = +date.substr(0, 2);
-           var month1 = +date.substr(3, 2);
-           var year1 = +date.substr(6, 4);
-           var obj = {year: year1, month: month1, day: day1};
-           return obj;
-    }
-
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.otpObservable.subscribe(otp => {
             this.otp = otp;
-         
-            var dat = (otp.data.date);
-            if (dat) {
-                 this.model = this.createDateObject(dat);
-            }
 
             if (otp) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
-                this.ordersObservable.subscribe(orders => this.anyOrder = orders && orders.length > 0);
+                this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
     }
 
-    private model;
+    //private model;
     private otp;
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
@@ -103,17 +91,8 @@ export class OtpDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    dateUpdated(dateParam) {
-        var date = this.numberToFixString(this.model.day, 2) + '.' + this.numberToFixString(this.model.month, 2) + '.' + this.numberToFixString(this.model.year, 4); 
-        if (this.otp.data.date !== date) { 
-            this.otp.data.date = date;
-            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-        }
-    }
-
-    numberToFixString(inputNumber: number, nbOfPositions: number) : string {
-        var number = inputNumber + "";
-			while (number.length < nbOfPositions) number = "0" + number;
-			return number;
+    dateUpdated(date) {
+        this.otp.data.datEnd= date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }

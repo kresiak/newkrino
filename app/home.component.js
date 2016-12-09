@@ -11,7 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var HomeComponent = (function () {
     function HomeComponent() {
-    }
+        this.errFn = function (err) { console.log('Error: ' + err); };
+        /*        var interval = Observable.interval(1000);
+        
+                var source = interval
+                    .take(2)
+                    .do(function (x) {
+                        console.log('Side effect');
+                    });
+        
+                var published = source.publishReplay(1).refCount();
+        
+        
+                published.subscribe(x => console.log('Next sourceA: ' + x), this.errFn, () => console.log('Complete sourceA'));
+                published.subscribe(x => console.log('Next sourceB: ' + x), this.errFn, () => console.log('Complete sourceB'));
+        
+                setTimeout(function () {
+                    published.subscribe(x => console.log('Next sourceC: ' + x), this.errFn, () => console.log('Complete sourceC'));
+                }, 6000);
+        */ }
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
