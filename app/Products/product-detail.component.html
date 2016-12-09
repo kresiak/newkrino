@@ -15,6 +15,11 @@
 						<div class="col-sm-3">frequence:</div>
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">in basket:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number></div>
+					</div>
+
 				</div>
 			</div>
 		</template>

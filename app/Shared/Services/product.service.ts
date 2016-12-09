@@ -248,15 +248,28 @@ export class ProductService {
     //     modify basket
     //     =============
 
-    createBasketItem(product, quantity: number) {
+   doBasketUpdate(productAnnotated, quantity: string) {
+        var q: number = +quantity && (+quantity) >= 0 ? +quantity : 0;
+        if (!productAnnotated.annotation.basketId && q > 0) {
+            this.createBasketItem(productAnnotated.data, q);
+        }
+        if (productAnnotated.annotation.basketId && q === 0) {
+            this.removeBasketItem(productAnnotated.annotation.basketId);
+        }
+        if (productAnnotated.annotation.basketId && q > 0 && q !== productAnnotated.annotation.quantity) {
+            this.updateBasketItem(productAnnotated.annotation.basketId, productAnnotated.data, q);
+        }       
+   }     
+
+    private createBasketItem(product, quantity: number) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     }
 
-    updateBasketItem(basketItemId, product, quantity: number) {
+    private updateBasketItem(basketItemId, product, quantity: number) {
         this.dataStore.updateData('basket', basketItemId, { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     }
 
-    removeBasketItem(basketItemId) {
+    private removeBasketItem(basketItemId) {
         this.dataStore.deleteData('basket', basketItemId);
     }
 

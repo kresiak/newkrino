@@ -224,6 +224,18 @@ var ProductService = (function () {
     };
     //     modify basket
     //     =============
+    ProductService.prototype.doBasketUpdate = function (productAnnotated, quantity) {
+        var q = +quantity && (+quantity) >= 0 ? +quantity : 0;
+        if (!productAnnotated.annotation.basketId && q > 0) {
+            this.createBasketItem(productAnnotated.data, q);
+        }
+        if (productAnnotated.annotation.basketId && q === 0) {
+            this.removeBasketItem(productAnnotated.annotation.basketId);
+        }
+        if (productAnnotated.annotation.basketId && q > 0 && q !== productAnnotated.annotation.quantity) {
+            this.updateBasketItem(productAnnotated.annotation.basketId, productAnnotated.data, q);
+        }
+    };
     ProductService.prototype.createBasketItem = function (product, quantity) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     };

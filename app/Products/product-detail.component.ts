@@ -61,6 +61,10 @@ export class ProductDetailComponent implements OnInit {
 
     }
 
+    quantityBasketUpdated(quantity: string) {
+        this.productService.doBasketUpdate(this.product, quantity)
+    }
+
     public beforeTabChange($event: NgbTabChangeEvent) {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

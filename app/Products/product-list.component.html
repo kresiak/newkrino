@@ -22,7 +22,6 @@
 							<div class="col-sm-3"><b>Product</b></div>
 							<div class="col-sm-2"><b>Supplier</b></div>
 							<div class="col-sm-2"><b>Price</b></div>
-							<div class="col-sm-2"><b>Category</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -35,7 +34,6 @@
 							<div class="col-sm-3">{{product.data.name}}</div>
 							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
 							<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-2">still todo</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

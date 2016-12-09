@@ -80,17 +80,7 @@ export class ProductComponent implements OnInit {
         this.productService.updateProduct(this.product.data);
     }
 
-
     quantityBasketUpdated(quantity: string) {
-        var q: number = +quantity && (+quantity) >= 0 ? +quantity : 0;
-        if (!this.product.annotation.basketId && q > 0) {
-            this.productService.createBasketItem(this.product.data, q);
-        }
-        if (this.product.annotation.basketId && q === 0) {
-            this.productService.removeBasketItem(this.product.annotation.basketId);
-        }
-        if (this.product.annotation.basketId && q > 0 && q !== this.product.annotation[quantity]) {
-            this.productService.updateBasketItem(this.product.annotation.basketId, this.product.data, q);
-        }
+        this.productService.doBasketUpdate(this.product, quantity)
     }
 }

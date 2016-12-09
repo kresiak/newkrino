@@ -46,6 +46,9 @@ var ProductDetailComponent = (function () {
             this.dataStore.updateData('products', this.product.data._id, this.product.data);
         }
     };
+    ProductDetailComponent.prototype.quantityBasketUpdated = function (quantity) {
+        this.productService.doBasketUpdate(this.product, quantity);
+    };
     ProductDetailComponent.prototype.beforeTabChange = function ($event) {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
