@@ -89,4 +89,18 @@ export class EquipeDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    nameUpdated(name) {
+        this.equipe.data.name = name;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
+
+    descriptionUpdated(name) {
+        this.equipe.data.description = name;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
+
+    nbOfMonthAheadAllowedUpdated(nbOfMonths) {
+        this.equipe.data.nbOfMonthAheadAllowed = nbOfMonths;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
 }
