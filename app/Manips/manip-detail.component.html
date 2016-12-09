@@ -17,7 +17,7 @@
 	</ngb-tab>
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-list [productsObservable]="getProductsObservable()" [config]="{skip:['otp', 'manip']}"></gg-product-list>
+			<gg-product-grid [productsObservable]="getProductsObservable()" [config]="{skip:['otp', 'manip']}"></gg-product-grid>
 		</template>
 	</ngb-tab>
 </ngb-tabset>

@@ -12,7 +12,7 @@ import { HomeComponent} from './home.component'
 import {SupplierListComponent, SupplierListComponentRoutable} from './Suppliers/supplier-list.component';
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
-import {ProductListComponent} from './Products/product-list.component';
+import {ProductGridComponent} from './Products/product-grid.component';
 import {ProductEnterComponent} from './Products/product-enter.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
@@ -93,7 +93,7 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
    ],
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, ProductComponent, ProductListComponent, ProductEnterComponent,
+                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, ProductComponent, ProductGridComponent, ProductEnterComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
                   CategoryListComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,

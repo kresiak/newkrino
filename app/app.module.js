@@ -20,7 +20,7 @@ var home_component_1 = require('./home.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
-var product_list_component_1 = require('./Products/product-list.component');
+var product_grid_component_1 = require('./Products/product-grid.component');
 var product_enter_component_1 = require('./Products/product-enter.component');
 var category_list_component_1 = require('./Categories/category-list.component');
 var otp_component_1 = require('./Otps/otp.component');
@@ -94,7 +94,7 @@ var AppModule = (function () {
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
-                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable, product_component_1.ProductComponent, product_list_component_1.ProductListComponent, product_enter_component_1.ProductEnterComponent,
+                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable, product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
                 category_list_component_1.CategoryListComponent,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
