@@ -47,6 +47,10 @@ var CategoryDetailComponent = (function () {
         this.state.Products = $event;
         this.stateChanged.next(this.state);
     };
+    CategoryDetailComponent.prototype.dateUpdated = function (isBlocked) {
+        this.category.data.isBlocked = isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

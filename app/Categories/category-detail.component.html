@@ -6,9 +6,19 @@
 					<div class="row">
 						<div class="col-sm-3">category:</div>
 						<div class="col-sm-6">{{category.data.name}}</div>
-					</div>
+					</div> 
+					<div class="row">
+						<div class="col-sm-3 vcenter">is blocked:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)"></gg-editor-boolean></div>
+					</div> 
+                    
 				</div>
 			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Add category" id="tabAddCategory">
+		<template ngbTabContent>
+
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Comments" id="tabComments">

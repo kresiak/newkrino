@@ -56,4 +56,9 @@ export class CategoryDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }    
 
+    dateUpdated(isBlocked) {
+        this.category.data.isBlocked= isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
+
 }

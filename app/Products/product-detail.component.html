@@ -29,7 +29,7 @@
 			<gg-comments [comments]="product.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
+	<ngb-tab title="Orders"  id="tabOrders">
 		<template ngbTabContent>
 <!--			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 -->		</template>

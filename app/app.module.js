@@ -48,6 +48,7 @@ var mykrino_component_1 = require('./Dashboard/mykrino.component');
 var editor_1 = require('./ui/editor/editor');
 var editor_number_1 = require('./ui/editor/editor-number');
 var editor_date_1 = require('./ui/editor/editor-date');
+var editor_boolean_1 = require('./ui/editor/editor-boolean');
 var checkbox_1 = require('./ui/checkbox/checkbox');
 var selector_component_1 = require('./ui/selector/selector.component');
 var comment_component_1 = require('./Comments/comment.component');
@@ -109,7 +110,7 @@ var AppModule = (function () {
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
-                editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
+                editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
                 fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe
             ],
             providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],
