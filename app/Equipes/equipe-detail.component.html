@@ -4,12 +4,22 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4">equipe:</div>
-						<div class="col-sm-6">{{equipe.data.name}}</div>
+						<div class="col-sm-4 vcenter">equipe:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">description:</div>
-						<div class="col-sm-6">{{equipe.data.description}}</div>
+						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipe.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">nb of months ahead allowed:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed"  (editSaved)="nbOfMonthAheadAllowedUpdated($event)"></gg-editor-number>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4">total budget:</div>

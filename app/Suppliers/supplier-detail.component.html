@@ -4,12 +4,36 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-2">Supplier:</div>
+						<div class="col-sm-2">supplier:</div>
 						<div class="col-sm-6">{{supplier.name}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2">Location:</div>
+						<div class="col-sm-2">city:</div>
 						<div class="col-sm-6">{{supplier.city}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">country:</div>
+						<div class="col-sm-6">{{supplier.country}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">zip:</div>
+						<div class="col-sm-6">{{supplier.zip}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">street:</div>
+						<div class="col-sm-6">{{supplier.street}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">telephone:</div>
+						<div class="col-sm-6">{{supplier.tel}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">fax:</div>
+						<div class="col-sm-6">{{supplier.fax}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">client:</div>
+						<div class="col-sm-6">{{supplier.client}}</div>
 					</div>
 				</div>
 			</div>
@@ -17,7 +41,7 @@
 	</ngb-tab>
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-grid [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-grid>
+			<gg-product-list [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
@@ -30,7 +54,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-grid [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp', 'supplier', 'manip']}"></gg-product-grid>
+						<gg-product-list [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp', 'supplier', 'manip']}"></gg-product-list>
 					</div>
 					<div class="row">
 						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>

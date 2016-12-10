@@ -68,6 +68,18 @@ var EquipeDetailComponent = (function () {
         this.state.Otps = $event;
         this.stateChanged.next(this.state);
     };
+    EquipeDetailComponent.prototype.nameUpdated = function (name) {
+        this.equipe.data.name = name;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
+    EquipeDetailComponent.prototype.descriptionUpdated = function (name) {
+        this.equipe.data.description = name;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
+    EquipeDetailComponent.prototype.nbOfMonthAheadAllowedUpdated = function (nbOfMonths) {
+        this.equipe.data.nbOfMonthAheadAllowed = nbOfMonths;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

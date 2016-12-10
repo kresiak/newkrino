@@ -92,7 +92,22 @@ export class OtpDetailComponent implements OnInit {
     }
 
     dateUpdated(date) {
-        this.otp.data.datEnd= date;
+        this.otp.data.datEnd = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+     dateUpdatedStart(date) {
+        this.otp.data.datStart = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    nameUpdated(name) {
+        this.otp.data.name = name;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    budgetUpdated(budget) {
+        this.otp.data.budget = budget;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }
