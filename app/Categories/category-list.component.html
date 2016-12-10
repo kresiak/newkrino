@@ -21,7 +21,7 @@
                     </div>														
 				</template>
 				<template ngbPanelContent>
-					nothing yet
+					<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
 				</template>
 			</ngb-panel>
 		</ngb-accordion>

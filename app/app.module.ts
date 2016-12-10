@@ -18,6 +18,7 @@ import {ProductEnterComponent} from './Products/product-enter.component'
 import {ProductDetailComponent} from './Products/product-detail.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
+import {CategoryDetailComponent} from './Categories/category-detail.component'
 
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
@@ -99,7 +100,7 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
-                  CategoryListComponent,
+                  CategoryListComponent, CategoryDetailComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 

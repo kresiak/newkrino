@@ -14,21 +14,47 @@ var CategoryListComponent = (function () {
     function CategoryListComponent(productService) {
         this.productService = productService;
         this.openPanelId = "";
+        this.stateChanged = new core_1.EventEmitter();
     }
+    CategoryListComponent.prototype.stateInit = function () {
+        if (!this.state)
+            this.state = {};
+        if (!this.state.openPanelId)
+            this.state.openPanelId = '';
+    };
     CategoryListComponent.prototype.ngOnInit = function () {
+        this.stateInit();
         this.categories = this.productService.getAnnotatedCategories();
         this.categories.subscribe(function (category) {
             var x = category;
         });
     };
     CategoryListComponent.prototype.getCategoryObservable = function (id) {
-        return this.categories.map(function (categories) { return categories.filter(function (s) { return s.data._id === id; })[0]; });
+        return this.categories.map(function (categories) { return categories.filter(function (s) {
+            return s.data._id === id;
+        })[0]; });
     };
+    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
     CategoryListComponent.prototype.beforeAccordionChange = function ($event) {
-        if ($event.nextState)
-            this.openPanelId = $event.panelId;
+        if ($event.nextState) {
+            this.state.openPanelId = $event.panelId;
+            this.stateChanged.next(this.state);
+        }
     };
     ;
+    // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
+    CategoryListComponent.prototype.childStateChanged = function (newState, objectId) {
+        this.state[objectId] = newState;
+        this.stateChanged.next(this.state);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], CategoryListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], CategoryListComponent.prototype, "stateChanged", void 0);
     CategoryListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -134,6 +134,9 @@ var ProductService = (function () {
     ProductService.prototype.getProductsBySupplier = function (supplierId) {
         return this.dataStore.getDataObservable('products').map(function (produits) { return produits.filter(function (produit) { return produit.supplierId === supplierId; }); });
     };
+    ProductService.prototype.getProductsByCategory = function (categoryId) {
+        return this.dataStore.getDataObservable('products').map(function (produits) { return produits.filter(function (produit) { return produit.categoryIds.includes(categoryId); }); });
+    };
     ProductService.prototype.getProductsBoughtByUser = function (userIdObservable, ordersObservable) {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('products'), ordersObservable, userIdObservable, function (products, orders, userId) {
             var distinctProductIdsByUser = orders.filter(function (order) { return order.userId === userId; }).reduce(function (acc, order) {
@@ -173,7 +176,10 @@ var ProductService = (function () {
         return this.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products')).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
-        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId));
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
+    };
+    ProductService.prototype.getAnnotatedProductsWithBasketInfoByCategory = function (categoryId) {
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsByCategory(categoryId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
     };
     ProductService.prototype.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo = function () {
         var productsObservable = this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));

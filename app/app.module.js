@@ -25,6 +25,7 @@ var product_list_component_1 = require('./Products/product-list.component');
 var product_enter_component_1 = require('./Products/product-enter.component');
 var product_detail_component_1 = require('./Products/product-detail.component');
 var category_list_component_1 = require('./Categories/category-list.component');
+var category_detail_component_1 = require('./Categories/category-detail.component');
 var otp_component_1 = require('./Otps/otp.component');
 var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
 var otp_detail_component_1 = require('./Otps/otp-detail.component');
@@ -100,7 +101,7 @@ var AppModule = (function () {
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
-                category_list_component_1.CategoryListComponent,
+                category_list_component_1.CategoryListComponent, category_detail_component_1.CategoryDetailComponent,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
