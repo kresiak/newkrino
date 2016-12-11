@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
+import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -15,7 +16,7 @@ import * as moment from "moment"
 )
 
 export class CategoryDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService) {
     }
 
     @Input() categoryObservable: Observable<any>;
@@ -31,13 +32,18 @@ export class CategoryDetailComponent implements OnInit {
         this.stateInit();
         this.categoryObservable.subscribe(category => {
             this.category = category;
-            this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id)
+            if (category) {
+                this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id)
+                this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id)
+            }
+            
         })
     }
 
     //private model;
     private category
     private productsObservable : Observable<any> 
+    private otpsObservable: Observable<any>;
 
     commentsUpdated(comments) {
         if (this.category && comments) {
@@ -55,6 +61,12 @@ export class CategoryDetailComponent implements OnInit {
         this.state.Products = $event;
         this.stateChanged.next(this.state);
     }    
+
+    private childOtpsStateChanged($event)
+    {
+        this.state.Otps= $event;
+        this.stateChanged.next(this.state);
+    }
 
     dateUpdated(isBlocked) {
         this.category.data.isBlocked= isBlocked;

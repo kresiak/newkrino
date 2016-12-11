@@ -68,6 +68,11 @@ export class OrderService {
         return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.equipeId === equipeId));
     }
 
+    getAnnotatedOpenOtpsByCategory(categoryId): Observable<any> {
+        return this.getAnnotatedOtps().map(otps => otps.filter(otp => !otp.data.isBlocked && !otp.data.isClosed && otp.data.categoryIds && otp.data.categoryIds.includes(categoryId) ));
+    }
+
+
     getAnnotatedOtpById(otpId): Observable<any> {
         return this.getAnnotatedOtps().map(otps => {
             let otpFiltered = otps.filter(otp => otp.data._id === otpId);

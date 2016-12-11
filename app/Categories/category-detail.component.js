@@ -11,11 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
+var order_service_1 = require('./../Shared/Services/order.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var CategoryDetailComponent = (function () {
-    function CategoryDetailComponent(dataStore, productService) {
+    function CategoryDetailComponent(dataStore, productService, orderService) {
         this.dataStore = dataStore;
         this.productService = productService;
+        this.orderService = orderService;
         this.stateChanged = new core_1.EventEmitter();
     }
     CategoryDetailComponent.prototype.stateInit = function () {
@@ -29,7 +31,10 @@ var CategoryDetailComponent = (function () {
         this.stateInit();
         this.categoryObservable.subscribe(function (category) {
             _this.category = category;
-            _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id);
+            if (category) {
+                _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id);
+                _this.otpsObservable = _this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id);
+            }
         });
     };
     CategoryDetailComponent.prototype.commentsUpdated = function (comments) {
@@ -45,6 +50,10 @@ var CategoryDetailComponent = (function () {
     ;
     CategoryDetailComponent.prototype.childProductsStateChanged = function ($event) {
         this.state.Products = $event;
+        this.stateChanged.next(this.state);
+    };
+    CategoryDetailComponent.prototype.childOtpsStateChanged = function ($event) {
+        this.state.Otps = $event;
         this.stateChanged.next(this.state);
     };
     CategoryDetailComponent.prototype.dateUpdated = function (isBlocked) {
@@ -69,7 +78,7 @@ var CategoryDetailComponent = (function () {
             selector: 'gg-category-detail',
             templateUrl: './category-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
     ], CategoryDetailComponent);
     return CategoryDetailComponent;
 }());

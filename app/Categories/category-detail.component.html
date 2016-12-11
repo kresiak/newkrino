@@ -31,9 +31,9 @@
 			<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Otps" id="tabOtp">
+	<ngb-tab title="Open otps" id="tabOtps">
 		<template ngbTabContent>
-<!--			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
--->		</template>
+            <gg-otp-list [otpsObservable]="otpsObservable" [state]="state.Otps" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
+		</template>
 	</ngb-tab>
 </ngb-tabset>

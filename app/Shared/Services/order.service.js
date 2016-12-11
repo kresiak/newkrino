@@ -81,6 +81,9 @@ var OrderService = (function () {
     OrderService.prototype.getAnnotatedOtpsByEquipe = function (equipeId) {
         return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return otp.data.equipeId === equipeId; }); });
     };
+    OrderService.prototype.getAnnotatedOpenOtpsByCategory = function (categoryId) {
+        return this.getAnnotatedOtps().map(function (otps) { return otps.filter(function (otp) { return !otp.data.isBlocked && !otp.data.isClosed && otp.data.categoryIds && otp.data.categoryIds.includes(categoryId); }); });
+    };
     OrderService.prototype.getAnnotatedOtpById = function (otpId) {
         return this.getAnnotatedOtps().map(function (otps) {
             var otpFiltered = otps.filter(function (otp) { return otp.data._id === otpId; });
