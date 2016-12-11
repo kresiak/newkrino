@@ -172,6 +172,10 @@ var OrderService = (function () {
         var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }); });
         return this.getAnnotedOrders(ordersObservable);
     };
+    OrderService.prototype.getAnnotedOrdersByProduct = function (productId) {
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.items && order.items.map(function (item) { return item.productId; }).includes(productId); }); });
+        return this.getAnnotedOrders(ordersObservable);
+    };
     OrderService.prototype.hasSupplierAnyOrder = function (supplierId) {
         return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }).length > 0; });
     };

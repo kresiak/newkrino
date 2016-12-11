@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
+var order_service_1 = require('./../Shared/Services/order.service');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(dataStore, productService) {
+    function ProductDetailComponent(dataStore, productService, orderService) {
         this.dataStore = dataStore;
         this.productService = productService;
+        this.orderService = orderService;
         this.stateChanged = new core_1.EventEmitter();
     }
     ProductDetailComponent.prototype.stateInit = function () {
@@ -31,6 +33,9 @@ var ProductDetailComponent = (function () {
         this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.categoryIds; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
+            if (product) {
+                _this.ordersObservable = _this.orderService.getAnnotedOrdersByProduct(product.data._id);
+            }
         });
     };
     ProductDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
@@ -54,6 +59,10 @@ var ProductDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     ;
+    ProductDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -72,7 +81,7 @@ var ProductDetailComponent = (function () {
             selector: 'gg-product-detail',
             templateUrl: './product-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());

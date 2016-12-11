@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
+import {OrderService} from './../Shared/Services/order.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -16,7 +17,7 @@ import * as moment from "moment"
 )
 
 export class ProductDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -34,6 +35,9 @@ export class ProductDetailComponent implements OnInit {
         this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.categoryIds);
         this.productObservable.subscribe(product => {
             this.product = product;
+            if (product) {
+                this.ordersObservable= this.orderService.getAnnotedOrdersByProduct(product.data._id)
+            }
         });
     }
 
@@ -69,5 +73,10 @@ export class ProductDetailComponent implements OnInit {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
+
+    private childOrdersStateChanged($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    }
 
 }
