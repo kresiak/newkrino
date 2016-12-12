@@ -1,7 +1,0 @@
-{"_id":{"$oid":"58020b9893e81802c5936af3"},"name":"Kvasz","firstName":"Alexander","email":"kvasza@gmail.com","notes":[{"user":{"id":"58020b9893e81802c5936af3","fullName":"Alexander Kvasz"},"time":1.478125885532e+12,"content":"I have to spend money soon"}]}
-{"_id":{"$oid":"58020b9893e81802c5936af4"},"name":"Cambisano","firstName":"Nadine","email":"nc@gmail.com"}
-{"_id":{"$oid":"58020b9893e81802c5936af5"},"name":"Karim","firstName":"Latifa","email":"lkarim@gmail.com"}
-{"_id":{"$oid":"58020b9893e81802c5936af6"},"name":"Evrard","firstName":"Sandrina","email":"sevrard@gmail.com"}
-{"_id":{"$oid":"58020b9893e81802c5936af7"},"name":"Georges","firstName":"Michel","email":"michel.georges@gmail"}
-{"_id":{"$oid":"58020b9893e81802c5936af8"},"name":"Tamma","firstName":"Nico","email":"ntamma@gmail.com"}
-{"_id":{"$oid":"58020b9893e81802c5936af9"},"name":"Coppieters","firstName":"Wouter","email":"wcoppieters@gmail"}
