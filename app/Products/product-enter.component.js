@@ -29,7 +29,7 @@ var ProductEnterComponent = (function () {
         this.productForm = this.formBuilder.group({
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             price: ['', [forms_1.Validators.required, forms_1.Validators.pattern(priceRegEx)]],
-            size: ['', forms_1.Validators.required],
+            package: ['', forms_1.Validators.required],
             category: ['-1', this.isCategoryIdSelected]
         });
     };
@@ -39,8 +39,12 @@ var ProductEnterComponent = (function () {
             Description: formValue.description,
             Supplier: this.supplierId,
             Prix: formValue.price,
-            Size: formValue.size,
-            Categorie: [formValue.category]
+            Package: formValue.package,
+            Categorie: [formValue.category],
+            catalogNr: formValue.catalogNr,
+            noarticle: formValue.noarticle,
+            groupMarch: formValue.groupMarch,
+            tva: formValue.tva
         }).subscribe(function (res) {
             var x = res;
             _this.reset();
