@@ -103,4 +103,9 @@ export class EquipeDetailComponent implements OnInit {
         this.equipe.data.nbOfMonthAheadAllowed = nbOfMonths;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     }
+
+    blockedUpdated(isBlock) {
+        this.equipe.data.isBlocked = isBlock;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
 }

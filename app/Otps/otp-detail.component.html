@@ -17,7 +17,6 @@
 						<div class="col-sm-4 vcenter">total budget:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)"></gg-editor>
-						<!-- {{ | currency:'EUR':true:'1.2-2'}} -->
 						</div>
 					</div>
 					<div class="row">
@@ -45,6 +44,18 @@
 						<div class="col-sm-6">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">is blocked:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">is closed:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
