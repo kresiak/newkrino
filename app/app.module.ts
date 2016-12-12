@@ -66,6 +66,8 @@ import {ChartService} from './Shared/Services/chart.service'
 import {PrestationService} from './Shared/Services/prestation.service'
 import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
 import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
+import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
+
 
 //import {MomentModule} from 'angular2-moment';
 
@@ -110,7 +112,7 @@ import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,
-                  FullDatePipe, ShortDatePipe
+                  FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
   providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
   bootstrap:    [ AppComponent ]

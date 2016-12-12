@@ -65,6 +65,7 @@ var chart_service_1 = require('./Shared/Services/chart.service');
 var prestation_service_1 = require('./Shared/Services/prestation.service');
 var fulldate_pipe_1 = require('./Shared/Pipes/fulldate.pipe');
 var shortdate_pipe_1 = require('./Shared/Pipes/shortdate.pipe');
+var fromnow_pipe_1 = require('./Shared/Pipes/fromnow.pipe');
 //import {MomentModule} from 'angular2-moment';
 var AppModule = (function () {
     function AppModule() {
@@ -111,7 +112,7 @@ var AppModule = (function () {
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
-                fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe
+                fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe, fromnow_pipe_1.FromNowPipe
             ],
             providers: [otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],
             bootstrap: [app_component_1.AppComponent]

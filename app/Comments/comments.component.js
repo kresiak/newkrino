@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var editor_1 = require('../ui/editor/editor');
 var user_service_1 = require('../Shared/Services/user.service');
+var moment = require("moment");
 var CommentsComponent = (function () {
     function CommentsComponent(userService) {
         this.userService = userService;
@@ -29,10 +30,11 @@ var CommentsComponent = (function () {
     CommentsComponent.prototype.addNewComment = function () {
         var _this = this;
         this.userService.getCurrentUserObjectForComment().first().subscribe(function (userrecord) {
+            var md = moment();
             var comments = _this.comments.slice();
             comments.splice(0, 0, {
                 user: userrecord,
-                time: +new Date(),
+                time: md.format('DD/MM/YYYY hh:mm:ss'),
                 content: _this.newCommentEditor.getEditableContent()
             });
             _this.commentsUpdated.next(comments);

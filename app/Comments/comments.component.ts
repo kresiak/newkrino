@@ -1,6 +1,7 @@
 import {Component, Input, Output, ViewEncapsulation, ViewChild, EventEmitter, OnInit} from '@angular/core';
 import {Editor} from '../ui/editor/editor'
 import {UserService} from '../Shared/Services/user.service'
+import * as moment from "moment"
 
 @Component({
   moduleId: module.id,
@@ -36,10 +37,11 @@ export class CommentsComponent implements OnInit {
   addNewComment() {
     this.userService.getCurrentUserObjectForComment().first().subscribe(userrecord =>
     {
+      var md = moment()
       const comments = this.comments.slice();
       comments.splice(0, 0, {
         user: userrecord,
-        time: +new Date(),
+        time: md.format('DD/MM/YYYY hh:mm:ss'),
         content: this.newCommentEditor.getEditableContent()
       });
       this.commentsUpdated.next(comments);
