@@ -91,7 +91,7 @@ export class ProductDetailComponent implements OnInit {
     }
 
     noArticleUpdated(noArt: string) {
-        this.product.data.noarticle = noArt;
+        this.product.data.noArticle = noArt;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 

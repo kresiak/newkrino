@@ -71,7 +71,7 @@ var ProductDetailComponent = (function () {
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
     ProductDetailComponent.prototype.noArticleUpdated = function (noArt) {
-        this.product.data.noarticle = noArt;
+        this.product.data.noArticle = noArt;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
     ProductDetailComponent.prototype.groupMarchUpdated = function (groupM) {
