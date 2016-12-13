@@ -57,7 +57,28 @@
 				<input type="number" min="1" step="any" class="form-control" formControlName="tva" id="tva" placeholder="Vat">
 			</div>
 			<!--<p *ngIf="productForm.controls.tva.errors">This field is required!</p>-->
-		</div>		
+		</div>
+
+		<div class="form-group row">
+			<label for="isResold" class="col-sm-2 col-form-label col-xl-2 vcenter">is resold:</label>
+			<div class="col-sm-10 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isResold" id="isResold">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="disabled" class="col-sm-2 col-form-label col-xl-2 vcenter">disabled:</label>
+			<div class="col-sm-10 vcenter">
+				<input type="checkbox" class="form-control" formControlName="disabled" id="disabled">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="isDistributed" class="col-sm-2 col-form-label col-xl-2 vcenter">is distributed:</label>
+			<div class="col-sm-10 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isDistributed" id="isDistributed">
+			</div>
+		</div>
+
+				
         <div class="row">
             <div class="col-sm-3 col-md-2 col-lg-1">
                 <button class="btn btn-success" type="submit" [disabled]="!productForm.valid">Submit</button>

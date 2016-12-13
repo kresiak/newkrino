@@ -37,7 +37,14 @@ export class ProductEnterComponent implements OnInit {
             description: ['', [Validators.required, Validators.minLength(5)]],
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]],
             package: ['', Validators.required],
-            category: ['-1', this.isCategoryIdSelected]
+            category: ['-1', this.isCategoryIdSelected],
+            catalogNr: ['', Validators.required],
+            noarticle: ['', Validators.required],
+            groupMarch: ['', Validators.required],
+            tva: ['', Validators.required],
+            isResold: ['', Validators.required],
+            disabled: ['', Validators.required],
+            isDistributed: ['', Validators.required]
         });
     }
 
@@ -52,7 +59,10 @@ export class ProductEnterComponent implements OnInit {
             catalogNr: formValue.catalogNr,
             noarticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
-            tva: formValue.tva
+            tva: formValue.tva,
+            isResold: formValue.isResold,
+            disabled: formValue.disabled,
+            isDistributed: formValue.isDistributed
         }).subscribe(res =>
         {
             var x=res;
