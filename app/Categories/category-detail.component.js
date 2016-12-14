@@ -60,6 +60,26 @@ var CategoryDetailComponent = (function () {
         this.category.data.isBlocked = isBlocked;
         this.dataStore.updateData('categories', this.category.data._id, this.category.data);
     };
+    CategoryDetailComponent.prototype.isLabUpdated = function (isBlocked) {
+        this.category.data.isLabo = isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
+    CategoryDetailComponent.prototype.isOfficUpdated = function (isBlocked) {
+        this.category.data.isOffice = isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
+    CategoryDetailComponent.prototype.nameCatUpdated = function (nameCat) {
+        this.category.data.name = nameCat;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
+    CategoryDetailComponent.prototype.noArticleUpdated = function (noArt) {
+        this.category.data.noArticle = noArt;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
+    CategoryDetailComponent.prototype.groupMUpdated = function (grMarch) {
+        this.category.data.groupMarch = grMarch;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

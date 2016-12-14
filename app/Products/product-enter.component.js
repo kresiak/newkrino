@@ -29,8 +29,15 @@ var ProductEnterComponent = (function () {
         this.productForm = this.formBuilder.group({
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             price: ['', [forms_1.Validators.required, forms_1.Validators.pattern(priceRegEx)]],
-            size: ['', forms_1.Validators.required],
-            category: ['-1', this.isCategoryIdSelected]
+            package: ['', forms_1.Validators.required],
+            category: ['-1', this.isCategoryIdSelected],
+            catalogNr: ['', forms_1.Validators.required],
+            noarticle: ['', forms_1.Validators.required],
+            groupMarch: ['', forms_1.Validators.required],
+            tva: ['', forms_1.Validators.required],
+            isResold: ['', forms_1.Validators.required],
+            disabled: ['', forms_1.Validators.required],
+            isDistributed: ['', forms_1.Validators.required]
         });
     };
     ProductEnterComponent.prototype.save = function (formValue, isValid) {
@@ -39,8 +46,15 @@ var ProductEnterComponent = (function () {
             Description: formValue.description,
             Supplier: this.supplierId,
             Prix: formValue.price,
-            Size: formValue.size,
-            Categorie: [formValue.category]
+            Package: formValue.package,
+            Categorie: [formValue.category],
+            catalogNr: formValue.catalogNr,
+            noarticle: formValue.noarticle,
+            groupMarch: formValue.groupMarch,
+            tva: formValue.tva,
+            isResold: formValue.isResold,
+            disabled: formValue.disabled,
+            isDistributed: formValue.isDistributed
         }).subscribe(function (res) {
             var x = res;
             _this.reset();

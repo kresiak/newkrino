@@ -59,9 +59,42 @@ var ProductDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     ;
-    ProductDetailComponent.prototype.childOrdersStateChanged = function ($event) {
-        this.state.Orders = $event;
-        this.stateChanged.next(this.state);
+    };
+    ProductDetailComponent.prototype.packageUpdated = function (packName) {
+        this.product.data.package = packName;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.catalogNrUpdated = function (catNr) {
+        this.product.data.catalogNr = catNr;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.priceProdUpdated = function (priceProd) {
+        this.product.data.price = priceProd;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.noArticleUpdated = function (noArt) {
+        this.product.data.noArticle = noArt;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.groupMarchUpdated = function (groupM) {
+        this.product.data.groupMarch = groupM;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.tvaUpdated = function (tvaProd) {
+        this.product.data.tva = tvaProd;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.resoldUpdated = function (resold) {
+        this.product.data.isResold = resold;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.disablUpdated = function (isDisable) {
+        this.product.data.disabled = isDisable;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.distribUpdated = function (isDisable) {
+        this.product.data.isDistributed = isDisable;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
     __decorate([
         core_1.Input(), 

@@ -4,8 +4,46 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3">product:</div>
-						<div class="col-sm-6">{{product.data.name}}</div>
+						<div class="col-sm-3 vcenter">product:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">package:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.package" [showControls]="true" (editSaved)="packageUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">catalog nr.</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.catalogNr" [showControls]="true" (editSaved)="catalogNrUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">price:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceProdUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">no of article:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">group marchandise:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.groupMarch" [showControls]="true" (editSaved)="groupMarchUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">vat:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-number [content]="product.data.tva" (editSaved)="tvaUpdated($event)"></gg-editor-number>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3">supplier:</div>
@@ -25,8 +63,19 @@
 						<div class="col-sm-3 vcenter">in basket:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number></div>
 					</div>
-
-				</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is resold:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isResold" (editSaved)="resoldUpdated($event)"></gg-editor-boolean></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is disabled:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)"></gg-editor-boolean></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is distributed:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isDistributed" (editSaved)="distribUpdated($event)"></gg-editor-boolean></div>
+					</div>
+	 			</div>
 			</div>
 		</template>
 	</ngb-tab>
