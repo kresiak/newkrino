@@ -157,7 +157,7 @@ var ProductService = (function () {
                 map.set(supplier._id, supplier);
                 return map;
             }, new Map());
-            return products.filter(function (p) { return +p.oldSupplierId > 0; }).map(function (product) {
+            return products.map(function (product) {
                 var supplier = mapSuppliers.get(product.supplierId); //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
                 return {

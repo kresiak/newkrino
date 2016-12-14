@@ -161,7 +161,7 @@ export class ProductService {
                     map.set(supplier._id, supplier)
                     return map
                 }, new Map());
-                return products.filter(p => +p.oldSupplierId > 0).map(product => {
+                return products.map(product => {
                     let supplier =  mapSuppliers.get(product.supplierId) //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
