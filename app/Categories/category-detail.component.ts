@@ -57,8 +57,32 @@ export class CategoryDetailComponent implements OnInit {
     }    
 
     dateUpdated(isBlocked) {
-        this.category.data.isBlocked= isBlocked;
+        this.category.data.isBlocked = isBlocked;
         this.dataStore.updateData('categories', this.category.data._id, this.category.data);
     }
 
+    isLabUpdated(isBlocked) {
+        this.category.data.isLabo = isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
+
+    isOfficUpdated(isBlocked) {
+        this.category.data.isOffice = isBlocked;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
+
+    nameCatUpdated(nameCat: string) {
+        this.category.data.name = nameCat;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
+
+    noArticleUpdated(noArt: string) {
+        this.category.data.noArticle = noArt;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
+
+    groupMUpdated(grMarch: string) {
+        this.category.data.groupMarch = grMarch;
+        this.dataStore.updateData('categories', this.category.data._id, this.category.data);
+    }
 }

@@ -36,8 +36,15 @@ export class ProductEnterComponent implements OnInit {
         this.productForm= this.formBuilder.group({
             description: ['', [Validators.required, Validators.minLength(5)]],
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]],
-            size: ['', Validators.required],
-            category: ['-1', this.isCategoryIdSelected]
+            package: ['', Validators.required],
+            category: ['-1', this.isCategoryIdSelected],
+            catalogNr: ['', Validators.required],
+            noarticle: ['', Validators.required],
+            groupMarch: ['', Validators.required],
+            tva: ['', Validators.required],
+            isResold: ['', Validators.required],
+            disabled: ['', Validators.required],
+            isDistributed: ['', Validators.required]
         });
     }
 
@@ -47,8 +54,15 @@ export class ProductEnterComponent implements OnInit {
             Description: formValue.description,
             Supplier: this.supplierId,
             Prix: formValue.price,
-            Size: formValue.size,
-            Categorie: [formValue.category]
+            Package: formValue.package,
+            Categorie: [formValue.category],
+            catalogNr: formValue.catalogNr,
+            noarticle: formValue.noarticle,
+            groupMarch: formValue.groupMarch,
+            tva: formValue.tva,
+            isResold: formValue.isResold,
+            disabled: formValue.disabled,
+            isDistributed: formValue.isDistributed
         }).subscribe(res =>
         {
             var x=res;

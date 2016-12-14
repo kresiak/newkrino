@@ -70,4 +70,53 @@ export class ProductDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     };
 
+    nameUpdated(name: string) {
+        this.product.data.name = name;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    packageUpdated(packName: string) {
+        this.product.data.package = packName;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    catalogNrUpdated(catNr: string) {
+        this.product.data.catalogNr = catNr;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    priceProdUpdated(priceProd) {
+        this.product.data.price = priceProd;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    noArticleUpdated(noArt: string) {
+        this.product.data.noArticle = noArt;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    groupMarchUpdated(groupM: string) {
+        this.product.data.groupMarch = groupM;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    tvaUpdated(tvaProd: number) {
+        this.product.data.tva = tvaProd;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    resoldUpdated(resold) {
+        this.product.data.isResold = resold;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    disablUpdated(isDisable) {
+        this.product.data.disabled = isDisable;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    distribUpdated(isDisable) {
+        this.product.data.isDistributed = isDisable;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
 }

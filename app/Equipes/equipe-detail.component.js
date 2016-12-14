@@ -80,6 +80,10 @@ var EquipeDetailComponent = (function () {
         this.equipe.data.nbOfMonthAheadAllowed = nbOfMonths;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     };
+    EquipeDetailComponent.prototype.blockedUpdated = function (isBlock) {
+        this.equipe.data.isBlocked = isBlock;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

@@ -1,35 +1,80 @@
 <div class="container-fluid">
 	<form [formGroup]="productForm" (ngSubmit)="save(productForm.value, productForm.valid)">
 		<div class="form-group row">
-			<label for="description" class="col-sm-2 col-form-label col-xl-1">Description:</label>
+			<label for="description" class="col-sm-2 col-form-label col-xl-2">Description:</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" formControlName="description" id="description" placeholder="description of the product">
 			</div>
 			<!--<p *ngIf="productForm.controls.description.errors">This field is required!</p>-->
 		</div>
 		<div class="form-group row">
-			<label for="price" class="col-sm-2 col-form-label col-xl-1">Price:</label>
+			<label for="price" class="col-sm-2 col-form-label col-xl-2">Price:</label>
 			<div class="col-sm-10">
 				<input type="number" min="1" step="any" class="form-control" formControlName="price" id="price" placeholder="price per unit (without VAT)">
 			</div>
 			<!--<p *ngIf="productForm.controls.price.errors">This field is required!</p>-->
 		</div>
 		<div class="form-group row">
-			<label for="size" class="col-sm-2 col-form-label col-xl-1">Size:</label>
+			<label for="package" class="col-sm-2 col-form-label col-xl-2">Package:</label>
 			<div class="col-sm-10">
-				<input type="text" min="1" step="any" class="form-control" formControlName="size" id="size" placeholder="size per unit">
+				<input type="text" min="1" step="any" class="form-control" formControlName="package" id="package" placeholder="package per unit">
 			</div>
-			<!--<p *ngIf="productForm.controls.size.errors">This field is required!</p>-->
+			<!--<p *ngIf="productForm.controls.package.errors">This field is required!</p>-->
 		</div>
 		<div class="form-group row">
-			<label for="category" class="col-sm-2 col-form-label col-xl-1">Category:</label>
+			<label for="category" class="col-sm-2 col-form-label col-xl-2">Category:</label>
 			<div class="col-sm-10">
 				<select class="custom-select" id="category" formControlName="category">
                     <option value="-1" selected>Open this select menu</option>
                     <option *ngFor="let category of categoryData"  [value]="category.id">{{category.name}}</option>
                 </select>
 			</div>
-
+		</div>
+		<div class="form-group row">
+			<label for="catalogNr" class="col-sm-2 col-form-label col-xl-2">Catalog nr.:</label>
+			<div class="col-sm-10">
+				<input type="text" min="1" step="any" class="form-control" formControlName="catalogNr" id="catalogNr" placeholder="number of catalog">
+			</div>
+			<!--<p *ngIf="productForm.controls.catalogNr.errors">This field is required!</p>-->
+		</div>
+		<div class="form-group row">
+			<label for="noarticle" class="col-sm-2 col-form-label col-xl-2">No of article:</label>
+			<div class="col-sm-10">
+				<input type="text" min="1" step="any" class="form-control" formControlName="noarticle" id="noarticle" placeholder="number of article">
+			</div>
+			<!--<p *ngIf="productForm.controls.noarticle.errors">This field is required!</p>-->
+		</div>
+		<div class="form-group row">
+			<label for="groupMarch" class="col-sm-2 col-form-label col-xl-2">Group marchandise:</label>
+			<div class="col-sm-10">
+				<input type="text" min="1" step="any" class="form-control" formControlName="groupMarch" id="groupMarch" placeholder="group marchandise">
+			</div>
+			<!--<p *ngIf="productForm.controls.groupMarch.errors">This field is required!</p>-->
+		</div>
+		<div class="form-group row">
+			<label for="tva" class="col-sm-2 col-form-label col-xl-2">VAT:</label>
+			<div class="col-sm-10">
+				<input type="number" min="1" step="any" class="form-control" formControlName="tva" id="tva" placeholder="vat">
+			</div>
+			<!--<p *ngIf="productForm.controls.tva.errors">This field is required!</p>-->
+		</div>
+		<div class="form-group row">
+			<label for="isResold" class="col-sm-2 col-form-label col-xl-2 vcenter">is resold:</label>
+			<div class="col-md-1 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isResold" id="isResold">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="disabled" class="col-sm-2 col-form-label col-xl-2 vcenter">is disabled:</label>
+			<div class="col-md-1 vcenter">
+				<input type="checkbox" class="form-control" formControlName="disabled" id="disabled">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="isDistributed" class="col-sm-2 col-form-label col-xl-2 vcenter">is distributed:</label>
+			<div class="col-md-1 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isDistributed" id="isDistributed">
+			</div>
 		</div>
         <div class="row">
             <div class="col-sm-3 col-md-2 col-lg-1">

@@ -89,6 +89,14 @@ var OtpDetailComponent = (function () {
         this.otp.data.budget = budget;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     };
+    OtpDetailComponent.prototype.blockedUpdated = function (block) {
+        this.otp.data.isBlocked = block;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    };
+    OtpDetailComponent.prototype.closedUpdated = function (close) {
+        this.otp.data.isClosed = close;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
