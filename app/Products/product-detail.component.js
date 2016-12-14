@@ -59,6 +59,13 @@ var ProductDetailComponent = (function () {
         this.stateChanged.next(this.state);
     };
     ;
+    ProductDetailComponent.prototype.childOrdersStateChanged = function ($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    };
+    ProductDetailComponent.prototype.nameUpdated = function (name) {
+        this.product.data.name = name;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
     ProductDetailComponent.prototype.packageUpdated = function (packName) {
         this.product.data.package = packName;

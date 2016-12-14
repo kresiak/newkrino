@@ -46,12 +46,12 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3">supplier:</div>
-						<div class="col-sm-6">{{product.annotation.supplierName}}</div>
+						<div class="col-sm-3 vcenter">supplier:</div>
+						<div class="col-sm-6 vcenter">{{product.annotation.supplierName}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3" vcenter>categories:</div>
-						<div class="col-sm-6" vcenter><gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
+						<div class="col-sm-3 vcenter">categories:</div>
+						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
 		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector></div>
 					</div>
 					<div class="row">

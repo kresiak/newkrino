@@ -42,22 +42,22 @@ export class ProductEnterComponent implements OnInit {
             noarticle: ['', Validators.required],
             groupMarch: ['', Validators.required],
             tva: ['', Validators.required],
-            isResold: ['', Validators.required],
-            disabled: ['', Validators.required],
-            isDistributed: ['', Validators.required]
+            isResold: [''],
+            disabled: [''],
+            isDistributed: ['']
         });
     }
 
     save(formValue, isValid)
     {
         this.productService.createProduct({
-            Description: formValue.description,
-            Supplier: this.supplierId,
-            Prix: formValue.price,
-            Package: formValue.package,
-            Categorie: [formValue.category],
+            name: formValue.description,
+            supplierId: this.supplierId,
+            price: formValue.price,
+            package: formValue.package,
+            categoryIds: [formValue.category],
             catalogNr: formValue.catalogNr,
-            noarticle: formValue.noarticle,
+            noArticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
             tva: formValue.tva,
             isResold: formValue.isResold,

@@ -35,21 +35,21 @@ var ProductEnterComponent = (function () {
             noarticle: ['', forms_1.Validators.required],
             groupMarch: ['', forms_1.Validators.required],
             tva: ['', forms_1.Validators.required],
-            isResold: ['', forms_1.Validators.required],
-            disabled: ['', forms_1.Validators.required],
-            isDistributed: ['', forms_1.Validators.required]
+            isResold: [''],
+            disabled: [''],
+            isDistributed: ['']
         });
     };
     ProductEnterComponent.prototype.save = function (formValue, isValid) {
         var _this = this;
         this.productService.createProduct({
-            Description: formValue.description,
-            Supplier: this.supplierId,
-            Prix: formValue.price,
-            Package: formValue.package,
-            Categorie: [formValue.category],
+            name: formValue.description,
+            supplierId: this.supplierId,
+            price: formValue.price,
+            package: formValue.package,
+            categoryIds: [formValue.category],
             catalogNr: formValue.catalogNr,
-            noarticle: formValue.noarticle,
+            noArticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
             tva: formValue.tva,
             isResold: formValue.isResold,
