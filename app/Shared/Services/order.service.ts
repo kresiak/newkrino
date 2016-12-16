@@ -21,17 +21,17 @@ export class OrderService {
         });
     }
 
-    private getOtpMoneySpentMapObservable() : Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
+    private getOtpMoneySpentMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
         return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
-                if (order.items) {
-                    order.items.filter(item => item.otpId && item.total).forEach(item => {
-                        let otpId = item.otpId
-                        if (!map.has(otpId)) map.set(otpId, 0)
-                        map.set(otpId, map.get(otpId) + item.total)
-                    })
-                }
-                return map
-            }, new Map()))        
+            if (order.items) {
+                order.items.filter(item => item.otpId && item.total).forEach(item => {
+                    let otpId = item.otpId
+                    if (!map.has(otpId)) map.set(otpId, 0)
+                    map.set(otpId, map.get(otpId) + item.total)
+                })
+            }
+            return map
+        }, new Map()))
     }
 
     private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[]) {
@@ -69,7 +69,7 @@ export class OrderService {
     }
 
     getAnnotatedOpenOtpsByCategory(categoryId): Observable<any> {
-        return this.getAnnotatedOtps().map(otps => otps.filter(otp => !otp.data.isBlocked && !otp.data.isClosed && otp.data.categoryIds && otp.data.categoryIds.includes(categoryId) ));
+        return this.getAnnotatedOtps().map(otps => otps.filter(otp => !otp.data.isBlocked && !otp.data.isClosed && otp.data.categoryIds && otp.data.categoryIds.includes(categoryId)));
     }
 
 
@@ -86,17 +86,28 @@ export class OrderService {
     // order helper functions for viewing orders
     // =========================================
 
-    getProductFrequenceMapObservable() : Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
+    getProductFrequenceMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map product => nb orders    
         return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
-                if (order.items) {
-                    order.items.filter(item => item.productId && item.quantity).forEach(item => {
-                        let productId = item.productId
-                        if (!map.has(productId)) map.set(productId, 0)
-                        map.set(productId, map.get(productId) + 1)
-                    })
-                }
-                return map
-            }, new Map()))        
+            if (order.items) {
+                order.items.filter(item => item.productId && item.quantity).forEach(item => {
+                    let productId = item.productId
+                    if (!map.has(productId)) map.set(productId, 0)
+                    map.set(productId, map.get(productId) + 1)
+                })
+            }
+            return map
+        }, new Map()))
+    }
+
+    getSupplierFrequenceMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map supplier => nb orders    
+        return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
+            let supplierId = order.supplierId
+            if (supplierId) {
+                if (!map.has(supplierId)) map.set(supplierId, 0)
+                map.set(supplierId, map.get(supplierId) + 1)
+            }
+            return map
+        }, new Map()))
     }
 
     private getTotalOfOrder(order): number {
@@ -110,8 +121,8 @@ export class OrderService {
     private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[]) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
-        let equipe = equipes.get(order.equipeId) 
-        let user = users.get(order.userId) 
+        let equipe = equipes.get(order.equipeId)
+        let user = users.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
         return {
             data: order,
@@ -123,7 +134,7 @@ export class OrderService {
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: !order.items ? [] : order.items.map(item => {
                     let product = products.get(item.productId)
-                    let otp = otps.get(item.otpId) 
+                    let otp = otps.get(item.otpId)
                     return {
                         data: item,
                         annotation: {
@@ -146,12 +157,12 @@ export class OrderService {
     // viewing orders
     // ==============
 
-    private hashMapFactory= list => {
+    private hashMapFactory = list => {
         return list.reduce((map, p) => {
-                map.set(p._id, p)
-                return map
-            }, new Map())
-    }            
+            map.set(p._id, p)
+            return map
+        }, new Map())
+    }
 
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
@@ -166,7 +177,7 @@ export class OrderService {
                 return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
             })
     }
-        
+
 
     getAnnotedOrders(ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
@@ -189,47 +200,47 @@ export class OrderService {
     }
 
     getNewestAnnotedOrders(nb: number): Observable<any> {
-        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid).slice(0, nb)) 
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid).slice(0, nb))
         return this.getAnnotedOrders(ordersObservable);
     }
 
     getAnnotedOrdersBySupplier(supplierId: string): Observable<any> {
-        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId))
         return this.getAnnotedOrders(ordersObservable);
     }
 
     getAnnotedOrdersByProduct(productId: string): Observable<any> {
-        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.productId).includes(productId)))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.productId).includes(productId)))
         return this.getAnnotedOrders(ordersObservable);
     }
 
-    hasSupplierAnyOrder(supplierId: string) : Observable<boolean> {
-        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId).length>0)
+    hasSupplierAnyOrder(supplierId: string): Observable<boolean> {
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId).length > 0)
     }
 
     getAnnotedOrdersByEquipe(equipeId: string): Observable<any> {
-        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId))
         return this.getAnnotedOrders(ordersObservable);
     }
 
     hasEquipeAnyOrder(equipeId: string): Observable<boolean> {
-        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId).length>0);
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId).length > 0);
     }
 
     getAnnotedOrdersOfCurrentUser(): Observable<any> {
         return this.authService.getUserIdObservable().switchMap(userId => {
-            let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.userId === userId))
-            return this.getAnnotedOrders(ordersObservable);    
+            let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.userId === userId))
+            return this.getAnnotedOrders(ordersObservable);
         })
     }
 
     getAnnotedOrdersByOtp(otpId: string): Observable<any> {
-        let ordersObservable= this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.otpId).includes(otpId)))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.otpId).includes(otpId)))
         return this.getAnnotedOrders(ordersObservable);
     }
 
     hasOtpAnyOrder(otpId: string): Observable<boolean> {
-        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.otpId).includes(otpId)).length>0);
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.otpId).includes(otpId)).length > 0);
     }
 
 

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var data_service_1 = require('./../Shared/Services/data.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var Rx_1 = require('rxjs/Rx');
@@ -17,7 +18,7 @@ var SupplierListComponentRoutable = (function () {
         this.supplierService = supplierService;
     }
     SupplierListComponentRoutable.prototype.ngOnInit = function () {
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
+        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
     };
     SupplierListComponentRoutable = __decorate([
         core_1.Component({
@@ -34,6 +35,10 @@ var SupplierListComponent = (function () {
         this.supplierService = supplierService;
         this.initialTabInSupplierDetail = '';
         this.stateChanged = new core_1.EventEmitter();
+        this.searchControl = new forms_1.FormControl();
+        this.searchForm = new forms_1.FormGroup({
+            searchControl: new forms_1.FormControl()
+        });
     }
     SupplierListComponent.prototype.stateInit = function () {
         if (!this.state)
@@ -44,8 +49,18 @@ var SupplierListComponent = (function () {
     SupplierListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
-        this.suppliersObservable.subscribe(function (suppliers) {
-            return _this.suppliers = suppliers;
+        Rx_1.Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), function (suppliers, searchTxt) {
+            var txt = searchTxt.trim().toUpperCase();
+            if (txt === '')
+                return suppliers;
+            return suppliers.filter(function (supplier) {
+                return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) ||
+                    (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) ||
+                    (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) ||
+                    (supplier.data.client && supplier.data.client.toUpperCase().includes(txt));
+            });
+        }).subscribe(function (suppliers) {
+            _this.suppliers = suppliers;
         });
     };
     SupplierListComponent.prototype.getSupplierObservable = function (id) {

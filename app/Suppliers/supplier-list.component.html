@@ -1,37 +1,48 @@
+<template #searchPopContent>
+	<ul>
+		<li>bru: the supplier's name, city, or country should contain the string 'bru'</li>
+		<li>ulg: the supplier is a ulg supplier</li>
+		<li>gsvl: the supplier is a gesval supplier</li>
+	</ul>
+</template>
+
 <div class="card" *ngIf="suppliers && suppliers.length > 0">
 	<div class="card-block">
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-			<ngb-panel [disabled]="true">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-4"><b>Supplier</b></div>
-                        <div class="col-sm-3"><b>City</b></div>
-						<div class="col-sm-2"><b>Country</b></div>
-						<div class="col-sm-2"><b>Client</b></div>
-                    </div>														
-				</template>
-				<template ngbPanelContent>
-				</template>				
-			</ngb-panel>
-			<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-4">{{supplier.data.name}}</div>
-                        <div class="col-sm-3">{{supplier.data.city}}</div>
-						<div class="col-sm-2">{{supplier.data.country}}</div>
-						<div class="col-sm-2">{{supplier.data.client}}</div>
-						<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="./images/shopping-basket-info-icon.png" /></div>
-                    </div>														
-				</template>
-				<template ngbPanelContent>
-					<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)"  [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail" 
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<input type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent" placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-4"><b>Supplier</b></div>
+							<div class="col-sm-3"><b>City</b></div>
+							<div class="col-sm-2"><b>Country</b></div>
+							<div class="col-sm-2"><b>Client</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-4">{{supplier.data.name}}</div>
+							<div class="col-sm-3">{{supplier.data.city}}</div>
+							<div class="col-sm-2">{{supplier.data.country}}</div>
+							<div class="col-sm-2">{{supplier.data.client}}</div>
+							<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="./images/shopping-basket-info-icon.png" /></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)" [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail"
 							(stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
-				</template>
-			</ngb-panel>
-		</ngb-accordion>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
 	</div>
 </div>
-
-
-
-

@@ -107,6 +107,17 @@ var OrderService = (function () {
             return map;
         }, new Map()); });
     };
+    OrderService.prototype.getSupplierFrequenceMapObservable = function () {
+        return this.dataStore.getDataObservable('orders').map(function (orders) { return orders.reduce(function (map, order) {
+            var supplierId = order.supplierId;
+            if (supplierId) {
+                if (!map.has(supplierId))
+                    map.set(supplierId, 0);
+                map.set(supplierId, map.get(supplierId) + 1);
+            }
+            return map;
+        }, new Map()); });
+    };
     OrderService.prototype.getTotalOfOrder = function (order) {
         return order.items && order.items.length > 0 ? order.items.map(function (item) { return item.total; }).reduce(function (a, b) { return a + b; }) : 0;
     };

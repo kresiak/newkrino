@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable } from 'rxjs/Rx'
@@ -14,7 +15,7 @@ export class SupplierListComponentRoutable implements OnInit {
     constructor(private supplierService: SupplierService) { }
 
     ngOnInit(): void {
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliers();
+        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
     }
 
     private suppliersObservable: Observable<any>;
@@ -30,7 +31,9 @@ export class SupplierListComponentRoutable implements OnInit {
 )
 export class SupplierListComponent implements OnInit {
     constructor(private dataStore: DataStore, private supplierService: SupplierService) {
-
+        this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });
     }
 
     private suppliers; //: Observable<any>;
@@ -46,10 +49,25 @@ export class SupplierListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
+    searchControl = new FormControl();
+    searchForm;
+
     ngOnInit(): void {
         this.stateInit();
-        this.suppliersObservable.subscribe(suppliers => 
-            this.suppliers = suppliers);
+
+        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), (suppliers, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '') return suppliers;
+
+            return suppliers.filter(supplier => {
+                return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) || 
+                    (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) || 
+                    (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) || 
+                    (supplier.data.client && supplier.data.client.toUpperCase().includes(txt))
+            });
+        }).subscribe(suppliers => {
+            this.suppliers = suppliers
+        });
     }
 
     getSupplierObservable(id: string): Observable<any> {

@@ -14,12 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var product_service_1 = require('./product.service');
+var order_service_1 = require('./order.service');
 var Rx_1 = require('rxjs/Rx');
 core_1.Injectable();
 var SupplierService = (function () {
-    function SupplierService(dataStore, productService) {
+    function SupplierService(dataStore, productService, orderService) {
         this.dataStore = dataStore;
         this.productService = productService;
+        this.orderService = orderService;
     }
     SupplierService.prototype.getSupplier = function (supplierId) {
         return this.dataStore.getDataObservable('suppliers').map(function (suppliers) {
@@ -29,21 +31,26 @@ var SupplierService = (function () {
     };
     SupplierService.prototype.getAnnotatedSuppliers = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(), function (suppliers, produits, basketItems) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(), this.orderService.getSupplierFrequenceMapObservable(), function (suppliers, produits, basketItems, supplierFrequenceMap) {
             return suppliers.map(function (supplier) {
                 return {
                     data: supplier,
                     annotation: {
-                        hasBasket: _this.productService.hasSupplierBasketItems(supplier, produits, basketItems)
+                        hasBasket: _this.productService.hasSupplierBasketItems(supplier, produits, basketItems),
+                        supplierFrequence: supplierFrequenceMap.get(supplier._id) || 0
                     }
                 };
             });
         });
     };
+    SupplierService.prototype.getAnnotatedSuppliersByFrequence = function () {
+        return this.getAnnotatedSuppliers().map(function (prods) { return prods.sort(function (a, b) { return b.annotation.supplierFrequence - a.annotation.supplierFrequence; }); });
+    };
     SupplierService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
-        __param(1, core_1.Inject(product_service_1.ProductService)), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService])
+        __param(1, core_1.Inject(product_service_1.ProductService)),
+        __param(2, core_1.Inject(order_service_1.OrderService)), 
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
     ], SupplierService);
     return SupplierService;
 }());
