@@ -34,16 +34,16 @@ var SupplierDetailComponent = (function () {
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
             if (supplier) {
-                _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier._id);
-                _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
+                _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
+                _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplier.data._id);
                 _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
-                _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier._id);
-                _this.orderService.hasSupplierAnyOrder(supplier._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
+                _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
+                _this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
         });
     };
     SupplierDetailComponent.prototype.gotoPreOrder = function () {
-        var link = ['/preorder', this.supplier._id];
+        var link = ['/preorder', this.supplier.data._id];
         this.router.navigate(link);
     };
     SupplierDetailComponent.prototype.beforeTabChange = function ($event) {

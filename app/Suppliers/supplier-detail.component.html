@@ -5,35 +5,39 @@
 				<div class="card-block">
 					<div class="row">
 						<div class="col-sm-2">supplier:</div>
-						<div class="col-sm-6">{{supplier.name}}</div>
+						<div class="col-sm-6">{{supplier.data.name}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">city:</div>
-						<div class="col-sm-6">{{supplier.city}}</div>
+						<div class="col-sm-6">{{supplier.data.city}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">country:</div>
-						<div class="col-sm-6">{{supplier.country}}</div>
+						<div class="col-sm-6">{{supplier.data.country}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">zip:</div>
-						<div class="col-sm-6">{{supplier.zip}}</div>
+						<div class="col-sm-6">{{supplier.data.zip}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">street:</div>
-						<div class="col-sm-6">{{supplier.street}}</div>
+						<div class="col-sm-6">{{supplier.data.street}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">telephone:</div>
-						<div class="col-sm-6">{{supplier.tel}}</div>
+						<div class="col-sm-6">{{supplier.data.tel}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">fax:</div>
-						<div class="col-sm-6">{{supplier.fax}}</div>
+						<div class="col-sm-6">{{supplier.data.fax}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">client:</div>
-						<div class="col-sm-6">{{supplier.client}}</div>
+						<div class="col-sm-6">{{supplier.data.client}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">frequency:</div>
+						<div class="col-sm-6">{{supplier.annotation.supplierFrequence}}</div>
 					</div>
 				</div>
 			</div>
@@ -68,7 +72,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-enter [supplierId]="supplier._id" ></gg-product-enter>
+						<gg-product-enter [supplierId]="supplier.data._id" ></gg-product-enter>
 					</div>
 				</div>
 			</div>

@@ -183,11 +183,11 @@ var OrderService = (function () {
         return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.getAnnotedOrdersBySupplier = function (supplierId) {
-        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }); });
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.supplierId === supplierId; }); }).map(function (orders) { return orders.sort(function (a, b) { return b.kid - a.kid; }); });
         return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.getAnnotedOrdersByProduct = function (productId) {
-        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.items && order.items.map(function (item) { return item.productId; }).includes(productId); }); });
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order.items && order.items.map(function (item) { return item.productId; }).includes(productId); }); }).map(function (orders) { return orders.sort(function (a, b) { return b.kid - a.kid; }); });
         return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.hasSupplierAnyOrder = function (supplierId) {

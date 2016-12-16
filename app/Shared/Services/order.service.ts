@@ -205,12 +205,12 @@ export class OrderService {
     }
 
     getAnnotedOrdersBySupplier(supplierId: string): Observable<any> {
-        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId)).map(orders => orders.sort((a, b) => b.kid - a.kid))
         return this.getAnnotedOrders(ordersObservable);
     }
 
     getAnnotedOrdersByProduct(productId: string): Observable<any> {
-        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.productId).includes(productId)))
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.productId).includes(productId))).map(orders => orders.sort((a, b) => b.kid - a.kid))
         return this.getAnnotedOrders(ordersObservable);
     }
 

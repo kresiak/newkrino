@@ -74,7 +74,7 @@ export class SupplierListComponent implements OnInit {
         return this.suppliersObservable.map(suppliers => 
         {
             let supplier= suppliers.filter(s => s.data._id === id)[0];
-            return supplier ? supplier.data : null; 
+            return supplier ? supplier : null; 
         } );
     }
 

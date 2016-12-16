@@ -66,7 +66,7 @@ var SupplierListComponent = (function () {
     SupplierListComponent.prototype.getSupplierObservable = function (id) {
         return this.suppliersObservable.map(function (suppliers) {
             var supplier = suppliers.filter(function (s) { return s.data._id === id; })[0];
-            return supplier ? supplier.data : null;
+            return supplier ? supplier : null;
         });
     };
     // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)

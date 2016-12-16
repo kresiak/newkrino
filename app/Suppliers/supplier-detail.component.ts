@@ -34,11 +34,11 @@ export class SupplierDetailComponent implements OnInit {
         this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
             if (supplier) {
-                this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier._id);
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplier._id);
+                this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
+                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplier.data._id);
                 this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
-                this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier._id);
-                this.orderService.hasSupplierAnyOrder(supplier._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+                this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
+                this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
     }
@@ -52,7 +52,7 @@ export class SupplierDetailComponent implements OnInit {
     private anyOrder: boolean;
 
     gotoPreOrder() {
-        let link = ['/preorder', this.supplier._id];
+        let link = ['/preorder', this.supplier.data._id];
         this.router.navigate(link);
     }
 
