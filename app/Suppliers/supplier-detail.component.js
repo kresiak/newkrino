@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
+var data_service_1 = require('./../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(productService, orderService, router) {
+    function SupplierDetailComponent(dataStore, productService, orderService, router) {
+        this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
@@ -31,6 +33,8 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = this.supplierObservable.map(function (supplier) { return supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []; });
         this.supplierObservable.subscribe(function (supplier) {
             _this.supplier = supplier;
             if (supplier) {
@@ -55,6 +59,21 @@ var SupplierDetailComponent = (function () {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     };
+    SupplierDetailComponent.prototype.webShoppingUpdated = function (isEnabled) {
+        if (!this.supplier.data.webShopping)
+            this.supplier.data.webShopping = {};
+        this.supplier.data.webShopping.isEnabled = isEnabled;
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    };
+    SupplierDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
+        if (!this.supplier.data.webShopping)
+            this.supplier.data.webShopping = {};
+        this.supplier.data.webShopping.categoryIds = selectedIds;
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    };
+    SupplierDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {
+        this.productService.createCategory(newCategory);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -77,7 +96,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, order_service_1.OrderService, router_1.Router])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

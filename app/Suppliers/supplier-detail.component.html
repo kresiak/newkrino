@@ -78,4 +78,26 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Web Shopping" id="tabWebShopping">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4 vcenter">web shopping enabled:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">allowed products:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	
 </ngb-tabset>

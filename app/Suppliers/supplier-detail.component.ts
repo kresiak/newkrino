@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductService } from './../Shared/Services/product.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { DataStore } from './../Shared/Services/data.service'
 import { Observable } from 'rxjs/Rx'
 import { Router } from '@angular/router';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +15,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private productService: ProductService, private orderService: OrderService, private router: Router) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router) {
 
     }
 
@@ -30,6 +31,8 @@ export class SupplierDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);        
 
         this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
@@ -50,6 +53,9 @@ export class SupplierDetailComponent implements OnInit {
     private supplier: any;
     private isThereABasket: boolean = false;
     private anyOrder: boolean;
+    private selectableCategoriesObservable: Observable<any>;
+    private selectedCategoryIdsObservable: Observable<any>;
+    
 
     gotoPreOrder() {
         let link = ['/preorder', this.supplier.data._id];
@@ -66,4 +72,20 @@ export class SupplierDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    webShoppingUpdated(isEnabled) {
+        if (! this.supplier.data.webShopping) this.supplier.data.webShopping= {}
+        this.supplier.data.webShopping.isEnabled= isEnabled
+         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
+
+    categorySelectionChanged(selectedIds: string[]) {
+        if (! this.supplier.data.webShopping) this.supplier.data.webShopping= {}
+        this.supplier.data.webShopping.categoryIds = selectedIds;
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
+
+    categoryHasBeenAdded(newCategory: string) {
+        this.productService.createCategory(newCategory);
+    }
+    
 }
