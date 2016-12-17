@@ -3,17 +3,18 @@
 		<li>bru: the supplier's name, city, or country should contain the string 'bru'</li>
 		<li>ulg: the supplier is a ulg supplier</li>
 		<li>gsvl: the supplier is a gesval supplier</li>
+		<li>webshopping: the supplier is web shopping enabled</li>
 	</ul>
 </template>
 
-<div class="card" *ngIf="suppliers && suppliers.length > 0">
+<div class="card" >
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
 				<input type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent" placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" *ngIf="suppliers && suppliers.length > 0">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>

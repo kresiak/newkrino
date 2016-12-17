@@ -59,10 +59,14 @@ export class SupplierListComponent implements OnInit {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '') return suppliers;
 
+            if (txt.toUpperCase() === 'WEBSHOPPING') return suppliers.filter(supplier => supplier.data.webShopping && supplier.data.webShopping.isEnabled)
+
             return suppliers.filter(supplier => {
                 return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) || 
                     (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) || 
                     (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) || 
+                    (supplier.data.oldId && supplier.data.oldId.toString().toUpperCase().includes(txt)) || 
+                    (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt)) || 
                     (supplier.data.client && supplier.data.client.toUpperCase().includes(txt))
             });
         }).subscribe(suppliers => {
