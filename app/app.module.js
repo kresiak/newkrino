@@ -29,6 +29,7 @@ var category_detail_component_1 = require('./Categories/category-detail.componen
 var otp_component_1 = require('./Otps/otp.component');
 var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
 var otp_detail_component_1 = require('./Otps/otp-detail.component');
+var otp_enter_component_1 = require('./Otps/otp-enter.component');
 var manip_detail_component_1 = require('./Manips/manip-detail.component');
 var manip_list_component_1 = require('./Manips/manip-list.component');
 var prestation_detail_1 = require('./Prestations/prestation-detail');
@@ -102,7 +103,7 @@ var AppModule = (function () {
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent,
-                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable,
+                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_list_component_js_1.OtpListComponentRoutable, otp_enter_component_1.OtpEnterComponent,
                 category_list_component_1.CategoryListComponent, category_detail_component_1.CategoryDetailComponent,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
