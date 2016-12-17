@@ -9,7 +9,7 @@ import { SelectableData } from '../Shared/Classes/selectable-data'
         templateUrl: './otp-enter.component.html'    
 })
 export class OtpEnterComponent implements OnInit {
-    private otpForm56: FormGroup;
+    private otpForm: FormGroup;
 
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
 
@@ -18,10 +18,8 @@ export class OtpEnterComponent implements OnInit {
     ngOnInit():void
     {
 
-        this.otpForm56= this.formBuilder.group({
-            //description89: ['', [Validators.required, Validators.minLength(5)]],
-          
-            name: ['', Validators.required],
+        this.otpForm = this.formBuilder.group({                      
+            name: ['', [Validators.required, Validators.minLength(5)]],
             budget: ['', Validators.required],
             description: ['', Validators.required],
             datStart: [''],
@@ -29,17 +27,14 @@ export class OtpEnterComponent implements OnInit {
             isBlocked: [''],
             isClosed: [''],
             equipedId: ['', Validators.required],
-            client: ['', Validators.required],
+            client: [''],
             note: ['']
         });
     }
 
-
-    save145(formValue, isValid)
+    save(formValue, isValid)
     {
         this.dataStore.addData('otps', {
-            //name: formValue.description89,
-
             name: formValue.name,
             budget: formValue.budget,
             description: formValue.description,
@@ -59,7 +54,7 @@ export class OtpEnterComponent implements OnInit {
 
     reset()
     {
-        this.otpForm56.reset();        
-        this.otpForm56.controls['category'].setValue('-1'); // CHANGER category > otp?
+        this.otpForm.reset();        
+        this.otpForm.controls['otps'].setValue('-1');
     }
 }

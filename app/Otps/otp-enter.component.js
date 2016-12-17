@@ -17,9 +17,8 @@ var OtpEnterComponent = (function () {
         this.formBuilder = formBuilder;
     }
     OtpEnterComponent.prototype.ngOnInit = function () {
-        this.otpForm56 = this.formBuilder.group({
-            //description89: ['', [Validators.required, Validators.minLength(5)]],
-            name: ['', forms_1.Validators.required],
+        this.otpForm = this.formBuilder.group({
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             budget: ['', forms_1.Validators.required],
             description: ['', forms_1.Validators.required],
             datStart: [''],
@@ -27,14 +26,13 @@ var OtpEnterComponent = (function () {
             isBlocked: [''],
             isClosed: [''],
             equipedId: ['', forms_1.Validators.required],
-            client: ['', forms_1.Validators.required],
+            client: [''],
             note: ['']
         });
     };
-    OtpEnterComponent.prototype.save145 = function (formValue, isValid) {
+    OtpEnterComponent.prototype.save = function (formValue, isValid) {
         var _this = this;
         this.dataStore.addData('otps', {
-            //name: formValue.description89,
             name: formValue.name,
             budget: formValue.budget,
             description: formValue.description,
@@ -51,8 +49,8 @@ var OtpEnterComponent = (function () {
         });
     };
     OtpEnterComponent.prototype.reset = function () {
-        this.otpForm56.reset();
-        this.otpForm56.controls['category'].setValue('-1'); // CHANGER category > otp?
+        this.otpForm.reset();
+        this.otpForm.controls['otps'].setValue('-1');
     };
     OtpEnterComponent = __decorate([
         core_1.Component({
