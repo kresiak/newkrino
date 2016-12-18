@@ -25,7 +25,7 @@ var OtpEnterComponent = (function () {
             datEnd: [''],
             isBlocked: [''],
             isClosed: [''],
-            equipedId: ['', forms_1.Validators.required],
+            equipeId: ['', forms_1.Validators.required],
             client: [''],
             note: ['']
         });
@@ -40,7 +40,7 @@ var OtpEnterComponent = (function () {
             datEnd: formValue.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
-            equipedId: formValue.equipeId,
+            equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note
         }).subscribe(function (res) {
@@ -50,7 +50,7 @@ var OtpEnterComponent = (function () {
     };
     OtpEnterComponent.prototype.reset = function () {
         this.otpForm.reset();
-        this.otpForm.controls['otps'].setValue('-1');
+        //this.otpForm.controls['otp'].setValue('-1');
     };
     OtpEnterComponent = __decorate([
         core_1.Component({

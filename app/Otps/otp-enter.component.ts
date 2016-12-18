@@ -14,7 +14,7 @@ export class OtpEnterComponent implements OnInit {
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
 
     }
-
+ 
     ngOnInit():void
     {
 
@@ -26,11 +26,13 @@ export class OtpEnterComponent implements OnInit {
             datEnd: [''],
             isBlocked: [''],
             isClosed: [''],
-            equipedId: ['', Validators.required],
+            equipeId: ['', Validators.required],
             client: [''],
             note: ['']
         });
     }
+
+    private otp;
 
     save(formValue, isValid)
     {
@@ -42,7 +44,7 @@ export class OtpEnterComponent implements OnInit {
             datEnd: formValue.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
-            equipedId: formValue.equipeId,
+            equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note
         }).subscribe(res =>
@@ -55,6 +57,18 @@ export class OtpEnterComponent implements OnInit {
     reset()
     {
         this.otpForm.reset();        
-        this.otpForm.controls['otps'].setValue('-1');
+        //this.otpForm.controls['otp'].setValue('-1');
     }
+/*
+    dateUpdated(date) {
+        this.otp.data.datEnd = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+     dateUpdatedStart(date) {
+        this.otp.data.datStart = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+*/
 }
+
