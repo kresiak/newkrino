@@ -64,6 +64,12 @@
 							<img *ngIf="otp.annotation.dashletId" src="./images/unpin.png" (click)="removeDashlet(otp.annotation.dashletId)" />
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col-sm-4">_id:</div>
+						<div class="col-sm-6">{{otp.data._id}}</div>
+					</div>
+
 				</div>
 			</div>
 		</template>
@@ -95,6 +101,11 @@
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Add an Otp" id="tabOtp">
+		<template ngbTabContent>
+			<gg-otp-enter></gg-otp-enter>
 		</template>
 	</ngb-tab>
 </ngb-tabset>

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Rx'
 import { ApiService } from './api.service';
 
 
-
 @Injectable()
 export class DataStore { // contains one observable property by database table/collection
 
@@ -64,5 +63,4 @@ export class DataStore { // contains one observable property by database table/c
     triggerDataNext(table: string) {
         this.triggerNext(table);
     }
-
 }
