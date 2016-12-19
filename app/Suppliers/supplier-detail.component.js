@@ -92,7 +92,7 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.nbVouchersOrderedUpdated = function (categoryId, nbOrdered) {
         var _this = this;
         if (!this.currentAnnotatedUser.data.voucherRequests)
-            return;
+            this.currentAnnotatedUser.data.voucherRequests = [];
         var request = this.currentAnnotatedUser.data.voucherRequests.filter(function (request) { return request.supplierId === _this.supplier.data._id && request.categoryId === categoryId; })[0];
         if (!request) {
             if (nbOrdered === 0)
