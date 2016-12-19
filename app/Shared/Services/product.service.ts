@@ -184,7 +184,7 @@ export class ProductService {
     }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {
-        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence));//.share();
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence)).publishReplay(1).refCount();
     }
 
     getAnnotatedProductsWithBasketInfoByCategory(categoryId): Observable<any> {
@@ -193,7 +193,7 @@ export class ProductService {
 
     getAnnotatedProductsBoughtByCurrentUserWithBasketInfo(): Observable<any> {
         let productsObservable = this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));
-        return this.getAnnotatedProductsWithBasketInfo(productsObservable);
+        return this.getAnnotatedProductsWithBasketInfo(productsObservable).publishReplay(1).refCount();
     }
 
 

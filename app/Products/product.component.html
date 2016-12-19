@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="product && product.data">
 	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
 	</div>

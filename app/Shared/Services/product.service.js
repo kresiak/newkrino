@@ -178,14 +178,14 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
-        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); }); //.share();
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); }).publishReplay(1).refCount();
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoByCategory = function (categoryId) {
         return this.getAnnotatedProductsWithBasketInfo(this.getProductsByCategory(categoryId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
     };
     ProductService.prototype.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo = function () {
         var productsObservable = this.getProductsBoughtByUser(this.authService.getUserIdObservable(), this.dataStore.getDataObservable('orders'));
-        return this.getAnnotatedProductsWithBasketInfo(productsObservable);
+        return this.getAnnotatedProductsWithBasketInfo(productsObservable).publishReplay(1).refCount();
     };
     ProductService.prototype.getAnnotatedProductsWithSupplierInfo = function () {
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable("products"), this.dataStore.getDataObservable("suppliers"), function (produits, suppliers) {
