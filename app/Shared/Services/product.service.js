@@ -178,7 +178,7 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
-        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); }).share();
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoByCategory = function (categoryId) {
         return this.getAnnotatedProductsWithBasketInfo(this.getProductsByCategory(categoryId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); });

@@ -184,7 +184,7 @@ export class ProductService {
     }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {
-        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence));
+        return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence)).share();
     }
 
     getAnnotatedProductsWithBasketInfoByCategory(categoryId): Observable<any> {
