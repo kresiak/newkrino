@@ -82,7 +82,7 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<ngb-tabset>
+					<ngb-tabset (tabChange)="beforeWebShoppingTabChange($event)" [activeId]="state.selectedWebShoppingTabId">
 						<ngb-tab title="Administration" id="tabWebShoppingAdmin">
 							<template ngbTabContent>
 								<div class="card">

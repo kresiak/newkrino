@@ -28,6 +28,7 @@ export class SupplierDetailComponent implements OnInit {
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
+        if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     }
 
     ngOnInit(): void {
@@ -71,6 +72,12 @@ export class SupplierDetailComponent implements OnInit {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
+
+    public beforeWebShoppingTabChange($event: NgbTabChangeEvent) {
+        this.state.selectedWebShoppingTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+
 
     private childOrdersStateChanged($event) {
         this.state.Orders = $event;
