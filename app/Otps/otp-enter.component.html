@@ -1,86 +1,81 @@
 <div class="container-fluid">
 	<form [formGroup]="otpForm" (ngSubmit)="save(otpForm.value, otpForm.valid)" >
-		<div class="card">
-			<div class="card-block">
-				<div class="form-group row">
-					<label for="name" class="col-sm-2 col-form-label col-xl-2">otp:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the otp">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="budget" class="col-sm-2 col-form-label col-xl-2">budget:</label>
-					<div class="col-sm-10">
-						<input type="number" min="1" class="form-control" formControlName="budget" id="budget" placeholder="budget">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
-					<div class="col-sm-10">
-						<input type="text" min="1" class="form-control" formControlName="description" id="description" placeholder="description">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="datStart" class="col-sm-2 col-form-label col-xl-2">from:</label>
-					<div class="col-sm-10">
-						<!--<gg-editor-date class="form-control" formControlName="datStart" [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>-->
-						<input type="text" class="form-control" formControlName="datStart" id="datStart" placeholder="from">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="datEnd" class="col-sm-2 col-form-label col-xl-2">to:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" formControlName="datEnd" id="datEnd" placeholder="to">
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<label for="equipeId" class="col-sm-2 col-form-label col-xl-2">equipe Id:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" formControlName="equipeId" id="equipeId" placeholder="equipe Id">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="client" class="col-sm-2 col-form-label col-xl-2">client:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" formControlName="client" id="client" placeholder="client">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="note" class="col-sm-2 col-form-label col-xl-2">note:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" formControlName="note" id="note" placeholder="note">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
-					<div class="col-md-1 vcenter">
-						<input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" value="" placeholder="is blocked">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="isClosed" class="col-sm-2 col-form-label col-xl-2 vcenter">is Closed:</label>
-					<div class="col-md-1 vcenter">
-						<input type="checkbox" class="form-control" formControlName="isClosed" id="isClosed" value="" placeholder="is Closed">
-					</div>
-				</div>
-				<div class="form-group row">
-					<label for="category" class="col-sm-2 col-form-label col-xl-2">Category:</label>
-					<div class="col-sm-10">
-						<select class="custom-select" id="category" formControlName="category">
-							<option value="-1" selected>Open this select menu</option>
-							<option *ngFor="let category of categoryData"  [value]="category.id">{{category.name}}</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-3 col-md-2 col-lg-1">
-						<button class="btn btn-success" type="submit" [disabled]="!otpForm.valid">Submit</button>
-					</div>
-					<div class="col-sm-3 col-md-2 col-lg-1">
-						<button class="btn btn-info"  [disabled]="otpForm.pristine" (click)="reset()">Reset</button>
-					</div>
-				</div>
+		<div class="form-group row">
+			<label for="name" class="col-sm-2 col-form-label col-xl-2">otp:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the otp">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="budget" class="col-sm-2 col-form-label col-xl-2">budget:</label>
+			<div class="col-sm-10">
+				<input type="number" min="1" class="form-control" formControlName="budget" id="budget" placeholder="budget">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+			<div class="col-sm-10">
+				<input type="text" min="1" class="form-control" formControlName="description" id="description" placeholder="description">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="datStart" class="col-sm-2 col-form-label col-xl-2">from:</label>
+			<div class="col-sm-10">
+				<!--<gg-editor-date class="form-control" formControlName="datStart" [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>-->
+				<input type="text" class="form-control" formControlName="datStart" id="datStart" placeholder="from">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="datEnd" class="col-sm-2 col-form-label col-xl-2">to:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="datEnd" id="datEnd" placeholder="to">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="equipeId" class="col-sm-2 col-form-label col-xl-2">equipe Id:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="equipeId" id="equipeId" placeholder="equipe Id">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="client" class="col-sm-2 col-form-label col-xl-2">client:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="client" id="client" placeholder="client">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="note" class="col-sm-2 col-form-label col-xl-2">note:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="note" id="note" placeholder="note">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
+			<div class="col-md-1 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" value="" placeholder="is blocked">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="isClosed" class="col-sm-2 col-form-label col-xl-2 vcenter">is Closed:</label>
+			<div class="col-md-1 vcenter">
+				<input type="checkbox" class="form-control" formControlName="isClosed" id="isClosed" value="" placeholder="is Closed">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="category" class="col-sm-2 col-form-label col-xl-2">Category:</label>
+			<div class="col-sm-10">
+				<select class="custom-select" id="category" formControlName="category">
+					<option value="-1" selected>Open this select menu</option>
+					<option *ngFor="let category of categoryData"  [value]="category.id">{{category.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-3 col-md-2 col-lg-1">
+				<button class="btn btn-success" type="submit" [disabled]="!otpForm.valid">Submit</button>
+			</div>
+			<div class="col-sm-3 col-md-2 col-lg-1">
+				<button class="btn btn-info"  [disabled]="otpForm.pristine" (click)="reset()">Reset</button>
 			</div>
 		</div>
 	</form>
