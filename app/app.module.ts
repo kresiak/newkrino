@@ -23,6 +23,7 @@ import {CategoryDetailComponent} from './Categories/category-detail.component'
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
 import {OtpDetailComponent} from './Otps/otp-detail.component';
+import {OtpEnterComponent} from './Otps/otp-enter.component';
 
 import {ManipDetailComponent} from './Manips/manip-detail.component'
 import {ManipListComponent} from './Manips/manip-list.component'
@@ -33,6 +34,7 @@ import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
+import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
@@ -102,13 +104,13 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
-                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable,
+                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable, OtpEnterComponent,
                   CategoryListComponent, CategoryDetailComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
-                  EquipeDetailComponent, EquipeListComponent, 
+                  EquipeDetailComponent, EquipeListComponent, EquipeEnterComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,

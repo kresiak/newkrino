@@ -1,0 +1,46 @@
+<div class="container-fluid">
+	<form [formGroup]="equipeForm" (ngSubmit)="save(equipeForm.value, equipeForm.valid)" >
+        <div class="card">
+			<div class="card-block">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label col-xl-2">name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the equipe">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="1" class="form-control" formControlName="description" id="description" placeholder="description">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nbOfMonthAheadAllowed" class="col-sm-2 col-form-label col-xl-2">nb Of Month Ahead Allowed:</label>
+                    <div class="col-sm-10">
+                        <input type="number" min="1" class="form-control" formControlName="nbOfMonthAheadAllowed" id="nbOfMonthAheadAllowed" placeholder="nb Of Month Ahead Allowed">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
+                    <div class="col-md-1 vcenter">
+                        <input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" value="" placeholder="is blocked">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="userIds" class="col-sm-2 col-form-label col-xl-2">user Ids:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="userIds" id="userIds" placeholder="user Ids">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 col-lg-1">
+                        <button class="btn btn-success" type="submit" [disabled]="!equipeForm.valid">Submit</button>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-1">
+                        <button class="btn btn-info"  [disabled]="equipeForm.pristine" (click)="reset()">Reset</button>
+                    </div>
+                </div>
+			</div>
+        </div>
+	</form>
+</div>
