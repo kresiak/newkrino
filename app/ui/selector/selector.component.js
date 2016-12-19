@@ -20,6 +20,8 @@ var SelectorComponent = (function () {
         this.selectionOptionAdded = new core_1.EventEmitter();
     }
     SelectorComponent.prototype.ngOnInit = function () {
+        if (!this.selectedIds)
+            this.selectedIds = Rx_1.Observable.from([[]]);
         this.initContent(this.selectedIds);
     };
     SelectorComponent.prototype.initContent = function (selectedIds) {
@@ -33,7 +35,9 @@ var SelectorComponent = (function () {
     };
     SelectorComponent.prototype.openModal = function (template) {
         var _this = this;
-        this.selectedIds.subscribe(function (ids) { return _this.pictureselectedIds = ids ? ids.slice(0) : []; });
+        this.selectedIds.subscribe(function (ids) {
+            return _this.pictureselectedIds = ids ? ids.slice(0) : [];
+        });
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
         promise.then(function (res) {

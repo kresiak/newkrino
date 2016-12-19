@@ -72,7 +72,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-enter [supplierId]="supplier.data._id" ></gg-product-enter>
+						<gg-product-enter [supplierId]="supplier.data._id"></gg-product-enter>
 					</div>
 				</div>
 			</div>
@@ -82,22 +82,52 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<div class="row">
-						<div class="col-sm-4 vcenter">web shopping enabled:</div>
-						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
+					<ngb-tabset>
+						<ngb-tab title="Administration" id="tabWebShoppingAdmin">
+							<template ngbTabContent>
+								<div class="card">
+									<div class="card-block">
+										<div class="row">
+											<div class="col-sm-4 vcenter">web shopping enabled:</div>
+											<div class="col-sm-6 vcenter">
+												<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4 vcenter">allowed products:</div>
+											<div class="col-sm-6 vcenter">
+												<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+													(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
+											</div>
+										</div>
+									</div>
+								</div>
+							</template>
+						</ngb-tab>
+						<div *ngIf="supplier.data.webShopping && supplier.data.webShopping.categoryIds && supplier.data.webShopping.categoryIds.length > 0">
+							<ngb-tab *ngFor="let category of supplier.annotation.webShopping.categories" title="Vouchers {{category.name}}" id="tabWebShoppingVoucher{{category.id}}">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+											<div class="row">
+												<div class="col-sm-4 vcenter">vouchers available:</div>
+												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) 
+														? supplier.annotation.voucherCategoryMap.get(category.id).vouchers.length : 0}}</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-4 vcenter">vouchers ordered:</div>
+												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) 
+														? supplier.annotation.voucherCategoryMap.get(category.id).nbVouchersOrdered : 0}}</div>
+											</div>
+										</div>
+									</div>
+								</template>
+							</ngb-tab>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4 vcenter">allowed products:</div>
-						<div class="col-sm-6 vcenter">
-							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>							
-						</div>
-					</div>
+					</ngb-tabset>
 				</div>
 			</div>
 		</template>
 	</ngb-tab>
-	
+
 </ngb-tabset>

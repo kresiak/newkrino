@@ -213,6 +213,63 @@ export class ProductService {
         );
     }
 
+    // web shopping
+    // ============
+
+    // return map suppliedId => {
+    //          supplierName: string,
+    //          categoryMap: categoryId: string => {
+    //                  categoryName: string,
+    //                  nbVouchersOrdered: number,
+    //                  vouchers: array of vouchers as in database
+    //              }    
+    //     }
+    
+    getVoucherMapForCurrentUser(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('users.krino'),
+            this.dataStore.getDataObservable('categories'),
+            this.dataStore.getDataObservable('suppliers'),
+            this.dataStore.getDataObservable('suppliers.vouchers'),
+            this.authService.getUserIdObservable(),
+            (users, categories, suppliers, vouchers, userId) => {
+                let user= users.filter(user => user._id === userId)[0]
+                let supplierMap= new Map()
+                if (!user) return null;
+
+                var initMapIfNecessary= function(supplierId, categoryId) {
+                    if (!supplierMap.has(supplierId)) {
+                        supplierMap.set(supplierId, {
+                            supplierName: suppliers.filter(supplier => supplier._id === supplierId)[0] || 'unknown supplier',
+                            categoryMap: new Map()
+                        })
+                    }
+                    let categoryMap= supplierMap.get(supplierId)['categoryMap']
+                    if (!categoryMap.has(categoryId)) {
+                        categoryMap.set(categoryId, {
+                            categoryName: categories.filter(category => category._id === categoryId)[0] || 'unknown category',
+                            vouchers: []
+                        })
+                    }
+                };
+
+                (user.voucherRequests || []).forEach(request => {
+                    initMapIfNecessary(request.supplierId, request.categoryId)
+                    supplierMap.get(request.supplierId)['categoryMap'].get(request.categoryId)['nbVouchersOrdered']= request.quantity
+                })
+
+                vouchers.filter(voucher => voucher.userId === userId).forEach(voucher => {
+                    initMapIfNecessary(voucher.supplierId, voucher.categoryId)
+                    supplierMap.get(voucher.supplierId)['categoryMap'].get(voucher.categoryId)['vouchers'].push(voucher)
+                })
+
+                return supplierMap                
+            }
+        );        
+    }
+
+
+
     // basket
     // ======
 

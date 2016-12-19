@@ -32,6 +32,7 @@ export class SelectorComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (!this.selectedIds) this.selectedIds= Observable.from([[]])
         this.initContent(this.selectedIds);
     }
 
@@ -46,7 +47,8 @@ export class SelectorComponent implements OnInit {
 
 
     openModal(template) {
-        this.selectedIds.subscribe(ids => this.pictureselectedIds = ids ? ids.slice(0) : []);
+        this.selectedIds.subscribe(ids => 
+            this.pictureselectedIds = ids ? ids.slice(0) : []);
 
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
