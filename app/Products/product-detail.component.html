@@ -75,13 +75,13 @@
 						<div class="col-sm-3 vcenter">is distributed:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isDistributed" (editSaved)="distribUpdated($event)"></gg-editor-boolean></div>
 					</div>
-	 			</div>
+	 			
+					<div class="row">
+						<div class="col-sm-3">_id:</div>
+						<div class="col-sm-6">{{product.data._id}}</div>
+					</div>
 
-				<div class="row">
-					<div class="col-sm-3">_id:</div>
-					<div class="col-sm-6">{{product.data._id}}</div>
 				</div>
-				
 			</div>
 		</template>
 	</ngb-tab>
