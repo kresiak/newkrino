@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProductService } from './../Shared/Services/product.service'
+import { AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { Observable } from 'rxjs/Rx'
@@ -15,7 +16,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService) {
 
     }
 
@@ -42,6 +43,9 @@ export class SupplierDetailComponent implements OnInit {
                 this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
                 this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
                 this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+                this.authService.getAnnotatedCurrentUser().subscribe(user => {
+                    this.currentAnnotatedUser= user
+                })
             }
         });
     }
@@ -55,6 +59,7 @@ export class SupplierDetailComponent implements OnInit {
     private anyOrder: boolean;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
+    private currentAnnotatedUser: any;
     
 
     gotoPreOrder() {
@@ -88,4 +93,26 @@ export class SupplierDetailComponent implements OnInit {
         this.productService.createCategory(newCategory);
     }
     
+    nbVouchersOrdered(categoryId): number {
+        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0
+    }
+
+    nbVouchersOrderedUpdated(categoryId, nbOrdered) {
+        if (!this.currentAnnotatedUser.data.voucherRequests) return
+        let request= this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplier.data._id && request.categoryId === categoryId)[0]
+        if (! request) {
+            if (nbOrdered === 0) return
+            request= {
+                supplierId: this.supplier.data._id,
+                categoryId: categoryId
+            }
+            this.currentAnnotatedUser.data.voucherRequests.push(request)
+        }
+        if (nbOrdered === 0) {
+            let index= this.currentAnnotatedUser.data.voucherRequests.findIndex(req => req === request)
+            this.currentAnnotatedUser.data.voucherRequests.splice(index, 1)
+        }
+        request.quantity= nbOrdered
+        this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data)
+    }
 }

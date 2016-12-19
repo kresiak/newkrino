@@ -111,13 +111,14 @@
 										<div class="card-block">
 											<div class="row">
 												<div class="col-sm-4 vcenter">vouchers available:</div>
-												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) 
-														? supplier.annotation.voucherCategoryMap.get(category.id).vouchers.length : 0}}</div>
+												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) ? supplier.annotation.voucherCategoryMap.get(category.id).vouchers.length
+													: 0}}</div>
 											</div>
 											<div class="row">
 												<div class="col-sm-4 vcenter">vouchers ordered:</div>
-												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) 
-														? supplier.annotation.voucherCategoryMap.get(category.id).nbVouchersOrdered : 0}}</div>
+												<div class="col-sm-6 vcenter">
+													<gg-editor-number [content]="nbVouchersOrdered(category.id)" (editSaved)="nbVouchersOrderedUpdated(category.id, $event)"></gg-editor-number>
+												</div>
 											</div>
 										</div>
 									</div>

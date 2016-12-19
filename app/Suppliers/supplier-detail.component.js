@@ -10,16 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
+var auth_service_1 = require('./../Shared/Services/auth.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var data_service_1 = require('./../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(dataStore, productService, orderService, router) {
+    function SupplierDetailComponent(dataStore, productService, orderService, router, authService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
+        this.authService = authService;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
@@ -43,6 +45,9 @@ var SupplierDetailComponent = (function () {
                 _this.productsBasketObservable.subscribe(function (products) { return _this.isThereABasket = products && products.length > 0; });
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
                 _this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
+                _this.authService.getAnnotatedCurrentUser().subscribe(function (user) {
+                    _this.currentAnnotatedUser = user;
+                });
             }
         });
     };
@@ -74,6 +79,30 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {
         this.productService.createCategory(newCategory);
     };
+    SupplierDetailComponent.prototype.nbVouchersOrdered = function (categoryId) {
+        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0;
+    };
+    SupplierDetailComponent.prototype.nbVouchersOrderedUpdated = function (categoryId, nbOrdered) {
+        var _this = this;
+        if (!this.currentAnnotatedUser.data.voucherRequests)
+            return;
+        var request = this.currentAnnotatedUser.data.voucherRequests.filter(function (request) { return request.supplierId === _this.supplier.data._id && request.categoryId === categoryId; })[0];
+        if (!request) {
+            if (nbOrdered === 0)
+                return;
+            request = {
+                supplierId: this.supplier.data._id,
+                categoryId: categoryId
+            };
+            this.currentAnnotatedUser.data.voucherRequests.push(request);
+        }
+        if (nbOrdered === 0) {
+            var index = this.currentAnnotatedUser.data.voucherRequests.findIndex(function (req) { return req === request; });
+            this.currentAnnotatedUser.data.voucherRequests.splice(index, 1);
+        }
+        request.quantity = nbOrdered;
+        this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -96,7 +125,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());
