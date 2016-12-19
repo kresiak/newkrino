@@ -32,7 +32,7 @@ export class OtpEnterComponent implements OnInit {
         });
     }
 
-    private otp;
+    //private otp;
 
     save(formValue, isValid)
     {
@@ -44,9 +44,10 @@ export class OtpEnterComponent implements OnInit {
             datEnd: formValue.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
-            equipeId: formValue.equipeId,
+            equipeId: formValue.equipeId,   
             client: formValue.client,
-            note: formValue.note
+            note: formValue.note,
+            categoryIds: ['583ea9e5495499592417a3b4','583ea9e5495499592417a3b8']
         }).subscribe(res =>
         {
             var x=res;

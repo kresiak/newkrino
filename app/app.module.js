@@ -38,6 +38,7 @@ var user_component_1 = require('./Users/user.component');
 var user_list_component_js_1 = require('./Users/user-list.component.js');
 var equipe_detail_component_1 = require('./Equipes/equipe-detail.component');
 var equipe_list_component_1 = require('./Equipes/equipe-list.component');
+var equipe_enter_component_1 = require('./Equipes/equipe-enter.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
 var order_detail_component_1 = require('./Orders/order-detail.component');
 var order_list_component_1 = require('./Orders/order-list.component');
@@ -109,7 +110,7 @@ var AppModule = (function () {
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
                 manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
-                equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent,
+                equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_enter_component_1.EquipeEnterComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent,

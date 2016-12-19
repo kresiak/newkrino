@@ -34,6 +34,7 @@ import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
+import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
@@ -109,7 +110,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
-                  EquipeDetailComponent, EquipeListComponent, 
+                  EquipeDetailComponent, EquipeListComponent, EquipeEnterComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,
