@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Rx_1 = require("rxjs/Rx");
 var api_service_1 = require('./api.service');
+var selectable_data_1 = require('./../Classes/selectable-data');
 var DataStore = (function () {
     function DataStore(apiService) {
         this.apiService = apiService;
@@ -59,6 +60,13 @@ var DataStore = (function () {
     };
     DataStore.prototype.triggerDataNext = function (table) {
         this.triggerNext(table);
+    };
+    DataStore.prototype.getOtpSelectableCategories = function () {
+        return this.getDataObservable('categories').map(function (categories) {
+            return categories.sort(function (cat1, cat2) { return cat1.name < cat2.name ? -1 : 1; }).map(function (category) {
+                return new selectable_data_1.SelectableData(category._id, category.name);
+            });
+        });
     };
     DataStore = __decorate([
         core_1.Injectable(), 

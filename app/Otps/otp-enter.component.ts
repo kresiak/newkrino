@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
+//import {ProductService} from '../Shared/Services/product.service'
 
 @Component({
         moduleId: module.id,
@@ -14,9 +15,21 @@ export class OtpEnterComponent implements OnInit {
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
 
     }
+
+    private categoryData: SelectableData[];
+
+    private isCategoryIdSelected(control: FormControl){   // custom validator implementing ValidatorFn 
+            if (control.value === '-1') {
+                return { "category": true };
+            }
+
+            return null;
+        }
+
  
     ngOnInit():void
     {
+        this.dataStore.getOtpSelectableCategories().subscribe(cd => this.categoryData= cd);
 
         this.otpForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(5)]],
@@ -28,7 +41,8 @@ export class OtpEnterComponent implements OnInit {
             isClosed: [''],
             equipeId: ['', Validators.required],
             client: [''],
-            note: ['']
+            note: [''],
+            category: ['-1', this.isCategoryIdSelected]
         });
     }
 
@@ -47,7 +61,7 @@ export class OtpEnterComponent implements OnInit {
             equipeId: formValue.equipeId,   
             client: formValue.client,
             note: formValue.note,
-            categoryIds: ['583ea9e5495499592417a3b4','583ea9e5495499592417a3b8']
+            categoryIds: [formValue.category] //['583ea9e5495499592417a3b4','583ea9e5495499592417a3b8']
         }).subscribe(res =>
         {
             var x=res;
@@ -58,7 +72,8 @@ export class OtpEnterComponent implements OnInit {
     reset()
     {
         this.otpForm.reset();        
-        //this.otpForm.controls['otp'].setValue('-1');
+        this.otpForm.controls['category'].setValue('-1');
+        
     }
 /*
     dateUpdated(date) {

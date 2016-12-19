@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx'
 
 import { ApiService } from './api.service';
 
+import { SelectableData } from './../Classes/selectable-data'
 
 
 @Injectable()
@@ -65,4 +66,11 @@ export class DataStore { // contains one observable property by database table/c
         this.triggerNext(table);
     }
 
+    getOtpSelectableCategories(): Observable<SelectableData[]> {
+        return this.getDataObservable('categories').map(categories => {
+            return categories.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(category =>
+                new SelectableData(category._id, category.name)
+            )
+        });
+    }
 }
