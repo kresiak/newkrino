@@ -50,7 +50,7 @@ var OtpEnterComponent = (function () {
             budget: formValue.budget,
             description: formValue.description,
             datStart: this.datStart,
-            datEnd: formValue.datEnd,
+            datEnd: this.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
             equipeId: formValue.equipeId,
@@ -68,6 +68,9 @@ var OtpEnterComponent = (function () {
     };
     OtpEnterComponent.prototype.dateUpdatedStart = function (date) {
         this.datStart = date;
+    };
+    OtpEnterComponent.prototype.dateUpdatedEnd = function (date) {
+        this.datEnd = date;
     };
     OtpEnterComponent = __decorate([
         core_1.Component({
