@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('../Shared/Services/product.service');
+var moment = require("moment");
 var OtpEnterComponent = (function () {
     function OtpEnterComponent(dataStore, formBuilder, productService) {
         this.dataStore = dataStore;
@@ -27,6 +28,7 @@ var OtpEnterComponent = (function () {
     OtpEnterComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.productService.getSelectableCategories().subscribe(function (cd) { return _this.categoryData = cd; });
+        var md = moment();
         this.otpForm = this.formBuilder.group({
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             budget: ['', forms_1.Validators.required],
@@ -47,7 +49,7 @@ var OtpEnterComponent = (function () {
             name: formValue.name,
             budget: formValue.budget,
             description: formValue.description,
-            datStart: formValue.datStart,
+            datStart: this.datStart,
             datEnd: formValue.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
@@ -63,6 +65,9 @@ var OtpEnterComponent = (function () {
     OtpEnterComponent.prototype.reset = function () {
         this.otpForm.reset();
         this.otpForm.controls['category'].setValue('-1');
+    };
+    OtpEnterComponent.prototype.dateUpdatedStart = function (date) {
+        this.datStart = date;
     };
     OtpEnterComponent = __decorate([
         core_1.Component({

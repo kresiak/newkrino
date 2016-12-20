@@ -14,6 +14,8 @@ var FullDatePipe = (function () {
     function FullDatePipe() {
     }
     FullDatePipe.prototype.transform = function (date, param) {
+        if (!moment(date).isValid())
+            return date;
         return moment(date, 'DD/MM/YYYY hh:mm:ss').format('LLLL');
     };
     FullDatePipe = __decorate([

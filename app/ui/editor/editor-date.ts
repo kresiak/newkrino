@@ -17,8 +17,16 @@ export class EditorDate implements OnInit, OnChanges {
 
     private contentEdited;    
 
-    toDatePickerDateObject(date: string): Object {    
-        var md = moment(date, 'DD/MM/YYYY hh:mm:ss')
+    toDatePickerDateObject(date: string): Object {
+        var md;
+        if (!date || date.trim()===''){
+            this.content= 'Choose a date'            
+            md= moment()
+        } 
+        else {
+            md = moment(date, 'DD/MM/YYYY hh:mm:ss')
+        }
+
         var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
         return obj;
     }

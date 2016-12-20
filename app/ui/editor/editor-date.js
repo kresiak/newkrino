@@ -16,7 +16,14 @@ var EditorDate = (function () {
         this.editSaved = new core_1.EventEmitter();
     }
     EditorDate.prototype.toDatePickerDateObject = function (date) {
-        var md = moment(date, 'DD/MM/YYYY hh:mm:ss');
+        var md;
+        if (!date || date.trim() === '') {
+            this.content = 'Choose a date';
+            md = moment();
+        }
+        else {
+            md = moment(date, 'DD/MM/YYYY hh:mm:ss');
+        }
         var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
         return obj;
     };
