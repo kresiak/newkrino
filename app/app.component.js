@@ -114,7 +114,8 @@ var AppComponent = (function () {
         this.menu.forEach(function (element) {
             element.active = false;
         });
-        menuItem.active = true;
+        if (menuItem)
+            menuItem.active = true;
     };
     AppComponent.prototype.userSelected = function (value) {
         this.authService.setUserId(value);

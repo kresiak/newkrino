@@ -123,7 +123,7 @@ export class AppComponent implements OnInit {
         this.menu.forEach(element => {
             element.active = false;
         });
-        menuItem.active = true;
+        if (menuItem) menuItem.active = true;
     }
 
     userSelected(value) {
