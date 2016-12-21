@@ -6,41 +6,60 @@
 
 <div class="card">
 	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				<img src="./images/search.png" (click)="showSearch= !showSearch" />
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
-			</div>
-		</div>
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="openPanelId">
-			<ngb-panel [disabled]="true">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-3"><b>Category</b></div>
-                        <div class="col-sm-4"><b>Supplier example</b></div>
-                        <div class="col-sm-4"><b>Otp example</b></div>
-                    </div>														
+		<ngb-tabset>
+			<ngb-tab title="View Categories" id="tabView">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<div [formGroup]="searchForm">
+									<img src="./images/search.png" (click)="showSearch= !showSearch" />
+									<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+										placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+								</div>
+							</div>
+							<div class="row">
+								<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="openPanelId">
+									<ngb-panel [disabled]="true">
+										<template ngbPanelTitle>
+											<div class="row">
+												<div class="col-sm-3"><b>Category</b></div>
+												<div class="col-sm-4"><b>Supplier example</b></div>
+												<div class="col-sm-4"><b>Otp example</b></div>
+											</div>														
+										</template>
+										<template ngbPanelContent>
+										</template>				
+									</ngb-panel>
+									<ngb-panel *ngFor="let category of categories"  [id]="category.data._id">
+										<template ngbPanelTitle>
+											<div class="row">
+												<div class="col-sm-3">{{category.data.name}}</div>
+												<div class="col-sm-4">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
+												<div class="col-sm-4">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
+											</div>														
+										</template>
+										<template ngbPanelContent>
+											<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
+										</template>
+									</ngb-panel>
+								</ngb-accordion>
+							</div>
+						</div>
+					</div>
 				</template>
-				<template ngbPanelContent>
-				</template>				
-			</ngb-panel>
-			<ngb-panel *ngFor="let category of categories"  [id]="category.data._id">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-3">{{category.data.name}}</div>
-                        <div class="col-sm-4">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
-                        <div class="col-sm-4">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
-                    </div>														
+			</ngb-tab>
+			<ngb-tab title="Create a Category" id="tabCreate">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<!--
+							<gg-category-enter></gg-category-enter>
+							-->
+						</div>
+					</div>
 				</template>
-				<template ngbPanelContent>
-					<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
-				</template>
-			</ngb-panel>
-		</ngb-accordion>
+			</ngb-tab>
+		</ngb-tabset>
 	</div>
 </div>
-
-
-
-
