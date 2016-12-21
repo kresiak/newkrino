@@ -1,74 +1,53 @@
 <template #searchPopContent>
-    <ul>
-        <li>liquid: the product or the supplier should contain the string 'liquid'</li>
-        <li>$>200: montants supérieurs à 200 euros</li>
-        <li>$<50: montants inférieurs à 200 euros</li>
-        <li>!labmanager: neither the product nor the supplier should contains the string 'labmanager'</li>
-    </ul>    
+	<ul>
+		<li>liquid: the product or the supplier should contain the string 'liquid'</li>
+		<li>$>200: montants supérieurs à 200 euros</li>
+		<li>$
+			<50: montants inférieurs à 200 euros</li>
+				<li>!labmanager: neither the product nor the supplier should contains the string 'labmanager'</li>
+	</ul>
 </template>
 
 <div class="card">
 	<div class="card-block">
-		<ngb-tabset>
-			<ngb-tab title="View Products" id="tabView">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<div class="row">
-								<div [formGroup]="searchForm">
-									<img src="./images/search.png" (click)="showSearch= !showSearch" />
-									<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-										placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
-								</div>
-							</div>
-							<div class="row">
-								<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-									<ngb-panel [disabled]="true">
-										<template ngbPanelTitle>
-											<div class="row">
-												<div class="col-sm-3"><b>Product</b></div>
-												<div class="col-sm-2"><b>Supplier</b></div>
-												<div class="col-sm-2"><b>Package</b></div>
-												<div class="col-sm-2"><b>Catalog nr.</b></div>
-												<div class="col-sm-2"><b>Price</b></div>
-											</div>
-										</template>
-										<template ngbPanelContent>
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="./images/search.png" (click)="showSearch= !showSearch" />
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3"><b>Product</b></div>
+							<div class="col-sm-2"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>Package</b></div>
+							<div class="col-sm-2"><b>Catalog nr.</b></div>
+							<div class="col-sm-2"><b>Price</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
 
-										</template>
-									</ngb-panel>
-									<ngb-panel *ngFor="let product of products" [id]="product.data._id">
-										<template ngbPanelTitle>
-											<div class="row">
-												<div class="col-sm-3">{{product.data.name}}</div>
-												<div class="col-sm-2">{{product.annotation.supplierName}}</div>
-												<div class="col-sm-2">{{product.data.package}}</div>
-												<div class="col-sm-2">{{product.data.catalogNr}}</div>
-												<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
-											</div>
-										</template>
-										<template ngbPanelContent>
-											<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
-										</template>
-									</ngb-panel>
-								</ngb-accordion>
-							</div>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let product of products" [id]="product.data._id">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3">{{product.data.name}}</div>
+							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
+							<div class="col-sm-2">{{product.data.package}}</div>
+							<div class="col-sm-2">{{product.data.catalogNr}}</div>
+							<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
 						</div>
-					</div>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Create a Product" id="tabCreate">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<h6>Choose the supplier you want to add the product to</h6>
-							<gg-supplier-list [suppliersObservable]= "suppliersObservable" [initialTabInSupplierDetail]="'tabAddProduct'"></gg-supplier-list>
-						</div>
-					</div>
-				</template>
-			</ngb-tab>
-		</ngb-tabset>
+					</template>
+					<template ngbPanelContent>
+						<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
 	</div>
 </div>
-
-

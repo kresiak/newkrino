@@ -14,7 +14,8 @@ import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductGridComponent} from './Products/product-grid.component';
-import {ProductListComponentRoutable, ProductListComponent} from './Products/product-list.component';
+import {ProductListComponent} from './Products/product-list.component';
+import {ProductListComponentRoutable} from './Products/product-list.routable.component'
 import {ProductEnterComponent} from './Products/product-enter.component'
 import {ProductDetailComponent} from './Products/product-detail.component'
 

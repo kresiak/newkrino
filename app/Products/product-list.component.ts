@@ -2,24 +2,8 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
-import { SupplierService } from './../Shared/Services/supplier.service'
+
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-
-
-@Component(
-    {
-        template: `<gg-product-list [productsObservable]= "productsObservable"></gg-product-list>`
-    }
-)
-export class ProductListComponentRoutable implements OnInit {
-    constructor(private productService: ProductService) { }
-
-    ngOnInit(): void {
-        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
-    }
-
-    private productsObservable: Observable<any>;
-}
 
 
 @Component(
@@ -45,9 +29,8 @@ export class ProductListComponent implements OnInit {
 
 
     private products;
-    private suppliersObservable: Observable<any>;
 
-    constructor(private supplierService: SupplierService) {
+    constructor() {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -55,8 +38,6 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
 
         Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();

@@ -11,27 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
-var product_service_1 = require('./../Shared/Services/product.service');
-var supplier_service_1 = require('./../Shared/Services/supplier.service');
-var ProductListComponentRoutable = (function () {
-    function ProductListComponentRoutable(productService) {
-        this.productService = productService;
-    }
-    ProductListComponentRoutable.prototype.ngOnInit = function () {
-        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
-    };
-    ProductListComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<gg-product-list [productsObservable]= \"productsObservable\"></gg-product-list>"
-        }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService])
-    ], ProductListComponentRoutable);
-    return ProductListComponentRoutable;
-}());
-exports.ProductListComponentRoutable = ProductListComponentRoutable;
 var ProductListComponent = (function () {
-    function ProductListComponent(supplierService) {
-        this.supplierService = supplierService;
+    function ProductListComponent() {
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({
@@ -47,7 +28,6 @@ var ProductListComponent = (function () {
     ProductListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         Rx_1.Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), function (products, searchTxt) {
             var txt = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<')
@@ -112,7 +92,7 @@ var ProductListComponent = (function () {
             selector: 'gg-product-list',
             templateUrl: './product-list.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService])
+        __metadata('design:paramtypes', [])
     ], ProductListComponent);
     return ProductListComponent;
 }());
