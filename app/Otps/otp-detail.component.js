@@ -40,12 +40,13 @@ var OtpDetailComponentRoutable = (function () {
 }());
 exports.OtpDetailComponentRoutable = OtpDetailComponentRoutable;
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, router) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.router = router;
         this.stateChanged = new core_1.EventEmitter();
     }
     OtpDetailComponent.prototype.stateInit = function () {
@@ -89,6 +90,12 @@ var OtpDetailComponent = (function () {
         }
     };
     OtpDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            var link = ['/otp', this.otp.data._id];
+            this.router.navigate(link);
+            return;
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -139,7 +146,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, router_1.Router])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

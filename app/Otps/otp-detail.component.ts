@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
@@ -40,7 +40,7 @@ export class OtpDetailComponentRoutable implements OnInit {
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService) {
+        private chartService: ChartService, private router: Router) {
     }
     private pieSpentChart;
 
@@ -102,6 +102,12 @@ export class OtpDetailComponent implements OnInit {
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            let link = ['/otp', this.otp.data._id];
+            this.router.navigate(link);
+            return
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -116,7 +122,7 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-     dateUpdatedStart(date) {
+    dateUpdatedStart(date) {
         this.otp.data.datStart = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
