@@ -28,6 +28,7 @@ export class OtpEnterComponent implements OnInit {
     }
 
     private datStart: string 
+    private datEnd: string 
 
 
     ngOnInit(): void {
@@ -56,7 +57,7 @@ export class OtpEnterComponent implements OnInit {
             budget: formValue.budget,
             description: formValue.description,
             datStart: this.datStart,
-            datEnd: formValue.datEnd,
+            datEnd: this.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
             equipeId: formValue.equipeId,
@@ -79,6 +80,10 @@ export class OtpEnterComponent implements OnInit {
 
     dateUpdatedStart(date) {
         this.datStart = date;
+    }
+
+    dateUpdatedEnd(date) {
+        this.datEnd = date;
     }
 
 }
