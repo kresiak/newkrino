@@ -16,6 +16,7 @@ export class EditorDate implements OnInit, OnChanges {
     @Output() editSaved = new EventEmitter();
 
     private contentEdited;    
+    private savedContentEdited;
 
     toDatePickerDateObject(date: string): Object {
         var md;
@@ -58,11 +59,12 @@ export class EditorDate implements OnInit, OnChanges {
     }
 
     cancel() {
-        this.contentEdited = this.toDatePickerDateObject(this.content);
+        this.contentEdited = this.savedContentEdited;
         this.editMode = false;
     }
 
     edit() {
+        this.savedContentEdited= this.contentEdited;
         this.editMode = true;
     }
 

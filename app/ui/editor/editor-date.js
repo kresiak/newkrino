@@ -48,10 +48,11 @@ var EditorDate = (function () {
         this.editMode = false;
     };
     EditorDate.prototype.cancel = function () {
-        this.contentEdited = this.toDatePickerDateObject(this.content);
+        this.contentEdited = this.savedContentEdited;
         this.editMode = false;
     };
     EditorDate.prototype.edit = function () {
+        this.savedContentEdited = this.contentEdited;
         this.editMode = true;
     };
     __decorate([
