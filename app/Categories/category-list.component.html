@@ -1,5 +1,18 @@
+<template #searchPopContent>
+	<ul>
+		<li>RWAL: si la catégorie contient 'RWAL'</li>
+	</ul>
+</template>
+
 <div class="card">
 	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="./images/search.png" (click)="showSearch= !showSearch" />
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="openPanelId">
 			<ngb-panel [disabled]="true">
 				<template ngbPanelTitle>
@@ -12,7 +25,7 @@
 				<template ngbPanelContent>
 				</template>				
 			</ngb-panel>
-			<ngb-panel *ngFor="let category of categories | async"  [id]="category.data._id">
+			<ngb-panel *ngFor="let category of categories"  [id]="category.data._id">
 				<template ngbPanelTitle>
                     <div class="row">
                         <div class="col-sm-3">{{category.data.name}}</div>

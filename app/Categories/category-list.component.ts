@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
 import {ProductService} from './../Shared/Services/product.service'
 import {Observable} from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -11,10 +12,13 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 )
 export class CategoryListComponent implements OnInit{
     constructor(private productService: ProductService)    {
-
+        this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });
     }
 
-    categories: Observable<any>;
+    categoryObservable: Observable<any>;
+    categories: any
     openPanelId: string= "";
     @Input() state;
     @Output() stateChanged= new EventEmitter();
@@ -24,21 +28,24 @@ export class CategoryListComponent implements OnInit{
         if (!this.state) this.state= {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
-    
+
+    searchControl = new FormControl();
+    searchForm;    
 
     ngOnInit():void{
         this.stateInit();
-        this.categories= this.productService.getAnnotatedCategories(); 
-        this.categories.subscribe(category =>
-            {
-                var x= category;
-            }             
-        );
+        this.categoryObservable= this.productService.getAnnotatedCategories(); 
+
+        Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), (categories, searchTxt: string) => {
+            if (searchTxt.trim() === '') return categories;
+            return categories.filter(category => category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()));
+        }).subscribe(categories => this.categories = categories);
+        
     }
 
     getCategoryObservable(id: string) : Observable<any>
     {
-        return this.categories.map(categories=> categories.filter(s => {
+        return this.categoryObservable.map(categories=> categories.filter(s => {
             return s.data._id===id
         }
 

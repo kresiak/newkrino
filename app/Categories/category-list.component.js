@@ -9,12 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var product_service_1 = require('./../Shared/Services/product.service');
+var Rx_1 = require('rxjs/Rx');
 var CategoryListComponent = (function () {
     function CategoryListComponent(productService) {
         this.productService = productService;
         this.openPanelId = "";
         this.stateChanged = new core_1.EventEmitter();
+        this.searchControl = new forms_1.FormControl();
+        this.searchForm = new forms_1.FormGroup({
+            searchControl: new forms_1.FormControl()
+        });
     }
     CategoryListComponent.prototype.stateInit = function () {
         if (!this.state)
@@ -23,14 +29,17 @@ var CategoryListComponent = (function () {
             this.state.openPanelId = '';
     };
     CategoryListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.stateInit();
-        this.categories = this.productService.getAnnotatedCategories();
-        this.categories.subscribe(function (category) {
-            var x = category;
-        });
+        this.categoryObservable = this.productService.getAnnotatedCategories();
+        Rx_1.Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), function (categories, searchTxt) {
+            if (searchTxt.trim() === '')
+                return categories;
+            return categories.filter(function (category) { return category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()); });
+        }).subscribe(function (categories) { return _this.categories = categories; });
     };
     CategoryListComponent.prototype.getCategoryObservable = function (id) {
-        return this.categories.map(function (categories) { return categories.filter(function (s) {
+        return this.categoryObservable.map(function (categories) { return categories.filter(function (s) {
             return s.data._id === id;
         })[0]; });
     };
