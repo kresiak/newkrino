@@ -9,12 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
+var OtpDetailComponentRoutable = (function () {
+    function OtpDetailComponentRoutable(orderService, route) {
+        this.orderService = orderService;
+        this.route = route;
+    }
+    OtpDetailComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            var otpId = params['id'];
+            if (otpId) {
+                _this.otpObservable = _this.orderService.getAnnotatedOtpById(otpId);
+            }
+        });
+    };
+    OtpDetailComponentRoutable = __decorate([
+        core_1.Component({
+            template: "<div class=\"card\"><div class=\"card-block\"> <gg-otp-detail [otpObservable]= \"otpObservable\"></gg-otp-detail></div></div>"
+        }), 
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
+    ], OtpDetailComponentRoutable);
+    return OtpDetailComponentRoutable;
+}());
+exports.OtpDetailComponentRoutable = OtpDetailComponentRoutable;
 var OtpDetailComponent = (function () {
     function OtpDetailComponent(dataStore, productService, orderService, userService, chartService) {
         this.dataStore = dataStore;

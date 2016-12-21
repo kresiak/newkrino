@@ -22,7 +22,7 @@ import {CategoryDetailComponent} from './Categories/category-detail.component'
 
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
-import {OtpDetailComponent} from './Otps/otp-detail.component';
+import {OtpDetailComponent, OtpDetailComponentRoutable} from './Otps/otp-detail.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
 
 import {ManipDetailComponent} from './Manips/manip-detail.component'
@@ -87,6 +87,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "orders", component: OrderListComponentRoutable},
             { path: "categories", component: CategoryListComponent},
             { path: "otps", component: OtpListComponentRoutable},
+            { path: 'otp/:id', component: OtpDetailComponentRoutable },
             { path: "products", component: ProductListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
@@ -104,7 +105,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
-                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpListComponentRoutable, OtpEnterComponent,
+                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
                   CategoryListComponent, CategoryDetailComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,

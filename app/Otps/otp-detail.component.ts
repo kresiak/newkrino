@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
@@ -12,12 +13,31 @@ import * as moment from "moment"
 
 @Component(
     {
+        template: `<div class="card"><div class="card-block"> <gg-otp-detail [otpObservable]= "otpObservable"></gg-otp-detail></div></div>`
+    }
+)
+export class OtpDetailComponentRoutable implements OnInit {
+    constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+
+    ngOnInit(): void {
+        this.route.params.subscribe((params: Params) => {
+            let otpId = params['id'];
+            if (otpId) {
+                this.otpObservable = this.orderService.getAnnotatedOtpById(otpId);
+            }
+        });
+    }
+    otpObservable: Observable<any>;
+}
+
+
+@Component(
+    {
         moduleId: module.id,
         selector: 'gg-otp-detail',
         templateUrl: './otp-detail.component.html'
     }
 )
-
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
         private chartService: ChartService) {
