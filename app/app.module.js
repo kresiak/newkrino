@@ -18,6 +18,7 @@ var angular2_chartist_1 = require('angular2-chartist');
 var app_component_1 = require('./app.component');
 var home_component_1 = require('./home.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
+var supplier_list_routable_component_1 = require('./Suppliers/supplier-list.routable.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
 var product_component_1 = require('./Products/product.component');
 var product_grid_component_1 = require('./Products/product-grid.component');
@@ -42,6 +43,7 @@ var equipe_enter_component_1 = require('./Equipes/equipe-enter.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
 var order_detail_component_1 = require('./Orders/order-detail.component');
 var order_list_component_1 = require('./Orders/order-list.component');
+var order_list_routable_component_1 = require('./Orders/order-list.routable.component');
 var stock_list_component_1 = require('./Stock/stock-list.component');
 var stock_detail_component_1 = require('./Stock/stock-detail.component');
 var dashboard_component_1 = require('./Dashboard/dashboard.component');
@@ -82,9 +84,9 @@ var AppModule = (function () {
                 http_1.HttpModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 router_1.RouterModule.forRoot([
-                    { path: "suppliers", component: supplier_list_component_1.SupplierListComponentRoutable },
+                    { path: "suppliers", component: supplier_list_routable_component_1.SupplierListComponentRoutable },
                     { path: "equipes", component: equipe_list_component_1.EquipeListComponent },
-                    { path: "orders", component: order_list_component_1.OrderListComponentRoutable },
+                    { path: "orders", component: order_list_routable_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_component_1.CategoryListComponent },
                     { path: "otps", component: otp_list_component_js_1.OtpListComponentRoutable },
                     { path: 'otp/:id', component: otp_detail_component_1.OtpDetailComponentRoutable },
@@ -103,7 +105,7 @@ var AppModule = (function () {
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
-                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_component_1.SupplierListComponentRoutable,
+                supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_routable_component_1.SupplierListComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_detail_component_1.OtpDetailComponentRoutable, otp_list_component_js_1.OtpListComponentRoutable, otp_enter_component_1.OtpEnterComponent,
                 category_list_component_1.CategoryListComponent, category_detail_component_1.CategoryDetailComponent,
@@ -113,7 +115,7 @@ var AppModule = (function () {
                 manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_enter_component_1.EquipeEnterComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_component_1.OrderComponentRoutable,
-                order_list_component_1.OrderListComponent, order_list_component_1.OrderListComponentRoutable,
+                order_list_component_1.OrderListComponent, order_list_routable_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
                 fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe, fromnow_pipe_1.FromNowPipe
             ],

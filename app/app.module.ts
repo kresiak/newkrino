@@ -9,7 +9,8 @@ import {ChartistModule, ChartistComponent} from 'angular2-chartist';
 import { AppComponent } from './app.component'
 import { HomeComponent} from './home.component'
 
-import {SupplierListComponent, SupplierListComponentRoutable} from './Suppliers/supplier-list.component';
+import {SupplierListComponent} from './Suppliers/supplier-list.component';
+import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductGridComponent} from './Products/product-grid.component';
@@ -38,7 +39,8 @@ import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
-import {OrderListComponent, OrderListComponentRoutable} from './Orders/order-list.component'
+import {OrderListComponent} from './Orders/order-list.component'
+import {OrderListComponentRoutable} from './Orders/order-list.routable.component'
 
 import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'

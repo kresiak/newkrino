@@ -9,26 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var forms_1 = require('@angular/forms');
 var moment = require("moment");
-var OrderListComponentRoutable = (function () {
-    function OrderListComponentRoutable(orderService) {
-        this.orderService = orderService;
-    }
-    OrderListComponentRoutable.prototype.ngOnInit = function () {
-        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
-    };
-    OrderListComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<gg-order-list [ordersObservable]= \"ordersObservable\"></gg-order-list>"
-        }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
-    ], OrderListComponentRoutable);
-    return OrderListComponentRoutable;
-}());
-exports.OrderListComponentRoutable = OrderListComponentRoutable;
 var OrderListComponent = (function () {
     function OrderListComponent() {
         this.searchControl = new forms_1.FormControl();

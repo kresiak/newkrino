@@ -13,22 +13,6 @@ var forms_1 = require('@angular/forms');
 var data_service_1 = require('./../Shared/Services/data.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var Rx_1 = require('rxjs/Rx');
-var SupplierListComponentRoutable = (function () {
-    function SupplierListComponentRoutable(supplierService) {
-        this.supplierService = supplierService;
-    }
-    SupplierListComponentRoutable.prototype.ngOnInit = function () {
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-    };
-    SupplierListComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<gg-supplier-list [suppliersObservable]= \"suppliersObservable\"></gg-supplier-list>"
-        }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService])
-    ], SupplierListComponentRoutable);
-    return SupplierListComponentRoutable;
-}());
-exports.SupplierListComponentRoutable = SupplierListComponentRoutable;
 var SupplierListComponent = (function () {
     function SupplierListComponent(dataStore, supplierService) {
         this.dataStore = dataStore;

@@ -6,20 +6,6 @@ import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
-@Component(
-    {
-        template: `<gg-supplier-list [suppliersObservable]= "suppliersObservable"></gg-supplier-list>`
-    }
-)
-export class SupplierListComponentRoutable implements OnInit {
-    constructor(private supplierService: SupplierService) { }
-
-    ngOnInit(): void {
-        this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-    }
-
-    private suppliersObservable: Observable<any>;
-}
 
 
 @Component(
@@ -41,7 +27,6 @@ export class SupplierListComponent implements OnInit {
     @Input() state;
     @Input() initialTabInSupplierDetail: string = '';
     @Output() stateChanged= new EventEmitter();
-
 
     private stateInit()
     {

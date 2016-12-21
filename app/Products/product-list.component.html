@@ -61,7 +61,8 @@
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
-							<gg-product-enter></gg-product-enter>
+							<h6>Choose the supplier you want to add the product to</h6>
+							<gg-supplier-list [suppliersObservable]= "suppliersObservable" [initialTabInSupplierDetail]="'tabAddProduct'"></gg-supplier-list>
 						</div>
 					</div>
 				</template>

@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-block">
+        <ngb-tabset>
+            <ngb-tab title="View Orders" id="tabView">
+                <template ngbTabContent>
+                    <gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Create an Order" id="tabCreate">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+							<h6>Choose the supplier you want to order from</h6>
+							<gg-supplier-list [suppliersObservable]= "suppliersObservable" [initialTabInSupplierDetail]="'tabProducts'"></gg-supplier-list>                            
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

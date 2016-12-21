@@ -5,20 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 
-@Component(
-    {
-        template: `<gg-order-list [ordersObservable]= "ordersObservable"></gg-order-list>`
-    }
-)
-export class OrderListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService) { }
 
-    ngOnInit(): void {
-        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
-    }
-
-    private ordersObservable: Observable<any>;
-}
 
 
 
