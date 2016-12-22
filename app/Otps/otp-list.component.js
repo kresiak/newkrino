@@ -11,23 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
-var order_service_1 = require('./../Shared/Services/order.service');
-var OtpListComponentRoutable = (function () {
-    function OtpListComponentRoutable(orderService) {
-        this.orderService = orderService;
-    }
-    OtpListComponentRoutable.prototype.ngOnInit = function () {
-        this.otpsObservable = this.orderService.getAnnotatedOtps();
-    };
-    OtpListComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<gg-otp-list [otpsObservable]= \"otpsObservable\"></gg-otp-list>"
-        }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
-    ], OtpListComponentRoutable);
-    return OtpListComponentRoutable;
-}());
-exports.OtpListComponentRoutable = OtpListComponentRoutable;
 var OtpListComponent = (function () {
     function OtpListComponent() {
         this.stateChanged = new core_1.EventEmitter();

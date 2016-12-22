@@ -7,22 +7,6 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
-        template: `<gg-otp-list [otpsObservable]= "otpsObservable"></gg-otp-list>`
-    }
-)
-export class OtpListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService) { }
-
-    ngOnInit(): void {
-        this.otpsObservable = this.orderService.getAnnotatedOtps();
-    }
-
-    private otpsObservable: Observable<any>;
-}
-
-
-@Component(
-    {
         moduleId: module.id,
         selector: 'gg-otp-list',
         templateUrl: './otp-list.component.html'

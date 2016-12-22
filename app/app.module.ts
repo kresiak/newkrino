@@ -23,7 +23,8 @@ import {CategoryListComponent} from './Categories/category-list.component'
 import {CategoryDetailComponent} from './Categories/category-detail.component'
 
 import {OtpComponent} from './Otps/otp.component';
-import {OtpListComponent, OtpListComponentRoutable} from './Otps/otp-list.component.js';
+import {OtpListComponent} from './Otps/otp-list.component.js';
+import {OtpListComponentRoutable} from './Otps/otp-list.routable.component';
 import {OtpDetailComponent, OtpDetailComponentRoutable} from './Otps/otp-detail.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
 
