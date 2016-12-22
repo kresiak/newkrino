@@ -20,13 +20,14 @@ var EquipeDetailComponent = (function () {
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
     }
     EquipeDetailComponent.prototype.stateInit = function () {
         if (!this.state)
             this.state = {};
         if (!this.state.selectedTabId)
-            this.state.selectedTabId = '';
+            this.state.selectedTabId = this.initialTab;
     };
     EquipeDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -92,6 +93,10 @@ var EquipeDetailComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], EquipeDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], EquipeDetailComponent.prototype, "initialTab", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

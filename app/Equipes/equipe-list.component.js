@@ -15,6 +15,7 @@ var Rx_1 = require('rxjs/Rx');
 var EquipeListComponent = (function () {
     function EquipeListComponent(orderService) {
         this.orderService = orderService;
+        this.initialTabInEquipeDetail = '';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({
@@ -57,6 +58,10 @@ var EquipeListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], EquipeListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], EquipeListComponent.prototype, "initialTabInEquipeDetail", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

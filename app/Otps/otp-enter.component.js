@@ -28,7 +28,6 @@ var OtpEnterComponent = (function () {
             description: ['', forms_1.Validators.required],
             isBlocked: [''],
             isClosed: [''],
-            equipeId: ['', forms_1.Validators.required],
             client: [''],
             note: ['']
         });
@@ -43,7 +42,7 @@ var OtpEnterComponent = (function () {
             datEnd: this.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
-            equipeId: formValue.equipeId,
+            equipeId: this.equipeId,
             client: formValue.client,
             note: formValue.note,
             categoryIds: this.selectedIds
@@ -67,6 +66,10 @@ var OtpEnterComponent = (function () {
     OtpEnterComponent.prototype.dateUpdatedEnd = function (date) {
         this.datEnd = date;
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OtpEnterComponent.prototype, "equipeId", void 0);
     __decorate([
         core_1.ViewChild('categoriesSelector'), 
         __metadata('design:type', Object)

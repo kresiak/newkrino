@@ -20,12 +20,13 @@ export class EquipeDetailComponent implements OnInit {
 
     @Input() equipeObservable: Observable<any>;
     @Input() state;
+    @Input() initialTab: string = '';
     @Output() stateChanged= new EventEmitter();
 
     private stateInit()
     {
         if (!this.state) this.state= {};
-        if (!this.state.selectedTabId) this.state.selectedTabId = '';
+        if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
     }    
 
 

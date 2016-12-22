@@ -23,6 +23,8 @@ export class OtpEnterComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedIds;
 
+    @Input() equipeId: string;
+
     @ViewChild('categoriesSelector') categoriesChild;
     @ViewChild('datStart') datStartChild;
     @ViewChild('datEnd') datEndChild;
@@ -38,7 +40,6 @@ export class OtpEnterComponent implements OnInit {
             description: ['', Validators.required],
             isBlocked: [''],
             isClosed: [''],
-            equipeId: ['', Validators.required],
             client: [''],
             note: ['']
         });
@@ -53,7 +54,7 @@ export class OtpEnterComponent implements OnInit {
             datEnd: this.datEnd,
             isBlocked: formValue.isBlocked,
             isClosed: formValue.isClosed,
-            equipeId: formValue.equipeId,
+            equipeId: this.equipeId,
             client: formValue.client,
             note: formValue.note,
             categoryIds: this.selectedIds

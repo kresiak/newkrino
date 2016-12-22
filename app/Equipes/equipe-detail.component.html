@@ -94,6 +94,15 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Add an Otp" id="tabOtp">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<gg-otp-enter [equipeId]="equipe.data._id"></gg-otp-enter>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 	<ngb-tab title="Add an equipe" id="tabEquipe">
 		<template ngbTabContent>
 			<div class="card">
@@ -102,5 +111,5 @@
 				</div>
 			</div>
 		</template>
-	</ngb-tab>
+	</ngb-tab>	
 </ngb-tabset>

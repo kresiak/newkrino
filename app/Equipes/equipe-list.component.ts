@@ -22,6 +22,7 @@ export class EquipeListComponent implements OnInit {
     equipes: any
 
     @Input() state;
+    @Input() initialTabInEquipeDetail: string = '';
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {

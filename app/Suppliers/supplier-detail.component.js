@@ -31,8 +31,7 @@ var SupplierDetailComponent = (function () {
             this.state = {};
         if (!this.state.selectedTabId)
             this.state.selectedTabId = this.initialTab;
-        if (!this.state.selectedWebShoppingTabId)
-            this.state.selectedWebShoppingTabId = this.initialTab;
+        //if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     };
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;

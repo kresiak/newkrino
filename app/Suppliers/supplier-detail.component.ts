@@ -28,7 +28,7 @@ export class SupplierDetailComponent implements OnInit {
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
-        if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
+        //if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     }
 
     ngOnInit(): void {
