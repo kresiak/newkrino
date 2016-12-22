@@ -27,12 +27,15 @@ var OtpDetailComponentRoutable = (function () {
             var otpId = params['id'];
             if (otpId) {
                 _this.otpObservable = _this.orderService.getAnnotatedOtpById(otpId);
+                _this.otpObservable.subscribe(function (otp) {
+                    _this.otp = otp;
+                });
             }
         });
     };
     OtpDetailComponentRoutable = __decorate([
         core_1.Component({
-            template: "<div class=\"card\"><div class=\"card-block\"> <gg-otp-detail [otpObservable]= \"otpObservable\"></gg-otp-detail></div></div>"
+            template: "<div class=\"card\" *ngIf=\"otp\"><div class=\"card-block\"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= \"otpObservable\"></gg-otp-detail></div></div>"
         }), 
         __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
     ], OtpDetailComponentRoutable);

@@ -13,7 +13,7 @@ import * as moment from "moment"
 
 @Component(
     {
-        template: `<div class="card"><div class="card-block"> <gg-otp-detail [otpObservable]= "otpObservable"></gg-otp-detail></div></div>`
+        template: `<div class="card" *ngIf="otp"><div class="card-block"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= "otpObservable"></gg-otp-detail></div></div>`
     }
 )
 export class OtpDetailComponentRoutable implements OnInit {
@@ -24,10 +24,14 @@ export class OtpDetailComponentRoutable implements OnInit {
             let otpId = params['id'];
             if (otpId) {
                 this.otpObservable = this.orderService.getAnnotatedOtpById(otpId);
+                this.otpObservable.subscribe(otp => {
+                    this.otp= otp
+                })
             }
         });
     }
     otpObservable: Observable<any>;
+    otp: any
 }
 
 
