@@ -64,6 +64,7 @@ var EquipeListComponent = (function () {
     EquipeListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
+            selector: 'gg-equipe-list',
             templateUrl: './equipe-list.component.html'
         }), 
         __metadata('design:paramtypes', [order_service_1.OrderService])

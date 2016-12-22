@@ -7,6 +7,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 @Component(
  {
      moduleId: module.id,
+     selector: 'gg-category-list',
      templateUrl: './category-list.component.html'
  }
 )

@@ -20,6 +20,7 @@ import {ProductEnterComponent} from './Products/product-enter.component'
 import {ProductDetailComponent} from './Products/product-detail.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
+import {CategoryListComponentRoutable} from './Categories/category-list.routable.component'
 import {CategoryDetailComponent} from './Categories/category-detail.component'
 
 import {OtpComponent} from './Otps/otp.component';
@@ -37,6 +38,7 @@ import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
+import {EquipeListComponentRoutable} from './Equipes/equipe-list.routable.component'
 import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
@@ -87,9 +89,9 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           NgbModule.forRoot(),
           RouterModule.forRoot([
             { path: "suppliers", component: SupplierListComponentRoutable},
-            { path: "equipes", component: EquipeListComponent},
+            { path: "equipes", component: EquipeListComponentRoutable},
             { path: "orders", component: OrderListComponentRoutable},
-            { path: "categories", component: CategoryListComponent},
+            { path: "categories", component: CategoryListComponentRoutable},
             { path: "otps", component: OtpListComponentRoutable},
             { path: 'otp/:id', component: OtpDetailComponentRoutable },
             { path: "products", component: ProductListComponentRoutable},
@@ -110,12 +112,12 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
-                  CategoryListComponent, CategoryDetailComponent,
+                  CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
-                  EquipeDetailComponent, EquipeListComponent, EquipeEnterComponent,
+                  EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,

@@ -67,6 +67,7 @@ var CategoryListComponent = (function () {
     CategoryListComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
+            selector: 'gg-category-list',
             templateUrl: './category-list.component.html'
         }), 
         __metadata('design:paramtypes', [product_service_1.ProductService])

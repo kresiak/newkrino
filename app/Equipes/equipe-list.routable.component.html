@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-block">
+        <ngb-tabset>
+            <ngb-tab title="View Equipes" id="tabView">
+                <template ngbTabContent>
+                    <gg-equipe-list></gg-equipe-list>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Create an Equipe" id="tabCreate">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <gg-equipe-enter></gg-equipe-enter>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
