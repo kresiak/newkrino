@@ -54,7 +54,7 @@ var OtpEnterComponent = (function () {
     };
     OtpEnterComponent.prototype.reset = function () {
         this.otpForm.reset();
-        this.priceChild.emptyContent();
+        this.categoriesChild.emptyContent();
         this.datStartChild.emptyContent();
         this.datEndChild.emptyContent();
     };
@@ -70,7 +70,7 @@ var OtpEnterComponent = (function () {
     __decorate([
         core_1.ViewChild('categoriesSelector'), 
         __metadata('design:type', Object)
-    ], OtpEnterComponent.prototype, "priceChild", void 0);
+    ], OtpEnterComponent.prototype, "categoriesChild", void 0);
     __decorate([
         core_1.ViewChild('datStart'), 
         __metadata('design:type', Object)

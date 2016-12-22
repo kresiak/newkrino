@@ -23,7 +23,7 @@ export class OtpEnterComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedIds;
 
-    @ViewChild('categoriesSelector') priceChild;
+    @ViewChild('categoriesSelector') categoriesChild;
     @ViewChild('datStart') datStartChild;
     @ViewChild('datEnd') datEndChild;
 
@@ -65,7 +65,7 @@ export class OtpEnterComponent implements OnInit {
 
     reset() {
         this.otpForm.reset();
-        this.priceChild.emptyContent()
+        this.categoriesChild.emptyContent()
         this.datStartChild.emptyContent()
         this.datEndChild.emptyContent()
     }
