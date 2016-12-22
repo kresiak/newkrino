@@ -24,6 +24,7 @@ export class SelectorComponent implements OnInit {
     @Output() selectionOptionAdded = new EventEmitter();
     private content: string;
     private pictureselectedIds: string[];
+    private isDisconnectedFromData: boolean= false
 
     private tmp;
 
@@ -32,7 +33,11 @@ export class SelectorComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (!this.selectedIds) this.selectedIds= Observable.from([[]])
+        if (!this.selectedIds){
+            this.selectedIds= Observable.from([[]])
+            this.pictureselectedIds= []
+            this.isDisconnectedFromData= true
+        } 
         this.initContent(this.selectedIds);
     }
 
@@ -45,10 +50,14 @@ export class SelectorComponent implements OnInit {
             );
     }
 
+    emptyContent() {
+        this.selectedIds= Observable.from([[]])
+        this.pictureselectedIds= []
+        this.initContent(this.selectedIds)
+    }
 
     openModal(template) {
-        this.selectedIds.subscribe(ids => 
-            this.pictureselectedIds = ids ? ids.slice(0) : []);
+        if (!this.isDisconnectedFromData) this.selectedIds.subscribe(ids => this.pictureselectedIds = ids ? ids.slice(0) : []);
 
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;

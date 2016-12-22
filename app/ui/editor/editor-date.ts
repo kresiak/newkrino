@@ -41,6 +41,10 @@ export class EditorDate implements OnInit, OnChanges {
         return md.format('DD/MM/YYYY hh:mm:ss');       
     }
 
+    emptyContent() {
+        this.contentEdited= this.toDatePickerDateObject('')
+    }
+
     ngOnInit(): void {
         this.contentEdited = this.toDatePickerDateObject(this.content)
     }

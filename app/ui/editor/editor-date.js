@@ -34,6 +34,9 @@ var EditorDate = (function () {
         md.year(obj.year);
         return md.format('DD/MM/YYYY hh:mm:ss');
     };
+    EditorDate.prototype.emptyContent = function () {
+        this.contentEdited = this.toDatePickerDateObject('');
+    };
     EditorDate.prototype.ngOnInit = function () {
         this.contentEdited = this.toDatePickerDateObject(this.content);
     };

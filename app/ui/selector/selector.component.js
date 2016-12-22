@@ -18,10 +18,14 @@ var SelectorComponent = (function () {
         this.editMode = false;
         this.selectionChanged = new core_1.EventEmitter();
         this.selectionOptionAdded = new core_1.EventEmitter();
+        this.isDisconnectedFromData = false;
     }
     SelectorComponent.prototype.ngOnInit = function () {
-        if (!this.selectedIds)
+        if (!this.selectedIds) {
             this.selectedIds = Rx_1.Observable.from([[]]);
+            this.pictureselectedIds = [];
+            this.isDisconnectedFromData = true;
+        }
         this.initContent(this.selectedIds);
     };
     SelectorComponent.prototype.initContent = function (selectedIds) {
@@ -33,11 +37,15 @@ var SelectorComponent = (function () {
             return _this.content = txt;
         });
     };
+    SelectorComponent.prototype.emptyContent = function () {
+        this.selectedIds = Rx_1.Observable.from([[]]);
+        this.pictureselectedIds = [];
+        this.initContent(this.selectedIds);
+    };
     SelectorComponent.prototype.openModal = function (template) {
         var _this = this;
-        this.selectedIds.subscribe(function (ids) {
-            return _this.pictureselectedIds = ids ? ids.slice(0) : [];
-        });
+        if (!this.isDisconnectedFromData)
+            this.selectedIds.subscribe(function (ids) { return _this.pictureselectedIds = ids ? ids.slice(0) : []; });
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
         promise.then(function (res) {

@@ -46,7 +46,7 @@ var OtpEnterComponent = (function () {
             equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note,
-            categoryIds: this.categoryInOtpSelectionChanged
+            categoryIds: this.selectedIds
         }).subscribe(function (res) {
             var x = res;
             _this.reset();
@@ -54,9 +54,12 @@ var OtpEnterComponent = (function () {
     };
     OtpEnterComponent.prototype.reset = function () {
         this.otpForm.reset();
+        this.priceChild.emptyContent();
+        this.datStartChild.emptyContent();
+        this.datEndChild.emptyContent();
     };
     OtpEnterComponent.prototype.categorySelectionChanged = function (selectedIds) {
-        this.categoryInOtpSelectionChanged = selectedIds;
+        this.selectedIds = selectedIds;
     };
     OtpEnterComponent.prototype.dateUpdatedStart = function (date) {
         this.datStart = date;
@@ -64,6 +67,18 @@ var OtpEnterComponent = (function () {
     OtpEnterComponent.prototype.dateUpdatedEnd = function (date) {
         this.datEnd = date;
     };
+    __decorate([
+        core_1.ViewChild('categoriesSelector'), 
+        __metadata('design:type', Object)
+    ], OtpEnterComponent.prototype, "priceChild", void 0);
+    __decorate([
+        core_1.ViewChild('datStart'), 
+        __metadata('design:type', Object)
+    ], OtpEnterComponent.prototype, "datStartChild", void 0);
+    __decorate([
+        core_1.ViewChild('datEnd'), 
+        __metadata('design:type', Object)
+    ], OtpEnterComponent.prototype, "datEndChild", void 0);
     OtpEnterComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

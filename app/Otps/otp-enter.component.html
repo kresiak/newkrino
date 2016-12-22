@@ -21,16 +21,13 @@
 		<div class="form-group row">
 			<label for="datStart" class="col-sm-2 col-form-label col-xl-2 vcenter">from:</label>
 			<div class="col-sm-9 vcenter">
-				<!--<gg-editor-date class="form-control" formControlName="datStart" [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>-->
-				<gg-editor-date [content]="" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
-				<!--<input type="text" class="form-control" formControlName="datStart" id="datStart" placeholder="from">-->
+				<gg-editor-date #datStart [content]="" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="datEnd" class="col-sm-2 col-form-label col-xl-2 vcenter">to:</label>
 			<div class="col-sm-9 vcenter">
-				<gg-editor-date [content]="" (editSaved)="dateUpdatedEnd($event)"></gg-editor-date>
-				<!--<input type="text" class="form-control" formControlName="datEnd" id="datEnd" placeholder="to">-->
+				<gg-editor-date #datEnd [content]="" (editSaved)="dateUpdatedEnd($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -66,11 +63,7 @@
 		<div class="form-group row">
 			<label for="category" class="col-sm-2 col-form-label col-xl-2 vcenter">Category:</label>
 			<div class="col-sm-9 vcenter">
-<gg-selector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
-				<!--<select class="custom-select" id="category" formControlName="category">
-					<option value="-1" selected>Open this select menu</option>
-					<option *ngFor="let category of categoryData"  [value]="category.id">{{category.name}}</option>
-				</select>-->
+				<gg-selector #categoriesSelector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
 			</div>
 		</div>
 		<div class="form-group row">

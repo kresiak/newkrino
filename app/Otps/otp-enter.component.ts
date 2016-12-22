@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit } from '@angular/core'
+import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
@@ -21,7 +21,11 @@ export class OtpEnterComponent implements OnInit {
     private datStart: string 
     private datEnd: string 
     private selectableCategoriesObservable: Observable<any>;
-    private categoryInOtpSelectionChanged;
+    private selectedIds;
+
+    @ViewChild('categoriesSelector') priceChild;
+    @ViewChild('datStart') datStartChild;
+    @ViewChild('datEnd') datEndChild;
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -52,7 +56,7 @@ export class OtpEnterComponent implements OnInit {
             equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note,
-            categoryIds: this.categoryInOtpSelectionChanged
+            categoryIds: this.selectedIds
         }).subscribe(res => {
             var x = res;
             this.reset();
@@ -61,10 +65,13 @@ export class OtpEnterComponent implements OnInit {
 
     reset() {
         this.otpForm.reset();
+        this.priceChild.emptyContent()
+        this.datStartChild.emptyContent()
+        this.datEndChild.emptyContent()
     }
    
     categorySelectionChanged(selectedIds: string[]) {        
-        this.categoryInOtpSelectionChanged = selectedIds;
+        this.selectedIds = selectedIds;
     }
 
     dateUpdatedStart(date) {
