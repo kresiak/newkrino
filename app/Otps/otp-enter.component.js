@@ -19,28 +19,18 @@ var OtpEnterComponent = (function () {
         this.formBuilder = formBuilder;
         this.productService = productService;
     }
-    OtpEnterComponent.prototype.isCategoryIdSelected = function (control) {
-        if (control.value === '-1') {
-            return { "category": true };
-        }
-        return null;
-    };
     OtpEnterComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.productService.getSelectableCategories().subscribe(function (cd) { return _this.categoryData = cd; });
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         var md = moment();
         this.otpForm = this.formBuilder.group({
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             budget: ['', forms_1.Validators.required],
             description: ['', forms_1.Validators.required],
-            datStart: [''],
-            datEnd: [''],
             isBlocked: [''],
             isClosed: [''],
             equipeId: ['', forms_1.Validators.required],
             client: [''],
-            note: [''],
-            category: ['-1', this.isCategoryIdSelected]
+            note: ['']
         });
     };
     OtpEnterComponent.prototype.save = function (formValue, isValid) {
@@ -56,7 +46,7 @@ var OtpEnterComponent = (function () {
             equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note,
-            categoryIds: [formValue.category]
+            categoryIds: this.categoryInOtpSelectionChanged
         }).subscribe(function (res) {
             var x = res;
             _this.reset();
@@ -64,7 +54,9 @@ var OtpEnterComponent = (function () {
     };
     OtpEnterComponent.prototype.reset = function () {
         this.otpForm.reset();
-        this.otpForm.controls['category'].setValue('-1');
+    };
+    OtpEnterComponent.prototype.categorySelectionChanged = function (selectedIds) {
+        this.categoryInOtpSelectionChanged = selectedIds;
     };
     OtpEnterComponent.prototype.dateUpdatedStart = function (date) {
         this.datStart = date;

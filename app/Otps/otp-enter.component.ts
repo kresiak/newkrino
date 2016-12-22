@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
 import { ProductService } from '../Shared/Services/product.service'
+import { Observable } from 'rxjs/Rx'
 import * as moment from "moment"
 
 @Component({
@@ -17,22 +18,13 @@ export class OtpEnterComponent implements OnInit {
 
     }
 
-    private categoryData: SelectableData[];
-
-    private isCategoryIdSelected(control: FormControl) {   // custom validator implementing ValidatorFn 
-        if (control.value === '-1') {
-            return { "category": true };
-        }
-
-        return null;
-    }
-
     private datStart: string 
     private datEnd: string 
-
+    private selectableCategoriesObservable: Observable<any>;
+    private categoryInOtpSelectionChanged;
 
     ngOnInit(): void {
-        this.productService.getSelectableCategories().subscribe(cd => this.categoryData = cd);
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
 
         var md = moment()
 
@@ -40,14 +32,11 @@ export class OtpEnterComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(5)]],
             budget: ['', Validators.required],
             description: ['', Validators.required],
-            datStart: [''],
-            datEnd: [''],
             isBlocked: [''],
             isClosed: [''],
             equipeId: ['', Validators.required],
             client: [''],
-            note: [''],
-            category: ['-1', this.isCategoryIdSelected]
+            note: ['']
         });
     }
 
@@ -63,7 +52,7 @@ export class OtpEnterComponent implements OnInit {
             equipeId: formValue.equipeId,
             client: formValue.client,
             note: formValue.note,
-            categoryIds: [formValue.category]
+            categoryIds: this.categoryInOtpSelectionChanged
         }).subscribe(res => {
             var x = res;
             this.reset();
@@ -72,11 +61,11 @@ export class OtpEnterComponent implements OnInit {
 
     reset() {
         this.otpForm.reset();
-        this.otpForm.controls['category'].setValue('-1');
-
     }
-
    
+    categorySelectionChanged(selectedIds: string[]) {        
+        this.categoryInOtpSelectionChanged = selectedIds;
+    }
 
     dateUpdatedStart(date) {
         this.datStart = date;
