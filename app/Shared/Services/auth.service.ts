@@ -35,6 +35,14 @@ export class AuthService {
             });
     }
 
+    getSelectableUsers(): Observable<SelectableData[]> {
+        return this.getAnnotatedUsers().map(annotatedUsers => {
+            return annotatedUsers.sort((user1, user2) => { return user1.annotation.fullName < user2.annotation.fullName ? -1 : 1; }).
+                filter(user => ! user.data.isBlocked).
+                map(user => new SelectableData(user.data._id, user.annotation.fullName))
+        })
+    }
+
     getAnnotatedCurrentUser(): Observable<any>
     {
         return Observable.combineLatest(this.getAnnotatedUsers(), this.currentUserIdObservable, (users, userId) => {

@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var Rx_1 = require('rxjs/Rx');
+var selectable_data_1 = require('./../Classes/selectable-data');
 var AuthService = (function () {
     function AuthService(dataStore) {
         this.dataStore = dataStore;
@@ -37,6 +38,13 @@ var AuthService = (function () {
         var _this = this;
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'), function (users, equipes) {
             return users.map(function (user) { return _this.createAnnotatedUser(user, equipes); });
+        });
+    };
+    AuthService.prototype.getSelectableUsers = function () {
+        return this.getAnnotatedUsers().map(function (annotatedUsers) {
+            return annotatedUsers.sort(function (user1, user2) { return user1.annotation.fullName < user2.annotation.fullName ? -1 : 1; }).
+                filter(function (user) { return !user.data.isBlocked; }).
+                map(function (user) { return new selectable_data_1.SelectableData(user.data._id, user.annotation.fullName); });
         });
     };
     AuthService.prototype.getAnnotatedCurrentUser = function () {
