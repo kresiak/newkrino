@@ -456,3 +456,6 @@ button {
 *, :after, :before {
     box-sizing: inherit;
 }
+#isBlocked, #isClosed, #isResold, #disabled, #isDistributed {
+    width: 14px;
+}
