@@ -1,7 +1,9 @@
-import { Component, Input, Output, OnInit } from '@angular/core'
+import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
+import { AuthService } from '../Shared/Services/auth.service'
+import { Observable } from 'rxjs/Rx'
 
 @Component({
         moduleId: module.id,
@@ -10,20 +12,23 @@ import { SelectableData } from '../Shared/Classes/selectable-data'
 })
 export class EquipeEnterComponent implements OnInit {
     private equipeForm: FormGroup;
+    private selectableUsers: Observable<any>;
+    private selectedUserIds;
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService) {
 
     }
  
-    ngOnInit():void
-    {
+    @ViewChild('userSelector') usersChild;
+
+    ngOnInit():void {
+        this.selectableUsers = this.authService.getSelectableUsers();
 
         this.equipeForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(5)]],
             description: ['', Validators.required],
             nbOfMonthAheadAllowed: [''],
-            isBlocked: [''],
-            userIds: ['']
+            isBlocked: ['']
         });
     }
 
@@ -34,7 +39,7 @@ export class EquipeEnterComponent implements OnInit {
             description: formValue.description,
             nbOfMonthAheadAllowed: formValue.nbOfMonthAheadAllowed,
             isBlocked: formValue.isBlocked,
-            userIds: ['58402ef9f9690561d454c325', '58402ef9f9690561d454c342', '58402ef9f9690561d454c351']
+            userIds: this.selectedUserIds
         }).subscribe(res =>
         {
             var x=res;
@@ -44,7 +49,12 @@ export class EquipeEnterComponent implements OnInit {
 
     reset()
     {
-        this.equipeForm.reset();        
+        this.equipeForm.reset();    
+        this.usersChild.emptyContent()    
+    }
+
+    userSelectionChanged(selectedUserIds: string[]) {        
+        this.selectedUserIds = selectedUserIds;
     }
 
 }
