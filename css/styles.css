@@ -456,3 +456,6 @@ button {
 *, :after, :before {
     box-sizing: inherit;
 }
+.isCheckbox {
+    width: 14px;
+}
