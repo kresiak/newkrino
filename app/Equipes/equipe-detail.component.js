@@ -96,6 +96,10 @@ var EquipeDetailComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
+    ], EquipeDetailComponent.prototype, "path", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
     ], EquipeDetailComponent.prototype, "initialTab", void 0);
     __decorate([
         core_1.Output(), 

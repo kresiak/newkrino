@@ -26,12 +26,15 @@ var OrderComponentRoutable = (function () {
             var orderId = params['id'];
             if (orderId) {
                 _this.orderObservable = _this.orderService.getAnnotedOrder(orderId);
+                _this.orderObservable.subscribe(function (order) {
+                    _this.order = order;
+                });
             }
         });
     };
     OrderComponentRoutable = __decorate([
         core_1.Component({
-            template: "<gg-order-detail [orderObservable]= \"orderObservable\"></gg-order-detail>"
+            template: "<div class=\"card\" *ngIf=\"order\"><div class=\"card-block\"><h6>Order {{order.data.kid}}</h6> <gg-order-detail [orderObservable]= \"orderObservable\"></gg-order-detail> </div></div>"
         }), 
         __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
     ], OrderComponentRoutable);
@@ -39,13 +42,14 @@ var OrderComponentRoutable = (function () {
 }());
 exports.OrderComponentRoutable = OrderComponentRoutable;
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService) {
+    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService, router) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
         this.dataStore = dataStore;
         this.elementRef = elementRef;
         this.modalService = modalService;
+        this.router = router;
         this.stateChanged = new core_1.EventEmitter();
     }
     OrderDetailComponent.prototype.stateInit = function () {
@@ -77,13 +81,15 @@ var OrderDetailComponent = (function () {
             orderItem.data.deliveries = [];
         var deliveryData = {
             quantity: +formData.qty,
-            lotNb: formData.lot };
+            lotNb: formData.lot
+        };
         if (formData.resell) {
             var prodData = {
                 productId: orderItem.data.productId,
                 orderId: this.order.data._id,
                 quantity: formData.qty,
-                factor: formData.factor };
+                factor: formData.factor
+            };
             this.dataStore.addData('products.stock', prodData).first().subscribe(function (res) {
                 deliveryData['stockId'] = res._id;
                 orderItem.data.deliveries.push(deliveryData);
@@ -129,6 +135,15 @@ var OrderDetailComponent = (function () {
         }
     };
     OrderDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            var link = ['/order', this.order.data._id];
+            var navigationExtras = {
+                queryParams: { 'path': this.path }
+            };
+            this.router.navigate(link, navigationExtras);
+            return;
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -142,6 +157,10 @@ var OrderDetailComponent = (function () {
         __metadata('design:type', Object)
     ], OrderDetailComponent.prototype, "state", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OrderDetailComponent.prototype, "path", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], OrderDetailComponent.prototype, "stateChanged", void 0);
@@ -151,7 +170,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal, router_1.Router])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

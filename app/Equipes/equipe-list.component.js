@@ -63,6 +63,10 @@ var EquipeListComponent = (function () {
         __metadata('design:type', String)
     ], EquipeListComponent.prototype, "initialTabInEquipeDetail", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], EquipeListComponent.prototype, "path", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], EquipeListComponent.prototype, "stateChanged", void 0);

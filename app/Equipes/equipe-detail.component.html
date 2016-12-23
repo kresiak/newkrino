@@ -86,12 +86,12 @@
 	</ngb-tab>
 	<ngb-tab title="Otps" id="tabOtps">
 		<template ngbTabContent>
-			<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}" [state]="state.Otps" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
+			<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}" [state]="state.Otps" [path]="path+'|O:Otps'" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Add an Otp" id="tabOtp">

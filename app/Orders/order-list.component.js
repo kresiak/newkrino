@@ -89,6 +89,10 @@ var OrderListComponent = (function () {
         __metadata('design:type', Object)
     ], OrderListComponent.prototype, "state", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OrderListComponent.prototype, "path", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], OrderListComponent.prototype, "stateChanged", void 0);

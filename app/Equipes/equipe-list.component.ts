@@ -23,7 +23,9 @@ export class EquipeListComponent implements OnInit {
 
     @Input() state;
     @Input() initialTabInEquipeDetail: string = '';
+    @Input() path: string
     @Output() stateChanged = new EventEmitter();
+
 
     private stateInit() {
         if (!this.state) this.state = {};

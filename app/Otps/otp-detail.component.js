@@ -35,7 +35,7 @@ var OtpDetailComponentRoutable = (function () {
     };
     OtpDetailComponentRoutable = __decorate([
         core_1.Component({
-            template: "<div class=\"card\" *ngIf=\"otp\"><div class=\"card-block\"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= \"otpObservable\"></gg-otp-detail></div></div>"
+            template: "<div class=\"card\" *ngIf=\"otp\"><div class=\"card-block\"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= \"otpObservable\" [path]=\"'otp|'+otp.data._id\"></gg-otp-detail></div></div>"
         }), 
         __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
     ], OtpDetailComponentRoutable);
@@ -96,7 +96,10 @@ var OtpDetailComponent = (function () {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             var link = ['/otp', this.otp.data._id];
-            this.router.navigate(link);
+            var navigationExtras = {
+                queryParams: { 'path': this.path }
+            };
+            this.router.navigate(link, navigationExtras);
             return;
         }
         this.state.selectedTabId = $event.nextId;
@@ -139,6 +142,10 @@ var OtpDetailComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], OtpDetailComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OtpDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

@@ -29,46 +29,43 @@ export class OrderListComponent implements OnInit {
 
     @Input() ordersObservable: Observable<any>;
     @Input() state;
-    @Output() stateChanged= new EventEmitter();
+    @Input() path: string
+    @Output() stateChanged = new EventEmitter();
 
-    private stateInit()
-    {
-        if (!this.state) this.state= {};
+    private stateInit() {
+        if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
     @Input() config;
 
-    private orders2Observable: Observable<any>; 
+    private orders2Observable: Observable<any>;
 
     ngOnInit(): void {
         this.stateInit();
-        this.orders2Observable= Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), (orders, searchTxt: string) => {
-            let txt: string= searchTxt.trim().toUpperCase(); 
+        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), (orders, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders;
             return orders.filter(order => {
-                if (txt.startsWith('#'))
-                {
-                    let txt2= txt.slice(1);
-                    return order.annotation.items.filter(item => 
+                if (txt.startsWith('#')) {
+                    let txt2 = txt.slice(1);
+                    return order.annotation.items.filter(item =>
                         item.annotation.description.toUpperCase().includes(txt2)).length > 0;
                 }
-                if (txt.startsWith('$>') &&  +txt.slice(2) )
-                {
-                    let montant= +txt.slice(2);
+                if (txt.startsWith('$>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
                     return + order.annotation.total >= montant;
                 }
-                if (txt.startsWith('$<') &&  +txt.slice(2) )
-                {
-                    let montant= +txt.slice(2);
+                if (txt.startsWith('$<') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
                     return + order.annotation.total <= montant;
                 }
-                return order.annotation.user.toUpperCase().includes(txt) 
-                                    || order.annotation.supplier.toUpperCase().includes(txt)
-                                    || order.annotation.equipe.toUpperCase().includes(txt) 
-                                    || order.data.kid === +txt ;                                    
+                return order.annotation.user.toUpperCase().includes(txt)
+                    || order.annotation.supplier.toUpperCase().includes(txt)
+                    || order.annotation.equipe.toUpperCase().includes(txt)
+                    || order.data.kid === +txt;
 
-            } );
+            });
         });
     }
 
@@ -77,32 +74,30 @@ export class OrderListComponent implements OnInit {
     }
 
     formatDate(date: string): string {
-        var now= moment()
-        var then= moment(date, 'DD/MM/YYYY hh:mm:ss')
-        var diff= now.diff(then, 'days');
+        var now = moment()
+        var then = moment(date, 'DD/MM/YYYY hh:mm:ss')
+        var diff = now.diff(then, 'days');
 
         //var md= moment(date, 'DD/MM/YYYY hh:mm:ss').fromNow()
-        return diff < 15 ? then.fromNow() : then.format('LLLL') 
+        return diff < 15 ? then.fromNow() : then.format('LLLL')
     }
 
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
 
-   // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
+    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
-        if ($event.nextState)
-        {
+        if ($event.nextState) {
             this.state.openPanelId = $event.panelId;
             this.stateChanged.next(this.state);
-        }            
+        }
     };
-    
+
     // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
-    private childStateChanged(newState, objectId)
-    {
-            this.state[objectId]= newState;
-            this.stateChanged.next(this.state);
+    private childStateChanged(newState, objectId) {
+        this.state[objectId] = newState;
+        this.stateChanged.next(this.state);
     }
 }
 

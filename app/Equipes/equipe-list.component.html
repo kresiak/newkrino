@@ -36,7 +36,8 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [initialTab]="initialTabInEquipeDetail" [state]="state[equipe.data._id]" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
+						<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [initialTab]="initialTabInEquipeDetail" [state]="state[equipe.data._id]" [path]="path+'|P:'+equipe.data._id"
+								(stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

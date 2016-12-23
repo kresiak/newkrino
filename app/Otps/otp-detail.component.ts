@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { ActivatedRoute, Params, Router } from '@angular/router'
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
@@ -13,7 +13,7 @@ import * as moment from "moment"
 
 @Component(
     {
-        template: `<div class="card" *ngIf="otp"><div class="card-block"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= "otpObservable"></gg-otp-detail></div></div>`
+        template: `<div class="card" *ngIf="otp"><div class="card-block"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= "otpObservable" [path]="'otp|'+otp.data._id"></gg-otp-detail></div></div>`
     }
 )
 export class OtpDetailComponentRoutable implements OnInit {
@@ -25,7 +25,7 @@ export class OtpDetailComponentRoutable implements OnInit {
             if (otpId) {
                 this.otpObservable = this.orderService.getAnnotatedOtpById(otpId);
                 this.otpObservable.subscribe(otp => {
-                    this.otp= otp
+                    this.otp = otp
                 })
             }
         });
@@ -50,6 +50,7 @@ export class OtpDetailComponent implements OnInit {
 
     @Input() otpObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -109,7 +110,10 @@ export class OtpDetailComponent implements OnInit {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             let link = ['/otp', this.otp.data._id];
-            this.router.navigate(link);
+            let navigationExtras: NavigationExtras = {
+                queryParams: { 'path': this.path }
+            }
+            this.router.navigate(link, navigationExtras);
             return
         }
         this.state.selectedTabId = $event.nextId;

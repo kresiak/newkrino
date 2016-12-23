@@ -20,6 +20,7 @@ export class EquipeDetailComponent implements OnInit {
 
     @Input() equipeObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Input() initialTab: string = '';
     @Output() stateChanged= new EventEmitter();
 

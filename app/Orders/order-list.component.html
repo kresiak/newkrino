@@ -46,7 +46,7 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" (stateChanged)="childStateChanged($event, order.data._id)"></gg-order-detail>
+						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id" (stateChanged)="childStateChanged($event, order.data._id)"></gg-order-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

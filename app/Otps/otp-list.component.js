@@ -67,6 +67,10 @@ var OtpListComponent = (function () {
         __metadata('design:type', Object)
     ], OtpListComponent.prototype, "state", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OtpListComponent.prototype, "path", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], OtpListComponent.prototype, "stateChanged", void 0);

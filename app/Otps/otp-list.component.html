@@ -40,7 +40,7 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
+						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" [path]="path+'|P:'+otp.data._id" (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

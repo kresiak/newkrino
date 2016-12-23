@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
 import { DataStore } from '../Shared/Services/data.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
@@ -8,7 +8,7 @@ import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/
 
 @Component(
     {
-        template: `<gg-order-detail [orderObservable]= "orderObservable"></gg-order-detail>`
+        template: `<div class="card" *ngIf="order"><div class="card-block"><h6>Order {{order.data.kid}}</h6> <gg-order-detail [orderObservable]= "orderObservable"></gg-order-detail> </div></div>`
     }
 )
 export class OrderComponentRoutable implements OnInit {
@@ -19,10 +19,14 @@ export class OrderComponentRoutable implements OnInit {
             let orderId = params['id'];
             if (orderId) {
                 this.orderObservable = this.orderService.getAnnotedOrder(orderId);
+                this.orderObservable.subscribe(order => {
+                    this.order= order
+                })
             }
         });
     }
     orderObservable: Observable<any>;
+    order: any
 }
 
 
@@ -35,12 +39,13 @@ export class OrderComponentRoutable implements OnInit {
 )
 export class OrderDetailComponent implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService,
-        private dataStore: DataStore, private elementRef: ElementRef, private modalService: NgbModal) {
+        private dataStore: DataStore, private elementRef: ElementRef, private modalService: NgbModal, private router: Router) {
 
     }
 
     @Input() orderObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -73,27 +78,27 @@ export class OrderDetailComponent implements OnInit {
     private saveDelivery(orderItem, formData) {
         if (+formData.qty < 1) return;
         if (!orderItem.data.deliveries) orderItem.data.deliveries = [];
-        let deliveryData= { 
-            quantity: +formData.qty, 
-            lotNb: formData.lot };
-        if (formData.resell)
-        {
-            let prodData= {
+        let deliveryData = {
+            quantity: +formData.qty,
+            lotNb: formData.lot
+        };
+        if (formData.resell) {
+            let prodData = {
                 productId: orderItem.data.productId,
                 orderId: this.order.data._id,
                 quantity: formData.qty,
-                factor: formData.factor };
+                factor: formData.factor
+            };
             this.dataStore.addData('products.stock', prodData).first().subscribe(res => {
-                deliveryData['stockId']= res._id;
+                deliveryData['stockId'] = res._id;
                 orderItem.data.deliveries.push(deliveryData);
-                this.dataStore.updateData('orders', this.order.data._id, this.order.data);                
+                this.dataStore.updateData('orders', this.order.data._id, this.order.data);
             });
         }
-        else
-        {
+        else {
             orderItem.data.deliveries.push(deliveryData);
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
-        }        
+        }
     }
 
     private selectedDeliveryItem;
@@ -141,6 +146,16 @@ export class OrderDetailComponent implements OnInit {
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            let link = ['/order', this.order.data._id];
+            let navigationExtras: NavigationExtras = {
+                queryParams: { 'path': this.path }
+            }
+            this.router.navigate(link, navigationExtras);
+            return
+        }
+        
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

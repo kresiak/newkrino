@@ -8,7 +8,12 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class EquipeListComponentRoutable implements OnInit {
-    constructor() { }
+    
+    path: string= 'equipes'
+
+    constructor() { 
+
+    }
 
     ngOnInit(): void {
     }
