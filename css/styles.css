@@ -456,6 +456,6 @@ button {
 *, :after, :before {
     box-sizing: inherit;
 }
-#isBlocked, #isClosed, #isResold, #disabled, #isDistributed {
+.isCheckbox {
     width: 14px;
 }
