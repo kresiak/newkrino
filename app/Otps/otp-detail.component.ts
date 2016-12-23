@@ -20,8 +20,12 @@ export class OtpDetailComponentRoutable implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
+        this.route.queryParams.subscribe(queryParams => {
+            let lastPath = queryParams['path'];
+        })
         this.route.params.subscribe((params: Params) => {
             let otpId = params['id'];
+            
             if (otpId) {
                 this.otpObservable = this.orderService.getAnnotatedOtpById(otpId);
                 this.otpObservable.subscribe(otp => {
