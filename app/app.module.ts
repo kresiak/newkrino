@@ -19,10 +19,12 @@ import {ProductListComponent} from './Products/product-list.component';
 import {ProductListComponentRoutable} from './Products/product-list.routable.component'
 import {ProductEnterComponent} from './Products/product-enter.component'
 import {ProductDetailComponent} from './Products/product-detail.component'
+import {ProductDetailComponentRoutable} from './Products/product-detail.routable.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
 import {CategoryListComponentRoutable} from './Categories/category-list.routable.component'
 import {CategoryDetailComponent} from './Categories/category-detail.component'
+import {CategoryDetailComponentRoutable} from './Categories/category-detail.routable.component'
 
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent} from './Otps/otp-list.component.js';
@@ -39,6 +41,7 @@ import {PrestationListComponent} from './Prestations/prestation-list'
 import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component.js';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
+import {EquipeDetailComponentRoutable} from './Equipes/equipe-detail.routable.component'
 import {EquipeListComponent} from './Equipes/equipe-list.component'
 import {EquipeListComponentRoutable} from './Equipes/equipe-list.routable.component'
 import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
@@ -100,6 +103,9 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "otps", component: OtpListComponentRoutable},
             { path: 'otp/:id', component: OtpDetailComponentRoutable },
             { path: 'supplier/:id', component: SupplierDetailComponentRoutable },
+            { path: 'product/:id', component: ProductDetailComponentRoutable },
+            { path: 'category/:id', component: CategoryDetailComponentRoutable },
+            { path: 'equipe/:id', component: EquipeDetailComponentRoutable },
             { path: "products", component: ProductListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
@@ -117,14 +123,14 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
-                  ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
+                  ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
-                  CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable,
+                  CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryDetailComponentRoutable,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
-                  EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent,
+                  EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,

@@ -117,6 +117,14 @@ export class ProductService {
             });
     }
 
+    getAnnotatedCategoriesById(id: string): Observable<any> {
+        return this.getAnnotatedCategories().map(categories=> categories.filter(s => {
+            return s.data._id===id
+        }
+
+        )[0]);        
+    }
+
 
     // products
     // ========
@@ -181,6 +189,10 @@ export class ProductService {
     getAnnotatedProductsWithBasketInfoAll(): Observable<any> {
         return this.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products')).map(prods => 
         prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence));
+    }
+
+    getAnnotatedProductsWithBasketInfoById(id: string): Observable<any> {
+        return this.getAnnotatedProductsWithBasketInfoAll().map(products => products.filter(product => product.data._id === id)[0]);
     }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {
