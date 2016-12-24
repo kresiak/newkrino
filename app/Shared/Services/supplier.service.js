@@ -58,6 +58,12 @@ var SupplierService = (function () {
     SupplierService.prototype.getAnnotatedSuppliersByFrequence = function () {
         return this.getAnnotatedSuppliers().map(function (prods) { return prods.sort(function (a, b) { return b.annotation.supplierFrequence - a.annotation.supplierFrequence; }); });
     };
+    SupplierService.prototype.getAnnotatedSupplierById = function (id) {
+        return this.getAnnotatedSuppliers().map(function (suppliers) {
+            var supplier = suppliers.filter(function (s) { return s.data._id === id; })[0];
+            return supplier ? supplier : null;
+        });
+    };
     SupplierService.prototype.getAnnotatedWebSuppliers = function () {
         return this.getAnnotatedSuppliers().map(function (annotatedSuppliers) { return annotatedSuppliers.filter(function (annotatedSupplier) { return annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled; }); });
     };

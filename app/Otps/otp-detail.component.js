@@ -15,14 +15,16 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, router) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, navigationService, router) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.navigationService = navigationService;
         this.router = router;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -69,21 +71,7 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            if (!this.lastPath) {
-                var link = ['/otp', this.otp.data._id];
-                var navigationExtras = {
-                    queryParams: { 'path': this.path }
-                };
-                this.router.navigate(link, navigationExtras);
-            }
-            else {
-                var link = ['/unmaximize'];
-                var navigationExtras = {
-                    queryParams: { 'path': this.lastPath }
-                };
-                this.router.navigate(link, navigationExtras);
-            }
-            return;
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -143,7 +131,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, router_1.Router])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService, router_1.Router])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

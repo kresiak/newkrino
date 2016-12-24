@@ -92,7 +92,12 @@
 	</ngb-tab>
 	<ngb-tab title="Orders"  id="tabOrders">
 		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab id="tabMax">
+		<template ngbTabTitle><img src="./images/maximize.png"  /></template>
+		<template ngbTabContent></template>
+	</ngb-tab>
+	
 </ngb-tabset>

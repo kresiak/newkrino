@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 @Component(
     {
@@ -14,13 +15,15 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService) {
+    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService, private navigationService: NavigationService) {
     }
     private pieSpentChart;
 
     @Input() equipeObservable: Observable<any>;
     @Input() state;
     @Input() path: string
+    @Input() lastPath: string
+    
     @Input() initialTab: string = '';
     @Output() stateChanged= new EventEmitter();
 
@@ -38,7 +41,7 @@ export class EquipeDetailComponent implements OnInit {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
-                this.usersObservable = this.dataStore.getDataObservable('users.krino').map(users => users.filter(user => this.equipe.data.userIds.includes(user._id)));
+                this.usersObservable = this.dataStore.getDataObservable('users.krino').map(users => users.filter(user => this.equipe.data.userIds && this.equipe.data.userIds.includes(user._id)));
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder=anyOrder);
@@ -75,6 +78,11 @@ export class EquipeDetailComponent implements OnInit {
 
 
     public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.lastPath)
+        }
+        
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

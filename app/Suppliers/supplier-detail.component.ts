@@ -4,8 +4,9 @@ import { AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { Observable } from 'rxjs/Rx'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 
 @Component(
@@ -16,12 +17,14 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService, private navigationService: NavigationService) {
 
     }
 
     @Input() supplierObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
+    @Input() lastPath: string    
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
 
@@ -69,6 +72,10 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.lastPath)
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

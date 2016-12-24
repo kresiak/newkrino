@@ -12,6 +12,7 @@ import { HomeComponent} from './home.component'
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
+import {SupplierDetailComponentRoutable} from './Suppliers/supplier-detail.routable.component';
 import {ProductComponent} from './Products/product.component';
 import {ProductGridComponent} from './Products/product-grid.component';
 import {ProductListComponent} from './Products/product-list.component';
@@ -43,7 +44,8 @@ import {EquipeListComponentRoutable} from './Equipes/equipe-list.routable.compon
 import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 
 import {PreOrderComponent} from './Orders/pre-order.component'
-import {OrderDetailComponent, OrderComponentRoutable} from './Orders/order-detail.component'
+import {OrderComponentRoutable} from './Orders/order-detail.routable.component'
+import {OrderDetailComponent} from './Orders/order-detail.component'
 import {OrderListComponent} from './Orders/order-list.component'
 import {OrderListComponentRoutable} from './Orders/order-list.routable.component'
 
@@ -64,6 +66,7 @@ import {SelectorComponent} from './ui/selector/selector.component'
 import {CommentComponent} from './Comments/comment.component'
 import {CommentsComponent} from './Comments/comments.component'
 
+import {NavigationService} from './Shared/Services/navigation.service';
 import {ApiService} from './Shared/Services/api.service';
 import {ProductService} from './Shared/Services/product.service'
 import {SupplierService} from './Shared/Services/supplier.service'
@@ -96,6 +99,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "categories", component: CategoryListComponentRoutable},
             { path: "otps", component: OtpListComponentRoutable},
             { path: 'otp/:id', component: OtpDetailComponentRoutable },
+            { path: 'supplier/:id', component: SupplierDetailComponentRoutable },
             { path: "products", component: ProductListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
@@ -112,7 +116,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
    ],
   declarations: [ AppComponent, HomeComponent, 
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, 
+                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable,
@@ -126,7 +130,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
-  providers:    [ OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

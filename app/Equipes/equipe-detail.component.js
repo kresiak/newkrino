@@ -14,12 +14,14 @@ var order_service_1 = require('./../Shared/Services/order.service');
 var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(dataStore, orderService, userService, chartService) {
+    function EquipeDetailComponent(dataStore, orderService, userService, chartService, navigationService) {
         this.dataStore = dataStore;
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.navigationService = navigationService;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -36,7 +38,7 @@ var EquipeDetailComponent = (function () {
             _this.equipe = eq;
             if (eq) {
                 _this.pieSpentChart = _this.chartService.getSpentPieData(_this.equipe.annotation.amountSpent / _this.equipe.annotation.budget * 100);
-                _this.usersObservable = _this.dataStore.getDataObservable('users.krino').map(function (users) { return users.filter(function (user) { return _this.equipe.data.userIds.includes(user._id); }); });
+                _this.usersObservable = _this.dataStore.getDataObservable('users.krino').map(function (users) { return users.filter(function (user) { return _this.equipe.data.userIds && _this.equipe.data.userIds.includes(user._id); }); });
                 _this.otpsObservable = _this.orderService.getAnnotatedOtpsByEquipe(_this.equipe.data._id);
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 _this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
@@ -57,6 +59,10 @@ var EquipeDetailComponent = (function () {
         }
     };
     EquipeDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.lastPath);
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -100,6 +106,10 @@ var EquipeDetailComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
+    ], EquipeDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
     ], EquipeDetailComponent.prototype, "initialTab", void 0);
     __decorate([
         core_1.Output(), 
@@ -111,7 +121,7 @@ var EquipeDetailComponent = (function () {
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());

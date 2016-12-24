@@ -1,0 +1,6 @@
+<div class="card" *ngIf="order">
+    <div class="card-block">
+        <h6>Order {{order.data.kid}}</h6>
+        <gg-order-detail [orderObservable]="orderObservable" [path]="'order|'+order.data._id" [lastPath]="lastPath"></gg-order-detail>
+    </div>
+</div>

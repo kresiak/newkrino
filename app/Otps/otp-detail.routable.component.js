@@ -16,19 +16,23 @@ var OtpDetailComponentRoutable = (function () {
         this.orderService = orderService;
         this.route = route;
     }
+    OtpDetailComponentRoutable.prototype.initData = function (id) {
+        var _this = this;
+        if (id) {
+            this.otpObservable = this.orderService.getAnnotatedOtpById(id);
+            this.otpObservable.subscribe(function (obj) {
+                _this.ourObject = obj;
+            });
+        }
+    };
     OtpDetailComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.route.queryParams.subscribe(function (queryParams) {
             _this.lastPath = queryParams['path'];
         });
         this.route.params.subscribe(function (params) {
-            var otpId = params['id'];
-            if (otpId) {
-                _this.otpObservable = _this.orderService.getAnnotatedOtpById(otpId);
-                _this.otpObservable.subscribe(function (otp) {
-                    _this.otp = otp;
-                });
-            }
+            var id = params['id'];
+            _this.initData(id);
         });
     };
     OtpDetailComponentRoutable = __decorate([

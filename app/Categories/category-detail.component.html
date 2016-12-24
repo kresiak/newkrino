@@ -55,12 +55,17 @@
 	</ngb-tab>
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
+			<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="path+'|O:Products'"  (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Open otps" id="tabOtps">
 		<template ngbTabContent>
-            <gg-otp-list [otpsObservable]="otpsObservable" [state]="state.Otps" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
+            <gg-otp-list [otpsObservable]="otpsObservable" [state]="state.Otps" [path]="path+'|O:Otps'" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab id="tabMax">
+		<template ngbTabTitle><img src="./images/maximize.png"  /></template>
+		<template ngbTabContent></template>
+	</ngb-tab>
+	
 </ngb-tabset>

@@ -16,7 +16,7 @@ export class OtpListComponent implements OnInit {
     @Input() otpsObservable: Observable<any>;
     @Input() config;
     @Input() state;
-    @Input() path: string
+    @Input() path: string= 'otps'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {

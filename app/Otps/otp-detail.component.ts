@@ -5,6 +5,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
 import { UserService } from './../Shared/Services/user.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +22,7 @@ import * as moment from "moment"
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService, private router: Router) {
+        private chartService: ChartService, private navigationService: NavigationService, private router: Router) {
     }
     private pieSpentChart;
 
@@ -87,21 +88,7 @@ export class OtpDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            if (!this.lastPath) {
-                let link = ['/otp', this.otp.data._id];
-                let navigationExtras: NavigationExtras = {
-                    queryParams: { 'path': this.path }
-                }
-                this.router.navigate(link, navigationExtras);
-            }
-            else {
-                let link = ['/unmaximize'];
-                let navigationExtras: NavigationExtras = {
-                    queryParams: { 'path': this.lastPath }
-                }
-                this.router.navigate(link, navigationExtras);                
-            }
-            return
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath)
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

@@ -15,6 +15,7 @@ var moment = require("moment");
 var OrderListComponent = (function () {
     function OrderListComponent() {
         this.searchControl = new forms_1.FormControl();
+        this.path = 'orders';
         this.stateChanged = new core_1.EventEmitter();
         this.searchForm = new forms_1.FormGroup({
             searchControl: new forms_1.FormControl()

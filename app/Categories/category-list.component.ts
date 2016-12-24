@@ -22,6 +22,7 @@ export class CategoryListComponent implements OnInit{
     categories: any
     openPanelId: string= "";
     @Input() state;
+    @Input() path: string= 'cqtegories'
     @Output() stateChanged= new EventEmitter();
     
     private stateInit()

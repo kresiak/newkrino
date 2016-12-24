@@ -13,11 +13,13 @@ var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(dataStore, productService, orderService) {
+    function ProductDetailComponent(dataStore, productService, orderService, navigationService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
+        this.navigationService = navigationService;
         this.stateChanged = new core_1.EventEmitter();
     }
     ProductDetailComponent.prototype.stateInit = function () {
@@ -55,6 +57,10 @@ var ProductDetailComponent = (function () {
         this.productService.doBasketUpdate(this.product, quantity);
     };
     ProductDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.lastPath);
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -112,6 +118,14 @@ var ProductDetailComponent = (function () {
         __metadata('design:type', Object)
     ], ProductDetailComponent.prototype, "state", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ProductDetailComponent.prototype, "path", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ProductDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], ProductDetailComponent.prototype, "stateChanged", void 0);
@@ -121,7 +135,7 @@ var ProductDetailComponent = (function () {
             selector: 'gg-product-detail',
             templateUrl: './product-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());

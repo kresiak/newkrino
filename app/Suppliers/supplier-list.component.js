@@ -17,6 +17,7 @@ var SupplierListComponent = (function () {
     function SupplierListComponent(dataStore, supplierService) {
         this.dataStore = dataStore;
         this.supplierService = supplierService;
+        this.path = 'suppliers';
         this.initialTabInSupplierDetail = '';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
@@ -79,6 +80,10 @@ var SupplierListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], SupplierListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SupplierListComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)

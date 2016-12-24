@@ -51,6 +51,14 @@ export class SupplierService {
         return this.getAnnotatedSuppliers().map(prods => prods.sort((a, b) => b.annotation.supplierFrequence - a.annotation.supplierFrequence));
     }
 
+    getAnnotatedSupplierById(id: string): Observable<any> {
+        return this.getAnnotatedSuppliers().map(suppliers => 
+        {
+            let supplier= suppliers.filter(s => s.data._id === id)[0];
+            return supplier ? supplier : null; 
+        } );        
+    }
+
     getAnnotatedWebSuppliers(): Observable<any> {
         return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier => annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled))
     }
