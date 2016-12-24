@@ -23,7 +23,7 @@ export class EquipeListComponent implements OnInit {
 
     @Input() state;
     @Input() initialTabInEquipeDetail: string = '';
-    @Input() path: string
+    @Input() path: string= 'equipes'
     @Output() stateChanged = new EventEmitter();
 
 

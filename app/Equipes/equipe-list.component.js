@@ -16,6 +16,7 @@ var EquipeListComponent = (function () {
     function EquipeListComponent(orderService) {
         this.orderService = orderService;
         this.initialTabInEquipeDetail = '';
+        this.path = 'equipes';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({

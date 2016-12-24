@@ -33,6 +33,7 @@ var otp_component_1 = require('./Otps/otp.component');
 var otp_list_component_js_1 = require('./Otps/otp-list.component.js');
 var otp_list_routable_component_1 = require('./Otps/otp-list.routable.component');
 var otp_detail_component_1 = require('./Otps/otp-detail.component');
+var otp_detail_routable_component_1 = require('./Otps/otp-detail.routable.component');
 var otp_enter_component_1 = require('./Otps/otp-enter.component');
 var manip_detail_component_1 = require('./Manips/manip-detail.component');
 var manip_list_component_1 = require('./Manips/manip-list.component');
@@ -53,6 +54,7 @@ var stock_detail_component_1 = require('./Stock/stock-detail.component');
 var dashboard_component_1 = require('./Dashboard/dashboard.component');
 var dashlet_component_1 = require('./Dashboard/dashlet.component');
 var mykrino_component_1 = require('./Dashboard/mykrino.component');
+var unmaximize_component_1 = require('./Dashboard/unmaximize.component');
 var editor_1 = require('./ui/editor/editor');
 var editor_number_1 = require('./ui/editor/editor-number');
 var editor_date_1 = require('./ui/editor/editor-date');
@@ -93,13 +95,14 @@ var AppModule = (function () {
                     { path: "orders", component: order_list_routable_component_1.OrderListComponentRoutable },
                     { path: "categories", component: category_list_routable_component_1.CategoryListComponentRoutable },
                     { path: "otps", component: otp_list_routable_component_1.OtpListComponentRoutable },
-                    { path: 'otp/:id', component: otp_detail_component_1.OtpDetailComponentRoutable },
+                    { path: 'otp/:id', component: otp_detail_routable_component_1.OtpDetailComponentRoutable },
                     { path: "products", component: product_list_routable_component_1.ProductListComponentRoutable },
                     { path: "dashboard", component: dashboard_component_1.DashboardComponent },
                     { path: "mykrino", component: mykrino_component_1.MyKrinoComponent },
                     { path: "home", component: home_component_1.HomeComponent },
                     { path: "stock", component: stock_list_component_1.StockListComponentRoutable },
                     { path: "manips", component: manip_list_component_1.ManipListComponent },
+                    { path: "unmaximize", component: unmaximize_component_1.UnMaximizeComponent },
                     { path: "prestations", component: prestation_list_1.PrestationListComponent },
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
@@ -111,10 +114,10 @@ var AppModule = (function () {
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_routable_component_1.SupplierListComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_routable_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent,
-                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_detail_component_1.OtpDetailComponentRoutable, otp_list_routable_component_1.OtpListComponentRoutable, otp_enter_component_1.OtpEnterComponent,
+                otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_detail_routable_component_1.OtpDetailComponentRoutable, otp_list_routable_component_1.OtpListComponentRoutable, otp_enter_component_1.OtpEnterComponent,
                 category_list_component_1.CategoryListComponent, category_detail_component_1.CategoryDetailComponent, category_list_routable_component_1.CategoryListComponentRoutable,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
-                dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent,
+                dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent, unmaximize_component_1.UnMaximizeComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
                 manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_list_routable_component_1.EquipeListComponentRoutable, equipe_enter_component_1.EquipeEnterComponent,

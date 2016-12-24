@@ -26,7 +26,8 @@ import {CategoryDetailComponent} from './Categories/category-detail.component'
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent} from './Otps/otp-list.component.js';
 import {OtpListComponentRoutable} from './Otps/otp-list.routable.component';
-import {OtpDetailComponent, OtpDetailComponentRoutable} from './Otps/otp-detail.component';
+import {OtpDetailComponent} from './Otps/otp-detail.component';
+import {OtpDetailComponentRoutable} from './Otps/otp-detail.routable.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
 
 import {ManipDetailComponent} from './Manips/manip-detail.component'
@@ -52,6 +53,7 @@ import {StockDetailComponent} from './Stock/stock-detail.component'
 import {DashboardComponent} from './Dashboard/dashboard.component'
 import {DashletComponent} from './Dashboard/dashlet.component'
 import {MyKrinoComponent} from './Dashboard/mykrino.component'
+import {UnMaximizeComponent} from './Dashboard/unmaximize.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorNumber} from './ui/editor/editor-number'
@@ -100,6 +102,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "home", component: HomeComponent},
             { path: "stock", component: StockListComponentRoutable},
             { path: "manips", component: ManipListComponent},
+            { path: "unmaximize", component: UnMaximizeComponent},
             { path: "prestations", component: PrestationListComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
@@ -114,7 +117,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
-                  DashboardComponent, DashletComponent, MyKrinoComponent,
+                  DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent,

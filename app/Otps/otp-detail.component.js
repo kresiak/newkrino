@@ -16,35 +16,6 @@ var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
-var OtpDetailComponentRoutable = (function () {
-    function OtpDetailComponentRoutable(orderService, route) {
-        this.orderService = orderService;
-        this.route = route;
-    }
-    OtpDetailComponentRoutable.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.queryParams.subscribe(function (queryParams) {
-            var lastPath = queryParams['path'];
-        });
-        this.route.params.subscribe(function (params) {
-            var otpId = params['id'];
-            if (otpId) {
-                _this.otpObservable = _this.orderService.getAnnotatedOtpById(otpId);
-                _this.otpObservable.subscribe(function (otp) {
-                    _this.otp = otp;
-                });
-            }
-        });
-    };
-    OtpDetailComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<div class=\"card\" *ngIf=\"otp\"><div class=\"card-block\"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= \"otpObservable\" [path]=\"'otp|'+otp.data._id\"></gg-otp-detail></div></div>"
-        }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
-    ], OtpDetailComponentRoutable);
-    return OtpDetailComponentRoutable;
-}());
-exports.OtpDetailComponentRoutable = OtpDetailComponentRoutable;
 var OtpDetailComponent = (function () {
     function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, router) {
         this.dataStore = dataStore;
@@ -98,11 +69,20 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            var link = ['/otp', this.otp.data._id];
-            var navigationExtras = {
-                queryParams: { 'path': this.path }
-            };
-            this.router.navigate(link, navigationExtras);
+            if (!this.lastPath) {
+                var link = ['/otp', this.otp.data._id];
+                var navigationExtras = {
+                    queryParams: { 'path': this.path }
+                };
+                this.router.navigate(link, navigationExtras);
+            }
+            else {
+                var link = ['/unmaximize'];
+                var navigationExtras = {
+                    queryParams: { 'path': this.lastPath }
+                };
+                this.router.navigate(link, navigationExtras);
+            }
             return;
         }
         this.state.selectedTabId = $event.nextId;
@@ -149,6 +129,10 @@ var OtpDetailComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], OtpDetailComponent.prototype, "path", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OtpDetailComponent.prototype, "lastPath", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
