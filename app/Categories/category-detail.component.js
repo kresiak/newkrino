@@ -56,16 +56,16 @@ var CategoryDetailComponent = (function () {
         this.state.Otps = $event;
         this.stateChanged.next(this.state);
     };
-    CategoryDetailComponent.prototype.dateUpdated = function (isBlocked) {
-        this.category.data.isBlocked = isBlocked;
+    CategoryDetailComponent.prototype.dateUpdated = function (isBlockeds) {
+        this.category.data.isBlocked = isBlockeds;
         this.dataStore.updateData('categories', this.category.data._id, this.category.data);
     };
-    CategoryDetailComponent.prototype.isLabUpdated = function (isBlocked) {
-        this.category.data.isLabo = isBlocked;
+    CategoryDetailComponent.prototype.isLabUpdated = function (isLabos) {
+        this.category.data.isLabo = isLabos;
         this.dataStore.updateData('categories', this.category.data._id, this.category.data);
     };
-    CategoryDetailComponent.prototype.isOfficUpdated = function (isBlocked) {
-        this.category.data.isOffice = isBlocked;
+    CategoryDetailComponent.prototype.isOfficUpdated = function (isOffices) {
+        this.category.data.isOffice = isOffices;
         this.dataStore.updateData('categories', this.category.data._id, this.category.data);
     };
     CategoryDetailComponent.prototype.nameCatUpdated = function (nameCat) {

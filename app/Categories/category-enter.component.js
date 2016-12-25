@@ -12,15 +12,12 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var data_service_1 = require('./../Shared/Services/data.service');
 var CategoryEnterComponent = (function () {
-    //private selectableUsers: Observable<any>;
-    //private selectedUserIds;
     function CategoryEnterComponent(dataStore, formBuilder) {
         this.dataStore = dataStore;
         this.formBuilder = formBuilder;
     }
-    //@ViewChild('userSelector') usersChild;
+    //@ViewChild('labSpecifBoolean') isLaboChild;
     CategoryEnterComponent.prototype.ngOnInit = function () {
-        //  this.selectableUsers = this.authService.getSelectableUsers();
         this.categoryForm = this.formBuilder.group({
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             isBlocked: [''],
@@ -32,8 +29,8 @@ var CategoryEnterComponent = (function () {
         var _this = this;
         this.dataStore.addData('categories', {
             name: formValue.name,
-            isLabUpdated: this.isLabo,
-            isOfficUpdated: this.isOffice,
+            isLabo: this.isLabo,
+            isOffice: this.isOffice,
             isBlocked: formValue.isBlocked,
             noArticle: formValue.noArticle,
             groupMarch: formValue.groupMarch
@@ -44,13 +41,13 @@ var CategoryEnterComponent = (function () {
     };
     CategoryEnterComponent.prototype.reset = function () {
         this.categoryForm.reset();
-        //this.usersChild.emptyContent()    
+        //this.isLaboChild.emptyContent()    
     };
-    CategoryEnterComponent.prototype.isLabUpdated = function (date) {
-        this.isLabo = date;
+    CategoryEnterComponent.prototype.isLabUpdated = function (isLabs) {
+        this.isLabo = isLabs;
     };
-    CategoryEnterComponent.prototype.isOfficUpdated = function (date) {
-        this.isOffice = date;
+    CategoryEnterComponent.prototype.isOfficeUpdated = function (isOffices) {
+        this.isOffice = isOffices;
     };
     CategoryEnterComponent = __decorate([
         core_1.Component({

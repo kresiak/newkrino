@@ -9,13 +9,13 @@
         <div class="form-group row">
 			<label for="isLabo" class="col-sm-2 col-form-label col-xl-2 vcenter">laboratory specific:</label>
 			<div class="col-sm-6 vcenter">
-                <gg-editor-boolean [content]="" (editSaved)="isLabUpdated($event)"></gg-editor-boolean>
+                <gg-editor-boolean #labSpecifBoolean [content]="" (editSaved)="isLabUpdated($event)"></gg-editor-boolean>
             </div>
 		</div>
 		<div class="form-group row">
 			<label for="isOffice" class="col-sm-2 col-form-label col-xl-2 vcenter">office specific:</label>
 			<div class="col-sm-6 vcenter">
-                <gg-editor-boolean [content]="" (editSaved)="isOfficUpdated($event)"></gg-editor-boolean>
+                <gg-editor-boolean [content]="" (editSaved)="isOfficeUpdated($event)"></gg-editor-boolean>
             </div>
 		</div>
         <div class="form-group row">

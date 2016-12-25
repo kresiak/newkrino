@@ -2,7 +2,6 @@ import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
-//import { AuthService } from '../Shared/Services/auth.service'
 import { Observable } from 'rxjs/Rx'
 
 @Component({
@@ -12,20 +11,17 @@ import { Observable } from 'rxjs/Rx'
 })
 export class CategoryEnterComponent implements OnInit {
     private categoryForm: FormGroup;
-    //private selectableUsers: Observable<any>;
-    //private selectedUserIds;
-
+    
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
 
     }
  
-    private isLabo: boolean;
-    private isOffice: boolean;
+    private isLabo;
+    private isOffice;
 
-    //@ViewChild('userSelector') usersChild;
+    //@ViewChild('labSpecifBoolean') isLaboChild;
 
     ngOnInit():void {
-      //  this.selectableUsers = this.authService.getSelectableUsers();
 
         this.categoryForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(5)]],
@@ -39,8 +35,8 @@ export class CategoryEnterComponent implements OnInit {
     {
         this.dataStore.addData('categories', {
             name: formValue.name,
-            isLabUpdated: this.isLabo,
-            isOfficUpdated: this.isOffice,
+            isLabo: this.isLabo,
+            isOffice: this.isOffice,
             isBlocked: formValue.isBlocked,
             noArticle: formValue.noArticle,
             groupMarch: formValue.groupMarch
@@ -54,22 +50,16 @@ export class CategoryEnterComponent implements OnInit {
     reset()
     {
         this.categoryForm.reset();    
-        //this.usersChild.emptyContent()    
+        //this.isLaboChild.emptyContent()    
     }
 
-    isLabUpdated(date) {
-        this.isLabo = date;
+    isLabUpdated(isLabs) {
+        this.isLabo = isLabs;
     }
 
-    isOfficUpdated(date) {
-        this.isOffice = date;
+    isOfficeUpdated(isOffices) {
+        this.isOffice = isOffices;
     }
-    //dateUpdatedStart(date) {
-      //  this.datStart = date;
-    //}
-    //userSelectionChanged(selectedUserIds: string[]) {        
-      //  this.selectedUserIds = selectedUserIds;
-    //}
 
 }
 
