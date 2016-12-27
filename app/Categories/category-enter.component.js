@@ -16,24 +16,25 @@ var CategoryEnterComponent = (function () {
         this.dataStore = dataStore;
         this.formBuilder = formBuilder;
     }
-    //@ViewChild('labSpecifBoolean') isLaboChild;
     CategoryEnterComponent.prototype.ngOnInit = function () {
         this.categoryForm = this.formBuilder.group({
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
-            isBlocked: [''],
             noArticle: [''],
-            groupMarch: ['']
+            groupMarch: [''],
+            isBlocked: [''],
+            isLabo: [''],
+            isOffice: ['']
         });
     };
     CategoryEnterComponent.prototype.save = function (formValue, isValid) {
         var _this = this;
         this.dataStore.addData('categories', {
             name: formValue.name,
-            isLabo: this.isLabo,
-            isOffice: this.isOffice,
-            isBlocked: formValue.isBlocked,
             noArticle: formValue.noArticle,
-            groupMarch: formValue.groupMarch
+            groupMarch: formValue.groupMarch,
+            isBlocked: formValue.isBlocked,
+            isLabo: formValue.isLabo,
+            isOffice: formValue.isOffice
         }).subscribe(function (res) {
             var x = res;
             _this.reset();
@@ -41,13 +42,6 @@ var CategoryEnterComponent = (function () {
     };
     CategoryEnterComponent.prototype.reset = function () {
         this.categoryForm.reset();
-        //this.isLaboChild.emptyContent()    
-    };
-    CategoryEnterComponent.prototype.isLabUpdated = function (isLabs) {
-        this.isLabo = isLabs;
-    };
-    CategoryEnterComponent.prototype.isOfficeUpdated = function (isOffices) {
-        this.isOffice = isOffices;
     };
     CategoryEnterComponent = __decorate([
         core_1.Component({

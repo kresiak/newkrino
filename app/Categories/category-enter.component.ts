@@ -16,18 +16,15 @@ export class CategoryEnterComponent implements OnInit {
 
     }
  
-    private isLabo;
-    private isOffice;
-
-    //@ViewChild('labSpecifBoolean') isLaboChild;
-
     ngOnInit():void {
 
         this.categoryForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(5)]],
-            isBlocked: [''],
             noArticle: [''],
-            groupMarch: ['']
+            groupMarch: [''],
+            isBlocked: [''],
+            isLabo: [''],
+            isOffice: ['']
         });
     }
 
@@ -35,11 +32,11 @@ export class CategoryEnterComponent implements OnInit {
     {
         this.dataStore.addData('categories', {
             name: formValue.name,
-            isLabo: this.isLabo,
-            isOffice: this.isOffice,
-            isBlocked: formValue.isBlocked,
             noArticle: formValue.noArticle,
-            groupMarch: formValue.groupMarch
+            groupMarch: formValue.groupMarch,
+            isBlocked: formValue.isBlocked,
+            isLabo: formValue.isLabo,
+            isOffice: formValue.isOffice
         }).subscribe(res =>
         {
             var x=res;
@@ -50,15 +47,6 @@ export class CategoryEnterComponent implements OnInit {
     reset()
     {
         this.categoryForm.reset();    
-        //this.isLaboChild.emptyContent()    
-    }
-
-    isLabUpdated(isLabs) {
-        this.isLabo = isLabs;
-    }
-
-    isOfficeUpdated(isOffices) {
-        this.isOffice = isOffices;
     }
 
 }
