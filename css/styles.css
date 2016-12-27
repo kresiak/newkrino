@@ -459,3 +459,6 @@ button {
 .isCheckbox {
     width: 14px;
 }
+.imgSearch{
+    cursor: pointer;
+}
