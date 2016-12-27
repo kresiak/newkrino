@@ -123,6 +123,11 @@ var ProductService = (function () {
             });
         });
     };
+    ProductService.prototype.getAnnotatedCategoriesById = function (id) {
+        return this.getAnnotatedCategories().map(function (categories) { return categories.filter(function (s) {
+            return s.data._id === id;
+        })[0]; });
+    };
     // products
     // ========
     ProductService.prototype.updateProduct = function (product) {
@@ -176,6 +181,9 @@ var ProductService = (function () {
         return this.getAnnotatedProductsWithBasketInfo(this.dataStore.getDataObservable('products')).map(function (prods) {
             return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; });
         });
+    };
+    ProductService.prototype.getAnnotatedProductsWithBasketInfoById = function (id) {
+        return this.getAnnotatedProductsWithBasketInfoAll().map(function (products) { return products.filter(function (product) { return product.data._id === id; })[0]; });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfoBySupplier = function (supplierId) {
         return this.getAnnotatedProductsWithBasketInfo(this.getProductsBySupplier(supplierId)).map(function (prods) { return prods.sort(function (a, b) { return b.annotation.productFrequence - a.annotation.productFrequence; }); }).publishReplay(1).refCount();

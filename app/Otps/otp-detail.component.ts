@@ -5,34 +5,12 @@ import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
 import { UserService } from './../Shared/Services/user.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 
-
-@Component(
-    {
-        template: `<div class="card" *ngIf="otp"><div class="card-block"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= "otpObservable" [path]="'otp|'+otp.data._id"></gg-otp-detail></div></div>`
-    }
-)
-export class OtpDetailComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute) { }
-
-    ngOnInit(): void {
-        this.route.params.subscribe((params: Params) => {
-            let otpId = params['id'];
-            if (otpId) {
-                this.otpObservable = this.orderService.getAnnotatedOtpById(otpId);
-                this.otpObservable.subscribe(otp => {
-                    this.otp = otp
-                })
-            }
-        });
-    }
-    otpObservable: Observable<any>;
-    otp: any
-}
 
 
 @Component(
@@ -44,13 +22,14 @@ export class OtpDetailComponentRoutable implements OnInit {
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService, private router: Router) {
+        private chartService: ChartService, private navigationService: NavigationService, private router: Router) {
     }
     private pieSpentChart;
 
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
+    @Input() lastPath: string
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -109,12 +88,7 @@ export class OtpDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            let link = ['/otp', this.otp.data._id];
-            let navigationExtras: NavigationExtras = {
-                queryParams: { 'path': this.path }
-            }
-            this.router.navigate(link, navigationExtras);
-            return
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath)
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

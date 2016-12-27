@@ -13,6 +13,7 @@ var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
 var ProductListComponent = (function () {
     function ProductListComponent() {
+        this.path = 'products';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({
@@ -82,6 +83,10 @@ var ProductListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], ProductListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], ProductListComponent.prototype, "path", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

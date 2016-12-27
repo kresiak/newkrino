@@ -44,7 +44,7 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
+						<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

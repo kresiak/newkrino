@@ -15,13 +15,15 @@ var order_service_1 = require('./../Shared/Services/order.service');
 var data_service_1 = require('./../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(dataStore, productService, orderService, router, authService) {
+    function SupplierDetailComponent(dataStore, productService, orderService, router, authService, navigationService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.router = router;
         this.authService = authService;
+        this.navigationService = navigationService;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
@@ -57,6 +59,10 @@ var SupplierDetailComponent = (function () {
         this.router.navigate(link);
     };
     SupplierDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.lastPath);
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -120,6 +126,14 @@ var SupplierDetailComponent = (function () {
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)
+    ], SupplierDetailComponent.prototype, "path", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], SupplierDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
     ], SupplierDetailComponent.prototype, "initialTab", void 0);
     __decorate([
         core_1.Output(), 
@@ -131,7 +145,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService, navigation_service_1.NavigationService])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

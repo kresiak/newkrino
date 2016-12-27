@@ -13,6 +13,7 @@ var forms_1 = require('@angular/forms');
 var Rx_1 = require('rxjs/Rx');
 var OtpListComponent = (function () {
     function OtpListComponent() {
+        this.path = 'otps';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({

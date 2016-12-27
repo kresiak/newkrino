@@ -42,7 +42,7 @@
 					</template>
 					<template ngbPanelContent>
 						<gg-supplier-detail [supplierObservable]="getSupplierObservable(supplier.data._id)" [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail"
-							(stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
+							[path]="path+'|P:'+supplier.data._id"  (stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

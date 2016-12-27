@@ -13,11 +13,13 @@ var Rx_1 = require('rxjs/Rx');
 var data_service_1 = require('./../Shared/Services/data.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var product_service_1 = require('./../Shared/Services/product.service');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var CategoryDetailComponent = (function () {
-    function CategoryDetailComponent(dataStore, productService, orderService) {
+    function CategoryDetailComponent(dataStore, productService, orderService, navigationService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
+        this.navigationService = navigationService;
         this.stateChanged = new core_1.EventEmitter();
     }
     CategoryDetailComponent.prototype.stateInit = function () {
@@ -44,6 +46,10 @@ var CategoryDetailComponent = (function () {
         }
     };
     CategoryDetailComponent.prototype.beforeTabChange = function ($event) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/category', this.category.data._id, this.path, this.lastPath);
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -89,6 +95,14 @@ var CategoryDetailComponent = (function () {
         __metadata('design:type', Object)
     ], CategoryDetailComponent.prototype, "state", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], CategoryDetailComponent.prototype, "path", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], CategoryDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], CategoryDetailComponent.prototype, "stateChanged", void 0);
@@ -98,7 +112,7 @@ var CategoryDetailComponent = (function () {
             selector: 'gg-category-detail',
             templateUrl: './category-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService])
     ], CategoryDetailComponent);
     return CategoryDetailComponent;
 }());

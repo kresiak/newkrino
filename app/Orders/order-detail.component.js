@@ -15,34 +15,9 @@ var data_service_1 = require('../Shared/Services/data.service');
 var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
-var OrderComponentRoutable = (function () {
-    function OrderComponentRoutable(orderService, route) {
-        this.orderService = orderService;
-        this.route = route;
-    }
-    OrderComponentRoutable.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.subscribe(function (params) {
-            var orderId = params['id'];
-            if (orderId) {
-                _this.orderObservable = _this.orderService.getAnnotedOrder(orderId);
-                _this.orderObservable.subscribe(function (order) {
-                    _this.order = order;
-                });
-            }
-        });
-    };
-    OrderComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<div class=\"card\" *ngIf=\"order\"><div class=\"card-block\"><h6>Order {{order.data.kid}}</h6> <gg-order-detail [orderObservable]= \"orderObservable\"></gg-order-detail> </div></div>"
-        }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
-    ], OrderComponentRoutable);
-    return OrderComponentRoutable;
-}());
-exports.OrderComponentRoutable = OrderComponentRoutable;
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService, router) {
+    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService, router, navigationService) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
@@ -50,6 +25,7 @@ var OrderDetailComponent = (function () {
         this.elementRef = elementRef;
         this.modalService = modalService;
         this.router = router;
+        this.navigationService = navigationService;
         this.stateChanged = new core_1.EventEmitter();
     }
     OrderDetailComponent.prototype.stateInit = function () {
@@ -137,12 +113,7 @@ var OrderDetailComponent = (function () {
     OrderDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            var link = ['/order', this.order.data._id];
-            var navigationExtras = {
-                queryParams: { 'path': this.path }
-            };
-            this.router.navigate(link, navigationExtras);
-            return;
+            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.lastPath);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -161,6 +132,10 @@ var OrderDetailComponent = (function () {
         __metadata('design:type', String)
     ], OrderDetailComponent.prototype, "path", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OrderDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], OrderDetailComponent.prototype, "stateChanged", void 0);
@@ -170,7 +145,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal, router_1.Router])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal, router_1.Router, navigation_service_1.NavigationService])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

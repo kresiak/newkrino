@@ -35,7 +35,8 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
+						<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id" 
+						(stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

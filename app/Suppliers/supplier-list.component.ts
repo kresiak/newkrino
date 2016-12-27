@@ -25,6 +25,7 @@ export class SupplierListComponent implements OnInit {
     private suppliers; //: Observable<any>;
     @Input() suppliersObservable: Observable<any>;
     @Input() state;
+    @Input() path: string= 'suppliers'
     @Input() initialTabInSupplierDetail: string = '';
     @Output() stateChanged= new EventEmitter();
 

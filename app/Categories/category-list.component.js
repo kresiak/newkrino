@@ -16,6 +16,7 @@ var CategoryListComponent = (function () {
     function CategoryListComponent(productService) {
         this.productService = productService;
         this.openPanelId = "";
+        this.path = 'cqtegories';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({
@@ -60,6 +61,10 @@ var CategoryListComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', Object)
     ], CategoryListComponent.prototype, "state", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], CategoryListComponent.prototype, "path", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

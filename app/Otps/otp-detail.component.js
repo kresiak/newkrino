@@ -15,40 +15,16 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
+var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
-var OtpDetailComponentRoutable = (function () {
-    function OtpDetailComponentRoutable(orderService, route) {
-        this.orderService = orderService;
-        this.route = route;
-    }
-    OtpDetailComponentRoutable.prototype.ngOnInit = function () {
-        var _this = this;
-        this.route.params.subscribe(function (params) {
-            var otpId = params['id'];
-            if (otpId) {
-                _this.otpObservable = _this.orderService.getAnnotatedOtpById(otpId);
-                _this.otpObservable.subscribe(function (otp) {
-                    _this.otp = otp;
-                });
-            }
-        });
-    };
-    OtpDetailComponentRoutable = __decorate([
-        core_1.Component({
-            template: "<div class=\"card\" *ngIf=\"otp\"><div class=\"card-block\"><h6>Otp {{otp.data.name}}</h6> <gg-otp-detail [otpObservable]= \"otpObservable\" [path]=\"'otp|'+otp.data._id\"></gg-otp-detail></div></div>"
-        }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
-    ], OtpDetailComponentRoutable);
-    return OtpDetailComponentRoutable;
-}());
-exports.OtpDetailComponentRoutable = OtpDetailComponentRoutable;
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, router) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, navigationService, router) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
+        this.navigationService = navigationService;
         this.router = router;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -95,12 +71,7 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            var link = ['/otp', this.otp.data._id];
-            var navigationExtras = {
-                queryParams: { 'path': this.path }
-            };
-            this.router.navigate(link, navigationExtras);
-            return;
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -147,6 +118,10 @@ var OtpDetailComponent = (function () {
         __metadata('design:type', String)
     ], OtpDetailComponent.prototype, "path", void 0);
     __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], OtpDetailComponent.prototype, "lastPath", void 0);
+    __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
     ], OtpDetailComponent.prototype, "stateChanged", void 0);
@@ -156,7 +131,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, router_1.Router])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService, router_1.Router])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

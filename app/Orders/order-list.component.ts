@@ -29,7 +29,7 @@ export class OrderListComponent implements OnInit {
 
     @Input() ordersObservable: Observable<any>;
     @Input() state;
-    @Input() path: string
+    @Input() path: string= 'orders'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {

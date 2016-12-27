@@ -5,6 +5,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 
 @Component(
@@ -16,11 +17,13 @@ import * as moment from "moment"
 )
 
 export class CategoryDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService) {
     }
 
     @Input() categoryObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
+    @Input() lastPath: string    
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -53,6 +56,11 @@ export class CategoryDetailComponent implements OnInit {
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/category', this.category.data._id, this.path, this.lastPath)
+        }
+        
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

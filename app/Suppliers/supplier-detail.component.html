@@ -51,12 +51,12 @@
 	</ngb-tab>
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-grid [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-grid>
+			<gg-product-grid [productsObservable]="productsObservable"  [config]="{skip:['supplier']}"></gg-product-grid>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Shopping Basket" *ngIf='isThereABasket' id="tabBasket">
@@ -136,5 +136,10 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab id="tabMax">
+		<template ngbTabTitle><img src="./images/maximize.png"  /></template>
+		<template ngbTabContent></template>
+	</ngb-tab>
+	
 
 </ngb-tabset>

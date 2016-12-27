@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var EquipeListComponentRoutable = (function () {
     function EquipeListComponentRoutable() {
-        this.path = 'equipes';
     }
     EquipeListComponentRoutable.prototype.ngOnInit = function () {
     };

@@ -17,6 +17,7 @@ export class ProductListComponent implements OnInit {
     @Input() productsObservable: Observable<any>;
     @Input() config;
     @Input() state;
+    @Input() path: string= 'products'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {

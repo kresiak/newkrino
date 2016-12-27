@@ -5,29 +5,9 @@ import { DataStore } from '../Shared/Services/data.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationService } from './../Shared/Services/navigation.service'
 
-@Component(
-    {
-        template: `<div class="card" *ngIf="order"><div class="card-block"><h6>Order {{order.data.kid}}</h6> <gg-order-detail [orderObservable]= "orderObservable"></gg-order-detail> </div></div>`
-    }
-)
-export class OrderComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
-    ngOnInit(): void {
-        this.route.params.subscribe((params: Params) => {
-            let orderId = params['id'];
-            if (orderId) {
-                this.orderObservable = this.orderService.getAnnotedOrder(orderId);
-                this.orderObservable.subscribe(order => {
-                    this.order= order
-                })
-            }
-        });
-    }
-    orderObservable: Observable<any>;
-    order: any
-}
 
 
 @Component(
@@ -39,13 +19,15 @@ export class OrderComponentRoutable implements OnInit {
 )
 export class OrderDetailComponent implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService,
-        private dataStore: DataStore, private elementRef: ElementRef, private modalService: NgbModal, private router: Router) {
+        private dataStore: DataStore, private elementRef: ElementRef, private modalService: NgbModal, private router: Router, private navigationService: NavigationService) {
 
     }
 
     @Input() orderObservable: Observable<any>;
     @Input() state;
     @Input() path: string
+    @Input() lastPath: string
+    
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -148,12 +130,7 @@ export class OrderDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            let link = ['/order', this.order.data._id];
-            let navigationExtras: NavigationExtras = {
-                queryParams: { 'path': this.path }
-            }
-            this.router.navigate(link, navigationExtras);
-            return
+            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.lastPath)
         }
         
         this.state.selectedTabId = $event.nextId;
