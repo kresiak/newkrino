@@ -24,7 +24,11 @@ import {ProductDetailComponentRoutable} from './Products/product-detail.routable
 import {CategoryListComponent} from './Categories/category-list.component'
 import {CategoryListComponentRoutable} from './Categories/category-list.routable.component'
 import {CategoryDetailComponent} from './Categories/category-detail.component'
+
+import {CategoryEnterComponent} from './Categories/category-enter.component'
+
 import {CategoryDetailComponentRoutable} from './Categories/category-detail.routable.component'
+
 
 import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent} from './Otps/otp-list.component.js';
@@ -125,7 +129,9 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
-                  CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryDetailComponentRoutable,
+
+                  CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
+
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 
