@@ -3,7 +3,7 @@
 		<ngb-tabset>
 			<ngb-tab title="View Suppliers" id="tabView">
 				<template ngbTabContent>
-                    <gg-supplier-list [suppliersObservable]= "suppliersObservable"></gg-supplier-list>
+                    <gg-supplier-list [state]="state" [suppliersObservable]= "suppliersObservable"></gg-supplier-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Create a Supplier" id="tabCreate">

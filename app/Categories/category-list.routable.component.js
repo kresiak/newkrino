@@ -9,17 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var CategoryListComponentRoutable = (function () {
-    function CategoryListComponentRoutable() {
+    function CategoryListComponentRoutable(navigationService) {
+        this.navigationService = navigationService;
     }
     CategoryListComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
     };
     CategoryListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './category-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [navigation_service_1.NavigationService])
     ], CategoryListComponentRoutable);
     return CategoryListComponentRoutable;
 }());

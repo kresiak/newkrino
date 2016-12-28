@@ -1,7 +1,7 @@
 <div class="card" *ngIf="product">
     <div class="card-block">
         <h6>Product {{product.data.name}}</h6>
-        <gg-product-detail [productObservable]="productObservable" [path]="'product|'+product.data._id" [isRoot]="true" ></gg-product-detail>        
+        <gg-product-detail [productObservable]="productObservable" [state]="state" [path]="'product|'+product.data._id" [isRoot]="true" ></gg-product-detail>        
     </div>
 </div>
 

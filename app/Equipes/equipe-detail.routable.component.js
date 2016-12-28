@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var order_service_1 = require('../Shared/Services/order.service');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var EquipeDetailComponentRoutable = (function () {
-    function EquipeDetailComponentRoutable(orderService, route) {
+    function EquipeDetailComponentRoutable(orderService, route, navigationService) {
         this.orderService = orderService;
         this.route = route;
+        this.navigationService = navigationService;
     }
     EquipeDetailComponentRoutable.prototype.initData = function (id) {
         var _this = this;
@@ -27,6 +29,9 @@ var EquipeDetailComponentRoutable = (function () {
     };
     EquipeDetailComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
         this.route.params.subscribe(function (params) {
             var id = params['id'];
             _this.initData(id);
@@ -37,7 +42,7 @@ var EquipeDetailComponentRoutable = (function () {
             moduleId: module.id,
             templateUrl: './equipe-detail.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, navigation_service_1.NavigationService])
     ], EquipeDetailComponentRoutable);
     return EquipeDetailComponentRoutable;
 }());

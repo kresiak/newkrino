@@ -11,21 +11,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var ProductListComponentRoutable = (function () {
-    function ProductListComponentRoutable(productService, supplierService) {
+    function ProductListComponentRoutable(productService, supplierService, navigationService) {
         this.productService = productService;
         this.supplierService = supplierService;
+        this.navigationService = navigationService;
     }
     ProductListComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
     };
     ProductListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './product-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, supplier_service_1.SupplierService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, supplier_service_1.SupplierService, navigation_service_1.NavigationService])
     ], ProductListComponentRoutable);
     return ProductListComponentRoutable;
 }());

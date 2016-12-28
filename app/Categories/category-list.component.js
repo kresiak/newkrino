@@ -16,7 +16,7 @@ var CategoryListComponent = (function () {
     function CategoryListComponent(productService) {
         this.productService = productService;
         this.openPanelId = "";
-        this.path = 'cqtegories';
+        this.path = 'categories';
         this.stateChanged = new core_1.EventEmitter();
         this.searchControl = new forms_1.FormControl();
         this.searchForm = new forms_1.FormGroup({

@@ -10,11 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var order_service_1 = require('./../Shared/Services/order.service');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var OtpListComponentRoutable = (function () {
-    function OtpListComponentRoutable(orderService) {
+    function OtpListComponentRoutable(orderService, navigationService) {
         this.orderService = orderService;
+        this.navigationService = navigationService;
     }
     OtpListComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
         this.otpsObservable = this.orderService.getAnnotatedOtps();
     };
     OtpListComponentRoutable = __decorate([
@@ -22,7 +28,7 @@ var OtpListComponentRoutable = (function () {
             moduleId: module.id,
             templateUrl: './otp-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, navigation_service_1.NavigationService])
     ], OtpListComponentRoutable);
     return OtpListComponentRoutable;
 }());

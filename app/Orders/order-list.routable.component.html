@@ -3,7 +3,7 @@
         <ngb-tabset>
             <ngb-tab title="View Orders" id="tabView">
                 <template ngbTabContent>
-                    <gg-order-list [ordersObservable]="ordersObservable"></gg-order-list>
+                    <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>
                 </template>
             </ngb-tab>
             <ngb-tab title="Create an Order" id="tabCreate">

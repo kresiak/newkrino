@@ -3,7 +3,7 @@
         <ngb-tabset>
             <ngb-tab title="View Products" id="tabView">
                 <template ngbTabContent>
-                    <gg-product-list [productsObservable]="productsObservable"></gg-product-list>
+                    <gg-product-list [state]="state" [productsObservable]="productsObservable"></gg-product-list>
                 </template>
             </ngb-tab>
             <ngb-tab title="Create a Product" id="tabCreate">

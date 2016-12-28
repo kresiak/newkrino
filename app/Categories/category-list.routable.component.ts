@@ -1,15 +1,22 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
+import { NavigationService } from '../Shared/Services/navigation.service'
 
 @Component(
     {
         moduleId: module.id,
-        templateUrl: './category-list.routable.component.html'        
+        templateUrl: './category-list.routable.component.html'
     }
 )
 export class CategoryListComponentRoutable implements OnInit {
-    constructor() { }
+    constructor(private navigationService: NavigationService) { }
+
+    state: {}
+
 
     ngOnInit(): void {
+        this.navigationService.getStateObservable().subscribe(state => {
+            this.state= state
+        })        
     }
 }

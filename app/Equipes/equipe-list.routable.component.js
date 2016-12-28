@@ -9,17 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var EquipeListComponentRoutable = (function () {
-    function EquipeListComponentRoutable() {
+    function EquipeListComponentRoutable(navigationService) {
+        this.navigationService = navigationService;
     }
     EquipeListComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
     };
     EquipeListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './equipe-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [navigation_service_1.NavigationService])
     ], EquipeListComponentRoutable);
     return EquipeListComponentRoutable;
 }());

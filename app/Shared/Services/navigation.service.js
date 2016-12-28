@@ -18,6 +18,51 @@ var NavStackElement = (function () {
     }
     return NavStackElement;
 }());
+var Path2StateHelper = (function () {
+    function Path2StateHelper(path) {
+        this.separator = '|';
+        this.path = path;
+        this.tokens = this.path.split(this.separator);
+    }
+    Path2StateHelper.prototype.getCmd = function () {
+        return this.tokens[0];
+    };
+    Path2StateHelper.prototype.isForDetailView = function () {
+        var cmd = this.getCmd();
+        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S';
+    };
+    Path2StateHelper.prototype.generateState = function (arrPath) {
+        var result = arrPath.reduce(function (acc, item) {
+            if (!acc.current)
+                acc.current = acc.result;
+            var arr = item.split(':');
+            var value = arr[1];
+            switch (arr[0]) {
+                case 'P':
+                    acc.current.openPanelId = value;
+                    break;
+                case 'O':
+                    acc.current.selectedTabId = 'tab' + value;
+                    break;
+            }
+            acc.current[value] = {};
+            acc.current = acc.current[value];
+            return acc;
+        }, { result: {}, current: null });
+        return result.result;
+    };
+    Path2StateHelper.prototype.getNavigationCommands = function () {
+        var link = ['/' + this.getCmd()];
+        if (this.isForDetailView())
+            link.push(this.tokens[1]);
+        return link;
+    };
+    Path2StateHelper.prototype.getState = function () {
+        var tokens = this.tokens.slice(this.isForDetailView() ? 2 : 1);
+        return this.generateState(tokens);
+    };
+    return Path2StateHelper;
+}());
 var NavigationService = (function () {
     function NavigationService(router, route) {
         this.router = router;
@@ -41,61 +86,39 @@ var NavigationService = (function () {
                 };
                 _this.router.navigate(link, navigationExtras);
             }
-            else {
+            else if (lastPathId || lastPathId === 0) {
                 var stackElement = _this.navStack[lastPathId];
                 if (stackElement) {
                     var path = stackElement.path;
-                    var tokens = path.split('|');
-                    var cmd = tokens[0];
-                    var link = [cmd];
-                    if (_this.isPathForDetailView(cmd))
-                        link.push(tokens[1]);
-                    var state = tokens.slice(_this.isPathForDetailView(cmd) ? 2 : 1).join('|');
+                    var helper = new Path2StateHelper(path);
                     var navigationExtras = {
                         queryParams: {}
                     };
                     if (stackElement.lastPosition && stackElement.lastPosition != -1) {
                         navigationExtras.queryParams['lpid'] = stackElement.lastPosition;
                     }
-                    navigationExtras.queryParams['state'] = state;
-                    _this.router.navigate(link, navigationExtras);
+                    navigationExtras.queryParams['pid'] = lastPathId;
+                    _this.router.navigate(helper.getNavigationCommands(), navigationExtras);
                 }
             }
         });
     };
-    NavigationService.prototype.isPathForDetailView = function (cmd) {
-        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S';
-    };
-    NavigationService.prototype.generateState = function (arrPath) {
-        var result = arrPath.reduce(function (acc, item) {
-            if (!acc.current)
-                acc.current = acc.result;
-            var arr = item.split(':');
-            var value = arr[1];
-            switch (arr[0]) {
-                case 'P':
-                    acc.current.openPanelId = value;
-                    break;
-                case 'O':
-                    acc.current.selectedTabId = 'tab' + value;
-                    break;
+    NavigationService.prototype.getStateObservable = function () {
+        var _this = this;
+        return this.route.queryParams.map(function (queryParams) {
+            var pathId = queryParams['pid'];
+            if (pathId || pathId === 0) {
+                var stackElement = _this.navStack[pathId];
+                if (!stackElement)
+                    return {};
+                var path = stackElement.path;
+                var helper = new Path2StateHelper(path);
+                return helper.getState();
             }
-            acc.current[value] = {};
-            acc.current = acc.current[value];
-            return acc;
-        }, { result: {}, current: null });
-        return result.result;
-    };
-    NavigationService.prototype.initState = function (inputPath) {
-        var tokens = inputPath.split('|');
-        var viewMode = tokens[0];
-        switch (viewMode) {
-            case 'equipes':
-                return this.generateState(tokens.slice(1));
-            case 'otp':
-            default:
-        }
-        return null;
+            else {
+                return {};
+            }
+        });
     };
     NavigationService = __decorate([
         core_1.Injectable(), 

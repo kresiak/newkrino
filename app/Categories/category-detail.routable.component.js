@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var product_service_1 = require('../Shared/Services/product.service');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var CategoryDetailComponentRoutable = (function () {
-    function CategoryDetailComponentRoutable(productService, route) {
+    function CategoryDetailComponentRoutable(productService, route, navigationService) {
         this.productService = productService;
         this.route = route;
+        this.navigationService = navigationService;
     }
     CategoryDetailComponentRoutable.prototype.initData = function (id) {
         var _this = this;
@@ -27,6 +29,9 @@ var CategoryDetailComponentRoutable = (function () {
     };
     CategoryDetailComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
         this.route.params.subscribe(function (params) {
             var id = params['id'];
             _this.initData(id);
@@ -37,7 +42,7 @@ var CategoryDetailComponentRoutable = (function () {
             moduleId: module.id,
             templateUrl: './category-detail.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute, navigation_service_1.NavigationService])
     ], CategoryDetailComponentRoutable);
     return CategoryDetailComponentRoutable;
 }());

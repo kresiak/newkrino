@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable } from 'rxjs/Rx'
 
 @Component(
@@ -9,10 +10,16 @@ import { Observable } from 'rxjs/Rx'
 )
 export class EquipeListComponentRoutable implements OnInit {
     
-    constructor() { 
+    constructor(private navigationService: NavigationService) { 
 
     }
 
+    state: {}
+
+
     ngOnInit(): void {
+        this.navigationService.getStateObservable().subscribe(state => {
+            this.state= state
+        })        
     }
 }

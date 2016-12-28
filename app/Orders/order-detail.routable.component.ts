@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
+import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 
 @Component(
@@ -10,9 +11,10 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
     }
 )
 export class OrderComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private navigationService: NavigationService) { }
 
     order: any
+    state: {}
 
     orderObservable: Observable<any>;
     initData(id: string) {
@@ -25,6 +27,9 @@ export class OrderComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
+        this.navigationService.getStateObservable().subscribe(state => {
+            this.state= state
+        })        
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)

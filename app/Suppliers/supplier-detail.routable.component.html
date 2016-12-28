@@ -1,7 +1,7 @@
 <div class="card" *ngIf="supplier">
     <div class="card-block">
         <h6>Supplier {{supplier.data.name}}</h6>
-        <gg-supplier-detail [supplierObservable]="supplierObservable" [path]="'supplier|'+supplier.data._id" [isRoot]="true"></gg-supplier-detail>        
+        <gg-supplier-detail [supplierObservable]="supplierObservable" [path]="'supplier|'+supplier.data._id" [state]="state" [isRoot]="true"></gg-supplier-detail>        
     </div>
 </div>
 

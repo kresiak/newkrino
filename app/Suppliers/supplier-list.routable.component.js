@@ -10,11 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
+var navigation_service_1 = require('../Shared/Services/navigation.service');
 var SupplierListComponentRoutable = (function () {
-    function SupplierListComponentRoutable(supplierService) {
+    function SupplierListComponentRoutable(supplierService, navigationService) {
         this.supplierService = supplierService;
+        this.navigationService = navigationService;
     }
     SupplierListComponentRoutable.prototype.ngOnInit = function () {
+        var _this = this;
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
+        });
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
     };
     SupplierListComponentRoutable = __decorate([
@@ -22,7 +28,7 @@ var SupplierListComponentRoutable = (function () {
             moduleId: module.id,
             templateUrl: './supplier-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService])
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService, navigation_service_1.NavigationService])
     ], SupplierListComponentRoutable);
     return SupplierListComponentRoutable;
 }());
