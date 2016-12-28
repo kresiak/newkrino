@@ -105,7 +105,7 @@ var NavigationService = (function () {
     };
     NavigationService.prototype.getStateObservable = function () {
         var _this = this;
-        return this.route.queryParams.map(function (queryParams) {
+        return this.route.queryParams.first().map(function (queryParams) {
             var pathId = queryParams['pid'];
             if (pathId || pathId === 0) {
                 var stackElement = _this.navStack[pathId];

@@ -107,7 +107,7 @@ export class NavigationService {
     }
 
     getStateObservable(): Observable<Object> {
-        return this.route.queryParams.map(queryParams => {            
+        return this.route.queryParams.first().map(queryParams => {            
             let pathId = queryParams['pid'];
             if (pathId || pathId===0){
                 let stackElement = this.navStack[pathId];
