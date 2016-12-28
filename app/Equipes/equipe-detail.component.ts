@@ -22,7 +22,7 @@ export class EquipeDetailComponent implements OnInit {
     @Input() equipeObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() lastPath: string
+    @Input() isRoot: boolean=false
     
     @Input() initialTab: string = '';
     @Output() stateChanged= new EventEmitter();
@@ -80,7 +80,7 @@ export class EquipeDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.lastPath)
+            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.isRoot)
         }
         
         this.state.selectedTabId = $event.nextId;

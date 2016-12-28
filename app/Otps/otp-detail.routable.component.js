@@ -27,9 +27,6 @@ var OtpDetailComponentRoutable = (function () {
     };
     OtpDetailComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.queryParams.subscribe(function (queryParams) {
-            _this.lastPath = queryParams['path'];
-        });
         this.route.params.subscribe(function (params) {
             var id = params['id'];
             _this.initData(id);

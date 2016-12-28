@@ -26,7 +26,7 @@ export class OrderDetailComponent implements OnInit {
     @Input() orderObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() lastPath: string
+    @Input() isRoot: boolean=false
     
     @Output() stateChanged = new EventEmitter();
 
@@ -130,7 +130,7 @@ export class OrderDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.lastPath)
+            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.isRoot)
         }
         
         this.state.selectedTabId = $event.nextId;

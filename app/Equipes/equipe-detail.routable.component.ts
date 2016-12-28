@@ -13,7 +13,6 @@ export class EquipeDetailComponentRoutable implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
     equipe: any
-    lastPath: string
 
     equipeObservable: Observable<any>;
     initData(id: string) {
@@ -26,9 +25,6 @@ export class EquipeDetailComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe(queryParams => {
-            this.lastPath = queryParams['path'];
-        })
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)

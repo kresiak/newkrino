@@ -22,6 +22,7 @@ var EquipeDetailComponent = (function () {
         this.userService = userService;
         this.chartService = chartService;
         this.navigationService = navigationService;
+        this.isRoot = false;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -61,7 +62,7 @@ var EquipeDetailComponent = (function () {
     EquipeDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.lastPath);
+            this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.isRoot);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -105,8 +106,8 @@ var EquipeDetailComponent = (function () {
     ], EquipeDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
-    ], EquipeDetailComponent.prototype, "lastPath", void 0);
+        __metadata('design:type', Boolean)
+    ], EquipeDetailComponent.prototype, "isRoot", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)

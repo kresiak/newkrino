@@ -1,7 +1,7 @@
 <div class="card" *ngIf="equipe">
     <div class="card-block">
         <h6>Equipe {{equipe.data.name}}</h6>
-        <gg-equipe-detail [equipeObservable]="equipeObservable" [path]="'equipe|'+equipe.data._id" [lastPath]="lastPath"></gg-equipe-detail>        
+        <gg-equipe-detail [equipeObservable]="equipeObservable" [path]="'equipe|'+equipe.data._id"  [isRoot]="true"></gg-equipe-detail>        
     </div>
 </div>
 

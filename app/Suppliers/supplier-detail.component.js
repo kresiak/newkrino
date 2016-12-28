@@ -24,6 +24,7 @@ var SupplierDetailComponent = (function () {
         this.router = router;
         this.authService = authService;
         this.navigationService = navigationService;
+        this.isRoot = false;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
         this.isThereABasket = false;
@@ -61,7 +62,7 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.lastPath);
+            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.isRoot);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -129,8 +130,8 @@ var SupplierDetailComponent = (function () {
     ], SupplierDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
-    ], SupplierDetailComponent.prototype, "lastPath", void 0);
+        __metadata('design:type', Boolean)
+    ], SupplierDetailComponent.prototype, "isRoot", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', String)

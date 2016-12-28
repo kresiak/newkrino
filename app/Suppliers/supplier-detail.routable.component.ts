@@ -13,7 +13,6 @@ export class SupplierDetailComponentRoutable implements OnInit {
     constructor(private supplierService: SupplierService, private route: ActivatedRoute) { }
 
     supplier: any
-    lastPath: string
 
     supplierObservable: Observable<any>;
     initData(id: string) {
@@ -26,9 +25,6 @@ export class SupplierDetailComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe(queryParams => {
-            this.lastPath = queryParams['path'];
-        })
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)

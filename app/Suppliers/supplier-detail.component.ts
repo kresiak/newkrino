@@ -24,7 +24,7 @@ export class SupplierDetailComponent implements OnInit {
     @Input() supplierObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() lastPath: string    
+    @Input() isRoot: boolean = false
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
 
@@ -37,7 +37,7 @@ export class SupplierDetailComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);        
+        this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
         this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
@@ -48,7 +48,7 @@ export class SupplierDetailComponent implements OnInit {
                 this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
                 this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
                 this.authService.getAnnotatedCurrentUser().subscribe(user => {
-                    this.currentAnnotatedUser= user
+                    this.currentAnnotatedUser = user
                 })
             }
         });
@@ -64,7 +64,7 @@ export class SupplierDetailComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
     private currentAnnotatedUser: any;
-    
+
 
     gotoPreOrder() {
         let link = ['/preorder', this.supplier.data._id];
@@ -74,7 +74,7 @@ export class SupplierDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.lastPath)
+            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.isRoot)
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -92,13 +92,13 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     webShoppingUpdated(isEnabled) {
-        if (! this.supplier.data.webShopping) this.supplier.data.webShopping= {}
-        this.supplier.data.webShopping.isEnabled= isEnabled
-         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        if (!this.supplier.data.webShopping) this.supplier.data.webShopping = {}
+        this.supplier.data.webShopping.isEnabled = isEnabled
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
     }
 
     categorySelectionChanged(selectedIds: string[]) {
-        if (! this.supplier.data.webShopping) this.supplier.data.webShopping= {}
+        if (!this.supplier.data.webShopping) this.supplier.data.webShopping = {}
         this.supplier.data.webShopping.categoryIds = selectedIds;
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
     }
@@ -106,27 +106,27 @@ export class SupplierDetailComponent implements OnInit {
     categoryHasBeenAdded(newCategory: string) {
         this.productService.createCategory(newCategory);
     }
-    
+
     nbVouchersOrdered(categoryId): number {
         return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0
     }
 
     nbVouchersOrderedUpdated(categoryId, nbOrdered) {
-        if (!this.currentAnnotatedUser.data.voucherRequests) this.currentAnnotatedUser.data.voucherRequests= []
-        let request= this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplier.data._id && request.categoryId === categoryId)[0]
-        if (! request) {
+        if (!this.currentAnnotatedUser.data.voucherRequests) this.currentAnnotatedUser.data.voucherRequests = []
+        let request = this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplier.data._id && request.categoryId === categoryId)[0]
+        if (!request) {
             if (nbOrdered === 0) return
-            request= {
+            request = {
                 supplierId: this.supplier.data._id,
                 categoryId: categoryId
             }
             this.currentAnnotatedUser.data.voucherRequests.push(request)
         }
         if (nbOrdered === 0) {
-            let index= this.currentAnnotatedUser.data.voucherRequests.findIndex(req => req === request)
+            let index = this.currentAnnotatedUser.data.voucherRequests.findIndex(req => req === request)
             this.currentAnnotatedUser.data.voucherRequests.splice(index, 1)
         }
-        request.quantity= nbOrdered
+        request.quantity = nbOrdered
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data)
     }
 }

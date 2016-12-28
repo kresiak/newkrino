@@ -14,7 +14,6 @@ export class OtpDetailComponentRoutable implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
     ourObject: any
-    lastPath: string
 
     otpObservable: Observable<any>;
     initData(id: string) {
@@ -27,9 +26,6 @@ export class OtpDetailComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe(queryParams => {
-            this.lastPath = queryParams['path'];
-        })
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)

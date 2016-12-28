@@ -20,6 +20,7 @@ var ProductDetailComponent = (function () {
         this.productService = productService;
         this.orderService = orderService;
         this.navigationService = navigationService;
+        this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
     ProductDetailComponent.prototype.stateInit = function () {
@@ -59,7 +60,7 @@ var ProductDetailComponent = (function () {
     ProductDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.lastPath);
+            this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.isRoot);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -123,8 +124,8 @@ var ProductDetailComponent = (function () {
     ], ProductDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
-    ], ProductDetailComponent.prototype, "lastPath", void 0);
+        __metadata('design:type', Boolean)
+    ], ProductDetailComponent.prototype, "isRoot", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

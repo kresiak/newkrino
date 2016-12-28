@@ -1,7 +1,7 @@
 <div class="card" *ngIf="category">
     <div class="card-block">
         <h6>Category {{category.data.name}}</h6>
-        <gg-category-detail [categoryObservable]="categoryObservable" [path]="'category|'+category.data._id" [lastPath]="lastPath"></gg-category-detail>        
+        <gg-category-detail [categoryObservable]="categoryObservable" [path]="'category|'+category.data._id"  [isRoot]="true"></gg-category-detail>        
     </div>
 </div>
 

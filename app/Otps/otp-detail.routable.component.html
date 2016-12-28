@@ -1,6 +1,6 @@
 <div class="card" *ngIf="ourObject">
     <div class="card-block">
         <h6>Otp {{ourObject.data.name}}</h6>
-        <gg-otp-detail [otpObservable]="otpObservable" [path]="'otp|'+ourObject.data._id" [lastPath]="lastPath"></gg-otp-detail>
+        <gg-otp-detail [otpObservable]="otpObservable" [path]="'otp|'+ourObject.data._id"  [isRoot]="true"></gg-otp-detail>
     </div>
 </div>

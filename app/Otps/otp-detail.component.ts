@@ -29,7 +29,7 @@ export class OtpDetailComponent implements OnInit {
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() lastPath: string
+    @Input() isRoot: boolean=false
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -88,7 +88,7 @@ export class OtpDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath)
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.isRoot)
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
-import {OrderService} from './../Shared/Services/order.service'
+import { OrderService } from './../Shared/Services/order.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -25,7 +25,7 @@ export class ProductDetailComponent implements OnInit {
     @Input() productObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() lastPath: string    
+    @Input() isRoot: boolean = false
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -40,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
         this.productObservable.subscribe(product => {
             this.product = product;
             if (product) {
-                this.ordersObservable= this.orderService.getAnnotedOrdersByProduct(product.data._id)
+                this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
             }
         });
     }
@@ -76,9 +76,9 @@ export class ProductDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.lastPath)
+            this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.isRoot)
         }
-        
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

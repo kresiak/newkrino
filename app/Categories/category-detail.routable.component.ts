@@ -13,7 +13,6 @@ export class CategoryDetailComponentRoutable implements OnInit {
     constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
     category: any
-    lastPath: string
 
     categoryObservable: Observable<any>;
     initData(id: string) {
@@ -26,9 +25,6 @@ export class CategoryDetailComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams.subscribe(queryParams => {
-            this.lastPath = queryParams['path'];
-        })
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)

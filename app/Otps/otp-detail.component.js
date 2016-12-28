@@ -26,6 +26,7 @@ var OtpDetailComponent = (function () {
         this.chartService = chartService;
         this.navigationService = navigationService;
         this.router = router;
+        this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
     OtpDetailComponent.prototype.stateInit = function () {
@@ -71,7 +72,7 @@ var OtpDetailComponent = (function () {
     OtpDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.lastPath);
+            this.navigationService.maximizeOrUnmaximize('/otp', this.otp.data._id, this.path, this.isRoot);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -119,8 +120,8 @@ var OtpDetailComponent = (function () {
     ], OtpDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
-    ], OtpDetailComponent.prototype, "lastPath", void 0);
+        __metadata('design:type', Boolean)
+    ], OtpDetailComponent.prototype, "isRoot", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)

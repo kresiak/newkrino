@@ -26,6 +26,7 @@ var OrderDetailComponent = (function () {
         this.modalService = modalService;
         this.router = router;
         this.navigationService = navigationService;
+        this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
     OrderDetailComponent.prototype.stateInit = function () {
@@ -113,7 +114,7 @@ var OrderDetailComponent = (function () {
     OrderDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.lastPath);
+            this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.isRoot);
         }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
@@ -133,8 +134,8 @@ var OrderDetailComponent = (function () {
     ], OrderDetailComponent.prototype, "path", void 0);
     __decorate([
         core_1.Input(), 
-        __metadata('design:type', String)
-    ], OrderDetailComponent.prototype, "lastPath", void 0);
+        __metadata('design:type', Boolean)
+    ], OrderDetailComponent.prototype, "isRoot", void 0);
     __decorate([
         core_1.Output(), 
         __metadata('design:type', Object)
