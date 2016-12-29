@@ -64,6 +64,11 @@ var SupplierDetailComponent = (function () {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.isRoot);
         }
+        if ($event.nextId === 'gotoTop') {
+            $event.preventDefault();
+            this.navigationService.jumpToTop();
+            return;
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };

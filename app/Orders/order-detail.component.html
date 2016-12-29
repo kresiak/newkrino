@@ -1,3 +1,5 @@
+<template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
+
 <template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<button type="button" class="close" (click)="d('Cross click')">
@@ -173,10 +175,10 @@
 			</template>
 		</ngb-tab>
 	<ngb-tab id="tabMax">
-		<template ngbTabTitle><img src="./images/maximize.png" ngbPopover="Click here to get a detail view" triggers="mouseenter:mouseleave" /></template>
+		<template ngbTabTitle><img src="./images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
-	<ngb-tab id="gotoTop">
+	<ngb-tab id="gotoTop" *ngIf="!isRoot">
 		<template ngbTabTitle><img src="./images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>

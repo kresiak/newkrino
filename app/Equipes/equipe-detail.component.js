@@ -64,6 +64,11 @@ var EquipeDetailComponent = (function () {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/equipe', this.equipe.data._id, this.path, this.isRoot);
         }
+        if ($event.nextId === 'gotoTop') {
+            $event.preventDefault();
+            this.navigationService.jumpToTop();
+            return;
+        }
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
