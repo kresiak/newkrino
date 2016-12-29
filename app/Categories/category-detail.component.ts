@@ -60,6 +60,11 @@ export class CategoryDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/category', this.category.data._id, this.path, this.isRoot)
         }
+        if ($event.nextId === 'gotoTop') {
+            $event.preventDefault();
+            this.navigationService.jumpToTop()
+            return
+        }        
         
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

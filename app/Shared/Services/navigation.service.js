@@ -136,18 +136,14 @@ var NavigationService = (function () {
                     return;
                 var state = helper.getState();
                 if (state['openPanelId']) {
-                    _this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0);
+                    _this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0); //in every list component, in the html, we put a  id 
                 }
             }
         });
-        /*        var self=this
-                var xx= function() {
-                    //self.simplePageScrollService.scrollToElement('#gggoto', 0)
-                    self.simplePageScrollService.scrollToElement('#58404ee1280a8833c87528f2', 0)
-                }
-                
-                setTimeout(xx, 1000)
-        */ };
+    };
+    NavigationService.prototype.jumpToTop = function () {
+        this.simplePageScrollService.scrollToElement('#GGTOP', 0);
+    };
     NavigationService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, ng2_simple_page_scroll_1.SimplePageScrollService])

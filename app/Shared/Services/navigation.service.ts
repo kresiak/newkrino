@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
-import {SimplePageScrollService} from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
+import { SimplePageScrollService } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
 
 
 class NavStackElement {
@@ -89,7 +89,7 @@ export class NavigationService {
                 }
                 this.router.navigate(link, navigationExtras);
             }
-            else if (lastPathId || lastPathId===0) {
+            else if (lastPathId || lastPathId === 0) {
                 let stackElement = this.navStack[lastPathId];
                 if (stackElement) {
                     let path = stackElement.path
@@ -109,14 +109,14 @@ export class NavigationService {
     }
 
     getStateObservable(): Observable<Object> {
-        return this.route.queryParams.first().map(queryParams => {            
+        return this.route.queryParams.first().map(queryParams => {
             let pathId = queryParams['pid'];
-            if (pathId || pathId===0){
+            if (pathId || pathId === 0) {
                 let stackElement = this.navStack[pathId];
                 if (!stackElement) return {}
                 let path = stackElement.path
                 let helper = new Path2StateHelper(path)
-                return helper.getState()                
+                return helper.getState()
             }
             else {
                 return {}
@@ -125,28 +125,23 @@ export class NavigationService {
     }
 
     jumpToOpenRootAccordionElement() {     // it would be better to jump to innerest open accordion but it doesn't work with simplePageScrollService
-        this.route.queryParams.first().subscribe(queryParams => {            
+        this.route.queryParams.first().subscribe(queryParams => {
             let pathId = queryParams['pid'];
-            if (pathId || pathId===0){
+            if (pathId || pathId === 0) {
                 let stackElement = this.navStack[pathId];
-                if (!stackElement) return 
+                if (!stackElement) return
                 let path = stackElement.path
                 let helper = new Path2StateHelper(path)
                 if (helper.isForDetailView()) return
-                var state= helper.getState()   
-                if (state['openPanelId']){
-                    this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0)        
-                }             
+                var state = helper.getState()
+                if (state['openPanelId']) {
+                    this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0)  //in every list component, in the html, we put a  id 
+                }
             }
         })
+    }
 
-
-/*        var self=this
-        var xx= function() {
-            //self.simplePageScrollService.scrollToElement('#gggoto', 0)
-            self.simplePageScrollService.scrollToElement('#58404ee1280a8833c87528f2', 0)
-        }
-        
-        setTimeout(xx, 1000)        
-*/    }
+    jumpToTop() {
+        this.simplePageScrollService.scrollToElement('#GGTOP', 0) 
+    }
 }
