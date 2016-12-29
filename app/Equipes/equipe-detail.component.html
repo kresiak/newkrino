@@ -104,7 +104,11 @@
 		</template>
 	</ngb-tab>
 	<ngb-tab id="tabMax">
-		<template ngbTabTitle><img src="./images/maximize.png"  /></template>
+		<template ngbTabTitle><img src="./images/maximize.png" ngbPopover="Click here to get a detail view" triggers="mouseenter:mouseleave" /></template>
+		<template ngbTabContent></template>
+	</ngb-tab>
+	<ngb-tab id="gotoTop">
+		<template ngbTabTitle><img src="./images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
 	
