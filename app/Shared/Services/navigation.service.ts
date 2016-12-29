@@ -124,7 +124,7 @@ export class NavigationService {
         })
     }
 
-    jumpToOpenRootAccordionElement() {
+    jumpToOpenRootAccordionElement() {     // it would be better to jump to innerest open accordion but it doesn't work with simplePageScrollService
         this.route.queryParams.first().subscribe(queryParams => {            
             let pathId = queryParams['pid'];
             if (pathId || pathId===0){
