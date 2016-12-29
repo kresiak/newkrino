@@ -36,7 +36,7 @@
 				</ngb-panel>
 				<ngb-panel *ngFor="let order of orders2Observable | async " [id]="order.data._id">
 					<template ngbPanelTitle>
-						<div class="row">
+						<div class="row" id="{{order.data._id}}">
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
 							<div class="col-sm-1">{{order.data.kid}}</div>
 							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>

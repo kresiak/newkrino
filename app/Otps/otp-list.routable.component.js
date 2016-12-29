@@ -16,6 +16,9 @@ var OtpListComponentRoutable = (function () {
         this.orderService = orderService;
         this.navigationService = navigationService;
     }
+    OtpListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     OtpListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.navigationService.getStateObservable().subscribe(function (state) {

@@ -14,6 +14,9 @@ var EquipeListComponentRoutable = (function () {
     function EquipeListComponentRoutable(navigationService) {
         this.navigationService = navigationService;
     }
+    EquipeListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     EquipeListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.navigationService.getStateObservable().subscribe(function (state) {

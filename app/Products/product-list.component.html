@@ -35,7 +35,7 @@
 				</ngb-panel>
 				<ngb-panel *ngFor="let product of products" [id]="product.data._id">
 					<template ngbPanelTitle>
-						<div class="row">
+						<div class="row" id="{{product.data._id}}">
 							<div class="col-sm-3">{{product.data.name}}</div>
 							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
 							<div class="col-sm-2">{{product.data.package}}</div>

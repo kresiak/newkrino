@@ -32,7 +32,7 @@
 				</ngb-panel>
 				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
 					<template ngbPanelTitle>
-						<div class="row">
+						<div class="row" id="{{supplier.data._id}}">
 							<div class="col-sm-4">{{supplier.data.name}}</div>
 							<div class="col-sm-3">{{supplier.data.city}}</div>
 							<div class="col-sm-2">{{supplier.data.country}}</div>

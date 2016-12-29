@@ -14,6 +14,9 @@ var CategoryListComponentRoutable = (function () {
     function CategoryListComponentRoutable(navigationService) {
         this.navigationService = navigationService;
     }
+    CategoryListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     CategoryListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.navigationService.getStateObservable().subscribe(function (state) {

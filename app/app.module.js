@@ -15,6 +15,7 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var angular2_chartist_1 = require('angular2-chartist');
+var ng2_simple_page_scroll_1 = require('ng2-simple-page-scroll/ng2-simple-page-scroll');
 var app_component_1 = require('./app.component');
 var home_component_1 = require('./home.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
@@ -96,6 +97,7 @@ var AppModule = (function () {
                 forms_1.FormsModule, forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
+                ng2_simple_page_scroll_1.Ng2SimplePageScrollModule.forRoot(),
                 router_1.RouterModule.forRoot([
                     { path: "suppliers", component: supplier_list_routable_component_1.SupplierListComponentRoutable },
                     { path: "equipes", component: equipe_list_routable_component_1.EquipeListComponentRoutable },

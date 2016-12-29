@@ -15,6 +15,10 @@ export class OrderListComponentRoutable implements OnInit {
 
     state: {}
 
+    ngAfterViewInit() {
+        this.navigationService.jumpToOpenRootAccordionElement()
+    }
+
     ngOnInit(): void {
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);

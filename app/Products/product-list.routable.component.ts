@@ -15,6 +15,10 @@ export class ProductListComponentRoutable implements OnInit {
 
     state: {}
 
+    ngAfterViewInit() {
+        this.navigationService.jumpToOpenRootAccordionElement()
+    }
+
     ngOnInit(): void {
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();

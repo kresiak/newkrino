@@ -4,7 +4,7 @@
 	</ul>
 </template>
 
-<div class="card">
+<div class="card" id="asdfgh">
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
@@ -31,7 +31,7 @@
 				</ngb-panel>
 				<ngb-panel *ngFor="let otp of otps" [id]="otp.data._id">
 					<template ngbPanelTitle>
-						<div class="row">
+						<div class="row" id="{{otp.data._id}}">
 							<div class="col-sm-3">{{otp.data.name}}</div>
 							<div class="col-sm-3" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>

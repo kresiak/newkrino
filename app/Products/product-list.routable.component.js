@@ -18,6 +18,9 @@ var ProductListComponentRoutable = (function () {
         this.supplierService = supplierService;
         this.navigationService = navigationService;
     }
+    ProductListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     ProductListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();

@@ -13,6 +13,10 @@ export class CategoryListComponentRoutable implements OnInit {
 
     state: {}
 
+    ngAfterViewInit() {
+        this.navigationService.jumpToOpenRootAccordionElement()
+    }
+
 
     ngOnInit(): void {
         this.navigationService.getStateObservable().subscribe(state => {

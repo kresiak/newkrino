@@ -14,6 +14,10 @@ export class OtpListComponentRoutable implements OnInit {
 
     state: {}
 
+    ngAfterViewInit() {
+        this.navigationService.jumpToOpenRootAccordionElement()
+    }
+
     ngOnInit(): void {
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state

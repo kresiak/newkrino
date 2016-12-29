@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var ng2_simple_page_scroll_1 = require('ng2-simple-page-scroll/ng2-simple-page-scroll');
 var NavStackElement = (function () {
     function NavStackElement(lastPosition, path) {
         this.lastPosition = -1;
@@ -64,9 +65,10 @@ var Path2StateHelper = (function () {
     return Path2StateHelper;
 }());
 var NavigationService = (function () {
-    function NavigationService(router, route) {
+    function NavigationService(router, route, simplePageScrollService) {
         this.router = router;
         this.route = route;
+        this.simplePageScrollService = simplePageScrollService;
         this.navStack = [];
     }
     NavigationService.prototype.addStackElement = function (lastPosition, path) {
@@ -120,9 +122,35 @@ var NavigationService = (function () {
             }
         });
     };
+    NavigationService.prototype.jumpToOpenRootAccordionElement = function () {
+        var _this = this;
+        this.route.queryParams.first().subscribe(function (queryParams) {
+            var pathId = queryParams['pid'];
+            if (pathId || pathId === 0) {
+                var stackElement = _this.navStack[pathId];
+                if (!stackElement)
+                    return;
+                var path = stackElement.path;
+                var helper = new Path2StateHelper(path);
+                if (helper.isForDetailView())
+                    return;
+                var state = helper.getState();
+                if (state['openPanelId']) {
+                    _this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0);
+                }
+            }
+        });
+        /*        var self=this
+                var xx= function() {
+                    //self.simplePageScrollService.scrollToElement('#gggoto', 0)
+                    self.simplePageScrollService.scrollToElement('#58404ee1280a8833c87528f2', 0)
+                }
+                
+                setTimeout(xx, 1000)
+        */ };
     NavigationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [router_1.Router, router_1.ActivatedRoute, ng2_simple_page_scroll_1.SimplePageScrollService])
     ], NavigationService);
     return NavigationService;
 }());

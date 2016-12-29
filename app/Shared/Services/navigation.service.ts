@@ -1,6 +1,8 @@
 import { Injectable, Inject } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
+import {SimplePageScrollService} from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
+
 
 class NavStackElement {
     public lastPosition: number = -1
@@ -26,7 +28,7 @@ class Path2StateHelper {
         return this.tokens[0]
     }
 
-    private isForDetailView(): boolean {
+    isForDetailView(): boolean {
         let cmd = this.getCmd()
         return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S'
     }
@@ -68,7 +70,7 @@ class Path2StateHelper {
 export class NavigationService {
 
     private navStack: NavStackElement[] = []
-    constructor(private router: Router, private route: ActivatedRoute) { }
+    constructor(private router: Router, private route: ActivatedRoute, private simplePageScrollService: SimplePageScrollService) { }
 
     private addStackElement(lastPosition: number, path: string) {
         let element = new NavStackElement(lastPosition, path)
@@ -121,4 +123,30 @@ export class NavigationService {
             }
         })
     }
+
+    jumpToOpenRootAccordionElement() {
+        this.route.queryParams.first().subscribe(queryParams => {            
+            let pathId = queryParams['pid'];
+            if (pathId || pathId===0){
+                let stackElement = this.navStack[pathId];
+                if (!stackElement) return 
+                let path = stackElement.path
+                let helper = new Path2StateHelper(path)
+                if (helper.isForDetailView()) return
+                var state= helper.getState()   
+                if (state['openPanelId']){
+                    this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0)        
+                }             
+            }
+        })
+
+
+/*        var self=this
+        var xx= function() {
+            //self.simplePageScrollService.scrollToElement('#gggoto', 0)
+            self.simplePageScrollService.scrollToElement('#58404ee1280a8833c87528f2', 0)
+        }
+        
+        setTimeout(xx, 1000)        
+*/    }
 }

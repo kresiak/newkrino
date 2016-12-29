@@ -28,6 +28,7 @@
       //'angular2-moment': 'npm:angular2-moment',
       'angular2-chartist': 'npm:angular2-chartist',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
+      'ng2-simple-page-scroll/ng2-simple-page-scroll': 'npm:ng2-simple-page-scroll/bundles/ng2-simple-page-scroll.umd.js',
       '@ng-bootstrap/ng-bootstrap': 'node_modules/@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension

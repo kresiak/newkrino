@@ -6,6 +6,8 @@ import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartistModule, ChartistComponent} from 'angular2-chartist';
 
+import {Ng2SimplePageScrollModule} from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
+
 import { AppComponent } from './app.component'
 import { HomeComponent} from './home.component'
 
@@ -99,6 +101,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           FormsModule, ReactiveFormsModule,
           HttpModule,
           NgbModule.forRoot(),
+          Ng2SimplePageScrollModule.forRoot(),
           RouterModule.forRoot([
             { path: "suppliers", component: SupplierListComponentRoutable},
             { path: "equipes", component: EquipeListComponentRoutable},

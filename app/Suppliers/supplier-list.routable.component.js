@@ -16,6 +16,9 @@ var SupplierListComponentRoutable = (function () {
         this.supplierService = supplierService;
         this.navigationService = navigationService;
     }
+    SupplierListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     SupplierListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.navigationService.getStateObservable().subscribe(function (state) {

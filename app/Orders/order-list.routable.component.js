@@ -18,6 +18,9 @@ var OrderListComponentRoutable = (function () {
         this.supplierService = supplierService;
         this.navigationService = navigationService;
     }
+    OrderListComponentRoutable.prototype.ngAfterViewInit = function () {
+        this.navigationService.jumpToOpenRootAccordionElement();
+    };
     OrderListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
