@@ -11,7 +11,7 @@
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
-				<img src="./images/search.png" (click)="showSearch= !showSearch" class="imgSearch" />
+				<img src="./images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific supplier" />
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
 			</div>
