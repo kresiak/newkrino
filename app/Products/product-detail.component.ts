@@ -77,6 +77,7 @@ export class ProductDetailComponent implements OnInit {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, this.isRoot)
+            return
         }
         if ($event.nextId === 'gotoTop') {
             $event.preventDefault();

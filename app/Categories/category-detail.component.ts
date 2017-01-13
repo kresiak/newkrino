@@ -59,6 +59,7 @@ export class CategoryDetailComponent implements OnInit {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/category', this.category.data._id, this.path, this.isRoot)
+            return
         }
         if ($event.nextId === 'gotoTop') {
             $event.preventDefault();

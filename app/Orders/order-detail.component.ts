@@ -131,6 +131,7 @@ export class OrderDetailComponent implements OnInit {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/order', this.order.data._id, this.path, this.isRoot)
+            return
         }
         if ($event.nextId === 'gotoTop') {
             $event.preventDefault();

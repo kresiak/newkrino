@@ -109,7 +109,7 @@
 		<template ngbTabTitle><img src="./images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
-	<ngb-tab id="gotoTop" *ngIf="!isRoot">
+	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
 		<template ngbTabTitle><img src="./images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>

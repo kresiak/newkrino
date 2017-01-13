@@ -63,6 +63,7 @@ var SupplierDetailComponent = (function () {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
             this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.isRoot);
+            return;
         }
         if ($event.nextId === 'gotoTop') {
             $event.preventDefault();

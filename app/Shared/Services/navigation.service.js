@@ -30,7 +30,7 @@ var Path2StateHelper = (function () {
     };
     Path2StateHelper.prototype.isForDetailView = function () {
         var cmd = this.getCmd();
-        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S';
+        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S' && cmd.toUpperCase() !== 'DASHBOARD';
     };
     Path2StateHelper.prototype.generateState = function (arrPath) {
         var result = arrPath.reduce(function (acc, item) {
