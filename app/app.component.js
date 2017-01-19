@@ -79,6 +79,11 @@ var AppComponent = (function () {
                 route: '/prestations',
                 title: 'Prestations',
                 active: false
+            },
+            {
+                route: '/admin',
+                title: 'Administration',
+                active: false
             }
         ];
     }

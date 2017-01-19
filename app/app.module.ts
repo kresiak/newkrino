@@ -5,11 +5,16 @@ import { RouterModule }   from '@angular/router';
 import { HttpModule} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ChartistModule, ChartistComponent} from 'angular2-chartist';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import {Ng2SimplePageScrollModule} from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
 
 import { AppComponent } from './app.component'
 import { HomeComponent} from './home.component'
+
+import {AdminMainComponent} from './Admin/admin-main.component'
+import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
+import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
@@ -100,9 +105,11 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           BrowserModule, 
           FormsModule, ReactiveFormsModule,
           HttpModule,
+          Ng2AutoCompleteModule ,
           NgbModule.forRoot(),
           Ng2SimplePageScrollModule.forRoot(),
           RouterModule.forRoot([
+            { path: "admin", component: AdminMainComponent},
             { path: "suppliers", component: SupplierListComponentRoutable},
             { path: "equipes", component: EquipeListComponentRoutable},
             { path: "orders", component: OrderListComponentRoutable},
@@ -128,6 +135,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 
+                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,

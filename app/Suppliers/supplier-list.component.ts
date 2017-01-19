@@ -43,9 +43,9 @@ export class SupplierListComponent implements OnInit {
 
         Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), (suppliers, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '') return suppliers;
+            if (txt === '' || txt==='$') return suppliers;
 
-            if (txt.toUpperCase() === 'WEBSHOPPING') return suppliers.filter(supplier => supplier.data.webShopping && supplier.data.webShopping.isEnabled)
+            if (txt.toUpperCase().startsWith('$W')) return suppliers.filter(supplier => supplier.data.webShopping && supplier.data.webShopping.isEnabled)
 
             return suppliers.filter(supplier => {
                 return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) || 

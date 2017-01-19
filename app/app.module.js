@@ -15,9 +15,13 @@ var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var angular2_chartist_1 = require('angular2-chartist');
+var ng2_auto_complete_1 = require('ng2-auto-complete');
 var ng2_simple_page_scroll_1 = require('ng2-simple-page-scroll/ng2-simple-page-scroll');
 var app_component_1 = require('./app.component');
 var home_component_1 = require('./home.component');
+var admin_main_component_1 = require('./Admin/admin-main.component');
+var component_1 = require('./Admin/Webshopping/component');
+var voucher_request_list_component_1 = require('./Admin/Webshopping/voucher-request-list.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_list_routable_component_1 = require('./Suppliers/supplier-list.routable.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
@@ -96,9 +100,11 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule, forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
+                ng2_auto_complete_1.Ng2AutoCompleteModule,
                 ng_bootstrap_1.NgbModule.forRoot(),
                 ng2_simple_page_scroll_1.Ng2SimplePageScrollModule.forRoot(),
                 router_1.RouterModule.forRoot([
+                    { path: "admin", component: admin_main_component_1.AdminMainComponent },
                     { path: "suppliers", component: supplier_list_routable_component_1.SupplierListComponentRoutable },
                     { path: "equipes", component: equipe_list_routable_component_1.EquipeListComponentRoutable },
                     { path: "orders", component: order_list_routable_component_1.OrderListComponentRoutable },
@@ -124,6 +130,7 @@ var AppModule = (function () {
                 ])
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
+                admin_main_component_1.AdminMainComponent, component_1.AdminWebShoppingComponent, voucher_request_list_component_1.AdminWebShoppingVoucherRequestListComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_routable_component_1.SupplierListComponentRoutable, supplier_detail_routable_component_1.SupplierDetailComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_routable_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent, product_detail_routable_component_1.ProductDetailComponentRoutable,

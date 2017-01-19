@@ -36,9 +36,9 @@ var SupplierListComponent = (function () {
         this.stateInit();
         Rx_1.Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), function (suppliers, searchTxt) {
             var txt = searchTxt.trim().toUpperCase();
-            if (txt === '')
+            if (txt === '' || txt === '$')
                 return suppliers;
-            if (txt.toUpperCase() === 'WEBSHOPPING')
+            if (txt.toUpperCase().startsWith('$W'))
                 return suppliers.filter(function (supplier) { return supplier.data.webShopping && supplier.data.webShopping.isEnabled; });
             return suppliers.filter(function (supplier) {
                 return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) ||

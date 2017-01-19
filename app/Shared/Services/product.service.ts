@@ -280,6 +280,44 @@ export class ProductService {
         );        
     }
 
+    getOpenRequestedVouchers() : Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('users.krino'),
+            this.dataStore.getDataObservable('categories'),
+            this.dataStore.getDataObservable('suppliers'),
+            (users, categories, suppliers) => {
+                let list= []
+
+                users.filter(user => user.voucherRequests && user.voucherRequests.filter(req => req.quantity > 0).length > 0).forEach(user => {
+                    user.voucherRequests.forEach(request => {
+                        if (request.quantity > 0 ) {
+                            let supplier= suppliers.filter(supplier => supplier._id===request.supplierId)[0]
+                            let category= categories.filter(category => category._id===request.categoryId)[0]
+                            list.push({
+                                userId: user._id,
+                                userName: user.firstName + ' ' + user.name,
+                                supplierId: request.supplierId,
+                                supplierName: supplier ? supplier.name : 'unknown supplier',
+                                categoryId: request.categoryId,
+                                categoryName: category ? category.name : 'unknown category',
+                                quantity: request.quantity
+                            })
+                        }
+                    })
+                })
+
+                return list.sort((a1, a2) => {
+                    if (a1.supplierName === a2.supplierName)
+                    {
+                        return a1.categoryName < a2.categoryName ? -1 : 1
+                    }
+                    return a1.supplierName < a2.supplierName ? -1 : 1
+                })                
+            }
+        );        
+    }
+
+
 
 
     // basket
