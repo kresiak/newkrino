@@ -278,6 +278,15 @@ var ProductService = (function () {
             });
         });
     };
+    ProductService.prototype.createVoucher = function (record) {
+        var _this = this;
+        var obs = this.apiService.callWebService('createVoucher', record).map(function (res) { return res.json(); });
+        obs.subscribe(function (res) {
+            _this.dataStore.triggerDataNext('users.krino');
+            _this.dataStore.triggerDataNext('orders.vouchers');
+        });
+        return obs;
+    };
     // basket
     // ======
     //    get basket

@@ -15,6 +15,7 @@ import { HomeComponent} from './home.component'
 import {AdminMainComponent} from './Admin/admin-main.component'
 import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
+import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
 
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
@@ -135,7 +136,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 
-                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent,
+                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,

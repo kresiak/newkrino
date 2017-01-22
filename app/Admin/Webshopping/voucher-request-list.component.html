@@ -5,9 +5,10 @@
                 <ngb-panel [disabled]="true">
                     <template ngbPanelTitle>
                         <div class="row">
-                            <div class="col-sm-3"><b>Supplier</b></div>
-                            <div class="col-sm-4"><b>Category</b></div>
-                            <div class="col-sm-4"><b>User</b></div>
+                            <div class="col-sm-3"><b>Web Supplier</b></div>
+                            <div class="col-sm-3"><b>Category</b></div>
+                            <div class="col-sm-3"><b>User</b></div>
+                            <div class="col-sm-2"><b>Nb of requested vouchers</b></div>
                         </div>
                     </template>
                     <template ngbPanelContent>
@@ -17,16 +18,13 @@
                     <template ngbPanelTitle>
                         <div class="row">
                             <div class="col-sm-3">{{request.supplierName}}</div>
-                            <div class="col-sm-4">{{request.categoryName}}</div>
-                            <div class="col-sm-4">{{request.userName}}</div>
+                            <div class="col-sm-3">{{request.categoryName}}</div>
+                            <div class="col-sm-3">{{request.userName}}</div>
+                            <div class="col-sm-2">{{request.quantity}}</div>
                         </div>
                     </template>
                     <template ngbPanelContent>
-                        <div class="card">
-                            <div class="card-block">
-                                <h4>{{request.quantity + ' requested'}}</h4>
-                            </div>
-                        </div>
+                        <gg-voucher-request [openRequest]="request"></gg-voucher-request>
                     </template>
                 </ngb-panel>
             </ngb-accordion>

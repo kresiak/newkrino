@@ -280,7 +280,7 @@ export class ProductService {
         );        
     }
 
-    getOpenRequestedVouchers() : Observable<any> {
+    getOpenRequestedVouchers() : Observable<any[]> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('categories'),
@@ -317,8 +317,15 @@ export class ProductService {
         );        
     }
 
+    public createVoucher(record): Observable<any> {
+        var obs = this.apiService.callWebService('createVoucher', record).map(res => res.json());
 
-
+        obs.subscribe(res => {
+            this.dataStore.triggerDataNext('users.krino');
+            this.dataStore.triggerDataNext('orders.vouchers');
+        });
+        return obs;
+    }
 
     // basket
     // ======
