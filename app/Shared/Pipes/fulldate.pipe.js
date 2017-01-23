@@ -14,9 +14,9 @@ var FullDatePipe = (function () {
     function FullDatePipe() {
     }
     FullDatePipe.prototype.transform = function (date, param) {
-        if (!moment(date, 'DD/MM/YYYY hh:mm:ss').isValid())
+        if (!moment(date, 'DD/MM/YYYY HH:mm:ss').isValid())
             return date;
-        return moment(date, 'DD/MM/YYYY hh:mm:ss').format('LLLL');
+        return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LLLL');
     };
     FullDatePipe = __decorate([
         core_1.Pipe({ name: 'fullDate' }), 

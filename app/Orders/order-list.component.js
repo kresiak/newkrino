@@ -60,9 +60,9 @@ var OrderListComponent = (function () {
     };
     OrderListComponent.prototype.formatDate = function (date) {
         var now = moment();
-        var then = moment(date, 'DD/MM/YYYY hh:mm:ss');
+        var then = moment(date, 'DD/MM/YYYY HH:mm:ss');
         var diff = now.diff(then, 'days');
-        //var md= moment(date, 'DD/MM/YYYY hh:mm:ss').fromNow()
+        //var md= moment(date, 'DD/MM/YYYY HH:mm:ss').fromNow()
         return diff < 15 ? then.fromNow() : then.format('LLLL');
     };
     OrderListComponent.prototype.showColumn = function (columnName) {

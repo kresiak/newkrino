@@ -14,7 +14,7 @@ var FromNowPipe = (function () {
     function FromNowPipe() {
     }
     FromNowPipe.prototype.transform = function (date, param) {
-        return moment(date, 'DD/MM/YYYY hh:mm:ss').fromNow();
+        return moment(date, 'DD/MM/YYYY HH:mm:ss').fromNow();
     };
     FromNowPipe = __decorate([
         core_1.Pipe({ name: 'fromNowDate' }), 

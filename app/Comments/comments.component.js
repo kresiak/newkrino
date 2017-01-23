@@ -34,7 +34,7 @@ var CommentsComponent = (function () {
             var comments = _this.comments.slice();
             comments.splice(0, 0, {
                 user: userrecord,
-                time: md.format('DD/MM/YYYY hh:mm:ss'),
+                time: md.format('DD/MM/YYYY HH:mm:ss'),
                 content: _this.newCommentEditor.getEditableContent()
             });
             _this.commentsUpdated.next(comments);

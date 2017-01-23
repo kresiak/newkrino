@@ -6,6 +6,7 @@ import { OtpChoiceService } from './otp-choice.service'
 import { OrderService } from './order.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable } from 'rxjs/Rx'
+import * as moment from "moment"
 
 
 Injectable()
@@ -242,7 +243,7 @@ export class ProductService {
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('categories'),
             this.dataStore.getDataObservable('suppliers'),
-            this.dataStore.getDataObservable('suppliers.vouchers'),
+            this.dataStore.getDataObservable('orders.vouchers'),
             this.authService.getUserIdObservable(),
             (users, categories, suppliers, vouchers, userId) => {
                 let user= users.filter(user => user._id === userId)[0]
@@ -260,6 +261,7 @@ export class ProductService {
                     if (!categoryMap.has(categoryId)) {
                         categoryMap.set(categoryId, {
                             categoryName: categories.filter(category => category._id === categoryId)[0] || 'unknown category',
+                            nbVouchersOrdered: 0,
                             vouchers: []
                         })
                     }
@@ -326,6 +328,45 @@ export class ProductService {
         });
         return obs;
     }
+
+
+    private createAnnotatedVoucher(voucher, users: any[], categories: any[], suppliers: any[]) {
+        if (!voucher) return null;
+
+        let user = users.filter(user => user._id === voucher.userId)[0]
+        let category = categories.filter(category => category._id === voucher.categoryId)[0]
+        let supplier = suppliers.filter(supplier => supplier._id === voucher.supplierId)[0]
+
+        return {
+            data: voucher,
+            annotation:
+            {
+                user: user ? user.firstName + ' ' + user.name : 'unknown user',
+                category: category ? category.name : 'unknown category',
+                supplier: supplier ? supplier.name : 'unknown supplier'
+            }
+        }
+    }
+
+    getAnnotatedVouchers(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('orders.vouchers'),
+            this.dataStore.getDataObservable('users.krino'),
+            this.dataStore.getDataObservable('categories'),
+            this.dataStore.getDataObservable('suppliers'),
+            (vouchers, users, categories, suppliers) => {
+                return vouchers.map(voucher => this.createAnnotatedVoucher(voucher, users, categories, suppliers)).sort((v1, v2) => {
+                    var d1= moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2= moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
+                })
+            });
+    }
+
+
+
+
+
 
     // basket
     // ======

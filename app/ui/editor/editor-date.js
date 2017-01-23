@@ -22,7 +22,7 @@ var EditorDate = (function () {
             md = moment();
         }
         else {
-            md = moment(date, 'DD/MM/YYYY hh:mm:ss');
+            md = moment(date, 'DD/MM/YYYY HH:mm:ss');
         }
         var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
         return obj;
@@ -32,7 +32,7 @@ var EditorDate = (function () {
         md.date(obj.day);
         md.month(obj.month - 1);
         md.year(obj.year);
-        return md.format('DD/MM/YYYY hh:mm:ss');
+        return md.format('DD/MM/YYYY HH:mm:ss');
     };
     EditorDate.prototype.emptyContent = function () {
         this.contentEdited = this.toDatePickerDateObject('');

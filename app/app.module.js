@@ -23,6 +23,8 @@ var admin_main_component_1 = require('./Admin/admin-main.component');
 var component_1 = require('./Admin/Webshopping/component');
 var voucher_request_list_component_1 = require('./Admin/Webshopping/voucher-request-list.component');
 var voucher_request_component_1 = require('./Admin/Webshopping/voucher-request.component');
+var voucher_list_component_1 = require('./Admin/Webshopping/voucher-list.component');
+var voucher_detail_component_1 = require('./Admin/Webshopping/voucher-detail.component');
 var supplier_list_component_1 = require('./Suppliers/supplier-list.component');
 var supplier_list_routable_component_1 = require('./Suppliers/supplier-list.routable.component');
 var supplier_detail_component_1 = require('./Suppliers/supplier-detail.component');
@@ -68,6 +70,7 @@ var dashlet_component_1 = require('./Dashboard/dashlet.component');
 var mykrino_component_1 = require('./Dashboard/mykrino.component');
 var unmaximize_component_1 = require('./Dashboard/unmaximize.component');
 var editor_1 = require('./ui/editor/editor');
+var editor_autocomplete_1 = require('./ui/editor/editor-autocomplete');
 var editor_number_1 = require('./ui/editor/editor-number');
 var editor_date_1 = require('./ui/editor/editor-date');
 var editor_boolean_1 = require('./ui/editor/editor-boolean');
@@ -131,6 +134,7 @@ var AppModule = (function () {
                 ])
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
+                voucher_list_component_1.VoucherListComponent, voucher_detail_component_1.VoucherDetailComponent,
                 admin_main_component_1.AdminMainComponent, component_1.AdminWebShoppingComponent, voucher_request_list_component_1.AdminWebShoppingVoucherRequestListComponent, voucher_request_component_1.AdminWebShoppingVoucherRequestComponent,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_routable_component_1.SupplierListComponentRoutable, supplier_detail_routable_component_1.SupplierDetailComponentRoutable,
@@ -144,7 +148,7 @@ var AppModule = (function () {
                 equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_list_routable_component_1.EquipeListComponentRoutable, equipe_enter_component_1.EquipeEnterComponent, equipe_detail_routable_component_1.EquipeDetailComponentRoutable,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_routable_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_routable_component_1.OrderListComponentRoutable,
-                editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent,
+                editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent, editor_autocomplete_1.EditorAutocomplete,
                 fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe, fromnow_pipe_1.FromNowPipe
             ],
             providers: [navigation_service_1.NavigationService, otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],

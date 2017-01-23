@@ -17,6 +17,9 @@ import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
 
+import {VoucherListComponent} from './Admin/Webshopping/voucher-list.component'
+import {VoucherDetailComponent} from './Admin/Webshopping/voucher-detail.component'
+
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
@@ -73,6 +76,7 @@ import {MyKrinoComponent} from './Dashboard/mykrino.component'
 import {UnMaximizeComponent} from './Dashboard/unmaximize.component'
 
 import {Editor} from './ui/editor/editor'
+import {EditorAutocomplete} from './ui/editor/editor-autocomplete'
 import {EditorNumber} from './ui/editor/editor-number'
 import {EditorDate} from './ui/editor/editor-date'
 import {EditorBoolean} from './ui/editor/editor-boolean'
@@ -136,6 +140,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 
+                  VoucherListComponent, VoucherDetailComponent,
                   AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
@@ -151,7 +156,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
-                  Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent,
+                  Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],

@@ -1,0 +1,12 @@
+
+<input class="editor__editable-content form-control" [(ngModel)]="selectedItem" ng2-auto-complete blank-option-text="Select One"  [source]="selectableData | async" placeholder="enter text" [list-formatter]="autocompleListFormatter"
+    value-property-name="id" display-property-name="name">
+
+<div class="editor__output">{{content}}</div>
+<div *ngIf="!editMode" class="editor__controls">
+  <button (click)="edit()" class="editor__icon-edit"></button>
+</div>
+<div *ngIf="editMode" class="editor__controls">
+  <button (click)="save()" class="editor__icon-save"></button>
+  <button (click)="cancel()" class="editor__icon-cancel"></button>
+</div>

@@ -19,6 +19,7 @@ var otp_choice_service_1 = require('./otp-choice.service');
 var order_service_1 = require('./order.service');
 var selectable_data_1 = require('./../Classes/selectable-data');
 var Rx_1 = require('rxjs/Rx');
+var moment = require("moment");
 core_1.Injectable();
 var ProductService = (function () {
     function ProductService(dataStore, authService, apiService, otpChoiceService, orderService) {
@@ -219,7 +220,7 @@ var ProductService = (function () {
     //              }    
     //     }
     ProductService.prototype.getVoucherMapForCurrentUser = function () {
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('suppliers.vouchers'), this.authService.getUserIdObservable(), function (users, categories, suppliers, vouchers, userId) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('orders.vouchers'), this.authService.getUserIdObservable(), function (users, categories, suppliers, vouchers, userId) {
             var user = users.filter(function (user) { return user._id === userId; })[0];
             var supplierMap = new Map();
             if (!user)
@@ -235,6 +236,7 @@ var ProductService = (function () {
                 if (!categoryMap.has(categoryId)) {
                     categoryMap.set(categoryId, {
                         categoryName: categories.filter(function (category) { return category._id === categoryId; })[0] || 'unknown category',
+                        nbVouchersOrdered: 0,
                         vouchers: []
                     });
                 }
@@ -286,6 +288,31 @@ var ProductService = (function () {
             _this.dataStore.triggerDataNext('orders.vouchers');
         });
         return obs;
+    };
+    ProductService.prototype.createAnnotatedVoucher = function (voucher, users, categories, suppliers) {
+        if (!voucher)
+            return null;
+        var user = users.filter(function (user) { return user._id === voucher.userId; })[0];
+        var category = categories.filter(function (category) { return category._id === voucher.categoryId; })[0];
+        var supplier = suppliers.filter(function (supplier) { return supplier._id === voucher.supplierId; })[0];
+        return {
+            data: voucher,
+            annotation: {
+                user: user ? user.firstName + ' ' + user.name : 'unknown user',
+                category: category ? category.name : 'unknown category',
+                supplier: supplier ? supplier.name : 'unknown supplier'
+            }
+        };
+    };
+    ProductService.prototype.getAnnotatedVouchers = function () {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders.vouchers'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('suppliers'), function (vouchers, users, categories, suppliers) {
+            return vouchers.map(function (voucher) { return _this.createAnnotatedVoucher(voucher, users, categories, suppliers); }).sort(function (v1, v2) {
+                var d1 = moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate();
+                var d2 = moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate();
+                return d1 > d2 ? -1 : 1;
+            });
+        });
     };
     // basket
     // ======

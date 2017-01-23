@@ -14,7 +14,7 @@ var ShortDatePipe = (function () {
     function ShortDatePipe() {
     }
     ShortDatePipe.prototype.transform = function (date, param) {
-        return moment(date, 'DD/MM/YYYY hh:mm:ss').format('LL');
+        return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LL');
     };
     ShortDatePipe = __decorate([
         core_1.Pipe({ name: 'shortDate' }), 
