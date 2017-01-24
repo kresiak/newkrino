@@ -39,6 +39,7 @@ var MyKrinoComponent = (function () {
             _this.currentUser = res;
         });
         this.equipesObservable = this.orderService.getAnnotatedEquipesOfCurrentUser();
+        this.webSuppliersObservable = this.supplierService.getAnnotatedWebSuppliers();
     };
     MyKrinoComponent.prototype.commentsUpdated = function (comments) {
         if (this.currentUser && comments) {

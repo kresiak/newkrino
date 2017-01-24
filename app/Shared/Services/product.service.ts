@@ -329,6 +329,25 @@ export class ProductService {
         return obs;
     }
 
+    public useVoucherForCurrentUser(supplierId: string, categoryId: string, amount: number, description: string): Observable<any> {
+        let record= {
+            userId: this.authService.getUserId(),
+            equipeId: this.authService.getEquipeId(),
+            supplierId: supplierId,
+            categoryId: categoryId,
+            amount: amount,
+            description: description
+        }
+
+        var obs = this.apiService.callWebService('useVoucher', record).map(res => res.json());
+
+        obs.subscribe(res => {
+            this.dataStore.triggerDataNext('orders.vouchers');
+        });
+        return obs;
+    }
+
+
 
     private createAnnotatedVoucher(voucher, users: any[], categories: any[], suppliers: any[]) {
         if (!voucher) return null;

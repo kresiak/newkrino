@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var product_service_1 = require('./../Shared/Services/product.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
 var order_service_1 = require('./../Shared/Services/order.service');
@@ -17,7 +18,8 @@ var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(dataStore, productService, orderService, router, authService, navigationService) {
+    function SupplierDetailComponent(formBuilder, dataStore, productService, orderService, router, authService, navigationService) {
+        this.formBuilder = formBuilder;
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
@@ -27,6 +29,7 @@ var SupplierDetailComponent = (function () {
         this.isRoot = false;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
+        this.showAdminWebShoppingTab = true;
         this.isThereABasket = false;
     }
     SupplierDetailComponent.prototype.stateInit = function () {
@@ -34,11 +37,17 @@ var SupplierDetailComponent = (function () {
             this.state = {};
         if (!this.state.selectedTabId)
             this.state.selectedTabId = this.initialTab;
+        this.showAdminWebShoppingTab = this.initialTab !== 'tabWebShopping';
         //if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     };
     SupplierDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
+        var priceRegEx = "^\\d+(.\\d*)?$";
+        this.useVoucherForm = this.formBuilder.group({
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+            price: ['', [forms_1.Validators.required, forms_1.Validators.pattern(priceRegEx)]]
+        });
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(function (supplier) { return supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []; });
         this.supplierObservable.subscribe(function (supplier) {
@@ -101,6 +110,9 @@ var SupplierDetailComponent = (function () {
     SupplierDetailComponent.prototype.nbVouchersOrdered = function (categoryId) {
         return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0;
     };
+    SupplierDetailComponent.prototype.nbVouchersAvailable = function (categoryId) {
+        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).vouchers.length : 0;
+    };
     SupplierDetailComponent.prototype.nbVouchersOrderedUpdated = function (categoryId, nbOrdered) {
         var _this = this;
         if (!this.currentAnnotatedUser.data.voucherRequests)
@@ -121,6 +133,16 @@ var SupplierDetailComponent = (function () {
         }
         request.quantity = nbOrdered;
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data);
+    };
+    SupplierDetailComponent.prototype.save = function (formValue, isValid, supplierId, categoryId) {
+        if (isValid) {
+            this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(function (res) {
+                var x = res;
+            });
+        }
+    };
+    SupplierDetailComponent.prototype.reset = function () {
+        this.useVoucherForm.reset();
     };
     __decorate([
         core_1.Input(), 
@@ -152,7 +174,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService, navigation_service_1.NavigationService])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

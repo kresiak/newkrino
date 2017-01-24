@@ -53,12 +53,13 @@
 	</ngb-tab>
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-grid [productsObservable]="productsObservable"  [config]="{skip:['supplier']}"></gg-product-grid>
+			<gg-product-grid [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-grid>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
-			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders"
+				(stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Shopping Basket" *ngIf='isThereABasket' id="tabBasket">
@@ -91,7 +92,7 @@
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset (tabChange)="beforeWebShoppingTabChange($event)" [activeId]="state.selectedWebShoppingTabId">
-						<ngb-tab title="Administration" id="tabWebShoppingAdmin">
+						<ngb-tab title="Administration" id="tabWebShoppingAdmin" *ngIf="showAdminWebShoppingTab">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
@@ -119,13 +120,55 @@
 										<div class="card-block">
 											<div class="row">
 												<div class="col-sm-4 vcenter">vouchers available:</div>
-												<div class="col-sm-6 vcenter">{{supplier.annotation.voucherCategoryMap && supplier.annotation.voucherCategoryMap.has(category.id) ? supplier.annotation.voucherCategoryMap.get(category.id).vouchers.length
-													: 0}}</div>
+												<div class="col-sm-6 vcenter">{{nbVouchersAvailable(category.id)}}</div>
 											</div>
 											<div class="row">
 												<div class="col-sm-4 vcenter">vouchers ordered:</div>
 												<div class="col-sm-6 vcenter">
-													<gg-editor-number [content]="nbVouchersOrdered(category.id)" (editSaved)="nbVouchersOrderedUpdated(category.id, $event)"></gg-editor-number>
+													<gg-editor-number [content]="nbVouchersOrdered(category.id)" [editMode]="true" (editSaved)="nbVouchersOrderedUpdated(category.id, $event)"></gg-editor-number>
+												</div>
+											</div>
+											<div class="row" *ngIf="nbVouchersAvailable(category.id) > 0">
+												<p>
+													<button type="button" class="btn btn-outline-primary" (click)="showUseVoucherForm = !showUseVoucherForm" [attr.aria-expanded]="!showUseVoucherForm"
+														aria-controls="collapseExample">Make use of a {{category.name}} voucher</button>
+												</p>
+												<div id="collapseExample" [ngbCollapse]="!showUseVoucherForm">
+													<div class="card">
+														<div class="card-block">
+
+
+
+
+															<form [formGroup]="useVoucherForm" (ngSubmit)="save(useVoucherForm.value, useVoucherForm.valid, supplier.data._id, category.id)">
+																<div class="form-group row">
+																	<label for="description" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control" formControlName="description" id="description" placeholder="description of the product">
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="price" class="col-sm-2 col-form-label col-xl-2">Price:</label>
+																	<div class="col-sm-10">
+																		<input type="number" min="1" step="any" class="form-control" formControlName="price" id="price" placeholder="total price of web shopping (with VAT)">
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-sm-3 col-md-2 col-lg-2">
+																		<button class="btn btn-success" type="submit" [disabled]="!useVoucherForm.valid">Submit</button>
+																	</div>
+																	<div class="col-sm-3 col-md-2 col-lg-2">
+																		<button class="btn btn-info" [disabled]="useVoucherForm.pristine" (click)="reset()">Reset</button>
+																	</div>
+																</div>
+
+
+															</form>
+
+
+
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -146,5 +189,5 @@
 		<template ngbTabTitle><img src="./images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
-	
+
 </ngb-tabset>

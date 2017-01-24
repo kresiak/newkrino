@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProductService } from './../Shared/Services/product.service'
 import { AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
@@ -17,9 +18,11 @@ import { NavigationService } from './../Shared/Services/navigation.service'
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService, private navigationService: NavigationService) {
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService, private navigationService: NavigationService) {
 
     }
+
+    private useVoucherForm: FormGroup;
 
     @Input() supplierObservable: Observable<any>;
     @Input() state;
@@ -28,14 +31,29 @@ export class SupplierDetailComponent implements OnInit {
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
 
+    private showAdminWebShoppingTab: boolean = true
+
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
+
+        this.showAdminWebShoppingTab = this.initialTab !== 'tabWebShopping'
+
         //if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     }
 
     ngOnInit(): void {
         this.stateInit();
+
+        const priceRegEx = `^\\d+(.\\d*)?$`;
+
+        this.useVoucherForm = this.formBuilder.group({
+            description: ['', [Validators.required, Validators.minLength(5)]],
+            price: ['', [Validators.required, Validators.pattern(priceRegEx)]]
+        });
+
+
+
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
@@ -81,8 +99,8 @@ export class SupplierDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.jumpToTop()
             return
-        }        
-        
+        }
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -118,6 +136,10 @@ export class SupplierDetailComponent implements OnInit {
         return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0
     }
 
+    nbVouchersAvailable(categoryId): number {
+        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).vouchers.length : 0
+    }
+
     nbVouchersOrderedUpdated(categoryId, nbOrdered) {
         if (!this.currentAnnotatedUser.data.voucherRequests) this.currentAnnotatedUser.data.voucherRequests = []
         let request = this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplier.data._id && request.categoryId === categoryId)[0]
@@ -136,4 +158,17 @@ export class SupplierDetailComponent implements OnInit {
         request.quantity = nbOrdered
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data)
     }
+
+    save(formValue, isValid, supplierId, categoryId) {
+        if (isValid) {
+            this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(res => {
+                let x = res
+            })
+        }
+    }
+
+    reset() {
+        this.useVoucherForm.reset();
+    }
+
 }

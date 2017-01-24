@@ -289,6 +289,22 @@ var ProductService = (function () {
         });
         return obs;
     };
+    ProductService.prototype.useVoucherForCurrentUser = function (supplierId, categoryId, amount, description) {
+        var _this = this;
+        var record = {
+            userId: this.authService.getUserId(),
+            equipeId: this.authService.getEquipeId(),
+            supplierId: supplierId,
+            categoryId: categoryId,
+            amount: amount,
+            description: description
+        };
+        var obs = this.apiService.callWebService('useVoucher', record).map(function (res) { return res.json(); });
+        obs.subscribe(function (res) {
+            _this.dataStore.triggerDataNext('orders.vouchers');
+        });
+        return obs;
+    };
     ProductService.prototype.createAnnotatedVoucher = function (voucher, users, categories, suppliers) {
         if (!voucher)
             return null;

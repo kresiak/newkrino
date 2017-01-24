@@ -21,10 +21,11 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-4"><b>Supplier</b></div>
-							<div class="col-sm-3"><b>City</b></div>
+							<div class="col-sm-3"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>City</b></div>
 							<div class="col-sm-2"><b>Country</b></div>
 							<div class="col-sm-2"><b>Client</b></div>
+							<div class="col-sm-2"><b>Vouchers</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -33,10 +34,11 @@
 				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{supplier.data._id}}">
-							<div class="col-sm-4">{{supplier.data.name}}</div>
-							<div class="col-sm-3">{{supplier.data.city}}</div>
+							<div class="col-sm-3">{{supplier.data.name}}</div>
+							<div class="col-sm-2">{{supplier.data.city}}</div>
 							<div class="col-sm-2">{{supplier.data.country}}</div>
 							<div class="col-sm-2">{{supplier.data.client}}</div>
+							<div class="col-sm-2">{{supplier.annotation.webShopping.isEnabled ? supplier.annotation.webShopping.nbTotalVouchers + (supplier.annotation.webShopping.nbVouchersOrdered ? ' (+ pending)' : '' ) : 'no web' }}</div>
 							<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="./images/shopping-basket-info-icon.png" /></div>
 						</div>
 					</template>

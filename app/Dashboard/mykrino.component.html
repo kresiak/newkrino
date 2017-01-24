@@ -39,7 +39,17 @@
 			</ngb-tab>
 			<ngb-tab title="My vouchers" id="tabVouchers">
 				<template ngbTabContent>
-					
+					<div class="card">
+						<div class="card-block">
+							<ngb-tabset>
+								<ngb-tab title="Web Shopping" id="tabVouchersWebShopping">
+									<template ngbTabContent>
+										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
+									</template>
+								</ngb-tab>
+							</ngb-tabset>
+						</div>
+					</div>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My notes" id="tabNotes">

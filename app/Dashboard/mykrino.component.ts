@@ -20,6 +20,7 @@ export class MyKrinoComponent implements OnInit{
     ordersObservable: Observable<any>;
     productsObservable: Observable<any>;
     equipesObservable: Observable<any>;
+    webSuppliersObservable: Observable<any>
     suppliersWithBasketObservable: Observable<any>;
     currentUser;
 
@@ -42,6 +43,7 @@ export class MyKrinoComponent implements OnInit{
             this.currentUser= res;
         });
         this.equipesObservable= this.orderService.getAnnotatedEquipesOfCurrentUser();
+        this.webSuppliersObservable= this.supplierService.getAnnotatedWebSuppliers()
     }
 
    commentsUpdated(comments)

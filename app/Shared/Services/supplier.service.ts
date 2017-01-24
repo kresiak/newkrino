@@ -25,12 +25,17 @@ export class SupplierService {
             this.orderService.getSupplierFrequenceMapObservable(), this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, basketItems, supplierFrequenceMap, voucherMap, categories) => {
                 return suppliers.map(supplier => {
+                    let voucherCategoryMap= voucherMap.get(supplier._id) ?  voucherMap.get(supplier._id)['categoryMap'] : undefined
+                    let xx= voucherCategoryMap ? voucherCategoryMap.values() : null
+                    if (xx) {
+                        let res=xx
+                    }
                     return {
                         data: supplier,
                         annotation: {
                             hasBasket: this.productService.hasSupplierBasketItems(supplier, produits, basketItems),
                             supplierFrequence: supplierFrequenceMap.get(supplier._id) || 0,
-                            voucherCategoryMap:voucherMap.get(supplier._id) ?  voucherMap.get(supplier._id)['categoryMap'] : undefined,
+                            voucherCategoryMap: voucherCategoryMap,
                             webShopping: {
                                 categories: supplier.webShopping && supplier.webShopping.categoryIds ? supplier.webShopping.categoryIds.map(categoryId => {
                                     let category= categories.filter(cat => cat._id === categoryId)[0]
@@ -38,7 +43,10 @@ export class SupplierService {
                                         id: categoryId,
                                         name: category ? category.name : 'unknown category'
                                     }
-                                }) : []
+                                }) : [],
+                                isEnabled: supplier.webShopping && supplier.webShopping.isEnabled,
+                                nbTotalVouchers: !voucherCategoryMap ? 0 : Array.from(voucherCategoryMap.values()).reduce((acc, value) => acc + value['vouchers'].length, 0),
+                                nbVouchersOrdered: !voucherCategoryMap ? 0 : Array.from(voucherCategoryMap.values()).reduce((acc, value) => acc + value['nbVouchersOrdered'], 0)
                             }
                         }
                     }
@@ -60,7 +68,8 @@ export class SupplierService {
     }
 
     getAnnotatedWebSuppliers(): Observable<any> {
-        return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier => annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled))
+        return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier => 
+                    annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled && annotatedSupplier.annotation.webShopping.categories.length > 0 ))
     }
 
 
