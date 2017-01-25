@@ -160,6 +160,6 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
-  bootstrap:    [ AppComponent ]
+    bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

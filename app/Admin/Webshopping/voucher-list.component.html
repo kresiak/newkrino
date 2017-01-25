@@ -18,10 +18,11 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3"><b>User</b></div>
-							<div class="col-sm-3"><b>Category</b></div>
+							<div class="col-sm-2"><b>User</b></div>
+							<div class="col-sm-2"><b>Category</b></div>
 							<div class="col-sm-3"><b>Supplier</b></div>
 							<div class="col-sm-3"><b>Creation</b></div>
+							<div class="col-sm-1"><b>Used</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -31,10 +32,11 @@
 				<ngb-panel *ngFor="let voucher of vouchers" [id]="voucher.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{voucher.data._id}}">
-							<div class="col-sm-3">{{voucher.annotation.user}}</div>
-							<div class="col-sm-3">{{voucher.annotation.category}}</div>
+							<div class="col-sm-2">{{voucher.annotation.user}}</div>
+							<div class="col-sm-2">{{voucher.annotation.category}}</div>
 							<div class="col-sm-3">{{voucher.annotation.supplier}}</div>
 							<div class="col-sm-3">{{voucher.data.dateCreation | fullDate}}</div>
+							<div class="col-sm-1" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.isUsed ? 'used' : 'available'}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
+var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var product_service_1 = require('./../Shared/Services/product.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
 var order_service_1 = require('./../Shared/Services/order.service');
@@ -18,7 +19,8 @@ var Rx_1 = require('rxjs/Rx');
 var router_1 = require('@angular/router');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var SupplierDetailComponent = (function () {
-    function SupplierDetailComponent(formBuilder, dataStore, productService, orderService, router, authService, navigationService) {
+    function SupplierDetailComponent(modalService, formBuilder, dataStore, productService, orderService, router, authService, navigationService) {
+        this.modalService = modalService;
         this.formBuilder = formBuilder;
         this.dataStore = dataStore;
         this.productService = productService;
@@ -31,6 +33,8 @@ var SupplierDetailComponent = (function () {
         this.stateChanged = new core_1.EventEmitter();
         this.showAdminWebShoppingTab = true;
         this.isThereABasket = false;
+        this.voucherUseError = undefined;
+        this.sapId = undefined;
     }
     SupplierDetailComponent.prototype.stateInit = function () {
         if (!this.state)
@@ -135,15 +139,27 @@ var SupplierDetailComponent = (function () {
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data);
     };
     SupplierDetailComponent.prototype.save = function (formValue, isValid, supplierId, categoryId) {
+        var _this = this;
+        this.voucherUseError = undefined;
         if (isValid) {
             this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(function (res) {
-                var x = res;
+                if (res.error) {
+                    _this.voucherUseError = res.error;
+                }
+                if (res.sapId) {
+                    _this.sapId = res.sapId;
+                    var modalRef = _this.modalService.open(_this.sapIdResultPopup, { keyboard: true, backdrop: false, size: "lg" });
+                }
             });
         }
     };
     SupplierDetailComponent.prototype.reset = function () {
         this.useVoucherForm.reset();
     };
+    __decorate([
+        core_1.ViewChild('sapIdResultPopup'), 
+        __metadata('design:type', Object)
+    ], SupplierDetailComponent.prototype, "sapIdResultPopup", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -174,7 +190,7 @@ var SupplierDetailComponent = (function () {
             selector: 'gg-supplier-detail',
             templateUrl: './supplier-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [ng_bootstrap_1.NgbModal, forms_1.FormBuilder, data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, router_1.Router, auth_service_1.AuthService, navigation_service_1.NavigationService])
     ], SupplierDetailComponent);
     return SupplierDetailComponent;
 }());

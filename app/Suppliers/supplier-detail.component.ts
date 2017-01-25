@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
 import { AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
@@ -18,9 +19,12 @@ import { NavigationService } from './../Shared/Services/navigation.service'
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private router: Router, private authService: AuthService, private navigationService: NavigationService) {
+    constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, 
+                private router: Router, private authService: AuthService, private navigationService: NavigationService) {
 
     }
+
+    @ViewChild('sapIdResultPopup') sapIdResultPopup;
 
     private useVoucherForm: FormGroup;
 
@@ -159,10 +163,20 @@ export class SupplierDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data)
     }
 
+    private voucherUseError: string= undefined
+    private sapId: string= undefined
+
     save(formValue, isValid, supplierId, categoryId) {
+        this.voucherUseError= undefined
         if (isValid) {
             this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(res => {
-                let x = res
+                if (res.error) {
+                    this.voucherUseError= res.error
+                }          
+                if (res.sapId){
+                    this.sapId= res.sapId
+                    const modalRef = this.modalService.open(this.sapIdResultPopup, { keyboard: true, backdrop: false, size: "lg" });
+                }      
             })
         }
     }
@@ -172,3 +186,5 @@ export class SupplierDetailComponent implements OnInit {
     }
 
 }
+
+

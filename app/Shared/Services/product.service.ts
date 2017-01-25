@@ -272,7 +272,7 @@ export class ProductService {
                     supplierMap.get(request.supplierId)['categoryMap'].get(request.categoryId)['nbVouchersOrdered']= request.quantity
                 })
 
-                vouchers.filter(voucher => voucher.userId === userId).forEach(voucher => {
+                vouchers.filter(voucher => !voucher.shopping && voucher.userId === userId).forEach(voucher => {
                     initMapIfNecessary(voucher.supplierId, voucher.categoryId)
                     supplierMap.get(voucher.supplierId)['categoryMap'].get(voucher.categoryId)['vouchers'].push(voucher)
                 })
@@ -342,19 +342,21 @@ export class ProductService {
         var obs = this.apiService.callWebService('useVoucher', record).map(res => res.json());
 
         obs.subscribe(res => {
-            this.dataStore.triggerDataNext('orders.vouchers');
+            if (!res.error)
+                this.dataStore.triggerDataNext('orders.vouchers');
         });
         return obs;
     }
 
 
 
-    private createAnnotatedVoucher(voucher, users: any[], categories: any[], suppliers: any[]) {
+    private createAnnotatedVoucher(voucher, users: any[], categories: any[], suppliers: any[], equipes: any[]) {
         if (!voucher) return null;
 
         let user = users.filter(user => user._id === voucher.userId)[0]
         let category = categories.filter(category => category._id === voucher.categoryId)[0]
         let supplier = suppliers.filter(supplier => supplier._id === voucher.supplierId)[0]
+        let equipe= ! voucher.shopping ? null : equipes.filter(equipe => equipe._id === voucher.shopping.equipeId)[0]
 
         return {
             data: voucher,
@@ -362,7 +364,9 @@ export class ProductService {
             {
                 user: user ? user.firstName + ' ' + user.name : 'unknown user',
                 category: category ? category.name : 'unknown category',
-                supplier: supplier ? supplier.name : 'unknown supplier'
+                supplier: supplier ? supplier.name : 'unknown supplier',
+                isUsed: voucher.shopping ? true : false,
+                equipe: equipe ? equipe.name : 'not yet equipe'
             }
         }
     }
@@ -373,8 +377,9 @@ export class ProductService {
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('categories'),
             this.dataStore.getDataObservable('suppliers'),
-            (vouchers, users, categories, suppliers) => {
-                return vouchers.map(voucher => this.createAnnotatedVoucher(voucher, users, categories, suppliers)).sort((v1, v2) => {
+            this.dataStore.getDataObservable('equipes'),
+            (vouchers, users, categories, suppliers, equipes) => {
+                return vouchers.map(voucher => this.createAnnotatedVoucher(voucher, users, categories, suppliers, equipes)).sort((v1, v2) => {
                     var d1= moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var d2= moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1

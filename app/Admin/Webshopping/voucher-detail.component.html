@@ -9,6 +9,11 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">usage:</div>
+						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.isUsed ? 'used' : 'available'}}
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4 vcenter">for the use of user:</div>
 						<div class="col-sm-6 vcenter">{{voucher.annotation.user}}
 						</div>
@@ -48,4 +53,25 @@
 			<gg-comments [comments]="voucher.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>	
+	<ngb-tab title="Purchase" id="tabPurchase" *ngIf="voucher.annotation.isUsed">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4 vcenter">used by equipe:</div>
+						<div class="col-sm-6 vcenter">{{voucher.annotation.equipe}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">descriptiom:</div>
+						<div class="col-sm-6 vcenter">{{voucher.data.shopping.description}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">total:</div>
+						<div class="col-sm-6 vcenter">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+				</div>
+			</div>			
+		</template>
+	</ngb-tab>	
+	
 </ngb-tabset>

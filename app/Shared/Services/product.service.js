@@ -245,7 +245,7 @@ var ProductService = (function () {
                 initMapIfNecessary(request.supplierId, request.categoryId);
                 supplierMap.get(request.supplierId)['categoryMap'].get(request.categoryId)['nbVouchersOrdered'] = request.quantity;
             });
-            vouchers.filter(function (voucher) { return voucher.userId === userId; }).forEach(function (voucher) {
+            vouchers.filter(function (voucher) { return !voucher.shopping && voucher.userId === userId; }).forEach(function (voucher) {
                 initMapIfNecessary(voucher.supplierId, voucher.categoryId);
                 supplierMap.get(voucher.supplierId)['categoryMap'].get(voucher.categoryId)['vouchers'].push(voucher);
             });
@@ -301,29 +301,33 @@ var ProductService = (function () {
         };
         var obs = this.apiService.callWebService('useVoucher', record).map(function (res) { return res.json(); });
         obs.subscribe(function (res) {
-            _this.dataStore.triggerDataNext('orders.vouchers');
+            if (!res.error)
+                _this.dataStore.triggerDataNext('orders.vouchers');
         });
         return obs;
     };
-    ProductService.prototype.createAnnotatedVoucher = function (voucher, users, categories, suppliers) {
+    ProductService.prototype.createAnnotatedVoucher = function (voucher, users, categories, suppliers, equipes) {
         if (!voucher)
             return null;
         var user = users.filter(function (user) { return user._id === voucher.userId; })[0];
         var category = categories.filter(function (category) { return category._id === voucher.categoryId; })[0];
         var supplier = suppliers.filter(function (supplier) { return supplier._id === voucher.supplierId; })[0];
+        var equipe = !voucher.shopping ? null : equipes.filter(function (equipe) { return equipe._id === voucher.shopping.equipeId; })[0];
         return {
             data: voucher,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'unknown user',
                 category: category ? category.name : 'unknown category',
-                supplier: supplier ? supplier.name : 'unknown supplier'
+                supplier: supplier ? supplier.name : 'unknown supplier',
+                isUsed: voucher.shopping ? true : false,
+                equipe: equipe ? equipe.name : 'not yet equipe'
             }
         };
     };
     ProductService.prototype.getAnnotatedVouchers = function () {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders.vouchers'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('suppliers'), function (vouchers, users, categories, suppliers) {
-            return vouchers.map(function (voucher) { return _this.createAnnotatedVoucher(voucher, users, categories, suppliers); }).sort(function (v1, v2) {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders.vouchers'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('equipes'), function (vouchers, users, categories, suppliers, equipes) {
+            return vouchers.map(function (voucher) { return _this.createAnnotatedVoucher(voucher, users, categories, suppliers, equipes); }).sort(function (v1, v2) {
                 var d1 = moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate();
                 var d2 = moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate();
                 return d1 > d2 ? -1 : 1;
