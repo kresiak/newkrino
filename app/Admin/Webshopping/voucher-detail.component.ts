@@ -33,13 +33,14 @@ export class VoucherDetailComponent implements OnInit {
         this.stateInit();
         this.voucherObservable.subscribe(eq => {
             this.voucher = eq;
-
-            this.otpListObservable= this.orderService.getAnnotatedOpenOtpsByCategory(this.voucher.data.categoryId).map(otps => otps.map(otp => {
+            if (this.voucher) {
+                this.otpListObservable = this.orderService.getAnnotatedOpenOtpsByCategory(this.voucher.data.categoryId).map(otps => otps.map(otp => {
                     return {
                         id: otp.data._id,
                         name: otp.data.name
                     }
-            }));
+                }));
+            }
         });
     }
 
@@ -71,7 +72,7 @@ export class VoucherDetailComponent implements OnInit {
 
     isInSapUpdated(flag) {
         if (this.voucher.data.shopping) {
-            this.voucher.data.shopping.isSapUpdated= flag
+            this.voucher.data.shopping.isSapUpdated = flag
             this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
         }
     }

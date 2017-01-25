@@ -31,12 +31,14 @@ var VoucherDetailComponent = (function () {
         this.stateInit();
         this.voucherObservable.subscribe(function (eq) {
             _this.voucher = eq;
-            _this.otpListObservable = _this.orderService.getAnnotatedOpenOtpsByCategory(_this.voucher.data.categoryId).map(function (otps) { return otps.map(function (otp) {
-                return {
-                    id: otp.data._id,
-                    name: otp.data.name
-                };
-            }); });
+            if (_this.voucher) {
+                _this.otpListObservable = _this.orderService.getAnnotatedOpenOtpsByCategory(_this.voucher.data.categoryId).map(function (otps) { return otps.map(function (otp) {
+                    return {
+                        id: otp.data._id,
+                        name: otp.data.name
+                    };
+                }); });
+            }
         });
     };
     VoucherDetailComponent.prototype.commentsUpdated = function (comments) {
