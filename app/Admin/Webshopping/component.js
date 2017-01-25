@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var product_service_1 = require('./../../Shared/Services/product.service');
 var AdminWebShoppingComponent = (function () {
-    function AdminWebShoppingComponent() {
+    function AdminWebShoppingComponent(productService) {
+        this.productService = productService;
         this.stateChanged = new core_1.EventEmitter();
     }
     AdminWebShoppingComponent.prototype.stateInit = function () {
@@ -21,6 +23,8 @@ var AdminWebShoppingComponent = (function () {
     };
     AdminWebShoppingComponent.prototype.ngOnInit = function () {
         this.stateInit();
+        this.vouchersObservable = this.productService.getAnnotatedVouchers();
+        this.vouchersReadyForSapObservable = this.productService.getAnnotatedUsedVouchersReadyForSap();
     };
     AdminWebShoppingComponent.prototype.beforeTabChange = function ($event) {
         this.state.selectedTabId = $event.nextId;
@@ -41,7 +45,7 @@ var AdminWebShoppingComponent = (function () {
             selector: 'gg-admin-webshopping',
             templateUrl: './component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [product_service_1.ProductService])
     ], AdminWebShoppingComponent);
     return AdminWebShoppingComponent;
 }());

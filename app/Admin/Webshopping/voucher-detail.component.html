@@ -10,7 +10,13 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">usage:</div>
-						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.isUsed ? 'used' : 'available'}}
+						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.status}}
+						</div>
+					</div>
+					<div class="row" *ngIf="voucher.annotation.isUsed">
+						<div class="col-sm-4 vcenter">Sap has been updated:</div>
+						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isInSap ? 'green' : 'red'">
+							<gg-editor-boolean [content]="voucher.annotation.isInSap" (editSaved)="isInSapUpdated($event)"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">

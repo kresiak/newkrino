@@ -58,6 +58,12 @@ var VoucherDetailComponent = (function () {
         this.voucher.data.otpId = newid;
         this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
     };
+    VoucherDetailComponent.prototype.isInSapUpdated = function (flag) {
+        if (this.voucher.data.shopping) {
+            this.voucher.data.shopping.isSapUpdated = flag;
+            this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)

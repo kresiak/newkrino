@@ -320,6 +320,8 @@ var ProductService = (function () {
                 category: category ? category.name : 'unknown category',
                 supplier: supplier ? supplier.name : 'unknown supplier',
                 isUsed: voucher.shopping ? true : false,
+                isInSap: voucher.shopping && voucher.shopping.isSapUpdated,
+                status: !voucher.shopping ? 'available' : (voucher.shopping.isSapUpdated ? 'used' : 'used/tell Sap'),
                 equipe: equipe ? equipe.name : 'not yet equipe'
             }
         };
@@ -333,6 +335,9 @@ var ProductService = (function () {
                 return d1 > d2 ? -1 : 1;
             });
         });
+    };
+    ProductService.prototype.getAnnotatedUsedVouchersReadyForSap = function () {
+        return this.getAnnotatedVouchers().map(function (vouchers) { return vouchers.filter(function (voucher) { return voucher.annotation.isUsed && !voucher.annotation.isInSap; }); });
     };
     // basket
     // ======

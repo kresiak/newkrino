@@ -366,6 +366,8 @@ export class ProductService {
                 category: category ? category.name : 'unknown category',
                 supplier: supplier ? supplier.name : 'unknown supplier',
                 isUsed: voucher.shopping ? true : false,
+                isInSap: voucher.shopping && voucher.shopping.isSapUpdated,
+                status: !voucher.shopping ? 'available' : (voucher.shopping.isSapUpdated ? 'used' : 'used/tell Sap'),
                 equipe: equipe ? equipe.name : 'not yet equipe'
             }
         }
@@ -385,6 +387,10 @@ export class ProductService {
                     return d1 > d2 ? -1 : 1
                 })
             });
+    }
+
+    getAnnotatedUsedVouchersReadyForSap(): Observable<any> {
+        return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed && !voucher.annotation.isInSap))
     }
 
 

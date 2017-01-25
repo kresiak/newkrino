@@ -32,7 +32,7 @@ var VoucherListComponent = (function () {
     VoucherListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.stateInit();
-        this.vouchersObservable = this.productService.getAnnotatedVouchers();
+        //this.vouchersObservable = this.productService.getAnnotatedVouchers();
         Rx_1.Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.startWith(''), function (vouchers, searchTxt) {
             if (searchTxt.trim() === '')
                 return vouchers;
@@ -55,6 +55,10 @@ var VoucherListComponent = (function () {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Rx_1.Observable)
+    ], VoucherListComponent.prototype, "vouchersObservable", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Object)

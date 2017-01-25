@@ -22,7 +22,7 @@ export class VoucherListComponent implements OnInit {
         });
     }
 
-    vouchersObservable: Observable<any>;
+    @Input() vouchersObservable: Observable<any>;
     vouchers: any
 
     @Input() state;
@@ -41,7 +41,7 @@ export class VoucherListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.vouchersObservable = this.productService.getAnnotatedVouchers();
+        //this.vouchersObservable = this.productService.getAnnotatedVouchers();
 
         Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.startWith(''), (vouchers, searchTxt: string) => {
             if (searchTxt.trim() === '') return vouchers;

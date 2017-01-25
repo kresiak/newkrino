@@ -69,4 +69,10 @@ export class VoucherDetailComponent implements OnInit {
         this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
     }
 
+    isInSapUpdated(flag) {
+        if (this.voucher.data.shopping) {
+            this.voucher.data.shopping.isSapUpdated= flag
+            this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
+        }
+    }
 }

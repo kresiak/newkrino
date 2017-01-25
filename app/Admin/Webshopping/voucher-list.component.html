@@ -36,7 +36,7 @@
 							<div class="col-sm-2">{{voucher.annotation.category}}</div>
 							<div class="col-sm-3">{{voucher.annotation.supplier}}</div>
 							<div class="col-sm-3">{{voucher.data.dateCreation | fullDate}}</div>
-							<div class="col-sm-1" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.isUsed ? 'used' : 'available'}}</div>
+							<div class="col-sm-1" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.status}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>
