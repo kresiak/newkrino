@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { AuthService } from './Shared/Services/auth.service'
+import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
 
 
 @Component({
@@ -12,117 +13,139 @@ import { AuthService } from './Shared/Services/auth.service'
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router ) { }
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
+
+    private password: string = ''
+    private users;
+    private possibleEquipes: any[];
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private menu
 
     ngOnInit(): void {
-        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event =>
-            {
-                var e= <NavigationEnd>event;
-                var r= e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
-                try{
-                    this.activateMenu(this.menu.filter(menuitem => menuitem.route===r)[0]);
-                }
-                finally{}
+        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+            var e = <NavigationEnd>event;
+            var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
+            try {
+                this.activateMenu(this.menu.filter(menuitem => menuitem.route === r)[0]);
             }
+            finally { }
+        }
         );
-        this.usersObservable = this.authService.getAnnotatedUsers();
-        this.usersObservable.subscribe(users => {
+        this.authService.getAnnotatedUsers().subscribe(users => {
             this.users = users;
-            this.initLoginData();
+            this.authService.getStatusObservable().subscribe(statusInfo => {
+                this.authorizationStatusInfo = statusInfo
+                let currentUserAnnotated = this.users.filter(user => user.data._id === statusInfo.currentUserId)[0];
+                this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
+                this.initMenu(statusInfo.isLoggedIn)
+            })
         });
     }
 
-    private initLoginData() {
-        this.currentUserId = this.authService.getUserId();
-        this.currentEquipeId = this.authService.getEquipeId();
-
-        let currentUserAnnotated = this.users.filter(user => user.data._id === this.currentUserId)[0];
-        this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
-
-        if (!this.possibleEquipes.map(equipe => equipe._id).includes(this.currentEquipeId) && this.possibleEquipes.length > 0)
-        {
-            let idToTake= this.possibleEquipes[0]._id;
-            this.authService.setEquipeId(idToTake);
-            this.currentEquipeId= idToTake;
-        }
+    openModal(template) {
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "sm" });
+        var promise = ref.result;
+        promise.then((res) => {
+            this.passwordSave();
+        }, (res) => {
+            this.passwordCancel();
+        });
+        promise.catch((err) => {
+            this.passwordCancel();
+        });
     }
 
-    private usersObservable: Observable<any>;
-    private users;
-    private currentUserId;
-    private currentEquipeId;
-    private possibleEquipes: any[];
+    private passwordSave() {
+        this.authService.tryLogin(this.password)
+    }
+
+    private passwordCancel() {
+    }
+
+    userSelected(value) {
+        this.authService.setUserId(value);
+    }
+
+    equipeSelected(value) {
+        this.authService.setEquipeId(value);
+    }
+
 
     title = 'Krino';
 
-    menu = [
-        {
-            route: '/home',
-            title: 'Home',
-            active: false
-        },
-        {
-            route: '/dashboard',
-            title: 'Dashboard',
-            active: false
-        },
-        {
-            route: '/mykrino',
-            title: 'My Krino',
-            active: false
-        },
-        {
-            route: '/orders',
-            title: 'Orders',
-            active: false
-        },
-        {
-            route: '/products',
-            title: 'Products',
-            active: false
-        },
-        {
-            route: '/suppliers',
-            title: 'Suppliers',
-            active: false
-        },
-        {
-            route: '/stock',
-            title: 'Stock',
-            active: false
-        },
-        {
-            route: '/categories',
-            title: 'Categories',
-            active: false
-        },
-        {
-            route: '/equipes',
-            title: 'Equipes',
-            active: false
-        },
-        {
-            route: '/otps',
-            title: 'Otps',
-            active: false
-        },
-        {
-            route: '/manips',
-            title: 'Manips',
-            active: false
-        },
-        {
-            route: '/prestations',
-            title: 'Prestations',
-            active: false
-        },
-        {
-            route: '/admin',
-            title: 'Administration',
-            active: false
-        }
-        
+    initMenu(isLoggedIn: boolean) {
+        this.menu = [
+            {
+                route: '/home',
+                title: 'Home',
+                active: false
+            },
+            {
+                route: '/dashboard',
+                title: 'Dashboard',
+                active: false
+            },
+            {
+                route: '/mykrino',
+                title: 'My Krino',
+                active: false,
+                hide: !isLoggedIn
+            },
+            {
+                route: '/orders',
+                title: 'Orders',
+                active: false
+            },
+            {
+                route: '/products',
+                title: 'Products',
+                active: false
+            },
+            {
+                route: '/suppliers',
+                title: 'Suppliers',
+                active: false
+            },
+            {
+                route: '/stock',
+                title: 'Stock',
+                active: false
+            },
+            {
+                route: '/categories',
+                title: 'Categories',
+                active: false
+            },
+            {
+                route: '/equipes',
+                title: 'Equipes',
+                active: false
+            },
+            {
+                route: '/otps',
+                title: 'Otps',
+                active: false
+            },
+            {
+                route: '/manips',
+                title: 'Manips',
+                active: false
+            },
+            {
+                route: '/prestations',
+                title: 'Prestations',
+                active: false
+            },
+            {
+                route: '/admin',
+                title: 'Administration',
+                active: false
+            }
+
         ];
+        this.menu= this.menu.filter(item => !item.hide)
+    }
+
 
     activateMenu(menuItem) {
         this.menu.forEach(element => {
@@ -131,14 +154,5 @@ export class AppComponent implements OnInit {
         if (menuItem) menuItem.active = true;
     }
 
-    userSelected(value) {
-        this.authService.setUserId(value);
-        this.initLoginData();
-    }
-
-    equipeSelected(value) {
-        this.authService.setEquipeId(value);
-        this.initLoginData();
-    }
 }
 

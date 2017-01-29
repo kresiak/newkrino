@@ -10,15 +10,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var auth_service_1 = require('./Shared/Services/auth.service');
 var AppComponent = (function () {
-    function AppComponent(authService, route, router) {
+    function AppComponent(authService, route, router, modalService) {
         this.authService = authService;
         this.route = route;
         this.router = router;
+        this.modalService = modalService;
+        this.password = '';
         this.title = 'Krino';
+    }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.router.events.filter(function (event) { return event instanceof router_1.NavigationEnd; }).subscribe(function (event) {
+            var e = event;
+            var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
+            try {
+                _this.activateMenu(_this.menu.filter(function (menuitem) { return menuitem.route === r; })[0]);
+            }
+            finally { }
+        });
+        this.authService.getAnnotatedUsers().subscribe(function (users) {
+            _this.users = users;
+            _this.authService.getStatusObservable().subscribe(function (statusInfo) {
+                _this.authorizationStatusInfo = statusInfo;
+                var currentUserAnnotated = _this.users.filter(function (user) { return user.data._id === statusInfo.currentUserId; })[0];
+                _this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
+                _this.initMenu(statusInfo.isLoggedIn);
+            });
+        });
+    };
+    AppComponent.prototype.openModal = function (template) {
+        var _this = this;
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "sm" });
+        var promise = ref.result;
+        promise.then(function (res) {
+            _this.passwordSave();
+        }, function (res) {
+            _this.passwordCancel();
+        });
+        promise.catch(function (err) {
+            _this.passwordCancel();
+        });
+    };
+    AppComponent.prototype.passwordSave = function () {
+        this.authService.tryLogin(this.password);
+    };
+    AppComponent.prototype.passwordCancel = function () {
+    };
+    AppComponent.prototype.userSelected = function (value) {
+        this.authService.setUserId(value);
+    };
+    AppComponent.prototype.equipeSelected = function (value) {
+        this.authService.setEquipeId(value);
+    };
+    AppComponent.prototype.initMenu = function (isLoggedIn) {
         this.menu = [
             {
                 route: '/home',
@@ -33,7 +82,8 @@ var AppComponent = (function () {
             {
                 route: '/mykrino',
                 title: 'My Krino',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/orders',
@@ -86,34 +136,7 @@ var AppComponent = (function () {
                 active: false
             }
         ];
-    }
-    AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.router.events.filter(function (event) { return event instanceof router_1.NavigationEnd; }).subscribe(function (event) {
-            var e = event;
-            var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
-            try {
-                _this.activateMenu(_this.menu.filter(function (menuitem) { return menuitem.route === r; })[0]);
-            }
-            finally { }
-        });
-        this.usersObservable = this.authService.getAnnotatedUsers();
-        this.usersObservable.subscribe(function (users) {
-            _this.users = users;
-            _this.initLoginData();
-        });
-    };
-    AppComponent.prototype.initLoginData = function () {
-        var _this = this;
-        this.currentUserId = this.authService.getUserId();
-        this.currentEquipeId = this.authService.getEquipeId();
-        var currentUserAnnotated = this.users.filter(function (user) { return user.data._id === _this.currentUserId; })[0];
-        this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
-        if (!this.possibleEquipes.map(function (equipe) { return equipe._id; }).includes(this.currentEquipeId) && this.possibleEquipes.length > 0) {
-            var idToTake = this.possibleEquipes[0]._id;
-            this.authService.setEquipeId(idToTake);
-            this.currentEquipeId = idToTake;
-        }
+        this.menu = this.menu.filter(function (item) { return !item.hide; });
     };
     AppComponent.prototype.activateMenu = function (menuItem) {
         this.menu.forEach(function (element) {
@@ -122,21 +145,13 @@ var AppComponent = (function () {
         if (menuItem)
             menuItem.active = true;
     };
-    AppComponent.prototype.userSelected = function (value) {
-        this.authService.setUserId(value);
-        this.initLoginData();
-    };
-    AppComponent.prototype.equipeSelected = function (value) {
-        this.authService.setEquipeId(value);
-        this.initLoginData();
-    };
     AppComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'giga-app',
             templateUrl: './app.component.html'
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.ActivatedRoute, router_1.Router, ng_bootstrap_1.NgbModal])
     ], AppComponent);
     return AppComponent;
 }());

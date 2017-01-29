@@ -11,3 +11,6 @@ mongoexport -d giga -c manips --out C:\Users\akvasz\Documents\Giga\Angular2\data
 mongoexport -d giga -c prestations --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\prestations.json
 
 
+mongoexport -d giga -c users.eurisko --out C:\Tmp\aaa\users.eurisko.json
+mongoexport -d giga -c job.request --out C:\Tmp\aaa\job.request.json
+mongoexport -d giga -c job.response --out C:\Tmp\aaa\job.response.json

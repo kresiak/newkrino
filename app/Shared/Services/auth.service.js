@@ -15,13 +15,38 @@ var core_1 = require('@angular/core');
 var data_service_1 = require('./data.service');
 var Rx_1 = require('rxjs/Rx');
 var selectable_data_1 = require('./../Classes/selectable-data');
+var AuthenticationStatusInfo = (function () {
+    function AuthenticationStatusInfo(currentUserId, currentEquipeId, isLoggedIn) {
+        this.currentUserId = '';
+        this.currentEquipeId = '';
+        this.isLoggedIn = false;
+        this.isLoginError = false;
+        this.currentUserId = currentUserId;
+        this.currentEquipeId = currentEquipeId;
+        this.isLoggedIn = isLoggedIn;
+    }
+    AuthenticationStatusInfo.prototype.isReadyForPassword = function () {
+        return this.currentUserId !== '' && this.currentEquipeId !== '' && !this.isLoggedIn;
+    };
+    AuthenticationStatusInfo.prototype.hasUserId = function () {
+        return this.currentUserId != '';
+    };
+    AuthenticationStatusInfo.prototype.hasEquipeId = function () {
+        return this.currentEquipeId != '';
+    };
+    return AuthenticationStatusInfo;
+}());
+exports.AuthenticationStatusInfo = AuthenticationStatusInfo;
 var AuthService = (function () {
     function AuthService(dataStore) {
         this.dataStore = dataStore;
-        this.currentUserId = '58402ef9f9690561d454c337';
-        this.currentEquipeId = '58404ee1280a8833c87528d8';
-        this.currentUserIdObservable = new Rx_1.BehaviorSubject(this.currentUserId);
+        this.authInfo = new AuthenticationStatusInfo('', '', false);
+        this.currentUserIdObservable = new Rx_1.BehaviorSubject(this.authInfo.currentUserId);
+        this.authInfoSubject = new Rx_1.BehaviorSubject(this.authInfo);
     }
+    AuthService.prototype.emitCurrentAuthenticationStatus = function () {
+        this.authInfoSubject.next(this.authInfo);
+    };
     AuthService.prototype.createAnnotatedUser = function (user, equipes) {
         if (!user)
             return null;
@@ -54,23 +79,49 @@ var AuthService = (function () {
         });
     };
     AuthService.prototype.getUserId = function () {
-        return this.currentUserId;
+        return this.authInfo.currentUserId;
     };
     AuthService.prototype.getUserIdObservable = function () {
         return this.currentUserIdObservable;
     };
+    AuthService.prototype.getStatusObservable = function () {
+        return this.authInfoSubject;
+    };
     AuthService.prototype.setUserId = function (id) {
-        this.currentUserId = id;
+        this.authInfo.currentUserId = id;
+        this.authInfo.currentEquipeId = '';
+        this.authInfo.isLoggedIn = false;
+        this.emitCurrentAuthenticationStatus();
         this.currentUserIdObservable.next(id);
     };
-    AuthService.prototype.isAuthenticated = function () {
-        return true;
-    };
     AuthService.prototype.getEquipeId = function () {
-        return this.currentEquipeId;
+        return this.authInfo.currentEquipeId;
     };
     AuthService.prototype.setEquipeId = function (id) {
-        this.currentEquipeId = id;
+        this.authInfo.currentEquipeId = id;
+        this.authInfo.isLoggedIn = false;
+        this.emitCurrentAuthenticationStatus();
+    };
+    AuthService.prototype.setLoggedIn = function () {
+        this.authInfo.isLoggedIn = true;
+        this.emitCurrentAuthenticationStatus();
+    };
+    AuthService.prototype.setLoggedOut = function () {
+        this.authInfo.isLoggedIn = false;
+        this.emitCurrentAuthenticationStatus();
+    };
+    AuthService.prototype.tryLogin = function (password) {
+        var _this = this;
+        this.authInfo.isLoginError = false;
+        this.getAnnotatedCurrentUser().first().subscribe(function (user) {
+            if (!user.data.password || user.data.password === password) {
+                _this.setLoggedIn();
+            }
+            else {
+                _this.authInfo.isLoginError = true;
+                _this.emitCurrentAuthenticationStatus();
+            }
+        });
     };
     AuthService = __decorate([
         core_1.Injectable(),
