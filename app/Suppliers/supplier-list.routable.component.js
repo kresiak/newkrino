@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var SupplierListComponentRoutable = (function () {
-    function SupplierListComponentRoutable(supplierService, navigationService) {
+    function SupplierListComponentRoutable(supplierService, navigationService, authService) {
         this.supplierService = supplierService;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     SupplierListComponentRoutable.prototype.ngAfterViewInit = function () {
         this.navigationService.jumpToOpenRootAccordionElement();
@@ -25,13 +27,16 @@ var SupplierListComponentRoutable = (function () {
             _this.state = state;
         });
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     SupplierListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './supplier-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], SupplierListComponentRoutable);
     return SupplierListComponentRoutable;
 }());

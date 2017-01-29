@@ -1,13 +1,13 @@
 <div id="GGTOP"></div>
 <div class="card">
 	<div class="card-block">
-		<ngb-tabset>
+		<ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
 			<ngb-tab title="View Suppliers" id="tabView">
 				<template ngbTabContent>
                     <gg-supplier-list [state]="state" [suppliersObservable]= "suppliersObservable"></gg-supplier-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Create a Supplier" id="tabCreate">
+			<ngb-tab title="Create a Supplier" id="tabCreate"  *ngIf="authorizationStatusInfo.isAdministrator()">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -20,5 +20,6 @@
 				</template>
 			</ngb-tab>
 		</ngb-tabset>
+		<h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
 	</div>
 </div>            

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable } from 'rxjs/Rx'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 
 @Component(
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class SupplierListComponentRoutable implements OnInit {
-    constructor(private supplierService: SupplierService, private navigationService: NavigationService) { }
+    constructor(private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
 
@@ -24,7 +25,12 @@ export class SupplierListComponentRoutable implements OnInit {
             this.state= state
         })        
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })
+
     }
 
     private suppliersObservable: Observable<any>;
+    private authorizationStatusInfo: AuthenticationStatusInfo
 }
