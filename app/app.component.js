@@ -39,7 +39,7 @@ var AppComponent = (function () {
                 _this.authorizationStatusInfo = statusInfo;
                 var currentUserAnnotated = _this.users.filter(function (user) { return user.data._id === statusInfo.currentUserId; })[0];
                 _this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
-                _this.initMenu(statusInfo.isLoggedIn);
+                _this.initMenu(statusInfo);
             });
         });
     };
@@ -67,7 +67,8 @@ var AppComponent = (function () {
     AppComponent.prototype.equipeSelected = function (value) {
         this.authService.setEquipeId(value);
     };
-    AppComponent.prototype.initMenu = function (isLoggedIn) {
+    AppComponent.prototype.initMenu = function (statusInfo) {
+        var isLoggedIn = statusInfo.isLoggedIn;
         this.menu = [
             {
                 route: '/home',
@@ -77,7 +78,8 @@ var AppComponent = (function () {
             {
                 route: '/dashboard',
                 title: 'Dashboard',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/mykrino',
@@ -93,47 +95,56 @@ var AppComponent = (function () {
             {
                 route: '/products',
                 title: 'Products',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/suppliers',
                 title: 'Suppliers',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/stock',
                 title: 'Stock',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/categories',
                 title: 'Categories',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/equipes',
                 title: 'Equipes',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/otps',
                 title: 'Otps',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/manips',
                 title: 'Manips',
-                active: false
+                active: false,
+                hide: true
             },
             {
                 route: '/prestations',
                 title: 'Prestations',
-                active: false
+                active: false,
+                hide: true
             },
             {
                 route: '/admin',
                 title: 'Administration',
-                active: false
+                active: false,
+                hide: !isLoggedIn || !statusInfo.isAdministrator()
             }
         ];
         this.menu = this.menu.filter(function (item) { return !item.hide; });

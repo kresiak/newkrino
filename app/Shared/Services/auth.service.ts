@@ -8,6 +8,7 @@ export class AuthenticationStatusInfo {
     public currentEquipeId: string= ''
     public isLoggedIn: boolean = false
     public isLoginError: boolean = false
+    public annotatedUser: any = null
 
     constructor(currentUserId: string, currentEquipeId, isLoggedIn){
         this.currentUserId= currentUserId
@@ -25,6 +26,15 @@ export class AuthenticationStatusInfo {
 
     hasEquipeId() {
         return this.currentEquipeId != ''
+    }
+
+    logout(){
+        this.isLoggedIn= false
+        this.annotatedUser= null
+    }
+
+    isAdministrator() {
+        return this.annotatedUser && this.annotatedUser.data.isAdmin
     }
 }
 
@@ -94,7 +104,7 @@ export class AuthService {
     setUserId(id: string): void{
         this.authInfo.currentUserId= id
         this.authInfo.currentEquipeId= ''
-        this.authInfo.isLoggedIn= false        
+        this.authInfo.logout()        
         this.emitCurrentAuthenticationStatus()
         this.currentUserIdObservable.next(id);
     }
@@ -106,7 +116,7 @@ export class AuthService {
     setEquipeId(id: string): void
     {
         this.authInfo.currentEquipeId= id
-        this.authInfo.isLoggedIn= false
+        this.authInfo.logout()       
         this.emitCurrentAuthenticationStatus()
     }
 
@@ -124,6 +134,7 @@ export class AuthService {
         this.authInfo.isLoginError= false
         this.getAnnotatedCurrentUser().first().subscribe(user => {
             if (!user.data.password || user.data.password===password) {
+                this.authInfo.annotatedUser= user
                 this.setLoggedIn()
             }
             else {

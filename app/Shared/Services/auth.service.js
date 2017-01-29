@@ -21,6 +21,7 @@ var AuthenticationStatusInfo = (function () {
         this.currentEquipeId = '';
         this.isLoggedIn = false;
         this.isLoginError = false;
+        this.annotatedUser = null;
         this.currentUserId = currentUserId;
         this.currentEquipeId = currentEquipeId;
         this.isLoggedIn = isLoggedIn;
@@ -33,6 +34,13 @@ var AuthenticationStatusInfo = (function () {
     };
     AuthenticationStatusInfo.prototype.hasEquipeId = function () {
         return this.currentEquipeId != '';
+    };
+    AuthenticationStatusInfo.prototype.logout = function () {
+        this.isLoggedIn = false;
+        this.annotatedUser = null;
+    };
+    AuthenticationStatusInfo.prototype.isAdministrator = function () {
+        return this.annotatedUser && this.annotatedUser.data.isAdmin;
     };
     return AuthenticationStatusInfo;
 }());
@@ -90,7 +98,7 @@ var AuthService = (function () {
     AuthService.prototype.setUserId = function (id) {
         this.authInfo.currentUserId = id;
         this.authInfo.currentEquipeId = '';
-        this.authInfo.isLoggedIn = false;
+        this.authInfo.logout();
         this.emitCurrentAuthenticationStatus();
         this.currentUserIdObservable.next(id);
     };
@@ -99,7 +107,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.setEquipeId = function (id) {
         this.authInfo.currentEquipeId = id;
-        this.authInfo.isLoggedIn = false;
+        this.authInfo.logout();
         this.emitCurrentAuthenticationStatus();
     };
     AuthService.prototype.setLoggedIn = function () {
@@ -115,6 +123,7 @@ var AuthService = (function () {
         this.authInfo.isLoginError = false;
         this.getAnnotatedCurrentUser().first().subscribe(function (user) {
             if (!user.data.password || user.data.password === password) {
+                _this.authInfo.annotatedUser = user;
                 _this.setLoggedIn();
             }
             else {

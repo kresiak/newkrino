@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
                 this.authorizationStatusInfo = statusInfo
                 let currentUserAnnotated = this.users.filter(user => user.data._id === statusInfo.currentUserId)[0];
                 this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
-                this.initMenu(statusInfo.isLoggedIn)
+                this.initMenu(statusInfo)
             })
         });
     }
@@ -73,7 +73,8 @@ export class AppComponent implements OnInit {
 
     title = 'Krino';
 
-    initMenu(isLoggedIn: boolean) {
+    initMenu(statusInfo: AuthenticationStatusInfo) {
+        var isLoggedIn: boolean= statusInfo.isLoggedIn
         this.menu = [
             {
                 route: '/home',
@@ -83,7 +84,8 @@ export class AppComponent implements OnInit {
             {
                 route: '/dashboard',
                 title: 'Dashboard',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/mykrino',
@@ -99,47 +101,56 @@ export class AppComponent implements OnInit {
             {
                 route: '/products',
                 title: 'Products',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/suppliers',
                 title: 'Suppliers',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/stock',
                 title: 'Stock',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/categories',
                 title: 'Categories',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/equipes',
                 title: 'Equipes',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/otps',
                 title: 'Otps',
-                active: false
+                active: false,
+                hide: !isLoggedIn
             },
             {
                 route: '/manips',
                 title: 'Manips',
-                active: false
+                active: false,
+                hide: true
             },
             {
                 route: '/prestations',
                 title: 'Prestations',
-                active: false
+                active: false,
+                hide: true
             },
             {
                 route: '/admin',
                 title: 'Administration',
-                active: false
+                active: false,
+                hide: !isLoggedIn || !statusInfo.isAdministrator()
             }
 
         ];
