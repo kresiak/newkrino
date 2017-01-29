@@ -14,12 +14,14 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(dataStore, productService, orderService, navigationService) {
+    function ProductDetailComponent(dataStore, productService, orderService, navigationService, authService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.navigationService = navigationService;
+        this.authService = authService;
         this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -39,6 +41,9 @@ var ProductDetailComponent = (function () {
             if (product) {
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByProduct(product.data._id);
             }
+        });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     ProductDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
@@ -142,7 +147,7 @@ var ProductDetailComponent = (function () {
             selector: 'gg-product-detail',
             templateUrl: './product-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());

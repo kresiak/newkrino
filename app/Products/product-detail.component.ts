@@ -7,6 +7,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { NavigationService } from './../Shared/Services/navigation.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 
 
@@ -19,7 +20,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 
 export class ProductDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -33,6 +34,8 @@ export class ProductDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
+    private authorizationStatusInfo: AuthenticationStatusInfo
+
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -43,6 +46,10 @@ export class ProductDetailComponent implements OnInit {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
             }
         });
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })        
     }
 
     //private model;
