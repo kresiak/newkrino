@@ -35,7 +35,7 @@ var SupplierService = (function () {
         var _this = this;
         return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(), this.orderService.getSupplierFrequenceMapObservable(), this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'), function (suppliers, produits, basketItems, supplierFrequenceMap, voucherMap, categories) {
             return suppliers.map(function (supplier) {
-                var voucherCategoryMap = voucherMap.get(supplier._id) ? voucherMap.get(supplier._id)['categoryMap'] : undefined;
+                var voucherCategoryMap = voucherMap && voucherMap.get(supplier._id) ? voucherMap.get(supplier._id)['categoryMap'] : undefined;
                 var xx = voucherCategoryMap ? voucherCategoryMap.values() : null;
                 if (xx) {
                     var res = xx;

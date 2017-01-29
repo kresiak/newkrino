@@ -25,7 +25,7 @@ export class SupplierService {
             this.orderService.getSupplierFrequenceMapObservable(), this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, basketItems, supplierFrequenceMap, voucherMap, categories) => {
                 return suppliers.map(supplier => {
-                    let voucherCategoryMap= voucherMap.get(supplier._id) ?  voucherMap.get(supplier._id)['categoryMap'] : undefined
+                    let voucherCategoryMap= voucherMap && voucherMap.get(supplier._id) ?  voucherMap.get(supplier._id)['categoryMap'] : undefined
                     let xx= voucherCategoryMap ? voucherCategoryMap.values() : null
                     if (xx) {
                         let res=xx
