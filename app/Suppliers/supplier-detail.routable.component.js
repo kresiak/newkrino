@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var supplier_service_1 = require('../Shared/Services/supplier.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var SupplierDetailComponentRoutable = (function () {
-    function SupplierDetailComponentRoutable(supplierService, route, navigationService) {
+    function SupplierDetailComponentRoutable(supplierService, route, navigationService, authService) {
         this.supplierService = supplierService;
         this.route = route;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     SupplierDetailComponentRoutable.prototype.initData = function (id) {
         var _this = this;
@@ -36,13 +38,16 @@ var SupplierDetailComponentRoutable = (function () {
             var id = params['id'];
             _this.initData(id);
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     SupplierDetailComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './supplier-detail.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService, router_1.ActivatedRoute, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService, router_1.ActivatedRoute, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], SupplierDetailComponentRoutable);
     return SupplierDetailComponentRoutable;
 }());
