@@ -24,11 +24,12 @@ export class ProductListComponentRoutable implements OnInit {
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
-//      this.navigationService.getStateObservable().subscribe(state => {
-//          this.state= state
-        })        
-   }
+            this.authorizationStatusInfo = statusInfo
+        })
+        this.navigationService.getStateObservable().subscribe(state => {
+            this.state = state
+        })
+    }
 
     private productsObservable: Observable<any>;
     private suppliersObservable: Observable<any>;

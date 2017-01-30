@@ -29,8 +29,9 @@ var ProductListComponentRoutable = (function () {
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.authService.getStatusObservable().subscribe(function (statusInfo) {
             _this.authorizationStatusInfo = statusInfo;
-            //      this.navigationService.getStateObservable().subscribe(state => {
-            //          this.state= state
+        });
+        this.navigationService.getStateObservable().subscribe(function (state) {
+            _this.state = state;
         });
     };
     ProductListComponentRoutable = __decorate([
