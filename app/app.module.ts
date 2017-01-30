@@ -70,6 +70,8 @@ import {OrderListComponentRoutable} from './Orders/order-list.routable.component
 import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'
 
+import {ReceptionDetailComponent} from './Reception/reception-detail.component'
+
 import {DashboardComponent} from './Dashboard/dashboard.component'
 import {DashletComponent} from './Dashboard/dashlet.component'
 import {MyKrinoComponent} from './Dashboard/mykrino.component'
@@ -136,6 +138,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
+            { path: 'reception', component: ReceptionDetailComponent },
             { path: '**', redirectTo: '/home'}
           ])
    ],
@@ -148,7 +151,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
-
+                  ReceptionDetailComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 

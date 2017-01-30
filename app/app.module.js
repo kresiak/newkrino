@@ -65,6 +65,7 @@ var order_list_component_1 = require('./Orders/order-list.component');
 var order_list_routable_component_1 = require('./Orders/order-list.routable.component');
 var stock_list_component_1 = require('./Stock/stock-list.component');
 var stock_detail_component_1 = require('./Stock/stock-detail.component');
+var reception_detail_component_1 = require('./Reception/reception-detail.component');
 var dashboard_component_1 = require('./Dashboard/dashboard.component');
 var dashlet_component_1 = require('./Dashboard/dashlet.component');
 var mykrino_component_1 = require('./Dashboard/mykrino.component');
@@ -130,6 +131,7 @@ var AppModule = (function () {
                     { path: "", component: home_component_1.HomeComponent, pathMatch: 'full' },
                     { path: 'preorder/:id', component: pre_order_component_1.PreOrderComponent },
                     { path: 'order/:id', component: order_detail_routable_component_1.OrderComponentRoutable },
+                    { path: 'reception', component: reception_detail_component_1.ReceptionDetailComponent },
                     { path: '**', redirectTo: '/home' }
                 ])
             ],
@@ -141,6 +143,7 @@ var AppModule = (function () {
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_routable_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent, product_detail_routable_component_1.ProductDetailComponentRoutable,
                 otp_component_1.OtpComponent, otp_list_component_js_1.OtpListComponent, otp_detail_component_1.OtpDetailComponent, otp_detail_routable_component_1.OtpDetailComponentRoutable, otp_list_routable_component_1.OtpListComponentRoutable, otp_enter_component_1.OtpEnterComponent,
                 category_list_component_1.CategoryListComponent, category_detail_component_1.CategoryDetailComponent, category_list_routable_component_1.CategoryListComponentRoutable, category_enter_component_1.CategoryEnterComponent, category_detail_routable_component_1.CategoryDetailComponentRoutable,
+                reception_detail_component_1.ReceptionDetailComponent,
                 stock_detail_component_1.StockDetailComponent, stock_list_component_1.StockListComponentRoutable, stock_list_component_1.StockListComponent,
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent, unmaximize_component_1.UnMaximizeComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,

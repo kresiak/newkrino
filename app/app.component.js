@@ -145,6 +145,12 @@ var AppComponent = (function () {
                 title: 'Administration',
                 active: false,
                 hide: !isLoggedIn || !statusInfo.isAdministrator()
+            },
+            {
+                route: '/reception',
+                title: 'Reception',
+                active: false,
+                hide: false
             }
         ];
         this.menu = this.menu.filter(function (item) { return !item.hide; });
