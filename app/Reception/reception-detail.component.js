@@ -10,11 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var data_service_1 = require('./../Shared/Services/data.service');
+var forms_1 = require('@angular/forms');
 var ReceptionDetailComponent = (function () {
-    function ReceptionDetailComponent(dataStore) {
+    function ReceptionDetailComponent(formBuilder, dataStore) {
+        this.formBuilder = formBuilder;
         this.dataStore = dataStore;
     }
     ReceptionDetailComponent.prototype.ngOnInit = function () {
+        this.receptionForm = this.formBuilder.group({
+            supplier: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+            reference: ['', forms_1.Validators.required],
+            position: ['', forms_1.Validators.required]
+        });
+    };
+    ReceptionDetailComponent.prototype.save = function (formValue, isValid) {
+        this.dataStore.addData('orders.reception', {
+            supplier: formValue.supplier,
+            reference: formValue.reference,
+            position: formValue.position
+        });
+        /*.subscribe(res =>
+        {
+            var x=res;
+            this.reset();
+        });*/
+    };
+    ReceptionDetailComponent.prototype.reset = function () {
+        this.receptionForm.reset();
     };
     ReceptionDetailComponent = __decorate([
         core_1.Component({
@@ -22,7 +44,7 @@ var ReceptionDetailComponent = (function () {
             selector: 'gg-reception-detail',
             templateUrl: './reception-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, data_service_1.DataStore])
     ], ReceptionDetailComponent);
     return ReceptionDetailComponent;
 }());

@@ -1,34 +1,62 @@
-<h1> Bonjour </h1>
-<!--    
-    <ngb-tab title="New packet" id="tabNewPacket">
-		<template ngbTabContent>
-			<div class="card">
-				<div class="card-block">
-					<div class="row">
-						<div class="col-sm-4 vcenter">name of supplier:</div>
-						<div class="col-sm-6 vcenter">
-                            Bonjour :)
-                            <!--
-							<gg-editor [content]="otp.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
-                            -->
-	<!--					</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">reference:</div>
-						<!--
-                        <div class="col-sm-6">{{otp.annotation.equipe}}</div>
-                        -->
-		<!--			</div>
-					<div class="row">
-						<div class="col-sm-4 vcenter">position:</div>
-						<div class="col-sm-6 vcenter">
-                            <!--
-							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)"></gg-editor>
-                            -->
-			<!--			</div>
-					</div>
-				</div>
-			</div>
-		</template>
-	</ngb-tab>
-    -->
+<div class="card">
+    <div class="card-block">
+        <ngb-tabset>
+            <ngb-tab title="New packet" id="newPacket">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="container-fluid">
+                                <form [formGroup]="receptionForm" (ngSubmit)="save(receptionForm.value, receptionForm.valid)">
+                                    <div class="form-group row">
+                                        <label for="supplier" class="col-sm-2 col-form-label col-xl-2">supplier:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="supplier" id="supplier" placeholder="description of the supplier">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="reference" class="col-sm-2 col-form-label col-xl-2">reference:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="reference" id="reference" placeholder="reference of the packet">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="position" class="col-sm-2 col-form-label col-xl-2">position:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="position" id="position" placeholder="position of the packet">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                            <button class="btn btn-success" type="submit" [disabled]="!receptionForm.valid">Submit</button>
+                                        </div>
+                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                            <button class="btn btn-info"  [disabled]="receptionForm.pristine" (click)="reset()">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+				        </div>
+			        </div>
+		        </template>
+	        </ngb-tab>  
+            <ngb-tab title="List of packet" id="listOfPacket">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="container-fluid">
+                                <form [formGroup]="receptionForm" (ngSubmit)="save(receptionForm.value, receptionForm.valid)">
+                                    <div class="form-group row">
+                                        <label for="supplier" class="col-sm-2 col-form-label col-xl-2">supplier:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" formControlName="supplier" id="supplier" placeholder="description of the supplier">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
