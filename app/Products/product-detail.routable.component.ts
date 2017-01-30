@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 import { ProductService } from '../Shared/Services/product.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -11,10 +12,12 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
     }
 )
 export class ProductDetailComponentRoutable implements OnInit {
-    constructor(private productService: ProductService, private route: ActivatedRoute, private navigationService: NavigationService) { }
+    constructor(private productService: ProductService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
 
     product: any
     state: {}
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     productObservable: Observable<any>;
     initData(id: string) {
@@ -33,6 +36,10 @@ export class ProductDetailComponentRoutable implements OnInit {
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)
+        });
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
         });
     }
     

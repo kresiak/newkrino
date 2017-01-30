@@ -67,6 +67,9 @@ var SupplierDetailComponent = (function () {
                 });
             }
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     SupplierDetailComponent.prototype.gotoPreOrder = function () {
         var link = ['/preorder', this.supplier.data._id];
