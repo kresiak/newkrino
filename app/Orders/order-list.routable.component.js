@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var order_service_1 = require('./../Shared/Services/order.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var OrderListComponentRoutable = (function () {
-    function OrderListComponentRoutable(orderService, supplierService, navigationService) {
+    function OrderListComponentRoutable(orderService, supplierService, navigationService, authService) {
         this.orderService = orderService;
         this.supplierService = supplierService;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     OrderListComponentRoutable.prototype.ngAfterViewInit = function () {
         this.navigationService.jumpToOpenRootAccordionElement();
@@ -28,13 +30,16 @@ var OrderListComponentRoutable = (function () {
         this.navigationService.getStateObservable().subscribe(function (state) {
             _this.state = state;
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     OrderListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './order-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, supplier_service_1.SupplierService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, supplier_service_1.SupplierService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], OrderListComponentRoutable);
     return OrderListComponentRoutable;
 }());

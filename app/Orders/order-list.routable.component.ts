@@ -3,6 +3,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable } from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -11,7 +12,7 @@ import { NavigationService } from '../Shared/Services/navigation.service'
     }
 )
 export class OrderListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private supplierService: SupplierService, private navigationService: NavigationService) { }
+    constructor(private orderService: OrderService, private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
 
@@ -25,8 +26,12 @@ export class OrderListComponentRoutable implements OnInit {
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })
     }
 
     private suppliersObservable: Observable<any>;
     private ordersObservable: Observable<any>;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 }

@@ -10,9 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var EquipeListComponentRoutable = (function () {
-    function EquipeListComponentRoutable(navigationService) {
+    function EquipeListComponentRoutable(navigationService, authService) {
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     EquipeListComponentRoutable.prototype.ngAfterViewInit = function () {
         this.navigationService.jumpToOpenRootAccordionElement();
@@ -22,13 +24,16 @@ var EquipeListComponentRoutable = (function () {
         this.navigationService.getStateObservable().subscribe(function (state) {
             _this.state = state;
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     EquipeListComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './equipe-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], EquipeListComponentRoutable);
     return EquipeListComponentRoutable;
 }());
