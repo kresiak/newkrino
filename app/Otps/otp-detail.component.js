@@ -17,8 +17,9 @@ var order_service_1 = require('./../Shared/Services/order.service');
 var user_service_1 = require('./../Shared/Services/user.service');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var OtpDetailComponent = (function () {
-    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, navigationService, router) {
+    function OtpDetailComponent(dataStore, productService, orderService, userService, chartService, navigationService, router, authService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
@@ -26,6 +27,7 @@ var OtpDetailComponent = (function () {
         this.chartService = chartService;
         this.navigationService = navigationService;
         this.router = router;
+        this.authService = authService;
         this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -47,6 +49,9 @@ var OtpDetailComponent = (function () {
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 _this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
+        });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     OtpDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
@@ -138,7 +143,7 @@ var OtpDetailComponent = (function () {
             selector: 'gg-otp-detail',
             templateUrl: './otp-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService, router_1.Router])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService, router_1.Router, auth_service_1.AuthService])
     ], OtpDetailComponent);
     return OtpDetailComponent;
 }());

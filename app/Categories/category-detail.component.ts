@@ -6,7 +6,7 @@ import { ProductService } from './../Shared/Services/product.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { NavigationService } from './../Shared/Services/navigation.service'
-
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -17,7 +17,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 
 export class CategoryDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) {
     }
 
     @Input() categoryObservable: Observable<any>;
@@ -39,14 +39,17 @@ export class CategoryDetailComponent implements OnInit {
                 this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id)
                 this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id)
             }
-            
-        })
+        });
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
     }
 
     //private model;
     private category
     private productsObservable : Observable<any> 
     private otpsObservable: Observable<any>;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     commentsUpdated(comments) {
         if (this.category && comments) {

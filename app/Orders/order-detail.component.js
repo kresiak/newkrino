@@ -16,11 +16,13 @@ var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var OrderDetailComponent = (function () {
-    function OrderDetailComponent(orderService, route, userService, dataStore, elementRef, modalService, router, navigationService) {
+    function OrderDetailComponent(orderService, route, userService, authService, dataStore, elementRef, modalService, router, navigationService) {
         this.orderService = orderService;
         this.route = route;
         this.userService = userService;
+        this.authService = authService;
         this.dataStore = dataStore;
         this.elementRef = elementRef;
         this.modalService = modalService;
@@ -46,6 +48,9 @@ var OrderDetailComponent = (function () {
                 _this.order.annotation.items.forEach(function (item) {
                     item.annotation.idObservable = new Rx_1.BehaviorSubject([item.data.otpId]);
                 });
+        });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     OrderDetailComponent.prototype.ngAfterViewInit = function () {
@@ -152,7 +157,7 @@ var OrderDetailComponent = (function () {
             selector: 'gg-order-detail',
             templateUrl: './order-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal, router_1.Router, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, user_service_1.UserService, auth_service_1.AuthService, data_service_1.DataStore, core_1.ElementRef, ng_bootstrap_1.NgbModal, router_1.Router, navigation_service_1.NavigationService])
     ], OrderDetailComponent);
     return OrderDetailComponent;
 }());

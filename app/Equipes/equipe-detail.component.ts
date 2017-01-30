@@ -6,6 +6,7 @@ import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -15,7 +16,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService, private navigationService: NavigationService) {
+    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService, private navigationService: NavigationService, private authService: AuthService) {
     }
     private pieSpentChart;
 
@@ -47,13 +48,16 @@ export class EquipeDetailComponent implements OnInit {
                 this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder=anyOrder);
             }
         });
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
     }
 
 
 /*    @Input() selectedTabId;
     @Output() tabChanged = new EventEmitter();
 */
-
+    private authorizationStatusInfo: AuthenticationStatusInfo;
     private usersObservable: Observable<any>;
     private otpsObservable: Observable<any>;
     private ordersObservable: Observable<any>;

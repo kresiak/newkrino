@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var product_service_1 = require('../Shared/Services/product.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var CategoryDetailComponentRoutable = (function () {
-    function CategoryDetailComponentRoutable(productService, route, navigationService) {
+    function CategoryDetailComponentRoutable(productService, route, navigationService, authService) {
         this.productService = productService;
         this.route = route;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     CategoryDetailComponentRoutable.prototype.initData = function (id) {
         var _this = this;
@@ -36,13 +38,16 @@ var CategoryDetailComponentRoutable = (function () {
             var id = params['id'];
             _this.initData(id);
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     CategoryDetailComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './category-detail.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], CategoryDetailComponentRoutable);
     return CategoryDetailComponentRoutable;
 }());
