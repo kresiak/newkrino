@@ -1,13 +1,13 @@
 <div id="GGTOP"></div>
 <div class="card">
     <div class="card-block">
-        <ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
+        <ngb-tabset>
             <ngb-tab title="View Orders" id="tabView">
                 <template ngbTabContent>
                     <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create an Order" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="Create an Order" id="tabCreate" *ngIf="authorizationStatusInfo.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -18,6 +18,5 @@
                 </template>
             </ngb-tab>
         </ngb-tabset>
-        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>
