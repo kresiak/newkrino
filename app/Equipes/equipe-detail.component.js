@@ -15,13 +15,15 @@ var Rx_1 = require('rxjs/Rx');
 var user_service_1 = require('./../Shared/Services/user.service');
 var chart_service_1 = require('./../Shared/Services/chart.service');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var EquipeDetailComponent = (function () {
-    function EquipeDetailComponent(dataStore, orderService, userService, chartService, navigationService) {
+    function EquipeDetailComponent(dataStore, orderService, userService, chartService, navigationService, authService) {
         this.dataStore = dataStore;
         this.orderService = orderService;
         this.userService = userService;
         this.chartService = chartService;
         this.navigationService = navigationService;
+        this.authService = authService;
         this.isRoot = false;
         this.initialTab = '';
         this.stateChanged = new core_1.EventEmitter();
@@ -44,6 +46,9 @@ var EquipeDetailComponent = (function () {
                 _this.ordersObservable = _this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 _this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(function (anyOrder) { return _this.anyOrder = anyOrder; });
             }
+        });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     EquipeDetailComponent.prototype.setDashlet = function () {
@@ -128,7 +133,7 @@ var EquipeDetailComponent = (function () {
             selector: 'gg-equipe-detail',
             templateUrl: './equipe-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], EquipeDetailComponent);
     return EquipeDetailComponent;
 }());

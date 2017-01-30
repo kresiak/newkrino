@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 import { OrderService } from '../Shared/Services/order.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -11,10 +12,12 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
     }
 )
 export class OrderComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private navigationService: NavigationService) { }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
 
     order: any
     state: {}
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     orderObservable: Observable<any>;
     initData(id: string) {
@@ -33,6 +36,9 @@ export class OrderComponentRoutable implements OnInit {
         this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)
+        });
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
         });
     }
     

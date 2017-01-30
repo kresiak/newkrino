@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -10,7 +11,7 @@ import { NavigationService } from '../Shared/Services/navigation.service'
     }
 )
 export class OtpListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private navigationService: NavigationService) { }
+    constructor(private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
 
@@ -23,8 +24,12 @@ export class OtpListComponentRoutable implements OnInit {
             this.state= state
         })        
         this.otpsObservable = this.orderService.getAnnotatedOtps();
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })
     }
 
     private otpsObservable: Observable<any>;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 }
 

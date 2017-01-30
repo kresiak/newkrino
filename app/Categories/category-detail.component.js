@@ -14,12 +14,14 @@ var data_service_1 = require('./../Shared/Services/data.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var product_service_1 = require('./../Shared/Services/product.service');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var CategoryDetailComponent = (function () {
-    function CategoryDetailComponent(dataStore, productService, orderService, navigationService) {
+    function CategoryDetailComponent(dataStore, productService, orderService, navigationService, authService) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.navigationService = navigationService;
+        this.authService = authService;
         this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -38,6 +40,9 @@ var CategoryDetailComponent = (function () {
                 _this.productsObservable = _this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id);
                 _this.otpsObservable = _this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id);
             }
+        });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     CategoryDetailComponent.prototype.commentsUpdated = function (comments) {
@@ -119,7 +124,7 @@ var CategoryDetailComponent = (function () {
             selector: 'gg-category-detail',
             templateUrl: './category-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], CategoryDetailComponent);
     return CategoryDetailComponent;
 }());

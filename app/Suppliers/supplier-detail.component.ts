@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
-import { AuthService } from './../Shared/Services/auth.service'
+import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { Observable } from 'rxjs/Rx'
@@ -74,9 +74,13 @@ export class SupplierDetailComponent implements OnInit {
                 })
             }
         });
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })        
     }
 
-
+    private authorizationStatusInfo: AuthenticationStatusInfo;
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;

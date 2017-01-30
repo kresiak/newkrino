@@ -1,13 +1,13 @@
 <div id="GGTOP"></div>
 <div class="card">
     <div class="card-block">
-        <ngb-tabset>
+        <ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
             <ngb-tab title="View Equipes" id="tabView">
                 <template ngbTabContent>
                     <gg-equipe-list [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create an Equipe" id="tabCreate">
+            <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -17,5 +17,6 @@
                 </template>
             </ngb-tab>
         </ngb-tabset>
+        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>

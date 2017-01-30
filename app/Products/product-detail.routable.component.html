@@ -2,7 +2,8 @@
 <div class="card" *ngIf="product">
     <div class="card-block">
         <h6>Product {{product.data.name}}</h6>
-        <gg-product-detail [productObservable]="productObservable" [state]="state" [path]="'product|'+product.data._id" [isRoot]="true" ></gg-product-detail>        
+        <gg-product-detail *ngIf="authorizationStatusInfo.isLoggedIn" [productObservable]="productObservable" [state]="state" [path]="'product|'+product.data._id" [isRoot]="true" ></gg-product-detail>
+        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>
 

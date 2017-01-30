@@ -2,7 +2,8 @@
 <div class="card" *ngIf="category">
     <div class="card-block">
         <h6>Category {{category.data.name}}</h6>
-        <gg-category-detail [categoryObservable]="categoryObservable" [path]="'category|'+category.data._id"  [isRoot]="true" [state]="state"></gg-category-detail>        
+        <gg-category-detail *ngIf="authorizationStatusInfo.isLoggedIn" [categoryObservable]="categoryObservable" [path]="'category|'+category.data._id"  [isRoot]="true" [state]="state"></gg-category-detail>        
+        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>
 

@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var product_service_1 = require('./../Shared/Services/product.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var ProductListComponentRoutable = (function () {
-    function ProductListComponentRoutable(productService, supplierService, navigationService) {
+    function ProductListComponentRoutable(productService, supplierService, navigationService, authService) {
         this.productService = productService;
         this.supplierService = supplierService;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     ProductListComponentRoutable.prototype.ngAfterViewInit = function () {
         this.navigationService.jumpToOpenRootAccordionElement();
@@ -25,8 +27,10 @@ var ProductListComponentRoutable = (function () {
         var _this = this;
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-        this.navigationService.getStateObservable().subscribe(function (state) {
-            _this.state = state;
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+            //      this.navigationService.getStateObservable().subscribe(state => {
+            //          this.state= state
         });
     };
     ProductListComponentRoutable = __decorate([
@@ -34,7 +38,7 @@ var ProductListComponentRoutable = (function () {
             moduleId: module.id,
             templateUrl: './product-list.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, supplier_service_1.SupplierService, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [product_service_1.ProductService, supplier_service_1.SupplierService, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], ProductListComponentRoutable);
     return ProductListComponentRoutable;
 }());

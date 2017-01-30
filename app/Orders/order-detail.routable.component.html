@@ -2,6 +2,7 @@
 <div class="card" *ngIf="order">
     <div class="card-block">
         <h6>Order {{order.data.kid}}</h6>
-        <gg-order-detail [orderObservable]="orderObservable" [path]="'order|'+order.data._id" [state]="state" [isRoot]="true"></gg-order-detail>
+        <gg-order-detail *ngIf="authorizationStatusInfo.isLoggedIn" [orderObservable]="orderObservable" [path]="'order|'+order.data._id" [state]="state" [isRoot]="true"></gg-order-detail>
+        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>

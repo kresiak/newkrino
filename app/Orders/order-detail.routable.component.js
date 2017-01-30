@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var order_service_1 = require('../Shared/Services/order.service');
 var navigation_service_1 = require('../Shared/Services/navigation.service');
+var auth_service_1 = require('../Shared/Services/auth.service');
 var OrderComponentRoutable = (function () {
-    function OrderComponentRoutable(orderService, route, navigationService) {
+    function OrderComponentRoutable(orderService, route, navigationService, authService) {
         this.orderService = orderService;
         this.route = route;
         this.navigationService = navigationService;
+        this.authService = authService;
     }
     OrderComponentRoutable.prototype.initData = function (id) {
         var _this = this;
@@ -36,13 +38,16 @@ var OrderComponentRoutable = (function () {
             var id = params['id'];
             _this.initData(id);
         });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     OrderComponentRoutable = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './order-detail.routable.component.html'
         }), 
-        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, navigation_service_1.NavigationService])
+        __metadata('design:paramtypes', [order_service_1.OrderService, router_1.ActivatedRoute, navigation_service_1.NavigationService, auth_service_1.AuthService])
     ], OrderComponentRoutable);
     return OrderComponentRoutable;
 }());

@@ -10,7 +10,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
-
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 
 @Component(
@@ -22,7 +22,7 @@ import * as moment from "moment"
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService, private navigationService: NavigationService, private router: Router) {
+        private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService) {
     }
     private pieSpentChart;
 
@@ -50,6 +50,9 @@ export class OtpDetailComponent implements OnInit {
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
     }
 
     //private model;
@@ -58,6 +61,7 @@ export class OtpDetailComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
     private anyOrder: boolean;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;
