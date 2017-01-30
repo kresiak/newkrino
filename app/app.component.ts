@@ -151,8 +151,13 @@ export class AppComponent implements OnInit {
                 title: 'Administration',
                 active: false,
                 hide: !isLoggedIn || !statusInfo.isAdministrator()
+            },
+            {
+                route: '/reception',
+                title: 'Reception',
+                active: false,
+                hide: false
             }
-
         ];
         this.menu= this.menu.filter(item => !item.hide)
     }
