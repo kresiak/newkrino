@@ -415,9 +415,9 @@ var ProductService = (function () {
                 supplierId: supplierId,
                 items: products.filter(function (product) { return product.annotation.quantity > 0; }).map(function (product) {
                     return {
-                        product: product.data._id,
+                        productId: product.data._id,
                         quantity: product.annotation.quantity,
-                        otp: product.annotation.otp._id,
+                        otpId: product.annotation.otp._id,
                         total: product.annotation.totalPrice
                     };
                 })

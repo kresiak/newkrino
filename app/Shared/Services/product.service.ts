@@ -494,9 +494,9 @@ export class ProductService {
                 supplierId: supplierId,
                 items: products.filter(product => product.annotation.quantity > 0).map(product => {
                     return {
-                        product: product.data._id,
+                        productId: product.data._id,
                         quantity: product.annotation.quantity,
-                        otp: product.annotation.otp._id,
+                        otpId: product.annotation.otp._id,
                         total: product.annotation.totalPrice
                     };
                 })
