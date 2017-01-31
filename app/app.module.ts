@@ -14,6 +14,7 @@ import { HomeComponent} from './home.component'
 
 import {AdminMainComponent} from './Admin/admin-main.component'
 import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
+import {AdminAK} from './Admin/AK/component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
 
@@ -87,6 +88,7 @@ import {SelectorComponent} from './ui/selector/selector.component'
 import {CommentComponent} from './Comments/comment.component'
 import {CommentsComponent} from './Comments/comments.component'
 
+import {WebSocketService} from './Shared/Services/websocket.service';
 import {NavigationService} from './Shared/Services/navigation.service';
 import {ApiService} from './Shared/Services/api.service';
 import {ProductService} from './Shared/Services/product.service'
@@ -144,7 +146,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
    ],
   declarations: [ AppComponent, HomeComponent, 
                   VoucherListComponent, VoucherDetailComponent,
-                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent,
+                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
@@ -162,7 +164,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
-  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService ],
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

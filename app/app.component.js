@@ -14,14 +14,17 @@ var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 var auth_service_1 = require('./Shared/Services/auth.service');
+var websocket_service_1 = require('./Shared/Services/websocket.service');
 var AppComponent = (function () {
-    function AppComponent(authService, route, router, modalService) {
+    function AppComponent(authService, route, router, modalService, webSocketService) {
         this.authService = authService;
         this.route = route;
         this.router = router;
         this.modalService = modalService;
+        this.webSocketService = webSocketService;
         this.password = '';
         this.title = 'Krino';
+        this.webSocketService.init();
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -168,7 +171,7 @@ var AppComponent = (function () {
             selector: 'giga-app',
             templateUrl: './app.component.html'
         }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.ActivatedRoute, router_1.Router, ng_bootstrap_1.NgbModal])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.ActivatedRoute, router_1.Router, ng_bootstrap_1.NgbModal, websocket_service_1.WebSocketService])
     ], AppComponent);
     return AppComponent;
 }());

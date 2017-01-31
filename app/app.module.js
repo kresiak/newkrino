@@ -21,6 +21,7 @@ var app_component_1 = require('./app.component');
 var home_component_1 = require('./home.component');
 var admin_main_component_1 = require('./Admin/admin-main.component');
 var component_1 = require('./Admin/Webshopping/component');
+var component_2 = require('./Admin/AK/component');
 var voucher_request_list_component_1 = require('./Admin/Webshopping/voucher-request-list.component');
 var voucher_request_component_1 = require('./Admin/Webshopping/voucher-request.component');
 var voucher_list_component_1 = require('./Admin/Webshopping/voucher-list.component');
@@ -79,6 +80,7 @@ var checkbox_1 = require('./ui/checkbox/checkbox');
 var selector_component_1 = require('./ui/selector/selector.component');
 var comment_component_1 = require('./Comments/comment.component');
 var comments_component_1 = require('./Comments/comments.component');
+var websocket_service_1 = require('./Shared/Services/websocket.service');
 var navigation_service_1 = require('./Shared/Services/navigation.service');
 var api_service_1 = require('./Shared/Services/api.service');
 var product_service_1 = require('./Shared/Services/product.service');
@@ -137,7 +139,7 @@ var AppModule = (function () {
             ],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent,
                 voucher_list_component_1.VoucherListComponent, voucher_detail_component_1.VoucherDetailComponent,
-                admin_main_component_1.AdminMainComponent, component_1.AdminWebShoppingComponent, voucher_request_list_component_1.AdminWebShoppingVoucherRequestListComponent, voucher_request_component_1.AdminWebShoppingVoucherRequestComponent,
+                admin_main_component_1.AdminMainComponent, component_1.AdminWebShoppingComponent, voucher_request_list_component_1.AdminWebShoppingVoucherRequestListComponent, voucher_request_component_1.AdminWebShoppingVoucherRequestComponent, component_2.AdminAK,
                 comment_component_1.CommentComponent, comments_component_1.CommentsComponent,
                 supplier_list_component_1.SupplierListComponent, supplier_detail_component_1.SupplierDetailComponent, supplier_list_routable_component_1.SupplierListComponentRoutable, supplier_detail_routable_component_1.SupplierDetailComponentRoutable,
                 product_component_1.ProductComponent, product_grid_component_1.ProductGridComponent, product_enter_component_1.ProductEnterComponent, product_list_component_1.ProductListComponent, product_list_routable_component_1.ProductListComponentRoutable, product_detail_component_1.ProductDetailComponent, product_detail_routable_component_1.ProductDetailComponentRoutable,
@@ -154,7 +156,7 @@ var AppModule = (function () {
                 editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent, editor_autocomplete_1.EditorAutocomplete,
                 fulldate_pipe_1.FullDatePipe, shortdate_pipe_1.ShortDatePipe, fromnow_pipe_1.FromNowPipe
             ],
-            providers: [navigation_service_1.NavigationService, otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService],
+            providers: [navigation_service_1.NavigationService, otp_choice_service_1.OtpChoiceService, api_service_1.ApiService, data_service_1.DataStore, auth_service_1.AuthService, product_service_1.ProductService, supplier_service_1.SupplierService, order_service_1.OrderService, user_service_1.UserService, chart_service_1.ChartService, prestation_service_1.PrestationService, websocket_service_1.WebSocketService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

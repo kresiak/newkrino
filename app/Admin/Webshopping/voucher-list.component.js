@@ -37,7 +37,9 @@ var VoucherListComponent = (function () {
             if (searchTxt.trim() === '')
                 return vouchers;
             return vouchers.filter(function (otp) { return otp.annotation.user.toUpperCase().includes(searchTxt.toUpperCase()) || otp.annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase()); });
-        }).subscribe(function (vouchers) { return _this.vouchers = vouchers; });
+        }).subscribe(function (vouchers) {
+            _this.vouchers = vouchers;
+        });
     };
     VoucherListComponent.prototype.getVoucherObservable = function (id) {
         return this.vouchersObservable.map(function (vouchers) { return vouchers.filter(function (s) { return s.data._id === id; })[0]; });

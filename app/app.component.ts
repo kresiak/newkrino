@@ -5,6 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
+import {WebSocketService} from './Shared/Services/websocket.service';
 
 
 @Component({
@@ -13,7 +14,9 @@ import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.se
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService) { 
+        this.webSocketService.init()
+    }
 
     private password: string = ''
     private users;

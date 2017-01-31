@@ -46,7 +46,9 @@ export class VoucherListComponent implements OnInit {
         Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.startWith(''), (vouchers, searchTxt: string) => {
             if (searchTxt.trim() === '') return vouchers;
             return vouchers.filter(otp => otp.annotation.user.toUpperCase().includes(searchTxt.toUpperCase()) || otp.annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(vouchers => this.vouchers = vouchers);
+        }).subscribe(vouchers => {
+            this.vouchers = vouchers
+        });
         
     }
 
