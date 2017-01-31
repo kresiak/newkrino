@@ -118,17 +118,48 @@ export class OrderService {
         return orders.length === 0 ? 0 : orders.map(order => this.getTotalOfOrder(order)).reduce((a, b) => a + b);
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[]) {
+    private mapOldKrinoStatus(id: number){
+        var map={
+            1: 'Ready',
+            2: 'Blocked',
+            3: 'Deleted',
+            4: 'Received by SAP',
+            5: 'Sent to supplier',
+            6: 'Partially delivered',
+            7: 'Fully delivered',
+            9: 'Inconnu',
+            10: 'Invoiced',
+            15: 'Synchronisé avec SAP',
+            33: 'Commanmde interne',
+            34: 'Commande Bernadette',
+            40: 'Remboursement',
+            50: 'Commande au LM',
+            60: 'Commande Oligo prête',
+            70: 'Sequencing',
+            80: 'Frigo -2',
+            81: 'Frigo -2 delivered',
+            82: 'Engagement sur commande ouverte',
+            90: 'Pièce sans engagement'
+        }
+        if (map[id]) return map[id]
+        return 'Unknown status'
+    }
+
+    private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[], currentUser) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
         let equipe = equipes.get(order.equipeId)
         let user = users.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
+        let status= order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
+
         return {
             data: order,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
+                status: status,
+                isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
                 equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
@@ -173,8 +204,9 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
-            (order, products, otps, users, equipes, suppliers, dashlets) => {
-                return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
+            this.authService.getAnnotatedCurrentUser(),
+            (order, products, otps, users, equipes, suppliers, dashlets, currentUser) => {
+                return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
             })
     }
 
@@ -188,9 +220,10 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
-            (orders, products, otps, users, equipes, suppliers, dashlets) => {
+            this.authService.getAnnotatedCurrentUser(),
+            (orders, products, otps, users, equipes, suppliers, dashlets, currentUser) => {
                 return orders.map(order =>
-                    this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets)
+                    this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser)
                 );
             })
     }

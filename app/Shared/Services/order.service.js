@@ -125,18 +125,48 @@ var OrderService = (function () {
         var _this = this;
         return orders.length === 0 ? 0 : orders.map(function (order) { return _this.getTotalOfOrder(order); }).reduce(function (a, b) { return a + b; });
     };
-    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers, dashlets) {
+    OrderService.prototype.mapOldKrinoStatus = function (id) {
+        var map = {
+            1: 'Ready',
+            2: 'Blocked',
+            3: 'Deleted',
+            4: 'Received by SAP',
+            5: 'Sent to supplier',
+            6: 'Partially delivered',
+            7: 'Fully delivered',
+            9: 'Inconnu',
+            10: 'Invoiced',
+            15: 'Synchronisé avec SAP',
+            33: 'Commanmde interne',
+            34: 'Commande Bernadette',
+            40: 'Remboursement',
+            50: 'Commande au LM',
+            60: 'Commande Oligo prête',
+            70: 'Sequencing',
+            80: 'Frigo -2',
+            81: 'Frigo -2 delivered',
+            82: 'Engagement sur commande ouverte',
+            90: 'Pièce sans engagement'
+        };
+        if (map[id])
+            return map[id];
+        return 'Unknown status';
+    };
+    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers, dashlets, currentUser) {
         if (!order)
             return null;
         var supplier = suppliers.get(order.supplierId);
         var equipe = equipes.get(order.equipeId);
         var user = users.get(order.userId);
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === order._id; });
+        var status = order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?');
         return {
             data: order,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
+                status: status,
+                isDeletable: status === 'created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
                 equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
@@ -163,15 +193,15 @@ var OrderService = (function () {
     };
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets) {
-            return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets, currentUser) {
+            return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
         });
     };
     OrderService.prototype.getAnnotedOrders = function (ordersObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(ordersObservable, this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets) {
+        return Rx_1.Observable.combineLatest(ordersObservable, this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets, currentUser) {
             return orders.map(function (order) {
-                return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets);
+                return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
             });
         });
     };

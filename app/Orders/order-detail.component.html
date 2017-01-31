@@ -86,6 +86,9 @@
 									<div class="row">
 										{{order.annotation.equipe}}
 									</div>
+									<div class="row">
+										Status: {{order.annotation.status}} <span *ngIf="order.annotation.isDeletable"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></span>
+									</div>
 								</div>
 							</div> <br><br>
 							<div class="row">

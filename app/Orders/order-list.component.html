@@ -27,7 +27,8 @@
 							<div class="col-sm-2"><b>Date</b></div>
 							<div class="col-sm-2"><b>Who</b></div>
 							<div class="col-sm-3" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
-							<div class="col-sm-3"><b>Total (with VAT)</b></div>
+							<div class="col-sm-2"><b>Total (with VAT)</b></div>
+							<div class="col-sm-2"><b>Status</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -42,7 +43,8 @@
 							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
 							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe}}</div>
 							<div class="col-sm-3" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
-							<div class="col-sm-3">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">{{order.annotation.status}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

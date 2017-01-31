@@ -17,6 +17,7 @@ var user_service_1 = require('./../Shared/Services/user.service');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var auth_service_1 = require('../Shared/Services/auth.service');
+var moment = require("moment");
 var OrderDetailComponent = (function () {
     function OrderDetailComponent(orderService, route, userService, authService, dataStore, elementRef, modalService, router, navigationService) {
         this.orderService = orderService;
@@ -115,6 +116,12 @@ var OrderDetailComponent = (function () {
             this.order.data.comments = comments;
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
         }
+    };
+    OrderDetailComponent.prototype.deleteOrder = function () {
+        if (!this.order.data.status)
+            this.order.data.status = [];
+        this.order.data.status.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted' });
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     };
     OrderDetailComponent.prototype.beforeTabChange = function ($event) {
         if ($event.nextId === 'tabMax') {

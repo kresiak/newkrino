@@ -7,7 +7,7 @@ import { UserService } from './../Shared/Services/user.service'
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-
+import * as moment from "moment"
 
 
 @Component(
@@ -128,6 +128,12 @@ export class OrderDetailComponent implements OnInit {
             this.dataStore.updateData('orders', this.order.data._id, this.order.data);
         }
 
+    }
+
+    deleteOrder() {
+        if (!this.order.data.status) this.order.data.status=[]
+        this.order.data.status.unshift({date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted'})
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
