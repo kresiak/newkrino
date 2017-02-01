@@ -348,6 +348,54 @@ export class OrderService {
                 equipe.data.userIds && equipe.data.userIds.includes(userId));
         });
     }
+
+    getSelectableEquipes(): Observable<SelectableData[]> {
+        return this.dataStore.getDataObservable('equipes').map(equipes => {
+            return equipes.map(equipe =>
+                new SelectableData(equipe._id, equipe.name)
+            )
+        });
+    }
+
+    // equipes groups
+    // ==============
+
+    private createAnnotatedEquipeGroup(group, equipes) {
+        if (!group) return null;
+        let weightSum= group.equipeIds.reduce((acc, idObj) => acc + idObj.weight, 0)
+
+        return {
+            data: group,
+            annotation:
+            {
+                equipesTxt: group.equipeIds.reduce((acc, idObj) =>{
+                    let equipe= equipes.filter(eq => eq._id === idObj.id)[0]
+                    if (equipe) acc= acc + (acc === '' ? '' : ', ') + equipe.name
+                    return acc
+                }, ''),
+                equipes: group.equipeIds.map(idObj => {
+                    let equipe= equipes.filter(eq => eq._id === idObj.id)[0]
+                    return {
+                        data: idObj,
+                        annotation: {
+                            equipe: equipe ? equipe.name : 'unknown equipe',
+                            pc: idObj.weight/weightSum * 100
+                        }
+                    }
+                })
+            }
+        };
+    }
+
+    getAnnotatedEquipesGroups(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('equipes'),
+            this.dataStore.getDataObservable('equipes.groups'),
+            (equipes, groups) => {
+                return groups.map(group => this.createAnnotatedEquipeGroup(group, equipes))
+            });
+    }
+    
 }
 
 

@@ -1,0 +1,32 @@
+<ngb-tabset *ngIf="equipeGroup"  (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+	<ngb-tab title="Info" id="tabInfo">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4 vcenter">equipe group:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">_id:</div>
+						<div class="col-sm-6">{{equipeGroup.data._id}}</div>
+					</div>
+
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Comments" id="tabComments">
+		<template ngbTabContent>
+			<gg-comments [comments]="equipeGroup.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+		</template>
+	</ngb-tab>	
+</ngb-tabset>
