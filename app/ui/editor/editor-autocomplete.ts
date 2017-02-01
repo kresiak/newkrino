@@ -19,6 +19,7 @@ export class EditorAutocomplete implements OnInit {
 
     @Input() selectableData: Observable<SelectableData[]>;
     @Input() selectedId: string
+    @Input() emptyContentText: string = ''
     
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() idChanged = new EventEmitter();
@@ -32,7 +33,7 @@ export class EditorAutocomplete implements OnInit {
             return selectedItem  
         }).subscribe(item => {
             this.selectedItem= item
-            this.content = item ? item.name : ''
+            this.content = item ? item.name : this.emptyContentText
         });
     }
 

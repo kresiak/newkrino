@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ProductService } from './../Shared/Services/product.service'
+import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthService } from './../Shared/Services/auth.service'
 import { Observable } from 'rxjs/Rx'
@@ -12,9 +13,11 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class PreOrderComponent implements OnInit {
-    constructor(private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
+    constructor(private orderService: OrderService, private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
 
     }
+
+    private groupsAnnotable: Observable<any>
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
@@ -25,9 +28,17 @@ export class PreOrderComponent implements OnInit {
                 this.productsBasketObservable.subscribe(products => this.productsInBasket= products);
             }
         });
+
+        this.groupsAnnotable= this.orderService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
+            return {
+                id: group.data._id,
+                name: group.data.name
+            }
+        }))
     }
 
     private productsBasketObservable: Observable<any>;
+    private selectedGroupId: string = '-1'
     private productsInBasket: any[];
     private supplier;
 
@@ -43,4 +54,10 @@ export class PreOrderComponent implements OnInit {
                 });
         }
     }
+
+    equipeGroupChanged(newid) {
+        if (!newid) newid= '-1'
+        this.selectedGroupId= newid
+    }
+    
 }
