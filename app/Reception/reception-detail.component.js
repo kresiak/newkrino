@@ -11,29 +11,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var data_service_1 = require('./../Shared/Services/data.service');
 var forms_1 = require('@angular/forms');
+var supplier_service_1 = require('./../Shared/Services/supplier.service');
+var platform_browser_1 = require("@angular/platform-browser");
 var ReceptionDetailComponent = (function () {
-    function ReceptionDetailComponent(formBuilder, dataStore) {
+    function ReceptionDetailComponent(formBuilder, dataStore, supplierService, _sanitizer) {
+        var _this = this;
         this.formBuilder = formBuilder;
         this.dataStore = dataStore;
+        this.supplierService = supplierService;
+        this._sanitizer = _sanitizer;
+        this.autocompleListFormatter = function (data) {
+            var html = "<span>" + data.value + "</span>";
+            return _this._sanitizer.bypassSecurityTrustHtml(html);
+        };
     }
     ReceptionDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.receptionForm = this.formBuilder.group({
             supplier: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
             reference: ['', forms_1.Validators.required],
-            position: ['', forms_1.Validators.required]
+            position: ['', forms_1.Validators.required],
+            supplierId: ['']
+        });
+        this.supplierService.getAnnotatedSuppliers().subscribe(function (suppliers) {
+            _this.suppliersList = suppliers.map(function (supplier) {
+                return {
+                    id: supplier.data._id,
+                    value: supplier.data.name
+                };
+            });
         });
     };
     ReceptionDetailComponent.prototype.save = function (formValue, isValid) {
+        var _this = this;
         this.dataStore.addData('orders.reception', {
             supplier: formValue.supplier,
             reference: formValue.reference,
-            position: formValue.position
+            position: formValue.position,
+            supplierId: formValue.supplierId.id
+        }).subscribe(function (res) {
+            var x = res;
+            _this.reset();
         });
-        /*.subscribe(res =>
-        {
-            var x=res;
-            this.reset();
-        });*/
     };
     ReceptionDetailComponent.prototype.reset = function () {
         this.receptionForm.reset();
@@ -44,7 +63,7 @@ var ReceptionDetailComponent = (function () {
             selector: 'gg-reception-detail',
             templateUrl: './reception-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, data_service_1.DataStore])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, data_service_1.DataStore, supplier_service_1.SupplierService, platform_browser_1.DomSanitizer])
     ], ReceptionDetailComponent);
     return ReceptionDetailComponent;
 }());
