@@ -34,8 +34,14 @@ export class ReceptionDetailComponent implements OnInit {
                 }
             })
         });
-    }
 
+        this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
+            this.receptionList = receptions
+        })
+
+    }
+    private receptionList: any;
+    
     save(formValue, isValid)
     {
         this.dataStore.addData('orders.reception', {

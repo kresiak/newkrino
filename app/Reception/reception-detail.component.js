@@ -41,6 +41,9 @@ var ReceptionDetailComponent = (function () {
                 };
             });
         });
+        this.supplierService.getAnnotatedReceptions().subscribe(function (receptions) {
+            _this.receptionList = receptions;
+        });
     };
     ReceptionDetailComponent.prototype.save = function (formValue, isValid) {
         var _this = this;

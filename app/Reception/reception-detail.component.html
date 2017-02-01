@@ -58,7 +58,20 @@
                                     <div class="col-sm-3"><b>Position</b></div>
                                 </div>
                                 <div class="row">
-                                    <h1>bonjor</h1>
+                                    <gg-reception-detail *ngFor="let reception of receptions"></gg-reception-detail>
+                              <!--  <gg-reception-detail *ngFor="let reception of receptions" [receptionObservable]="getReceptionObservable(orders.reception)" [config]="config"></gg-reception-detail>
+                                  
+                                    <ngb-panel *ngFor="let product of products" [id]="product.data._id">
+                                        <template ngbPanelTitle>
+                                                
+
+                                        </template>
+                                        <template ngbPanelContent>
+                                            <gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
+                                        </template>
+                                    </ngb-panel>
+                                    -->
+
                                 </div>
                             </div>
                         </div>
