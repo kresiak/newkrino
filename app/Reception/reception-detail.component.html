@@ -45,19 +45,21 @@
 			        </div>
 		        </template>
 	        </ngb-tab>  
+        
             <ngb-tab title="List of packet" id="listOfPacket">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <div class="container-fluid">
-                                <form [formGroup]="receptionForm" (ngSubmit)="save(receptionForm.value, receptionForm.valid)">
-                                    <div class="form-group row">
-                                        <label for="supplier" class="col-sm-2 col-form-label col-xl-2">supplier:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" formControlName="supplier" id="supplier" placeholder="description of the supplier">
-                                        </div>
-                                    </div>
-                                </form>
+        						<div class="row">
+                                    <div class="col-sm-3"><b>Reference</b></div>
+                                    <div class="col-sm-3"><b>Supplier</b></div>
+                                    <div class="col-sm-3"><b>Supplier</b></div>
+                                    <div class="col-sm-3"><b>Position</b></div>
+                                </div>
+                                <div class="row">
+                                    <h1>bonjor</h1>
+                                </div>
                             </div>
                         </div>
                     </div>
