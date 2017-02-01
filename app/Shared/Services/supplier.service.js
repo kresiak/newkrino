@@ -77,6 +77,33 @@ var SupplierService = (function () {
             return annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled && annotatedSupplier.annotation.webShopping.categories.length > 0;
         }); });
     };
+    /*    getAnnotatedSuppliers2(): Observable<any> {
+            return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'),
+                (suppliers) => {
+                    return suppliers.map(supplier => {
+                        return {
+                            data: supplier,
+                            annotation: {
+                                hasBasket: false
+                            }
+                        }
+                    });
+                }
+            );
+        }*/
+    SupplierService.prototype.getAnnotatedReceptions = function () {
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('orders.reception'), function (suppliers, receptions) {
+            return receptions.map(function (reception) {
+                var supplier = suppliers.filter(function (supplier) { return supplier._id === reception.supplierId; })[0];
+                return {
+                    data: reception,
+                    annotation: {
+                        supplier: supplier ? supplier.name : 'unknown supplier'
+                    }
+                };
+            });
+        });
+    };
     SupplierService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(product_service_1.ProductService)),

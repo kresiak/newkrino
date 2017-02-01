@@ -88,4 +88,20 @@ export class SupplierService {
             );
         }*/
 
+   getAnnotatedReceptions(): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('orders.reception'),
+            (suppliers, receptions) => {
+                return receptions.map(reception => {
+                    let supplier= suppliers.filter(supplier => supplier._id === reception.supplierId)[0]
+                    return {
+                        data: reception,
+                        annotation: {
+                            supplier: supplier ? supplier.name : 'unknown supplier'
+                        }
+                    }
+                });
+            }
+        );
+    }
+
 }
