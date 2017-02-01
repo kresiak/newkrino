@@ -152,8 +152,8 @@ export class OrderService {
         let user = users.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
         let status= order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
-
-        return {
+        
+        let retObj ={
             data: order,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
@@ -162,17 +162,20 @@ export class OrderService {
                 isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
                 equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined, 
                 items: !order.items ? [] : order.items.map(item => {
                     let product = products.get(item.productId)
-                    let otp = otps.get(item.otpId)
+                    let otp = otps.get(item.otpId) 
+                    let nbDelivered= (item.deliveries || []).reduce((acc, delivery) => acc + (+delivery.quantity), 0)
                     return {
                         data: item,
                         annotation: {
                             otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name : 'Unknown product',
                             price: product ? product.price : '0',
-                            nbDelivered: (item.deliveries || []).reduce((acc, delivery) => acc + (+delivery.quantity), 0),
+                            nbDelivered: nbDelivered,
+                            allDelivered: item.quantity===nbDelivered,
+                            anyDelivered: item.quantity !==0 && nbDelivered != 0,
                             deliveries: (item.deliveries || []).map(delivery => {
                                 return {
                                     data: delivery
@@ -181,8 +184,13 @@ export class OrderService {
                         }
                     }
                 })
-            }
+            }            
         };
+
+        retObj.annotation['anyDelivered']= (order.oldKrino && order.oldKrino.status===6) || (retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0)
+        retObj.annotation['allDelivered']= (order.oldKrino && order.oldKrino.status===7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
+
+        return retObj
     }
 
     // viewing orders
@@ -234,6 +242,11 @@ export class OrderService {
 
     getNewestAnnotedOrders(nb: number): Observable<any> {
         let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid).slice(0, nb))
+        return this.getAnnotedOrders(ordersObservable);
+    }
+
+    getAnnotedOrdersByNewest(): Observable<any> {
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid))
         return this.getAnnotedOrders(ordersObservable);
     }
 

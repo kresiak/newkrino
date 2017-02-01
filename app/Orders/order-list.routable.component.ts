@@ -22,7 +22,7 @@ export class OrderListComponentRoutable implements OnInit {
 
     ngOnInit(): void {
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
+        this.ordersObservable = this.orderService.getAnnotedOrdersByNewest();
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        

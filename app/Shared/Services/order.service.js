@@ -160,7 +160,7 @@ var OrderService = (function () {
         var user = users.get(order.userId);
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === order._id; });
         var status = order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?');
-        return {
+        var retObj = {
             data: order,
             annotation: {
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
@@ -173,13 +173,16 @@ var OrderService = (function () {
                 items: !order.items ? [] : order.items.map(function (item) {
                     var product = products.get(item.productId);
                     var otp = otps.get(item.otpId);
+                    var nbDelivered = (item.deliveries || []).reduce(function (acc, delivery) { return acc + (+delivery.quantity); }, 0);
                     return {
                         data: item,
                         annotation: {
                             otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name : 'Unknown product',
                             price: product ? product.price : '0',
-                            nbDelivered: (item.deliveries || []).reduce(function (acc, delivery) { return acc + (+delivery.quantity); }, 0),
+                            nbDelivered: nbDelivered,
+                            allDelivered: item.quantity === nbDelivered,
+                            anyDelivered: item.quantity !== 0 && nbDelivered != 0,
                             deliveries: (item.deliveries || []).map(function (delivery) {
                                 return {
                                     data: delivery
@@ -190,6 +193,9 @@ var OrderService = (function () {
                 })
             }
         };
+        retObj.annotation['anyDelivered'] = (order.oldKrino && order.oldKrino.status === 6) || (retObj.annotation.items.filter(function (item) { return item.annotation.anyDelivered; }).length > 0);
+        retObj.annotation['allDelivered'] = (order.oldKrino && order.oldKrino.status === 7) || (retObj.annotation.items.filter(function (item) { return !item.annotation.allDelivered; }).length === 0);
+        return retObj;
     };
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
@@ -210,6 +216,10 @@ var OrderService = (function () {
     };
     OrderService.prototype.getNewestAnnotedOrders = function (nb) {
         var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.sort(function (a, b) { return b.kid - a.kid; }).slice(0, nb); });
+        return this.getAnnotedOrders(ordersObservable);
+    };
+    OrderService.prototype.getAnnotedOrdersByNewest = function () {
+        var ordersObservable = this.dataStore.getDataObservable('orders').map(function (orders) { return orders.sort(function (a, b) { return b.kid - a.kid; }); });
         return this.getAnnotedOrders(ordersObservable);
     };
     OrderService.prototype.getAnnotedOrdersBySupplier = function (supplierId) {

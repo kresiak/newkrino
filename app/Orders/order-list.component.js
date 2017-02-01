@@ -32,7 +32,7 @@ var OrderListComponent = (function () {
         this.orders2Observable = Rx_1.Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), function (orders, searchTxt) {
             var txt = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#')
-                return orders;
+                return orders.slice(0, 200);
             return orders.filter(function (order) {
                 if (txt.startsWith('#')) {
                     var txt2_1 = txt.slice(1);
@@ -51,7 +51,11 @@ var OrderListComponent = (function () {
                 return order.annotation.user.toUpperCase().includes(txt)
                     || order.annotation.supplier.toUpperCase().includes(txt)
                     || order.annotation.equipe.toUpperCase().includes(txt)
+                    || order.annotation.status.toUpperCase().includes(txt)
                     || order.data.kid === +txt;
+            }).slice(0, 200).map(function (order) {
+                var x = order;
+                return order;
             });
         });
     };

@@ -26,7 +26,7 @@ var OrderListComponentRoutable = (function () {
     OrderListComponentRoutable.prototype.ngOnInit = function () {
         var _this = this;
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-        this.ordersObservable = this.orderService.getNewestAnnotedOrders(1200);
+        this.ordersObservable = this.orderService.getAnnotedOrdersByNewest();
         this.navigationService.getStateObservable().subscribe(function (state) {
             _this.state = state;
         });
