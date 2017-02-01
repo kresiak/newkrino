@@ -40,6 +40,9 @@ var PreOrderComponent = (function () {
                 name: group.data.name
             };
         }); });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
+        });
     };
     PreOrderComponent.prototype.createOrder = function () {
         var _this = this;

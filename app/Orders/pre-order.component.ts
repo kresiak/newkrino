@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ProductService } from './../Shared/Services/product.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { AuthService } from './../Shared/Services/auth.service'
+import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { Observable } from 'rxjs/Rx'
 
 @Component(
@@ -18,6 +18,7 @@ export class PreOrderComponent implements OnInit {
     }
 
     private groupsAnnotable: Observable<any>
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
@@ -35,6 +36,11 @@ export class PreOrderComponent implements OnInit {
                 name: group.data.name
             }
         }))
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
+        
     }
 
     private productsBasketObservable: Observable<any>;
