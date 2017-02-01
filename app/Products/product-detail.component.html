@@ -87,9 +87,16 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Permissions" id="tabPermissions">
+	<ngb-tab title="Permissions" id="tabPermissions" *ngIf="authorizationStatusInfo.isAdministrator()"> 
 		<template ngbTabContent>
-			
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-3 vcenter">restricted to following users:</div>
+						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)" ></gg-selector></div>
+					</div>					
+				</div>
+			</div>			
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Comments" id="tabComments">

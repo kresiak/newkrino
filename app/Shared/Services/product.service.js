@@ -158,7 +158,7 @@ var ProductService = (function () {
         });
     };
     ProductService.prototype.getAnnotatedProductsWithBasketInfo = function (productsObservable) {
-        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), this.orderService.getProductFrequenceMapObservable(), function (products, basketItems, suppliers, productFrequenceMap) {
+        return Rx_1.Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), function (products, basketItems, suppliers, productFrequenceMap, userId) {
             var mapSuppliers = suppliers.reduce(function (map, supplier) {
                 map.set(supplier._id, supplier);
                 return map;
@@ -170,6 +170,7 @@ var ProductService = (function () {
                     data: product,
                     annotation: {
                         basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
+                        hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                         quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
                         supplierName: supplier ? supplier.name : "unknown",
                         productFrequence: productFrequenceMap.get(product._id) || 0

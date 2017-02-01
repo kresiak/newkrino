@@ -40,6 +40,10 @@ export class ProductDetailComponent implements OnInit {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.categoryIds);
+
+        this.selectableUsers = this.authService.getSelectableUsers();
+        this.selectedUserIdsObservable = this.productObservable.map(product => product.data.userIds);
+
         this.productObservable.subscribe(product => {
             this.product = product;
             if (product) {
@@ -55,12 +59,19 @@ export class ProductDetailComponent implements OnInit {
     //private model;
     private product;
     private ordersObservable;
-    private selectableCategoriesObservable: Observable<any>;
+    private selectableUsers: Observable<SelectableData[]>;
+    private selectedUserIdsObservable: Observable<any>;
+    private selectableCategoriesObservable: Observable<SelectableData[]>;
     private selectedCategoryIdsObservable: Observable<any>;
     private anyOrder: boolean;
 
     categorySelectionChanged(selectedIds: string[]) {
         this.product.data.categoryIds = selectedIds;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    userSelectionChanged(selectedIds: string[]) {
+        this.product.data.userIds = selectedIds;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 

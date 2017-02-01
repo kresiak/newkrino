@@ -36,6 +36,8 @@ var ProductDetailComponent = (function () {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.productObservable.map(function (product) { return product.data.categoryIds; });
+        this.selectableUsers = this.authService.getSelectableUsers();
+        this.selectedUserIdsObservable = this.productObservable.map(function (product) { return product.data.userIds; });
         this.productObservable.subscribe(function (product) {
             _this.product = product;
             if (product) {
@@ -48,6 +50,10 @@ var ProductDetailComponent = (function () {
     };
     ProductDetailComponent.prototype.categorySelectionChanged = function (selectedIds) {
         this.product.data.categoryIds = selectedIds;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    };
+    ProductDetailComponent.prototype.userSelectionChanged = function (selectedIds) {
+        this.product.data.userIds = selectedIds;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
     ProductDetailComponent.prototype.categoryHasBeenAdded = function (newCategory) {
