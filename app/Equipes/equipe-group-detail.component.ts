@@ -33,13 +33,18 @@ export class EquipeGroupDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
     }    
 
-
+    private selectableEquipes: Observable<any>;
+    private selectedEquipeIdsObservable
 
     ngOnInit(): void {
         this.stateInit();
         this.equipeGroupObservable.subscribe(eq => {
             this.equipeGroup = eq;
         });
+
+        this.selectableEquipes = this.orderService.getSelectableEquipes();
+        this.selectedEquipeIdsObservable = this.equipeGroupObservable.map(group => group.data.equipeIds.map(idObj => idObj.id));
+
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
@@ -73,4 +78,22 @@ export class EquipeGroupDetailComponent implements OnInit {
         this.equipeGroup.data.description = name;
         this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
     }
+
+    equipeSelectionChanged(selectedEquipeIds: string[]) {
+        this.equipeGroup.data.equipeIds= this.equipeGroup.data.equipeIds.filter(element => selectedEquipeIds.includes(element.id))
+
+        selectedEquipeIds.filter(id => !this.equipeGroup.data.equipeIds.map(element => element.id).includes(id)).forEach(id => {
+            this.equipeGroup.data.equipeIds.push({
+                id: id,
+                weight: 1
+            })
+        })
+        this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
+    }
+    
+    weightupdated(item, newQuantity: string) {
+        item.weight= newQuantity
+        this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
+    }
+
 }

@@ -34,6 +34,8 @@ var EquipeGroupDetailComponent = (function () {
         this.equipeGroupObservable.subscribe(function (eq) {
             _this.equipeGroup = eq;
         });
+        this.selectableEquipes = this.orderService.getSelectableEquipes();
+        this.selectedEquipeIdsObservable = this.equipeGroupObservable.map(function (group) { return group.data.equipeIds.map(function (idObj) { return idObj.id; }); });
         this.authService.getStatusObservable().subscribe(function (statusInfo) {
             _this.authorizationStatusInfo = statusInfo;
         });
@@ -55,6 +57,21 @@ var EquipeGroupDetailComponent = (function () {
     };
     EquipeGroupDetailComponent.prototype.descriptionUpdated = function (name) {
         this.equipeGroup.data.description = name;
+        this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
+    };
+    EquipeGroupDetailComponent.prototype.equipeSelectionChanged = function (selectedEquipeIds) {
+        var _this = this;
+        this.equipeGroup.data.equipeIds = this.equipeGroup.data.equipeIds.filter(function (element) { return selectedEquipeIds.includes(element.id); });
+        selectedEquipeIds.filter(function (id) { return !_this.equipeGroup.data.equipeIds.map(function (element) { return element.id; }).includes(id); }).forEach(function (id) {
+            _this.equipeGroup.data.equipeIds.push({
+                id: id,
+                weight: 1
+            });
+        });
+        this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
+    };
+    EquipeGroupDetailComponent.prototype.weightupdated = function (item, newQuantity) {
+        item.weight = newQuantity;
         this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
     };
     __decorate([
