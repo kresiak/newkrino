@@ -57,9 +57,16 @@ var ReceptionDetailComponent = (function () {
             _this.reset();
         });
     };
+    ;
     ReceptionDetailComponent.prototype.reset = function () {
         this.receptionForm.reset();
     };
+    ;
+    ReceptionDetailComponent.prototype.isProcessed = function (processed, reception) {
+        reception.data.isProcessed = processed;
+        this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
+    };
+    ;
     ReceptionDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
