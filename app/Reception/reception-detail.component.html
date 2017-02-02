@@ -45,7 +45,6 @@
 			        </div>
 		        </template>
 	        </ngb-tab>  
-        
             <ngb-tab title="List of packet" id="listOfPacket">
                 <template ngbTabContent>
                     <div class="card">
@@ -57,21 +56,13 @@
                                     <div class="col-sm-3"><b>Supplier</b></div>
                                     <div class="col-sm-3"><b>Position</b></div>
                                 </div>
-                                <div class="row">
-                                    <gg-reception-detail *ngFor="let reception of receptions"></gg-reception-detail>
-                              <!--  <gg-reception-detail *ngFor="let reception of receptions" [receptionObservable]="getReceptionObservable(orders.reception)" [config]="config"></gg-reception-detail>
-                                  
-                                    <ngb-panel *ngFor="let product of products" [id]="product.data._id">
-                                        <template ngbPanelTitle>
-                                                
-
-                                        </template>
-                                        <template ngbPanelContent>
-                                            <gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
-                                        </template>
-                                    </ngb-panel>
-                                    -->
-
+                                <div *ngFor="let reception of receptionList" [id]="reception" >
+                                    <div class="row" id="{{reception}}">
+                                        <div class="col-sm-3"> {{reception.data.reference}}</div>
+                                        <div class="col-sm-3">{{reception.data.supplier}}</div>
+                                        <div class="col-sm-3">{{reception.annotation.supplier}}</div>
+                                        <div class="col-sm-3">{{reception.data.position}}</div>
+                                    </div>                        
                                 </div>
                             </div>
                         </div>
