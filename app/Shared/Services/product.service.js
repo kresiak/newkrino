@@ -354,7 +354,7 @@ var ProductService = (function () {
     };
     ProductService.prototype.getAnnotatedProductsInBasketBySupplier = function (supplierId) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), function (products, basketItems, otps) {
+        return Rx_1.Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(), function (products, basketItems, otps, userId) {
             return products.filter(function (product) { return basketItems.map(function (item) { return item.produit; }).includes(product._id); })
                 .map(function (product) {
                 var basketItemFiltered = basketItems.filter(function (item) { return item.produit === product._id; });
@@ -362,6 +362,7 @@ var ProductService = (function () {
                     data: product,
                     annotation: {
                         basketId: basketItemFiltered[0]._id,
+                        hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                         quantity: basketItemFiltered[0].quantity,
                         totalPrice: product.price * basketItemFiltered[0].quantity * 1.21,
                         otp: _this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)

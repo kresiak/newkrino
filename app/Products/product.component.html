@@ -16,7 +16,7 @@
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter">
 		<gg-editor-number *ngIf="product.annotation.hasUserPermissionToShop" [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number>
-		<div *ngIf="!product.annotation.hasUserPermissionToShop">(Contact Labmanager)</div>
+		<div *ngIf="!product.annotation.hasUserPermissionToShop">{{product.annotation.quantity}} (Contact Labmanager)</div>
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice && showColumn('totalPrice')">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
 	<div class="col-sm-3 col-md-3 vcenter" *ngIf="product.annotation.otp && showColumn('otp')">{{product.annotation.otp.name}}</div>
