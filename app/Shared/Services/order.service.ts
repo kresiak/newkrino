@@ -145,10 +145,11 @@ export class OrderService {
         return 'Unknown status'
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets: any[], currentUser) {
+    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
         let equipe = equipes.get(order.equipeId)
+        let equipeGroup = !order.equipeRepartition ? null : groups.get(order.equipeRepartition.equipeGroupId)
         let user = users.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
         let status= order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
@@ -160,7 +161,7 @@ export class OrderService {
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
                 isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
-                equipe: equipe ? equipe.name : 'Unknown equipe',
+                //equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined, 
                 items: !order.items ? [] : order.items.map(item => {
@@ -190,6 +191,9 @@ export class OrderService {
         retObj.annotation['anyDelivered']= (order.oldKrino && order.oldKrino.status===6) || (retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0)
         retObj.annotation['allDelivered']= (order.oldKrino && order.oldKrino.status===7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
 
+        if (equipe) retObj.annotation['equipe']= equipe.name
+        if (equipeGroup) retObj.annotation['equipeGroup']= equipeGroup.name
+
         return retObj
     }
 
@@ -210,11 +214,12 @@ export class OrderService {
             this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
             this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
-            (order, products, otps, users, equipes, suppliers, dashlets, currentUser) => {
-                return this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
+            (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) => {
+                return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser);
             })
     }
 
@@ -226,12 +231,13 @@ export class OrderService {
             this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
             this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
-            (orders, products, otps, users, equipes, suppliers, dashlets, currentUser) => {
+            (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) => {
                 return orders.map(order =>
-                    this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser)
+                    this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser)
                 );
             })
     }

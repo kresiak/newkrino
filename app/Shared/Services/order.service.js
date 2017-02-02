@@ -152,11 +152,12 @@ var OrderService = (function () {
             return map[id];
         return 'Unknown status';
     };
-    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, suppliers, dashlets, currentUser) {
+    OrderService.prototype.createAnnotedOrder = function (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) {
         if (!order)
             return null;
         var supplier = suppliers.get(order.supplierId);
         var equipe = equipes.get(order.equipeId);
+        var equipeGroup = !order.equipeRepartition ? null : groups.get(order.equipeRepartition.equipeGroupId);
         var user = users.get(order.userId);
         var dashlet = dashlets.filter(function (dashlet) { return dashlet.id === order._id; });
         var status = order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?');
@@ -167,7 +168,7 @@ var OrderService = (function () {
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
                 isDeletable: status === 'created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
-                equipe: equipe ? equipe.name : 'Unknown equipe',
+                //equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: !order.items ? [] : order.items.map(function (item) {
@@ -195,19 +196,23 @@ var OrderService = (function () {
         };
         retObj.annotation['anyDelivered'] = (order.oldKrino && order.oldKrino.status === 6) || (retObj.annotation.items.filter(function (item) { return item.annotation.anyDelivered; }).length > 0);
         retObj.annotation['allDelivered'] = (order.oldKrino && order.oldKrino.status === 7) || (retObj.annotation.items.filter(function (item) { return !item.annotation.allDelivered; }).length === 0);
+        if (equipe)
+            retObj.annotation['equipe'] = equipe.name;
+        if (equipeGroup)
+            retObj.annotation['equipeGroup'] = equipeGroup.name;
         return retObj;
     };
     OrderService.prototype.getAnnotedOrder = function (id) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (order, products, otps, users, equipes, suppliers, dashlets, currentUser) {
-            return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('orders').map(function (orders) { return orders.filter(function (order) { return order._id === id; })[0]; }), this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) {
+            return _this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser);
         });
     };
     OrderService.prototype.getAnnotedOrders = function (ordersObservable) {
         var _this = this;
-        return Rx_1.Observable.combineLatest(ordersObservable, this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (orders, products, otps, users, equipes, suppliers, dashlets, currentUser) {
+        return Rx_1.Observable.combineLatest(ordersObservable, this.dataStore.getDataObservable('products').map(this.hashMapFactory), this.dataStore.getDataObservable('otps').map(this.hashMapFactory), this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes').map(this.hashMapFactory), this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory), this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory), this.userService.getOrderDashletsForCurrentUser(), this.authService.getAnnotatedCurrentUser(), function (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) {
             return orders.map(function (order) {
-                return _this.createAnnotedOrder(order, products, otps, users, equipes, suppliers, dashlets, currentUser);
+                return _this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser);
             });
         });
     };

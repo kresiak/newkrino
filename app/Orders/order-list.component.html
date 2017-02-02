@@ -42,7 +42,7 @@
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
 							<div class="col-sm-1">{{order.data.kid}}</div>
 							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
-							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe}}</div>
+							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup : 'unknown equipe')}}</div>
 							<div class="col-sm-2" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
 							<div class="col-sm-1">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{order.annotation.status}}</div>

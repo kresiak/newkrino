@@ -84,7 +84,7 @@
 										{{order.annotation.user}}
 									</div>
 									<div class="row">
-										{{order.annotation.equipe}}
+										{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? 'group: ' + order.annotation.equipeGroup : 'unknown equipe')}}
 									</div>
 									<div class="row">
 										Status: {{order.annotation.status}} <span *ngIf="order.annotation.isDeletable"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></span>
