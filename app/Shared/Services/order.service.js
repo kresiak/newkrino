@@ -198,8 +198,16 @@ var OrderService = (function () {
         retObj.annotation['allDelivered'] = (order.oldKrino && order.oldKrino.status === 7) || (retObj.annotation.items.filter(function (item) { return !item.annotation.allDelivered; }).length === 0);
         if (equipe)
             retObj.annotation['equipe'] = equipe.name;
-        if (equipeGroup)
+        if (equipeGroup) {
             retObj.annotation['equipeGroup'] = equipeGroup.name;
+            retObj.annotation['equipes'] = order.equipeRepartition.repartition.map(function (item) {
+                var equipe = equipes.get(item.equipeId);
+                return {
+                    weight: item.weight,
+                    equipe: equipe ? equipe.name : 'unknown equipe'
+                };
+            });
+        }
         return retObj;
     };
     OrderService.prototype.getAnnotedOrder = function (id) {

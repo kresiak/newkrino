@@ -192,7 +192,16 @@ export class OrderService {
         retObj.annotation['allDelivered']= (order.oldKrino && order.oldKrino.status===7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
 
         if (equipe) retObj.annotation['equipe']= equipe.name
-        if (equipeGroup) retObj.annotation['equipeGroup']= equipeGroup.name
+        if (equipeGroup) {
+            retObj.annotation['equipeGroup']= equipeGroup.name
+            retObj.annotation['equipes']= order.equipeRepartition.repartition.map(item => {
+                let equipe = equipes.get(item.equipeId)
+                return {
+                    weight: item.weight,
+                    equipe: equipe ? equipe.name : 'unknown equipe'
+                }
+            })
+        }
 
         return retObj
     }
