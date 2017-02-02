@@ -54,16 +54,21 @@ export class ReceptionDetailComponent implements OnInit {
             var x=res;
             this.reset();
         });
-    }
+    };
 
     reset()
     {
         this.receptionForm.reset();        
-    }
+    };
     
     autocompleListFormatter = (data: any): SafeHtml => {
         let html = `<span>${data.value}</span>`;
         return this._sanitizer.bypassSecurityTrustHtml(html);
-    }
+    };
+
+    isProcessed(processed:boolean, reception: any) {
+        reception.data.isProcessed = processed;
+        this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
+    };
 
 }

@@ -52,19 +52,21 @@
                         <div class="card-block">
                             <div class="container-fluid">
         						<div class="row">
-                                    <div class="col-sm-3"><b>Reference</b></div>
+                                    <div class="col-sm-2"><b>Reference</b></div>
                                     <div class="col-sm-3"><b>Supplier</b></div>
                                     <div class="col-sm-3"><b>Supplier</b></div>
                                     <div class="col-sm-2"><b>Position</b></div>
-                                    <div class="col-sm-1"><b>Processed</b></div>
+                                    <div class="col-sm-2"><b>Processed</b></div>
                                 </div>
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
                                     <div class="row" id="{{reception}}">
-                                        <div class="col-sm-3"> {{reception.data.reference}}</div>
+                                        <div class="col-sm-2"> {{reception.data.reference}}</div>
                                         <div class="col-sm-3">{{reception.data.supplier}}</div>
                                         <div class="col-sm-3">{{reception.annotation.supplier}}</div>
                                         <div class="col-sm-2">{{reception.data.position}}</div>
-                                        <div class="col-sm-1"><gg-editor-boolean>Processed</gg-editor-boolean></div>
+                                        <div class="col-sm-2">
+                                            <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)"></gg-editor-boolean>
+                                        </div>
                                     </div>                        
                                 </div>
                             </div>
