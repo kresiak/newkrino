@@ -62,10 +62,6 @@
 					</div>
                     
 					<div class="row">
-						<div class="col-sm-3 vcenter">in basket:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number></div>
-					</div>
-					<div class="row">
 						<div class="col-sm-3 vcenter">is resold:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isResold" (editSaved)="resoldUpdated($event)"></gg-editor-boolean></div>
 					</div>
@@ -85,6 +81,18 @@
 
 				</div>
 			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Put into basket" id="tabBasket" *ngIf="product.annotation.hasUserPermissionToShop"> 
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-3 vcenter">already in basket:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number></div>
+					</div>
+				</div>
+			</div>			
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Permissions" id="tabPermissions" *ngIf="authorizationStatusInfo.isAdministrator()"> 
