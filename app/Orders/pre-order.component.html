@@ -12,7 +12,7 @@
 							<div class="row" *ngIf="authorizationStatusInfo.isAdministrator()">
 								<div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
 								<div class="col-sm-6 vcenter"> 
-									<gg-editor-autocomplete [selectableData]="groupsAnnotable" [emptyContentText]="'no, use the equipe of the user'"  (idChanged)="equipeGroupChanged($event)" ></gg-editor-autocomplete></div>
+									<gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"  (idChanged)="equipeGroupChanged($event)" ></gg-editor-autocomplete></div>
 							</div>
 							<div class="row">
 								<button class="btn btn-warning" (click)="createOrder()">Pass the order</button>

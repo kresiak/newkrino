@@ -404,7 +404,7 @@ var ProductService = (function () {
         });
         return obs;
     };
-    ProductService.prototype.createOrderFromBasket = function (products, supplierId) {
+    ProductService.prototype.createOrderFromBasket = function (products, supplierId, equipeGroup) {
         if (!products || products.length < 1)
             return null;
         if (products.filter(function (product) { return !product.annotation.otp._id; }).length > 0)
@@ -412,7 +412,7 @@ var ProductService = (function () {
         var record = {
             data: {
                 userId: this.authService.getUserId(),
-                equipeId: this.authService.getEquipeId(),
+                //equipeId: this.authService.getEquipeId(),
                 supplierId: supplierId,
                 items: products.filter(function (product) { return product.annotation.quantity > 0; }).map(function (product) {
                     return {
@@ -425,6 +425,18 @@ var ProductService = (function () {
             },
             basketItems: products.filter(function (product) { return product.annotation.quantity > 0; }).map(function (product) { return product.annotation.basketId; })
         };
+        if (equipeGroup) {
+            record.data['equipeRepartition'] = { equipeGroupId: equipeGroup.data._id };
+            record.data['equipeRepartition']['repartition'] = equipeGroup.annotation.equipes.map(function (eq) {
+                return {
+                    equipeId: eq.data.id,
+                    weight: eq.annotation.pc
+                };
+            });
+        }
+        else {
+            record.data['equipeId'] = this.authService.getEquipeId();
+        }
         return this.passCommand(record);
     };
     ProductService = __decorate([

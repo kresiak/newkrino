@@ -483,7 +483,7 @@ export class ProductService {
     }
 
 
-    createOrderFromBasket(products, supplierId): Observable<any> {   // return an observable with the db id of new order 
+    createOrderFromBasket(products, supplierId, equipeGroup): Observable<any> {   // return an observable with the db id of new order 
         if (!products || products.length < 1) return null;
 
         if (products.filter(product => !product.annotation.otp._id).length > 0) return null;
@@ -491,7 +491,7 @@ export class ProductService {
         var record = {
             data: {
                 userId: this.authService.getUserId(),
-                equipeId: this.authService.getEquipeId(),
+                //equipeId: this.authService.getEquipeId(),
                 supplierId: supplierId,
                 items: products.filter(product => product.annotation.quantity > 0).map(product => {
                     return {
@@ -504,6 +504,19 @@ export class ProductService {
             },
             basketItems: products.filter(product => product.annotation.quantity > 0).map(product => product.annotation.basketId)
         };
+
+        if (equipeGroup) {
+            record.data['equipeRepartition'] = { equipeGroupId: equipeGroup.data._id }
+            record.data['equipeRepartition']['repartition']= equipeGroup.annotation.equipes.map(eq => {
+                return {
+                    equipeId: eq.data.id,
+                    weight: eq.annotation.pc
+                }
+            })
+        }
+        else {
+            record.data['equipeId']= this.authService.getEquipeId()
+        }
 
         return this.passCommand(record);
     }

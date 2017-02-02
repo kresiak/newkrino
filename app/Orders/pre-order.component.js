@@ -22,7 +22,7 @@ var PreOrderComponent = (function () {
         this.route = route;
         this.authService = authService;
         this.router = router;
-        this.selectedGroupId = '-1';
+        this.selectedGroupId = undefined;
     }
     PreOrderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -34,19 +34,22 @@ var PreOrderComponent = (function () {
                 _this.productsBasketObservable.subscribe(function (products) { return _this.productsInBasket = products; });
             }
         });
-        this.groupsAnnotable = this.orderService.getAnnotatedEquipesGroups().map(function (groups) { return groups.map(function (group) {
+        this.groupsForSelectionObservable = this.orderService.getAnnotatedEquipesGroups().map(function (groups) { return groups.map(function (group) {
             return {
                 id: group.data._id,
                 name: group.data.name
             };
         }); });
+        this.orderService.getAnnotatedEquipesGroups().subscribe(function (groups) {
+            _this.groups = groups;
+        });
         this.authService.getStatusObservable().subscribe(function (statusInfo) {
             _this.authorizationStatusInfo = statusInfo;
         });
     };
     PreOrderComponent.prototype.createOrder = function () {
         var _this = this;
-        var observable = this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id);
+        var observable = this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(function (group) { return group.data._id === _this.selectedGroupId; })[0]);
         if (observable) {
             observable.subscribe(function (res) {
                 var orderId = res._id;
@@ -56,8 +59,6 @@ var PreOrderComponent = (function () {
         }
     };
     PreOrderComponent.prototype.equipeGroupChanged = function (newid) {
-        if (!newid)
-            newid = '-1';
         this.selectedGroupId = newid;
     };
     PreOrderComponent = __decorate([

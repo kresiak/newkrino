@@ -17,7 +17,8 @@ export class PreOrderComponent implements OnInit {
 
     }
 
-    private groupsAnnotable: Observable<any>
+    private groupsForSelectionObservable: Observable<any>
+    private groups: any[]
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     ngOnInit(): void {
@@ -30,12 +31,16 @@ export class PreOrderComponent implements OnInit {
             }
         });
 
-        this.groupsAnnotable= this.orderService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
+        this.groupsForSelectionObservable= this.orderService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
             return {
                 id: group.data._id,
                 name: group.data.name
             }
         }))
+
+        this.orderService.getAnnotatedEquipesGroups().subscribe(groups => {
+            this.groups= groups
+        })
 
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
@@ -44,12 +49,12 @@ export class PreOrderComponent implements OnInit {
     }
 
     private productsBasketObservable: Observable<any>;
-    private selectedGroupId: string = '-1'
+    private selectedGroupId: string = undefined
     private productsInBasket: any[];
     private supplier;
 
     createOrder(): void {
-        var observable= this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id);
+        var observable= this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(group => group.data._id===this.selectedGroupId)[0]);
 
         if (observable)
         {
@@ -62,7 +67,6 @@ export class PreOrderComponent implements OnInit {
     }
 
     equipeGroupChanged(newid) {
-        if (!newid) newid= '-1'
         this.selectedGroupId= newid
     }
     
