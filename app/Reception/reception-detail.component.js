@@ -28,10 +28,10 @@ var ReceptionDetailComponent = (function () {
     ReceptionDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.receptionForm = this.formBuilder.group({
-            supplier: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+            supplierId: ['', forms_1.Validators.required],
+            supplier: [''],
             reference: ['', forms_1.Validators.required],
-            position: ['', forms_1.Validators.required],
-            supplierId: ['']
+            position: ['', forms_1.Validators.required]
         });
         this.supplierService.getAnnotatedSuppliers().subscribe(function (suppliers) {
             _this.suppliersList = suppliers.map(function (supplier) {
