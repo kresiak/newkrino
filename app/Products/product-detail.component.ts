@@ -8,7 +8,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-
+import { Router } from '@angular/router'
 
 
 @Component(
@@ -20,7 +20,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 
 export class ProductDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService, private router: Router) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -161,4 +161,10 @@ export class ProductDetailComponent implements OnInit {
         this.product.data.isDistributed = isDisable;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
+
+    gotoPreOrder() {
+        let link = ['/preorder', this.product.data.supplierId];
+        this.router.navigate(link);
+    }
+    
 }

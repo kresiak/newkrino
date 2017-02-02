@@ -15,13 +15,15 @@ var product_service_1 = require('./../Shared/Services/product.service');
 var order_service_1 = require('./../Shared/Services/order.service');
 var navigation_service_1 = require('./../Shared/Services/navigation.service');
 var auth_service_1 = require('../Shared/Services/auth.service');
+var router_1 = require('@angular/router');
 var ProductDetailComponent = (function () {
-    function ProductDetailComponent(dataStore, productService, orderService, navigationService, authService) {
+    function ProductDetailComponent(dataStore, productService, orderService, navigationService, authService, router) {
         this.dataStore = dataStore;
         this.productService = productService;
         this.orderService = orderService;
         this.navigationService = navigationService;
         this.authService = authService;
+        this.router = router;
         this.isRoot = false;
         this.stateChanged = new core_1.EventEmitter();
     }
@@ -127,6 +129,10 @@ var ProductDetailComponent = (function () {
         this.product.data.isDistributed = isDisable;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     };
+    ProductDetailComponent.prototype.gotoPreOrder = function () {
+        var link = ['/preorder', this.product.data.supplierId];
+        this.router.navigate(link);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Rx_1.Observable)
@@ -153,7 +159,7 @@ var ProductDetailComponent = (function () {
             selector: 'gg-product-detail',
             templateUrl: './product-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService, auth_service_1.AuthService])
+        __metadata('design:paramtypes', [data_service_1.DataStore, product_service_1.ProductService, order_service_1.OrderService, navigation_service_1.NavigationService, auth_service_1.AuthService, router_1.Router])
     ], ProductDetailComponent);
     return ProductDetailComponent;
 }());
