@@ -20,10 +20,10 @@ export class ReceptionDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.receptionForm = this.formBuilder.group({
-            supplier: ['', [Validators.required, Validators.minLength(5)]],
+            supplierId: ['', Validators.required],
+            supplier: [''],
             reference: ['', Validators.required],
-            position: ['', Validators.required],
-            supplierId: ['']
+            position: ['', Validators.required]
         });
 
         this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
@@ -36,8 +36,8 @@ export class ReceptionDetailComponent implements OnInit {
         });
 
         this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
-            this.receptionList = receptions
-        })
+            this.receptionList = receptions;
+        });
 
     }
     private receptionList: any;
