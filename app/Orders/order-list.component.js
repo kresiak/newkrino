@@ -50,7 +50,7 @@ var OrderListComponent = (function () {
                 }
                 return order.annotation.user.toUpperCase().includes(txt)
                     || order.annotation.supplier.toUpperCase().includes(txt)
-                    || order.annotation.equipe.toUpperCase().includes(txt)
+                    || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
                     || order.annotation.status.toUpperCase().includes(txt)
                     || order.data.kid === +txt;
             }).slice(0, 200).map(function (order) {
