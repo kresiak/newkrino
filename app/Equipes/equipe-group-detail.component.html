@@ -1,0 +1,64 @@
+<ngb-tabset *ngIf="equipeGroup" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+	<ngb-tab title="Info" id="tabInfo">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4 vcenter">equipe group:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">members:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-selector #equipeSelector [selectedIds]="selectedEquipeIdsObservable" [selectableData]="selectableEquipes" (selectionChanged)="equipeSelectionChanged($event)"></gg-selector>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4">_id:</div>
+						<div class="col-sm-6">{{equipeGroup.data._id}}</div>
+					</div>
+
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Comments" id="tabComments">
+		<template ngbTabContent>
+			<gg-comments [comments]="equipeGroup.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Repartition keys" id="tabRepartition">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4 vcenter">
+							<b>Member equipe</b>
+						</div>
+						<div class="col-sm-4  vcenter"><b>%</b></div>
+						<div class="col-sm-2  vcenter">
+							<b>Factor</b>
+						</div>
+					</div>
+
+					<div class="row" *ngFor="let item of equipeGroup.annotation.equipes">
+						<div class="col-sm-4 vcenter">{{item.annotation.equipe}}</div>
+						<div class="col-sm-4 vcenter">{{item.annotation.pc}}</div>
+						<div class="col-sm-2 vcenter">
+							<gg-editor-number [content]="item.data.weight" (editSaved)="weightupdated(item.data, $event)"></gg-editor-number>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+</ngb-tabset>

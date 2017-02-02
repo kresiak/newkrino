@@ -11,15 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var product_service_1 = require('./../Shared/Services/product.service');
+var order_service_1 = require('./../Shared/Services/order.service');
 var supplier_service_1 = require('./../Shared/Services/supplier.service');
 var auth_service_1 = require('./../Shared/Services/auth.service');
 var PreOrderComponent = (function () {
-    function PreOrderComponent(supplierService, productService, route, authService, router) {
+    function PreOrderComponent(orderService, supplierService, productService, route, authService, router) {
+        this.orderService = orderService;
         this.supplierService = supplierService;
         this.productService = productService;
         this.route = route;
         this.authService = authService;
         this.router = router;
+        this.selectedGroupId = '-1';
     }
     PreOrderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -30,6 +33,15 @@ var PreOrderComponent = (function () {
                 _this.productsBasketObservable = _this.productService.getAnnotatedProductsInBasketBySupplier(supplierId);
                 _this.productsBasketObservable.subscribe(function (products) { return _this.productsInBasket = products; });
             }
+        });
+        this.groupsAnnotable = this.orderService.getAnnotatedEquipesGroups().map(function (groups) { return groups.map(function (group) {
+            return {
+                id: group.data._id,
+                name: group.data.name
+            };
+        }); });
+        this.authService.getStatusObservable().subscribe(function (statusInfo) {
+            _this.authorizationStatusInfo = statusInfo;
         });
     };
     PreOrderComponent.prototype.createOrder = function () {
@@ -43,12 +55,17 @@ var PreOrderComponent = (function () {
             });
         }
     };
+    PreOrderComponent.prototype.equipeGroupChanged = function (newid) {
+        if (!newid)
+            newid = '-1';
+        this.selectedGroupId = newid;
+    };
     PreOrderComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './pre-order.component.html'
         }), 
-        __metadata('design:paramtypes', [supplier_service_1.SupplierService, product_service_1.ProductService, router_1.ActivatedRoute, auth_service_1.AuthService, router_1.Router])
+        __metadata('design:paramtypes', [order_service_1.OrderService, supplier_service_1.SupplierService, product_service_1.ProductService, router_1.ActivatedRoute, auth_service_1.AuthService, router_1.Router])
     ], PreOrderComponent);
     return PreOrderComponent;
 }());

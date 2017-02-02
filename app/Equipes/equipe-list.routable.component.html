@@ -7,11 +7,25 @@
                     <gg-equipe-list [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
+            <ngb-tab title="View Groups" id="tabViewGroup">
+                <template ngbTabContent>
+                    <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
+                </template>
+            </ngb-tab>
             <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <gg-equipe-enter></gg-equipe-enter>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Create a Group" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <gg-equipe-group-enter></gg-equipe-group-enter>
                         </div>
                     </div>
                 </template>

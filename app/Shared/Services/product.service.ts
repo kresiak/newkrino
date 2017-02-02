@@ -164,8 +164,8 @@ export class ProductService {
 
     getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"), 
-                    this.orderService.getProductFrequenceMapObservable(),
-            (products, basketItems, suppliers, productFrequenceMap) => {
+                    this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(),
+            (products, basketItems, suppliers, productFrequenceMap, userId) => {
                 let mapSuppliers= suppliers.reduce((map, supplier)=> {
                     map.set(supplier._id, supplier)
                     return map
@@ -177,6 +177,7 @@ export class ProductService {
                         data: product,
                         annotation: {
                             basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
+                            hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                             quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
                             supplierName: supplier ? supplier.name : "unknown",
                             productFrequence: productFrequenceMap.get(product._id) || 0

@@ -15,6 +15,7 @@ var EditorAutocomplete = (function () {
     function EditorAutocomplete(_sanitizer) {
         var _this = this;
         this._sanitizer = _sanitizer;
+        this.emptyContentText = '';
         this.editMode = false;
         this.idChanged = new core_1.EventEmitter();
         this.autocompleListFormatter = function (data) {
@@ -29,7 +30,7 @@ var EditorAutocomplete = (function () {
             return selectedItem;
         }).subscribe(function (item) {
             _this.selectedItem = item;
-            _this.content = item ? item.name : '';
+            _this.content = item ? item.name : _this.emptyContentText;
         });
     };
     EditorAutocomplete.prototype.ngOnInit = function () {
@@ -54,6 +55,10 @@ var EditorAutocomplete = (function () {
         core_1.Input(), 
         __metadata('design:type', String)
     ], EditorAutocomplete.prototype, "selectedId", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', String)
+    ], EditorAutocomplete.prototype, "emptyContentText", void 0);
     __decorate([
         core_1.Input(),
         core_1.HostBinding('class.editor--edit-mode'), 

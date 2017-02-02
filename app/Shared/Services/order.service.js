@@ -298,6 +298,47 @@ var OrderService = (function () {
             });
         });
     };
+    OrderService.prototype.getSelectableEquipes = function () {
+        return this.dataStore.getDataObservable('equipes').map(function (equipes) {
+            return equipes.map(function (equipe) {
+                return new selectable_data_1.SelectableData(equipe._id, equipe.name);
+            });
+        });
+    };
+    // equipes groups
+    // ==============
+    OrderService.prototype.createAnnotatedEquipeGroup = function (group, equipes) {
+        if (!group)
+            return null;
+        var weightSum = group.equipeIds.reduce(function (acc, idObj) { return acc + idObj.weight; }, 0);
+        return {
+            data: group,
+            annotation: {
+                equipesTxt: group.equipeIds.reduce(function (acc, idObj) {
+                    var equipe = equipes.filter(function (eq) { return eq._id === idObj.id; })[0];
+                    if (equipe)
+                        acc = acc + (acc === '' ? '' : ', ') + equipe.name;
+                    return acc;
+                }, ''),
+                equipes: group.equipeIds.map(function (idObj) {
+                    var equipe = equipes.filter(function (eq) { return eq._id === idObj.id; })[0];
+                    return {
+                        data: idObj,
+                        annotation: {
+                            equipe: equipe ? equipe.name : 'unknown equipe',
+                            pc: idObj.weight / weightSum * 100
+                        }
+                    };
+                })
+            }
+        };
+    };
+    OrderService.prototype.getAnnotatedEquipesGroups = function () {
+        var _this = this;
+        return Rx_1.Observable.combineLatest(this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('equipes.groups'), function (equipes, groups) {
+            return groups.map(function (group) { return _this.createAnnotatedEquipeGroup(group, equipes); });
+        });
+    };
     OrderService = __decorate([
         __param(0, core_1.Inject(data_service_1.DataStore)),
         __param(1, core_1.Inject(auth_service_1.AuthService)),

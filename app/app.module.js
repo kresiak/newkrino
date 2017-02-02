@@ -59,6 +59,9 @@ var equipe_detail_routable_component_1 = require('./Equipes/equipe-detail.routab
 var equipe_list_component_1 = require('./Equipes/equipe-list.component');
 var equipe_list_routable_component_1 = require('./Equipes/equipe-list.routable.component');
 var equipe_enter_component_1 = require('./Equipes/equipe-enter.component');
+var equipe_group_enter_component_1 = require('./Equipes/equipe-group-enter.component');
+var equipe_group_list_component_1 = require('./Equipes/equipe-group-list.component');
+var equipe_group_detail_component_1 = require('./Equipes/equipe-group-detail.component');
 var pre_order_component_1 = require('./Orders/pre-order.component');
 var order_detail_routable_component_1 = require('./Orders/order-detail.routable.component');
 var order_detail_component_1 = require('./Orders/order-detail.component');
@@ -150,7 +153,7 @@ var AppModule = (function () {
                 dashboard_component_1.DashboardComponent, dashlet_component_1.DashletComponent, mykrino_component_1.MyKrinoComponent, unmaximize_component_1.UnMaximizeComponent,
                 user_component_1.UserComponent, user_list_component_js_1.UserListComponent,
                 manip_detail_component_1.ManipDetailComponent, manip_list_component_1.ManipListComponent, prestation_detail_1.PrestationDetailComponent, prestation_list_1.PrestationListComponent,
-                equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_list_routable_component_1.EquipeListComponentRoutable, equipe_enter_component_1.EquipeEnterComponent, equipe_detail_routable_component_1.EquipeDetailComponentRoutable,
+                equipe_detail_component_1.EquipeDetailComponent, equipe_list_component_1.EquipeListComponent, equipe_list_routable_component_1.EquipeListComponentRoutable, equipe_enter_component_1.EquipeEnterComponent, equipe_detail_routable_component_1.EquipeDetailComponentRoutable, equipe_group_enter_component_1.EquipeGroupEnterComponent, equipe_group_list_component_1.EquipeGroupListComponent, equipe_group_detail_component_1.EquipeGroupDetailComponent,
                 pre_order_component_1.PreOrderComponent, order_detail_component_1.OrderDetailComponent, order_detail_routable_component_1.OrderComponentRoutable,
                 order_list_component_1.OrderListComponent, order_list_routable_component_1.OrderListComponentRoutable,
                 editor_1.Editor, editor_number_1.EditorNumber, editor_date_1.EditorDate, editor_boolean_1.EditorBoolean, checkbox_1.Checkbox, selector_component_1.SelectorComponent, editor_autocomplete_1.EditorAutocomplete,
