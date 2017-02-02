@@ -14,19 +14,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="supplier" class="col-sm-2 col-form-label col-xl-2">Supplier:</label>
+                                        <label for="supplier" class="col-sm-2 col-form-label col-xl-2">Or supplier:</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" formControlName="supplier" id="supplier" placeholder="if not in list">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="reference" class="col-sm-2 col-form-label col-xl-2">reference:</label>
+                                        <label for="reference" class="col-sm-2 col-form-label col-xl-2">Reference:</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" formControlName="reference" id="reference" placeholder="reference of the packet">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="position" class="col-sm-2 col-form-label col-xl-2">position:</label>
+                                        <label for="position" class="col-sm-2 col-form-label col-xl-2">Position:</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" formControlName="position" id="position" placeholder="position of the packet">
                                         </div>
@@ -52,19 +52,19 @@
                         <div class="card-block">
                             <div class="container-fluid">
         						<div class="row">
+                                    <div class="col-sm-2"><b>When?</b></div>
                                     <div class="col-sm-2"><b>Reference</b></div>
-                                    <div class="col-sm-3"><b>Supplier</b></div>
                                     <div class="col-sm-3"><b>Supplier</b></div>
                                     <div class="col-sm-2"><b>Position</b></div>
                                     <div class="col-sm-2"><b>Processed</b></div>
                                 </div>
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
                                     <div class="row" id="{{reception}}">
-                                        <div class="col-sm-2"> {{reception.data.reference}}</div>
-                                        <div class="col-sm-3">{{reception.data.supplier}}</div>
-                                        <div class="col-sm-3">{{reception.annotation.supplier}}</div>
-                                        <div class="col-sm-2">{{reception.data.position}}</div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-2 vcenter"> {{reception.data.createDate | fromNowDate }}</div>
+                                        <div class="col-sm-2 vcenter"> {{reception.data.reference}}</div>
+                                        <div class="col-sm-3 vcenter">{{reception.annotation.supplier}}</div>
+                                        <div class="col-sm-2 vcenter">{{reception.data.position}}</div>
+                                        <div class="col-sm-2 vcenter">
                                             <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)"></gg-editor-boolean>
                                         </div>
                                     </div>                        

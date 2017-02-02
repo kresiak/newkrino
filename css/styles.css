@@ -170,6 +170,9 @@
 }
 
 
+ul.package_at_reception{
+    list-style-image: url('../images/delivery.png');
+}
 
 
 ul.mail{

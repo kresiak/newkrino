@@ -7,7 +7,7 @@ import { OrderService } from './order.service'
 
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable } from 'rxjs/Rx'
-
+import * as moment from "moment"
 
 Injectable()
 export class SupplierService {
@@ -25,10 +25,10 @@ export class SupplierService {
             this.orderService.getSupplierFrequenceMapObservable(), this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, basketItems, supplierFrequenceMap, voucherMap, categories) => {
                 return suppliers.map(supplier => {
-                    let voucherCategoryMap= voucherMap && voucherMap.get(supplier._id) ?  voucherMap.get(supplier._id)['categoryMap'] : undefined
-                    let xx= voucherCategoryMap ? voucherCategoryMap.values() : null
+                    let voucherCategoryMap = voucherMap && voucherMap.get(supplier._id) ? voucherMap.get(supplier._id)['categoryMap'] : undefined
+                    let xx = voucherCategoryMap ? voucherCategoryMap.values() : null
                     if (xx) {
-                        let res=xx
+                        let res = xx
                     }
                     return {
                         data: supplier,
@@ -38,7 +38,7 @@ export class SupplierService {
                             voucherCategoryMap: voucherCategoryMap,
                             webShopping: {
                                 categories: supplier.webShopping && supplier.webShopping.categoryIds ? supplier.webShopping.categoryIds.map(categoryId => {
-                                    let category= categories.filter(cat => cat._id === categoryId)[0]
+                                    let category = categories.filter(cat => cat._id === categoryId)[0]
                                     return {
                                         id: categoryId,
                                         name: category ? category.name : 'unknown category'
@@ -60,16 +60,15 @@ export class SupplierService {
     }
 
     getAnnotatedSupplierById(id: string): Observable<any> {
-        return this.getAnnotatedSuppliers().map(suppliers => 
-        {
-            let supplier= suppliers.filter(s => s.data._id === id)[0];
-            return supplier ? supplier : null; 
-        } );        
+        return this.getAnnotatedSuppliers().map(suppliers => {
+            let supplier = suppliers.filter(s => s.data._id === id)[0];
+            return supplier ? supplier : null;
+        });
     }
 
     getAnnotatedWebSuppliers(): Observable<any> {
-        return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier => 
-                    annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled && annotatedSupplier.annotation.webShopping.categories.length > 0 ))
+        return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier =>
+            annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled && annotatedSupplier.annotation.webShopping.categories.length > 0))
     }
 
 
@@ -88,17 +87,21 @@ export class SupplierService {
             );
         }*/
 
-   getAnnotatedReceptions(): Observable<any> {
+    getAnnotatedReceptions(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('orders.reception'),
             (suppliers, receptions) => {
                 return receptions.map(reception => {
-                    let supplier= suppliers.filter(supplier => supplier._id === reception.supplierId)[0]
+                    let supplier = suppliers.filter(supplier => supplier._id === reception.supplierId)[0]
                     return {
                         data: reception,
                         annotation: {
-                            supplier: supplier ? supplier.name : 'unknown supplier'
+                            supplier: supplier ? supplier.name : reception.supplier
                         }
                     }
+                }).sort((r1, r2) => {
+                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
                 });
             }
         );

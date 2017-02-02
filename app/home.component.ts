@@ -1,6 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
-
+import { SupplierService } from './Shared/Services/supplier.service';
 
 
 @Component(
@@ -9,10 +9,13 @@ import { Observable } from 'rxjs/Rx'
         templateUrl: './home.component.html'
     }
 )
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     private errFn = function (err) { console.log('Error: ' + err); }
 
-    constructor() {
+    private receptionList: any;
+
+
+    constructor(private supplierService: SupplierService) {
         
 /*        var interval = Observable.interval(1000);
 
@@ -34,4 +37,9 @@ export class HomeComponent {
 */    }
 
 
+    ngOnInit(): void {
+        this.supplierService.getAnnotatedReceptions().map(receptions => receptions.filter(reception => !reception.data.isProcessed)).subscribe(receptions => {
+            this.receptionList = receptions ? receptions : [];
+        });        
+    }
 }

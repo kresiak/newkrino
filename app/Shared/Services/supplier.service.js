@@ -17,6 +17,7 @@ var auth_service_1 = require('./auth.service');
 var product_service_1 = require('./product.service');
 var order_service_1 = require('./order.service');
 var Rx_1 = require('rxjs/Rx');
+var moment = require("moment");
 core_1.Injectable();
 var SupplierService = (function () {
     function SupplierService(dataStore, productService, orderService, authService) {
@@ -98,9 +99,13 @@ var SupplierService = (function () {
                 return {
                     data: reception,
                     annotation: {
-                        supplier: supplier ? supplier.name : 'unknown supplier'
+                        supplier: supplier ? supplier.name : reception.supplier
                     }
                 };
+            }).sort(function (r1, r2) {
+                var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate();
+                var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate();
+                return d1 > d2 ? -1 : 1;
             });
         });
     };

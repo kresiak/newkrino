@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var supplier_service_1 = require('./Shared/Services/supplier.service');
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(supplierService) {
+        this.supplierService = supplierService;
         this.errFn = function (err) { console.log('Error: ' + err); };
         /*        var interval = Observable.interval(1000);
         
@@ -30,12 +32,18 @@ var HomeComponent = (function () {
                     published.subscribe(x => console.log('Next sourceC: ' + x), this.errFn, () => console.log('Complete sourceC'));
                 }, 6000);
         */ }
+    HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.supplierService.getAnnotatedReceptions().map(function (receptions) { return receptions.filter(function (reception) { return !reception.data.isProcessed; }); }).subscribe(function (receptions) {
+            _this.receptionList = receptions ? receptions : [];
+        });
+    };
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: './home.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [supplier_service_1.SupplierService])
     ], HomeComponent);
     return HomeComponent;
 }());
