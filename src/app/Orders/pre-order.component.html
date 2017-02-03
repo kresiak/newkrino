@@ -1,7 +1,7 @@
 <div class="card" *ngIf="supplier">
 	<div class="card-block">
 		<h5 class="card-title">Checkout at {{supplier.name}}</h5>
-		<ngb-tabset>
+		<ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
 			<ngb-tab title="Shopping Basket">
 				<template ngbTabContent>
 					<div class="card">
@@ -47,5 +47,6 @@
 				</template>
 			</ngb-tab>
 		</ngb-tabset>
+		<h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
 	</div>
 </div>

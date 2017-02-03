@@ -64,6 +64,8 @@ import {EquipeEnterComponent} from './Equipes/equipe-enter.component'
 import {EquipeGroupEnterComponent} from './Equipes/equipe-group-enter.component'
 import {EquipeGroupListComponent} from './Equipes/equipe-group-list.component'
 import {EquipeGroupDetailComponent} from './Equipes/equipe-group-detail.component'
+import {EquipeGiftEnterComponent} from './Equipes/equipe-gift-enter.component'
+import {EquipeGiftGridComponent} from './Equipes/equipe-gift-grid.component'
 
 
 import {PreOrderComponent} from './Orders/pre-order.component'
@@ -162,7 +164,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
-                  EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent,
+                  EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
+                  EquipeGiftGridComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
                   OrderListComponent, OrderListComponentRoutable,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
