@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, Inject }
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { OrderService } from '../Shared/Services/order.service'
 
 @Component(
     {
@@ -11,7 +12,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
     
-    constructor(private navigationService: NavigationService, private authService: AuthService) { 
+    constructor(private navigationService: NavigationService, private authService: AuthService, private orderService: OrderService) { 
 
     }
 
@@ -28,7 +29,11 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
+
+        this.annotatedGiftsObservable= this.orderService.getAnnotatedEquipesGifts()
     }
+
+    private annotatedGiftsObservable: Observable<any>
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
 }

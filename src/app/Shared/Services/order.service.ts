@@ -410,7 +410,38 @@ export class OrderService {
                 return groups.map(group => this.createAnnotatedEquipeGroup(group, equipes))
             });
     }
-    
+
+
+    // equipes gifts
+    // ==============
+
+    private createAnnotatedEquipeGift(gift, equipes, annotatedUsers) {
+        if (!gift) return null;
+
+        let equipeGiving= equipes.filter(eq => eq._id===gift.equipeGivingId)[0]
+        let equipeTaking= equipes.filter(eq => eq._id===gift.equipeTakingId)[0]
+        let user= annotatedUsers.filter(user => user.data._id === gift.userId)[0]
+
+        return {
+            data: gift,
+            annotation:
+            {
+                equipeGiving: equipeGiving ? equipeGiving.name : 'unknown equipe',
+                equipeTaking: equipeTaking ? equipeTaking.name : 'unknown equipe',
+                user: user ? user.annotation.fullName : 'unknown user'
+            }
+        };
+    }
+
+    getAnnotatedEquipesGifts(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('equipes'),
+            this.dataStore.getDataObservable('equipes.gifts'),
+             this.authService.getAnnotatedUsers(),            
+            (equipes, gifts, annotatedUsers) => {
+                return gifts.map(gift => this.createAnnotatedEquipeGift(gift, equipes, annotatedUsers))
+            });
+    }    
 }
 
 

@@ -30,6 +30,20 @@
                     </div>
                 </template>
             </ngb-tab>
+            <ngb-tab title="Enter a gift" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <gg-equipe-gift-enter></gg-equipe-gift-enter>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="View Gifts" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                <template ngbTabContent>
+                    <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
+                </template>
+            </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
