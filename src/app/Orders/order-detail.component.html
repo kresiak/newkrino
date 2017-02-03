@@ -134,17 +134,17 @@
 					<div class="card-block">
 						<div class="row">
 							<div class="row">
-								<div class="col-sm-4 vcenter"><b>Product</b></div>
-								<div class="col-sm-3 vcenter"><b>Qty</b></div>
+								<div class="col-sm-4 vcenter"><b>Member equipe</b></div>
+								<div class="col-sm-2 vcenter"><b>%</b></div>
 							</div>
-							<div class="row" *ngFor="let item of order.annotation.items">
-								<div class="col-sm-4 vcenter">{{item.annotation.description}}</div>
-								<div class="col-sm-3 vcenter">{{item.data.quantity}}</div>
+							<div class="row" *ngFor="let item of order.annotation.equipes"> 
+								<div class="col-sm-4 vcenter">{{item.equipe}}</div>
+								<div class="col-sm-2 vcenter">{{item.weight}}</div>
 							</div>			
-						</div>
+						</div>		
 					</div>
-				</div>
-			</template>
+				</div>					
+			</template>	
 		</ngb-tab>
 		<ngb-tab title="Deliveries" id="tabDeliveries">
 			<template ngbTabContent>

@@ -38,6 +38,7 @@ export class OrderDetailComponent implements OnInit {
 
     private smallScreen: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private partitionGroup;
 
     ngOnInit(): void {
         this.stateInit();
@@ -54,6 +55,7 @@ export class OrderDetailComponent implements OnInit {
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
+
     }
 
     ngAfterViewInit() {
