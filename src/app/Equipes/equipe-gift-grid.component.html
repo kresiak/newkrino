@@ -1,5 +1,16 @@
 <div class="card">
-	<div class="card-block">    
-        <h4>hello</h4>
+	<div class="card-block">   
+		<div class="row">
+			<div class="row">
+				<div class="col-sm-3 vcenter"><b>Equipe giving</b></div>
+				<div class="col-sm-3 vcenter"><b>Equipe taking</b></div>
+				<div class="col-sm-2 vcenter"><b>Amount</b></div>
+			</div>
+			<div class="row" *ngFor="let item of equipeGifts">
+				<div class="col-sm-3 vcenter">{{item.annotation.equipeGiving}}</div>
+				<div class="col-sm-3 vcenter">{{item.annotation.equipeTaking}}</div>
+				<div class="col-sm-2 vcenter">{{item.data.amount}}</div>
+			</div>
+		</div>
 	</div>
 </div>
