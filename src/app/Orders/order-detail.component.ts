@@ -38,7 +38,6 @@ export class OrderDetailComponent implements OnInit {
 
     private smallScreen: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private partitionGroup;
 
     ngOnInit(): void {
         this.stateInit();
