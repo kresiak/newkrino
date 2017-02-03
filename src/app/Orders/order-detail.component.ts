@@ -54,6 +54,7 @@ export class OrderDetailComponent implements OnInit {
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
+
     }
 
     ngAfterViewInit() {
