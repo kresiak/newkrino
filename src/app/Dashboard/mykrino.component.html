@@ -1,0 +1,90 @@
+<div class="card" *ngIf="currentUser">
+	<div class="card-block">
+		<ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+			<ngb-tab title="My account" id='tabMyAccount'>
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-2 col-lg-1">
+									<img src="../../images/user.png">
+								</div>
+								<div class="col-sm-10 col-lg-11">
+									<div class="row">
+										<div class="col-sm-2 col-lg-1">full name:</div>
+										<div class="col-sm-6">{{currentUser.annotation.fullName}}</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-2 col-lg-1">email:</div>
+										<div class="col-sm-6">{{currentUser.data.email}}</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-2 col-lg-1">name:</div>
+										<div class="col-sm-6">{{currentUser.data.name}}</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-2 col-lg-1">first name:</div>
+										<div class="col-sm-6">{{currentUser.data.firstName}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My basket" id="tabBaskets" *ngIf="(suppliersWithBasketObservable |async).length>0">
+				<template ngbTabContent>
+					<gg-supplier-list [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My vouchers" id="tabVouchers">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<ngb-tabset>
+								<ngb-tab title="Web Shopping" id="tabVouchersWebShopping">
+									<template ngbTabContent>
+										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
+									</template>
+								</ngb-tab>
+							</ngb-tabset>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My notes" id="tabNotes">
+				<template ngbTabContent>
+					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My ordered products" id="tabProducts" *ngIf="(productsObservable |async).length>0">
+				<template ngbTabContent>
+					<gg-product-grid [productsObservable]="productsObservable" [config]="{skip:['category', 'manip']}"></gg-product-grid>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My orders" id="tabOrders" *ngIf="(ordersObservable |async).length>0">
+				<template ngbTabContent>
+					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My Stock Orders" id="tabStockOrders">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<h5>todo still</h5>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.name}}" [id]="equipe.data._id">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [state]="state[equipe.data._id]" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>

@@ -1,0 +1,49 @@
+<template #searchPopContent>
+	<ul>
+		<li>RWAL: si l'OTP ou l'équipe associée contient 'RWAL'</li>
+	</ul>
+</template>
+
+<div class="card" id="asdfgh">
+	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific otp" />
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3"><b>Otp</b></div>
+							<div class="col-sm-3" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
+							<div class="col-sm-2"><b>Available</b></div>
+							<div class="col-sm-2"><b>Spent</b></div>
+							<div class="col-sm-2"><b>To</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let otp of otps" [id]="otp.data._id">
+					<template ngbPanelTitle>
+						<div class="row" id="{{otp.data._id}}">
+							<div class="col-sm-3">{{otp.data.name}}</div>
+							<div class="col-sm-3" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
+							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-2">{{ otp.data.datEnd | shortDate }}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" [path]="path+'|P:'+otp.data._id" (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+	</div>
+</div>

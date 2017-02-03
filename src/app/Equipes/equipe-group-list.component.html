@@ -1,0 +1,43 @@
+<template #searchPopContent>
+	<ul>
+		<li>RWAL: si l'équipe group contient 'RWAL'</li>
+	</ul>
+</template>
+
+<div class="card">
+	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific equipe group" />
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-2"><b>Group</b></div>
+							<div class="col-sm-3"><b>Description</b></div>
+							<div class="col-sm-6"><b>Equipes</b></div>
+						</div>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let equipe of equipes" [id]="equipe.data._id">
+					<template ngbPanelTitle>
+						<div class="row" id="{{equipe.data._id}}">
+							<div class="col-sm-2">{{equipe.data.name}}</div>
+							<div class="col-sm-3">{{equipe.data.description}}</div>
+							<div class="col-sm-6">{{equipe.annotation.equipesTxt}}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-equipe-group-detail [equipeGroupObservable]="getEquipeObservable(equipe.data._id)" [initialTab]="initialTabInEquipeDetail" [state]="state[equipe.data._id]" [path]="path+'|P:'+equipe.data._id"
+								(stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-group-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+	</div>
+</div>

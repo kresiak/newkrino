@@ -1,0 +1,50 @@
+<template #searchPopContent>
+	<ul>
+		<li>latifa: if the user who ordered or the supplier contains 'latifa'</li>
+	</ul>
+</template>
+
+<div class="card">
+	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="../../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific voucher" />
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-2"><b>User</b></div>
+							<div class="col-sm-2"><b>Category</b></div>
+							<div class="col-sm-3"><b>Supplier</b></div>
+							<div class="col-sm-3"><b>Creation</b></div>
+							<div class="col-sm-1"><b>Used</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let voucher of vouchers" [id]="voucher.data._id">
+					<template ngbPanelTitle>
+						<div class="row" id="{{voucher.data._id}}">
+							<div class="col-sm-2">{{voucher.annotation.user}}</div>
+							<div class="col-sm-2">{{voucher.annotation.category}}</div>
+							<div class="col-sm-3">{{voucher.annotation.supplier}}</div>
+							<div class="col-sm-3">{{voucher.data.dateCreation | fullDate}}</div>
+							<div class="col-sm-1" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.status}}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-voucher-detail [voucherObservable]="getVoucherObservable(voucher.data._id)" [initialTab]="initialTabInVoucherDetail" [state]="state[voucher.data._id]" [path]="path+'|P:'+voucher.data._id"
+								(stateChanged)="childStateChanged($event, voucher.data._id)"></gg-voucher-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+	</div>
+</div>

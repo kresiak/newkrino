@@ -1,0 +1,67 @@
+<template ngbModalContainer></template>
+
+<template #passwordModal let-c="close" let-d="dismiss">
+  <div class="modal-header" style="padding:2px;background-color:lightblue">
+	  <div class="row">
+			<h6 class="modal-title col-sm-10">Identification</h6>
+			<button type="button" class="close col-sm-2" aria-label="Close" (click)="d('Cross click')">
+			<span aria-hidden="true">&times;</span>
+			</button>
+	  </div>
+  </div>
+  <div class="modal-body">
+		<div class="card">
+			<div class="card-block">
+				<div class="form-group">
+            		<div class="col-sm-12">
+                		<input type="password" [(ngModel)]="password" style="height:32px;font-size:12px;" class="form-control" placeholder="enter your password">
+            		</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-info btn-sm" (click)="c('Close click')">Sign in</button>
+  </div>
+</template>
+
+
+<nav class="navbar  navbar-default top-nav">
+	<div class="row">
+		<div class="col-lg-4 col-md-2 hidden-sm-down vcenter">
+			<a href="#"><img src="../images/GIGAlogo.png" /></a>
+			<a class="hidden-md-down" href="#"><img id="ulgLogo" src="../images/ULglogo.gif" /></a>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-3 vcenter">
+			<h1 style="text-align:center">Krino 2016</h1>
+		</div>
+		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
+
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter">
+			<div class="form-group">
+				<select class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" (change)="userSelected($event.target.value)">
+					<option [selected]="true" *ngIf="!authorizationStatusInfo.hasUserId()">(Select a user)</option>
+                    <option *ngFor="let user of users" [value]="user.data._id" [selected]="user.data._id===authorizationStatusInfo.currentUserId">{{user.annotation.fullName}}</option>
+                </select>
+				<select *ngIf="authorizationStatusInfo.currentUserId" class="form-control" style="margin-top:2px;height:32px;line-height:32px;font-size:12px;" (change)="equipeSelected($event.target.value)">
+					<option [selected]="true" *ngIf="!authorizationStatusInfo.hasEquipeId()">(Select an equipe)</option>
+                    <option *ngFor="let equipe of possibleEquipes" [value]="equipe._id" [selected]="equipe._id===authorizationStatusInfo.currentEquipeId">{{equipe.name}}</option>
+                </select>
+				<button *ngIf="authorizationStatusInfo.isReadyForPassword()" style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">Enter your password {{authorizationStatusInfo.isLoginError? '(There was an error)' : ''}}</button>
+				 
+				<label *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" style="font-size:12px;color:green">user is authenticated</label>
+			</div>
+		</div>
+	</div>
+
+</nav>
+<nav class="navbar  navbar-dark bg-inverse">
+	<ul class="nav navbar-nav">
+		<li *ngFor="let menuItem of menu" [class.active]="menuItem.active" class="nav-item">
+			<a class="nav-link" (click)="activateMenu(menuItem)" routerLink="{{menuItem.route}}">{{menuItem.title}}</a>
+		</li>
+	</ul>
+</nav>
+
+<router-outlet></router-outlet>

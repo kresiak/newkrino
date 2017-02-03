@@ -2,12 +2,10 @@
   "name": "angular-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "lite": "lite-server",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "start": "webpack-dev-server --inline --progress --port 8080",
+    "wp": "webpack",
+    "wp:w": "webpack --watch",
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
   "licenses": [
     {
@@ -16,36 +14,54 @@
     }
   ],
   "dependencies": {
-    "@angular/common": "~2.0.2",
-    "@angular/compiler": "~2.0.2",
-    "@angular/core": "^2.0.2",
-    "@angular/forms": "~2.0.2",
-    "@angular/http": "~2.0.2",
-    "@angular/platform-browser": "~2.0.2",
-    "@angular/platform-browser-dynamic": "~2.0.2",
-    "@angular/router": "~3.0.2",
-    "@angular/upgrade": "~2.0.2",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.8",
-    "angular-in-memory-web-api": "~0.1.5",
-    "angular2-chartist": "^0.10.1",
-    "bootstrap": "^3.3.7",
-    "chartist": "^0.10.1",
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/router": "~3.4.0",
+
     "core-js": "^2.4.1",
+    "rxjs": "5.0.1",
+    "zone.js": "^0.7.4",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.8",
+    "bootstrap": "^3.3.7",
     "moment": "^2.17.1",
-    "ng2-auto-complete": "^0.8.9",
     "ng2-page-scroll": "^4.0.0-beta.2",
     "ng2-simple-page-scroll": "^2.0.0",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "systemjs": "0.19.39",
-    "zone.js": "^0.6.25"
+     "angular2-chartist": "^0.10.1",
+    "chartist": "^0.10.1",
+    "ng2-auto-complete": "^0.8.9"
   },
   "devDependencies": {
-    "@types/chartist": "^0.9.33",
+
+    "@types/jasmine": "^2.5.35",
     "@types/moment": "^2.13.0",
+    "@types/node": "^6.0.45",
+    "angular2-template-loader": "^0.6.0",
+    "awesome-typescript-loader": "^3.0.0-beta.18",
     "concurrently": "^3.0.0",
-    "lite-server": "^2.2.2",
-    "typescript": "^2.0.3",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.26.0",
+    "null-loader": "^0.1.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.4",
+    "script-loader": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "typescript": "^2.0.10",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^2.5.0",
+    
+    "@types/chartist": "^0.9.33",
+
     "typings": "^1.4.0"
   }
 }
