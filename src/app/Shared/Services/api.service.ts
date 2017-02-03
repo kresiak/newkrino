@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable'
 
 @Injectable()
 export class ApiService {
-    private urlBaseForData = 'http://139.165.56.57:3002/data' // 'http://localhost:1337/data';
-    private urlBaseForService = 'http://139.165.56.57:3002/service' // 'http://localhost:1337/service';
+    private urlBaseForData = 'http://localhost:1337/data';  // 'http://139.165.56.57:3002/data'
+    private urlBaseForService = 'http://localhost:1337/service'; // 'http://139.165.56.57:3002/service' 
 
     constructor(private _http: Http) { }
 
