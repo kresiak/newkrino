@@ -131,8 +131,9 @@ export class OrderDetailComponent implements OnInit {
     }
 
     deleteOrder() {
-        if (!this.order.data.status) this.order.data.status=[]
-        this.order.data.status.unshift({date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted'})
+        if (!this.order.data.status) this.order.data.status={history:[]}
+        this.order.data.status.history.unshift({date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted'})
+        this.order.data.status.value='deleted'
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
