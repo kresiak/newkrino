@@ -52,14 +52,14 @@
                         <div class="card-block">
                             <div class="container-fluid">
         						<div class="row">
-                                    <div class="col-sm-2"><b>When?</b></div>
-                                    <div class="col-sm-2"><b>Reference</b></div>
-                                    <div class="col-sm-3"><b>Supplier</b></div>
-                                    <div class="col-sm-2"><b>Position</b></div>
-                                    <div class="col-sm-2"><b>Processed</b></div>
+                                    <div class="col-sm-2 vcenter"><b>When?</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Reference</b></div>
+                                    <div class="col-sm-3 vcenter"><b>Supplier</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Position</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Processed</b></div>
                                 </div>
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
-                                    <div class="row" id="{{reception}}">
+                                    <div class="row">
                                         <div class="col-sm-2 vcenter"> {{reception.data.createDate | fromNowDate }}</div>
                                         <div class="col-sm-2 vcenter"> {{reception.data.reference}}</div>
                                         <div class="col-sm-3 vcenter">{{reception.annotation.supplier}}</div>
