@@ -152,7 +152,7 @@ export class OrderService {
         let equipeGroup = !order.equipeRepartition ? null : groups.get(order.equipeRepartition.equipeGroupId)
         let user = users.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
-        let status= order.status && order.status.length > 0 && order.status[0].value ? order.status[0].value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
+        let status= order.status && order.status.value ? order.status.value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
         
         let retObj ={
             data: order,
