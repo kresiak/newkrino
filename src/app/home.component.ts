@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { SupplierService } from './Shared/Services/supplier.service';
+import { ApiService } from './Shared/Services/api.service';
 
 
 @Component(
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
     private receptionList: any;
 
 
-    constructor(private supplierService: SupplierService) {
+    constructor(private supplierService: SupplierService, private apiService: ApiService) {
         
 /*        var interval = Observable.interval(1000);
 
@@ -41,5 +42,9 @@ export class HomeComponent implements OnInit {
         this.supplierService.getAnnotatedReceptions().map(receptions => receptions.filter(reception => !reception.data.isProcessed)).subscribe(receptions => {
             this.receptionList = receptions ? receptions : [];
         });        
+
+        this.apiService.callWebService('krino2sap', {}).map(res => res.json()).subscribe(res => {
+            let x= res
+        })
     }
 }

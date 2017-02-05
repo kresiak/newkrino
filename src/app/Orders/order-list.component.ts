@@ -45,7 +45,7 @@ export class OrderListComponent implements OnInit {
         this.stateInit();
         this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), (orders, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.slice(0, 200);
+            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted').slice(0, 200);
             return orders.filter(order => {
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
