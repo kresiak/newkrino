@@ -22,8 +22,12 @@ export class EquipeGiftGridComponent implements OnInit {
     ngOnInit(): void {
         this.equipeGiftsObservable.subscribe(res => {
             this.equipeGifts= res
-        })
-    }
+        });
+    };
+
+    updateAmount(amount, gift: any) {
+         gift.data.amount = amount;
+         this.dataStore.updateData('equipes.gifts', gift.data._id, gift.data);
+     };
 
 }
-

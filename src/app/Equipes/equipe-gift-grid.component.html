@@ -8,12 +8,14 @@
 				<div class="col-sm-2 vcenter"><b>Equipe taking</b></div>
 				<div class="col-sm-2 vcenter"><b>Amount</b></div>				
 			</div>
-			<div class="row" *ngFor="let item of equipeGifts">
-				<div class="col-sm-2 vcenter">{{item.data.createDate | shortDate}}</div>
-				<div class="col-sm-2 vcenter">{{item.annotation.user}}</div>
-				<div class="col-sm-2 vcenter">{{item.annotation.equipeGiving}}</div>
-				<div class="col-sm-2 vcenter">{{item.annotation.equipeTaking}}</div>
-				<div class="col-sm-2 vcenter">{{item.data.amount | currency:'EUR':true:'1.2-2'}}</div>				
+			<div class="row" *ngFor="let gift of equipeGifts">
+				<div class="col-sm-2 vcenter">{{gift.data.createDate | shortDate}}</div>
+				<div class="col-sm-2 vcenter">{{gift.annotation.user}}</div>
+				<div class="col-sm-2 vcenter">{{gift.annotation.equipeGiving}}</div>
+				<div class="col-sm-2 vcenter">{{gift.annotation.equipeTaking}}</div>
+				<div class="col-sm-2 vcenter">
+					<gg-editor [content]="gift.data.amount" [showControls]="true" [isMonetary]="true" (editSaved)="updateAmount($event, gift)"></gg-editor>
+				</div>
 			</div>
 		</div>
 	</div>
