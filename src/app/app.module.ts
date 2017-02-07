@@ -78,6 +78,7 @@ import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list
 import {StockDetailComponent} from './Stock/stock-detail.component'
 
 import {ReceptionDetailComponent} from './Reception/reception-detail.component'
+import {CommunicationEnterComponent} from './Communication/communication-enter.component'
 
 import {DashboardComponent} from './Dashboard/dashboard.component'
 import {DashletComponent} from './Dashboard/dashlet.component'
@@ -147,6 +148,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
             { path: 'reception', component: ReceptionDetailComponent },
+            { path: 'communication', component: CommunicationEnterComponent },
             { path: '**', redirectTo: '/home'}
           ])
    ],
@@ -159,7 +161,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
-                  ReceptionDetailComponent,
+                  ReceptionDetailComponent, CommunicationEnterComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserComponent, UserListComponent, 

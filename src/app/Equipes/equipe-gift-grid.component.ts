@@ -17,13 +17,25 @@ export class EquipeGiftGridComponent implements OnInit {
 
     @Input() equipeGiftsObservable: Observable<any>
 
-    private equipeGifts: any[]
+    private equipeGifts;
+    private isFormOk: boolean = true;
 
     ngOnInit(): void {
         this.equipeGiftsObservable.subscribe(res => {
-            this.equipeGifts= res
+            this.equipeGifts = res
         })
-    }
+    };
 
-}
-
+    updateAmount(amount, gift){
+        if(+amount){
+            var amountNr = +amount;
+            this.isFormOk = true;
+            gift.data.amount = amountNr;
+            this.dataStore.updateData('equipes.gifts', gift.data._id, gift.data);
+        }
+        else{
+            this.isFormOk = false;
+        }            
+    };
+    
+};

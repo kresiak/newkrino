@@ -160,6 +160,12 @@ export class AppComponent implements OnInit {
                 title: 'Reception',
                 active: false,
                 hide: false
+            },
+            {
+                route: '/communication',
+                title: 'Communication',
+                active: false,
+                hide: false
             }
         ];
         this.menu= this.menu.filter(item => !item.hide)

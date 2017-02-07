@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-block">
+        <ngb-tabset>
+            <ngb-tab title="New message" id="newMessage">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="container-fluid">
+                                <form [formGroup]="communicationMessageForm" (ngSubmit)="save(communicationMessageForm.value, communicationMessageForm.valid)">
+                                    <div class="form-group row">
+                                        <label for="communicationMessage" class="col-sm-2 col-form-label col-xl-2">Message:</label>
+                                        <div class="col-sm-10">
+                                            <textarea rows="6" class="form-control" formControlName="communicationMessage" placeholder="enter message information"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                            <button class="btn btn-success" type="submit" [disabled]="!communicationMessageForm.valid">Submit</button>
+                                        </div>
+                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                            <button class="btn btn-info"  [disabled]="communicationMessageForm.pristine" (click)="reset()">Reset</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="List of messages" id="listOfMessages">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="container-fluid">
+                                <div *ngFor="let message of messagesList">
+                                    <div class="row">
+                                        <div class="col-sm-2 vcenter"><b>Message</b></div>
+                                        <div class="form-group row col-sm-12 vcenter">{{message.message}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
