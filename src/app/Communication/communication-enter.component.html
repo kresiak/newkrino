@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-block">
         <ngb-tabset>
-            <ngb-tab title="New messages" id="newMessages">
+            <ngb-tab title="New message" id="newMessage">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -22,6 +22,22 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="List of messages" id="listOfMessages">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="container-fluid">
+                                <div *ngFor="let message of messagesList">
+                                    <div class="row">
+                                        <div class="col-sm-2 vcenter"><b>Message</b></div>
+                                        <div class="form-group row col-sm-12 vcenter">{{message.message}}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
