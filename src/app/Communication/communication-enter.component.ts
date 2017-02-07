@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -12,12 +13,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CommunicationEnterComponent implements OnInit {
     private communicationMessageForm: FormGroup;
     private messagesList;
+    private currentUserId: string;
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore ) {}
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService ) {}
 
     ngOnInit(): void {
         this.communicationMessageForm = this.formBuilder.group({
             communicationMessage: ['', Validators.required]
+        });
+
+        this.authService.getUserIdObservable().subscribe(id => {
+            this.currentUserId = id
         });
 
         this.dataStore.getDataObservable('messages').subscribe(messages => {
@@ -28,7 +34,8 @@ export class CommunicationEnterComponent implements OnInit {
     save(formValue, isValid)
     {
         this.dataStore.addData('messages', {
-            message: formValue.communicationMessage
+            message: formValue.communicationMessage,
+            userId: this.currentUserId
         }).subscribe(res =>
         {
             var x=res;
