@@ -442,6 +442,33 @@ export class OrderService {
                 return gifts.map(gift => this.createAnnotatedEquipeGift(gift, equipes, annotatedUsers))
             });
     }    
+
+
+    private createAnnotatedMessage(message, annotatedUsers) {
+        if (!message) return null;
+
+        let user= annotatedUsers.filter(user => user.data._id === message.userId)[0]
+
+        return {
+            data: message,
+            annotation:
+            {
+                user: user ? user.annotation.fullName : 'unknown user'
+            }
+        };
+    }
+
+    getAnnotatedMessages(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('messages'),
+             this.authService.getAnnotatedUsers(),            
+            (messages, annotatedUsers) => {
+                return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers))
+            });
+    }    
+
+
+
 }
 
 

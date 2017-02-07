@@ -49,15 +49,10 @@
 				<div class="card-header">
 					Information
 				</div>
-				<!--				<img class="card-img-top" src="../../images/GIGAlogo.png" alt="Card image cap">-->
-				<div class="card-block text-xs-center">
-					<h4 class="card-title">Messages</h4>
-					<p class="card-text">Krino will show here user specific relevant messages.</p>
-					<ul class="card-text text-xs-left mail">
-						<li>2 unities of 'Tubes 50 ml PPN type Falcon' have been delivered.</li>
-						<li>4 unities of 'Omnitip reload 1000 µl' have been delivered.</li>
-						<li>Contact your lab manager: there is no available OTP for product 'Microamp 384-well reaction plate', which you have
-							put in your shopping basket</li>
+				<div class="card-block">
+					<h4 class="card-title">New messages</h4>
+					<ul class="card-text text-xs-left package_at_reception">
+						<li *ngFor="let message of messageList">{{message.data.createDate | fromNowDate }}: from {{message.annotation.user}} says '{{message.data.message}}'</li>
 					</ul>
 				</div>
 			</div>
