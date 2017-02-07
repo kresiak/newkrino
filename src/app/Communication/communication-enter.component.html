@@ -39,9 +39,9 @@
                                 </div>
                                 <div *ngFor="let message of messagesList">
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter">{{message.createDate | fromNowDate }}</div>
-                                        <div class="col-sm-3 vcenter">{{message.userId}}</div>
-                                        <div class="form-group row col-sm-6 vcenter">{{message.message}}</div>
+                                        <div class="col-sm-2 vcenter">{{message.data.createDate | fromNowDate }}</div>
+                                        <div class="col-sm-3 vcenter">{{message.annotation.user}}</div>
+                                        <div class="form-group row col-sm-6 vcenter">{{message.data.message}}</div>
                                     </div>
                                 </div>
                             </div>

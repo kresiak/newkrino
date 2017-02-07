@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../Shared/Services/auth.service'
+import {OrderService} from '../Shared/Services/order.service'
 
 @Component(
     {
@@ -15,7 +16,7 @@ export class CommunicationEnterComponent implements OnInit {
     private messagesList;
     private currentUserId: string;
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService ) {}
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
 
     ngOnInit(): void {
         this.communicationMessageForm = this.formBuilder.group({
@@ -26,7 +27,7 @@ export class CommunicationEnterComponent implements OnInit {
             this.currentUserId = id
         });
 
-        this.dataStore.getDataObservable('messages').subscribe(messages => {
+        this.orderService.getAnnotatedMessages().subscribe(messages => {
         this.messagesList = messages;
         });
     };
