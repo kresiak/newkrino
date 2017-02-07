@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
 import {WebSocketService} from './Shared/Services/websocket.service';
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
 
 @Component({
@@ -14,12 +15,13 @@ import {WebSocketService} from './Shared/Services/websocket.service';
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService) { 
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) { 
         this.webSocketService.init()
     }
 
     private password: string = ''
     private users;
+    private usersShort;
     private possibleEquipes: any[];
     private authorizationStatusInfo: AuthenticationStatusInfo
     private menu
@@ -35,11 +37,23 @@ export class AppComponent implements OnInit {
         }
         );
         this.authService.getAnnotatedUsers().subscribe(users => {
+            this.usersShort = users.map(user => {
+                return {
+                    id: user.data._id,
+                    value: user.annotation.fullName
+                }
+            }).sort((a, b) => { return a.value < b.value ? -1 : 1; })
+
             this.users = users;
             this.authService.getStatusObservable().subscribe(statusInfo => {
                 this.authorizationStatusInfo = statusInfo
                 let currentUserAnnotated = this.users.filter(user => user.data._id === statusInfo.currentUserId)[0];
-                this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes : [];
+                this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes.map(eq => {
+                    return {
+                        id: eq._id,
+                        value: eq.name
+                    }
+                }).sort((a, b) => { return a.value < b.value ? -1 : 1; }) : [];
                 this.initMenu(statusInfo)
             })
         });
@@ -66,11 +80,23 @@ export class AppComponent implements OnInit {
     }
 
     userSelected(value) {
-        this.authService.setUserId(value);
+        if (!value) value=''
+        if (value.id) {
+            this.authService.setUserId(value.id);
+        }        
+        else {
+            this.authService.setUserId('');
+        }
     }
 
     equipeSelected(value) {
-        this.authService.setEquipeId(value);
+        if (!value) value=''
+        if (value.id) {
+            this.authService.setEquipeId(value.id);
+        }        
+        else {
+            this.authService.setEquipeId('');
+        }
     }
 
 
@@ -178,6 +204,12 @@ export class AppComponent implements OnInit {
         });
         if (menuItem) menuItem.active = true;
     }
+
+    autocompleListFormatter = (data: any): SafeHtml => {
+        let html = `<span>${data.value}</span>`;
+        return this._sanitizer.bypassSecurityTrustHtml(html);
+    };
+
 
 }
 
