@@ -465,3 +465,7 @@ button {
 .imgSearch{
     cursor: pointer;
 }
+
+.isFormOk {
+    color: red;
+}
