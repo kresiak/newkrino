@@ -15,7 +15,8 @@ export class CommunicationEnterComponent implements OnInit {
     private communicationMessageForm: FormGroup;
     private messagesList;
     private currentUserId: string;
-
+    private messageObject;
+    
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
 
     ngOnInit(): void {
@@ -49,6 +50,14 @@ export class CommunicationEnterComponent implements OnInit {
         this.communicationMessageForm.reset();        
     };
 
-   
+    messageUpdated(messageContent, messageObject) {
+        messageObject.data.message = messageContent;
+        this.dataStore.updateData('messages', messageObject.data._id, messageObject.data)
+    };
+
+    isDisabled(disabled:boolean, messageObject: any) {
+        messageObject.data.isDisabled = disabled;
+        this.dataStore.updateData('messages', messageObject.data._id, messageObject.data);
+    };
 
 };

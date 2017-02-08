@@ -34,14 +34,20 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-sm-2 vcenter"><b>When?</b></div>
-                                    <div class="col-sm-3 vcenter"><b>Administrator</b></div>
-                                    <div class="col-sm-6 vcenter"><b>Message</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Administrator</b></div>
+                                    <div class="col-sm-5 vcenter"><b>Message</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Disabled</b></div>
                                 </div>
-                                <div *ngFor="let message of messagesList">
+                                <div *ngFor="let messageObject of messagesList">
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter">{{message.data.createDate | fromNowDate }}</div>
-                                        <div class="col-sm-3 vcenter">{{message.annotation.user}}</div>
-                                        <div class="col-sm-6 vcenter">{{message.data.message}}</div>
+                                        <div class="col-sm-2 vcenter">{{messageObject.data.createDate | fromNowDate }}</div>
+                                        <div class="col-sm-2 vcenter">{{messageObject.annotation.user}}</div>
+                                        <div class="col-sm-5 vcenter">
+                                            <gg-editor [content]="messageObject.data.message" [showControls]="true" (editSaved)="messageUpdated($event, messageObject)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor-boolean [content]="messageObject.data.isDisabled" (editSaved)="isDisabled($event, messageObject)"></gg-editor-boolean>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
