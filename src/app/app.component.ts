@@ -191,7 +191,7 @@ export class AppComponent implements OnInit {
                 route: '/communication',
                 title: 'Communication',
                 active: false,
-                hide: false
+                hide: !isLoggedIn
             }
         ];
         this.menu= this.menu.filter(item => !item.hide)
