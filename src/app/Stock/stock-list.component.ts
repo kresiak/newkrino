@@ -14,6 +14,10 @@ export class StockListComponentRoutable implements OnInit {
 
     ngOnInit(): void {
         this.productsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
+
+        this.productsObservable.subscribe(res => {
+            let x =res
+        })
     }
 
     private productsObservable: Observable<any>;

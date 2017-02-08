@@ -20,6 +20,8 @@ export class AdminAK {
         this.dbCollections.push(new SelectableData('otps','otps'))
         this.dbCollections.push(new SelectableData('suppliers','suppliers'))
         this.dbCollections.push(new SelectableData('equipes','equipes'))
+        this.dbCollections.push(new SelectableData('equipes.groups','equipes.groups'))
+        this.dbCollections.push(new SelectableData('equipes.gifts','equipes.gifts'))
         this.dbCollections.push(new SelectableData('products','products'))
         this.dbCollections.push(new SelectableData('categories','categories'))
         this.dbCollections.push(new SelectableData('basket','basket'))

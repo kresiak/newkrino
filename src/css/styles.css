@@ -469,3 +469,20 @@ button {
 .isFormOk {
     color: red;
 }
+
+
+.invisible-without-hover { 
+    opacity : 0; 
+}
+
+.invisible-without-hover:hover { 
+    opacity : 1; 
+}
+
+.visible-without-hover { 
+    opacity : 1; 
+}
+
+.visible-without-hover:hover { 
+    opacity : 0; 
+}

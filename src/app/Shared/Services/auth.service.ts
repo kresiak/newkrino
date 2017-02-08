@@ -145,6 +145,8 @@ export class AuthService {
     }    
     
     isProduction() {
-        return false;
+        return true;
     } 
+
+    
 }

@@ -7,6 +7,11 @@
                     <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>
                 </template>
             </ngb-tab>
+            <ngb-tab title="View Fridge Orders" id="tabViewFridge">
+                <template ngbTabContent>
+                    <gg-order-fridge-list></gg-order-fridge-list>
+                </template>
+            </ngb-tab>
             <ngb-tab title="Create an Order" id="tabCreate" *ngIf="authorizationStatusInfo.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">

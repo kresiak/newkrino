@@ -167,4 +167,11 @@ export class ProductDetailComponent implements OnInit {
         this.router.navigate(link);
     }
     
+    private saveFrigoProperty(event, product, isFrigo: boolean) {
+        event.preventDefault()
+        event.stopPropagation()
+        product.data.isFrigo = isFrigo;
+        this.dataStore.updateData('products', product.data._id, product.data);
+    }
+    
 }

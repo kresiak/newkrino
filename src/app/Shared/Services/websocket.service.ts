@@ -12,7 +12,7 @@ export class WebSocketService{
 
     
     ws: WebSocket;
-    private url = 'ws://localhost:1337';  //   'ws://139.165.56.57:3002';
+    private url =   'ws://localhost:1337';  //'ws://139.165.56.57:3002'; 
 
     init() {
         this.createObservableSocket().subscribe(data => {

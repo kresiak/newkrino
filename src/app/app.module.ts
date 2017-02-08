@@ -73,6 +73,7 @@ import {OrderComponentRoutable} from './Orders/order-detail.routable.component'
 import {OrderDetailComponent} from './Orders/order-detail.component'
 import {OrderListComponent} from './Orders/order-list.component'
 import {OrderListComponentRoutable} from './Orders/order-list.routable.component'
+import {OrderFridgeListComponent} from './Orders/order-fridge-list.component'
 
 import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'
@@ -169,7 +170,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
-                  OrderListComponent, OrderListComponentRoutable,
+                  OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],

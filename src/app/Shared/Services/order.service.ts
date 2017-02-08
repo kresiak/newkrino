@@ -4,6 +4,7 @@ import { AuthService } from './auth.service'
 import { UserService } from './user.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable } from 'rxjs/Rx'
+import * as moment from "moment"
 
 
 Injectable()
@@ -444,6 +445,9 @@ export class OrderService {
     }    
 
 
+    // messages
+    // ==============
+
     private createAnnotatedMessage(message, annotatedUsers) {
         if (!message) return null;
 
@@ -463,9 +467,51 @@ export class OrderService {
             this.dataStore.getDataObservable('messages'),
              this.authService.getAnnotatedUsers(),            
             (messages, annotatedUsers) => {
-                return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers))
+                return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
+                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
+                });
             });
     }    
+
+
+    // fridge orders
+    // ==============
+
+    private createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers) {
+        if (!order) return null;
+
+        let user= annotatedUsers.filter(user => user.data._id === order.userId)[0]
+        let equipe= equipes.filter(eq => eq._id === order.equipeId)[0]
+        let product= products.filter(p => p._id === order.productId)[0]
+
+        return {
+            data: order,
+            annotation:
+            {
+                user: user ? user.annotation.fullName : 'unknown user',
+                equipe: equipe ? equipe.name : 'unknown equipe',
+                product: product ? product.name + ' ' + product.package : 'unknown product'
+            }
+        };
+    }
+
+    getAnnotatedFridgeOrders(): Observable<any> {
+        return Observable.combineLatest(
+                this.dataStore.getDataObservable('orders.fridge'),
+                this.dataStore.getDataObservable('products'),
+                this.dataStore.getDataObservable('equipes'),
+                 this.authService.getAnnotatedUsers(),            
+            (orders, products, equipes, annotatedUsers) => {
+                return orders.map(order => this.createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers)).sort((r1, r2) => {
+                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
+                });
+            });
+    }    
+
 
 
 

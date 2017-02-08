@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2 vcenter"><b>When?</b></div>
+                <div class="col-sm-2 vcenter"><b>Who</b></div>
+                <div class="col-sm-3 vcenter"><b>Product</b></div>
+                <div class="col-sm-2 vcenter"><b>Quantity</b></div>
+                <div class="col-sm-2 vcenter"><b>Has been delivered</b></div>
+            </div>
+            <div *ngFor="let order of ordersList">
+                <div class="row">
+                    <div class="col-sm-2 vcenter">{{order.data.createDate | fromNowDate }}</div>
+                    <div class="col-sm-2 vcenter">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
+                    <div class="col-sm-3 vcenter">{{order.annotation.product}}</div>
+                    <div class="col-sm-2 vcenter">
+                        <gg-editor-number *ngIf="authorizationStatusInfo.isAdministrator()"  [content]="order.data.quantity"  (editSaved)="orderUpdated($event, order)"></gg-editor-number>
+                        <div *ngIf="!authorizationStatusInfo.isAdministrator()">{{order.data.quantity}}</div>
+                    </div>
+                    <div class="col-sm-2 vcenter">
+                        <gg-editor-boolean *ngIf="authorizationStatusInfo.isAdministrator()"  [content]="order.data.isDelivered" (editSaved)="isDeliveredUpdated($event, order)"></gg-editor-boolean>
+                        <div *ngIf="!authorizationStatusInfo.isAdministrator()">{{order.data.isDelivered ? 'yes' : 'no'}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -62,16 +62,17 @@
 					</div>
                     
 					<div class="row">
-						<div class="col-sm-3 vcenter">is resold:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isResold" (editSaved)="resoldUpdated($event)"></gg-editor-boolean></div>
-					</div>
-					<div class="row">
 						<div class="col-sm-3 vcenter">is disabled:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)"></gg-editor-boolean></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is distributed:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isDistributed" (editSaved)="distribUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-3 vcenter">frigo:</div>
+						<div class="col-sm-6 vcenter">
+								<img *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" 
+									onmouseover="this.src='../../images/desactivate.png';" onmouseout="this.src='../../images/refrigator.png'" (click)="saveFrigoProperty($event, product, false)" />
+								<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
+								<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />							
+						</div>						
 					</div>
 	 			
 					<div class="row" *ngIf="!authService.isProduction()">

@@ -13,7 +13,8 @@
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific order" />
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific order"
+				/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
 			</div>
@@ -30,7 +31,7 @@
 							<div class="col-sm-2" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
 							<div class="col-sm-1"><b>With VAT</b></div>
 							<div class="col-sm-2"><b>Status</b></div>
-							<div class="col-sm-2"><b>Delivery</b></div>
+							<div class="col-sm-1"><b>Delivery</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -43,15 +44,17 @@
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
 							<div class="col-sm-1">{{order.data.kid}}</div>
 							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
-							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup : 'unknown equipe')}}</div>
+							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup
+								: 'unknown equipe')}}</div>
 							<div class="col-sm-2" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
 							<div class="col-sm-1">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{order.annotation.status}}</div>
-							<div class="col-sm-1"><img *ngIf="order.annotation.anyDelivered && !order.annotation.allDelivered" src="../../images/shipping.png"  /><img *ngIf="order.annotation.allDelivered" src="../../images/ok.png"  /></div>
+							<div class="col-sm-1"><img *ngIf="order.annotation.anyDelivered && !order.annotation.allDelivered" src="../../images/shipping.png" /><img *ngIf="order.annotation.allDelivered" src="../../images/ok.png" /></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id" (stateChanged)="childStateChanged($event, order.data._id)"></gg-order-detail>
+						<gg-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id"
+							(stateChanged)="childStateChanged($event, order.data._id)"></gg-order-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>
