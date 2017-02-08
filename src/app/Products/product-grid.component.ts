@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx'
+import { FormControl, FormGroup } from '@angular/forms'
+
 
 @Component(
     {
@@ -17,15 +19,46 @@ export class ProductGridComponent implements OnInit
 
     constructor()
     {
-        
+        this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });        
     }
 
+    searchControl = new FormControl();
+    searchForm;
+
     ngOnInit() : void{
+
+        Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
+
+            return products.filter(product => {
+                if (txt.startsWith('!')) {
+                    let txt2 = txt.slice(1);
+                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
+                }
+                if (txt.startsWith('$>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + product.data.price >= montant;
+                }
+                if (txt.startsWith('$<') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + product.data.price <= montant;
+                }
+
+                return product.data.name.toUpperCase().includes(txt) 
+            });
+        }).subscribe(products => {
+            this.products = products.slice(0, 30)
+        });
+
+/*
         this.productsObservable.subscribe(products =>
             {
-                this.products= products;
+                this.products= products.slice(0, 50);
             }
-        );
+        );*/
     }
 
     getProductObservable(id: string) : Observable<any>

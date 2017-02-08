@@ -1,5 +1,22 @@
+<template #searchPopContent>
+	<ul>
+		<li>liquid: the product should contain the string 'liquid'</li>
+		<li>$>200: montants supérieurs à 200 euros</li>
+		<li>$<50: montants inférieurs à 200 euros</li>
+	</ul>
+</template>
+
+
 <div class="card">
 	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific product"
+				/>
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-2 col-md-2 vcenter">
 				<b>Product</b>
@@ -10,9 +27,10 @@
 			</div>
 			<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('category')"><b>Category</b>
 			</div>
-<!--			<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('manip')"><b>Manips</b></div>
--->			<div class="col-sm-2 col-md-2 vcenter">
-                    <b>Qty in basket</b>
+			<!--			<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('manip')"><b>Manips</b></div>
+-->
+			<div class="col-sm-2 col-md-2 vcenter">
+				<b>Qty in basket</b>
 			</div>
 		</div>
 		<gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>

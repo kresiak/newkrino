@@ -8,6 +8,9 @@
 	</ul>
 </template>
 
+<template #tipContentFrigo>Click to desactivate frigo</template>
+
+
 <div class="card">
 	<div class="card-block">
 		<div class="row">
@@ -43,10 +46,10 @@
 							<div class="col-sm-2">{{product.data.catalogNr}}</div>
 							<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-1">
-								<img *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" 
-									onmouseover="this.src='../../images/desactivate.png';" onmouseout="this.src='../../images/refrigator.png'" (click)="saveFrigoProperty($event, product, false)" />
+								<img  [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
+
 								<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
-								<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
+								<img  *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
 							</div>
 							<div class="col-sm-1" *ngIf="product.annotation.basketId"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
 							
