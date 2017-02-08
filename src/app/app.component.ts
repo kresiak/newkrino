@@ -161,7 +161,7 @@ export class AppComponent implements OnInit {
                 route: '/users',
                 title: 'Users',
                 active: false,
-                hide: false //!isLoggedIn
+                hide: !isLoggedIn
             },
             {
                 route: '/otps',
