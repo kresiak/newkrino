@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
             let x= res
         })
 
-        this.orderService.getAnnotatedMessages().subscribe(res => {
+        this.orderService.getAnnotatedMessages().map(messages => messages.filter(message => !message.data.isDisabled)).subscribe(res => {
             this.messageList= res
         })
 
