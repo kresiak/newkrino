@@ -55,4 +55,9 @@ export class CommunicationEnterComponent implements OnInit {
         this.dataStore.updateData('messages', messageObject.data._id, messageObject.data)
     };
 
+    isDisabled(disabled:boolean, messageObject: any) {
+        messageObject.data.isDisabled = disabled;
+        this.dataStore.updateData('messages', messageObject.data._id, messageObject.data);
+    };
+
 };
