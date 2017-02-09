@@ -6,14 +6,24 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter">user:</div>
+						<div class="col-sm-3 vcenter">name:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)"></gg-editor>
+							<gg-editor [content]="user.data.name" [showControls]="false" (editSaved)="nameUserUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">first name:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="user.data.firstName" [showControls]="false" (editSaved)="firstNameUserUpdated($event)"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">is blocked:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="dateUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isBlocked"></gg-editor-boolean></div> <!-- (editSaved)="isBlockedUpdated($event)"-->
+					</div> 
+					<div class="row">
+						<div class="col-sm-3 vcenter">is labo user:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isLaboUser"></gg-editor-boolean></div> <!-- (editSaved)="isLaboUserUpdated($event)"-->
 					</div> 
 
 					<div class="row" *ngIf="!authService.isProduction()">
