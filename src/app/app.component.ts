@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
         }
         );
         this.authService.getAnnotatedUsers().subscribe(users => {
-            this.usersShort = users.map(user => {
+            this.usersShort = users.filter(user => !user.data.isBlocked).map(user => {
                 return {
                     id: user.data._id,
                     value: user.annotation.fullName
