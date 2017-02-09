@@ -54,6 +54,7 @@ import {ManipListComponent} from './Manips/manip-list.component'
 import {PrestationDetailComponent} from './Prestations/prestation-detail'
 import {PrestationListComponent} from './Prestations/prestation-list'
 
+import {UserEnterComponent} from './Users/user-enter.component'
 import {UserComponent} from './Users/user.component';
 import {UserListComponent} from './Users/user-list.component';
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
@@ -137,6 +138,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: 'product/:id', component: ProductDetailComponentRoutable },
             { path: 'category/:id', component: CategoryDetailComponentRoutable },
             { path: 'equipe/:id', component: EquipeDetailComponentRoutable },
+            { path: 'users', component: UserEnterComponent },
             { path: "products", component: ProductListComponentRoutable},
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
@@ -165,7 +167,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   ReceptionDetailComponent, CommunicationEnterComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
-                  UserComponent, UserListComponent, 
+                  UserComponent, UserListComponent, UserEnterComponent, 
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent,
