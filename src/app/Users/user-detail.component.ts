@@ -43,53 +43,6 @@ export class UserDetailComponent implements OnInit {
     };
 
     private user
-//    private productsObservable : Observable<any> 
-//    private otpsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-/*
-    commentsUpdated(comments) {
-        if (this.user && comments) {
-            this.user.data.comments = comments;
-            this.dataStore.updateData('users', this.user.data._id, this.user.data);
-        }
-    }
-
-    public beforeTabChange($event: NgbTabChangeEvent) {
-        if ($event.nextId === 'tabMax') {
-            $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/user', this.user.data._id, this.path, this.isRoot)
-            return
-        }
-        if ($event.nextId === 'gotoTop') {
-            $event.preventDefault();
-            this.navigationService.jumpToTop()
-            return
-        }        
-        
-        this.state.selectedTabId = $event.nextId;
-        this.stateChanged.next(this.state);
-    };
- *//*
-    private childProductsStateChanged($event) {
-        this.state.Products = $event;
-        this.stateChanged.next(this.state);
-    }    
-
-    private childOtpsStateChanged($event)
-    {
-        this.state.Otps= $event;
-        this.stateChanged.next(this.state);
-    }
-
-    dateUpdated(isBlockeds) {
-        this.user.data.isBlocked = isBlockeds;
-        this.dataStore.updateData('users', this.user.data._id, this.user.data);
-    }
-
-    isLabUpdated(isLabos) {
-        this.user.data.isLabo = isLabos;
-        this.dataStore.updateData('users', this.user.data._id, this.user.data);
-    }
-*/
 
 }
