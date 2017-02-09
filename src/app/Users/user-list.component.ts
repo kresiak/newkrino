@@ -41,7 +41,7 @@ export class UserListComponent implements OnInit{
 
         Observable.combineLatest(this.userObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
             if (searchTxt.trim() === '') return users;
-            return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.name.toUpperCase().includes(searchTxt.toUpperCase()));
+            return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.firstName.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(users => this.users = users);
         
     }
