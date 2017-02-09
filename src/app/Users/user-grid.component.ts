@@ -4,11 +4,11 @@ import {Observable} from 'rxjs/Rx'
 @Component(
     {
         //moduleId: module.id,
-        selector: 'gg-user-list',
-        templateUrl: './user-list.component.html'
+        selector: 'gg-user-grid',
+        templateUrl: './user-grid.component.html'
     }
 )
-export class UserListComponent implements OnInit
+export class UserGridComponent implements OnInit
 {
     @Input() usersObservable: Observable<any>;
     private users;
