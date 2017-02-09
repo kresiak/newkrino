@@ -32,9 +32,9 @@ export class UserEnterComponent implements OnInit {
         this.dataStore.addData('users.krino', {
             name: formValue.name,
             firstName: formValue.firstName,
-            isBlocked: formValue.isBlocked,
-            isLaboUser: formValue.isLaboUser,
-            isAdmin: formValue.isAdmin,
+            isBlocked: formValue.isBlocked!=='',
+            isLaboUser: formValue.isLaboUser!=='',
+            isAdmin: formValue.isAdmin!=='',
             password: formValue.password
         }).subscribe(res =>
         {
