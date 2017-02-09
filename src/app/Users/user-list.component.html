@@ -20,7 +20,7 @@
 						<div class="row">
 							<div class="col-sm-3"><b>Full name</b></div>
 							<div class="col-sm-4"><b>Equipe</b></div>
-							<div class="col-sm-4"><b>??</b></div>
+							<div class="col-sm-4"><b></b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -37,10 +37,10 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-<!--		
-        				<gg-user-detail [userObservable]="getCategoryObservable(user.data._id)" [state]="state[user.data._id]" [path]="path+'|P:'+user.data._id" 
+		
+        				<gg-user-detail [userObservable]="getUserObservable(user.data._id)" [state]="state[user.data._id]" [path]="path+'|P:'+user.data._id" 
 						(stateChanged)="childStateChanged($event, user.data._id)"></gg-user-detail>
--->
+
 					</template>
 				</ngb-panel>
 			</ngb-accordion>
