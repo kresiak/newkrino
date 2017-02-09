@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit{
 
     ngOnInit():void{
         this.stateInit();
-        this.userObservable= this.authService.getAnnotatedUsers(); 
+        this.userObservable = this.authService.getAnnotatedUsers(); 
 
         Observable.combineLatest(this.userObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
             if (searchTxt.trim() === '') return users;
