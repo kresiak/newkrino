@@ -83,7 +83,7 @@
 	</ngb-tab>
 	<ngb-tab title="Users" id="tabUsers">
 		<template ngbTabContent>
-			<gg-user-grid [usersObservable]="usersObservable"></gg-user-grid>
+			<gg-user-list [state]="state.Users" [usersObservable]="usersObservable" [path]="path+'|O:Users'" (stateChanged)="childUsersStateChanged($event)"></gg-user-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Otps" id="tabOtps">

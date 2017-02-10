@@ -42,7 +42,7 @@ export class EquipeDetailComponent implements OnInit {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
-                this.usersObservable = this.dataStore.getDataObservable('users.krino').map(users => users.filter(user => this.equipe.data.userIds && this.equipe.data.userIds.includes(user._id)));
+                this.usersObservable =  this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id)
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder=anyOrder);
@@ -108,6 +108,14 @@ export class EquipeDetailComponent implements OnInit {
         this.state.Otps= $event;
         this.stateChanged.next(this.state);
     }
+
+    private childUsersStateChanged($event)
+    {
+        this.state.Users= $event;
+        this.stateChanged.next(this.state);
+    }
+
+    
 
     nameUpdated(name) {
         this.equipe.data.name = name;
