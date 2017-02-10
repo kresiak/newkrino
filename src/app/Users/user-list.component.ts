@@ -19,9 +19,10 @@ export class UserListComponent implements OnInit{
         });
     }
 
-    userObservable: Observable<any>;
+    
     users: any
     openPanelId: string= "";
+    @Input() usersObservable: Observable<any>;
     @Input() state;
     @Input() path: string= 'users'
     @Output() stateChanged= new EventEmitter();
@@ -36,10 +37,9 @@ export class UserListComponent implements OnInit{
     searchForm;    
 
     ngOnInit():void{
-        this.stateInit();
-        this.userObservable = this.authService.getAnnotatedUsers(); 
+        this.stateInit();         
 
-        Observable.combineLatest(this.userObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
+        Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
             if (searchTxt.trim() === '') return users;
             return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.firstName.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(users => this.users = users);
@@ -48,7 +48,7 @@ export class UserListComponent implements OnInit{
 
     getUserObservable(id: string) : Observable<any>
     {
-        return this.userObservable.map(users=> users.filter(s => {
+        return this.usersObservable.map(users=> users.filter(s => {
             return s.data._id===id
         }
 
@@ -64,12 +64,12 @@ export class UserListComponent implements OnInit{
     };
     
     // This is typically used for accordions with ngFor and tabsets in the cild component. As the ngFor disposes and recreates the child component, we need a way to remember the opened tab
-/*    private childStateChanged(newState, objectId)
+    private childStateChanged(newState, objectId)
     {
             this.state[objectId]= newState;
             this.stateChanged.next(this.state);
     }
-*/
+
 
     
 }

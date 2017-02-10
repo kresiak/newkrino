@@ -12,6 +12,8 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 export class UserListComponentRoutable implements OnInit {
     constructor(private navigationService: NavigationService, private authService: AuthService) { }
 
+    usersObservable: Observable<any>;
+
     state: {}
 
     ngAfterViewInit() {
@@ -26,6 +28,8 @@ export class UserListComponentRoutable implements OnInit {
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
+
+        this.usersObservable = this.authService.getAnnotatedUsers();
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;

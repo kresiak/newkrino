@@ -92,9 +92,16 @@ export class AuthService {
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
             (users, equipes) => {
-                return users.map(user => this.createAnnotatedUser(user, equipes));
+                return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName < b.annotation.fullName ? -1 : 1; });
             });
     }
+
+    getAnnotatedUserById(id: string): Observable<any> {
+        return this.getAnnotatedUsers().map(users=> users.filter(s => {
+            return s.data._id===id
+        })[0]);        
+    }
+
 
     getSelectableUsers(): Observable<SelectableData[]> {
         return this.getAnnotatedUsers().map(annotatedUsers => {
@@ -128,7 +135,7 @@ export class AuthService {
 
         var usersSubscription = this.getAnnotatedUsers().subscribe(users => {
             if (users && users.length > 0) {
-                this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked).sort((a, b) => { return a.annotation.fullName < b.annotation.fullName ? -1 : 1; })
+                this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)
                 let annotatedUser = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]
                 this.authInfo.equipeList = !annotatedUser ? [] : annotatedUser.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
                 console.log('from prepareUserId: ' + JSON.stringify(annotatedUser))
