@@ -44,7 +44,7 @@ export class UserDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/category', this.category.data._id, this.path, this.isRoot)
+            this.navigationService.maximizeOrUnmaximize('/user', this.user.data._id, this.path, this.isRoot)
             return
         }
         if ($event.nextId === 'gotoTop') {
@@ -81,13 +81,13 @@ export class UserDetailComponent implements OnInit {
         this.user.data.isAdmin = isAdmin;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
-/*
+
     commentsUpdated(comments) {
         if (this.user && comments) {
             this.user.data.comments = comments;
             this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
         }
     };
-  */
+  
 
 }

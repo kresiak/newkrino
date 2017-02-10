@@ -38,18 +38,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<!--
-	<ngb-tab title="Comments" id="tabComments">
-		<template ngbTabContent>
-			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
-		</template>
-	</ngb-tab>	 
-	-->
 	
-	<ngb-tab id="tabMax">
-		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-		<template ngbTabContent></template>
-	</ngb-tab>
 	<ngb-tab id="gotoTop" *ngIf="!isRoot  && path!=='dashboard'">
 		<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
