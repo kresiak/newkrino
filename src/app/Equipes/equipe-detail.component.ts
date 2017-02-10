@@ -7,6 +7,7 @@ import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { SelectableData } from './../Shared/Classes/selectable-data'
 
 @Component(
     {
@@ -23,40 +24,44 @@ export class EquipeDetailComponent implements OnInit {
     @Input() equipeObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() isRoot: boolean=false
-    
-    @Input() initialTab: string = '';
-    @Output() stateChanged= new EventEmitter();
+    @Input() isRoot: boolean = false
 
-    private stateInit()
-    {
-        if (!this.state) this.state= {};
+    @Input() initialTab: string = '';
+    @Output() stateChanged = new EventEmitter();
+
+    private stateInit() {
+        if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
-    }    
+    }
 
 
 
     ngOnInit(): void {
         this.stateInit();
+        this.selectableUsers = this.authService.getSelectableUsers(true);
         this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
-                this.usersObservable =  this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id)
+                this.usersObservable = this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id)
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
-                this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder=anyOrder);
+                this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+
+                this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
             }
         });
         this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
+            this.authorizationStatusInfo = statusInfo
         });
     }
 
 
-/*    @Input() selectedTabId;
-    @Output() tabChanged = new EventEmitter();
-*/
+    /*    @Input() selectedTabId;
+        @Output() tabChanged = new EventEmitter();
+    */
+    private selectableUsers: Observable<SelectableData[]>;
+    private selectedUserIdsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private usersObservable: Observable<any>;
     private otpsObservable: Observable<any>;
@@ -80,6 +85,10 @@ export class EquipeDetailComponent implements OnInit {
         }
     }
 
+    userSelectionChanged(selectedIds: string[]) {
+        this.equipe.data.userIds = selectedIds;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
@@ -91,31 +100,28 @@ export class EquipeDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.jumpToTop()
             return
-        }        
-        
+        }
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
 
-    private childOrdersStateChanged($event)
-    {
-        this.state.Orders= $event;
+    private childOrdersStateChanged($event) {
+        this.state.Orders = $event;
         this.stateChanged.next(this.state);
     }
 
-    private childOtpsStateChanged($event)
-    {
-        this.state.Otps= $event;
+    private childOtpsStateChanged($event) {
+        this.state.Otps = $event;
         this.stateChanged.next(this.state);
     }
 
-    private childUsersStateChanged($event)
-    {
-        this.state.Users= $event;
+    private childUsersStateChanged($event) {
+        this.state.Users = $event;
         this.stateChanged.next(this.state);
     }
 
-    
+
 
     nameUpdated(name) {
         this.equipe.data.name = name;

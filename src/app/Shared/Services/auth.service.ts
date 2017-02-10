@@ -82,7 +82,8 @@ export class AuthService {
             data: user,
             annotation: {
                 fullName: user.firstName + ' ' + user.name,
-                equipes: filteredEquipes
+                equipes: filteredEquipes,
+                equipesTxt: (filteredEquipes && filteredEquipes.length > 0) ? filteredEquipes.map(eq => eq.name).reduce((a, b) => a + ', ' + b) : ''
             }
         };
     }
@@ -109,10 +110,10 @@ export class AuthService {
     }
 
 
-    getSelectableUsers(): Observable<SelectableData[]> {
+    getSelectableUsers(keepBlocked: boolean=false): Observable<SelectableData[]> {
         return this.getAnnotatedUsers().map(annotatedUsers => {
             return annotatedUsers.sort((user1, user2) => { return user1.annotation.fullName < user2.annotation.fullName ? -1 : 1; }).
-                filter(user => !user.data.isBlocked).
+                filter(user => keepBlocked || !user.data.isBlocked).
                 map(user => new SelectableData(user.data._id, user.annotation.fullName))
         })
     }
