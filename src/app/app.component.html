@@ -38,16 +38,16 @@
 		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
 
 		</div>
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo">
 			<div class="form-group">
-				<input  class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" 
+				<input  class="form-control" [(ngModel)]="userValue" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" 
 					ng2-auto-complete blank-option-text="Select a user"   [source]="usersShort" placeholder="choose a user in list" [list-formatter]="autocompleListFormatter" (valueChanged)="userSelected($event)">
 <!--				<select class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" (change)="userSelected($event.target.value)">					
 					<option [selected]="true" *ngIf="!authorizationStatusInfo.hasUserId()">(Select a user)</option>
                     <option *ngFor="let user of users" [value]="user.data._id" [selected]="user.data._id===authorizationStatusInfo.currentUserId">{{user.annotation.fullName}}</option>
                 </select>
 -->	
-			   	<input *ngIf="authorizationStatusInfo.currentUserId" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" 
+			   	<input *ngIf="authorizationStatusInfo.currentUserId" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;" 
 					ng2-auto-complete blank-option-text="Select an equipe"   [source]="possibleEquipes" placeholder="choose an equipe in list" [list-formatter]="autocompleListFormatter" (valueChanged)="equipeSelected($event)">
 
 <!--				<select *ngIf="authorizationStatusInfo.currentUserId" class="form-control" style="margin-top:2px;height:32px;line-height:32px;font-size:12px;" (change)="equipeSelected($event.target.value)">

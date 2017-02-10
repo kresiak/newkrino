@@ -11,7 +11,7 @@
                     <gg-voucher-list [vouchersObservable]="vouchersObservable" ></gg-voucher-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Used vouchers ready For Sap" id="tabReadyVouchersForSap" *ngIf="(vouchersReadyForSapObservable | async).length > 0">
+            <ngb-tab title="Used vouchers ready For Sap" id="tabReadyVouchersForSap" *ngIf="((vouchersReadyForSapObservable |async) || []).length>0">
                 <template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="vouchersReadyForSapObservable" ></gg-voucher-list>
                 </template>

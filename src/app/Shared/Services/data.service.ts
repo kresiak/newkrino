@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from "rxjs/Rx";
+import { ReplaySubject } from "rxjs/Rx";
 import { Observable } from 'rxjs/Rx'
 
 import { ApiService } from './api.service';
@@ -13,7 +13,7 @@ export class DataStore { // contains one observable property by database table/c
 
     private triggerNext(table: string) {
         if (!this[table]) {
-            this[table] = new BehaviorSubject<any[]>([]);
+            this[table] = new ReplaySubject<any[]>(1);
         }
 
         this.apiService.crudGetRecords(table).subscribe(
@@ -25,9 +25,9 @@ export class DataStore { // contains one observable property by database table/c
         );
     }
 
-    private getObservable(table: string): BehaviorSubject<any[]> {
+    private getObservable(table: string): ReplaySubject<any[]> {
         if (!this[table]) {
-            this[table] = new BehaviorSubject<any[]>([]);
+            this[table] = new ReplaySubject<any[]>(1);
             this.triggerNext(table);
         }
         return this[table];

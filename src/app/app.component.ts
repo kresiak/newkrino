@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
-import {WebSocketService} from './Shared/Services/websocket.service';
+import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
 
@@ -15,48 +15,61 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) { 
+    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
+        this.authService.initFromLocalStorage()
     }
 
     private password: string = ''
-    private users;
-    private usersShort;
+    //private users;
+    private usersShort: any[];
     private possibleEquipes: any[];
     private authorizationStatusInfo: AuthenticationStatusInfo
+    private initializingUser: boolean= false
+    private initializingEquipe: boolean= false
     private menu
 
+    private userValue
+    private equipeValue
+
     ngOnInit(): void {
-        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
+/*        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
             var e = <NavigationEnd>event;
             var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
             try {
                 this.activateMenu(this.menu.filter(menuitem => menuitem.route === r)[0]);
             }
             finally { }
-        }
-        );
-        this.authService.getAnnotatedUsers().subscribe(users => {
-            this.usersShort = users.filter(user => !user.data.isBlocked).map(user => {
+        });
+*/
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            console.log('getStatusObservable ' + statusInfo.annotatedUserList.length)
+            this.initializingUser= true
+            this.initializingEquipe= true
+            this.authorizationStatusInfo = statusInfo
+            this.usersShort = statusInfo.annotatedUserList.map(user => {
                 return {
                     id: user.data._id,
                     value: user.annotation.fullName
                 }
-            }).sort((a, b) => { return a.value < b.value ? -1 : 1; })
+            })
 
-            this.users = users;
-            this.authService.getStatusObservable().subscribe(statusInfo => {
-                this.authorizationStatusInfo = statusInfo
-                let currentUserAnnotated = this.users.filter(user => user.data._id === statusInfo.currentUserId)[0];
-                this.possibleEquipes = currentUserAnnotated ? currentUserAnnotated.annotation.equipes.map(eq => {
+            this.userValue= this.usersShort.filter(user => user.id === statusInfo.currentUserId)[0]
+
+            this.possibleEquipes = !statusInfo.equipeList ? [] : statusInfo.equipeList.map(eq => {
                     return {
                         id: eq._id,
                         value: eq.name
                     }
-                }).sort((a, b) => { return a.value < b.value ? -1 : 1; }) : [];
-                this.initMenu(statusInfo)
-            })
-        });
+                })
+
+            this.equipeValue= this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
+            console.log('info user' + this.usersShort.length + ' / ' + statusInfo.currentUserId )
+            console.log('info equipe ' + statusInfo.equipeList.length + ' / ' + statusInfo.currentEquipeId + ' / ' + JSON.stringify(this.equipeValue))
+
+            this.initMenu(statusInfo)
+        })
     }
 
     openModal(template) {
@@ -80,20 +93,31 @@ export class AppComponent implements OnInit {
     }
 
     userSelected(value) {
-        if (!value) value=''
+/*        console.log('entering user selected: ' + value)
+        if (this.initializingUser) {
+            this.initializingUser= false
+            return
+        }
+*/        console.log('user selected: ' + JSON.stringify(value))
+        if (!value) value = ''
         if (value.id) {
             this.authService.setUserId(value.id);
-        }        
+        }
         else {
             this.authService.setUserId('');
         }
     }
 
     equipeSelected(value) {
-        if (!value) value=''
+/*        if (this.initializingEquipe) {
+            this.initializingEquipe= false
+            return
+        }
+*/        console.log('equipe selected: ' +  JSON.stringify(value))
+        if (!value) value = ''
         if (value.id) {
             this.authService.setEquipeId(value.id);
-        }        
+        }
         else {
             this.authService.setEquipeId('');
         }
@@ -103,7 +127,7 @@ export class AppComponent implements OnInit {
     title = 'Krino';
 
     initMenu(statusInfo: AuthenticationStatusInfo) {
-        var isLoggedIn: boolean= statusInfo.isLoggedIn
+        var isLoggedIn: boolean = statusInfo.isLoggedIn
         this.menu = [
             {
                 route: '/home',
@@ -200,7 +224,7 @@ export class AppComponent implements OnInit {
                 hide: !isLoggedIn
             }
         ];
-        this.menu= this.menu.filter(item => !item.hide)
+        this.menu = this.menu.filter(item => !item.hide)
     }
 
 
