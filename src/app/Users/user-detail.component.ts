@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
-//import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 @Component(
     {
@@ -14,7 +14,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 
 export class UserDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService) {
     }
 
     @Input() userObservable: Observable<any>;
@@ -32,11 +32,7 @@ export class UserDetailComponent implements OnInit {
         this.stateInit();
         this.userObservable.subscribe(user => {
             this.user = user;
-  /*          if (user) {
-                this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(user.data._id)
-                this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(user.data._id)
-            }
-    */    });
+        });
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
@@ -44,5 +40,54 @@ export class UserDetailComponent implements OnInit {
 
     private user
     private authorizationStatusInfo: AuthenticationStatusInfo;
+
+    public beforeTabChange($event: NgbTabChangeEvent) {
+        if ($event.nextId === 'tabMax') {
+            $event.preventDefault();
+            this.navigationService.maximizeOrUnmaximize('/user', this.user.data._id, this.path, this.isRoot)
+            return
+        }
+        if ($event.nextId === 'gotoTop') {
+            $event.preventDefault();
+            this.navigationService.jumpToTop()
+            return
+        }        
+        
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+
+    nameUserUpdated(name) {
+        this.user.data.name = name;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    firstNameUserUpdated(firstName) {
+        this.user.data.firstName = firstName;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    isBlockedUpdated(isBlocked) {
+        this.user.data.isBlocked = isBlocked;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    isLaboUserUpdated(isLabo) {
+        this.user.data.isLaboUser = isLabo;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    isAdminUpdated(isAdmin) {
+        this.user.data.isAdmin = isAdmin;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    commentsUpdated(comments) {
+        if (this.user && comments) {
+            this.user.data.comments = comments;
+            this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+        }
+    };
+  
 
 }
