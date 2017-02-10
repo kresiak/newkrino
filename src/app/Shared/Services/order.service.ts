@@ -285,6 +285,11 @@ export class OrderService {
         return this.getAnnotedOrders(ordersObservable);
     }
 
+    getAnnotedOrdersByUser(userId: string): Observable<any> {
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.userId === userId))
+        return this.getAnnotedOrders(ordersObservable);
+    }
+
     hasEquipeAnyOrder(equipeId: string): Observable<boolean> {
         return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.equipeId === equipeId).length > 0);
     }

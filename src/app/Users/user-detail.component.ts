@@ -34,6 +34,7 @@ export class UserDetailComponent implements OnInit {
         this.userObservable.subscribe(user => {
             this.user = user;
             this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
+            this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id);
         });
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
@@ -42,6 +43,7 @@ export class UserDetailComponent implements OnInit {
 
     private user
     private equipesObservable: Observable<any>
+    private ordersObservable: Observable<any>
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     public beforeTabChange($event: NgbTabChangeEvent) {
@@ -65,6 +67,10 @@ export class UserDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    private childOrdersStateChanged($event) {
+        this.state.Orders = $event;
+        this.stateChanged.next(this.state);
+    }
 
     nameUserUpdated(name) {
         this.user.data.name = name;
