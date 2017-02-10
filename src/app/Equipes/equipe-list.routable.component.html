@@ -4,7 +4,7 @@
         <ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
             <ngb-tab title="View Equipes" id="tabView">
                 <template ngbTabContent>
-                    <gg-equipe-list [state]="state"></gg-equipe-list>
+                    <gg-equipe-list [equipesObservable]="equipesObservable" [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
             <ngb-tab title="View Groups" id="tabViewGroup">

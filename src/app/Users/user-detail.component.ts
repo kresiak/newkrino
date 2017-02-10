@@ -5,6 +5,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
+import { OrderService } from './../Shared/Services/order.service'
 
 @Component(
     {
@@ -14,7 +15,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 
 export class UserDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService) {
     }
 
     @Input() userObservable: Observable<any>;
@@ -32,6 +33,7 @@ export class UserDetailComponent implements OnInit {
         this.stateInit();
         this.userObservable.subscribe(user => {
             this.user = user;
+            this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
         });
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
@@ -39,6 +41,7 @@ export class UserDetailComponent implements OnInit {
     };
 
     private user
+    private equipesObservable: Observable<any>
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     public beforeTabChange($event: NgbTabChangeEvent) {
@@ -56,6 +59,12 @@ export class UserDetailComponent implements OnInit {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
+
+    private childEquipesStateChanged($event) {
+        this.state.Equipes = $event;
+        this.stateChanged.next(this.state);
+    }
+
 
     nameUserUpdated(name) {
         this.user.data.name = name;

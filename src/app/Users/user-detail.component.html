@@ -38,6 +38,11 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Equipes" *ngIf="true" id="tabEquipes">
+		<template ngbTabContent>
+			<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
+		</template>
+	</ngb-tab>	
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>

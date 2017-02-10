@@ -365,6 +365,11 @@ export class OrderService {
         });
     }
 
+    getAnnotatedEquipesOfUser(userId: string): Observable<any> {
+        return this.getAnnotatedEquipes().map(equipes => equipes.filter(eq => eq.data.userIds && eq.data.userIds.includes(userId)));
+    }
+
+
     getSelectableEquipes(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('equipes').map(equipes => {
             return equipes.map(equipe =>

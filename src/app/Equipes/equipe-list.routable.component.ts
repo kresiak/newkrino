@@ -17,7 +17,8 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
     }
 
     state: {}
-
+    equipesObservable: Observable<any>;
+    
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
@@ -30,6 +31,7 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
             this.authorizationStatusInfo= statusInfo
         })
 
+        this.equipesObservable = this.orderService.getAnnotatedEquipes();
         this.annotatedGiftsObservable= this.orderService.getAnnotatedEquipesGifts()
     }
 

@@ -14,6 +14,7 @@ export class OtpListComponentRoutable implements OnInit {
     constructor(private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
+    equipesObservable: Observable<any>;
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
@@ -24,6 +25,7 @@ export class OtpListComponentRoutable implements OnInit {
             this.state= state
         })        
         this.otpsObservable = this.orderService.getAnnotatedOtps();
+        this.equipesObservable = this.orderService.getAnnotatedEquipes();
         this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
