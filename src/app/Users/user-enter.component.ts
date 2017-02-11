@@ -16,11 +16,13 @@ export class UserEnterComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore ) {}
 
     ngOnInit(): void {
+        // todo: ne marche pas encore
+        //  const emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
         this.newUserForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(3)]],
             firstName: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.minLength(5)]],
+            email: ['', [Validators.required]], // Validators.pattern(emailRegex)]],
             isBlocked: [''],
             isLaboUser: [''],
             isAdmin: [''],
