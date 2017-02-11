@@ -54,6 +54,11 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Comments" id="tabComments">
+		<template ngbTabContent>
+			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+		</template>
+	</ngb-tab>
 	<ngb-tab title="Equipes" *ngIf="true" id="tabEquipes">
 		<template ngbTabContent>
 			<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
@@ -64,11 +69,7 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Comments" id="tabComments">
-		<template ngbTabContent>
-			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
-		</template>
-	</ngb-tab>
+	
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
