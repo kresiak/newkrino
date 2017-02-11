@@ -27,7 +27,6 @@ export class ProductComponent implements OnInit, OnDestroy  {
 
         this.subscrProduct= this.productObservable.subscribe(product => {
             this.product = product;
-            console.log('from product')
         });
     }
 
