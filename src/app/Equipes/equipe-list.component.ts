@@ -40,6 +40,10 @@ export class EquipeListComponent implements OnInit {
     searchControl = new FormControl();
     searchForm;
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit(): void {
         this.stateInit();
 

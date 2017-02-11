@@ -41,6 +41,10 @@ export class OrderListComponent implements OnInit {
 
     private orders2Observable: Observable<any>;
 
+    resetSerachControl() {
+    this.searchControl.setValue('')
+    };
+
     ngOnInit(): void {
         this.stateInit();
         this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.startWith(''), (orders, searchTxt: string) => {
