@@ -18,6 +18,12 @@ export class CategoryListComponent implements OnInit{
         });
     }
 
+    resetSerachControl() {
+    this.searchControl.setValue('')
+    }
+
+
+
     categoryObservable: Observable<any>;
     categories: any
     openPanelId: string= "";
