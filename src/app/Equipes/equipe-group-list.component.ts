@@ -40,6 +40,10 @@ export class EquipeGroupListComponent implements OnInit {
     searchForm;
     equipeGroupSubscription: Subscription
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit(): void {
         this.stateInit();
         this.equipesObservable = this.orderService.getAnnotatedEquipesGroups();
