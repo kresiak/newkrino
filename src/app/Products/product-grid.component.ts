@@ -28,6 +28,9 @@ export class ProductGridComponent implements OnInit
     searchForm;
     private subscriptionProducts: Subscription 
     
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
 
     ngOnInit() : void{
 
