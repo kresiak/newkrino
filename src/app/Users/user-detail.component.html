@@ -18,6 +18,18 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-3 vcenter">email:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">password:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-3 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)"></gg-editor-boolean></div>
 					</div> 

@@ -20,6 +20,7 @@ export class UserEnterComponent implements OnInit {
         this.newUserForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(3)]],
             firstName: ['', [Validators.required, Validators.minLength(3)]],
+            email: ['', [Validators.required, Validators.minLength(5)]],
             isBlocked: [''],
             isLaboUser: [''],
             isAdmin: [''],
@@ -32,6 +33,7 @@ export class UserEnterComponent implements OnInit {
         this.dataStore.addData('users.krino', {
             name: formValue.name,
             firstName: formValue.firstName,
+            email: formValue.email,
             isBlocked: formValue.isBlocked!=='',
             isLaboUser: formValue.isLaboUser!=='',
             isAdmin: formValue.isAdmin!=='',

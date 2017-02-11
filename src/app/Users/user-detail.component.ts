@@ -82,6 +82,16 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
+    emailUserUpdated(email) {
+        this.user.data.email = email;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
+    passwordUpdated(password) {
+        this.user.data.password = password;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    };
+
     isBlockedUpdated(isBlocked) {
         this.user.data.isBlocked = isBlocked;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
