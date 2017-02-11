@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
 */
 
         this.authService.getStatusObservable().subscribe(statusInfo => {
-            console.log('getStatusObservable ' + statusInfo.annotatedUserList.length)
             this.initializingUser= true
             this.initializingEquipe= true
             this.authorizationStatusInfo = statusInfo
@@ -65,8 +64,6 @@ export class AppComponent implements OnInit {
                 })
 
             this.equipeValue= this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
-            console.log('info user' + this.usersShort.length + ' / ' + statusInfo.currentUserId )
-            console.log('info equipe ' + statusInfo.equipeList.length + ' / ' + statusInfo.currentEquipeId + ' / ' + JSON.stringify(this.equipeValue))
 
             this.initMenu(statusInfo)
         })
@@ -93,12 +90,6 @@ export class AppComponent implements OnInit {
     }
 
     userSelected(value) {
-/*        console.log('entering user selected: ' + value)
-        if (this.initializingUser) {
-            this.initializingUser= false
-            return
-        }
-*/        console.log('user selected: ' + JSON.stringify(value))
         if (!value) value = ''
         if (value.id) {
             this.authService.setUserId(value.id);
@@ -109,11 +100,6 @@ export class AppComponent implements OnInit {
     }
 
     equipeSelected(value) {
-/*        if (this.initializingEquipe) {
-            this.initializingEquipe= false
-            return
-        }
-*/        console.log('equipe selected: ' +  JSON.stringify(value))
         if (!value) value = ''
         if (value.id) {
             this.authService.setEquipeId(value.id);

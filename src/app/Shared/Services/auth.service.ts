@@ -145,8 +145,6 @@ export class AuthService {
                 this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)
                 let annotatedUser = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]
                 this.authInfo.equipeList = !annotatedUser ? [] : annotatedUser.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
-                console.log('from prepareUserId: ' + JSON.stringify(annotatedUser))
-                //this.currentUserIdObservable.next(id);
                 this.emitCurrentAuthenticationStatus()
                 //usersSubscription.unsubscribe()
             }
@@ -155,7 +153,6 @@ export class AuthService {
 
 
     setUserId(id: string): void {
-        console.log('entering setUserId: ' + id)
         if (this.authInfo.currentUserId !== id) {
             this.authInfo.currentEquipeId = ''
             this.authInfo.logout()

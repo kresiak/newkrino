@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {UserService} from '../Shared/Services/user.service'
 import { Observable} from 'rxjs/Rx'
+import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 
 
 @Component(
@@ -12,7 +13,9 @@ import { Observable} from 'rxjs/Rx'
 )
 export class DashboardComponent implements OnInit
 {
-    constructor(private userService: UserService)
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    constructor(private userService: UserService, private authService: AuthService)
     {
 
     }
@@ -20,6 +23,10 @@ export class DashboardComponent implements OnInit
     ngOnInit() : void
     {
         this.dashletsObservable= this.userService.getDashletsForCurrentUser();
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
+        
     }
 
     private dashletsObservable: Observable<any>;
