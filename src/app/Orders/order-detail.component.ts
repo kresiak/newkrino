@@ -39,12 +39,13 @@ export class OrderDetailComponent implements OnInit {
     private smallScreen: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionOrder: Subscription
 
     ngOnInit(): void {
         this.stateInit();
         this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
 
-        this.orderObservable.subscribe(order => {
+        this.subscriptionOrder= this.orderObservable.subscribe(order => {
             this.order = order
             this.selectableOtpsObservable = this.orderService.getSelectableOtps();
             if (this.order && this.order.annotation)
@@ -60,6 +61,7 @@ export class OrderDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionOrder.unsubscribe()
     }
     
     private saveDelivery(orderItem, formData) {

@@ -61,7 +61,7 @@ export class SupplierDetailComponent implements OnInit {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
-        this.supplierObservable.subscribe(supplier => {
+        this.subscriptionSupplier= this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
             if (supplier) {
                 this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
@@ -82,11 +82,13 @@ export class SupplierDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionSupplier.unsubscribe()
     }
     
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription     
+    private subscriptionSupplier: Subscription    
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;

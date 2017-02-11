@@ -20,7 +20,7 @@ export class CategoryListComponentRoutable implements OnInit {
 
 
     ngOnInit(): void {
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -30,8 +30,11 @@ export class CategoryListComponentRoutable implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionState.unsubscribe()
     }
     
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionState: Subscription 
+    
 }

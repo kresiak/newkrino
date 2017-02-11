@@ -54,7 +54,7 @@ export class EquipeGiftEnterComponent implements OnInit {
                 equipeTakingId: this.equipeTaking.id,
                 amount: formValue.amount,
                 userId: this.currentUserId
-            }).subscribe(res => {
+            }).first().subscribe(res => {
                 this.reset();
             });
         }

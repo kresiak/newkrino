@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import {ProductService} from './../Shared/Services/product.service'
-import {Observable} from 'rxjs/Rx'
+import {Observable, Subscription} from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
@@ -21,6 +21,8 @@ export class CategoryListComponent implements OnInit{
     categoryObservable: Observable<any>;
     categories: any
     openPanelId: string= "";
+    subscriptionCategories: Subscription
+
     @Input() state;
     @Input() path: string= 'categories'
     @Output() stateChanged= new EventEmitter();
@@ -38,12 +40,17 @@ export class CategoryListComponent implements OnInit{
         this.stateInit();
         this.categoryObservable= this.productService.getAnnotatedCategories(); 
 
-        Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), (categories, searchTxt: string) => {
+        this.subscriptionCategories= Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), (categories, searchTxt: string) => {
             if (searchTxt.trim() === '') return categories;
             return categories.filter(category => category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(categories => this.categories = categories);
         
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionCategories.unsubscribe()
+    }
+
 
     getCategoryObservable(id: string) : Observable<any>
     {

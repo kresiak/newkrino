@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 
 
@@ -26,10 +26,12 @@ export class ProductGridComponent implements OnInit
 
     searchControl = new FormControl();
     searchForm;
+    private subscriptionProducts: Subscription 
+    
 
     ngOnInit() : void{
 
-        Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
+        this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 
@@ -52,14 +54,12 @@ export class ProductGridComponent implements OnInit
         }).subscribe(products => {
             this.products = products.slice(0, 30)
         });
-
-/*
-        this.productsObservable.subscribe(products =>
-            {
-                this.products= products.slice(0, 50);
-            }
-        );*/
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionProducts.unsubscribe()
+    }
+
 
     getProductObservable(id: string) : Observable<any>
     {

@@ -40,7 +40,7 @@ export class UserEnterComponent implements OnInit {
             isLaboUser: formValue.isLaboUser!=='',
             isAdmin: formValue.isAdmin!=='',
             password: formValue.password
-        }).subscribe(res =>
+        }).first().subscribe(res =>
         {
             var x=res;
             this.reset();

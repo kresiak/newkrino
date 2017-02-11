@@ -15,12 +15,13 @@ export class OrderFridgeListComponent implements OnInit {
     private ordersList;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionOrder: Subscription 
    
     constructor(private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
 
     ngOnInit(): void {
 
-        this.orderService.getAnnotatedFridgeOrders().subscribe(orders => {
+        this.subscriptionOrder= this.orderService.getAnnotatedFridgeOrders().subscribe(orders => {
             this.ordersList = orders;
         });
 
@@ -32,6 +33,7 @@ export class OrderFridgeListComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionOrder.unsubscribe()
     }
     
     orderUpdated(qtyNew, order) {

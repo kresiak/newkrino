@@ -41,7 +41,7 @@ export class OtpDetailComponent implements OnInit {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
-        this.otpObservable.subscribe(otp => {
+        this.subscriptionOtp= this.otpObservable.subscribe(otp => {
             this.otp = otp;
 
             if (otp) {
@@ -57,6 +57,7 @@ export class OtpDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionOtp.unsubscribe()
     }
     
 
@@ -68,6 +69,7 @@ export class OtpDetailComponent implements OnInit {
     private anyOrder: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription     
+    private subscriptionOtp: Subscription     
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;

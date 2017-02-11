@@ -41,7 +41,7 @@ export class EquipeGroupEnterComponent implements OnInit {
                     weight: 1
                 }
             })
-        }).subscribe(res => {
+        }).first().subscribe(res => {
             this.reset();
         });
     }

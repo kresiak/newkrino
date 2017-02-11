@@ -39,11 +39,12 @@ export class ProductListComponent implements OnInit {
 
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription 
+    private subscriptionProducts: Subscription
 
     ngOnInit(): void {
         this.stateInit();
 
-        Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
+        this.subscriptionProducts=Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 
@@ -74,6 +75,7 @@ export class ProductListComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionProducts.unsubscribe()
     }
         
 

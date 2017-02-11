@@ -40,7 +40,7 @@ export class EquipeEnterComponent implements OnInit {
             nbOfMonthAheadAllowed: formValue.nbOfMonthAheadAllowed,
             isBlocked: formValue.isBlocked,
             userIds: this.selectedUserIds
-        }).subscribe(res =>
+        }).first().subscribe(res =>
         {
             var x=res;
             this.reset();

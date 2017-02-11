@@ -37,7 +37,7 @@ export class CategoryEnterComponent implements OnInit {
             isBlocked: formValue.isBlocked,
             isLabo: formValue.isLabo,
             isOffice: formValue.isOffice
-        }).subscribe(res =>
+        }).first().subscribe(res =>
         {
             var x=res;
             this.reset();

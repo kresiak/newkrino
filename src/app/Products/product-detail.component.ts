@@ -36,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
 
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription     
+    private subscriptionProduct: Subscription
 
     ngOnInit(): void {
         this.stateInit();
@@ -45,7 +46,7 @@ export class ProductDetailComponent implements OnInit {
         this.selectableUsers = this.authService.getSelectableUsers();
         this.selectedUserIdsObservable = this.productObservable.map(product => product.data.userIds);
 
-        this.productObservable.subscribe(product => {
+        this.subscriptionProduct= this.productObservable.subscribe(product => {
             this.product = product;
             if (product) {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
@@ -59,6 +60,7 @@ export class ProductDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionProduct.unsubscribe()
     }
     
 

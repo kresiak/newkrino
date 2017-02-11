@@ -24,7 +24,7 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -37,6 +37,7 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionState.unsubscribe()
     }
     
 
@@ -44,4 +45,6 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionState: Subscription 
+    
 }

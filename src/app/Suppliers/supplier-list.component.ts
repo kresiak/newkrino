@@ -37,11 +37,12 @@ export class SupplierListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
+    private subscriptionSuppliers: Subscription   
 
     ngOnInit(): void {
         this.stateInit();
 
-        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), (suppliers, searchTxt: string) => {
+        this.subscriptionSuppliers= Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), (suppliers, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt==='$') return suppliers;
 
@@ -59,6 +60,11 @@ export class SupplierListComponent implements OnInit {
             this.suppliers = suppliers
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionSuppliers.unsubscribe()
+    }
+    
 
     getSupplierObservable(id: string): Observable<any> {
         return this.suppliersObservable.map(suppliers => 

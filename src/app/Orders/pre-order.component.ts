@@ -21,9 +21,11 @@ export class PreOrderComponent implements OnInit {
     private groups: any[]
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionRoute: Subscription
+    private subscriptionEquipeGroups: Subscription
 
     ngOnInit(): void {
-        this.route.params.subscribe((params: Params) => {
+        this.subscriptionRoute= this.route.params.subscribe((params: Params) => {
             let supplierId = params['id'];
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier);
@@ -39,7 +41,7 @@ export class PreOrderComponent implements OnInit {
             }
         }))
 
-        this.orderService.getAnnotatedEquipesGroups().subscribe(groups => {
+         this.subscriptionEquipeGroups= this.orderService.getAnnotatedEquipesGroups().subscribe(groups => {
             this.groups= groups
         })
 
@@ -51,6 +53,8 @@ export class PreOrderComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionRoute.unsubscribe()
+         this.subscriptionEquipeGroups.unsubscribe()
     }
     
 

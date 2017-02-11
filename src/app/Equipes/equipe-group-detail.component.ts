@@ -37,7 +37,7 @@ export class EquipeGroupDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.equipeGroupObservable.subscribe(eq => {
+        this.subscriptionGroup= this.equipeGroupObservable.subscribe(eq => {
             this.equipeGroup = eq;
         });
 
@@ -51,6 +51,7 @@ export class EquipeGroupDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionGroup.unsubscribe()
     }
     
 
@@ -59,6 +60,7 @@ export class EquipeGroupDetailComponent implements OnInit {
     */
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
+    private subscriptionGroup: Subscription
     private equipeGroup: any;
 
     commentsUpdated(comments) {

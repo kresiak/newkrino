@@ -21,6 +21,7 @@ export class CategoryDetailComponent implements OnInit {
     }
 
     private subscriptionAuthorization: Subscription 
+    private subscriptionCategory: Subscription
 
     @Input() categoryObservable: Observable<any>;
     @Input() state;
@@ -35,7 +36,7 @@ export class CategoryDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.categoryObservable.subscribe(category => {
+         this.subscriptionCategory= this.categoryObservable.subscribe(category => {
             this.category = category;
             if (category) {
                 this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id)
@@ -49,6 +50,7 @@ export class CategoryDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionCategory.unsubscribe()
     }
     
 

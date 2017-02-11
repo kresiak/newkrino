@@ -31,7 +31,7 @@ export class UserDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.userObservable.subscribe(user => {
+         this.subscriptionUser=this.userObservable.subscribe(user => {
             this.user = user;
             this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
             this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id);
@@ -43,6 +43,7 @@ export class UserDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionUser.unsubscribe()
     }
     
 
@@ -51,6 +52,7 @@ export class UserDetailComponent implements OnInit {
     private ordersObservable: Observable<any>
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription     
+    private subscriptionUser: Subscription         
 
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {

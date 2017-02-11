@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import {ProductService} from './../Shared/Services/product.service'
-import {Observable} from 'rxjs/Rx'
+import {Observable, Subscription} from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
@@ -35,15 +35,20 @@ export class UserListComponent implements OnInit{
 
     searchControl = new FormControl();
     searchForm;    
+    private subscriptionUsers: Subscription 
 
     ngOnInit():void{
         this.stateInit();         
 
-        Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
+        this.subscriptionUsers= Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.startWith(''), (users, searchTxt: string) => {
             if (searchTxt.trim() === '') return users;
             return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.firstName.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(users => this.users = users);
         
+    }
+
+    ngOnDestroy(): void {
+         this.subscriptionUsers.unsubscribe()
     }
 
     getUserObservable(id: string) : Observable<any>

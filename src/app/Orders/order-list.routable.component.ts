@@ -23,7 +23,7 @@ export class OrderListComponentRoutable implements OnInit {
     ngOnInit(): void {
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.ordersObservable = this.orderService.getAnnotedOrdersByNewest();
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -33,6 +33,7 @@ export class OrderListComponentRoutable implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionState.unsubscribe()
     }
     
 
@@ -40,4 +41,5 @@ export class OrderListComponentRoutable implements OnInit {
     private ordersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionState: Subscription 
 }

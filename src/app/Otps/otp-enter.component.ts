@@ -58,7 +58,7 @@ export class OtpEnterComponent implements OnInit {
             client: formValue.client,
             note: formValue.note,
             categoryIds: this.selectedIds
-        }).subscribe(res => {
+        }).first().subscribe(res => {
             var x = res;
             this.reset();
         });

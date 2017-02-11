@@ -28,18 +28,21 @@ export class ProductListComponentRoutable implements OnInit {
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         })
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state = state
         })
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
-    }
+          this.subscriptionState.unsubscribe()
+   }
     
 
     private productsObservable: Observable<any>;
     private suppliersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionState: Subscription 
+    
 
 }

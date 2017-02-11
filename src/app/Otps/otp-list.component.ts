@@ -26,7 +26,7 @@ export class OtpListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
-
+    private subscriptionOtps: Subscription 
 
     private otps;
 
@@ -40,12 +40,16 @@ export class OtpListComponent implements OnInit {
         this.stateInit();
 
 
-        Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), (otps, searchTxt: string) => {
+        this.subscriptionOtps= Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), (otps, searchTxt: string) => {
             if (searchTxt.trim() === '') return otps;
             return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                 || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(otps => this.otps = otps);
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionOtps.unsubscribe()
+   }
 
     getOtpObservable(id: string) {
         return this.otpsObservable.map(otps => otps.filter(otp => otp.data._id === id)[0]);

@@ -21,7 +21,7 @@ export class OtpListComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
         this.otpsObservable = this.orderService.getAnnotatedOtps();
@@ -33,11 +33,14 @@ export class OtpListComponentRoutable implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
-    }
+         this.subscriptionState.unsubscribe()
+   }
     
 
     private otpsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription     
+    private subscriptionAuthorization: Subscription    
+    private subscriptionState: Subscription 
+     
 }
 

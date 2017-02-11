@@ -19,6 +19,9 @@ export class SupplierDetailComponentRoutable implements OnInit {
 
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription 
+    private subscriptionState: Subscription 
+    private subscriptionRoute: Subscription 
+    
 
     supplierObservable: Observable<any>;
     initData(id: string) {
@@ -31,10 +34,10 @@ export class SupplierDetailComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
-        this.route.params.subscribe((params: Params) => {
+        this.subscriptionRoute= this.route.params.subscribe((params: Params) => {
             let id = params['id'];
             this.initData(id)
         });
@@ -46,6 +49,8 @@ export class SupplierDetailComponentRoutable implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionState.unsubscribe()
+         this.subscriptionRoute.unsubscribe()         
     }
     
 }

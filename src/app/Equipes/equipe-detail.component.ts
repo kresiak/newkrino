@@ -39,7 +39,7 @@ export class EquipeDetailComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
         this.selectableUsers = this.authService.getSelectableUsers(true);
-        this.equipeObservable.subscribe(eq => {
+        this.subscriptionEquipe= this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
@@ -58,6 +58,7 @@ export class EquipeDetailComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionEquipe.unsubscribe()
     }
     
 
@@ -68,6 +69,8 @@ export class EquipeDetailComponent implements OnInit {
     private selectedUserIdsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
+    private subscriptionEquipe: Subscription
+
     private usersObservable: Observable<any>;
     private otpsObservable: Observable<any>;
     private ordersObservable: Observable<any>;

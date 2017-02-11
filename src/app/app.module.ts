@@ -41,8 +41,6 @@ import {CategoryEnterComponent} from './Categories/category-enter.component'
 
 import {CategoryDetailComponentRoutable} from './Categories/category-detail.routable.component'
 
-
-import {OtpComponent} from './Otps/otp.component';
 import {OtpListComponent} from './Otps/otp-list.component';
 import {OtpListComponentRoutable} from './Otps/otp-list.routable.component';
 import {OtpDetailComponent} from './Otps/otp-detail.component';
@@ -57,7 +55,6 @@ import {PrestationListComponent} from './Prestations/prestation-list'
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
 import {UserEnterComponent} from './Users/user-enter.component'
-import {UserComponent} from './Users/user.component';
 import {UserDetailComponent} from './Users/user-detail.component';
 import {UserDetailComponentRoutable} from './Users/user-detail.routable.component';
 
@@ -166,13 +163,13 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
-                  OtpComponent, OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
+                  OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
                   ReceptionDetailComponent, CommunicationEnterComponent,
                   StockDetailComponent, StockListComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
-                  UserComponent, UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable,
+                  UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable,
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent,

@@ -2,6 +2,7 @@ import { Component, Input, Output, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import {ProductService} from '../Shared/Services/product.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component({
         //moduleId: module.id,
@@ -17,7 +18,8 @@ export class ProductEnterComponent implements OnInit {
 
     @Input() supplierId: string;
 
-    private categoryData: SelectableData[];
+    private categoryData: SelectableData[]
+    private subscriptioncategories: Subscription 
 
     private isCategoryIdSelected(control: FormControl){   // custom validator implementing ValidatorFn 
             if (control.value === '-1') {
@@ -29,7 +31,7 @@ export class ProductEnterComponent implements OnInit {
 
     ngOnInit():void
     {
-        this.productService.getSelectableCategories().subscribe(cd => this.categoryData= cd);
+        this.subscriptioncategories= this.productService.getSelectableCategories().subscribe(cd => this.categoryData= cd);
 
         const priceRegEx = `^\\d+(.\\d*)?$`;
 
@@ -48,6 +50,9 @@ export class ProductEnterComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+         this.subscriptioncategories.unsubscribe()
+    }
 
     save(formValue, isValid)
     {

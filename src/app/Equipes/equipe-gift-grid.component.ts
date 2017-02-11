@@ -19,12 +19,17 @@ export class EquipeGiftGridComponent implements OnInit {
 
     private equipeGifts;
     private isFormOk: boolean = true;
+    subscriptionEquipeGifts: Subscription
 
     ngOnInit(): void {
-        this.equipeGiftsObservable.subscribe(res => {
+        this.subscriptionEquipeGifts= this.equipeGiftsObservable.subscribe(res => {
             this.equipeGifts = res
         })
     };
+
+    ngOnDestroy(): void {
+         this.subscriptionEquipeGifts.unsubscribe()
+    }
 
     updateAmount(amount, gift){
         if(+amount){
