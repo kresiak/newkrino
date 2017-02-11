@@ -19,8 +19,9 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-3"><b>Full name</b></div>
-							<div class="col-sm-4"><b>Equipe</b></div>
-							<div class="col-sm-4"><b></b></div>
+							<div class="col-sm-3"><b>Equipe</b></div>
+							<div class="col-sm-2"><b>Blocked?</b></div>
+							<div class="col-sm-2"><b>Administrator?</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -30,11 +31,9 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{user.data._id}}">
 							<div class="col-sm-3">{{user.annotation.fullName}}</div>
-							<div class="col-sm-4">{{user.annotation.equipesTxt}}</div>
-							<!--
-                            <div class="col-sm-4">{{user.annotation.supplierNames.length === 0 ? '' : user.annotation.supplierNames[0] }}</div>
-							<div class="col-sm-4">{{user.annotation.otpNames.length === 0 ? '' : user.annotation.otpNames[0] }}</div>
-                            -->
+							<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
+							<div class="col-sm-2">{{user.data.isBlocked}}</div>
+							<div class="col-sm-2">{{user.data.isAdmin}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

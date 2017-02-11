@@ -18,6 +18,18 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-3 vcenter">email:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">password:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-3 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)"></gg-editor-boolean></div>
 					</div> 
@@ -28,6 +40,10 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">is administrator:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)"></gg-editor-boolean></div>
+					</div> 
+					<div class="row">
+						<div class="col-sm-3 vcenter">equipe:</div>
+						<div class="col-sm-6 vcenter">{{user.annotation.equipesTxt}}</div>
 					</div> 
 
 					<div class="row" *ngIf="!authService.isProduction()">
@@ -48,7 +64,11 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	
+	<ngb-tab title="Comments" id="tabComments">
+		<template ngbTabContent>
+			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+		</template>
+	</ngb-tab>
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
