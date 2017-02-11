@@ -53,7 +53,6 @@ export class CategoryDetailComponent implements OnInit {
          this.subscriptionCategory.unsubscribe()
     }
     
-
     //private model;
     private category
     private productsObservable : Observable<any> 
