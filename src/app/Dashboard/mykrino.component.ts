@@ -2,10 +2,11 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core'
 import {OrderService} from './../Shared/Services/order.service'
 import {ProductService} from './../Shared/Services/product.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import {AuthService} from './../Shared/Services/auth.service'
 import {DataStore} from './../Shared/Services/data.service'
 import {Observable} from 'rxjs/Rx'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
+
 
 @Component(
  {
@@ -23,6 +24,8 @@ export class MyKrinoComponent implements OnInit{
     webSuppliersObservable: Observable<any>
     suppliersWithBasketObservable: Observable<any>;
     currentUser;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+
 
     @Input() state;
     @Output() stateChanged= new EventEmitter();
@@ -44,6 +47,11 @@ export class MyKrinoComponent implements OnInit{
         });
         this.equipesObservable= this.orderService.getAnnotatedEquipesOfCurrentUser();
         this.webSuppliersObservable= this.supplierService.getAnnotatedWebSuppliers()
+
+        this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        });
+        
     }
 
    commentsUpdated(comments)
