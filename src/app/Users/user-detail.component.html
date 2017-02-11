@@ -41,6 +41,10 @@
 						<div class="col-sm-3 vcenter">is administrator:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)"></gg-editor-boolean></div>
 					</div> 
+					<div class="row">
+						<div class="col-sm-3 vcenter">equipe:</div>
+						<div class="col-sm-6 vcenter">{{user.annotation.equipesTxt}}</div>
+					</div> 
 
 					<div class="row" *ngIf="!authService.isProduction()">
 						<div class="col-sm-3">_id:</div>
