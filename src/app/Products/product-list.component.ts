@@ -37,6 +37,10 @@ export class ProductListComponent implements OnInit {
         });
     }
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription 
     private subscriptionProducts: Subscription
