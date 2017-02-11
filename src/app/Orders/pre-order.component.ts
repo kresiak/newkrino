@@ -4,7 +4,7 @@ import { ProductService } from './../Shared/Services/product.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {
@@ -20,6 +20,7 @@ export class PreOrderComponent implements OnInit {
     private groupsForSelectionObservable: Observable<any>
     private groups: any[]
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
     ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
@@ -42,11 +43,16 @@ export class PreOrderComponent implements OnInit {
             this.groups= groups
         })
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
         
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
     private productsBasketObservable: Observable<any>;
     private selectedGroupId: string = undefined

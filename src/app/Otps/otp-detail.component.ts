@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
@@ -50,10 +50,15 @@ export class OtpDetailComponent implements OnInit {
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
     //private model;
     private otp;
@@ -62,6 +67,7 @@ export class OtpDetailComponent implements OnInit {
     private selectedCategoryIdsObservable: Observable<any>;
     private anyOrder: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription     
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;

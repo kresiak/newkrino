@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
@@ -25,12 +25,17 @@ export class UserListComponentRoutable implements OnInit {
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
 
         this.usersObservable = this.authService.getAnnotatedUsers();
     }
 
-    private authorizationStatusInfo: AuthenticationStatusInfo;
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
 }

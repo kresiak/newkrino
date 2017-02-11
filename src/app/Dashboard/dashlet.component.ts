@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { UserService } from '../Shared/Services/user.service'
 import { OrderService } from '../Shared/Services/order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {

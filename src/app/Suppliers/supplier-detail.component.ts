@@ -5,7 +5,7 @@ import { ProductService } from './../Shared/Services/product.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
@@ -75,12 +75,18 @@ export class SupplierDetailComponent implements OnInit {
             }
         });
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })        
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription     
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;

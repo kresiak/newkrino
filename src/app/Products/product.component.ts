@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Component, Input, OnInit, OnDestroy,  ViewChild } from '@angular/core';
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { DataStore } from './../Shared/Services/data.service'
@@ -13,8 +13,10 @@ import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/
         templateUrl: './product.component.html'
     }
 )
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy  {
     constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private modalService: NgbModal) { }
+
+    private subscrProduct: Subscription ;
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -23,12 +25,16 @@ export class ProductComponent implements OnInit {
         this.selectableManipsObservable = this.productService.getSelectableManips();
         this.selectedManipIdsObservable = this.productObservable.map(product => product.data.manipIds);
 
-        this.productObservable.subscribe(product => {
+        this.subscrProduct= this.productObservable.subscribe(product => {
             this.product = product;
+            console.log('from product')
         });
-
-
     }
+
+    ngOnDestroy(): void {
+         this.subscrProduct.unsubscribe()
+    }
+
 
     @ViewChild('prix') priceChild;
 

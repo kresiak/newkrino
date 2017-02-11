@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { DataStore } from './../Shared/Services/data.service'
 import { AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from '../Shared/Services/order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component({
     selector: 'gg-equipe-gift-grid',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
     }
+
+    private subscriptionAuthorization: Subscription 
+
 
     private password: string = ''
     //private users;
@@ -43,7 +46,7 @@ export class AppComponent implements OnInit {
         });
 */
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.initializingUser= true
             this.initializingEquipe= true
             this.authorizationStatusInfo = statusInfo
@@ -68,6 +71,11 @@ export class AppComponent implements OnInit {
             this.initMenu(statusInfo)
         })
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
     openModal(template) {
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "sm" });

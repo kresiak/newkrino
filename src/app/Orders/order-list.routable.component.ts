@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
@@ -26,12 +26,18 @@ export class OrderListComponentRoutable implements OnInit {
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+
     private suppliersObservable: Observable<any>;
     private ordersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 }

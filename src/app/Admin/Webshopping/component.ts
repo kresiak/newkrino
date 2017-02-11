@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ProductService } from './../../Shared/Services/product.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 

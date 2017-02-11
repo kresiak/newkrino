@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { ProductService } from '../../Shared/Services/product.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(

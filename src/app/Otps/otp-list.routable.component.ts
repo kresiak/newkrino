@@ -1,5 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -26,12 +26,18 @@ export class OtpListComponentRoutable implements OnInit {
         })        
         this.otpsObservable = this.orderService.getAnnotatedOtps();
         this.equipesObservable = this.orderService.getAnnotatedEquipes();
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+
     private otpsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription     
 }
 

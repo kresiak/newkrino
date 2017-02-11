@@ -3,7 +3,7 @@ import {OrderService} from './../Shared/Services/order.service'
 import {ProductService} from './../Shared/Services/product.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import {DataStore} from './../Shared/Services/data.service'
-import {Observable} from 'rxjs/Rx'
+import {Observable, Subscription} from 'rxjs/Rx'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 
@@ -25,6 +25,7 @@ export class MyKrinoComponent implements OnInit{
     suppliersWithBasketObservable: Observable<any>;
     currentUser;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
 
     @Input() state;
@@ -48,11 +49,16 @@ export class MyKrinoComponent implements OnInit{
         this.equipesObservable= this.orderService.getAnnotatedEquipesOfCurrentUser();
         this.webSuppliersObservable= this.supplierService.getAnnotatedWebSuppliers()
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
         
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
    commentsUpdated(comments)
     {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -18,6 +18,7 @@ export class OtpDetailComponentRoutable implements OnInit {
     state: {}    
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
     otpObservable: Observable<any>;
     initData(id: string) {
@@ -37,9 +38,14 @@ export class OtpDetailComponentRoutable implements OnInit {
             let id = params['id'];
             this.initData(id)
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -38,6 +38,7 @@ export class ProductListComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription 
 
     ngOnInit(): void {
         this.stateInit();
@@ -66,11 +67,15 @@ export class ProductListComponent implements OnInit {
             this.products = products.slice(0, 250)
         });
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })        
-
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+        
 
     getProductObservable(id: string) {
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);

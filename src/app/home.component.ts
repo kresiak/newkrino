@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { SupplierService } from './Shared/Services/supplier.service';
 import { ApiService } from './Shared/Services/api.service';
 import { OrderService } from './Shared/Services/order.service'

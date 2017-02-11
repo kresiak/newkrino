@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 import { SupplierService } from '../Shared/Services/supplier.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {
@@ -18,6 +18,7 @@ export class SupplierDetailComponentRoutable implements OnInit {
     state: {}    
 
     private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription 
 
     supplierObservable: Observable<any>;
     initData(id: string) {
@@ -38,9 +39,13 @@ export class SupplierDetailComponentRoutable implements OnInit {
             this.initData(id)
         });
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })        
+    }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
     }
     
 }

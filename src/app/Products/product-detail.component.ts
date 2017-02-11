@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service'
@@ -35,6 +35,7 @@ export class ProductDetailComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
 
     ngOnInit(): void {
         this.stateInit();
@@ -51,10 +52,15 @@ export class ProductDetailComponent implements OnInit {
             }
         });
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })        
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
     //private model;
     private product;

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 

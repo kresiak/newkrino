@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter }
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
@@ -18,6 +18,7 @@ export class OrderComponentRoutable implements OnInit {
     state: {}
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
     orderObservable: Observable<any>;
     initData(id: string) {
@@ -37,9 +38,14 @@ export class OrderComponentRoutable implements OnInit {
             let id = params['id'];
             this.initData(id)
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
     }
+    
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
     
 }

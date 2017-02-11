@@ -2,7 +2,7 @@ import { SelectableData } from '../../Shared/Classes/selectable-data'
 
 import { Component, Input, Output, ViewEncapsulation, EventEmitter, Inject, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 
 @Component({

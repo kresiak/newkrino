@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { SimplePageScrollService } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
 

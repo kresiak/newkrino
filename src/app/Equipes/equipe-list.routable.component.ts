@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, Inject } from '@angular/core'
 import { NavigationService } from '../Shared/Services/navigation.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from '../Shared/Services/order.service'
 
@@ -18,7 +18,7 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
 
     state: {}
     equipesObservable: Observable<any>;
-    
+
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
@@ -27,7 +27,7 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
         this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
 
@@ -35,7 +35,13 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
         this.annotatedGiftsObservable= this.orderService.getAnnotatedEquipesGifts()
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+
     private annotatedGiftsObservable: Observable<any>
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 }

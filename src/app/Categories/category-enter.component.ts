@@ -2,7 +2,7 @@ import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component({
         //moduleId: module.id,

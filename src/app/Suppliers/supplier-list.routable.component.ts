@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 
@@ -25,12 +25,17 @@ export class SupplierListComponentRoutable implements OnInit {
             this.state= state
         })        
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
 
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
     private suppliersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
 }

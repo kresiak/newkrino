@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -36,15 +36,21 @@ export class UserDetailComponent implements OnInit {
             this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
             this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id);
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
     };
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
+
     private user
     private equipesObservable: Observable<any>
     private ordersObservable: Observable<any>
-    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
 
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {

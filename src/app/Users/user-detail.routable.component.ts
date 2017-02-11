@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { NavigationService } from '../Shared/Services/navigation.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
@@ -16,7 +16,8 @@ export class UserDetailComponentRoutable implements OnInit {
     user: any
     state: {}
 
-    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
 
     userObservable: Observable<any>;
     initData(id: string) {
@@ -37,9 +38,14 @@ export class UserDetailComponentRoutable implements OnInit {
             let id = params['id'];
             this.initData(id)
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
 }

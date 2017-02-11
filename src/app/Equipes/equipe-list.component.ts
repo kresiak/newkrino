@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
 import { DOCUMENT } from '@angular/platform-browser'

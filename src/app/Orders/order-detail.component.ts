@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter }
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { OrderService } from '../Shared/Services/order.service'
 import { DataStore } from '../Shared/Services/data.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
@@ -38,6 +38,7 @@ export class OrderDetailComponent implements OnInit {
 
     private smallScreen: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
     ngOnInit(): void {
         this.stateInit();
@@ -51,16 +52,16 @@ export class OrderDetailComponent implements OnInit {
                     item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otpId]);
                 });
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
 
     }
 
-    ngAfterViewInit() {
-
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
     }
-
+    
     private saveDelivery(orderItem, formData) {
         if (+formData.qty < 1) return;
         if (!orderItem.data.deliveries) orderItem.data.deliveries = [];

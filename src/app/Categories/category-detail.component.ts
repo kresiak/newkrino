@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service';
@@ -19,6 +19,8 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 export class CategoryDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) {
     }
+
+    private subscriptionAuthorization: Subscription 
 
     @Input() categoryObservable: Observable<any>;
     @Input() state;
@@ -40,10 +42,15 @@ export class CategoryDetailComponent implements OnInit {
                 this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id)
             }
         });
-        this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
     //private model;
     private category

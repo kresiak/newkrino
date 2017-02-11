@@ -3,7 +3,7 @@ import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { ProductService } from './product.service'
 import { SelectableData } from './../Classes/selectable-data'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 
 Injectable()

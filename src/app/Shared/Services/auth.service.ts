@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
-import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject, ReplaySubject, Subscription } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
 
 export class AuthenticationStatusInfo {
@@ -68,7 +68,6 @@ export class AuthService {
 
     private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
 
-    //private currentUserIdObservable = new BehaviorSubject(this.authInfo.currentUserId);
     private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
 
     private emitCurrentAuthenticationStatus() {

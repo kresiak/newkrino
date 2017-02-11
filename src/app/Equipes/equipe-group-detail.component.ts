@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -22,16 +22,15 @@ export class EquipeGroupDetailComponent implements OnInit {
     @Input() equipeGroupObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() isRoot: boolean=false
-    
-    @Input() initialTab: string = '';
-    @Output() stateChanged= new EventEmitter();
+    @Input() isRoot: boolean = false
 
-    private stateInit()
-    {
-        if (!this.state) this.state= {};
+    @Input() initialTab: string = '';
+    @Output() stateChanged = new EventEmitter();
+
+    private stateInit() {
+        if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
-    }    
+    }
 
     private selectableEquipes: Observable<any>;
     private selectedEquipeIdsObservable
@@ -45,16 +44,21 @@ export class EquipeGroupDetailComponent implements OnInit {
         this.selectableEquipes = this.orderService.getSelectableEquipes();
         this.selectedEquipeIdsObservable = this.equipeGroupObservable.map(group => group.data.equipeIds.map(idObj => idObj.id));
 
-        this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
         });
     }
 
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }
+    
 
-/*    @Input() selectedTabId;
-    @Output() tabChanged = new EventEmitter();
-*/
+    /*    @Input() selectedTabId;
+        @Output() tabChanged = new EventEmitter();
+    */
     private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription
     private equipeGroup: any;
 
     commentsUpdated(comments) {
@@ -64,7 +68,7 @@ export class EquipeGroupDetailComponent implements OnInit {
         }
     }
 
-    public beforeTabChange($event: NgbTabChangeEvent) {       
+    public beforeTabChange($event: NgbTabChangeEvent) {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -80,7 +84,7 @@ export class EquipeGroupDetailComponent implements OnInit {
     }
 
     equipeSelectionChanged(selectedEquipeIds: string[]) {
-        this.equipeGroup.data.equipeIds= this.equipeGroup.data.equipeIds.filter(element => selectedEquipeIds.includes(element.id))
+        this.equipeGroup.data.equipeIds = this.equipeGroup.data.equipeIds.filter(element => selectedEquipeIds.includes(element.id))
 
         selectedEquipeIds.filter(id => !this.equipeGroup.data.equipeIds.map(element => element.id).includes(id)).forEach(id => {
             this.equipeGroup.data.equipeIds.push({
@@ -90,9 +94,9 @@ export class EquipeGroupDetailComponent implements OnInit {
         })
         this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
     }
-    
+
     weightupdated(item, newQuantity: string) {
-        item.weight= newQuantity
+        item.weight = newQuantity
         this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
     }
 

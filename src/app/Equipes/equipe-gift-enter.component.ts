@@ -4,7 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
 import { AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from '../Shared/Services/order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
 @Component({

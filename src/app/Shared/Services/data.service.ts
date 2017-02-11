@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ReplaySubject } from "rxjs/Rx";
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 import { ApiService } from './api.service';
 

@@ -4,7 +4,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { OrderService } from '../../Shared/Services/order.service'
 import { ProductService } from '../../Shared/Services/product.service'
 import { DataStore } from './../../Shared/Services/data.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {

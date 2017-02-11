@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { OrderService } from './order.service'
-import { Observable } from 'rxjs/Rx'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 
 Injectable()
