@@ -47,7 +47,7 @@ export class VoucherListComponent implements OnInit {
         this.stateInit();
         //this.vouchersObservable = this.productService.getAnnotatedVouchers();
 
-        Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.startWith(''), (vouchers, searchTxt: string) => {
+        Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (vouchers, searchTxt: string) => {
             if (searchTxt.trim() === '') return vouchers;
             return vouchers.filter(otp => otp.annotation.user.toUpperCase().includes(searchTxt.toUpperCase()) || otp.annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(vouchers => {

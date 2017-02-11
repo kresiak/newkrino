@@ -44,7 +44,7 @@ export class OtpListComponent implements OnInit {
         this.stateInit();
 
 
-        this.subscriptionOtps= Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.startWith(''), (otps, searchTxt: string) => {
+        this.subscriptionOtps= Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (otps, searchTxt: string) => {
             if (searchTxt.trim() === '') return otps;
             return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                 || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()));

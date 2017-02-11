@@ -47,7 +47,7 @@ export class EquipeListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.equipesSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.startWith(''), (equipes, searchTxt: string) => {
+        this.equipesSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (equipes, searchTxt: string) => {
             if (searchTxt.trim() === '') return equipes;
             return equipes.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || otp.data.description.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(equipes => this.equipes = equipes);

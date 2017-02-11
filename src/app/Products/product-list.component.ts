@@ -48,7 +48,7 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionProducts=Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.startWith(''), (products, searchTxt: string) => {
+        this.subscriptionProducts=Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 

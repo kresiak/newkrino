@@ -46,7 +46,7 @@ export class SupplierListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionSuppliers= Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.startWith(''), (suppliers, searchTxt: string) => {
+        this.subscriptionSuppliers= Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (suppliers, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt==='$') return suppliers;
 
