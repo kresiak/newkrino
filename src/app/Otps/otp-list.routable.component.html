@@ -1,7 +1,7 @@
 <div id="GGTOP"></div>
 <div class="card">
     <div class="card-block">
-        <ngb-tabset *ngIf="authorizationStatusInfo.isLoggedIn">
+        <ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
             <ngb-tab title="View Otps" id="tabView">
                 <template ngbTabContent>
 
@@ -20,6 +20,6 @@
                 </template>
             </ngb-tab>
         </ngb-tabset>
-        <h4 *ngIf="!authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
+        <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
 </div>
