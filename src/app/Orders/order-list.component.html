@@ -9,14 +9,15 @@
 	</ul>
 </template>
 
+<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific order</div></template>
+
 <div class="card">
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="right" ngbTooltip="Please click here to search specific order"
-				/>
+				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="right" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples">
+					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
 			</div>
 		</div>
 		<div class="row">

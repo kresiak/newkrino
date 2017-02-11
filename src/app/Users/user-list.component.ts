@@ -37,6 +37,10 @@ export class UserListComponent implements OnInit{
     searchForm;    
     private subscriptionUsers: Subscription 
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit():void{
         this.stateInit();         
 

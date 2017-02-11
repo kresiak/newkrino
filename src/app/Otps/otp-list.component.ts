@@ -36,6 +36,10 @@ export class OtpListComponent implements OnInit {
         });
     }
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit(): void {
         this.stateInit();
 

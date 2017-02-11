@@ -46,11 +46,10 @@ export class CategoryListComponent implements OnInit{
         this.stateInit();
         this.categoryObservable= this.productService.getAnnotatedCategories(); 
 
-        this.subscriptionCategories= Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), (categories, searchTxt: string) => {
-            if (searchTxt.trim() === '') return categories;
-            return categories.filter(category => category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()));
+    this.subscriptionCategories= Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.startWith(''), (categories, searchTxt: string) => {
+        if (searchTxt.trim() === '') return categories;
+            return categories.filter(category => category.data.name &&  (category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()))   );
         }).subscribe(categories => this.categories = categories);
-        
     }
 
     ngOnDestroy(): void {

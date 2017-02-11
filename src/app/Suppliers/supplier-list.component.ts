@@ -39,6 +39,10 @@ export class SupplierListComponent implements OnInit {
     searchForm;
     private subscriptionSuppliers: Subscription   
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit(): void {
         this.stateInit();
 
