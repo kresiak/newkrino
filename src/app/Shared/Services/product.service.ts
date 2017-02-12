@@ -103,13 +103,25 @@ export class ProductService {
     getAnnotatedStockOrders(ordersStockObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(ordersStockObservable, this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),  this.dataStore.getDataObservable('products'),
             (ordersStock, equipes, annotatedUsers, products) => {
-            return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products));
+            return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products)).sort((v1, v2) => {
+                    var d1= moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2= moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
+                });
         });
     }
     
     getAnnotatedStockOrdersAll(): Observable<any> {
         return this.getAnnotatedStockOrders(this.dataStore.getDataObservable('orders.stock'))
     }
+
+    getAnnotatedStockOrdersByCurrentUser(): Observable<any> {
+        var stockOrdersObservable=  Observable.combineLatest(this.dataStore.getDataObservable('orders.stock'), this.authService.getUserIdObservable(), (orders, userId) => {
+            return orders.filter(order => order.userId ===userId)
+        })
+        return this.getAnnotatedStockOrders(stockOrdersObservable)
+    }
+
 
     // categories
     // ==========

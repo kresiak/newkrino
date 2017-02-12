@@ -72,13 +72,9 @@
 					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My Stock Orders" id="tabStockOrders">
+			<ngb-tab title="My stock orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
 				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<h5>todo still</h5>
-						</div>
-					</div>
+					<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.name}}" [id]="equipe.data._id">

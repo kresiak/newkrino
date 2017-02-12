@@ -19,6 +19,7 @@ export class MyKrinoComponent implements OnInit{
                 private supplierService: SupplierService)    {}
 
     ordersObservable: Observable<any>;
+    stockOrdersObservable: Observable<any>;
     productsObservable: Observable<any>;
     equipesObservable: Observable<any>;
     webSuppliersObservable: Observable<any>
@@ -44,6 +45,9 @@ export class MyKrinoComponent implements OnInit{
         this.stateInit();
         this.suppliersWithBasketObservable= this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
         this.ordersObservable= this.orderService.getAnnotedOrdersOfCurrentUser();
+
+        this.stockOrdersObservable= this.productService.getAnnotatedStockOrdersByCurrentUser()
+
         this.productsObservable= this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
         this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(res => {
             this.currentUser= res;
