@@ -1,0 +1,25 @@
+<div id="GGTOP"></div>
+<div class="card">
+	<div class="card-block">
+		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+			<ngb-tab title="Available in stock" id="tabAvailable">
+				<template ngbTabContent>
+                    <gg-stock-list [productsObservable]= "productsObservable"></gg-stock-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="Orders" id="tabOrders" >
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+                            <h6>List of orders.</h6>
+						<!--
+							<gg-supplier-enter></gg-supplier-enter>
+						-->
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+		<h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
+	</div>
+</div>            

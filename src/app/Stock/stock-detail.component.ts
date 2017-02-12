@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthService } from './../Shared/Services/auth.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-
+import * as moment from "moment"
 
 @Component(
     {
@@ -50,7 +50,7 @@ export class StockDetailComponent implements OnInit {
     save(formValue, isValid) {
         let userId = this.authService.getUserId();
         let equipeId = this.authService.getEquipeId();
-        let now = new Date();
+        let now = moment().format('DD/MM/YYYY HH:mm:ss')
         this.product.values.forEach(stockItem => {
             if (formValue[stockItem.data._id] && +formValue[stockItem.data._id] > 0) {
                 if (!stockItem.data.sales) stockItem.data.sales = [];

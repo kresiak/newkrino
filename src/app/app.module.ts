@@ -78,8 +78,9 @@ import {OrderListComponent} from './Orders/order-list.component'
 import {OrderListComponentRoutable} from './Orders/order-list.routable.component'
 import {OrderFridgeListComponent} from './Orders/order-fridge-list.component'
 
-import {StockListComponent, StockListComponentRoutable} from './Stock/stock-list.component'
+import {StockListComponent} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'
+import {StockComponentRoutable} from './Stock/stock.routable.component'
 
 import {ReceptionDetailComponent} from './Reception/reception-detail.component'
 import {CommunicationEnterComponent} from './Communication/communication-enter.component'
@@ -147,7 +148,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "dashboard", component: DashboardComponent},
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
-            { path: "stock", component: StockListComponentRoutable},
+            { path: "stock", component: StockComponentRoutable},
             { path: "manips", component: ManipListComponent},
             { path: "unmaximize", component: UnMaximizeComponent},
             { path: "prestations", component: PrestationListComponent},
@@ -169,7 +170,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
                   ReceptionDetailComponent, CommunicationEnterComponent,
-                  StockDetailComponent, StockListComponentRoutable, StockListComponent,
+                  StockDetailComponent, StockComponentRoutable, StockListComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable,
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,

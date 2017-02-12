@@ -4,24 +4,6 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
-@Component(
-    {
-        template: `<gg-stock-list [productsObservable]= "productsObservable"></gg-stock-list>`
-    }
-)
-export class StockListComponentRoutable implements OnInit {
-    constructor(private productService: ProductService) { }
-
-    ngOnInit(): void {
-        this.productsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
-
-        this.productsObservable.subscribe(res => {
-            let x =res
-        })
-    }
-
-    private productsObservable: Observable<any>;
-}
 
 
 @Component(
