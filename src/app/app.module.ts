@@ -70,6 +70,7 @@ import {EquipeGiftEnterComponent} from './Equipes/equipe-gift-enter.component'
 import {EquipeGiftGridComponent} from './Equipes/equipe-gift-grid.component'
 
 
+import {BasketRoutableComponent} from './Orders/basket.routable.component'
 import {PreOrderComponent} from './Orders/pre-order.component'
 import {OrderComponentRoutable} from './Orders/order-detail.routable.component'
 import {OrderDetailComponent} from './Orders/order-detail.component'
@@ -129,6 +130,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           Ng2SimplePageScrollModule.forRoot(),
           RouterModule.forRoot([
             { path: "admin", component: AdminMainComponent},
+            { path: "basket", component: BasketRoutableComponent},
             { path: "suppliers", component: SupplierListComponentRoutable},
             { path: "equipes", component: EquipeListComponentRoutable},
             { path: "orders", component: OrderListComponentRoutable},
@@ -173,7 +175,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent,
-                  PreOrderComponent, OrderDetailComponent, OrderComponentRoutable,
+                  PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
                   FullDatePipe, ShortDatePipe, FromNowPipe

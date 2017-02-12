@@ -1,10 +1,11 @@
-import { Component, Input, OnInit, OnDestroy,  ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { DataStore } from './../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Params, Router } from '@angular/router'
 
 @Component(
     {
@@ -13,10 +14,10 @@ import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/
         templateUrl: './product.component.html'
     }
 )
-export class ProductComponent implements OnInit, OnDestroy  {
-    constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private modalService: NgbModal) { }
+export class ProductComponent implements OnInit, OnDestroy {
+    constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private modalService: NgbModal, private router: Router) { }
 
-    private subscrProduct: Subscription ;
+    private subscrProduct: Subscription;
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -25,13 +26,13 @@ export class ProductComponent implements OnInit, OnDestroy  {
         this.selectableManipsObservable = this.productService.getSelectableManips();
         this.selectedManipIdsObservable = this.productObservable.map(product => product.data.manipIds);
 
-        this.subscrProduct= this.productObservable.subscribe(product => {
+        this.subscrProduct = this.productObservable.subscribe(product => {
             this.product = product;
         });
     }
 
     ngOnDestroy(): void {
-         this.subscrProduct.unsubscribe()
+        this.subscrProduct.unsubscribe()
     }
 
 
@@ -123,5 +124,8 @@ export class ProductComponent implements OnInit, OnDestroy  {
         this.productService.doBasketUpdate(this.product, quantity)
     }
 
-
+    navigateToProduct() {
+        let link = ['/product', this.product.data._id];
+        this.router.navigate(link);
+    }
 }

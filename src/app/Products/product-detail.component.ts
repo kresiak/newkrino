@@ -99,6 +99,10 @@ export class ProductDetailComponent implements OnInit {
         this.productService.doBasketUpdate(this.product, quantity)
     }
 
+    quantityBasketIncremented() {
+        this.productService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString() )
+    }
+
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();

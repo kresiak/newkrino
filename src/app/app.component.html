@@ -1,5 +1,7 @@
 <template ngbModalContainer></template>
 
+<template #tipOpenBasket><div style="font-size: 70%;">Click here to <br/> open your basket</div></template>
+
 <template #passwordModal let-c="close" let-d="dismiss">
   <div class="modal-header" style="padding:2px;background-color:lightblue">
 	  <div class="row">
@@ -46,8 +48,16 @@
 					ng2-auto-complete blank-option-text="Select an equipe"   [source]="possibleEquipes" placeholder="choose an equipe in list" [list-formatter]="autocompleListFormatter" (valueChanged)="equipeSelected($event)">
 
 				<button *ngIf="authorizationStatusInfo.isReadyForPassword()" style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">Enter your password {{authorizationStatusInfo.isLoginError? '(There was an error)' : ''}}</button>
-				 
-				<label *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" style="font-size:12px;color:green;border-style:none">user is authenticated</label>
+
+
+				<div class="row" *ngIf="authorizationStatusInfo.isLoggedIn">
+					<div class="col-sm-7 vcenter">
+						<label *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" style="font-size:12px;color:green;border-style:none">authenticated</label>
+					</div>
+					<div class="col-sm-4 vcenter" *ngIf="nbProductsInBasket > 0">
+						<div class="col-sm-1" ><img height="25" width="25" src="../images/shopping-basket-info-icon.png" class="imgSearch" (click)="navigateToBasket()" placement="bottom" [ngbTooltip]="tipOpenBasket" /></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

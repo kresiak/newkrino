@@ -5,6 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
+import { ProductService } from './Shared/Services/product.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
@@ -15,12 +16,13 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
+    constructor(private authService: AuthService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
     }
 
     private subscriptionAuthorization: Subscription 
+    private subscriptionBasketItems: Subscription 
 
 
     private password: string = ''
@@ -35,6 +37,8 @@ export class AppComponent implements OnInit {
     private userValue
     private equipeValue
 
+    private nbProductsInBasket: number = 0
+
     ngOnInit(): void {
 /*        this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
             var e = <NavigationEnd>event;
@@ -45,6 +49,10 @@ export class AppComponent implements OnInit {
             finally { }
         });
 */
+
+        this.subscriptionBasketItems= this.productService.getBasketItemsForCurrentUser().subscribe(items => {
+            this.nbProductsInBasket= items.length
+        })
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.initializingUser= true
@@ -74,6 +82,7 @@ export class AppComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionBasketItems.unsubscribe()
     }
     
 
@@ -234,6 +243,11 @@ export class AppComponent implements OnInit {
         return this._sanitizer.bypassSecurityTrustHtml(html);
     };
 
+    navigateToBasket() {
+        let link = ['/basket'];
+        this.router.navigate(link);
+    }
+    
 
 }
 
