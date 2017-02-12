@@ -22,10 +22,12 @@ export class MyKrinoComponent implements OnInit{
     productsObservable: Observable<any>;
     equipesObservable: Observable<any>;
     webSuppliersObservable: Observable<any>
+    webVouchersObservable: Observable<any>
     suppliersWithBasketObservable: Observable<any>;
     currentUser;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
+    private subscriptionCurrentUser: Subscription
 
 
     @Input() state;
@@ -43,7 +45,7 @@ export class MyKrinoComponent implements OnInit{
         this.suppliersWithBasketObservable= this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
         this.ordersObservable= this.orderService.getAnnotedOrdersOfCurrentUser();
         this.productsObservable= this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
-        this.authService.getAnnotatedCurrentUser().subscribe(res => {
+        this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(res => {
             this.currentUser= res;
         });
         this.equipesObservable= this.orderService.getAnnotatedEquipesOfCurrentUser();
@@ -52,11 +54,12 @@ export class MyKrinoComponent implements OnInit{
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
-        
+        this.webVouchersObservable= this.productService.getAnnotatedUsedVouchersOfCurrentUserByDate()
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionCurrentUser.unsubscribe()
     }
     
 

@@ -37,14 +37,19 @@
 					<gg-supplier-list [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My vouchers" id="tabVouchers">
+			<ngb-tab title="My webshopping" id="tabVouchers">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
 							<ngb-tabset>
-								<ngb-tab title="Web Shopping" id="tabVouchersWebShopping">
+								<ngb-tab title="Order or use vouchers" id="tabOrderVouchers">
 									<template ngbTabContent>
 										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
+									</template>
+								</ngb-tab>
+								<ngb-tab title="My used vouchers" id="tabUsedVouchers">
+									<template ngbTabContent>
+										<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
 									</template>
 								</ngb-tab>
 							</ngb-tabset>

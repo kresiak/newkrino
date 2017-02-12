@@ -6,14 +6,19 @@
                    <gg-voucher-request-list></gg-voucher-request-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Recent Vouchers" id="tabRecentVouchers">
+            <ngb-tab title="Vouchers By Creation Date" id="tabRecentVouchers">
                 <template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="vouchersObservable" ></gg-voucher-list>
                 </template>
             </ngb-tab>
+            <ngb-tab title="Used Vouchers By Date" id="tabUsedVouchers">
+                <template ngbTabContent>
+                    <gg-voucher-list [vouchersObservable]="usedVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
+                </template>
+            </ngb-tab>
             <ngb-tab title="Used vouchers ready For Sap" id="tabReadyVouchersForSap" *ngIf="((vouchersReadyForSapObservable |async) || []).length>0">
                 <template ngbTabContent>
-                    <gg-voucher-list [vouchersObservable]="vouchersReadyForSapObservable" ></gg-voucher-list>
+                    <gg-voucher-list [vouchersObservable]="vouchersReadyForSapObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
                 </template>
             </ngb-tab>
         </ngb-tabset>

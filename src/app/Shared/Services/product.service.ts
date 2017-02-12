@@ -382,13 +382,32 @@ export class ProductService {
             this.dataStore.getDataObservable('suppliers'),
             this.dataStore.getDataObservable('equipes'),
             (vouchers, users, categories, suppliers, equipes) => {
-                return vouchers.map(voucher => this.createAnnotatedVoucher(voucher, users, categories, suppliers, equipes)).sort((v1, v2) => {
+                return vouchers.map(voucher => this.createAnnotatedVoucher(voucher, users, categories, suppliers, equipes))
+            });
+    }
+
+    getAnnotatedVouchersByCreationDate(): Observable<any> {
+         return this.getAnnotatedVouchers().map(vouchers => vouchers.sort((v1, v2) => {
                     var d1= moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var d2= moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1
-                })
-            });
+                }))
     }
+
+    getAnnotatedUsedVouchersByDate(): Observable<any> {
+         return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed).sort((v1, v2) => {
+                    var d1= moment(v1.data.shopping.date, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2= moment(v2.data.shopping.date, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 > d2 ? -1 : 1
+                }))
+    }
+
+    getAnnotatedUsedVouchersOfCurrentUserByDate(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotatedUsedVouchersByDate(), this.authService.getUserIdObservable(), (vouchers, userId) => {
+            return vouchers.filter(voucher => voucher.data.userId === userId)
+        })
+    }
+
 
     getAnnotatedUsedVouchersReadyForSap(): Observable<any> {
         return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed && !voucher.annotation.isInSap))

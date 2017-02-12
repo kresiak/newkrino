@@ -20,6 +20,7 @@ export class AdminWebShoppingComponent {
     @Output() stateChanged = new EventEmitter()
 
     vouchersObservable: Observable<any>;
+    usedVouchersObservable: Observable<any>;    
     vouchersReadyForSapObservable: Observable<any>;
 
     private stateInit() {
@@ -29,7 +30,8 @@ export class AdminWebShoppingComponent {
 
     ngOnInit(): void {
         this.stateInit()
-        this.vouchersObservable = this.productService.getAnnotatedVouchers()
+        this.vouchersObservable = this.productService.getAnnotatedVouchersByCreationDate()
+        this.usedVouchersObservable= this.productService.getAnnotatedUsedVouchersByDate()
         this.vouchersReadyForSapObservable= this.productService.getAnnotatedUsedVouchersReadyForSap()
     }
 

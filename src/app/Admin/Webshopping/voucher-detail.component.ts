@@ -29,9 +29,11 @@ export class VoucherDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
     }
 
+    private subscriptionVoucher: Subscription
+
     ngOnInit(): void {
         this.stateInit();
-        this.voucherObservable.subscribe(eq => {
+        this.subscriptionVoucher= this.voucherObservable.subscribe(eq => {
             this.voucher = eq;
             if (this.voucher) {
                 this.otpListObservable = this.orderService.getAnnotatedOpenOtpsByCategory(this.voucher.data.categoryId).map(otps => otps.map(otp => {
@@ -43,6 +45,11 @@ export class VoucherDetailComponent implements OnInit {
             }
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionVoucher.unsubscribe()
+    }    
+
 
     private voucher: any;
     private otpListObservable: any

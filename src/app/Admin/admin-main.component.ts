@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { Observable, Subscription } from 'rxjs/Rx'
+
 
 @Component(
     {
@@ -9,9 +12,12 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 )
 
 export class AdminMainComponent {
-    constructor() {
+    constructor(private authService: AuthService) {
 
     }
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription 
 
     @Input() state;
     @Output() stateChanged = new EventEmitter()
@@ -19,7 +25,14 @@ export class AdminMainComponent {
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })        
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+    }    
 
     ngOnInit(): void {
         this.stateInit();

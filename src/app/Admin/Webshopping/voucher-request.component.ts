@@ -50,15 +50,8 @@ export class AdminWebShoppingVoucherRequestComponent {
             otpId: formValue.otp.id
         }
 
-        this.productService.createVoucher(data).subscribe(res => {
-            let x = res
-        })
+        this.productService.createVoucher(data)
         
-  /*      this.dataStore.addData('', {
-        }).subscribe(res => {
-            var x = res;
-            this.reset();
-        });*/
     }
 
     reset() {

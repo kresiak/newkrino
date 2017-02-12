@@ -23,9 +23,12 @@ export class VoucherListComponent implements OnInit {
     }
 
     @Input() vouchersObservable: Observable<any>;
+
+    private subscriptionVouchers: Subscription 
     vouchers: any
 
     @Input() state;
+    @Input() focusOnVoucherUsage: boolean
     @Input() initialTabInVoucherDetail: string = '';
     @Input() path: string= 'vouchers'
     @Output() stateChanged = new EventEmitter();
@@ -45,16 +48,18 @@ export class VoucherListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        //this.vouchersObservable = this.productService.getAnnotatedVouchers();
 
-        Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (vouchers, searchTxt: string) => {
+        this.subscriptionVouchers= Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (vouchers, searchTxt: string) => {
             if (searchTxt.trim() === '') return vouchers;
             return vouchers.filter(otp => otp.annotation.user.toUpperCase().includes(searchTxt.toUpperCase()) || otp.annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(vouchers => {
             this.vouchers = vouchers
-        });
-        
+        });        
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionVouchers.unsubscribe()
+    }    
 
     getVoucherObservable(id: string): Observable<any> {
         return this.vouchersObservable.map(vouchers => vouchers.filter(s => s.data._id === id)[0]);

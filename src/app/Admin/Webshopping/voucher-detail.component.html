@@ -10,7 +10,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">usage:</div>
-						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'red' : 'green'">{{voucher.annotation.status}}
+						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}
 						</div>
 					</div>
 					<div class="row" *ngIf="voucher.annotation.isUsed">
@@ -64,11 +64,15 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
+						<div class="col-sm-4 vcenter">using date:</div>
+						<div class="col-sm-6 vcenter">{{voucher.data.shopping.date | fullDate}}</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4 vcenter">used by equipe:</div>
 						<div class="col-sm-6 vcenter">{{voucher.annotation.equipe}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">descriptiom:</div>
+						<div class="col-sm-4 vcenter">description:</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.description}}</div>
 					</div>
 					<div class="row">
