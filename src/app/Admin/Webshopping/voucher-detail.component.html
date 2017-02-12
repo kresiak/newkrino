@@ -21,23 +21,23 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">for the use of user:</div>
-						<div class="col-sm-6 vcenter">{{voucher.annotation.user}}
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4 vcenter">accepted product category:</div>
-						<div class="col-sm-6 vcenter">{{voucher.annotation.category}}
+						<div class="col-sm-6 vcenter">{{voucher.annotation.user}} {{voucher.annotation.isUsed ? ' / ' + voucher.annotation.equipe : ''}}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">web supplier:</div>
-						<div class="col-sm-6 vcenter">{{voucher.annotation.supplier}}
+						<div class="col-sm-6 vcenter">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">SAP Id to be used:</div>
+						<div class="col-sm-4 vcenter">Sap Id to be used:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="voucher.data.sapId" [showControls]="true" (editSaved)="sapIdUpdated($event)"></gg-editor>
+						</div>
+					</div>
+					<div class="row" *ngIf="voucher.annotation.isUsed">
+						<div class="col-sm-4 vcenter">amount:</div>
+						<div class="col-sm-6 vcenter">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2'}}
 						</div>
 					</div>
 					<div class="row">
