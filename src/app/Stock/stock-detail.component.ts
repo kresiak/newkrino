@@ -37,15 +37,22 @@ export class StockDetailComponent implements OnInit {
         });
     }
 
+    subscriptionProduct: Subscription
+
     ngOnInit(): void {
         this.stateInit();
 
-        this.productObservable.subscribe(product => {
+        this.subscriptionProduct= this.productObservable.subscribe(product => {
             this.product = product;
             if (product)
                 this.formStockInit(product);
         });
     }
+
+    ngOnDestroy(): void {
+         this.subscriptionProduct.unsubscribe()
+    }
+
 
     save(formValue, isValid) {
         let userId = this.authService.getUserId();

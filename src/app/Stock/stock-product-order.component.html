@@ -1,0 +1,24 @@
+<div class="card">
+    <br>
+    <form [formGroup]="frmStockOrder" (ngSubmit)="save(frmStockOrder.value, frmStockOrder.valid)">
+        <div class="row">
+            <div class="col-sm-3"><b>product</b></div>
+            <div class="col-sm-3"><b>available</b></div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-3">{{product.values[0].annotation.product}}</div>
+            <div class="col-sm-3">{{getNbAvailable()}}</div>
+            <div class="col-sm-3">                
+                <input type="number" min="0" [max]="getNbOrderable()" formControlName="quantity" />
+                <span *ngIf="getNbOrderable() <= 0">You cannot order more!</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="getNbOrderable() > 0">
+            <div class="col-sm-3 col-md-2 col-lg-2">
+                <button class="btn btn-success" type="submit" [disabled]="!frmStockOrder.valid">Submit</button>
+            </div>
+        </div>
+    </form>
+
+</div>

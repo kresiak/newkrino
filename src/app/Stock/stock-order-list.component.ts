@@ -4,27 +4,24 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
-
-
 @Component(
     {
         //moduleId: module.id,
-        selector: 'gg-stock-list',
-        templateUrl: './stock-list.component.html'
+        selector: 'gg-stock-order-list',
+        templateUrl: './stock-order-list.component.html'
     }
 )
-export class StockListComponent implements OnInit {
+export class StockOrderListComponent implements OnInit {
     constructor() {
 
     }
 
-    private products; //: Observable<any>;
-    @Input() productsObservable: Observable<any>;
-    @Input() state;
-    @Input() accentOnOrdering: boolean = true
+    private orders; //: Observable<any>;
+    @Input() ordersObservable: Observable<any>;
+    @Input() state;    
     @Output() stateChanged= new EventEmitter();
 
-    subscriptionProducts: Subscription
+    subscriptionOrders: Subscription
 
 
     private stateInit()
@@ -35,26 +32,22 @@ export class StockListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.subscriptionProducts= this.productsObservable.subscribe(products => 
-            this.products = products);
+        this.subscriptionOrders= this.ordersObservable.subscribe(orders => {
+            this.orders = orders
+        });
     }
 
     ngOnDestroy(): void {
-         this.subscriptionProducts.unsubscribe()
+         this.subscriptionOrders.unsubscribe()
     }
 
-    getProductObservable(id: string): Observable<any> {
-        return this.productsObservable.map(products => 
+    getOrderObservable(id: string): Observable<any> {
+        return this.ordersObservable.map(orders => 
         {
-            let product= products.filter(s => s.key === id)[0];
-            return product; 
+            let order= orders.filter(s => s.data._id === id)[0];
+            return order; 
         } );
     }
-
-    nbAvailable(product){
-        return product.values.reduce((acc, b)=> acc + b.annotation.nbAvailable, 0);
-    }
-
 
    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
     private beforeAccordionChange($event: NgbPanelChangeEvent) {

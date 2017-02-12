@@ -27,7 +27,7 @@ export class ProductService {
     // stock
     // ==========
 
-    private createAnnotatedStockProduct(productStock, annotatedOrders: any[]) {
+    private createAnnotatedStockProduct(productStock, annotatedOrders: any[], unprocessedStockOrders, currentUserId) {
         if (!productStock) return null;
         let annotatedOrder = annotatedOrders.filter(order => order.data._id === productStock.orderId)[0];
         if (!annotatedOrder) return null;
@@ -36,6 +36,10 @@ export class ProductService {
         let delivery = annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId === productStock._id)[0];
         if (!delivery) return null;
         let nbSold = !productStock.sales ? 0 : productStock.sales.reduce((acc, sale) => acc + sale.quantity, 0);
+        let nbReservedByMe = unprocessedStockOrders.filter(order => order.productId === productStock.productId && order.userId === currentUserId).map(order => +order.quantity).reduce((a, b) => 
+        {
+            return a + b
+        }, 0)
         return {
             data: productStock,
             annotation: {
@@ -45,18 +49,20 @@ export class ProductService {
                 lotNb: delivery.lotNb,
                 nbSold: nbSold,
                 nbAvailable: delivery.quantity - nbSold,
-                orderId: annotatedOrder.data._id
+                orderId: annotatedOrder.data._id,
+                nbReservedByMe: nbReservedByMe
             }
         };
     }
 
     getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrdersFromAll(), (productsStock, annotatedOrders) => {
-            return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders));
+        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrdersFromAll(), this.dataStore.getDataObservable('orders.stock'), this.authService.getUserIdObservable(), (productsStock, annotatedOrders, stockOrders, currentUserId) => {
+            let unprocessedStockOrders= stockOrders.filter(order => !order.isProcessed)
+            return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders, unprocessedStockOrders, currentUserId));
         });
     }
 
-    getAnnotatedAvailableStockProducts(productsStockObservable: Observable<any>): Observable<any> {
+    private getAnnotatedAvailableStockProducts(productsStockObservable: Observable<any>): Observable<any> {
         return this.getAnnotatedStockProducts(productsStockObservable)
             .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
     }
@@ -76,6 +82,34 @@ export class ProductService {
     }
 
 
+    // Stock orders
+    // ============
+
+    private createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products) {
+        if (!orderStock) return null;
+        let equipe = equipes.filter(equipe => equipe._id === orderStock.equipeId)[0];
+        let user = annotatedUsers.filter(user => user.data._id === orderStock.userId)[0];
+        let product = products.filter(product => product._id === orderStock.productId)[0];
+        return {
+            data: orderStock,
+            annotation: {
+                product: product ? product.name : 'unknown product',
+                user: user ? user.annotation.fullName : 'unknown User',
+                equipe: equipe ? equipe.name : 'unknown equipe'
+            }
+        };
+    }
+
+    getAnnotatedStockOrders(ordersStockObservable: Observable<any>): Observable<any> {
+        return Observable.combineLatest(ordersStockObservable, this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),  this.dataStore.getDataObservable('products'),
+            (ordersStock, equipes, annotatedUsers, products) => {
+            return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products));
+        });
+    }
+    
+    getAnnotatedStockOrdersAll(): Observable<any> {
+        return this.getAnnotatedStockOrders(this.dataStore.getDataObservable('orders.stock'))
+    }
 
     // categories
     // ==========

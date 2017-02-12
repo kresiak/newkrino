@@ -27,6 +27,7 @@ export class StockComponentRoutable implements OnInit {
         })        
 
         this.productsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
+        this.ordersObservable = this.productService.getAnnotatedStockOrdersAll()
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
@@ -43,5 +44,6 @@ export class StockComponentRoutable implements OnInit {
     private subscriptionAuthorization: Subscription     
     private subscriptionState: Subscription 
     private productsObservable: Observable<any>;
+    private ordersObservable: Observable<any>;
 }
 

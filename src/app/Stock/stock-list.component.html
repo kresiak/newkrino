@@ -6,7 +6,8 @@
                     <div class="row">
                         <div class="col-sm-3"><b>Product</b></div>
                         <div class="col-sm-3"><b>Supplier</b></div>
-                        <div class="col-sm-3"><b>Available</b></div>
+                        <div class="col-sm-2"><b>Available</b></div>
+						<div *ngIf="accentOnOrdering" class="col-sm-2"><b>Reserved by myself</b></div>
                     </div>														
 				</template>
 				<template ngbPanelContent>
@@ -17,13 +18,15 @@
                     <div class="row">
                         <div class="col-sm-3">{{product.values[0].annotation.product}}</div>
                         <div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
-                        <div class="col-sm-3">{{nbAvailable(product)}}</div>
+                        <div class="col-sm-2">{{nbAvailable(product)}}</div>
+						<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
                     </div>														
 				</template>
 				<template ngbPanelContent>
-					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
+					<gg-stock-product-enter [productObservable]="getProductObservable(product.key)"></gg-stock-product-enter>
+<!--					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
 							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
-				</template>
+-->				</template>
 			</ngb-panel>
 		</ngb-accordion>
 	</div>

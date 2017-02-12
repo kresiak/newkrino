@@ -1,0 +1,35 @@
+<div class="card" *ngIf="orders && orders.length > 0">
+	<div class="card-block">
+		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+			<ngb-panel [disabled]="true">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-2"><b>When?</b></div>
+                        <div class="col-sm-3"><b>Who?</b></div>
+                        <div class="col-sm-3"><b>Product</b></div>
+						<div class="col-sm-2"><b>Quantity</b></div>
+                        <div class="col-sm-1"><b>Processed?</b></div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+				</template>				
+			</ngb-panel>
+			<ngb-panel *ngFor="let order of orders" [id]="order.data._id">
+				<template ngbPanelTitle>
+                    <div class="row">
+                        <div class="col-sm-2">{{order.data.createDate | fromNowDate}}</div>
+                        <div class="col-sm-3">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
+                        <div class="col-sm-3">{{order.annotation.product}}</div>
+						<div class="col-sm-2">{{order.data.quantity}}</div>
+                        <div class="col-sm-1">{{order.data.isProcessed ? 'processed' : 'no'}}</div>
+                    </div>														
+				</template>
+				<template ngbPanelContent>
+                    <gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" 
+							 (stateChanged)="childStateChanged($event, order.data._id)"></gg-stock-order-detail>
+				</template>
+			</ngb-panel>
+		</ngb-accordion>
+	</div>
+</div>
+
