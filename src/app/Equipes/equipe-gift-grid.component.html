@@ -15,7 +15,7 @@
 				<div class="col-sm-2 vcenter">{{gift.annotation.equipeGiving}}</div>
 				<div class="col-sm-2 vcenter">{{gift.annotation.equipeTaking}}</div>
 				<div class="col-sm-2 vcenter">
-					<gg-editor [content]="gift.data.amount" [showControls]="true" [isMonetary]="true" (editSaved)="updateAmount($event, gift)"></gg-editor>
+					<gg-editor [content]="gift.data.amount" [showControls]="true" [isMonetary]="true" (editSaved)="updateAmount($event, gift)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 				</div>
 			</div>
 		</div>

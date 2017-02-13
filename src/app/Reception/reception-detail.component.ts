@@ -3,10 +3,11 @@ import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SupplierService } from './../Shared/Services/supplier.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-reception-detail',
         templateUrl: './reception-detail.component.html'
     }
@@ -16,7 +17,7 @@ export class ReceptionDetailComponent implements OnInit {
     private receptionForm: FormGroup;
     private suppliersList: any;
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private supplierService: SupplierService, private _sanitizer: DomSanitizer ) {}
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private supplierService: SupplierService, private _sanitizer: DomSanitizer, private authService: AuthService ) {}
 
     ngOnInit(): void {
         this.receptionForm = this.formBuilder.group({
@@ -25,8 +26,8 @@ export class ReceptionDetailComponent implements OnInit {
             reference: ['', Validators.required],
             position: ['', Validators.required]
         });
-
-        this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
+        
+        this.supplierSubscrible = this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
             this.suppliersList = suppliers.map(supplier => {
                 return {
                     id: supplier.data._id,
@@ -35,12 +36,26 @@ export class ReceptionDetailComponent implements OnInit {
             })
         });
 
-        this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
+        this.receptionSubscrible = this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
             this.receptionList = receptions;
         });
 
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });
     }
-    private receptionList: any;
+
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+         this.supplierSubscrible.unsubscribe()
+         this.receptionSubscrible.unsubscribe()
+    }
+  
+    private supplierSubscrible: Subscription
+    private receptionList: any
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription
+    private receptionSubscrible: Subscription
     
     save(formValue, isValid)
     {
