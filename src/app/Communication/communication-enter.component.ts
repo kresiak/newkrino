@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../Shared/Services/auth.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import {OrderService} from '../Shared/Services/order.service'
+import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {
@@ -16,7 +17,11 @@ export class CommunicationEnterComponent implements OnInit {
     private messagesList;
     private currentUserId: string;
     private messageObject;
-    
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription
+    private communicationSubscrible: Subscription
+    private communicationOrderSubscrible: Subscription
+
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
 
     ngOnInit(): void {
@@ -24,15 +29,25 @@ export class CommunicationEnterComponent implements OnInit {
             communicationMessage: ['', Validators.required]
         });
 
-        this.authService.getUserIdObservable().subscribe(id => {
+        this.communicationSubscrible = this.authService.getUserIdObservable().subscribe(id => {
             this.currentUserId = id
         });
 
-        this.orderService.getAnnotatedMessages().subscribe(messages => {
+        this.communicationOrderSubscrible = this.orderService.getAnnotatedMessages().subscribe(messages => {
         this.messagesList = messages;
         });
-    };
     
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });
+    }
+    
+    ngOnDestroy(): void {
+         this.subscriptionAuthorization.unsubscribe()
+         this.communicationSubscrible.unsubscribe()
+         this.communicationOrderSubscrible.unsubscribe()
+    }
+  
     save(formValue, isValid)
     {
         this.dataStore.addData('messages', {
