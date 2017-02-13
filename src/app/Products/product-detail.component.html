@@ -12,7 +12,7 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">product:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 						<div class="col-sm-1 vcenter" *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo" placement="right" [ngbTooltip]="tipAddToBasket">
 							<img class="card-img img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()" ><span>{{product.annotation.quantity}}</span>
@@ -21,37 +21,37 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">package:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.package" [showControls]="true" (editSaved)="packageUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.package" [showControls]="true" (editSaved)="packageUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">catalog nr.</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.catalogNr" [showControls]="true" (editSaved)="catalogNrUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.catalogNr" [showControls]="true" (editSaved)="catalogNrUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">price:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceProdUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceProdUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">no of article:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">group marchandise:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="product.data.groupMarch" [showControls]="true" (editSaved)="groupMarchUpdated($event)"></gg-editor>
+							<gg-editor [content]="product.data.groupMarch" [showControls]="true" (editSaved)="groupMarchUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">vat:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-number [content]="product.data.tva" (editSaved)="tvaUpdated($event)"></gg-editor-number>
+							<gg-editor-number [content]="product.data.tva" (editSaved)="tvaUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row">
@@ -61,7 +61,7 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">categories:</div>
 						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
-		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector></div>
+		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector></div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3">frequence:</div>
@@ -70,7 +70,7 @@
                     
 					<div class="row">
 						<div class="col-sm-3 vcenter">is disabled:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">frigo:</div>

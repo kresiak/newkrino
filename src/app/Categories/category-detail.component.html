@@ -8,32 +8,38 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">category:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)"></gg-editor>
+							<gg-editor [content]="category.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">no of article:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)"></gg-editor>
+							<gg-editor [content]="category.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">group marchandise:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.groupMarch" [showControls]="true" (editSaved)="groupMUpdated($event)"></gg-editor>
+							<gg-editor [content]="category.data.groupMarch" [showControls]="true" (editSaved)="groupMUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div> 
 					<div class="row">
 						<div class="col-sm-3 vcenter">is blocked:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
 					</div> 
                     <div class="row">
 						<div class="col-sm-3 vcenter">laboratory specific:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="category.data.isLabo" (editSaved)="isLabUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="category.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">office specific:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="category.data.isOffice" (editSaved)="isOfficUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="category.data.isOffice" (editSaved)="isOfficUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
 					</div>
 
 					<div class="row" *ngIf="!authService.isProduction()">
