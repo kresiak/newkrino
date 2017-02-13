@@ -8,7 +8,6 @@ import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-reception-detail',
         templateUrl: './reception-detail.component.html'
     }
@@ -27,8 +26,8 @@ export class ReceptionDetailComponent implements OnInit {
             reference: ['', Validators.required],
             position: ['', Validators.required]
         });
-
-        this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
+        
+        this.supplierSubscrible = this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
             this.suppliersList = suppliers.map(supplier => {
                 return {
                     id: supplier.data._id,
@@ -37,24 +36,26 @@ export class ReceptionDetailComponent implements OnInit {
             })
         });
 
-        this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
+        this.receptionSubscrible = this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
             this.receptionList = receptions;
         });
 
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionReception.unsubscribe()
+         this.supplierSubscrible.unsubscribe()
+         this.receptionSubscrible.unsubscribe()
     }
-    
-    private receptionList: any;
-    private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription;
-    private subscriptionReception: Subscription
+  
+    private supplierSubscrible: Subscription
+    private receptionList: any
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription
+    private receptionSubscrible: Subscription
     
     save(formValue, isValid)
     {

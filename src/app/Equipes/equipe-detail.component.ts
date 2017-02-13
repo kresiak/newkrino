@@ -46,7 +46,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.usersObservable = this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id)
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
-                this.orderService.hasEquipeAnyOrder(eq.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+                this.orderService.hasEquipeAnyOrder(eq.data._id).first().subscribe(anyOrder => this.anyOrder = anyOrder);
 
                 this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
             }
