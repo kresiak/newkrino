@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">equipe:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" ></gg-editor>
 						</div>
 					</div>
 					<div class="row">
@@ -19,18 +19,19 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">with following users:</div>
-						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)" ></gg-selector></div>
+						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)" 
+									[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" ></gg-selector></div>
 					</div>										
 					<div class="row">
 						<div class="col-sm-4 vcenter">nb of months ahead allowed:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed"  (editSaved)="nbOfMonthAheadAllowedUpdated($event)"></gg-editor-number>
+							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed"  (editSaved)="nbOfMonthAheadAllowedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" ></gg-editor-number>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)"></gg-editor-boolean>
+							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" ></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">

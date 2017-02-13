@@ -2,10 +2,10 @@
      class="editor__editable-content"
      contenteditable="true"></div>
 <div class="editor__output">{{(isMonetary && +content) ? (content | currency:'EUR':true:'1.2-2') : content}}</div>
-<div *ngIf="showControls && !editMode" class="editor__controls">
+<div *ngIf="!readOnly && showControls && !editMode" class="editor__controls">
   <button (click)="edit()" class="editor__icon-edit"></button>
 </div>
-<div *ngIf="showControls && editMode" class="editor__controls">
+<div *ngIf="!readOnly && showControls && editMode" class="editor__controls">
   <button (click)="save()" class="editor__icon-save"></button>
   <button (click)="cancel()" class="editor__icon-cancel"></button>
 </div>

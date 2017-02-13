@@ -16,7 +16,7 @@ export class EditorAutocomplete implements OnInit {
     constructor(private _sanitizer: DomSanitizer) {
 
     }
-
+    @Input() readOnly: boolean= false;
     @Input() selectableData: Observable<SelectableData[]>;
     @Input() selectedId: string
     @Input() emptyContentText: string = ''

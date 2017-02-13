@@ -17,6 +17,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 export class SelectorComponent implements OnInit {
     @Input() selectableData: Observable<SelectableData[]>;
     @Input() selectedIds: Observable<string[]>;
+    @Input() readOnly: boolean= false;
     //@Input() nbSelectable: number = 1;
 
     private editMode = false;

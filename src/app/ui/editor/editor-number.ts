@@ -10,6 +10,7 @@ import { Component, Input, Output, OnInit, OnChanges, ViewEncapsulation, EventEm
     encapsulation: ViewEncapsulation.None
 })
 export class EditorNumber implements OnInit, OnChanges {
+    @Input() readOnly: boolean= false;    
     @Input() content;
     @Input() minimumValue: number= 0;
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;

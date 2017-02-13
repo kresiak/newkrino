@@ -11,6 +11,7 @@ import * as moment from "moment"
     encapsulation: ViewEncapsulation.None
 })
 export class EditorDate implements OnInit, OnChanges {
+    @Input() readOnly: boolean= false;    
     @Input() content;
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() editSaved = new EventEmitter();

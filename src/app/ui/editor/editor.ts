@@ -12,6 +12,7 @@ import { Component, Input, Output, OnInit, OnChanges, AfterViewInit, ViewEncapsu
 export class Editor implements OnInit, AfterViewInit, OnChanges{
     // Content that will be edited and displayed
     @Input() content;
+    @Input() readOnly: boolean= false;    
     // Creating a host element class attribute binding from the editMode property
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Input() showControls;
