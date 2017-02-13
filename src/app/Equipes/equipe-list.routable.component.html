@@ -12,7 +12,7 @@
                     <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

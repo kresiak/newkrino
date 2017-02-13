@@ -8,38 +8,53 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">name:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)"></gg-editor>
+
+							<gg-editor *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)"></gg-editor>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.name}}</div>
+
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">first name:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)"></gg-editor>
+							<gg-editor *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)"></gg-editor>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.firstName}}</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">email:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)"></gg-editor>
+							<gg-editor *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)"></gg-editor>
+							<div  *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.email}}</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">password:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)"></gg-editor>
+							<gg-editor *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)"></gg-editor>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.password}}</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">is blocked:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)"></gg-editor-boolean>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.isBlocked ? 'yes':'no'}}</div>
+						</div>
 					</div> 
 					<div class="row">
 						<div class="col-sm-3 vcenter">is labo user:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isLaboUser" (editSaved)="isLaboUserUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.isLaboUser" (editSaved)="isLaboUserUpdated($event)"></gg-editor-boolean>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.isLaboUser ? 'yes':'no'}}</div>
+						</div>
 					</div> 
 					<div class="row">
 						<div class="col-sm-3 vcenter">is administrator:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)"></gg-editor-boolean></div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)"></gg-editor-boolean>
+							<div *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isAdministrator()">{{user.data.isAdmin ? 'yes':'no'}}</div>
+						</div>
 					</div> 
 					<div class="row">
 						<div class="col-sm-3 vcenter">equipe(s):</div>
