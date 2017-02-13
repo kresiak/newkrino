@@ -8,7 +8,7 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">otp:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="otp.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+							<gg-editor [content]="otp.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
@@ -18,7 +18,7 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">total budget:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)"></gg-editor>
+							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
@@ -32,32 +32,32 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">from:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
+							<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">to:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)"></gg-editor-date>
+							<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">allowed products:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-								(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
+								(selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)"></gg-editor-boolean>
+							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">is closed:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)"></gg-editor-boolean>
+							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
