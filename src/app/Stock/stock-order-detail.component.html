@@ -21,10 +21,76 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">Status:</div>
-                        <div class="col-sm-6">{{order.data.isProcessed ? 'processed' : 'pending'}}</div>
+                        <div class="col-sm-6" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'pending'}}</div>
                     </div>
                 </div>
             </div>
         </template>
     </ngb-tab>
+	<ngb-tab title="Comments" id="tabComments">
+		<template ngbTabContent>
+			<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+		</template>
+	</ngb-tab>    
+    <ngb-tab title="Process order" id="tabProcessOrder" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-2"><b>Order processed:</b></div>
+                        <div class="col-sm-3">{{order.data.isProcessed ? 'yes' : 'no'}}</div>
+                    </div>
+
+                    <div *ngIf="((stockItemsObservable |async) || []).length>0" >
+                        <div class="row">
+                            <div class="col-sm-3"><b>lot number</b></div>
+                            <div class="col-sm-3"><b>available</b></div>
+                        </div>
+                        <form [formGroup]="frmStockOrder" (ngSubmit)="save(frmStockOrder.value, frmStockOrder.valid)">
+                            <div *ngFor="let stockItem of stockItemsObservable | async" class="row">
+                                <div class="col-sm-3">{{stockItem.annotation.lotNb}}</div>
+                                <div class="col-sm-3">{{stockItem.annotation.nbAvailable}}</div>
+                                <div class="col-sm-3">
+                                    <input type="number" min="0" [max]="stockItem.annotation.nbAvailable" [formControlName]="stockItem.data._id" />
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!order.data.isProcessed">
+                                <div class="col-sm-4">
+                                    <button class="btn btn-success" type="submit" [disabled]="!frmStockOrder.valid">Submit and set order as 'processed'</button>
+                                </div>
+                                <div class="col-sm-3" *ngIf="!isProcessFormOK">
+                                    <span style="color:red">Your request has not been saved! Try again.</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div *ngIf="((stockItemsObservable |async) || []).length <= 0" >
+                        <span style="color:red">There is no product in the stock for this command. Please buy some of these products and advise {{order.annotation.user}}!</span>
+                    </div>
+
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Process order detail" id="tabProcessOrderItems" *ngIf="order.data.isProcessed && order.annotation.orderProcessItems && order.annotation.orderProcessItems.length > 0">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3"><b>When?</b></div>
+                        <div class="col-sm-3"><b>From lot Nb</b></div>
+                        <div class="col-sm-3"><b>Quantity</b></div>
+                    </div>
+
+                    <div *ngFor="let orderProcessItem of order.annotation.orderProcessItems" class="row">
+                        <div class="col-sm-3">{{orderProcessItem.date | fullDate}}</div>
+                        <div class="col-sm-3">{{orderProcessItem.lotNb}}</div>
+                        <div class="col-sm-3">{{orderProcessItem.quantity}}</div>                        
+                    </div>
+
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    
 </ngb-tabset>

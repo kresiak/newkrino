@@ -189,6 +189,7 @@ export class OrderService {
             }            
         };
 
+        retObj.annotation['anyDeliveredByNewKrino']= retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0
         retObj.annotation['anyDelivered']= (order.oldKrino && order.oldKrino.status===6) || (retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0)
         retObj.annotation['allDelivered']= (order.oldKrino && order.oldKrino.status===7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
 
@@ -255,6 +256,11 @@ export class OrderService {
     getAnnotedOrdersFromAll(): Observable<any> {
         return this.getAnnotedOrders(this.dataStore.getDataObservable('orders'));
     }
+
+    getAnnotedOrdersWithStockDeliveries(): Observable<any> {
+        return this.getAnnotedOrdersFromAll().map(orders => orders.filter(order => order.annotation.anyDeliveredByNewKrino));
+    }
+
 
     getNewestAnnotedOrders(nb: number): Observable<any> {
         let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.sort((a, b) => b.kid - a.kid).slice(0, nb))

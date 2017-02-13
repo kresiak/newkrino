@@ -2,7 +2,7 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-			<ngb-tab title="Order from stock" id="tabAvailable">
+			<ngb-tab title="Put an order from stock" id="tabAvailable">
 				<template ngbTabContent>
                     <gg-stock-list [productsObservable]= "productsObservable"></gg-stock-list>
 				</template>
