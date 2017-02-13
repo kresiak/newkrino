@@ -45,15 +45,15 @@
 
 <div class="row" *ngIf="product && product.data">
 	<div class="col-sm-2 col-md-2 vcenter">
-		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)" class="imgSearch" (click)="navigateToProduct()"></gg-editor>
+		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)" class="imgSearch" (click)="navigateToProduct()" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('supplier')">{{product.annotation.supplierName}}</div>
 	<div class="col-sm-2 col-md-2 vcenter">
-		<gg-editor #prix [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)"></gg-editor>
+		<gg-editor #prix [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 	</div>
 	<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('category')"> 
 		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
-		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
+		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 	</div>
 <!--	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('manip')"> 
 		<gg-selector [selectableData]="selectableManipsObservable" [selectedIds]="selectedManipIdsObservable" 
