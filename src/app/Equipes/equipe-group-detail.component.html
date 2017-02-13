@@ -6,19 +6,19 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">equipe group:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">description:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)"></gg-editor>
+							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">members:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-selector #equipeSelector [selectedIds]="selectedEquipeIdsObservable" [selectableData]="selectableEquipes" (selectionChanged)="equipeSelectionChanged($event)"></gg-selector>
+							<gg-selector #equipeSelector [selectedIds]="selectedEquipeIdsObservable" [selectableData]="selectableEquipes" (selectionChanged)="equipeSelectionChanged($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 
@@ -54,7 +54,7 @@
 						<div class="col-sm-4 vcenter">{{item.annotation.equipe}}</div>
 						<div class="col-sm-4 vcenter">{{item.annotation.pc}}</div>
 						<div class="col-sm-2 vcenter">
-							<gg-editor-number [content]="item.data.weight" (editSaved)="weightupdated(item.data, $event)"></gg-editor-number>
+							<gg-editor-number [content]="item.data.weight" (editSaved)="weightupdated(item.data, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 				</div>

@@ -19,8 +19,8 @@ export class CommunicationEnterComponent implements OnInit {
     private messageObject;
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription
-    private subscriptionSuppliers: Subscription
-    private subscriptionOrders: Subscription
+    private subscriptionUsers: Subscription
+    private subscriptionMessages: Subscription
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
 
@@ -29,11 +29,11 @@ export class CommunicationEnterComponent implements OnInit {
             communicationMessage: ['', Validators.required]
         });
 
-        this.subscriptionSuppliers = this.authService.getUserIdObservable().subscribe(id => {
+        this.subscriptionUsers = this.authService.getUserIdObservable().subscribe(id => {
             this.currentUserId = id
         });
 
-        this.subscriptionOrders = this.orderService.getAnnotatedMessages().subscribe(messages => {
+        this.subscriptionMessages = this.orderService.getAnnotatedMessages().subscribe(messages => {
         this.messagesList = messages;
         });
     
@@ -44,8 +44,8 @@ export class CommunicationEnterComponent implements OnInit {
     
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionSuppliers.unsubscribe()
-         this.subscriptionOrders.unsubscribe()
+         this.subscriptionUsers.unsubscribe()
+         this.subscriptionMessages.unsubscribe()
     }
   
     save(formValue, isValid)
