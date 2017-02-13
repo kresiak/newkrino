@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, ViewChild } from '@angular/core'
 import { DataStore } from './../Shared/Services/data.service'
-import { AuthService } from '../Shared/Services/auth.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from '../Shared/Services/order.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 
@@ -20,15 +20,22 @@ export class EquipeGiftGridComponent implements OnInit {
     private equipeGifts;
     private isFormOk: boolean = true;
     subscriptionEquipeGifts: Subscription
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription
 
     ngOnInit(): void {
         this.subscriptionEquipeGifts= this.equipeGiftsObservable.subscribe(res => {
             this.equipeGifts = res
         })
+
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });
     };
 
     ngOnDestroy(): void {
          this.subscriptionEquipeGifts.unsubscribe()
+         this.subscriptionAuthorization.unsubscribe()
     }
 
     updateAmount(amount, gift){
