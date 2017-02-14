@@ -99,6 +99,21 @@ export class MyKrinoComponent implements OnInit{
         this.stateChanged.next(this.state);
     }
 
+    firstNameUpdated(firstName) {
+        this.currentUser.data.firstName = firstName;
+        this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
+    };
+
+    nameUpdated(name) {
+        this.currentUser.data.name = name;
+        this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
+    };
+
+    emailUpdated(email) {
+        this.currentUser.data.email = email;
+        this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
+    };
+
 
 }
 
