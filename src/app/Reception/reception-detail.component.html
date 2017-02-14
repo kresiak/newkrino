@@ -61,9 +61,13 @@
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
                                     <div class="row">
                                         <div class="col-sm-2 vcenter"> {{reception.data.createDate | fromNowDate }}</div>
-                                        <div class="col-sm-2 vcenter"> {{reception.data.reference}}</div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="reception.data.reference" [showControls]="true" (editSaved)="referenceUpdated($event, reception)"></gg-editor>
+                                        </div>
                                         <div class="col-sm-3 vcenter">{{reception.annotation.supplier}}</div>
-                                        <div class="col-sm-2 vcenter">{{reception.data.position}}</div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="reception.data.position" [showControls]="true" (editSaved)="positionUpdated($event, reception)"></gg-editor>
+                                        </div>
                                         <div class="col-sm-2 vcenter">
                                             <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
                                         </div>
