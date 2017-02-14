@@ -36,6 +36,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 vcenter">
 			<h1 style="text-align:center">Krino 2017</h1>
+			
 		</div>
 		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
 
@@ -59,6 +60,11 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="gg-scroll-text row" *ngIf="showScrollText && labManagerMessages && labManagerMessages.nbTotal > 0 && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"> 
+		<div class="col-sm-10 imgSearch" (click)="disableScrolling()">
+			<span>Please check your dashboard: you have {{labManagerMessages.nbTotal}} new orders waiting</span> 
 		</div>
 	</div>
 

@@ -24,6 +24,22 @@ export class ProductService {
         });
     }
 
+    // orders LM warning
+    // ==================
+
+    getLmWarningMessages(): Observable<any>{
+        return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.getAnnotatedStockOrdersAll(), (annotatedFridgeOrders, annotatedStockOrders) => {
+            let annotatedFridgeOrdersOk= annotatedFridgeOrders.filter(o => ! o.data.isDelivered)
+            let annotatedStockOrdersOk= annotatedStockOrders.filter(o => ! o.data.isProcessed)
+            return {
+                nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length,
+                fridgeOrders: annotatedFridgeOrdersOk,
+                stockOrders: annotatedStockOrdersOk
+            }
+        });
+    }
+
+
     // stock
     // ==========
 

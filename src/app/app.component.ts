@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
-import { ActivatedRoute, Params, Router} from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -17,14 +17,18 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private menuService: MenuService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
+    constructor(private authService: AuthService, private menuService: MenuService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService,
+        private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
     }
 
-    private subscriptionAuthorization: Subscription 
-    private subscriptionBasketItems: Subscription 
-    private subscriptionMenu: Subscription 
+    private subscriptionLmMessages: Subscription
+    private subscriptionAuthorization: Subscription
+    private subscriptionBasketItems: Subscription
+    private subscriptionMenu: Subscription
+
+    private showScrollText: boolean = true
 
 
     private password: string = ''
@@ -32,12 +36,13 @@ export class AppComponent implements OnInit {
     private usersShort: any[];
     private possibleEquipes: any[];
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private initializingUser: boolean= false
-    private initializingEquipe: boolean= false
+    private initializingUser: boolean = false
+    private initializingEquipe: boolean = false
 
     private userValue
     private equipeValue
-    private menu: any[] 
+    private menu: any[]
+    private labManagerMessages
 
     private nbProductsInBasket: number = 0
 
@@ -45,17 +50,21 @@ export class AppComponent implements OnInit {
 
         this.menuService.initializeMenus()
 
-        this.subscriptionMenu= this.menuService.getMenuObservable().subscribe(menu => {
-            this.menu= menu
+        this.subscriptionMenu = this.menuService.getMenuObservable().subscribe(menu => {
+            this.menu = menu
         })
 
-        this.subscriptionBasketItems= this.productService.getBasketItemsForCurrentUser().subscribe(items => {
-            this.nbProductsInBasket= items.length
+        this.subscriptionLmMessages = this.productService.getLmWarningMessages().subscribe(res => {
+            this.labManagerMessages = res
         })
 
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.initializingUser= true
-            this.initializingEquipe= true
+        this.subscriptionBasketItems = this.productService.getBasketItemsForCurrentUser().subscribe(items => {
+            this.nbProductsInBasket = items.length
+        })
+
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.initializingUser = true
+            this.initializingEquipe = true
             this.authorizationStatusInfo = statusInfo
             this.usersShort = statusInfo.annotatedUserList.map(user => {
                 return {
@@ -64,27 +73,29 @@ export class AppComponent implements OnInit {
                 }
             })
 
-            this.userValue= this.usersShort.filter(user => user.id === statusInfo.currentUserId)[0]
+            this.userValue = this.usersShort.filter(user => user.id === statusInfo.currentUserId)[0]
 
             this.possibleEquipes = !statusInfo.equipeList ? [] : statusInfo.equipeList.map(eq => {
-                    return {
-                        id: eq._id,
-                        value: eq.name
-                    }
-                })
+                return {
+                    id: eq._id,
+                    value: eq.name
+                }
+            })
 
-            this.equipeValue= this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
+            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
         })
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionBasketItems.unsubscribe()
-         this.subscriptionMenu.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionBasketItems.unsubscribe()
+        this.subscriptionMenu.unsubscribe()
+        this.subscriptionLmMessages.unsubscribe()
     }
-    
+
 
     openModal(template) {
+        this.showScrollText = true
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "sm" });
         var promise = ref.result;
         promise.then((res) => {
@@ -138,7 +149,20 @@ export class AppComponent implements OnInit {
         let link = ['/basket'];
         this.router.navigate(link);
     }
-    
+
+
+    sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+
+    disableScrolling() {
+        this.showScrollText = false
+        this.sleep(30*60*1000).then(() => {
+            this.showScrollText = true
+        });
+    }
+
 
 }
 

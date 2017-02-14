@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {UserService} from '../Shared/Services/user.service'
+import {ProductService} from '../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 
@@ -16,7 +17,11 @@ export class DashboardComponent implements OnInit
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
-    constructor(private userService: UserService, private authService: AuthService)
+    private subscriptionLmMessages: Subscription 
+
+    private labManagerMessages: any
+
+    constructor(private userService: UserService, private authService: AuthService, private productService: ProductService)
     {
 
     }
@@ -27,11 +32,15 @@ export class DashboardComponent implements OnInit
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         });
-        
+        this.subscriptionLmMessages= this.productService.getLmWarningMessages().subscribe(m => {
+            this.labManagerMessages= m
+        })
+
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
+         this.subscriptionLmMessages.unsubscribe()
     }
     
 

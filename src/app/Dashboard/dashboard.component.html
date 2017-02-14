@@ -1,6 +1,35 @@
 <div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
     <br/>
-    <div class="row" style="font-size: 70%">
+    <div class="row" >
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.fridgeOrders.length>0">
+			<div class="card text-xs-center card-outline-primary">
+				<div class="card-header">
+					Fridge Orders
+				</div>
+				<div class="card-block">
+					<h4 class="card-title">New orders</h4>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let order of labManagerMessages.fridgeOrders">{{order.data.createDate | fromNowDate }}: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.stockOrders.length>0">
+			<div class="card text-xs-center card-outline-warning">
+				<div class="card-header">
+					Stock Orders
+				</div>
+				<div class="card-block">
+					<h4 class="card-title">New orders</h4>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let order of labManagerMessages.stockOrders">{{order.data.createDate | fromNowDate }}: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
         <gg-dashlet *ngFor="let dashlet of dashletsObservable | async" [category]="dashlet.category" [id]="dashlet.id"></gg-dashlet>
     </div>
 </div>
