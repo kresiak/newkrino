@@ -45,7 +45,7 @@ export class SelectorComponent implements OnInit {
     private initContent(selectedIds: Observable<string[]>): void {
         this.selectableData.combineLatest(selectedIds, (sdata, ids) => {
             var selectedItems = sdata && ids ? sdata.filter(item => ids.includes(item.id)) : [];
-            return selectedItems.length > 0 ? selectedItems.map(item => item.name).reduce((u, v) => u + ', ' + v) : 'nothing yet';
+            return selectedItems.length > 0 ? selectedItems.map(item => item.name).reduce((u, v) => u + ', ' + v) : '(not set yet)';
         }).subscribe(txt =>
             this.content = txt
             );

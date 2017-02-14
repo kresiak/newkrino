@@ -1,7 +1,7 @@
 <div (input)="onInput($event)"
      class="editor__editable-content"
      contenteditable="true"></div>
-<div class="editor__output">{{(isMonetary && +content) ? (content | currency:'EUR':true:'1.2-2') : content}}</div>
+<div class="editor__output">{{(isMonetary && +content) ? (content | currency:'EUR':true:'1.2-2') : (content || '(not set yet)') }}</div>
 <div *ngIf="!readOnly && showControls && !editMode" class="editor__controls">
   <button (click)="edit()" class="editor__icon-edit"></button>
 </div>
