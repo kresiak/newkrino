@@ -56,8 +56,6 @@ export class ReceptionDetailComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription
     private receptionSubscrible: Subscription
-    private referenceNew 
-    private position 
 
     save(formValue, isValid)
     {
@@ -97,15 +95,5 @@ export class ReceptionDetailComponent implements OnInit {
         reception.data.reference = reference;
         this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
     };
-/*
-    referenceAdd(reference, reception: any) {
-        reception.data.reference = reference;
-        this.dataStore.addData('orders.reception', reception.data);
-    }
 
-    positionAdd(position, reception: any) {
-        reception.data.position = position;
-        this.dataStore.addData('orders.reception', reception.data);
-    }
-*/
 }
