@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable, Subscription } from 'rxjs/Rx'
@@ -12,9 +13,10 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class OrderListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
+    initTabId= ''
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
@@ -29,6 +31,12 @@ export class OrderListComponentRoutable implements OnInit {
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
+
+    
+
+        this.route.queryParams.first().subscribe(queryParams => {
+            this.initTabId = queryParams['tab'];
+        })     
     }
 
     ngOnDestroy(): void {

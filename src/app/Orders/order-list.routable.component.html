@@ -1,7 +1,7 @@
 <div id="GGTOP"></div>
 <div class="card">
     <div class="card-block">
-        <ngb-tabset>
+        <ngb-tabset [activeId]="initTabId">
             <ngb-tab title="View Orders" id="tabView">
                 <template ngbTabContent>
                     <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>

@@ -4,6 +4,7 @@ import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { ProductService } from './../Shared/Services/product.service'
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 
 
 @Component(
@@ -13,9 +14,10 @@ import { ProductService } from './../Shared/Services/product.service'
     }
 )
 export class StockComponentRoutable implements OnInit {
-    constructor(private productService: ProductService, private navigationService: NavigationService, private authService: AuthService) { }
+    constructor(private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private route: ActivatedRoute) { }
 
     state: {}
+    initTabId= ''
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
@@ -32,6 +34,10 @@ export class StockComponentRoutable implements OnInit {
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
+
+        this.route.queryParams.first().subscribe(queryParams => {
+            this.initTabId = queryParams['tab'];
+        })     
 
     }
 
