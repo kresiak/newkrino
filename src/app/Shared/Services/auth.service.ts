@@ -39,6 +39,7 @@ export class AuthenticationStatusInfo {
     isAdministrator() {
         return this.annotatedUser && this.annotatedUser.data.isAdmin
     }
+
 }
 
 @Injectable()
@@ -87,14 +88,24 @@ export class AuthService {
         };
     }
 
-    getAnnotatedUsers(): Observable<any> {
+    getAnnotatedUsersLight(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
-            (users, equipes) => {
+            (users, equipes, authStatus) => {
                 return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName < b.annotation.fullName ? -1 : 1; });
             });
     }
+
+    getAnnotatedUsers(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotatedUsersLight(), this.getUserIdObservable(), (annotatedUsers: any[], currentUserId) => {
+            annotatedUsers.forEach(annotatedUser => {
+                annotatedUser.annotation.isCurrentUser= annotatedUser.data._id===currentUserId
+            })
+            return annotatedUsers
+        })
+    }
+
 
     getAnnotatedUsersByEquipeId(equipeId: string): Observable<any> {
         return this.getAnnotatedUsers().map(annotUsers => {
@@ -139,7 +150,7 @@ export class AuthService {
     private prepareUserId(id: string) {
         this.authInfo.currentUserId = id
 
-        var usersSubscription = this.getAnnotatedUsers().subscribe(users => {
+        var usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
             if (users && users.length > 0) {
                 this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)
                 let annotatedUser = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]

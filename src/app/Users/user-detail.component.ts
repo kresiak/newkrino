@@ -121,6 +121,9 @@ export class UserDetailComponent implements OnInit {
             this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
         }
     };
-  
+
+    isAdminOrCurrentUser() {
+        return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.user.annotation.isCurrentUser)
+    }
 
 }

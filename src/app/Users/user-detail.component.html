@@ -8,25 +8,25 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">name:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">first name:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">email:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="user.data.email" [showControls]="true" (editSaved)="emailUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">password:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
