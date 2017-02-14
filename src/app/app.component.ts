@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
 
     private subscriptionAuthorization: Subscription 
     private subscriptionBasketItems: Subscription 
-    private subscriptionRouterEvents: Subscription 
     private subscriptionMenu: Subscription 
 
 
@@ -81,7 +80,6 @@ export class AppComponent implements OnInit {
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionBasketItems.unsubscribe()
-         this.subscriptionRouterEvents.unsubscribe()
          this.subscriptionMenu.unsubscribe()
     }
     
