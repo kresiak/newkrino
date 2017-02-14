@@ -494,23 +494,22 @@ button {
  overflow: hidden;
  position: relative;
 }
-.gg-scroll-text span {
- font-size: 2em;
+.gg-scroll-text span { 
  color: limegreen;
  position: absolute;
  width: 100%;
  height: 100%;
  margin: 0;
- line-height: 20px;
+ line-height: 30px;
  text-align: center;
  /* Starting position */
  -moz-transform:translateX(100%);
  -webkit-transform:translateX(100%);	
  transform:translateX(100%);
  /* Apply animation to this element */	
- -moz-animation: gg-scroll-text 15s linear infinite;
- -webkit-animation: gg-scroll-text 15s linear infinite;
- animation: gg-scroll-text 15s linear infinite;
+ -moz-animation: gg-scroll-text 25s linear infinite;
+ -webkit-animation: gg-scroll-text 25s linear infinite;
+ animation: gg-scroll-text 25s linear infinite;
 }
 /* Move it (define the animation) */
 @-moz-keyframes gg-scroll-text {
