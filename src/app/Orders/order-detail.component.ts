@@ -120,6 +120,13 @@ export class OrderDetailComponent implements OnInit {
         }
     }
 
+    updateTotalAmount(orderItem, newAmount): void {
+        if (+newAmount) {
+            orderItem.data.total = +newAmount;
+            this.orderService.updateOrder(this.order.data);
+        }
+    }
+
     setDashlet() {
         this.userService.createOrderDashletForCurrentUser(this.order.data._id);
     }
