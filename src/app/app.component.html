@@ -66,7 +66,7 @@
 <nav class="navbar  navbar-dark bg-inverse">
 	<ul class="nav navbar-nav">
 		<li *ngFor="let menuItem of menu" [class.active]="menuItem.active" class="nav-item">
-			<a class="nav-link" (click)="activateMenu(menuItem)" routerLink="{{menuItem.route}}">{{menuItem.title}}</a>
+			<a class="nav-link" (click)="menuService.activateMenu(menuItem)" routerLink="{{menuItem.route}}">{{menuItem.title}}</a>
 		</li>
 	</ul>
 </nav>

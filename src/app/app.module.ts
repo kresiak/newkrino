@@ -113,6 +113,7 @@ import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
+import {MenuService} from './Shared/Services/menu.service'
 import {ChartService} from './Shared/Services/chart.service'
 import {PrestationService} from './Shared/Services/prestation.service'
 import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
@@ -184,7 +185,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
-  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService ],
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
