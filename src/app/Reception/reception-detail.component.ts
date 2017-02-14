@@ -21,10 +21,10 @@ export class ReceptionDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.receptionForm = this.formBuilder.group({
-            supplierId: ['', Validators.required],
+            supplierId: [''],
             supplier: [''],
             reference: ['', Validators.required],
-            position: ['', Validators.required]
+            position: ['']
         });
         
         this.supplierSubscrible = this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
@@ -56,7 +56,7 @@ export class ReceptionDetailComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription
     private receptionSubscrible: Subscription
-    
+
     save(formValue, isValid)
     {
         this.dataStore.addData('orders.reception', {
@@ -83,6 +83,16 @@ export class ReceptionDetailComponent implements OnInit {
 
     isProcessed(processed:boolean, reception: any) {
         reception.data.isProcessed = processed;
+        this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
+    };
+
+    positionUpdated(position, reception: any) {
+        reception.data.position = position;
+        this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
+    };
+
+    referenceUpdated(reference, reception: any) {
+        reception.data.reference = reference;
         this.dataStore.updateData('orders.reception', reception.data._id, reception.data);
     };
 
