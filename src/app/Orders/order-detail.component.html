@@ -24,12 +24,12 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-3 vcenter">Quantity delivered today:</div>
-					<div class="col-sm-8 vcenter"><input #inputQty type="number" class="form-control" placeholder="enter quantity delivered" 
-					min="1" [max]="selectedDeliveryItem.data.quantity-selectedDeliveryItem.annotation.nbDelivered"/></div>
+					<div class="col-sm-8 vcenter"><input #inputQty type="number" class="form-control" placeholder="enter quantity delivered" min="1" [max]="selectedDeliveryItem.data.quantity-selectedDeliveryItem.annotation.nbDelivered"
+						/></div>
 				</div>
 				<div class="row">
 					<div class="col-sm-3 vcenter">No lot:</div>
-					<div class="col-sm-8 vcenter"><input #inputLotNo type="text" class="form-control" placeholder="enter lot numer"/></div>
+					<div class="col-sm-8 vcenter"><input #inputLotNo type="text" class="form-control" placeholder="enter lot numer" /></div>
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
@@ -39,7 +39,7 @@
 				</div>
 				<div class="row" [ngbCollapse]="!inputIsResell.checked">
 					<div class="col-sm-3 vcenter">Division factor:</div>
-					<div class="col-sm-8 vcenter"><input #inputDivFactor type="text" class="form-control" placeholder="enter division factor"/></div>
+					<div class="col-sm-8 vcenter"><input #inputDivFactor type="text" class="form-control" placeholder="enter division factor" /></div>
 				</div>
 			</div>
 		</div>
@@ -51,11 +51,10 @@
 
 				</div>
 				<div class="col-sm-3">
-                    <button type="button" class="btn btn-success" 
-					(click)="c({qty:inputQty.value, lot:inputLotNo.value, resell: inputIsResell.checked, factor: inputDivFactor.value })">Save delivery</button>
+					<button type="button" class="btn btn-success" (click)="c({qty:inputQty.value, lot:inputLotNo.value, resell: inputIsResell.checked, factor: inputDivFactor.value })">Save delivery</button>
 				</div>
 			</div>
-		</div>		
+		</div>
 	</div>
 </template>
 
@@ -84,7 +83,8 @@
 										{{order.annotation.user}}
 									</div>
 									<div class="row">
-										{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? 'group: ' + order.annotation.equipeGroup : 'unknown equipe')}}
+										{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? 'group: ' + order.annotation.equipeGroup
+										: 'unknown equipe')}}
 									</div>
 									<div class="row">
 										Status: {{order.annotation.status}} <span *ngIf="order.annotation.isDeletable"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></span>
@@ -105,7 +105,7 @@
 									<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 									<div class="col-sm-2 vcenter">{{item.data.total | currency:'EUR':true:'1.2-2'}}</div>
 									<div class="col-sm-3 vcenter" *ngIf="!smallScreen">
-										<gg-selector [selectableData]="selectableOtpsObservable" [selectedIds]="item.annotation.idObservable" (selectionChanged)="otpUpdated(item, $event)"></gg-selector>
+										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable" [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
 									</div>
 									<div class="col-sm-3 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 
@@ -114,7 +114,8 @@
 							<div class="row">
 								<div class="col-sm-2">
 									<img *ngIf="!order.annotation.dashletId" src="../../images/pin.png" (click)="setDashlet()" />
-									<img *ngIf="order.annotation.dashletId" src="../../images/unpin.png" (click)="removeDashlet(order.annotation.dashletId)" />
+									<img *ngIf="order.annotation.dashletId" src="../../images/unpin.png" (click)="removeDashlet(order.annotation.dashletId)"
+									/>
 								</div>
 							</div>
 
@@ -137,14 +138,14 @@
 								<div class="col-sm-4 vcenter"><b>Member equipe</b></div>
 								<div class="col-sm-2 vcenter"><b>%</b></div>
 							</div>
-							<div class="row" *ngFor="let item of order.annotation.equipes"> 
+							<div class="row" *ngFor="let item of order.annotation.equipes">
 								<div class="col-sm-4 vcenter">{{item.equipe}}</div>
 								<div class="col-sm-2 vcenter">{{item.weight}}</div>
-							</div>			
-						</div>		
+							</div>
+						</div>
 					</div>
-				</div>					
-			</template>	
+				</div>
+			</template>
 		</ngb-tab>
 		<ngb-tab title="Deliveries" id="tabDeliveries">
 			<template ngbTabContent>
@@ -186,23 +187,24 @@
 									<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 									<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
 									<div class="col-sm-2 vcenter">
-										<div class="btn btn-info btn-sm" (click)="openModal(mymodal, item)" style="margin:5px">Add delivery</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</template>
-		</ngb-tab>
-	<ngb-tab id="tabMax">
-		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-		<template ngbTabContent></template>
-	</ngb-tab>
-	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
-		<template ngbTabContent></template>
-	</ngb-tab>
-			
-	</ngb-tabset>
+										<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
+											style="margin:5px">Add delivery</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</template>
+</ngb-tab>
+<ngb-tab id="tabMax">
+	<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
+	<template ngbTabContent></template>
+</ngb-tab>
+<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
+	<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
+	<template ngbTabContent></template>
+</ngb-tab>
+
+</ngb-tabset>
 </div>

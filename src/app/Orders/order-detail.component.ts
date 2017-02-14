@@ -26,8 +26,8 @@ export class OrderDetailComponent implements OnInit {
     @Input() orderObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() isRoot: boolean=false
-    
+    @Input() isRoot: boolean = false
+
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -38,32 +38,37 @@ export class OrderDetailComponent implements OnInit {
 
     private smallScreen: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription 
+    private subscriptionAuthorization: Subscription
     private subscriptionOrder: Subscription
+
+    private otpListObservable: any
+
 
     ngOnInit(): void {
         this.stateInit();
         this.smallScreen = this.elementRef.nativeElement.querySelector('.orderDetailClass').offsetWidth < 600;
 
-        this.subscriptionOrder= this.orderObservable.subscribe(order => {
+        this.otpListObservable = this.orderService.getAnnotatedOtps().map(otps => otps.map(otp => {
+            return {
+                id: otp.data._id,
+                name: otp.data.name
+            }
+        }));
+
+        this.subscriptionOrder = this.orderObservable.subscribe(order => {
             this.order = order
-            this.selectableOtpsObservable = this.orderService.getSelectableOtps();
-            if (this.order && this.order.annotation)
-                this.order.annotation.items.forEach(item => {
-                    item.annotation.idObservable = new BehaviorSubject<any[]>([item.data.otpId]);
-                });
         });
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
         });
 
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionOrder.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionOrder.unsubscribe()
     }
-    
+
     private saveDelivery(orderItem, formData) {
         if (+formData.qty < 1) return;
         if (!orderItem.data.deliveries) orderItem.data.deliveries = [];
@@ -107,12 +112,10 @@ export class OrderDetailComponent implements OnInit {
 
 
     private order;
-    private selectableOtpsObservable: Observable<any>;
 
-    otpUpdated(orderItem, newOtpIds): void {
-        if (newOtpIds && newOtpIds.length > 0) {
-            orderItem.data.otpId = newOtpIds[0];
-            orderItem.annotation.idObservable.next([orderItem.data.otpId]);
+    otpUpdated(orderItem, newOtpId): void {
+        if (newOtpId && newOtpId.length > 0) {
+            orderItem.data.otpId = newOtpId;
             this.orderService.updateOrder(this.order.data);
         }
     }
@@ -135,9 +138,9 @@ export class OrderDetailComponent implements OnInit {
     }
 
     deleteOrder() {
-        if (!this.order.data.status) this.order.data.status={history:[]}
-        this.order.data.status.history.unshift({date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted'})
-        this.order.data.status.value='deleted'
+        if (!this.order.data.status) this.order.data.status = { history: [] }
+        this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted' })
+        this.order.data.status.value = 'deleted'
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
@@ -151,8 +154,8 @@ export class OrderDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.jumpToTop()
             return
-        }        
-        
+        }
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
