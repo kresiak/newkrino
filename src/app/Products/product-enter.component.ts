@@ -46,7 +46,11 @@ export class ProductEnterComponent implements OnInit {
             tva: ['', Validators.required],
             isResold: [''],
             disabled: [''],
-            isDistributed: ['']
+            isDistributed: [''],
+            isStock: [''],
+            needsLotNumber: [''],
+            divisionFactor: [''],
+            stockPackage: ['', Validators.required]
         });
     }
 
@@ -68,7 +72,11 @@ export class ProductEnterComponent implements OnInit {
             tva: formValue.tva,
             isResold: formValue.isResold,
             disabled: formValue.disabled,
-            isDistributed: formValue.isDistributed
+            isDistributed: formValue.isDistributed,
+            isStock: formValue.isStock,
+            needsLotNumber: formValue.needsLotNumber,
+            divisionFactor: formValue.divisionFactor,
+            stockPackage: formValue.stockPackage
         }).subscribe(res =>
         {
             var x=res;
