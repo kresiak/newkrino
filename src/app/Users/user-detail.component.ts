@@ -126,4 +126,20 @@ export class UserDetailComponent implements OnInit {
         return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.user.annotation.isCurrentUser)
     }
 
+    isReceptionistUpdated(receptionist) {
+        this.user.data.isReceptionist = receptionist;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
+
+    isLabManagerUpdated(labManager) {
+        this.user.data.isLabManager = labManager;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
+
+    isProgrammerUpdated(isProgrammer) {
+        this.user.data.isProgrammer = isProgrammer;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
+
+
 }

@@ -46,7 +46,26 @@
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
-					</div> 
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is receptionist:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isReceptionist" (editSaved)="isReceptionistUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is lab manager:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isLabManager" (editSaved)="isLabManagerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is krino programmer:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isProgrammer" (editSaved)="isProgrammerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-sm-3 vcenter">equipe(s):</div>
 						<div class="col-sm-6 vcenter">{{user.annotation.equipesTxt}}</div>

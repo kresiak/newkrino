@@ -26,7 +26,10 @@ export class UserEnterComponent implements OnInit {
             isBlocked: [''],
             isLaboUser: [''],
             isAdmin: [''],
-            password: ['']
+            password: [''],
+            isReceptionist: [''],
+            isLabManager: [''],
+            isProgrammer: ['']
         });
     };
     
@@ -39,7 +42,10 @@ export class UserEnterComponent implements OnInit {
             isBlocked: formValue.isBlocked!=='',
             isLaboUser: formValue.isLaboUser!=='',
             isAdmin: formValue.isAdmin!=='',
-            password: formValue.password
+            password: formValue.password,
+            isReceptionist: formValue.isReceptionist!=='',
+            isLabManager: formValue.isLabManager!=='',
+            isProgrammer: formValue.isProgrammer!==''
         }).first().subscribe(res =>
         {
             var x=res;
