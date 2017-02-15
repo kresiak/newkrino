@@ -179,6 +179,26 @@ export class ProductDetailComponent implements OnInit {
         this.router.navigate(link);
     }
     
+    isStockUpdated(isStock) {
+        this.product.data.isStock = isStock;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    needsLotNumberUpdated(lotNumber) {
+        this.product.data.needsLotNumber = lotNumber;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    divisionFactorUpdated(divisionFactor) {
+        this.product.data.divisionFactor = divisionFactor;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    stockPackageUpdated(stockPackage) {
+        this.product.data.stockPackage = stockPackage;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
     private saveFrigoProperty(event, product, isFrigo: boolean) {
         event.preventDefault()
         event.stopPropagation()

@@ -67,11 +67,31 @@
 						<div class="col-sm-3">frequence:</div>
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
-                    
 					<div class="row">
 						<div class="col-sm-3 vcenter">is disabled:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is stock:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">needs lot number:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">division factor:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">stock package:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-sm-3 vcenter">frigo:</div>
 						<div class="col-sm-6 vcenter">
