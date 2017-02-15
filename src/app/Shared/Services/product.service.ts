@@ -583,6 +583,7 @@ export class ProductService {
     //     ========================
 
     private passCommand(record): Observable<any> {
+        this.dataStore.setLaboNameOnRecord(record.data)
         var obs = this.apiService.callWebService('passOrder', record).map(res => res.json());
 
         obs.subscribe(res => {
