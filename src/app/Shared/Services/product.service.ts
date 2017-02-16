@@ -43,14 +43,12 @@ export class ProductService {
     // stock
     // ==========
 
-    private createAnnotatedStockProduct(productStock, annotatedOrders: any[], unprocessedStockOrders, currentUserId) {
+    private createAnnotatedStockProduct(productStock, products, suppliers, unprocessedStockOrders, currentUserId) {
         if (!productStock) return null;
-        let annotatedOrder = annotatedOrders.filter(order => order.data._id === productStock.orderId)[0];
-        if (!annotatedOrder) return null;
-        let annotatedOrderItem = annotatedOrder.annotation.items.filter(item => item.data.deliveries && item.data.deliveries.filter(delivery => delivery.stockId === productStock._id).length > 0)[0];
-        if (!annotatedOrderItem) return null;
-        let delivery = annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId === productStock._id)[0];
-        if (!delivery) return null;
+        let product= products.filter(p => p._id === productStock.productId)[0]
+        if (!product) return
+        let supplier= suppliers.filter(s => s._id === product.supplierId)[0]
+
         let nbSold = !productStock.sales ? 0 : productStock.sales.reduce((acc, sale) => acc + sale.quantity, 0);
         let nbReservedByMe = unprocessedStockOrders.filter(order => order.productId === productStock.productId && order.userId === currentUserId).map(order => +order.quantity).reduce((a, b) => 
         {
@@ -59,22 +57,22 @@ export class ProductService {
         return {
             data: productStock,
             annotation: {
-                supplier: annotatedOrder.annotation.supplier,
-                product: annotatedOrderItem.annotation.description,
-                nbInitialInStock: delivery.quantity,
-                lotNb: delivery.lotNb,
+                supplier: supplier ? supplier.name : 'unknown supplier',
+                product: product.name + ' ' + productStock.package,
+                nbInitialInStock: productStock.quantity,
+                lotNb: productStock.lotNumber,
                 nbSold: nbSold,
-                nbAvailable: delivery.quantity - nbSold,
-                orderId: annotatedOrder.data._id,
+                nbAvailable: productStock.quantity - nbSold,
                 nbReservedByMe: nbReservedByMe
             }
         };
     }
 
     getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsStockObservable, this.orderService.getAnnotedOrdersWithStockDeliveries(), this.dataStore.getDataObservable('orders.stock'), this.authService.getUserIdObservable(), (productsStock, annotatedOrders, stockOrders, currentUserId) => {
+        return Observable.combineLatest(productsStockObservable, this.dataStore.getDataObservable('products'),this.dataStore.getDataObservable('suppliers'), 
+                        this.dataStore.getDataObservable('orders.stock'), this.authService.getUserIdObservable(), (productsStock, products, suppliers, stockOrders, currentUserId) => {
             let unprocessedStockOrders= stockOrders.filter(order => !order.isProcessed)
-            return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, annotatedOrders, unprocessedStockOrders, currentUserId));
+            return productsStock.map(productStock => this.createAnnotatedStockProduct(productStock, products, suppliers, unprocessedStockOrders, currentUserId));
         });
     }
 
@@ -105,26 +103,16 @@ export class ProductService {
     // Stock orders
     // ============
 
-    private createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems, annotatedOrders) {
+    private createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems) {
         if (!orderStock) return null;
 
         var orderProcessItems: any[]= []
         stockItems.filter(item => orderStock.stockItemIds && orderStock.stockItemIds.includes(item._id)).forEach(item => {
-            let annotatedOrder = annotatedOrders.filter(order => order.data._id === item.orderId)[0];
-            if (!annotatedOrder) return;
-            let annotatedOrderItem = annotatedOrder.annotation.items.filter(orderItem => 
-            {
-                return orderItem.data.deliveries && orderItem.data.deliveries.filter(delivery => {
-                    return delivery.stockId === item._id
-                }).length > 0
-            })[0];
-            if (!annotatedOrderItem) return;
-            let delivery = annotatedOrderItem.data.deliveries.filter(delivery => delivery.stockId === item._id)[0];
             item.sales.filter(itemSale => itemSale.stockOrderId === orderStock._id).forEach(itemSale => {
                 orderProcessItems.push({
                     date: itemSale.date,
                     quantity: itemSale.quantity,
-                    lotNb: delivery.lotNb
+                    lotNb: item.lotNumber
                 })
             })
         })
@@ -135,7 +123,7 @@ export class ProductService {
         return {
             data: orderStock,
             annotation: {
-                product: product ? product.name : 'unknown product',
+                product: product ? product.name + ' / ' + (product.stockPackage || product.package ) : 'unknown product',
                 user: user ? user.annotation.fullName : 'unknown User',
                 equipe: equipe ? equipe.name : 'unknown equipe',
                 orderProcessItems: orderProcessItems
@@ -144,10 +132,10 @@ export class ProductService {
     }
 
     getAnnotatedStockOrders(ordersStockObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(ordersStockObservable, this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),  this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('products.stock'), 
-            this.orderService.getAnnotedOrdersWithStockDeliveries(),
+        return Observable.combineLatest(ordersStockObservable, this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),  this.dataStore.getDataObservable('products'), 
+                                this.dataStore.getDataObservable('products.stock'), 
             (ordersStock, equipes, annotatedUsers, products, stockItems, annotatedOrders) => {
-            return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems, annotatedOrders)).sort((v1, v2) => {
+            return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems)).sort((v1, v2) => {
                     var d1= moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var d2= moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1

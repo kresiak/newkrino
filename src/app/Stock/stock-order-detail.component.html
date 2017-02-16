@@ -48,7 +48,7 @@
                         </div>
                         <form [formGroup]="frmStockOrder" (ngSubmit)="save(frmStockOrder.value, frmStockOrder.valid)">
                             <div *ngFor="let stockItem of stockItemsObservable | async" class="row">
-                                <div class="col-sm-3">{{stockItem.annotation.lotNb}}</div>
+                                <div class="col-sm-3">{{stockItem.annotation.lotNb || '(no lot number)'}}</div>
                                 <div class="col-sm-3">{{stockItem.annotation.nbAvailable}}</div>
                                 <div class="col-sm-3">
                                     <input type="number" min="0" [max]="stockItem.annotation.nbAvailable" [formControlName]="stockItem.data._id" />
