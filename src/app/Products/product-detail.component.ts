@@ -159,18 +159,8 @@ export class ProductDetailComponent implements OnInit {
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
-    resoldUpdated(resold) {
-        this.product.data.isResold = resold;
-        this.dataStore.updateData('products', this.product.data._id, this.product.data);
-    }
-
     disablUpdated(isDisable) {
         this.product.data.disabled = isDisable;
-        this.dataStore.updateData('products', this.product.data._id, this.product.data);
-    }
-
-    distribUpdated(isDisable) {
-        this.product.data.isDistributed = isDisable;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 

@@ -71,22 +71,22 @@
 						<div class="col-sm-3 vcenter">is disabled:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
-					<div class="row">
-						<div class="col-sm-3 vcenter">needs lot number:</div>
+					<div class="row" ngbTooltip="Click this if encoding the lot number might be needed at delivery for this product">
+						<div class="col-sm-3 vcenter">may need encoding of lot number:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
-					<div class="row">
-						<div class="col-sm-3 vcenter">is stock:</div>
+					<div class="row" ngbTooltip="Click here if this product might potentially be resold from the stock">
+						<div class="col-sm-3 vcenter">may be resold in stock:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
-					<div class="row" *ngIf="product.data.isStock == true">
-						<div class="col-sm-3 vcenter">division factor:</div>
+					<div class="row" *ngIf="product.data.isStock == true"  ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
+						<div class="col-sm-3 vcenter">division factor for stock:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
-					<div class="row" *ngIf="product.data.isStock == true">
-						<div class="col-sm-3 vcenter">stock package:</div>
+					<div class="row" *ngIf="product.data.isStock == true" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
+						<div class="col-sm-3 vcenter">stock packaging:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
