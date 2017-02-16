@@ -72,33 +72,32 @@
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is stock:</div>
-						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
-					</div>
-					<div class="row">
 						<div class="col-sm-3 vcenter">needs lot number:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
 					<div class="row">
+						<div class="col-sm-3 vcenter">is stock:</div>
+						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
+					</div>
+					<div class="row" *ngIf="product.data.isStock == true">
 						<div class="col-sm-3 vcenter">division factor:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" *ngIf="product.data.isStock == true">
 						<div class="col-sm-3 vcenter">stock package:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
-
 					<div class="row">
 						<div class="col-sm-3 vcenter">frigo:</div>
 						<div class="col-sm-6 vcenter">
-								<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" 
-									 (click)="saveFrigoProperty($event, product, false)" />
-								<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
-								<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />							
+							<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" 
+								(click)="saveFrigoProperty($event, product, false)" />
+							<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
+							<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />							
 						</div>						
 					</div>
 	 			
