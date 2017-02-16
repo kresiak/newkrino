@@ -71,11 +71,11 @@
 						<div class="col-sm-3 vcenter">is disabled:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
-					<div class="row" ngbTooltip="Click this if encoding the lot number might be needed at delivery for this product">
+					<div class="row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
 						<div class="col-sm-3 vcenter">may need encoding of lot number:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>
-					<div class="row" ngbTooltip="Click here if this product might potentially be resold from the stock">
+					<div class="row" ngbTooltip="Define here if this product might potentially be resold from the stock">
 						<div class="col-sm-3 vcenter">may be resold in stock:</div>
 						<div class="col-sm-6 vcenter"><gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean></div>
 					</div>

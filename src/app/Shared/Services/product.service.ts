@@ -261,6 +261,7 @@ export class ProductService {
                     return map
                 }, new Map());
                 return products.map(product => {
+                    if (!product.divisionFactor || !(+product.divisionFactor) || (+product.divisionFactor) < 0) product.divisionFactor = 1
                     let supplier =  mapSuppliers.get(product.supplierId) //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
                     let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
                     return {
