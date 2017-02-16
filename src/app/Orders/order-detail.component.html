@@ -27,19 +27,15 @@
 					<div class="col-sm-8 vcenter"><input #inputQty type="number" class="form-control" placeholder="enter quantity delivered" min="1" [max]="selectedDeliveryItem.data.quantity-selectedDeliveryItem.annotation.nbDelivered"
 						/></div>
 				</div>
-				<div class="row">
+				<div class="row" [hidden]="!selectedDeliveryItem.annotation.needsLotNumber">
 					<div class="col-sm-3 vcenter">No lot:</div>
-					<div class="col-sm-8 vcenter"><input #inputLotNo type="text" class="form-control" placeholder="enter lot numer" /></div>
+					<div class="col-sm-8 vcenter"><input #inputLotNo type="text" class="form-control" placeholder="enter lot number" /></div>
 				</div>
-				<div class="row">
+				<div class="row" [hidden]="!selectedDeliveryItem.annotation.isStockProduct">
 					<div class="col-sm-6">
-						<label>Is for resell</label>
-						<input type="checkbox" [checked]="false" #inputIsResell />
+						<label>Put in the stock and resell as {{selectedDeliveryItem.annotation.stockPackaging}}</label>
+						<input type="checkbox" [checked]="false" #inputIsResell/>
 					</div>
-				</div>
-				<div class="row" [ngbCollapse]="!inputIsResell.checked">
-					<div class="col-sm-3 vcenter">Division factor:</div>
-					<div class="col-sm-8 vcenter"><input #inputDivFactor type="text" class="form-control" placeholder="enter division factor" /></div>
 				</div>
 			</div>
 		</div>
@@ -51,7 +47,7 @@
 
 				</div>
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-success" (click)="c({qty:inputQty.value, lot:inputLotNo.value, resell: inputIsResell.checked, factor: inputDivFactor.value })">Save delivery</button>
+					<button type="button" class="btn btn-success" (click)="c({qty:inputQty.value, lot: inputLotNo.value, resell: inputIsResell.checked })">Save delivery</button>
 				</div>
 			</div>
 		</div>
@@ -100,14 +96,16 @@
 									<div class="col-sm-3 vcenter"><b>Otp</b></div>
 								</div>
 								<div class="row" *ngFor="let item of order.annotation.items">
-									<div class="col-sm-3 vcenter">{{item.annotation.description}}</div>
+									<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
 									<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
 									<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
-									<div class="col-sm-2 vcenter"> 
-										<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+									<div class="col-sm-2 vcenter">
+										<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
+											[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 									</div>
 									<div class="col-sm-3 vcenter" *ngIf="!smallScreen">
-										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable" [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
+										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
+											[selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
 									</div>
 									<div class="col-sm-3 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 
@@ -153,51 +151,89 @@
 			<template ngbTabContent>
 				<div class="card">
 					<div class="card-block">
-						<br><br>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-sm-6 col-md-6">
-									<div class="row">
-										{{order.annotation.supplier}}
+						<ngb-tabset>
+							<ngb-tab title="Add deliveries" id="tabDeliveriesAdd">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+
+
+									<br/><br/>
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-sm-6 col-md-6">
+												<div class="row">
+													{{order.annotation.supplier}}
+												</div>
+												<div class="row">
+													{{order.data.date }}
+												</div>
+												<div class="row">
+													Reference: {{order.data._id}}
+												</div>
+											</div>
+											<div class="col-sm-6 col-md-6">
+												<div class="row">
+													{{order.annotation.user}}
+												</div>
+												<div class="row">
+													{{order.annotation.equipe}}
+												</div>
+											</div>
+										</div> <br><br>
+										<div class="row">
+											<div class="row">
+												<div class="col-sm-3 vcenter"><b>Product</b></div>
+												<div class="col-sm-1 vcenter"><b>Qty</b></div>
+												<div class="col-sm-2 vcenter"><b>Price/Unity</b></div>
+												<div class="col-sm-1 vcenter"><b>Qty delivered</b></div>
+											</div>
+											<div class="row" *ngFor="let item of order.annotation.items">
+												<div class="col-sm-3 vcenter">{{item.annotation.description}}</div>
+												<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
+												<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
+												<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
+												<div class="col-sm-2 vcenter">
+													<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
+														style="margin:5px">Add delivery</div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="row">
-										{{order.data.date }}
+										</div></div>
+							</template>
+						</ngb-tab>
+							<ngb-tab title="All deliveries details" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino" >
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+												<div class="row" >
+													<div class="col-sm-3 "><b>When</b></div>
+													<div class="col-sm-2 "><b>Who</b></div>
+													<div class="col-sm-3 "><b>Product</b></div>
+													<div class="col-sm-1 "><b>Quantity</b></div>
+													<div class="col-sm-1 "><b>Lot Number</b></div>
+													<div class="col-sm-2 "><b>Location</b></div>
+												</div>
+											
+											<div *ngFor="let item of order.annotation.items">
+												<div class="row" *ngFor="let delivery of item.annotation.deliveries">
+													<div class="col-sm-3 ">{{delivery.data.date | fullDate}}</div>
+													<div class="col-sm-2 ">{{delivery.annotation.userLm}}</div>
+													<div class="col-sm-3 ">{{item.annotation.description}}</div>
+													<div class="col-sm-1 ">{{delivery.data.quantity}}</div>
+													<div class="col-sm-1">{{delivery.data.lotNumber}}</div>
+													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
+												</div>
+											</div>
+										</div>
 									</div>
-									<div class="row">
-										Reference: {{order.data._id}}
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-6">
-									<div class="row">
-										{{order.annotation.user}}
-									</div>
-									<div class="row">
-										{{order.annotation.equipe}}
-									</div>
-								</div>
-							</div> <br><br>
-							<div class="row">
-								<div class="row">
-									<div class="col-sm-3 vcenter"><b>Product</b></div>
-									<div class="col-sm-1 vcenter"><b>Qty</b></div>
-									<div class="col-sm-2 vcenter"><b>Price/Unity</b></div>
-									<div class="col-sm-1 vcenter"><b>Qty delivered</b></div>
-								</div>
-								<div class="row" *ngFor="let item of order.annotation.items">
-									<div class="col-sm-3 vcenter">{{item.annotation.description}}</div>
-									<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
-									<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
-									<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
-									<div class="col-sm-2 vcenter">
-										<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
-											style="margin:5px">Add delivery</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</template>
+								</template>
+							</ngb-tab>
+				</ngb-tabset>
+			</div>
+		</div>
+	</template>
 </ngb-tab>
 <ngb-tab id="tabMax">
 	<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>

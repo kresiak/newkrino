@@ -174,13 +174,22 @@ export class OrderService {
                         annotation: {
                             otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name : 'Unknown product',
-                            price: product ? product.price : '0',
+                            isStockProduct: product && product.isStock,
+                            needsLotNumber: product && product.needsLotNumber,
+                            stockDivisionFactor: (product && +product.divisionFactor && (+product.divisionFactor)>0) ? +product.divisionFactor : 1,
+                            stockPackaging: (product && product.stockPackage && product.stockPackage !== '') ? product.stockPackage : (product ? product.package : ''),
+                            price: product ? product.price : '0',                            
                             nbDelivered: nbDelivered,
                             allDelivered: item.quantity===nbDelivered,
                             anyDelivered: item.quantity !==0 && nbDelivered != 0,
                             deliveries: (item.deliveries || []).map(delivery => {
+                                let userLm = users.get(delivery.userId)
                                 return {
-                                    data: delivery
+                                    data: delivery,
+                                    annotation: {
+                                        userLm: user ? userLm.firstName + ' ' + userLm.name : 'Unknown user',
+                                        isStock: delivery.stockId 
+                                    }
                                 }
                             })
                         }

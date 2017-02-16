@@ -69,29 +69,52 @@ export class OrderDetailComponent implements OnInit {
         this.subscriptionOrder.unsubscribe()
     }
 
-    private saveDelivery(orderItem, formData) {
+    private saveDelivery(orderItem, formData) {        
+        var self= this
+        let saveOrder = function (deliveryData, stockId: string='') {
+            if (stockId !== '') deliveryData['stockId'] = stockId;
+            orderItem.data.deliveries.push(deliveryData);
+            self.dataStore.updateData('orders', self.order.data._id, self.order.data);
+        }
+
         if (+formData.qty < 1) return;
         if (!orderItem.data.deliveries) orderItem.data.deliveries = [];
         let deliveryData = {
             quantity: +formData.qty,
-            lotNb: formData.lot
+            date: moment().format('DD/MM/YYYY HH:mm:ss'),
+            userId: this.authorizationStatusInfo.currentUserId
         };
-        if (formData.resell) {
+        if (orderItem.annotation.needsLotNumber) {
+            deliveryData['lotNb'] = formData.lot
+        }
+        if (orderItem.annotation.isStockProduct && formData.resell) {
+            let qty= +formData.qty * +orderItem.annotation.stockDivisionFactor
             let prodData = {
                 productId: orderItem.data.productId,
-                orderId: this.order.data._id,
-                quantity: formData.qty,
-                factor: formData.factor
+                quantity: qty,
+                divisionFactor: orderItem.annotation.stockDivisionFactor,
+                package: orderItem.annotation.stockPackaging,
+                lotNumber: formData.lot, 
+                history: [{ userId: this.authorizationStatusInfo.currentUserId, date: moment().format('DD/MM/YYYY HH:mm:ss'), quantity: qty, orderId: this.order.data._id }]
             };
-            this.dataStore.addData('products.stock', prodData).first().subscribe(res => {
-                deliveryData['stockId'] = res._id;
-                orderItem.data.deliveries.push(deliveryData);
-                this.dataStore.updateData('orders', this.order.data._id, this.order.data);
-            });
+            this.dataStore.getDataObservable('products.stock').first().subscribe(stockItems => {
+                let stockItem = stockItems.filter(si => si.productId === prodData.productId && si.divisionFactor === prodData.divisionFactor 
+                                                                                             && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]
+                if (stockItem) {
+                    stockItem.quantity += prodData.quantity;
+                    (stockItem.history= stockItem.history || []).push(prodData.history[0])
+                    this.dataStore.updateData('products.stock', stockItem._id, stockItem)
+                    saveOrder(deliveryData, stockItem._id)
+                }
+                else {
+                    this.dataStore.addData('products.stock', prodData).first().subscribe(res => {
+                        saveOrder(deliveryData, res._id)
+                    });
+                }
+            })
         }
         else {
-            orderItem.data.deliveries.push(deliveryData);
-            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+            saveOrder(deliveryData)
         }
     }
 
@@ -143,6 +166,11 @@ export class OrderDetailComponent implements OnInit {
         }
 
     }
+
+    navigateToProduct(productId) {
+        let link = ['/product', productId];
+        this.router.navigate(link);
+    }    
 
     deleteOrder() {
         if (!this.order.data.status) this.order.data.status = { history: [] }
