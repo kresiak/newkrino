@@ -38,6 +38,11 @@
 					</div>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="My notes" id="tabNotes">
+				<template ngbTabContent>
+					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+				</template>
+			</ngb-tab>
 			<ngb-tab title="My basket" id="tabBaskets" *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
 				<template ngbTabContent>
 					<gg-supplier-list [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
@@ -63,11 +68,6 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My notes" id="tabNotes">
-				<template ngbTabContent>
-					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
-				</template>
-			</ngb-tab>
 			<ngb-tab title="My ordered products" id="tabProducts" *ngIf="((productsObservable |async) || []).length>0">
 				<template ngbTabContent>
 					<gg-product-grid [productsObservable]="productsObservable" [config]="{skip:['category', 'manip']}"></gg-product-grid>
@@ -81,15 +81,6 @@
 			<ngb-tab title="My stock orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
 				<template ngbTabContent>
 					<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
-				</template>
-			</ngb-tab>
-			<ngb-tab *ngFor="let equipe of equipesObservable | async" title="My {{equipe.data.name}}" [id]="equipe.data._id">
-				<template ngbTabContent>
-					<div class="card">
-						<div class="card-block">
-							<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [state]="state[equipe.data._id]" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
-						</div>
-					</div>
 				</template>
 			</ngb-tab>
 		</ngb-tabset>

@@ -21,7 +21,6 @@ export class MyKrinoComponent implements OnInit{
     ordersObservable: Observable<any>;
     stockOrdersObservable: Observable<any>;
     productsObservable: Observable<any>;
-    equipesObservable: Observable<any>;
     webSuppliersObservable: Observable<any>
     webVouchersObservable: Observable<any>
     suppliersWithBasketObservable: Observable<any>;
@@ -52,7 +51,6 @@ export class MyKrinoComponent implements OnInit{
         this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(res => {
             this.currentUser= res;
         });
-        this.equipesObservable= this.orderService.getAnnotatedEquipesOfCurrentUser();
         this.webSuppliersObservable= this.supplierService.getAnnotatedWebSuppliers()
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -74,11 +72,6 @@ export class MyKrinoComponent implements OnInit{
             this.currentUser.data.notes= comments;
             this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
         }        
-    }    
-
-   getEquipeObservable(id: string) : Observable<any>
-    {
-        return this.equipesObservable.map(equipes=> equipes.filter(s => s.data._id===id)[0]);
     }    
 
    public beforeTabChange($event: NgbTabChangeEvent) {
