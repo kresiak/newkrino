@@ -68,9 +68,9 @@ export class ProductEnterComponent implements OnInit {
             noArticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
             tva: formValue.tva,
-            disabled: formValue.disabled,
-            isStock: formValue.isStock,
-            needsLotNumber: formValue.needsLotNumber,
+            disabled: formValue.disabled!=='' && formValue.disabled!== null,
+            needsLotNumber: formValue.needsLotNumber!=='' && formValue.needsLotNumber!== null,
+            isStock: formValue.isStock!=='' && formValue.isStock!== null,
             divisionFactor: +formValue.divisionFactor,
             stockPackage: formValue.stockPackage
         }).subscribe(res =>
