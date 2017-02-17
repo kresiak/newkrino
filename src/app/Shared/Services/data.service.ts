@@ -11,18 +11,18 @@ export class DataStore { // contains one observable property by database table/c
     constructor(private apiService: ApiService) {
     }
 
-    private laboFieldName: string='laboName'
+    private laboFieldName: string = 'laboName'
 
-    private universalTables: string[]= ['products', 'suppliers', 'categories']
+    private universalTables: string[] = ['products', 'suppliers', 'categories']
 
     //public laboName= 'demo' 
-    public laboName= 'michel' 
+    public laboName = 'michel'
 
     private isFromRightLabo(table, rec): boolean {
         if (this.universalTables.includes(table)) return true
-        let laboNameInRecord= rec[this.laboFieldName]
+        let laboNameInRecord = rec[this.laboFieldName]
         if (this.laboName === 'michel') return !laboNameInRecord || laboNameInRecord === this.laboName
-        return  laboNameInRecord === this.laboName  
+        return laboNameInRecord === this.laboName
     }
 
     private triggerNext(table: string) {
@@ -32,7 +32,7 @@ export class DataStore { // contains one observable property by database table/c
 
         this.apiService.crudGetRecords(table).subscribe(
             res => {
-                var res2= res.filter(record => this.isFromRightLabo(table, record))
+                var res2 = res.filter(record => this.isFromRightLabo(table, record))
                 this[table].next(res2);
             },
             err => console.log("Error retrieving Todos"),
@@ -41,7 +41,7 @@ export class DataStore { // contains one observable property by database table/c
     }
 
     setLaboNameOnRecord(record) {
-        record[this.laboFieldName]= this.laboName
+        record[this.laboFieldName] = this.laboName
     }
 
     private getObservable(table: string): ReplaySubject<any[]> {
@@ -57,27 +57,28 @@ export class DataStore { // contains one observable property by database table/c
     }
 
     addData(table: string, newRecord: any): Observable<any> {
-        newRecord[this.laboFieldName]= this.laboName
+        newRecord[this.laboFieldName] = this.laboName
         let obs = this.apiService.crudCreateRecord(table, newRecord);
-        obs.subscribe(res => this.triggerNext(table));
+        obs.subscribe(res => {
+            //this.triggerNext(table)
+        });
         return obs;
     };
 
     deleteData(table: string, id: string): Observable<any> {
         let obs = this.apiService.crudDeleteRecord(table, id);
-        obs.subscribe(res =>
-            this.triggerNext(table)
-        );
+        obs.subscribe(res => {
+            //this.triggerNext(table)
+        });
         return obs;
     }
 
     updateData(table: string, id: string, newRecord: any): Observable<any> {
-        newRecord[this.laboFieldName]= this.laboName   // to be sure
+        newRecord[this.laboFieldName] = this.laboName   // to be sure
         let obs = this.apiService.crudUpdateRecord(table, id, newRecord);
         obs.subscribe(res => {
-            this.triggerNext(table)
-        }
-        );
+            //this.triggerNext(table)
+        });
         return obs;
     }
 

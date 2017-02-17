@@ -406,8 +406,8 @@ export class ProductService {
         var obs = this.apiService.callWebService('createVoucher', record).map(res => res.json());
 
         obs.subscribe(res => {
-            this.dataStore.triggerDataNext('users.krino');
-            this.dataStore.triggerDataNext('orders.vouchers');
+            //this.dataStore.triggerDataNext('users.krino');
+            //this.dataStore.triggerDataNext('orders.vouchers');
         });
         return obs;
     }
@@ -425,8 +425,7 @@ export class ProductService {
         var obs = this.apiService.callWebService('useVoucher', record).map(res => res.json());
 
         obs.subscribe(res => {
-            if (!res.error)
-                this.dataStore.triggerDataNext('orders.vouchers');
+            //if (!res.error)                this.dataStore.triggerDataNext('orders.vouchers');
         });
         return obs;
     }
@@ -579,8 +578,8 @@ export class ProductService {
         var obs = this.apiService.callWebService('passOrder', record).map(res => res.json());
 
         obs.subscribe(res => {
-            this.dataStore.triggerDataNext('basket');
-            this.dataStore.triggerDataNext('orders');
+            //this.dataStore.triggerDataNext('basket');
+            //this.dataStore.triggerDataNext('orders');
         });
         return obs;
     }
