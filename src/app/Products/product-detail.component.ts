@@ -99,8 +99,9 @@ export class ProductDetailComponent implements OnInit {
         this.productService.doBasketUpdate(this.product, quantity)
     }
 
-    quantityBasketIncremented() {
+    quantityBasketIncremented() {        
         this.productService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString() )
+        this.product.annotation.quantity++ // to display it more rapidly, even if the observable would bring it anyway
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
