@@ -32,7 +32,7 @@ export class OrderListComponentRoutable implements OnInit {
             this.authorizationStatusInfo= statusInfo
         })
 
-    
+        this.fridgeOrdersObservable= this.orderService.getAnnotatedFridgeOrders()        
 
         this.route.queryParams.first().subscribe(queryParams => {
             this.initTabId = queryParams['tab'];
@@ -44,7 +44,7 @@ export class OrderListComponentRoutable implements OnInit {
          this.subscriptionState.unsubscribe()
     }
     
-
+    private fridgeOrdersObservable: Observable<any>;
     private suppliersObservable: Observable<any>;
     private ordersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;

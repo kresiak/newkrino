@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import {OrderService} from '../Shared/Services/order.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
@@ -17,11 +16,13 @@ export class OrderFridgeListComponent implements OnInit {
     private subscriptionAuthorization: Subscription 
     private subscriptionOrder: Subscription 
    
-    constructor(private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
+    constructor(private dataStore: DataStore, private authService: AuthService) {}
+
+    @Input() fridgeOrdersObservable: Observable<any>;
 
     ngOnInit(): void {
 
-        this.subscriptionOrder= this.orderService.getAnnotatedFridgeOrders().subscribe(orders => {
+        this.subscriptionOrder= this.fridgeOrdersObservable.subscribe(orders => {
             this.ordersList = orders;
         });
 

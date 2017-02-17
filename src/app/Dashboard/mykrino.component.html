@@ -83,6 +83,11 @@
 					<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="My fridge orders" id="tabFridgeOrders" *ngIf="((fridgeOrdersObservable |async) || []).length>0">
+				<template ngbTabContent>
+					<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable"></gg-order-fridge-list>
+				</template>
+			</ngb-tab>
 		</ngb-tabset>
 	</div>
 </div>
