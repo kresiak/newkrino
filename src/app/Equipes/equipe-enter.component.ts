@@ -38,7 +38,7 @@ export class EquipeEnterComponent implements OnInit {
             name: formValue.name,
             description: formValue.description,
             nbOfMonthAheadAllowed: formValue.nbOfMonthAheadAllowed,
-            isBlocked: formValue.isBlocked,
+            isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
             userIds: this.selectedUserIds
         }).first().subscribe(res =>
         {
