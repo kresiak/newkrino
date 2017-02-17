@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Observable, Subscription } from 'rxjs/Rx'
+import { ActivatedRoute} from '@angular/router'
 
 
 @Component(
@@ -12,7 +13,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 )
 
 export class AdminMainComponent {
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private route: ActivatedRoute) {
 
     }
 
@@ -21,6 +22,8 @@ export class AdminMainComponent {
 
     @Input() state;
     @Output() stateChanged = new EventEmitter()
+      
+    initTabId= ''
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -36,6 +39,11 @@ export class AdminMainComponent {
 
     ngOnInit(): void {
         this.stateInit();
+
+        this.route.queryParams.first().subscribe(queryParams => {
+            this.initTabId = queryParams['tab'];
+        })     
+        
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {        

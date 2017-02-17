@@ -1,6 +1,6 @@
 <div class="card" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
     <div class="card-block">
-        <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+        <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="initTabId">
             <ngb-tab title="Web Shopping" id="tabWebShopping">
                 <template ngbTabContent>
                     <gg-admin-webshopping></gg-admin-webshopping>

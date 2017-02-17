@@ -28,13 +28,15 @@ export class ProductService {
     // ==================
 
     getLmWarningMessages(): Observable<any>{
-        return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.getAnnotatedStockOrdersAll(), (annotatedFridgeOrders, annotatedStockOrders) => {
+        return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.getAnnotatedStockOrdersAll(), this.getOpenRequestedVouchers(), 
+                    (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers) => {
             let annotatedFridgeOrdersOk= annotatedFridgeOrders.filter(o => ! o.data.isDelivered)
             let annotatedStockOrdersOk= annotatedStockOrders.filter(o => ! o.data.isProcessed)
             return {
-                nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length,
+                nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length + openRequestVouchers.length,
                 fridgeOrders: annotatedFridgeOrdersOk,
-                stockOrders: annotatedStockOrdersOk
+                stockOrders: annotatedStockOrdersOk,
+                requestVouchers: openRequestVouchers
             }
         });
     }
