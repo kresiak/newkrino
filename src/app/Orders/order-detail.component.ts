@@ -116,6 +116,7 @@ export class OrderDetailComponent implements OnInit {
         else {
             saveOrder(deliveryData)
         }
+        orderItem.annotation.nbDelivered+= +formData.qty // for performance reason in responseness, even if observable will bring it back anyway
     }
 
     private selectedDeliveryItem;
