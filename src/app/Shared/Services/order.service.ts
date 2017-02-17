@@ -538,8 +538,15 @@ export class OrderService {
             });
     }    
 
+    getAnnotatedFridgeOrdersByUser(userId): Observable<any> {
+        return this.getAnnotatedFridgeOrders().map(orders => orders.filter(order => order.data.userId === userId))
+    }
 
-
+    getAnnotatedFridgeOrdersByCurrentUser(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotatedFridgeOrders(), this.authService.getUserIdObservable(), (orders, userId)=> {
+            return orders.filter(order => order.data.userId === userId)
+        })        
+    }
 
 }
 

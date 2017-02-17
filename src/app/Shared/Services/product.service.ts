@@ -157,6 +157,11 @@ export class ProductService {
         return this.getAnnotatedStockOrders(stockOrdersObservable)
     }
 
+    getAnnotatedStockOrdersByUser(userId): Observable<any> {
+        var stockOrdersObservable=  this.dataStore.getDataObservable('orders.stock').map(orders => orders.filter(order => order.userId === userId))
+        return this.getAnnotatedStockOrders(stockOrdersObservable)
+    }
+
 
     // categories
     // ==========
@@ -489,6 +494,9 @@ export class ProductService {
         })
     }
 
+    getAnnotatedUsedVouchersOfUserByDate(userId): Observable<any> {
+        return this.getAnnotatedUsedVouchersByDate().map(vouchers => vouchers.filter(v => v.data.userId === userId))
+    }
 
     getAnnotatedUsedVouchersReadyForSap(): Observable<any> {
         return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed && !voucher.annotation.isInSap))

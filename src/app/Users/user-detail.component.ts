@@ -6,6 +6,7 @@ import * as moment from "moment"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { ProductService } from './../Shared/Services/product.service'
 
 @Component(
     {
@@ -15,7 +16,7 @@ import { OrderService } from './../Shared/Services/order.service'
 )
 
 export class UserDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, private productService: ProductService) {
     }
 
     @Input() userObservable: Observable<any>;
@@ -34,7 +35,10 @@ export class UserDetailComponent implements OnInit {
          this.subscriptionUser=this.userObservable.subscribe(user => {
             this.user = user;
             this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
-            this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id);
+            this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id)
+            this.fridgeOrdersObservable= this.orderService.getAnnotatedFridgeOrdersByUser(user.data._id)
+            this.stockOrdersObservable= this.productService.getAnnotatedStockOrdersByUser(user.data._id)
+            this.webVouchersObservable= this.productService.getAnnotatedUsedVouchersOfUserByDate(user.data._id)
         });
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
@@ -48,8 +52,11 @@ export class UserDetailComponent implements OnInit {
     
 
     private user
+    private webVouchersObservable: Observable<any>
+    private stockOrdersObservable: Observable<any>;    
     private equipesObservable: Observable<any>
     private ordersObservable: Observable<any>
+    private fridgeOrdersObservable: Observable<any>
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription     
     private subscriptionUser: Subscription         
