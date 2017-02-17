@@ -17,6 +17,7 @@ export class AdminWebShoppingComponent {
     }
 
     @Input() state;
+    @Input() initTabId= ''
     @Output() stateChanged = new EventEmitter()
 
     vouchersObservable: Observable<any>;
@@ -25,7 +26,7 @@ export class AdminWebShoppingComponent {
 
     private stateInit() {
         if (!this.state) this.state = {}
-        if (!this.state.selectedTabId) this.state.selectedTabId = ''
+        if (!this.state.selectedTabId) this.state.selectedTabId = this.initTabId
     }
 
     ngOnInit(): void {

@@ -1,10 +1,10 @@
 <div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-    <br/>
-    <div class="row" >
+	<br/>
+	<div class="row">
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.fridgeOrders.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Fridge Orders <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewFridge'}" >open them</a>
+					Fridge Orders <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewFridge'}">open them</a>
 				</div>
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
@@ -18,7 +18,7 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.stockOrders.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					Stock Orders <a [routerLink]="['/stock']" [queryParams]="{tab:'tabOrders'}" >open them</a>
+					Stock Orders <a [routerLink]="['/stock']" [queryParams]="{tab:'tabOrders'}">open them</a>
 				</div>
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
@@ -32,7 +32,7 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.requestVouchers.length>0">
 			<div class="card text-xs-center card-outline-info">
 				<div class="card-header">
-					Voucher Requests <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping'}" >open them</a>
+					Voucher Requests <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabRequestedVouchers'}">open them</a>
 				</div>
 				<div class="card-block">
 					<h6 class="card-title">New requests</h6>
@@ -43,7 +43,22 @@
 			</div>
 		</div>
 
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.usedVouchers.length>0">
+			<div class="card text-xs-center card-outline-success">
+				<div class="card-header">
+					Vouchers used <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabReadyVouchersForSap'}">open them</a>
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">New orders ready for SAP</h6>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let order of labManagerMessages.usedVouchers">
+							{{order.data.shopping.date | fromNowDate }}: {{order.annotation.user}} spent {{order.data.shopping.total  | currency:'EUR':true:'1.2-2'}} on a voucher at {{order.annotation.supplier}} / {{order.annotation.category}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-        <gg-dashlet *ngFor="let dashlet of dashletsObservable | async" [category]="dashlet.category" [id]="dashlet.id"></gg-dashlet>
-    </div>
+
+		<gg-dashlet *ngFor="let dashlet of dashletsObservable | async" [category]="dashlet.category" [id]="dashlet.id"></gg-dashlet>
+	</div>
 </div>

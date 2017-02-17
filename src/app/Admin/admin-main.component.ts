@@ -24,6 +24,7 @@ export class AdminMainComponent {
     @Output() stateChanged = new EventEmitter()
       
     initTabId= ''
+    initTabId2= ''
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -42,6 +43,7 @@ export class AdminMainComponent {
 
         this.route.queryParams.first().subscribe(queryParams => {
             this.initTabId = queryParams['tab'];
+            this.initTabId2= queryParams['tab2'];
         })     
         
     }

@@ -3,7 +3,7 @@
         <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="initTabId">
             <ngb-tab title="Web Shopping" id="tabWebShopping">
                 <template ngbTabContent>
-                    <gg-admin-webshopping></gg-admin-webshopping>
+                    <gg-admin-webshopping [initTabId]="initTabId2"></gg-admin-webshopping>
                 </template>
             </ngb-tab>
             <ngb-tab title="Alex Kvasz" id="tabAK">
