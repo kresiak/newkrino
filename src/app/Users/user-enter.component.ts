@@ -39,13 +39,13 @@ export class UserEnterComponent implements OnInit {
             name: formValue.name,
             firstName: formValue.firstName,
             email: formValue.email,
-            isBlocked: formValue.isBlocked!=='',
-            isLaboUser: formValue.isLaboUser!=='',
-            isAdmin: formValue.isAdmin!=='',
+            isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!==null,
+            isLaboUser: formValue.isLaboUser!=='' && formValue.isLaboUser!==null,
+            isAdmin: formValue.isAdmin!=='' && formValue.isAdmin!==null,
             password: formValue.password,
-            isReceptionist: formValue.isReceptionist!=='',
-            isLabManager: formValue.isLabManager!=='',
-            isProgrammer: formValue.isProgrammer!==''
+            isReceptionist: formValue.isReceptionist!=='' && formValue.isReceptionist!==null,
+            isLabManager: formValue.isLabManager!=='' && formValue.isLabManager!==null,
+            isProgrammer: formValue.isProgrammer!=='' && formValue.isProgrammer!==null
         }).first().subscribe(res =>
         {
             var x=res;
