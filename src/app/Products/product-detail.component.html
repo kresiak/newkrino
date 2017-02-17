@@ -17,6 +17,9 @@
 						<div class="col-sm-1 vcenter" *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo" placement="right" [ngbTooltip]="tipAddToBasket">
 							<img class="card-img img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()" ><span>{{product.annotation.quantity}}</span>
 						</div>
+						<div class="col-sm-1 vcenter" *ngIf="product.data.isFrigo">
+							<gg-product-fridge-order-button *ngIf="product.data.isFrigo"  [productObservable]="productObservable"></gg-product-fridge-order-button>+
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">package:</div>

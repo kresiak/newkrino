@@ -32,6 +32,7 @@ import {ProductListComponentRoutable} from './Products/product-list.routable.com
 import {ProductEnterComponent} from './Products/product-enter.component'
 import {ProductDetailComponent} from './Products/product-detail.component'
 import {ProductDetailComponentRoutable} from './Products/product-detail.routable.component'
+import {ProductFridgeOrderButtonComponent} from './Products/product-fridge-order-button.component'
 
 import {CategoryListComponent} from './Categories/category-list.component'
 import {CategoryListComponentRoutable} from './Categories/category-list.routable.component'
@@ -170,6 +171,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
+                  ProductFridgeOrderButtonComponent,
                   OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,

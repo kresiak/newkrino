@@ -4,7 +4,7 @@ import { ProductService } from './../Shared/Services/product.service';
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { DataStore } from './../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 
 @Component(
@@ -15,7 +15,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
     }
 )
 export class ProductComponent implements OnInit, OnDestroy {
-    constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private modalService: NgbModal, private router: Router) { }
+    constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private router: Router) { }
 
     private subscrProduct: Subscription;
 
@@ -50,35 +50,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
-    }
-
-
-    private saveFridgeOrder(formData) {
-        if (+formData.qty < 1) return;
-
-        var data = {
-            equipeId: this.authService.getEquipeId(),
-            userId: this.authService.getUserId(),
-            productId: this.product.data._id,
-            quantity: +formData.qty,
-            isDelivered: false
-        }
-
-        this.dataStore.addData('orders.fridge', data).first().subscribe(res => {
-            // todo msg: has been successfully saved
-        }, );
-    }
-
-
-    openModal(template) {
-        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
-        var promise = ref.result;
-        promise.then((data) => {
-            this.saveFridgeOrder(data);
-        }, (res) => {
-        });
-        promise.catch((err) => {
-        });
     }
 
 
