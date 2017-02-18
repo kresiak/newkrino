@@ -26,7 +26,7 @@ export class MenuService {
             var e = <NavigationEnd>event;
             var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
             try {
-                this.activateMenu(this.menu.filter(menuitem => menuitem.route === r)[0]);
+                this.activateMenu(this.menu.filter(menuitem => menuitem.route === r || r.startsWith(menuitem.route + '?'))[0]);
             }
             catch(e) {
             }
