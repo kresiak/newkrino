@@ -27,6 +27,14 @@ export class MenuService {
             var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
             try {
                 this.activateMenu(this.menu.filter(menuitem => menuitem.route === r || r.startsWith(menuitem.route + '?'))[0]);
+                if (this.menu.filter(m=>m.active).length===0){
+                    ['order','otp','equipe','product','user','category','supplier'].filter(objType => r.startsWith('/' + objType + '/')).forEach(objType =>{
+                        this.menu.push({
+                            title: 'Detail ' + objType,
+                            active: true
+                        })
+                    })
+                }
             }
             catch(e) {
             }
