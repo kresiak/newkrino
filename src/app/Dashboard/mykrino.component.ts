@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service'
+import { NavigationService } from '../Shared/Services/navigation.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { Observable, Subscription } from 'rxjs/Rx'
@@ -16,7 +17,7 @@ import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth
 )
 export class MyKrinoComponent implements OnInit {
     constructor(private orderService: OrderService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore,
-        private supplierService: SupplierService) { }
+        private supplierService: SupplierService, private navigationService: NavigationService) { }
 
     private ordersObservable: Observable<any>;
     private fridgeOrdersObservable: Observable<any>;
@@ -30,6 +31,7 @@ export class MyKrinoComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
     private subscriptionCurrentUser: Subscription
+    private subscriptionState: Subscription     
 
 
     @Input() state;
@@ -43,6 +45,11 @@ export class MyKrinoComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+
+        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
+            this.state= state
+        })        
+        
         this.suppliersWithBasketObservable = this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
 
@@ -66,6 +73,7 @@ export class MyKrinoComponent implements OnInit {
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
         this.subscriptionCurrentUser.unsubscribe()
+        this.subscriptionState.unsubscribe()
     }
 
 
@@ -96,6 +104,17 @@ export class MyKrinoComponent implements OnInit {
         this.state.Equipes = $event;
         this.stateChanged.next(this.state);
     }
+
+    private childBasketsStateChanged($event) {
+        this.state.Baskets = $event;
+        this.stateChanged.next(this.state);
+    }
+
+    private childProductsStateChanged($event) {
+        this.state.Products = $event;
+        this.stateChanged.next(this.state);
+    }    
+
 
     firstNameUpdated(firstName) {
         this.currentUser.data.firstName = firstName;
