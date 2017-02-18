@@ -187,7 +187,7 @@ export class OrderService {
                                 return {
                                     data: delivery,
                                     annotation: {
-                                        userLm: user ? userLm.firstName + ' ' + userLm.name : 'Unknown user',
+                                        userLm: userLm ? userLm.firstName + ' ' + userLm.name : 'Unknown user',
                                         isStock: delivery.stockId 
                                     }
                                 }
