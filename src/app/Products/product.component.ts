@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service';
+import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { DataStore } from './../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -15,7 +16,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
     }
 )
 export class ProductComponent implements OnInit, OnDestroy {
-    constructor(private dataStore: DataStore, private productService: ProductService, private authService: AuthService, private router: Router) { }
+    constructor(private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService, 
+                        private router: Router) { }
 
     private subscrProduct: Subscription;
 
@@ -40,6 +42,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     @Input() productObservable: Observable<any>;
     @Input() config;
+    @Input() path: string
     private product;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
@@ -96,7 +99,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     navigateToProduct() {
-        let link = ['/product', this.product.data._id];
+        this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, false)
+/*        let link = ['/product', this.product.data._id];
         this.router.navigate(link);
-    }
+*/    }
 }

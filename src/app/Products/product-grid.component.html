@@ -33,6 +33,6 @@
 				<b>Qty in basket</b>
 			</div>
 		</div>
-		<gg-product *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>
+		<gg-product [path]="path" *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)" [config]="config"></gg-product>
 	</div>
 </div>

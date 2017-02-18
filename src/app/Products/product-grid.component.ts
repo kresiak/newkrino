@@ -14,6 +14,7 @@ export class ProductGridComponent implements OnInit
 {
     @Input() productsObservable: Observable<any>;
     @Input() config;
+    @Input() path: string = 'products'
 
     private products;
 
