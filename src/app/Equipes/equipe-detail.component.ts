@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { ProductService } from './../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
@@ -17,7 +18,8 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService, private navigationService: NavigationService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
+        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService) {
     }
     private pieSpentChart;
 
@@ -39,7 +41,7 @@ export class EquipeDetailComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
         this.selectableUsers = this.authService.getSelectableUsers(true);
-        this.subscriptionEquipe= this.equipeObservable.subscribe(eq => {
+        this.subscriptionEquipe = this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
@@ -49,18 +51,24 @@ export class EquipeDetailComponent implements OnInit {
                 this.orderService.hasEquipeAnyOrder(eq.data._id).first().subscribe(anyOrder => this.anyOrder = anyOrder);
 
                 this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
+
+                this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByEquipe(eq.data._id)
+
+                this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByEquipe(eq.data._id)
+                this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfEquipeByDate(eq.data._id)
+
             }
         });
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionEquipe.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionEquipe.unsubscribe()
     }
-    
+
 
     /*    @Input() selectedTabId;
         @Output() tabChanged = new EventEmitter();
@@ -74,6 +82,10 @@ export class EquipeDetailComponent implements OnInit {
     private usersObservable: Observable<any>;
     private otpsObservable: Observable<any>;
     private ordersObservable: Observable<any>;
+    private fridgeOrdersObservable: Observable<any>;
+    private stockOrdersObservable: Observable<any>;
+    private webVouchersObservable: Observable<any>
+
     private equipe: any;
     private anyOrder: boolean;
 

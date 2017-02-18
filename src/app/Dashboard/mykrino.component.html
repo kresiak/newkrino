@@ -88,6 +88,11 @@
 					<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable"></gg-order-fridge-list>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="My equipes" id="tabMyEquipes">
+				<template ngbTabContent>
+					<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
+				</template>
+			</ngb-tab>			
 		</ngb-tabset>
 	</div>
 </div>

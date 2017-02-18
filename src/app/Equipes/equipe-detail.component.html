@@ -101,6 +101,23 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+
+	<ngb-tab title="Fridge Orders" id="tabFridgeOrders" *ngIf="((fridgeOrdersObservable |async) || []).length>0">
+		<template ngbTabContent>
+			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable"></gg-order-fridge-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Stock Orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
+		<template ngbTabContent>
+			<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Used Vouchers" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
+		<template ngbTabContent>
+			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
+		</template>
+	</ngb-tab>
+	
 	<ngb-tab title="Add an Otp" id="tabOtp">
 		<template ngbTabContent>
 			<div class="card">
