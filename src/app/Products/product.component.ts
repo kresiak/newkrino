@@ -100,7 +100,5 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     navigateToProduct() {
         this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, false)
-/*        let link = ['/product', this.product.data._id];
-        this.router.navigate(link);
-*/    }
+    }
 }

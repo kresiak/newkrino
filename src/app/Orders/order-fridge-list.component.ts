@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Observable, Subscription } from 'rxjs/Rx'
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 @Component(
     {
@@ -16,9 +17,11 @@ export class OrderFridgeListComponent implements OnInit {
     private subscriptionAuthorization: Subscription 
     private subscriptionOrder: Subscription 
    
-    constructor(private dataStore: DataStore, private authService: AuthService) {}
+    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService) {}
 
     @Input() fridgeOrdersObservable: Observable<any>;
+    @Input() path: string
+    
 
     ngOnInit(): void {
 
@@ -46,5 +49,10 @@ export class OrderFridgeListComponent implements OnInit {
         order.data.isDelivered = disabled;
         this.dataStore.updateData('orders.fridge', order.data._id, order.data);
     };
+
+    navigateToProduct(productId) {
+        this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
+    }
+
 
 };

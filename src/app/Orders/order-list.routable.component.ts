@@ -15,14 +15,21 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 export class OrderListComponentRoutable implements OnInit {
     constructor(private orderService: OrderService, private route: ActivatedRoute, private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
 
-    state: {}
+    state
     initTabId= ''
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
 
+    private stateInit() {
+        if (!this.state) this.state = {};
+        if (!this.state.selectedTabId) this.state.selectedTabId = this.initTabId;
+    }
+
+
     ngOnInit(): void {
+        this.stateInit()
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.ordersObservable = this.orderService.getAnnotedOrdersByNewest();
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
