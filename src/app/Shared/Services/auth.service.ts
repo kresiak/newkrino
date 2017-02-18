@@ -93,7 +93,7 @@ export class AuthService {
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
             (users, equipes, authStatus) => {
-                return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName < b.annotation.fullName ? -1 : 1; });
+                return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
             });
     }
 
