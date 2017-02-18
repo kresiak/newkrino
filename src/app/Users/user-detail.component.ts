@@ -87,6 +87,11 @@ export class UserDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    private childStockOrdersStateChanged($event) {
+        this.state.StockOrders = $event;
+        this.stateChanged.next(this.state);
+    }
+
     nameUserUpdated(name) {
         this.user.data.name = name;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);

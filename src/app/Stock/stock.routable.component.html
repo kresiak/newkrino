@@ -1,7 +1,7 @@
 <div id="GGTOP"></div>
 <div class="card">
 	<div class="card-block">
-		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn" [activeId]="initTabId">
+		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn" [activeId]="state.selectedTabId">
 			<ngb-tab title="Put an order from stock" id="tabAvailable">
 				<template ngbTabContent>
                     <gg-stock-list [productsObservable]= "productsObservable"></gg-stock-list>
@@ -9,7 +9,7 @@
 			</ngb-tab>
 			<ngb-tab title="Orders" id="tabOrders" >
 				<template ngbTabContent>
-                    <gg-stock-order-list [ordersObservable]="ordersObservable"></gg-stock-order-list>
+                    <gg-stock-order-list [path]="'stock|O:Orders'" [state]="state.Orders" [ordersObservable]="ordersObservable" ></gg-stock-order-list>
 				</template>
 			</ngb-tab>
 		</ngb-tabset>

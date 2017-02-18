@@ -30,7 +30,7 @@ class Path2StateHelper {
 
     isForDetailView(): boolean {
         let cmd = this.getCmd()
-        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S' && cmd.toUpperCase() !== 'DASHBOARD' && cmd.toUpperCase() !== 'MYKRINO'
+        return cmd.charAt(cmd.length - 1).toUpperCase() !== 'S' && cmd.toUpperCase() !== 'DASHBOARD' && cmd.toUpperCase() !== 'MYKRINO' && cmd.toUpperCase() !== 'STOCK'
     }
 
     private generateState(arrPath: string[]): Object {

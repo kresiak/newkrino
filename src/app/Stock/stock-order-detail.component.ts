@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
 
@@ -15,7 +16,7 @@ import * as moment from "moment"
     }
 )
 export class StockOrderDetailComponent implements OnInit {
-    constructor(private authService: AuthService, private dataStore: DataStore, private productService: ProductService) {
+    constructor(private authService: AuthService, private navigationService: NavigationService, private dataStore: DataStore, private productService: ProductService) {
 
     }
 
@@ -24,6 +25,7 @@ export class StockOrderDetailComponent implements OnInit {
     private frmStockOrder: FormGroup;
     @Input() orderObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
 
@@ -114,4 +116,9 @@ export class StockOrderDetailComponent implements OnInit {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     }
+
+    navigateToProduct() {
+        this.navigationService.maximizeOrUnmaximize('/product', this.order.data.productId, this.path, false)
+    }
+    
 }

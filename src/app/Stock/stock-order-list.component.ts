@@ -19,6 +19,7 @@ export class StockOrderListComponent implements OnInit {
     private orders; //: Observable<any>;
     @Input() ordersObservable: Observable<any>;
     @Input() state;    
+    @Input() path: string
     @Output() stateChanged= new EventEmitter();
 
     subscriptionOrders: Subscription

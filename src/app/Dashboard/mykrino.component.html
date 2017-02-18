@@ -80,7 +80,7 @@
 			</ngb-tab>
 			<ngb-tab title="My stock orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
 				<template ngbTabContent>
-					<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
+					<gg-stock-order-list [state]="state.StockOrders" [path]="'mykrino|O:StockOrders'" [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My fridge orders" id="tabFridgeOrders" *ngIf="((fridgeOrdersObservable |async) || []).length>0">

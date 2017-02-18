@@ -16,14 +16,20 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 export class StockComponentRoutable implements OnInit {
     constructor(private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private route: ActivatedRoute) { }
 
-    state: {}
+    state
     initTabId= ''
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
 
+    private stateInit() {
+        if (!this.state) this.state = {};
+        if (!this.state.selectedTabId) this.state.selectedTabId = this.initTabId;
+    }
+
     ngOnInit(): void {
+        this.stateInit()
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
@@ -46,6 +52,7 @@ export class StockComponentRoutable implements OnInit {
          this.subscriptionState.unsubscribe()
     }
         
+
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription     
     private subscriptionState: Subscription 

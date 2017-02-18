@@ -25,7 +25,7 @@
                     </div>														
 				</template>
 				<template ngbPanelContent>
-                    <gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" 
+                    <gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id"
 							 (stateChanged)="childStateChanged($event, order.data._id)"></gg-stock-order-detail>
 				</template>
 			</ngb-panel>

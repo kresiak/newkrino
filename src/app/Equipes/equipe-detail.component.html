@@ -114,7 +114,7 @@
 	</ngb-tab>
 	<ngb-tab title="Stock Orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
 		<template ngbTabContent>
-			<gg-stock-order-list [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
+			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'"></gg-stock-order-list>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Used Vouchers" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
