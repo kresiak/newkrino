@@ -62,6 +62,11 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Spending" id="tabSpending">
+		<template ngbTabContent>
+			<gg-equipe-bilan [bilanObservable]="bilanObservable"></gg-equipe-bilan>
+		</template>
+	</ngb-tab>
 	<ngb-tab title="Charts" id="tabCharts">
 		<template ngbTabContent>
 			<div class="card">

@@ -57,6 +57,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByEquipe(eq.data._id)
                 this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfEquipeByDate(eq.data._id)
 
+                this.bilanObservable= this.orderService.getBilanForEquipe(eq.data._id)
             }
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -85,6 +86,7 @@ export class EquipeDetailComponent implements OnInit {
     private fridgeOrdersObservable: Observable<any>;
     private stockOrdersObservable: Observable<any>;
     private webVouchersObservable: Observable<any>
+    private bilanObservable: Observable<any>
 
     private equipe: any;
     private anyOrder: boolean;

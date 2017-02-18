@@ -119,6 +119,27 @@ export class OrderService {
         return orders.length === 0 ? 0 : orders.map(order => this.getTotalOfOrder(order)).reduce((a, b) => a + b);
     }
 
+    private getTotalOfVoucherOrders(orders): number {
+        return orders.length === 0 ? 0 : orders.filter(order => order.shopping).map(order => +order.shopping.total).reduce((a, b) => a + b, 0);
+    }
+
+    private getTotalOfFridgeOrders(orders, products): number {
+        return orders.length === 0 ? 0 : orders.filter(order => order.isDelivered).map(order => {
+            let product= products.filter(p => p._id===order.productId)[0]
+            return product ? +product.price * order.quantity : 0
+        }).reduce((a, b) => a + b, 0);
+    }
+
+    private getTotalOfStockOrders(orders, products, stockItems): number {
+        return orders.length === 0 ? 0 : orders.filter(order => order.isProcessed && order.stockItemIds).map(order => {            
+            let product= products.filter(p => p._id===order.productId)[0]
+            let stockItem= stockItems.filter(item => item._id === order.stockItemIds[0])[0]
+            return product && stockItem ? (+product.price / +stockItem.divisionFactor) * +order.quantity : 0
+        }).reduce((a, b) => a + b, 0);
+    }
+
+
+
     private mapOldKrinoStatus(id: number){
         var map={
             1: 'Ready',
@@ -338,6 +359,33 @@ export class OrderService {
 
     // equipes
     // =======
+
+    private createBilanForEquipe(equipeId, orders: any[], ordersFridge: any[], ordersStock: any[], ordersVoucher: any[], products: any[], stockItems: any[]){
+        let ordersFiltered = orders.filter(order => order.equipeId === equipeId);
+        let ordersFridgeFiltered = ordersFridge.filter(order => order.equipeId === equipeId);
+        let ordersStockFiltered = ordersStock.filter(order => order.equipeId === equipeId);
+        let ordersVoucherFiltered = ordersVoucher.filter(order => order.shopping && order.shopping.equipeId === equipeId);
+
+        return {
+            totalOrders: this.getTotalOfOrders(ordersFiltered),
+            totalFridgeOrders: this.getTotalOfFridgeOrders(ordersFridgeFiltered, products),
+            totalVoucherOrders: this.getTotalOfVoucherOrders(ordersVoucherFiltered),
+            totalStockOrders: this.getTotalOfStockOrders(ordersStockFiltered, products, stockItems)
+        }
+    }
+
+    getBilanForEquipe(equipeId) {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('orders'),
+            this.dataStore.getDataObservable('orders.fridge'),
+            this.dataStore.getDataObservable('orders.stock'),
+            this.dataStore.getDataObservable('orders.vouchers'),
+            this.dataStore.getDataObservable('products'),
+            this.dataStore.getDataObservable('products.stock'),
+            (orders: any[], ordersFridge: any[], ordersStock: any[], ordersVoucher: any[], products: any[], stockItems: any[]) => {
+                return this.createBilanForEquipe(equipeId, orders, ordersFridge, ordersStock, ordersVoucher, products, stockItems)
+            });        
+    }
 
     private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[]) {
         if (!equipe) return null;

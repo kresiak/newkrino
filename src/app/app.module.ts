@@ -69,6 +69,7 @@ import {EquipeGroupListComponent} from './Equipes/equipe-group-list.component'
 import {EquipeGroupDetailComponent} from './Equipes/equipe-group-detail.component'
 import {EquipeGiftEnterComponent} from './Equipes/equipe-gift-enter.component'
 import {EquipeGiftGridComponent} from './Equipes/equipe-gift-grid.component'
+import {EquipeBilanComponent} from './Equipes/equipe-bilan.component'
 
 
 import {BasketRoutableComponent} from './Orders/basket.routable.component'
@@ -181,7 +182,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable,
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
-                  EquipeGiftGridComponent,
+                  EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
