@@ -31,7 +31,7 @@
 				<ngb-panel *ngFor="let category of categories" [id]="category.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{category.data._id}}">
-							<div class="col-sm-3">{{category.data.name}}</div>
+							<div class="col-sm-3" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
 							<div class="col-sm-4">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
 							<div class="col-sm-4">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
 						</div>

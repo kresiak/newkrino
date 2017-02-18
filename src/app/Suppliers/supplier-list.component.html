@@ -36,7 +36,7 @@
 				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{supplier.data._id}}">
-							<div class="col-sm-3">{{supplier.data.name}}</div>
+							<div class="col-sm-3" [style.font-weight]="supplier.data._id === state.openPanelId ? 'bold' : 'lighter'">{{supplier.data.name}}</div>
 							<div class="col-sm-2">{{supplier.data.city}}</div>
 							<div class="col-sm-2">{{supplier.data.country}}</div>
 							<div class="col-sm-2">{{supplier.data.client}}</div>

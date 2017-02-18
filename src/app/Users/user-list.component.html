@@ -32,7 +32,7 @@
 				<ngb-panel *ngFor="let user of users" [id]="user.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{user.data._id}}">
-							<div class="col-sm-3">{{user.annotation.fullName}}</div>
+							<div class="col-sm-3" [style.font-weight]="user.data._id === state.openPanelId ? 'bold' : 'lighter'">{{user.annotation.fullName}}</div>
 							<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
 							<div class="col-sm-2">{{user.data.isBlocked}}</div>
 							<div class="col-sm-2">{{user.data.isAdmin}}</div>

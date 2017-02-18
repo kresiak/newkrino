@@ -43,7 +43,7 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{order.data._id}}">
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
-							<div class="col-sm-1">{{order.data.kid}}</div>
+							<div class="col-sm-1" [style.font-weight]="order.data._id === state.openPanelId ? 'bold' : 'lighter'">{{order.data.kid}}</div>
 							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
 							<div class="col-sm-2">{{order.annotation.user}}/{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup
 								: 'unknown equipe')}}</div>

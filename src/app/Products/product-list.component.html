@@ -42,7 +42,7 @@
 				<ngb-panel *ngFor="let product of products" [id]="product.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{product.data._id}}">
-							<div class="col-sm-3">{{product.data.name}}</div>
+							<div class="col-sm-3" [style.font-weight]="product.data._id === state.openPanelId ? 'bold' : 'lighter'">{{product.data.name}}</div>
 							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
 							<div class="col-sm-1">{{product.data.package}}</div>
 							<div class="col-sm-2">{{product.data.catalogNr}}</div>
