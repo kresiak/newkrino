@@ -40,6 +40,19 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isAdmin
     }
 
+    isReceptionist() {
+        return this.annotatedUser && this.annotatedUser.data.isReceptionist
+    }
+
+    isLabManager() {
+        return this.annotatedUser && this.annotatedUser.data.isLabManager
+    }
+
+    isProgrammer() {
+        return this.annotatedUser && this.annotatedUser.data.isProgrammer
+    }
+
+
 }
 
 @Injectable()
