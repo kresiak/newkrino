@@ -35,6 +35,7 @@ export class OrderListComponentRoutable implements OnInit {
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence()
         this.ordersObservable = this.orderService.getAnnotedOrdersByNewest()
         this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersAll()
+        this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersByDate()
 
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
@@ -58,6 +59,8 @@ export class OrderListComponentRoutable implements OnInit {
     private fridgeOrdersObservable: Observable<any>;
     private suppliersObservable: Observable<any>;
     private ordersObservable: Observable<any>;
+    private webVouchersObservable: Observable<any>;
+
     private stockOrdersObservable: Observable<any>;    
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription 
