@@ -7,7 +7,7 @@
         </div>
         <div class="row">
 
-            <div class="col-sm-3">{{product.values[0].annotation.product}}</div>
+            <div class="col-sm-3 imgSearch" (click)="navigateToProduct()">{{product.values[0].annotation.product}}</div>
             <div class="col-sm-3">{{getNbAvailable()}}</div>
             <div class="col-sm-3">                
                 <input type="number" min="0" [max]="getNbOrderable()" formControlName="quantity" />

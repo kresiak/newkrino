@@ -21,6 +21,7 @@ export class StockListComponent implements OnInit {
     private products; //: Observable<any>;
     @Input() productsObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Input() accentOnOrdering: boolean = true
     @Output() stateChanged= new EventEmitter();
 

@@ -4,7 +4,7 @@
 		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn" [activeId]="state.selectedTabId">
 			<ngb-tab title="Put an order from stock" id="tabAvailable">
 				<template ngbTabContent>
-                    <gg-stock-list [productsObservable]= "productsObservable"></gg-stock-list>
+                    <gg-stock-list [productsObservable]= "productsObservable" [path]="'stock|O:Available'" [state]="state.Available"></gg-stock-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="Orders" id="tabOrders" >

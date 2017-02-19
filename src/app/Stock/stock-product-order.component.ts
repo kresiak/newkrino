@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthService } from './../Shared/Services/auth.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -14,7 +15,7 @@ import * as moment from "moment"
     }
 )
 export class StockProductEnterComponent implements OnInit {
-    constructor(private authService: AuthService, private dataStore: DataStore, private formBuilder: FormBuilder) {
+    constructor(private authService: AuthService, private navigationService: NavigationService, private dataStore: DataStore, private formBuilder: FormBuilder) {
 
     }
 
@@ -22,6 +23,9 @@ export class StockProductEnterComponent implements OnInit {
     private frmStockOrder: FormGroup;
 
     @Input() productObservable: Observable<any>;
+    @Input() state;
+    @Input() path: string
+    
 
     formStockInit() {
 
@@ -65,4 +69,9 @@ export class StockProductEnterComponent implements OnInit {
     getNbOrderable() {
         return this.getNbAvailable()-this.product.values[0].annotation.nbReservedByMe
     }
+
+    navigateToProduct() {
+        this.navigationService.maximizeOrUnmaximize('/product', this.product.key, this.path, false)
+    }
+    
 }
