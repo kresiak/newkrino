@@ -563,6 +563,30 @@ export class ProductService {
             });
     }
 
+    getAdminMonitorForCurrentUser() {
+       return Observable.combineLatest(this.dataStore.getDataObservable('admin.monitor'), this.authService.getUserIdObservable(), (monitorConfigs, currentUserId) => {
+           return monitorConfigs.filter(c => c.userId===currentUserId)[0] || {
+               userId: currentUserId,
+               otp: {
+                   ids: [],
+                   amount: 1000
+               },
+               equipe: {
+                   ids: [],
+                   amount: 1000
+               },
+               user: {
+                   ids: [],
+                   amount: 1000
+               },
+               category: {
+                   ids: [],
+                   amount: 1000
+               }
+           }
+       })
+    }
+
 
     getAnnotatedRecentLogs(nbHours: number): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('orders.log'), this.dataStore.getDataObservable('users.krino'), this.dataStore.getDataObservable('equipes'),

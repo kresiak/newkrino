@@ -24,6 +24,19 @@ export class MonitoringDetailComponent implements OnInit {
         this.selectableEquipes = this.orderService.getSelectableEquipes();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectableOtps = this.orderService.getSelectableOtps();
+
+        this.subscribeConfig= this.productService.getAdminMonitorForCurrentUser().subscribe(res => {
+            this.config= res
+
+            this.userIds= Observable.from([this.config.user.ids])
+            this.equipeIds= Observable.from([this.config.equipe.ids])
+            this.otpIds= Observable.from([this.config.otp.ids])
+            this.categoryIds= Observable.from([this.config.category.ids])
+        })
+    }
+
+    ngOnDestroy(): void {
+         this.subscribeConfig.unsubscribe()
     }
 
     private selectableUsers: Observable<SelectableData[]>;
@@ -31,36 +44,59 @@ export class MonitoringDetailComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectableOtps: Observable<SelectableData[]>;
 
-    userSelectionChanged(user) {
+    private subscribeConfig: Subscription
+    private config
+    private userIds
+    private equipeIds
+    private otpIds
+    private categoryIds
 
+    userSelectionChanged(selectedIds: string[]) {
+        this.config.user.ids = selectedIds;
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
     userExpensesChanged(sumUser) {
-
+        this.config.user.amount= sumUser
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
-    equipeSelectionChanged(equipe) {
-
+    equipeSelectionChanged(selectedIds: string[]) {
+        this.config.equipe.ids = selectedIds;
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
     equipeExpensesChanged(sumEquipe) {
-
+        this.config.equipe.amount= sumEquipe
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
-    categorySelectionChanged(category) {
-
+    categorySelectionChanged(selectedIds: string[]) {
+        this.config.category.ids = selectedIds;
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
     categoryExpensesChanged(sumCategory) {
-
+        this.config.category.amount= sumCategory
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
-    otpSelectionChanged(otp) {
-
+    otpSelectionChanged(selectedIds: string[]) {
+        this.config.otp.ids = selectedIds;
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
     otpExpensesChanged(sumOtp) {
-
+        this.config.otp.amount= sumOtp
+        if (this.config._id) this.dataStore.updateData('admin.monitor', this.config._id, this.config)
+        if (!this.config._id) this.dataStore.addData('admin.monitor', this.config)
     }
 
     

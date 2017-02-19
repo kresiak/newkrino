@@ -61,12 +61,12 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.userMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Users monitoring
+					Users activity
 				</div>
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
-					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let log of labManagerMessages.userMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</li>
+					<ul class="card-text text-xs-left spending">
+						<li *ngFor="let log of labManagerMessages.userMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> </li>
 					</ul>
 				</div>
 			</div>
