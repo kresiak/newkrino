@@ -17,6 +17,7 @@ import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
 import {AdminAK} from './Admin/AK/component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
+import {MonitoringDetailComponent}  from './Admin/Monitoring/monitoring-detail.component'
 
 import {VoucherListComponent} from './Admin/Webshopping/voucher-list.component'
 import {VoucherDetailComponent} from './Admin/Webshopping/voucher-detail.component'
@@ -167,7 +168,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           ])
    ],
   declarations: [ AppComponent, HomeComponent, 
-                  VoucherListComponent, VoucherDetailComponent,
+                  VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
                   AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
