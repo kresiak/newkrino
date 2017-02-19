@@ -3,7 +3,7 @@ import { UserService } from '../Shared/Services/user.service'
 import { ProductService } from '../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
-
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 @Component(
     {
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     initTabId = ''
 
 
-    constructor(private userService: UserService, private authService: AuthService, private productService: ProductService) {
+    constructor(private userService: UserService, private authService: AuthService, private productService: ProductService, private navigationService: NavigationService) {
 
     }
 
@@ -44,5 +44,9 @@ export class DashboardComponent implements OnInit {
 
 
     private dashletsObservable: Observable<any>;
+
+    navigateToOrder(id) {
+        this.navigationService.maximizeOrUnmaximize('/order', id, 'dashboard', false)
+    }
 
 }

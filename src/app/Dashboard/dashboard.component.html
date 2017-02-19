@@ -66,7 +66,53 @@
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
 					<ul class="card-text text-xs-left spending">
-						<li *ngFor="let log of labManagerMessages.userMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> </li>
+						<li *ngFor="let log of labManagerMessages.userMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.equipeMonitors.length>0">
+			<div class="card text-xs-center card-outline-primary">
+				<div class="card-header">
+					Equipes activity
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">Following orders</h6>
+					<ul class="card-text text-xs-left spending">
+						<li *ngFor="let log of labManagerMessages.equipeMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.otpMonitors.length>0">
+			<div class="card text-xs-center card-outline-primary">
+				<div class="card-header">
+					Otp usage
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">Following orders</h6>
+					<ul class="card-text text-xs-left spending">
+						<li *ngFor="let log of labManagerMessages.otpMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.categoryMonitors.length>0">
+			<div class="card text-xs-center card-outline-primary">
+				<div class="card-header">
+					Products usage
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">Following orders</h6>
+					<ul class="card-text text-xs-left spending">
+						<li *ngFor="let log of labManagerMessages.categoryMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
 					</ul>
 				</div>
 			</div>

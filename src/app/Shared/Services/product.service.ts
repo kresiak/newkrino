@@ -544,8 +544,8 @@ export class ProductService {
 
     getLmWarningMessages(): Observable<any> {
         return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.getAnnotatedStockOrdersAll(), this.getOpenRequestedVouchers(), this.getAnnotatedUsedVouchersReadyForSap(),
-            this.authService.getUserIdObservable(), this.getAnnotatedRecentLogs(24), this.dataStore.getDataObservable('admin.monitor'),
-            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, currentUserId, logs, monitors) => {
+            this.getAnnotatedRecentLogs(24), this.getAdminMonitorForCurrentUser(),
+            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig) => {
                 let annotatedFridgeOrdersOk = annotatedFridgeOrders.filter(o => !o.data.isDelivered)
                 let annotatedStockOrdersOk = annotatedStockOrders.filter(o => !o.data.isProcessed)
                 
@@ -555,10 +555,10 @@ export class ProductService {
                     stockOrders: annotatedStockOrdersOk,
                     requestVouchers: openRequestVouchers,
                     usedVouchers: usedVouchers,       
-                    equipeMonitors: logs.filter(log => log.data.type==='equipe'),
-                    otpMonitors: logs.filter(log => log.data.type==='otp'),
-                    userMonitors: logs.filter(log => log.data.type==='user'),
-                    categoryMonitors: logs.filter(log => log.data.type==='category')
+                    equipeMonitors: logs.filter(log => log.data.type==='equipe' && adminConfig.equipe.ids.includes(log.data.id) && log.data.amount > adminConfig.equipe.amount),
+                    otpMonitors: logs.filter(log => log.data.type==='otp' && adminConfig.otp.ids.includes(log.data.id) && log.data.amount > adminConfig.otp.amount),
+                    userMonitors: logs.filter(log => log.data.type==='user' && adminConfig.user.ids.includes(log.data.id) && log.data.amount > adminConfig.user.amount),
+                    categoryMonitors: logs.filter(log => log.data.type==='category' && adminConfig.category.ids.includes(log.data.id) && log.data.amount > adminConfig.category.amount)
                 }
             });
     }
