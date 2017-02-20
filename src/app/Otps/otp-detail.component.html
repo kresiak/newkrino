@@ -69,6 +69,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">is deleted:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="otp.data.isDeleted" (editSaved)="deletedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-2">
 							<img *ngIf="!otp.annotation.dashletId" src="../../images/pin.png" (click)="setDashlet()" />
 							<img *ngIf="otp.annotation.dashletId" src="../../images/unpin.png" (click)="removeDashlet(otp.annotation.dashletId)" />

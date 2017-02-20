@@ -164,6 +164,12 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    deletedUpdated(flg) {
+        this.otp.data.isDeleted = flg;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+
     closedUpdated(close) {
         this.otp.data.isClosed = close;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);

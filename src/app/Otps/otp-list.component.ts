@@ -45,7 +45,7 @@ export class OtpListComponent implements OnInit {
 
 
         this.subscriptionOtps= Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (otps, searchTxt: string) => {
-            if (searchTxt.trim() === '') return otps;
+            if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted);
             return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                 || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(otps => this.otps = otps);
