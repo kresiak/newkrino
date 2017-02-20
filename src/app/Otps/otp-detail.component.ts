@@ -129,6 +129,7 @@ export class OtpDetailComponent implements OnInit {
     }
 
     equipeChanged(newid) {
+        if (!newid) return
         this.otp.data.equipeId = newid;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
@@ -150,6 +151,11 @@ export class OtpDetailComponent implements OnInit {
 
     budgetUpdated(budget) {
         this.otp.data.budget = budget;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    limitedToOwnerUpdated(flg) {
+        this.otp.data.isLimitedToOwner = flg;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

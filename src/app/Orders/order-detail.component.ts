@@ -42,6 +42,8 @@ export class OrderDetailComponent implements OnInit {
     private subscriptionOrder: Subscription
 
     private otpListObservable: any
+    private equipeListObservable
+
 
 
     ngOnInit(): void {
@@ -52,6 +54,13 @@ export class OrderDetailComponent implements OnInit {
             return {
                 id: otp.data._id,
                 name: otp.data.name
+            }
+        }));
+
+        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+            return {
+                id: eq.data._id,
+                name: eq.data.name
             }
         }));
 
@@ -69,9 +78,9 @@ export class OrderDetailComponent implements OnInit {
         this.subscriptionOrder.unsubscribe()
     }
 
-    private saveDelivery(orderItem, formData) {        
-        var self= this
-        let saveOrder = function (deliveryData, stockId: string='') {
+    private saveDelivery(orderItem, formData) {
+        var self = this
+        let saveOrder = function (deliveryData, stockId: string = '') {
             if (stockId !== '') deliveryData['stockId'] = stockId;
             orderItem.data.deliveries.push(deliveryData);
             self.dataStore.updateData('orders', self.order.data._id, self.order.data);
@@ -88,21 +97,21 @@ export class OrderDetailComponent implements OnInit {
             deliveryData['lotNb'] = formData.lot
         }
         if (orderItem.annotation.isStockProduct && formData.resell) {
-            let qty= +formData.qty * +orderItem.annotation.stockDivisionFactor
+            let qty = +formData.qty * +orderItem.annotation.stockDivisionFactor
             let prodData = {
                 productId: orderItem.data.productId,
                 quantity: qty,
                 divisionFactor: orderItem.annotation.stockDivisionFactor,
                 package: orderItem.annotation.stockPackaging,
-                lotNumber: formData.lot, 
+                lotNumber: formData.lot,
                 history: [{ userId: this.authorizationStatusInfo.currentUserId, date: moment().format('DD/MM/YYYY HH:mm:ss'), quantity: qty, orderId: this.order.data._id }]
             };
             this.dataStore.getDataObservable('products.stock').first().subscribe(stockItems => {
-                let stockItem = stockItems.filter(si => si.productId === prodData.productId && si.divisionFactor === prodData.divisionFactor 
-                                                                                             && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]
+                let stockItem = stockItems.filter(si => si.productId === prodData.productId && si.divisionFactor === prodData.divisionFactor
+                    && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]
                 if (stockItem) {
                     stockItem.quantity += prodData.quantity;
-                    (stockItem.history= stockItem.history || []).push(prodData.history[0])
+                    (stockItem.history = stockItem.history || []).push(prodData.history[0])
                     this.dataStore.updateData('products.stock', stockItem._id, stockItem)
                     saveOrder(deliveryData, stockItem._id)
                 }
@@ -116,7 +125,7 @@ export class OrderDetailComponent implements OnInit {
         else {
             saveOrder(deliveryData)
         }
-        orderItem.annotation.nbDelivered+= +formData.qty // for performance reason in responseness, even if observable will bring it back anyway
+        orderItem.annotation.nbDelivered += +formData.qty // for performance reason in responseness, even if observable will bring it back anyway
     }
 
     private selectedDeliveryItem;
@@ -133,6 +142,11 @@ export class OrderDetailComponent implements OnInit {
         });
     }
 
+    equipeChanged(newid) {
+        if (!newid) return
+        this.order.data.equipeId = newid;
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
 
 
     private order;
@@ -170,7 +184,7 @@ export class OrderDetailComponent implements OnInit {
 
     navigateToProduct(productId) {
         this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
-    }    
+    }
 
     deleteOrder() {
         if (!this.order.data.status) this.order.data.status = { history: [] }

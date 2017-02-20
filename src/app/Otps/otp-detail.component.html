@@ -51,6 +51,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">is limited to owner equipe:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
