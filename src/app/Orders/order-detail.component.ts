@@ -169,8 +169,7 @@ export class OrderDetailComponent implements OnInit {
     }
 
     navigateToProduct(productId) {
-        let link = ['/product', productId];
-        this.router.navigate(link);
+        this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
     }    
 
     deleteOrder() {

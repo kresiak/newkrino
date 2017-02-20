@@ -18,7 +18,7 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.stockOrders.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					Stock Orders <a [routerLink]="['/stock']" [queryParams]="{tab:'tabOrders'}">open them</a>
+					Stock Orders <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewStock'}">open them</a>
 				</div>
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>

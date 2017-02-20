@@ -31,7 +31,7 @@ export class OrderListComponentRoutable implements OnInit {
 
 
     ngOnInit(): void {
-        this.stateInit()
+        
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence()
         this.ordersObservable = this.orderService.getAnnotedOrdersByNewest()
         this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersAll()
@@ -48,6 +48,7 @@ export class OrderListComponentRoutable implements OnInit {
 
         this.route.queryParams.first().subscribe(queryParams => {
             this.initTabId = queryParams['tab'];
+            this.stateInit()
         })     
     }
 
