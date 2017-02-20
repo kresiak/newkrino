@@ -45,10 +45,10 @@ export class HomeComponent implements OnInit {
             this.receptionList = receptions ? receptions : [];
         });        
 
-        this.apiService.callWebService('krino2sap', {}).map(res => res.json()).subscribe(res => {
+/*        this.apiService.callWebService('krino2sap', {}).map(res => res.json()).subscribe(res => {
             let x= res
         })
-
+*/
         this.orderService.getAnnotatedMessages().map(messages => messages.filter(message => !message.data.isDisabled)).subscribe(res => {
             this.messageList= res
         })

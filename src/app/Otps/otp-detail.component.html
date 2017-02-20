@@ -13,7 +13,9 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4">equipe:</div>
-						<div class="col-sm-6">{{otp.annotation.equipe}}</div>
+						<div class="col-sm-6">
+							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">total budget:</div>

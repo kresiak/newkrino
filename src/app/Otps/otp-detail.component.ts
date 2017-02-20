@@ -29,7 +29,7 @@ export class OtpDetailComponent implements OnInit {
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
-    @Input() isRoot: boolean=false
+    @Input() isRoot: boolean = false
     @Output() stateChanged = new EventEmitter()
 
     private stateInit() {
@@ -37,11 +37,13 @@ export class OtpDetailComponent implements OnInit {
         if (!this.state.selectedTabId) this.state.selectedTabId = '';
     }
 
+    private equipeListObservable
+
     ngOnInit(): void {
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
-        this.subscriptionOtp= this.otpObservable.subscribe(otp => {
+        this.subscriptionOtp = this.otpObservable.subscribe(otp => {
             this.otp = otp;
 
             if (otp) {
@@ -50,16 +52,24 @@ export class OtpDetailComponent implements OnInit {
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
             }
         });
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
         });
+
+        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+            return {
+                id: eq.data._id,
+                name: eq.data.name
+            }
+        }));
+
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionOtp.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionOtp.unsubscribe()
     }
-    
+
 
     //private model;
     private otp;
@@ -68,8 +78,8 @@ export class OtpDetailComponent implements OnInit {
     private selectedCategoryIdsObservable: Observable<any>;
     private anyOrder: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription     
-    private subscriptionOtp: Subscription     
+    private subscriptionAuthorization: Subscription
+    private subscriptionOtp: Subscription
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;
@@ -107,8 +117,8 @@ export class OtpDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.jumpToTop()
             return
-        }        
-        
+        }
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -116,6 +126,11 @@ export class OtpDetailComponent implements OnInit {
     private childOrdersStateChanged($event) {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
+    }
+
+    equipeChanged(newid) {
+        this.otp.data.equipeId = newid;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
     dateUpdated(date) {

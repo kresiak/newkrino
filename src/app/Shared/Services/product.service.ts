@@ -393,6 +393,7 @@ export class ProductService {
     }
 
     public createVoucher(record): Observable<any> {
+        this.dataStore.setLaboNameOnRecord(record)
         var obs = this.apiService.callWebService('createVoucher', record).map(res => res.json());
 
         obs.subscribe(res => {
