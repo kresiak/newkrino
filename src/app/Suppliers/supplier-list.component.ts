@@ -57,8 +57,8 @@ export class SupplierListComponent implements OnInit {
                     (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) || 
                     (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) || 
                     (supplier.data.oldId && supplier.data.oldId.toString().toUpperCase().includes(txt)) || 
-                    (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt)) || 
-                    (supplier.data.client && supplier.data.client.toUpperCase().includes(txt))
+                    (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt)) 
+                    
             });
         }).subscribe(suppliers => {
             this.suppliers = suppliers

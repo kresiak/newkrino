@@ -41,7 +41,6 @@ export class OtpEnterComponent implements OnInit {
             isBlocked: [''],
             isClosed: [''],
             isLimitedToOwner: [''],
-            client: [''],
             note: ['']
         });
     }
@@ -57,7 +56,6 @@ export class OtpEnterComponent implements OnInit {
             isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
             isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
             equipeId: this.equipeId,
-            client: formValue.client,
             note: formValue.note,
             categoryIds: this.selectedIds
         }).first().subscribe(res => {
