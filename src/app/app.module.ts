@@ -98,6 +98,7 @@ import {UnMaximizeComponent} from './Dashboard/unmaximize.component'
 
 import {Editor} from './ui/editor/editor'
 import {EditorAutocomplete} from './ui/editor/editor-autocomplete'
+import {EditorAutocompleteText} from './ui/editor/editor-autocomplete-text'
 import {EditorNumber} from './ui/editor/editor-number'
 import {EditorDate} from './ui/editor/editor-date'
 import {EditorBoolean} from './ui/editor/editor-boolean'
@@ -186,7 +187,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
-                  Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete,
+                  Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService ],
