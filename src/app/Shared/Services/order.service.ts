@@ -42,6 +42,8 @@ export class OrderService {
         //orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
+        if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
+        if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
         return {
             data: otp,
             annotation: {

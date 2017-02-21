@@ -25,7 +25,7 @@ export class EquipeEnterComponent implements OnInit {
         this.selectableUsers = this.authService.getSelectableUsers();
 
         this.equipeForm = this.formBuilder.group({                      
-            name: ['', [Validators.required, Validators.minLength(5)]],
+            name: ['', [Validators.required, Validators.minLength(2)]],
             description: ['', Validators.required],
             nbOfMonthAheadAllowed: [''],
             isBlocked: ['']
