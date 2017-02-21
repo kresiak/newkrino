@@ -1,38 +1,55 @@
-<div class="card" *ngIf="products && products.length > 0">
+<template #searchPopContent>
+	<ul>
+		<li>tip: the product's name contains the string 'tip'</li>
+	</ul>
+</template>
+
+
+<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific product</div></template>
+
+<div class="card" *ngIf="products ">
 	<div class="card-block">
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-			<ngb-panel [disabled]="true">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-3"><b>Product</b></div>
-                        <div class="col-sm-3"><b>Supplier</b></div>
-                        <div class="col-sm-2"><b>Available</b></div>
-						<div *ngIf="accentOnOrdering" class="col-sm-2"><b>Reserved by myself</b></div>
-                    </div>														
-				</template>
-				<template ngbPanelContent>
-				</template>				
-			</ngb-panel>
-			<ngb-panel *ngFor="let product of products" [id]="product.key">
-				<template ngbPanelTitle>
-                    <div class="row">
-                        <div class="col-sm-3">{{product.values[0].annotation.product}}</div>
-                        <div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
-                        <div class="col-sm-2">{{nbAvailable(product)}}</div>
-						<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
-                    </div>														
-				</template>
-				<template ngbPanelContent>
-					<gg-stock-product-enter [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
+		<div class="row">
+			<div [formGroup]="searchForm">
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+				/>
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
+					src="../../images/close.png" (click)="resetSerachControl()" />
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3"><b>Product</b></div>
+							<div class="col-sm-3"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>Available</b></div>
+							<div *ngIf="accentOnOrdering" class="col-sm-2"><b>Reserved by myself</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let product of products" [id]="product.key">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3">{{product.values[0].annotation.product}}</div>
+							<div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
+							<div class="col-sm-2">{{nbAvailable(product)}}</div>
+							<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-stock-product-enter [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
 							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-product-enter>
-<!--					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
+						<!--					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
 							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
--->				</template>
-			</ngb-panel>
-		</ngb-accordion>
+-->
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
 	</div>
 </div>
-
-
-
-
