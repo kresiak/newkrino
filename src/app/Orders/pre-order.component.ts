@@ -23,14 +23,24 @@ export class PreOrderComponent implements OnInit {
     private subscriptionAuthorization: Subscription 
     private subscriptionRoute: Subscription
     private subscriptionEquipeGroups: Subscription
+    private subscriptionProductBasket: Subscription
+
+    private isEnoughBudget: boolean= false
 
     ngOnInit(): void {
         this.subscriptionRoute= this.route.params.subscribe((params: Params) => {
-            let supplierId = params['id'];
+            let supplierId = params['id']
             if (supplierId) {
-                this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier);
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplierId);
-                this.productsBasketObservable.subscribe(products => this.productsInBasket= products);
+                this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier)
+                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplierId)
+                this.subscriptionProductBasket= this.productsBasketObservable.subscribe(pb => {
+                    this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
+                        var total= pb.map(item => item.annotation.totalPrice).reduce((a,b)=> a+b, 0)
+                        this.isEnoughBudget= total < eq.annotation.amountAvailable
+                    })
+                })
+                this.productsBasketObservable.subscribe(products => this.productsInBasket= products)
+                
             }
         });
 
@@ -55,6 +65,7 @@ export class PreOrderComponent implements OnInit {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionRoute.unsubscribe()
          this.subscriptionEquipeGroups.unsubscribe()
+         this.subscriptionProductBasket.unsubscribe()
     }
     
 

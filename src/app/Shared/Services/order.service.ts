@@ -428,6 +428,11 @@ export class OrderService {
         });
     }
 
+    getAnnotatedCurrentEquipe(): Observable<any> {
+        return this.getAnnotatedEquipes().map(equipes => equipes.filter(eq => eq.data._id===this.authService.getEquipeId())[0]) 
+    }
+
+
     getAnnotatedEquipesOfCurrentUser(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), (equipes, userId) => {
             return equipes.filter(equipe =>
