@@ -26,9 +26,11 @@ export class OtpChoiceService {
             return allowedCategories.filter(otpCategory => productCategories.includes(otpCategory)).length > 0;
         });
 
+        var pos= Math.floor(Math.random() * possibleOtps.length)
+
         return possibleOtps.length > 0 ? {
-            _id: possibleOtps[0].data._id, 
-            name: possibleOtps[0].data.name} : {
+            _id: possibleOtps[pos].data._id, 
+            name: possibleOtps[pos].data.name} : {
                 _id: undefined,
                 Name: 'no available Otp'
             } ;
