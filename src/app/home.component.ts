@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { SupplierService } from './Shared/Services/supplier.service';
+import { ProductService } from './Shared/Services/product.service'
 import { ApiService } from './Shared/Services/api.service';
 import { OrderService } from './Shared/Services/order.service'
 
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
     private messageList: any;
 
 
-    constructor(private supplierService: SupplierService, private apiService: ApiService, private orderService: OrderService) {
+    constructor(private supplierService: SupplierService, private apiService: ApiService, private orderService: OrderService, private productService: ProductService) {
         
 /*        var interval = Observable.interval(1000);
 
@@ -41,6 +42,9 @@ export class HomeComponent implements OnInit {
 
 
     ngOnInit(): void {
+
+        //this.productService.flagStockProducts()
+
         this.supplierService.getAnnotatedReceptions().map(receptions => receptions.filter(reception => !reception.data.isProcessed)).subscribe(receptions => {
             this.receptionList = receptions ? receptions : [];
         });        
