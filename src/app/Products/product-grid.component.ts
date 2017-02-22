@@ -40,6 +40,10 @@ export class ProductGridComponent implements OnInit
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 
             return products.filter(product => {
+                if (txt.startsWith('$S/')) {
+                    let txt2 = txt.slice(3);
+                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))                     
+                }                
                 if (txt.startsWith('!')) {
                     let txt2 = txt.slice(1);
                     return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
