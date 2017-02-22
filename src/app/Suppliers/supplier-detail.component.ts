@@ -32,12 +32,13 @@ export class SupplierDetailComponent implements OnInit {
     @Input() state;
     @Input() path: string
     @Input() isRoot: boolean = false
-    @Input() initialTab: string = '';
+    @Input() initialTab: string = 'tabProducts';
     @Output() stateChanged = new EventEmitter();
 
     private showAdminWebShoppingTab: boolean = true
 
     private stateInit() {
+        if (this.initialTab==='') this.initialTab='tabProducts' 
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
 
