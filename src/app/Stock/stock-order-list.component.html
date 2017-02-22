@@ -1,3 +1,9 @@
+<div class="card" *ngIf="!orders || orders.length === 0">
+	<div class="card-block">
+		<div class="centertextbox">No records yet in our database</div>
+	</div>
+</div>
+
 <div class="card" *ngIf="orders && orders.length > 0">
 	<div class="card-block">
 		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">

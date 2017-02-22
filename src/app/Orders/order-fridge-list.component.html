@@ -1,4 +1,11 @@
-<div class="card">
+<div class="card" *ngIf="!ordersList || ordersList.length === 0">
+	<div class="card-block">
+		<div class="centertextbox">No records yet in our database</div>
+	</div>
+</div>
+
+
+<div class="card" *ngIf="ordersList && ordersList.length > 0">
     <div class="card-block">
         <div class="container-fluid">
             <div class="row">

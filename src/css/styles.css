@@ -1,5 +1,11 @@
 /*trick to force height to be equal to width http://www.mademyday.de/css-height-equals-width-with-pure-css.html*/
 
+.centertextbox {
+    text-align: center;
+vertical-align: middle;
+line-height: 90px;
+}
+
 .akbox{
 	position: relative;
 	width: 50%;		/* desired width */
