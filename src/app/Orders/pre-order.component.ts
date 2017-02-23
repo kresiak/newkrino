@@ -35,6 +35,7 @@ export class PreOrderComponent implements OnInit {
                 this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplierId)
                 this.subscriptionProductBasket= this.productsBasketObservable.subscribe(pb => {
                     this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
+                        if (!eq) return
                         var total= pb.map(item => item.annotation.totalPrice).reduce((a,b)=> a+b, 0)
                         this.isEnoughBudget= total < eq.annotation.amountAvailable
                     })
