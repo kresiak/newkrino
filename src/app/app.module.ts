@@ -81,6 +81,9 @@ import {OrderListComponent} from './Orders/order-list.component'
 import {OrderListComponentRoutable} from './Orders/order-list.routable.component'
 import {OrderFridgeListComponent} from './Orders/order-fridge-list.component'
 
+import {SapComponentRoutable} from './Sap/sap-detail.routable.component'
+import {SapDetailComponent} from './Sap/sap-detail.component'
+
 import {StockListComponent} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'
 import {StockComponentRoutable} from './Stock/stock.routable.component'
@@ -117,6 +120,7 @@ import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
 import {OtpChoiceService} from './Shared/Services/otp-choice.service'
 import {UserService} from './Shared/Services/user.service'
+import {SapService} from './Shared/Services/sap.service'
 import {MenuService} from './Shared/Services/menu.service'
 import {ChartService} from './Shared/Services/chart.service'
 import {PrestationService} from './Shared/Services/prestation.service'
@@ -163,6 +167,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
+            { path: 'sap/:id', component: SapComponentRoutable },            
             { path: 'reception', component: ReceptionDetailComponent },
             { path: 'communication', component: CommunicationEnterComponent },
             { path: '**', redirectTo: '/home'}
@@ -187,10 +192,11 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
+                  SapComponentRoutable, SapDetailComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],
-  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService ],
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService, SapService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
