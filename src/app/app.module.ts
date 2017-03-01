@@ -83,6 +83,10 @@ import {OrderFridgeListComponent} from './Orders/order-fridge-list.component'
 
 import {SapComponentRoutable} from './Sap/sap-detail.routable.component'
 import {SapDetailComponent} from './Sap/sap-detail.component'
+import {SapSheetComponent} from './Sap/sap-sheet.component'
+import {SapListComponentRoutable} from './Sap/sap-list.routable.component'
+import {SapListComponent} from './Sap/sap-list.component'
+
 
 import {StockListComponent} from './Stock/stock-list.component'
 import {StockDetailComponent} from './Stock/stock-detail.component'
@@ -147,6 +151,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "suppliers", component: SupplierListComponentRoutable},
             { path: "equipes", component: EquipeListComponentRoutable},
             { path: "orders", component: OrderListComponentRoutable},
+            { path: "saps", component: SapListComponentRoutable},            
             { path: "categories", component: CategoryListComponentRoutable},
             { path: "otps", component: OtpListComponentRoutable},
             { path: 'otp/:id', component: OtpDetailComponentRoutable },
@@ -192,7 +197,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
-                  SapComponentRoutable, SapDetailComponent,
+                  SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],

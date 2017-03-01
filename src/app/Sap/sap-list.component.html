@@ -1,0 +1,54 @@
+<template #searchPopContent>
+	<ul>
+		<li>1245: si le Sap Id contient '1245'</li>
+        <li>vwr: si le fournisseur contient 'vwr'</li>
+	</ul>
+</template>
+
+<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific sap</div></template>
+
+<div class="card" id="asdfgh">
+	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" >
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-1"><b>Sap Id</b></div>
+							<div class="col-sm-2"><b>Date</b></div>
+							<div class="col-sm-2"><b>Amount</b></div>
+							<div class="col-sm-1"><b>Type</b></div>
+							<div class="col-sm-2"><b>Supplier</b></div>
+                            <div class="col-sm-4"><b>Otp</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId">
+					<template ngbPanelTitle>
+						<div class="row" id="{{sap.mainData.data.sapId}}">
+							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
+							<div class="col-sm-2" >{{sap.date}}</div>
+							<div class="col-sm-2">{{sap.mainData.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-1">{{sap.factured ? 'invoiced' : 'engaged'}}</div>
+							<div class="col-sm-2">{{ sap.mainData.data.supplier }}</div>
+                            <div class="col-sm-4">{{ getOtpText(sap) }}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId" (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+	</div>
+</div>

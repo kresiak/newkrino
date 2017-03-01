@@ -7,17 +7,13 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 
 @Component(
     {
-        //moduleId: module.id,
-        templateUrl: './otp-list.routable.component.html'
+        templateUrl: './sap-list.routable.component.html'
     }
 )
-export class OtpListComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService, private sapService: SapService) { }
+export class SapListComponentRoutable implements OnInit {
+    constructor(private navigationService: NavigationService, private authService: AuthService, private sapService: SapService) { }
 
     state: {}
-    equipesObservable: Observable<any>;
-
-    private otpsBySap
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
@@ -27,28 +23,23 @@ export class OtpListComponentRoutable implements OnInit {
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
             this.state= state
         })        
-        this.otpsObservable = this.orderService.getAnnotatedOtps();
-        this.equipesObservable = this.orderService.getAnnotatedEquipes();
+        this.sapsObservable = this.sapService.getSapItemsObservable();
+
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
 
-        this.subscriptionSapOtp= this.sapService.getSapOtpMapObservable().subscribe(otpMap => {
-            this.otpsBySap= Array.from(otpMap.entries())
-        })
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionState.unsubscribe()
-         this.subscriptionSapOtp.unsubscribe()
    }
     
 
-    private otpsObservable: Observable<any>;
+    private sapsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription    
     private subscriptionState: Subscription 
-    private subscriptionSapOtp: Subscription
 }
 

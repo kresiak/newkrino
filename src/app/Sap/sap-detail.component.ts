@@ -35,6 +35,9 @@ export class SapDetailComponent implements OnInit {
     private subscriptionAuthorization: Subscription
     private subscriptionSap: Subscription
 
+    private sapItem;
+    private sapEngage;
+    private sapFacture;    
 
     ngOnInit(): void {
         this.stateInit();
@@ -44,7 +47,9 @@ export class SapDetailComponent implements OnInit {
         });
 
         this.subscriptionSap = this.sapObservable.subscribe(res => {
-            this.sapItem= res.factured ? res.factured : res.engaged
+            this.sapItem= res.mainData
+            this.sapEngage= res.engaged
+            this.sapFacture= res.factured
         })
     }
 
@@ -53,8 +58,6 @@ export class SapDetailComponent implements OnInit {
         this.subscriptionSap.unsubscribe()
     }
 
-    private sapItem;
-
     navigateToProduct(productId) {
         this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
     }
@@ -62,7 +65,7 @@ export class SapDetailComponent implements OnInit {
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            //this.navigationService.maximizeOrUnmaximize('/sap', this.sap.data._id, this.path, this.isRoot)
+            this.navigationService.maximizeOrUnmaximize('/sap', this.sapItem.data.sapId, this.path, this.isRoot)
             return
         }
         if ($event.nextId === 'gotoTop') {

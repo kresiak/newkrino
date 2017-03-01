@@ -29,8 +29,8 @@ export class SapComponentRoutable implements OnInit {
                 let x= map
                 return map.has(+id) ? map.get(+id) : null}
             );
-            this.sapObservable.subscribe(res => {
-                if (res) this.sapItem= res.factured ? res.factured : res.engaged
+            this.sapObservable.subscribe(res => { 
+                if (res) this.sapItem= res.mainData
             })
         }
     }

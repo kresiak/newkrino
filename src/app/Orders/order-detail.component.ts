@@ -186,6 +186,11 @@ export class OrderDetailComponent implements OnInit {
         this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
     }
 
+    navigateToSap(sapId) {
+        this.navigationService.maximizeOrUnmaximize('/sap', sapId, this.path, false)
+    }
+
+
     deleteOrder() {
         if (!this.order.data.status) this.order.data.status = { history: [] }
         this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted' })

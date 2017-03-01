@@ -9,6 +9,18 @@
 
                 </template>
             </ngb-tab>
+            <ngb-tab title="View Sap Otps" id="tabViewSap">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row" *ngFor="let entry of otpsBySap">
+                                <div class="col-sm-3">{{entry[0]}}</div>
+                                <div class="col-sm-3">{{entry[1] | currency:'EUR':true:'1.2-2'}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
             <ngb-tab title="Create an Otp" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
