@@ -19,10 +19,19 @@ export class SapService {
     getSapIdMapObservable() : Observable<Map<number, any>> {
         return this.sapIdMapObservable
     }
+    
+    getSapItemObservable(sapId: number) : Observable<any> {
+        return this.getSapIdMapObservable().map(idMap => idMap.has(sapId) ? idMap.get(sapId) : null)
+    }
+
 
     getSapItemsObservable() : Observable<any> {
         return this.sapIdMapObservable.map(sapIdMap => {
-            return Array.from(sapIdMap.values()).sort((a,b) => b.mainData.data.sapId - a.mainData.data.sapId)
+            return Array.from(sapIdMap.values()).sort((v1, v2) => {
+            var d1 = moment(v1.date, 'DD/MM/YYYY').toDate()
+            var d2 = moment(v2.date, 'DD/MM/YYYY').toDate()
+            return d1 > d2 ? -1 : 1
+        }) 
         })
     }
     

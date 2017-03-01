@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-
+import { SapService } from './../Shared/Services/sap.service'
 
 @Component(
     {
@@ -28,7 +28,7 @@ export class SapListComponent implements OnInit {
 
     private saps;
 
-    constructor() {
+    constructor(private sapService: SapService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -53,7 +53,7 @@ export class SapListComponent implements OnInit {
    }
 
     getSapObservable(sapId: number) {
-        return this.sapsObservable.map(saps => saps.filter(sap => sap.mainData.data.sapId === sapId)[0]);
+        return this.sapService.getSapItemObservable(sapId)
     }
 
     // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)    
