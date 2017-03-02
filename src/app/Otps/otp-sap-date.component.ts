@@ -14,7 +14,7 @@ export class OtpSapByDateComponent implements OnInit {
 
     //private sapItemsSubscription: Subscription
     private sapItems
-    private sapTvacTotal: number
+    private sapTtotals: any
     private intialdate = '01/01/2015'
 
     private dateSaved = new EventEmitter();
@@ -23,12 +23,28 @@ export class OtpSapByDateComponent implements OnInit {
         this.dateSaved.subscribe(newDate => {
             this.sapService.getSapItemsObservableByOtpAndDate(this.otp, newDate).first().subscribe(res => {
                 this.sapItems = res
-                this.sapTvacTotal = this.sapItems.reduce((acc, item) => {
+                this.sapTtotals = this.sapItems.reduce((acc, item) => {
                     if (item.mainData.annotation.otpMap.has(this.otp)) {
-                        acc += item.mainData.annotation.otpMap.get(this.otp).totalTvac
+                        let obj = item.mainData.annotation.otpMap.get(this.otp)
+                        acc.mixedTvac += obj.totalTvac
+                        acc.mixedHtva += obj.totalHtva
+                    }
+                    if (item.factured && item.factured.annotation.otpMap.has(this.otp)) {
+                        let obj = item.factured.annotation.otpMap.get(this.otp)
+                        acc.facturedTvac += obj.totalTvac
+                        acc.facturedHtva += obj.totalHtva
+                    }
+                    if (item.engaged && item.engaged.annotation.otpMap.has(this.otp)) {
+                        let obj = item.engaged.annotation.otpMap.get(this.otp)
+                        acc.engagedTvac += obj.totalTvac
+                        acc.engagedHtva += obj.totalHtva
+                        if (!item.factured) {
+                            acc.engagedOnlyTvac += obj.totalTvac
+                            acc.engagedOnlyHtva += obj.totalHtva
+                        }
                     }
                     return acc
-                }, 0)
+                }, { engagedTvac: 0, engagedHtva: 0, engagedOnlyTvac: 0, engagedOnlyHtva: 0, facturedTvac: 0, facturedHtva: 0, mixedTvac: 0, mixedHtva: 0, })
             })
         })
         this.dateSaved.next(this.intialdate)
@@ -38,7 +54,7 @@ export class OtpSapByDateComponent implements OnInit {
         //this.sapItemsSubscription.unsubscribe()
     }
 
-    dateChanged(newDate) {        
-        this.dateSaved.next(moment(newDate, 'DD/MM/YYYY HH:mm:ss').format('DD/MM/YYYY'))
+    dateChanged(newDate) {
+        this.dateSaved.next(newDate)
     }
 }
