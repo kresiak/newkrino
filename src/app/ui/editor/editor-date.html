@@ -12,7 +12,7 @@
 </div>
 
 
-<div class="editor__output">{{content | fullDate}}</div>
+<div class="editor__output">{{content | shortDate }}</div>
 <div *ngIf="!readOnly && !editMode" class="editor__controls">
     <button (click)="edit()" class="editor__icon-edit"></button>
 </div>

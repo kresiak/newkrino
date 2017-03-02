@@ -13,6 +13,7 @@ import * as moment from "moment"
 export class EditorDate implements OnInit, OnChanges {
     @Input() readOnly: boolean= false;    
     @Input() content;
+    @Input() format= 'DD/MM/YYYY HH:mm:ss'
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() editSaved = new EventEmitter();
 
@@ -26,7 +27,7 @@ export class EditorDate implements OnInit, OnChanges {
             md= moment()
         } 
         else {
-            md = moment(date, 'DD/MM/YYYY HH:mm:ss')
+            md = moment(date, this.format)
         }
 
         var obj = { year: md.year(), month: md.month() + 1, day: md.date() };
@@ -39,7 +40,7 @@ export class EditorDate implements OnInit, OnChanges {
         md.month(obj.month - 1)
         md.year(obj.year)
 
-        return md.format('DD/MM/YYYY HH:mm:ss');       
+        return md.format(this.format);       
     }
 
     emptyContent() {
