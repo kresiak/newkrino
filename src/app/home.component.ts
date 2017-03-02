@@ -75,9 +75,9 @@ export class HomeComponent implements OnInit {
 
     }
 
-    private s1: Subscription
+/*    private s1: Subscription
     private s2: Subscription
-
+*/
     ngOnInit(): void {
 
         //this.productService.flagStockProducts()
@@ -94,9 +94,14 @@ export class HomeComponent implements OnInit {
             this.messageList = res
         })
 
+
+        this.sapService.getSapOtpMapObservable().subscribe(res => {
+            let x = res
+        })
+
         //var obs= this.sapService.getSapIdMapObservable()
 
-        console.log('in home init')
+/*        console.log('in home init')
 
         this.s1= this.sapService.getSapIdMapObservable().subscribe(res => {
             console.log('hi: ' + res.size)
@@ -106,13 +111,13 @@ export class HomeComponent implements OnInit {
             console.log('hi2: ' + res.size)
             let map = res
         })
-
+*/
     }
 
     ngOnDestroy(): void {
-        console.log('in home destroy')
+/*        console.log('in home destroy')
         this.s1.unsubscribe()
         this.s2.unsubscribe()
-    }
+*/    }
     
 }

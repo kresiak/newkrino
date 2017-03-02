@@ -22,10 +22,10 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-1"><b>Sap Id</b></div>
-							<div class="col-sm-2"><b>Date</b></div>
-							<div class="col-sm-2"><b>Amount</b></div>
+							<div class="col-sm-1"><b>Date</b></div>
+							<div class="col-sm-1"><b>Amount</b></div>
 							<div class="col-sm-1"><b>Type</b></div>
-							<div class="col-sm-2"><b>Supplier</b></div>
+							<div class="col-sm-3"><b>Supplier</b></div>
                             <div class="col-sm-4"><b>Otp</b></div>
 						</div>
 					</template>
@@ -37,11 +37,11 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{sap.mainData.data.sapId}}">
 							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
-							<div class="col-sm-2" >{{sap.date}}</div>
-							<div class="col-sm-2">{{sap.mainData.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{sap.factured ? 'invoiced' : 'engaged'}}</div>
-							<div class="col-sm-2">{{ sap.mainData.data.supplier }}</div>
-                            <div class="col-sm-4">{{ getOtpText(sap) }}</div>
+							<div class="col-sm-1" >{{sap.date}}</div>
+							<div class="col-sm-1">{{sap.mainData.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-1">{{sap.factured ? 'invoiced / ' + sap.factured.data.pieceType : 'engaged'}}</div>
+							<div class="col-sm-3">{{ sap.mainData.data.supplier }}</div>
+                            <div class="col-sm-4">{{ sap.mainData.annotation.otpTxt }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

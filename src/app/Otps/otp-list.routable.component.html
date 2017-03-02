@@ -15,7 +15,7 @@
                         <div class="card-block">
                             <div class="row" *ngFor="let entry of otpsBySap">
                                 <div class="col-sm-3">{{entry[0]}}</div>
-                                <div class="col-sm-3">{{entry[1] | currency:'EUR':true:'1.2-2'}}</div>
+                                <div class="col-sm-3">{{entry[1].spent | currency:'EUR':true:'1.2-2'}}</div>
                             </div>
                         </div>
                     </div>

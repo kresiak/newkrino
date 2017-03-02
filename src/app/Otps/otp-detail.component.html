@@ -119,6 +119,28 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="SAP" *ngIf="sapIdList" id="tabSaps">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<ngb-tabset>
+						<ngb-tab title="All items" id="tabSapsAll">
+							<template ngbTabContent>
+								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [state]="state.Saps" [path]="path+'|O:Saps'"></gg-sap-by-sapids-list>
+							</template>
+						</ngb-tab>
+						<ngb-tab title="By date" id="tabSapsByDate">
+							<template ngbTabContent>
+								<gg-sap-by-date [otp]="otp.data.name"></gg-sap-by-date>
+							</template>
+						</ngb-tab>						
+					</ngb-tabset>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+
+
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>

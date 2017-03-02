@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+            <gg-editor-date [content]="intialdate" (editSaved)="dateChanged($event)"></gg-editor-date>
+        </div>
+        <h5>{{sapTvacTotal | currency:'EUR':true:'1.2-2'}}</h5>
+    </div>
+</div>

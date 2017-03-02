@@ -6,6 +6,7 @@ import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
 import { UserService } from './../Shared/Services/user.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
+import { SapService } from './../Shared/Services/sap.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +23,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService) {
+        private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService) {
     }
     private pieSpentChart;
 
@@ -38,6 +39,16 @@ export class OtpDetailComponent implements OnInit {
     }
 
     private equipeListObservable
+    private otp;
+    private sapIdList: any[]
+    private ordersObservable;
+    private selectableCategoriesObservable: Observable<any>;
+    private selectedCategoryIdsObservable: Observable<any>;
+    private anyOrder: boolean;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription
+    private subscriptionOtp: Subscription
+
 
     ngOnInit(): void {
         this.stateInit();
@@ -50,6 +61,10 @@ export class OtpDetailComponent implements OnInit {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+
+                this.sapService.getSapOtpMapObservable().first().subscribe(map => {
+                    this.sapIdList= !map.has(otp.data.name) ? null : Array.from(map.get(otp.data.name).sapIdSet)
+                })
             }
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
@@ -70,16 +85,6 @@ export class OtpDetailComponent implements OnInit {
         this.subscriptionOtp.unsubscribe()
     }
 
-
-    //private model;
-    private otp;
-    private ordersObservable;
-    private selectableCategoriesObservable: Observable<any>;
-    private selectedCategoryIdsObservable: Observable<any>;
-    private anyOrder: boolean;
-    private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private subscriptionOtp: Subscription
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;

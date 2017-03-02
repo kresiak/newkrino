@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { UserService } from './user.service'
+import { SapService } from './sap.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription } from 'rxjs/Rx'
 import * as moment from "moment"
@@ -9,7 +10,7 @@ import * as moment from "moment"
 
 Injectable()
 export class OrderService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService, @Inject(SapService) private sapService: SapService) { }
 
     // otps
     // ======
@@ -35,7 +36,7 @@ export class OrderService {
         }, new Map()))
     }
 
-    private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[]) {
+    private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[], sapOtpMap) {
 
         if (!otp) return null;
         let amountSpent = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
@@ -51,7 +52,8 @@ export class OrderService {
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.budget)) - amountSpent,
                 equipe: equipe ? equipe.name : 'no equipe',
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
+                nbSapItems: sapOtpMap.has(otp.name) ? sapOtpMap.get(otp.name).sapIdSet.size : 0
             }
         }
     }
@@ -62,8 +64,9 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes'),
             this.getOtpMoneySpentMapObservable(),
             this.userService.getOtpDashletsForCurrentUser(),
-            (otps, equipes, otpSpentMap, dashlets) => {
-                return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets))
+            this.sapService.getSapOtpMapObservable(),
+            (otps, equipes, otpSpentMap, dashlets, sapOtpMap) => {
+                return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets, sapOtpMap)).sort((a,b)=> b.annotation.nbSapItems-a.annotation.nbSapItems)
             });
     }
 

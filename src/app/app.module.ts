@@ -48,6 +48,8 @@ import {OtpListComponentRoutable} from './Otps/otp-list.routable.component';
 import {OtpDetailComponent} from './Otps/otp-detail.component';
 import {OtpDetailComponentRoutable} from './Otps/otp-detail.routable.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
+import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
+
 
 import {ManipDetailComponent} from './Manips/manip-detail.component'
 import {ManipListComponent} from './Manips/manip-list.component'
@@ -86,6 +88,7 @@ import {SapDetailComponent} from './Sap/sap-detail.component'
 import {SapSheetComponent} from './Sap/sap-sheet.component'
 import {SapListComponentRoutable} from './Sap/sap-list.routable.component'
 import {SapListComponent} from './Sap/sap-list.component'
+import {SapListBySapIdsComponent} from './Sap/sap-list-by-sapids.component'
 
 
 import {StockListComponent} from './Stock/stock-list.component'
@@ -185,7 +188,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   ProductFridgeOrderButtonComponent,
-                  OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent,
+                  OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
                   ReceptionDetailComponent, CommunicationEnterComponent,
@@ -197,7 +200,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
-                  SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent,
+                  SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe
                  ],

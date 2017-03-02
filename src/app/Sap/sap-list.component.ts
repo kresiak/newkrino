@@ -44,7 +44,7 @@ export class SapListComponent implements OnInit {
         this.subscriptionSaps= Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
             if (searchTxt.trim() === '') return saps.slice(0, 200)
             return saps.filter(sap => sap.mainData.data.sapId.toString().toUpperCase().includes(searchTxt.toUpperCase())
-                || sap.mainData.data.supplier.toUpperCase().includes(searchTxt.toUpperCase())).slice(0, 200);
+                || sap.mainData.data.supplier.toUpperCase().includes(searchTxt.toUpperCase()) || sap.mainData.annotation.otpTxt.toUpperCase().includes(searchTxt.toUpperCase())).slice(0, 200);
         }).subscribe(saps => this.saps = saps);
     }
 
@@ -70,9 +70,9 @@ export class SapListComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    private getOtpText(sapInfo) {
+/*    private getOtpText(sapInfo) {
         var arr=  Array.from(sapInfo.mainData.annotation.otpMap.keys())
         return arr.length === 0 ? 'no OTP' : arr.reduce((a, b) => a + ', ' + b)
-    }
+    }*/
 
 }
