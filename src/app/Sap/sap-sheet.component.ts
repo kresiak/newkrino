@@ -13,6 +13,7 @@ export class SapSheetComponent implements OnInit {
     }
 
     @Input() sapItem: any
+    @Input() isFacture: boolean= false
     @Input() path: string
 
 

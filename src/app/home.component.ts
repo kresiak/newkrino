@@ -95,10 +95,10 @@ export class HomeComponent implements OnInit {
         })
 
 
-        this.sapService.getSapOtpMapObservable().subscribe(res => {
+/*        this.sapService.getSapOtpMapObservable().subscribe(res => {
             let x = res
         })
-
+*/
         //var obs= this.sapService.getSapIdMapObservable()
 
 /*        console.log('in home init')

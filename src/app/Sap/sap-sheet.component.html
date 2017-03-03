@@ -10,51 +10,39 @@
                     <div class="row">
                         {{sapItem.dateCreation}}
                     </div>
-                    <div class="row">
-                        Reference: {{sapItem.sapId}} / {{sapItem.ourRef ? sapItem.ourRef : 'no krino reference'}}
-                    </div>
                 </div>
                 <div class="col-sm-6 col-md-6">
                     <div class="row">
+                        Reference: {{sapItem.sapId}} / {{sapItem.ourRef ? sapItem.ourRef : 'no krino reference'}}
+                    </div>
+                    <div class="row">
                         <div class="col-sm-10">{{sapItem.client}}</div>
-                    </div>
-                    <div class="row" *ngIf="sapItem.pieceId">
-                        <div class="col-sm-10">
-                            {{sapItem.pieceType}} / {{sapItem.pieceId}}
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="sapItem.pieceId">
-                        <div class="col-sm-10">
-                            Date pièce: {{sapItem.datePiece}}
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="sapItem.pieceId">
-                        <div class="col-sm-10">
-                            Date comptable: {{sapItem.dateComptable}}
-                        </div>
                     </div>
                 </div>
             </div> <br><br>
             <div class="row">
                 <div class="row">
                     <div class="col-sm-1"><b>Poste</b></div>
-                    <div class="col-sm-3"><b>Product</b></div>
+                    <div class="col-sm-2"><b>Product</b></div>
                     <div class="col-sm-1"><b>Qty</b></div>
                     <div class="col-sm-1 "><b>Htva</b></div>
                     <div class="col-sm-1 "><b>Tvac</b></div>
-                    <div class="col-sm-1 "><b>Tva</b></div>
                     <div class="col-sm-2 "><b>Otp</b></div>
-                    <div class="col-sm-2 "><b>Status</b></div>
+                    <div class="col-sm-1 "><b>Status</b></div>
+                    <div class="col-sm-1" *ngIf="isFacture"><b>Piece</b></div>
+                    <div class="col-sm-1" *ngIf="isFacture"><b>Date Cpt</b></div>
+
                 </div>
                 <div class="row" *ngFor="let item of sapItem.items">
                     <div class="col-sm-1">{{item.poste}}</div>
-                    <div class="col-sm-3">{{item.product}}</div>
+                    <div class="col-sm-2">{{item.product}}</div>
                     <div class="col-sm-1">{{item.quantity}}</div>
                     <div class="col-sm-1">{{item.htva | currency:'EUR':true:'1.2-2'}}</div>
-                    <div class="col-sm-1">{{item.tvac | currency:'EUR':true:'1.2-2'}}</div>
-                    <div class="col-sm-1">{{item.codeTva}}</div>
+                    <div class="col-sm-1">{{item.tvac | currency:'EUR':true:'1.2-2'}} ({{item.codeTva}})</div>
                     <div class="col-sm-2 ">{{item.otp}}</div>
-                    <div class="col-sm-2 ">{{item.isSuppr?'Deleted':''}} {{item.isBlocked?'Blocked':''}}</div>
+                    <div class="col-sm-1 ">{{item.isSuppr?'Suppr':''}} {{item.isBlocked?'Block':''}} {{item.isFactFinale?'FactFinal':''}} {{item.iChargUlter?'ChargUlt':''}}</div>
+                    <div class="col-sm-1" *ngIf="isFacture">{{item.pieceType}} / {{item.pieceId}}</div>
+                    <div class="col-sm-1" *ngIf="isFacture">{{item.dateComptable}}</div>
                 </div>
             </div>
         </div>

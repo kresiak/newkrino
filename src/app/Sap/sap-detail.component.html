@@ -20,12 +20,12 @@
         </ngb-tab>
         <ngb-tab title="Engaged" id="tabEngaged" *ngIf="sapEngage">
             <template ngbTabContent>
-                <gg-sap-sheet [sapItem]="sapEngage.data"></gg-sap-sheet>
+                <gg-sap-sheet [isFacture]="false" [sapItem]="sapEngage.data"></gg-sap-sheet>
             </template>
         </ngb-tab>
         <ngb-tab title="Invoiced" id="tabInvoiced" *ngIf="sapFacture">
             <template ngbTabContent>
-                <gg-sap-sheet [sapItem]="sapFacture.data"></gg-sap-sheet>
+                <gg-sap-sheet [isFacture]="true" [sapItem]="sapFacture.data"></gg-sap-sheet>
             </template>
         </ngb-tab>
         <ngb-tab id="tabMax">

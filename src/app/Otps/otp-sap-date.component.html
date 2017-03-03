@@ -36,5 +36,21 @@
             <div class="col-sm-3">{{sapTtotals.engagedTvac | currency:'EUR':true:'1.2-2'}}</div>
         </div>
         
+        <br/>
+
+<!--        <div class="row" *ngFor="let sapItem of sapItems">
+            <div class="col-sm-12" style="color:darkolivegreen">{{sapItem.mainData.data.sapId}} {{sapItem.date}} {{sapItem.mainData.data.supplier}}</div>
+            <div class="col-sm-12">
+                <div class="row" *ngFor="let poste of sapItem.postList">
+                    <div class="col-sm-1">{{poste.poste}}</div>
+                    <div class="col-sm-1">{{poste.engaged ? (poste.engaged.tvac | currency:'EUR':true:'1.2-2') : ''}}</div>
+                    <div class="col-sm-2" [style.color]="poste.engaged && poste.engaged.otp !== otp ? 'red' : 'black'">{{poste.engaged ? (poste.engaged.otp) : ''}}</div>
+                    <div class="col-sm-1">{{poste.factured ? (poste.factured.tvac | currency:'EUR':true:'1.2-2') : ''}}</div>
+                    <div class="col-sm-2" [style.color]="poste.engaged && poste.engaged.otp !== otp ? 'red' : 'black'">{{poste.factured ? (poste.factured.otp) : ''}}</div>
+                    <div class="col-sm-3">{{poste.factured ? poste.factured.product : poste.engaged.product}}</div>
+                </div>
+            </div>
+        </div>
+-->
     </div>
 </div>

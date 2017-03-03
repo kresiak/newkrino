@@ -14,15 +14,17 @@ export class SapService {
         this.initSapItemsObservable()
     }
 
-    private sapIdMapObservable: ConnectableObservable<Map<number, any>> = null
-    private sapOtpMapObservable: ConnectableObservable<Map<string, any>> = null
-    private sapItemsObservable: ConnectableObservable<any> = null
-
     getSapIdMapObservable(): Observable<Map<number, any>> {
         return this.sapIdMapObservable
     }
 
+    getSapItemsObservable(): Observable<any> {
+        return this.sapItemsObservable
+    }
 
+    getSapOtpMapObservable(): Observable<Map<string, any>> {
+        return this.sapOtpMapObservable
+    }
 
     getSapItemObservable(sapId: number): Observable<any> {
         return this.getSapIdMapObservable().map(idMap => idMap.has(sapId) ? idMap.get(sapId) : {})
@@ -54,27 +56,39 @@ export class SapService {
         })
     }
 
-    getSapItemsObservable(): Observable<any> {
-        return this.sapItemsObservable
-    }
 
-    initSapItemsObservable() {
-        this.sapItemsObservable= this.sapIdMapObservable.map(sapIdMap => {
-            console.log('In initSapItemsObservable')
-            return Array.from(sapIdMap.values()).sort((v1, v2) => {
-                var d1 = moment(v1.date, 'DD/MM/YYYY').toDate()
-                var d2 = moment(v2.date, 'DD/MM/YYYY').toDate()
-                return d1 > d2 ? -1 : 1
-            })
-        }).publishReplay(1)
-        this.sapItemsObservable.connect()
-    }
+    // Initialisation of the shared multiplexed Observables:  P1 >> (P2 or P3)
+    // - P1 initSapIdMapObservable: a Map SapId => {        
+    //              - engaged:
+    //                  data: as in database
+    //                  annotation:        
+    //                      totalHtva: total spent on engagement (summing postes)
+    //                      totalTvac: ...
+    //                      otpMap: Map   OTP name => {       
+    //                                      totalHtva: total spent on engagement on that OTP (summing postes)
+    //                                      totalTvac: ...
+    //                                  }
+    //              - factured:
+    //                      idem as engaged
+    //              - mainData: points either to factured (if present) or to engaged (if not)
+    //              - date: createDate (if engaged only), otherwise dateComptable
+    //              - postList: array of {poste: number, engaged: poste item if any, factured: poste item if any }
+    //              - missingEngagementPoste: (only for items which have both engage and facture) set to true, if we have a billed poste without engagement counterpart
+    //              - missingFacturedPoste: (only for items which have both engage and facture) set to true, if we have a engaged poste without billed counterpart
+    //              - hasOtpDifference: (only for items which have both engage and facture) set to true if there is a poste with an otp divergence between engage and facture
+    //          }
+    //  - P2 initSapOtpMapObservable: piped on initSapIdMapObservable: a Map => OTP name => {      
+    //                                                          spent: total spent on that OTP
+    //                                                          sapIdSet: Set of all SAP  ids that have at least one poste on that OTP
+    //                                                      }
+    //  - P3 initSapItemsObservable: piped on initSapIdMapObservable: an array of all SapId Items sorted by date
+
+    private sapIdMapObservable: ConnectableObservable<Map<number, any>> = null
+    private sapOtpMapObservable: ConnectableObservable<Map<string, any>> = null
+    private sapItemsObservable: ConnectableObservable<any> = null
 
 
-    getSapOtpMapObservable(): Observable<Map<string, any>> {
-        return this.sapOtpMapObservable
-    }
-
+    // Helper for P1
     private createSapObject(sapObj) {
         var totalObj = sapObj.items.filter(item => !item.isSuppr && !item.isBlocked).reduce((acc, item) => {
             acc.totalHtva += item.htva
@@ -100,6 +114,26 @@ export class SapService {
         }
     }
 
+    // Helper for P1
+    private setPosteInfoArray(sapItemObj) {
+        var engaged= sapItemObj.engaged
+        var factured= sapItemObj.factured
+        var postList= (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : []).filter((elem, pos, arr) => arr.indexOf(elem) == pos).sort((a,b) => a-b)
+        sapItemObj.postList= postList.map(poste => {
+            let itemForEngaged= engaged ? engaged.data.items.filter(item => item.poste == poste)[0] : undefined
+            let itemForFactured= factured ? factured.data.items.filter(item => item.poste == poste)[0] : undefined
+            if (engaged && factured && !itemForEngaged) sapItemObj.missingEngagementPoste= true
+            if (engaged && factured && !itemForFactured) sapItemObj.missingFacturedPoste= true
+            if (itemForEngaged && itemForFactured && itemForEngaged.otp !== itemForFactured.otp) sapItemObj.hasOtpDifference= true
+            return {
+                poste: poste,
+                engaged: itemForEngaged,
+                factured: itemForFactured
+            }
+        })
+    }
+
+    // P1
     private initSapIdMapObservable(): void {
         this.sapIdMapObservable = Observable.combineLatest(this.dataStore.getDataObservable('sap.engage'), this.dataStore.getDataObservable('sap.facture'), (engages, factures) => {
 
@@ -120,7 +154,8 @@ export class SapService {
             Array.from(map2.values()).forEach(obj => {
                 let obj2 = obj as any
                 obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
-                obj2.date = obj2.factured ? obj2.factured.data.dateComptable : obj2.engaged.data.dateCreation
+                obj2.date = obj2.factured ? obj2.factured.data.dateCreation : obj2.engaged.data.dateCreation
+                //this.setPosteInfoArray(obj)
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
@@ -130,19 +165,26 @@ export class SapService {
         this.sapIdMapObservable.connect()
     }
 
+    // P2
     private initSapOtpMapObservable(): void {
         this.sapOtpMapObservable = this.getSapIdMapObservable().map(idMap => {
-            let otpMap = new Map<string, any>()
+            let otpMap = new Map<string, any>()            
 
-            Array.from(idMap.values()).forEach(value => {
+            Array.from(idMap.values()).forEach(value => {                
                 let sapId= value.mainData.data.sapId;
-                (value.mainData.data.items || []).filter(item => !item.isSuppr && !item.isBlocked).forEach(item => {
-                    let key = item.otp
-                    if (!otpMap.has(key)) otpMap.set(key, {spent: 0, sapIdSet: new Set<number>()})
-                    let obj= otpMap.get(key)
-                    obj.spent += +item.tvac
-                    if (!obj.sapIdSet.has(sapId)) obj.sapIdSet.add(sapId)
-                })
+
+                var doWork= function(sapObj) {
+                    if (!sapObj || !sapObj.data || !sapObj.data.items) return
+                    sapObj.data.items.forEach(item => {
+                       let key = item.otp 
+                       if (!otpMap.has(key)) otpMap.set(key, {spent: 0, sapIdSet: new Set<number>()})
+                       let obj= otpMap.get(key)
+                       if (!obj.sapIdSet.has(sapId)) obj.sapIdSet.add(sapId)                        
+                    })
+                }
+
+                doWork(value.engaged)
+                doWork(value.factured)
             })
             console.log('In initSapOtpMapObservable: ' + otpMap.size)
             return otpMap
@@ -150,6 +192,19 @@ export class SapService {
         this.sapOtpMapObservable.connect()
     }
 
+
+    // P3
+    initSapItemsObservable() {
+        this.sapItemsObservable= this.sapIdMapObservable.map(sapIdMap => {
+            console.log('In initSapItemsObservable')
+            return Array.from(sapIdMap.values()).sort((v1, v2) => {
+                var d1 = moment(v1.date, 'DD/MM/YYYY').toDate()
+                var d2 = moment(v2.date, 'DD/MM/YYYY').toDate()
+                return d1 > d2 ? -1 : 1
+            })
+        }).publishReplay(1)
+        this.sapItemsObservable.connect()
+    }
 
 
 }

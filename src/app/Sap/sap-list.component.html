@@ -39,7 +39,7 @@
 							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
 							<div class="col-sm-1" >{{sap.date}}</div>
 							<div class="col-sm-1">{{sap.mainData.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{sap.factured ? 'invoiced / ' + sap.factured.data.pieceType : 'engaged'}}</div>
+							<div class="col-sm-1">{{sap.factured ? 'invoiced' : 'engaged'}}</div>
 							<div class="col-sm-3">{{ sap.mainData.data.supplier }}</div>
                             <div class="col-sm-4">{{ sap.mainData.annotation.otpTxt }}</div>
 						</div>
