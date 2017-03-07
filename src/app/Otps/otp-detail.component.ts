@@ -154,6 +154,11 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    descriptionUpdated(description) {
+        this.otp.data.description = description;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
     budgetUpdated(budget) {
         if (! +budget) return
         this.otp.data.budget = budget;
@@ -175,9 +180,13 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-
     closedUpdated(close) {
         this.otp.data.isClosed = close;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    priorityUpdated(priority) {
+        this.otp.data.priority = priority;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }
