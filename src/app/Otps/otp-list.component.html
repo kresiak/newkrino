@@ -26,6 +26,7 @@
 							<div class="col-sm-2"><b>Available</b></div>
 							<div class="col-sm-2"><b>Spent</b></div>
 							<div class="col-sm-2"><b>To</b></div>
+							<div class="col-sm-1"><b></b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -41,6 +42,7 @@
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{ otp.data.datEnd | shortDate }}</div>
+							<div class="col-sm-1">{{ otp.data.isDeleted ? 'Deleted' : '' }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>
