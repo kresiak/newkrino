@@ -12,6 +12,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="otp.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4">equipe:</div>
 						<div class="col-sm-6">
 							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
@@ -72,6 +78,12 @@
 						<div class="col-sm-4 vcenter">is deleted:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isDeleted" (editSaved)="deletedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 vcenter">priority:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-number [content]="otp.data.priority" (editSaved)="priorityUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row">
