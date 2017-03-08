@@ -28,7 +28,7 @@ export class OtpChoiceService {
             return +o1.data.priority - +o2.data.priority
         });
 
-        var pos= Math.floor(Math.random() * possibleOtps.length)
+        var pos= 0;// Math.floor(Math.random() * possibleOtps.length)
 
         return possibleOtps.length > 0 ? {
             _id: possibleOtps[pos].data._id, 
