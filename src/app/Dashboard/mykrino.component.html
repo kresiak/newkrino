@@ -33,6 +33,12 @@
 											<gg-editor [content]="currentUser.data.firstName" [showControls]="true" (editSaved)="firstNameUpdated($event)"></gg-editor>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-sm-2 col-lg-2 vcenter">password:</div>
+										<div class="col-sm-6 vcenter">
+											<gg-editor [content]="currentUser.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)"></gg-editor>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
