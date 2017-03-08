@@ -131,6 +131,10 @@ export class MyKrinoComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
     };
 
+    passwordUpdated(password) {
+        this.currentUser.data.password = password;
+        this.dataStore.updateData('users.krino', this.currentUser.data._id, this.currentUser.data);
+    };
 
 }
 
