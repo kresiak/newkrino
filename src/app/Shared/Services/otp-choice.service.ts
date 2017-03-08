@@ -24,6 +24,8 @@ export class OtpChoiceService {
             let productCategories: string[]= product.categoryIds ? product.categoryIds : [];
             let allowedCategories: string[]= otp.data.categoryIds ? otp.data.categoryIds : [];
             return allowedCategories.filter(otpCategory => productCategories.includes(otpCategory)).length > 0;
+        }).filter(otp => otp.data.priority > 0).sort((o1, o2) => {
+            return +o1.data.priority - +o2.data.priority
         });
 
         var pos= Math.floor(Math.random() * possibleOtps.length)

@@ -39,6 +39,8 @@ export class OrderService {
     private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[], sapOtpMap) {
 
         if (!otp) return null;
+        if (!otp.priority) otp.priority=0
+        otp.priority= +otp.priority || 0
         let amountSpent = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
         //orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
