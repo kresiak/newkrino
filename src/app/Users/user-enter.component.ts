@@ -19,10 +19,12 @@ export class UserEnterComponent implements OnInit {
         // todo: ne marche pas encore
         //  const emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
+            const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
+
         this.newUserForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(3)]],
             firstName: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required]], // Validators.pattern(emailRegex)]],
+            email: ['', [Validators.required, Validators.pattern(emailRegex)]],
             isBlocked: [''],
             isLaboUser: [''],
             isAdmin: [''],
