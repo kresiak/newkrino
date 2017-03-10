@@ -6,6 +6,6 @@
   <button (click)="edit()" class="editor__icon-edit"></button>
 </div>
 <div *ngIf="!readOnly && showControls && editMode" class="editor__controls">
-  <button (click)="save()" class="editor__icon-save"></button>
+  <button [hidden]="!isValid" (click)="save()" class="editor__icon-save"></button>
   <button (click)="cancel()" class="editor__icon-cancel"></button>
 </div>

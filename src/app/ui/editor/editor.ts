@@ -17,9 +17,12 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Input() showControls;
     @Input() isMonetary: boolean= false;
+    @Input() regexp: string = '.*';
     @Output() editSaved = new EventEmitter();
     @Output() editableInput = new EventEmitter();
     private editableContentElement;
+    private isValid: boolean= true
+    private myregexp: RegExp
 
     // We use ElementRef in order to obtain our editable element for later use
     constructor( private elementRef:ElementRef) {
@@ -39,6 +42,8 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
 
     ngOnInit():void 
     {
+        this.myregexp= new RegExp(this.isMonetary ? '^[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))$' : this.regexp)
+        this.isValid= this.myregexp.test(this.content)
         this.editableContentElement = this.elementRef.nativeElement.querySelector('.editor__editable-content');
     }
 
@@ -71,6 +76,7 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
     onInput() {
         // Emit a editableInput event with the edited content
         this.editableInput.next(this.getEditableContent());
+        this.isValid= this.myregexp.test(this.getEditableContent())
     }
 
     // On save we reflect the content of the editable element into the content field and emit an event
