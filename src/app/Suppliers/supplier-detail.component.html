@@ -53,6 +53,10 @@
 						<div class="col-sm-2">frequency:</div>
 						<div class="col-sm-6">{{supplier.annotation.supplierFrequence}}</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-2">sap id:</div>
+						<div class="col-sm-6">{{supplier.data.sapId}}</div>
+					</div>
 
 					<div class="row" *ngIf="!authService.isProduction()">
 						<div class="col-sm-2">_id:</div>
