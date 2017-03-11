@@ -18,8 +18,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">equipe:</div>
-						<div class="col-sm-6">
+						<div class="col-sm-4 vcenter">equipe:</div>
+						<div class="col-sm-6 vcenter">
 							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
 						</div>
 					</div>
@@ -28,14 +28,6 @@
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">money spent:</div>
-						<div class="col-sm-6">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">money available:</div>
-						<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">from:</div>
@@ -98,6 +90,22 @@
 						<div class="col-sm-6">{{otp.data._id}}</div>
 					</div>
 
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Spending" id="tabSpending">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-4">money spent:</div>
+						<div class="col-sm-6">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money available:</div>
+						<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
 				</div>
 			</div>
 		</template>
