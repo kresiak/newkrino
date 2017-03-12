@@ -50,17 +50,19 @@
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My basket" id="tabBaskets"  *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
+			<ngb-tab title="My basket(s)" id="tabBaskets"  *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
 				<template ngbTabContent>
 					<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)" [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My webshopping" id="tabVouchers">
+			<ngb-tab id="tabVouchers">
+				<template ngbTabTitle>My webshopping vouchers</template>
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
 							<ngb-tabset>
-								<ngb-tab title="Order or use vouchers" id="tabOrderVouchers">
+								<ngb-tab id="tabOrderVouchers" >
+									<template ngbTabTitle>My available vouchers <img src="../../images/question.png" ngbTooltip="Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform."></template>
 									<template ngbTabContent>
 										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
 									</template>
