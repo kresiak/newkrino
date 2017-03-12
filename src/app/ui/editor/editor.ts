@@ -42,7 +42,7 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
 
     ngOnInit():void 
     {
-        this.myregexp= new RegExp(this.isMonetary ? '^[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))$' : this.regexp)
+        this.myregexp= new RegExp(this.isMonetary ? '^[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))$' : this.regexp, 'i')
         this.isValid= this.myregexp.test(this.content)
         this.editableContentElement = this.elementRef.nativeElement.querySelector('.editor__editable-content');
     }
