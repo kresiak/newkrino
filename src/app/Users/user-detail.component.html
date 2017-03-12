@@ -89,22 +89,22 @@
 			<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
 		</template>
 	</ngb-tab>	
-	<ngb-tab title="Orders" *ngIf="true" id="tabOrders">
+	<ngb-tab title="Orders" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Fridge Orders" id="tabFridgeOrders" *ngIf="((fridgeOrdersObservable |async) || []).length>0">
+	<ngb-tab title="Fridge Orders" id="tabFridgeOrders" >
 		<template ngbTabContent>
 			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="path+'|O:FridgeOrders'" ></gg-order-fridge-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Stock Orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
+	<ngb-tab title="Stock Orders" id="tabStockOrders" >
 		<template ngbTabContent>
 			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'" (stateChanged)="childStockOrdersStateChanged($event)"></gg-stock-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Used Vouchers" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
+	<ngb-tab title="Voucher Orders" id="tabUsedVouchers" >
 		<template ngbTabContent>
 			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
 		</template>

@@ -80,19 +80,24 @@
 					<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="'mykrino|O:Products'"  (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My orders" id="tabOrders" *ngIf="((ordersObservable |async) || []).length>0">
+			<ngb-tab title="My orders" id="tabOrders" >
 				<template ngbTabContent>
 					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="'mykrino|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My stock orders" id="tabStockOrders" *ngIf="((stockOrdersObservable |async) || []).length>0">
+			<ngb-tab title="My stock orders" id="tabStockOrders" >
 				<template ngbTabContent>
 					<gg-stock-order-list [state]="state.StockOrders" [path]="'mykrino|O:StockOrders'" [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My fridge orders" id="tabFridgeOrders" *ngIf="((fridgeOrdersObservable |async) || []).length>0">
+			<ngb-tab title="My fridge orders" id="tabFridgeOrders" >
 				<template ngbTabContent>
 					<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="'mykrino|O:FridgeOrders'" ></gg-order-fridge-list>
+				</template>
+			</ngb-tab>
+			<ngb-tab title="My voucher orders" id="tabVoucherOrders" >
+				<template ngbTabContent>
+					<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My equipes" id="tabEquipes">

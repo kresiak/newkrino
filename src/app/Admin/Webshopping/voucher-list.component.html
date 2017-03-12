@@ -15,7 +15,12 @@
 					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../../images/close.png" (click)="resetSerachControl()"/>
 			</div>
 		</div>
-		<div class="row">
+		<div class="card" *ngIf="!vouchers || vouchers.length == 0">
+			<div class="card-block">
+				<div class="centertextbox">Nothing yet in the database for this query</div>
+			</div>
+		</div>		
+		<div class="row" *ngIf="vouchers && vouchers.length > 0">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
