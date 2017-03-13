@@ -22,10 +22,15 @@
 					</div>
 				</template>
 			</ngb-tab>
+
 			<ngb-tab title="Info about {{supplier.name}}">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
+<!--
+							<gg-supplier-info></gg-supplier-info>
+-->
+<!-- delete -->
 							<div class="row">
 								<div class="col-sm-2">Supplier:</div>
 								<div class="col-sm-6">{{supplier.name}} {{supplier.title}}</div>
@@ -62,6 +67,7 @@
 					</div>
 				</template>
 			</ngb-tab>
+<!-- delete -->
 			<ngb-tab title="Budget of current user" *ngIf="false">
 				<template ngbTabContent>
 					<div class="card">

@@ -1,0 +1,47 @@
+<div class="card" *ngIf="supplier">
+	<div class="card-block">
+		<h5 class="card-title">Checkout at {{supplier.name}}</h5>
+		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+			<ngb-tab title="Info about {{supplier.name}}">
+				<template ngbTabContent>
+					<div class="card">
+						<div class="card-block">
+							<div class="row">
+								<div class="col-sm-2">Supplier:</div>
+								<div class="col-sm-6">{{supplier.name}} {{supplier.title}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Location:</div>
+								<div class="col-sm-6">{{supplier.zip}} {{supplier.city}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Address:</div>
+								<div class="col-sm-6">{{supplier.street}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Country:</div>
+								<div class="col-sm-6">{{supplier.country}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Telephone:</div>
+								<div class="col-sm-6">{{supplier.tel}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Fax:</div>
+								<div class="col-sm-6">{{supplier.fax}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Client:</div>
+								<div class="col-sm-6">{{supplier.client}}</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-2">Sap id:</div>
+								<div class="col-sm-6">{{supplier.sapId}}</div>
+							</div>
+						</div>
+					</div>
+				</template>
+			</ngb-tab>
+		</ngb-tabset>
+	</div>
+</div>
