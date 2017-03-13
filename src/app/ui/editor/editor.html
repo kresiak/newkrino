@@ -9,3 +9,4 @@
   <button [hidden]="!isValid" (click)="save()" class="editor__icon-save"></button>
   <button (click)="cancel()" class="editor__icon-cancel"></button>
 </div>
+<div *ngIf="isMonetary && editMode">Example: 45.16 and not 45,16</div>
