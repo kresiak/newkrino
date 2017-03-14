@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
-
+import { OrderService } from './../Shared/Services/order.service';
 
 @Component(
     {
@@ -18,7 +18,7 @@ export class ProductGridComponent implements OnInit
 
     private products;
 
-    constructor()
+    constructor(private orderService: OrderService)
     {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -28,12 +28,19 @@ export class ProductGridComponent implements OnInit
     searchControl = new FormControl();
     searchForm;
     private subscriptionProducts: Subscription 
+    private otpListObservable: any
     
     resetSerachControl() {
         this.searchControl.setValue('')
     }
 
     ngOnInit() : void{
+        this.otpListObservable = this.orderService.getAnnotatedOtps().map(otps => otps.map(otp => {
+            return {
+                id: otp.data._id,
+                name: otp.data.name
+            }
+        }));        
 
         this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();

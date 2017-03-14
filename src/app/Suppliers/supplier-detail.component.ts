@@ -67,10 +67,10 @@ export class SupplierDetailComponent implements OnInit {
             if (supplier) {
                 this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
                 this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplier.data._id);
-                this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
+                this.subscriptionIsBasket= this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
                 this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
-                this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
-                this.authService.getAnnotatedCurrentUser().subscribe(user => {
+                this.subscriptionAnyOrder= this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
+                this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(user => {
                     this.currentAnnotatedUser = user
                 })
             }
@@ -84,12 +84,20 @@ export class SupplierDetailComponent implements OnInit {
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionSupplier.unsubscribe()
+         this.subscriptionIsBasket.unsubscribe()
+         this.subscriptionAnyOrder.unsubscribe()
+         this.subscriptionCurrentUser.unsubscribe()
     }
     
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription     
     private subscriptionSupplier: Subscription    
+
+    private subscriptionIsBasket: Subscription
+    private subscriptionAnyOrder: Subscription
+    private subscriptionCurrentUser: Subscription
+
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;

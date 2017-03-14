@@ -1,29 +1,36 @@
-
-
 <div class="row" *ngIf="product && product.data">
 	<div class="col-sm-2 col-md-2 vcenter">
-		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)" class="imgSearch" (click)="navigateToProduct()" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+		<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event)" class="imgSearch"
+			(click)="navigateToProduct()" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('supplier')">{{product.annotation.supplierName}}</div>
 	<div class="col-sm-2 col-md-2 vcenter">
-		<gg-editor #prix [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+		<gg-editor #prix [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event)"
+			[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 	</div>
-	<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('category')"> 
-		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" 
-		(selectionChanged)="categorySelectionChanged($event)" (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
+	<div class="col-sm-3 col-md-3 vcenter" *ngIf="showColumn('category')">
+		<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+			(selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 	</div>
-<!--	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('manip')"> 
+	<!--	<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('manip')"> 
 		<gg-selector [selectableData]="selectableManipsObservable" [selectedIds]="selectedManipIdsObservable" 
 		(selectionChanged)="manipSelectionChanged($event)"></gg-selector>
 	</div>
--->	<div class="col-sm-2 col-md-2 vcenter">
-		<gg-editor-number *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo" [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number> 		
+-->
+	<div class="col-sm-2 col-md-2 vcenter">
+		<gg-editor-number *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo" [content]="product.annotation.quantity"
+			(editSaved)="quantityBasketUpdated($event)"></gg-editor-number>
 		<div *ngIf="!product.annotation.hasUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
-		<gg-product-fridge-order-button *ngIf="product.data.isFrigo"  [productObservable]="productObservable"></gg-product-fridge-order-button>
+		<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="productObservable"></gg-product-fridge-order-button>
 
-<!--		<a class="imgSearch" (click)="openModal(mymodal)"> <img *ngIf="product.data.isFrigo" height="25" width="25" src="../../images/refrigator.png" /> </a>-->
+		<!--		<a class="imgSearch" (click)="openModal(mymodal)"> <img *ngIf="product.data.isFrigo" height="25" width="25" src="../../images/refrigator.png" /> </a>-->
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice && showColumn('totalPrice')">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
-	<div class="col-sm-3 col-md-3 vcenter" *ngIf="product.annotation.otp && showColumn('otp')">{{product.annotation.otp.name}}</div>
+
+	<div class="col-sm-3 col-md-3 vcenter" *ngIf="product.annotation.otp && showColumn('otp')">
+		<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"
+			[selectableData]="otpListObservable" [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event)"></gg-editor-autocomplete>
+<!--		{{product.annotation.otp.name}}
+-->	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
 </div>

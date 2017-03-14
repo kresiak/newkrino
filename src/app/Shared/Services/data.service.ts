@@ -16,8 +16,8 @@ export class DataStore { // contains one observable property by database table/c
     private universalTables: string[] = ['products', 'suppliers', 'categories']
 
     //public laboName= 'demo' 
-    public laboName = 'michel'
-    //public laboName = 'genomics'
+    //public laboName = 'michel'
+    public laboName = 'genomics'
 
     private isFromRightLabo(table, rec): boolean {
         if (this.universalTables.includes(table)) return true
