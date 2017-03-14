@@ -27,10 +27,10 @@
 	</div>
 	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice && showColumn('totalPrice')">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
 
-	<div class="col-sm-3 col-md-3 vcenter" *ngIf="product.annotation.otp && showColumn('otp')">
+	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && showColumn('otp')">
 		<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"
 			[selectableData]="otpListObservable" [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event)"></gg-editor-autocomplete>
 <!--		{{product.annotation.otp.name}}
 -->	</div>
-	<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
+	<div class="col-sm-1 col-md-1 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
 </div>

@@ -15,8 +15,9 @@
 									<gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"  (idChanged)="equipeGroupChanged($event)" ></gg-editor-autocomplete></div>
 							</div>
 							<div class="row">
-								<button *ngIf="isEnoughBudget" class="btn btn-warning" (click)="createOrder()">Pass the order</button>
+								<button *ngIf="isEnoughBudget && isOtpOk" class="btn btn-warning" (click)="createOrder()">Pass the order</button>
 								<h6 *ngIf="!isEnoughBudget">Sorry, you don't have enough budget available</h6>
+								<h6 *ngIf="!isOtpOk">Sorry, there is an Otp problem. Contact your administrator!</h6>
 							</div>
 						</div>
 					</div>
