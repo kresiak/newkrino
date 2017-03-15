@@ -531,7 +531,7 @@ export class ProductService {
                                 basketId: basketItemFiltered[0]._id,
                                 hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                                 quantity: basketItemFiltered[0].quantity,
-                                totalPrice: product.price * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
+                                totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva||21)/100),  // Todo Tva service
                                 otp: basketItemFiltered[0].otpId ? {name:'will never be used, or?', _id: basketItemFiltered[0].otpId } :
                                   this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                             }

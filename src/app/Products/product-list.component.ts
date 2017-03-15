@@ -71,6 +71,10 @@ export class ProductListComponent implements OnInit {
                     let montant = +txt.slice(2);
                     return + product.data.price <= montant;
                 }
+                if (txt.startsWith('$T') && (+txt.slice(2)+1)) {
+                    let montant = +txt.slice(2);
+                    return + product.data.tva == montant;
+                }
 
                 return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt)
             });
