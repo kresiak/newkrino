@@ -25,7 +25,7 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3"><b>User</b></div>
+							<div class="col-sm-2"><b>User</b></div>
 
 							<div class="col-sm-3"><b>Supplier</b></div>
 
@@ -44,8 +44,8 @@
 				<ngb-panel *ngFor="let voucher of vouchers" [id]="voucher.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{voucher.data._id}}">
-							<div class="col-sm-3" *ngIf="!focusOnVoucherUsage">{{voucher.annotation.user}}</div>
-							<div class="col-sm-3" *ngIf="focusOnVoucherUsage">{{voucher.annotation.user}}/{{voucher.annotation.equipe}}</div>
+							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage">{{voucher.annotation.user}}</div>
+							<div class="col-sm-2" *ngIf="focusOnVoucherUsage">{{voucher.annotation.user}}/{{voucher.annotation.equipe}}</div>
 
 							<div class="col-sm-3">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}</div>
 
@@ -55,7 +55,9 @@
 
 							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}</div>
 							<div class="col-sm-2" *ngIf="focusOnVoucherUsage">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2' }}</div>
-							
+							<div class="col-sm-1">
+								<img *ngIf="voucher.data.delivery=='partial'" src="../../../images/shipping.png" /><img *ngIf="voucher.data.delivery=='complete'" src="../../../images/ok.png" />
+							</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

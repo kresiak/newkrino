@@ -83,4 +83,9 @@ export class VoucherDetailComponent implements OnInit {
             this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
         }
     }
+
+    deliveryChanged(newStatus) {
+        this.voucher.data.delivery = newStatus;
+        this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);        
+    }
 }

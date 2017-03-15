@@ -83,5 +83,27 @@
 			</div>			
 		</template>
 	</ngb-tab>	
-	
+
+	<ngb-tab title="Delivery" id="tabDelivery" *ngIf="voucher.annotation.isUsed">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-2">no delivery yet</div>
+						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="!voucher.data.delivery || voucher.data.delivery==='nothing'" (change)="deliveryChanged('nothing')"/> </div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">partially delivered</div>
+						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="voucher.data.delivery==='partial'" (change)="deliveryChanged('partial')"/> </div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">fully delivered</div>
+						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="voucher.data.delivery==='complete'" (change)="deliveryChanged('complete')"/> </div>
+					</div>
+				</div>
+			</div>			
+		</template>
+	</ngb-tab>	
+
+
 </ngb-tabset>
