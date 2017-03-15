@@ -26,6 +26,7 @@ export class PreOrderComponent implements OnInit {
     private subscriptionProductBasket: Subscription
 
     private isEnoughBudget: boolean= false
+    private isOtpOk: boolean= false
 
     ngOnInit(): void {
         this.subscriptionRoute= this.route.params.subscribe((params: Params) => {
@@ -40,7 +41,10 @@ export class PreOrderComponent implements OnInit {
                         this.isEnoughBudget= total < eq.annotation.amountAvailable
                     })
                 })
-                this.productsBasketObservable.subscribe(products => this.productsInBasket= products)
+                this.productsBasketObservable.subscribe(products => {
+                    this.productsInBasket= products
+                    this.isOtpOk= products.filter(product => product.annotation.otp && !product.annotation.otp._id).length == 0
+                })
                 
             }
         });

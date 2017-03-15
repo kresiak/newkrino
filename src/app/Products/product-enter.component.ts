@@ -48,7 +48,7 @@ export class ProductEnterComponent implements OnInit {
             isStock: [''],
             needsLotNumber: [''],
             divisionFactor: ['1'],
-            stockPackage: ['', Validators.required]
+            stockPackage: ['']
         });
     }
 

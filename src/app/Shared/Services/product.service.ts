@@ -532,7 +532,8 @@ export class ProductService {
                                 hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                                 quantity: basketItemFiltered[0].quantity,
                                 totalPrice: product.price * basketItemFiltered[0].quantity * 1.21,  // Todo Tva service
-                                otp: this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
+                                otp: basketItemFiltered[0].otpId ? {name:'will never be used, or?', _id: basketItemFiltered[0].otpId } :
+                                  this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                             }
                         } : null;
                     });
@@ -639,6 +640,11 @@ export class ProductService {
 
     //     modify basket
     //     =============
+
+    doBasketOtpUpdate(product, otpId: string) {
+        this.dataStore.updateData('basket', product.annotation.basketId, { user: this.authService.getUserId(), produit: product.data._id, quantity: product.annotation.quantity, otpId: otpId });
+    }
+
 
     doBasketUpdate(productAnnotated, quantity: string) {
         var q: number = +quantity && (+quantity) >= 0 ? +quantity : 0;

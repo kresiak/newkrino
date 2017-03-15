@@ -16,10 +16,13 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
     }
 )
 export class ProductComponent implements OnInit, OnDestroy {
-    constructor(private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService, 
+    constructor(private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
                         private router: Router) { }
 
     private subscrProduct: Subscription;
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription
+    
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -31,16 +34,22 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.subscrProduct = this.productObservable.subscribe(product => {
             this.product = product;
         });
+
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });        
     }
 
     ngOnDestroy(): void {
         this.subscrProduct.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()        
     }
 
 
     @ViewChild('prix') priceChild;
 
     @Input() productObservable: Observable<any>;
+    @Input() otpListObservable: Observable<any>;
     @Input() config;
     @Input() path: string
     private product;
@@ -101,4 +110,11 @@ export class ProductComponent implements OnInit, OnDestroy {
     navigateToProduct() {
         this.navigationService.maximizeOrUnmaximize('/product', this.product.data._id, this.path, false)
     }
+
+    otpUpdated(newOtpId): void {
+        if (newOtpId && newOtpId.length > 0) {
+            this.productService.doBasketOtpUpdate(this.product, newOtpId)
+        }
+    }
+    
 }
