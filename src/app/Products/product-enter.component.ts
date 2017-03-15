@@ -20,6 +20,8 @@ export class ProductEnterComponent implements OnInit {
 
     private categoryData: SelectableData[]
     private subscriptioncategories: Subscription 
+    private subscriptioncategories2: Subscription 
+    private categories
 
     private isCategoryIdSelected(control: FormControl){   // custom validator implementing ValidatorFn 
             if (control.value === '-1') {
@@ -32,6 +34,8 @@ export class ProductEnterComponent implements OnInit {
     ngOnInit():void
     {
         this.subscriptioncategories= this.productService.getSelectableCategories().subscribe(cd => this.categoryData= cd);
+
+        this.subscriptioncategories2= this.productService.getAnnotatedCategories().subscribe(categories => this.categories= categories)
 
         const priceRegEx = `^\\d+(.\\d*)?$`;
 
@@ -54,6 +58,7 @@ export class ProductEnterComponent implements OnInit {
 
     ngOnDestroy(): void {
          this.subscriptioncategories.unsubscribe()
+         this.subscriptioncategories2.unsubscribe()
     }
 
     save(formValue, isValid)
@@ -84,5 +89,10 @@ export class ProductEnterComponent implements OnInit {
     {
         this.productForm.reset();        
         this.productForm.controls['category'].setValue('-1');
+    }
+
+    categoryChanged(categoryId) {
+        var category = this.categories.filter(c => c.data._id === categoryId)[0]
+        this.productForm.patchValue({noarticle: category ? category.data.noArticle : '', groupMarch: category ? category.data.groupMarch : ''})
     }
 }

@@ -24,7 +24,7 @@
 		<div class="form-group row">
 			<label for="category" class="col-sm-2 col-form-label col-xl-2">Category:</label>
 			<div class="col-sm-10">
-				<select class="custom-select" id="category" formControlName="category">
+				<select class="custom-select" id="category" formControlName="category" (change)="categoryChanged($event.target.value)">
                     <option value="-1" selected>Open this select menu</option>
                     <option *ngFor="let category of categoryData"  [value]="category.id">{{category.name}}</option>
                 </select>
