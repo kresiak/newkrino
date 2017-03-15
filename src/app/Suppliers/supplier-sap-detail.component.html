@@ -16,5 +16,22 @@
 			</div>
 		</template>
 	</ngb-tab>
-
+	<ngb-tab title="Include into Krino" id="tabKrino">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div *ngIf="krinoSupplier">
+						<h6>{{supplier.name}} is already in Krino</h6> <br>
+						<gg-supplier-detail [supplierObservable]="krinoSupplierObservable" [initialTab]="'tabInfo'"></gg-supplier-detail>
+					</div>
+					<div *ngIf="!krinoSupplier">
+						<br/>
+						<h6>{{supplier.name}} is not yet in Krino. You can add it.</h6>
+						<br/>
+						<button class="btn btn-warning" *ngIf="!isAddSupplierBlocked" (click)="isAddSupplierBlocked=true; addSupplier()">Add the Sap supplier to Krino</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 </ngb-tabset>

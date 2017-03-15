@@ -66,6 +66,13 @@ export class SupplierService {
         });
     }
 
+    getAnnotatedSupplierBySapId(sapId: string): Observable<any> {
+        return this.getAnnotatedSuppliers().map(suppliers => {
+            let supplier = suppliers.filter(s => s.data.sapId === sapId)[0];
+            return supplier ? supplier : null;
+        });
+    }
+
     getAnnotatedWebSuppliers(): Observable<any> {
         return this.getAnnotatedSuppliers().map(annotatedSuppliers => annotatedSuppliers.filter(annotatedSupplier =>
             annotatedSupplier.data.webShopping && annotatedSupplier.data.webShopping.isEnabled && annotatedSupplier.annotation.webShopping.categories.length > 0))
