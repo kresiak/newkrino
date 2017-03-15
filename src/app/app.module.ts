@@ -22,6 +22,7 @@ import {MonitoringDetailComponent}  from './Admin/Monitoring/monitoring-detail.c
 import {VoucherListComponent} from './Admin/Webshopping/voucher-list.component'
 import {VoucherDetailComponent} from './Admin/Webshopping/voucher-detail.component'
 
+import {SupplierInfoComponent} from './Suppliers/supplier-info.component';
 import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
@@ -188,7 +189,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
                   AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK,
                   CommentComponent, CommentsComponent,
-                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable,
+                  SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   ProductFridgeOrderButtonComponent,
                   OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent,

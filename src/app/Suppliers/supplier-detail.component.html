@@ -21,42 +21,7 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<div class="row">
-						<div class="col-sm-2">supplier:</div>
-						<div class="col-sm-6">{{supplier.data.name}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">city:</div>
-						<div class="col-sm-6">{{supplier.data.city}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">country:</div>
-						<div class="col-sm-6">{{supplier.data.country}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">zip:</div>
-						<div class="col-sm-6">{{supplier.data.zip}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">street:</div>
-						<div class="col-sm-6">{{supplier.data.street}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">telephone:</div>
-						<div class="col-sm-6">{{supplier.data.tel}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">fax:</div>
-						<div class="col-sm-6">{{supplier.data.fax}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">frequency:</div>
-						<div class="col-sm-6">{{supplier.annotation.supplierFrequence}}</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">sap id:</div>
-						<div class="col-sm-6">{{supplier.data.sapId}}</div>
-					</div>
+					<gg-supplier-info [supplierInfo]="supplier.data"></gg-supplier-info>
 
 					<div class="row" *ngIf="!authService.isProduction()">
 						<div class="col-sm-2">_id:</div>
