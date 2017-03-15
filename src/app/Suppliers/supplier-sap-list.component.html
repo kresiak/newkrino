@@ -1,0 +1,48 @@
+<template #searchPopContent>
+	<ul>
+		<li>bru: the supplier's name, SAP id, city, or country should contain the string 'bru'</li>
+	</ul>
+</template>
+
+<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific supplier</div></template>
+
+<div class="card">
+	<div class="card-block">
+		<div class="row">
+			<div [formGroup]="searchForm">
+				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+			</div>
+		</div>
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-3"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>City</b></div>
+							<div class="col-sm-2"><b>Country</b></div>
+							<div class="col-sm-2"><b>Sap Id</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier._id">
+					<template ngbPanelTitle>
+						<div class="row" id="{{supplier._id}}">
+							<div class="col-sm-3" [style.font-weight]="supplier._id === state.openPanelId ? 'bold' : 'lighter'">{{supplier.name}}</div>
+							<div class="col-sm-2">{{supplier.city}}</div>
+							<div class="col-sm-2">{{supplier.country}}</div>						
+							<div class="col-sm-2">{{supplier.sapId}}</div>						
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-supplier-sap-detail [supplierObservable]="getSupplierObservable(supplier._id)" ></gg-supplier-sap-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+	</div>
+</div>

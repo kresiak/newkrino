@@ -35,6 +35,9 @@ import {ProductDetailComponent} from './Products/product-detail.component'
 import {ProductDetailComponentRoutable} from './Products/product-detail.routable.component'
 import {ProductFridgeOrderButtonComponent} from './Products/product-fridge-order-button.component'
 
+import {SupplierSapDetailComponent} from './Suppliers/supplier-sap-detail.component'
+import {SupplierSapListComponent} from './Suppliers/supplier-sap-list.component'
+
 import {CategoryListComponent} from './Categories/category-list.component'
 import {CategoryListComponentRoutable} from './Categories/category-list.routable.component'
 import {CategoryDetailComponent} from './Categories/category-detail.component'
@@ -202,7 +205,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
-                  FullDatePipe, ShortDatePipe, FromNowPipe
+                  FullDatePipe, ShortDatePipe, FromNowPipe,
+                  SupplierSapDetailComponent, SupplierSapListComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService, SapService ],
     bootstrap:    [ AppComponent ]
