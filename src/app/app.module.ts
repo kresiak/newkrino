@@ -65,6 +65,7 @@ import {UserListComponent} from './Users/user-list.component'
 import {UserEnterComponent} from './Users/user-enter.component'
 import {UserDetailComponent} from './Users/user-detail.component';
 import {UserDetailComponentRoutable} from './Users/user-detail.routable.component';
+import {UserInfoComponent} from './Users/user-info.component';
 
 import {EquipeDetailComponent} from './Equipes/equipe-detail.component'
 import {EquipeDetailComponentRoutable} from './Equipes/equipe-detail.routable.component'
@@ -198,7 +199,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   ReceptionDetailComponent, CommunicationEnterComponent,
                   StockDetailComponent, StockComponentRoutable, StockListComponent,StockProductEnterComponent, StockOrderListComponent, StockOrderDetailComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
-                  UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable,
+                  UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable, UserInfoComponent,
                   ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent, EquipeBilanComponent,
