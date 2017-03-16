@@ -51,11 +51,6 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-sm-3 vcenter">equipe(s):</div>
-						<div class="col-sm-6 vcenter">{{user.annotation.equipesTxt}}</div>
-					</div> 
-
 					<div class="row" *ngIf="!authService.isProduction()">
 						<div class="col-sm-3">_id:</div>
 						<div class="col-sm-6">{{user.data._id}}</div>

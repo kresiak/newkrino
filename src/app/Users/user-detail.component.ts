@@ -92,26 +92,6 @@ export class UserDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    nameUserUpdated(name) {
-        this.user.data.name = name;
-        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
-    };
-
-    firstNameUserUpdated(firstName) {
-        this.user.data.firstName = firstName;
-        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
-    };
-
-    emailUserUpdated(email) {
-        this.user.data.email = email;
-        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
-    };
-
-    passwordUpdated(password) {
-        this.user.data.password = password;
-        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
-    };
-
     isBlockedUpdated(isBlocked) {
         this.user.data.isBlocked = isBlocked;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
@@ -134,9 +114,7 @@ export class UserDetailComponent implements OnInit {
         }
     };
 
-    isAdminOrCurrentUser() {
-        return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.user.annotation.isCurrentUser)
-    }
+    
 
     isReceptionistUpdated(receptionist) {
         this.user.data.isReceptionist = receptionist;
