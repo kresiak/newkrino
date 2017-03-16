@@ -546,17 +546,18 @@ export class ProductService {
 
     getLmWarningMessages(): Observable<any> {
         return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.getAnnotatedStockOrdersAll(), this.getOpenRequestedVouchers(), this.getAnnotatedUsedVouchersReadyForSap(),
-            this.getAnnotatedRecentLogs(24), this.getAdminMonitorForCurrentUser(),
-            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig) => {
+            this.getAnnotatedRecentLogs(24), this.getAdminMonitorForCurrentUser(), this.orderService.getAnnotedOrdersByStatus('Received by SAP'),
+            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig, classicOrders) => {
                 let annotatedFridgeOrdersOk = annotatedFridgeOrders.filter(o => !o.data.isDelivered)
                 let annotatedStockOrdersOk = annotatedStockOrders.filter(o => !o.data.isProcessed)
                 
                 return {
-                    nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length + openRequestVouchers.length + usedVouchers.length,
+                    nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length + openRequestVouchers.length + usedVouchers.length + classicOrders.length,
                     fridgeOrders: annotatedFridgeOrdersOk,
                     stockOrders: annotatedStockOrdersOk,
                     requestVouchers: openRequestVouchers,
-                    usedVouchers: usedVouchers,       
+                    usedVouchers: usedVouchers,   
+                    classicOrders: classicOrders,    
                     equipeMonitors: logs.filter(log => log.data.type==='equipe' && adminConfig.equipe.ids.includes(log.data.id) && log.data.amount > adminConfig.equipe.amount),
                     otpMonitors: logs.filter(log => log.data.type==='otp' && adminConfig.otp.ids.includes(log.data.id) && log.data.amount > adminConfig.otp.amount),
                     userMonitors: logs.filter(log => log.data.type==='user' && adminConfig.user.ids.includes(log.data.id) && log.data.amount > adminConfig.user.amount),

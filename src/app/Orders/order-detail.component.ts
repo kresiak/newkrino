@@ -191,19 +191,27 @@ export class OrderDetailComponent implements OnInit {
     }
 
 
-    deleteOrder() {
-        if (!this.order.data.status) this.order.data.status = { history: [] }
-        this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: 'deleted' })
-        this.order.data.status.value = 'deleted'
-        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    private getStatusList() {
+        var choice= ['Received by SAP', 'Sent to Supplier', 'deleted', 'created']
+        if (!choice.includes(this.order.annotation.status)) choice.push(this.order.annotation.status)
+        return choice
     }
 
-    statusChanged(newStatus) {
-        if (newStatus === this.order.data.status.value) return
+    private updateStatus(newStatus)  {
         if (!this.order.data.status) this.order.data.status = { history: [] }
         this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: newStatus })
         this.order.data.status.value = newStatus
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
+
+    deleteOrder() {
+        this.updateStatus('deleted')
+    }
+
+    statusChanged(newStatus) {
+        if (newStatus === this.order.data.status.value) return
+        if (!this.getStatusList().includes(newStatus)) return
+        this.updateStatus(newStatus)
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {

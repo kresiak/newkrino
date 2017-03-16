@@ -1,6 +1,20 @@
 <div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
 	<br/>
 	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.classicOrders.length>0">
+			<div class="card text-xs-center card-outline-danger">
+				<div class="card-header">
+					Classic Orders 
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">New orders</h6>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let order of labManagerMessages.classicOrders">{{order.data.date | fromNowDate }}: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.fridgeOrders.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">

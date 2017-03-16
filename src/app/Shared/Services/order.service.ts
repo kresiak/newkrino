@@ -328,6 +328,12 @@ export class OrderService {
         return this.getAnnotedOrders(ordersObservable);
     }
 
+    getAnnotedOrdersByStatus(status: string): Observable<any> {
+        let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.status && order.status.value === status).sort((a, b) => b.kid - a.kid))
+        return this.getAnnotedOrders(ordersObservable);
+    }
+
+
     getAnnotedOrdersByUser(userId: string): Observable<any> {
         let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.userId === userId).sort((a, b) => b.kid - a.kid))
         return this.getAnnotedOrders(ordersObservable);

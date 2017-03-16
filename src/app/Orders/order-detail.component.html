@@ -87,8 +87,8 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-4 vcenter">
-											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" 
-											 		[selectableData]="[order.annotation.status, 'Received by SAP', 'Sent to Supplier']" 
+											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"  [limitToChoice]="true"
+											 		[selectableData]="getStatusList()" 
 												 	[selectedText]="order.annotation.status" (textChanged)="statusChanged($event)" >
 											 </gg-editor-autocomplete-text></div>
 										  <div *ngIf="order.annotation.isDeletable" class="col-sm-7 vcenter"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></div>

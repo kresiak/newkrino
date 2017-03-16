@@ -17,6 +17,7 @@ export class EditorAutocompleteText implements OnInit {
 
     }
     @Input() readOnly: boolean = false;
+    @Input() limitToChoice: boolean = false;
     @Input() selectableData: string[];
     @Input() selectedText: string
     @Input() emptyContentText: string = ''
@@ -32,6 +33,12 @@ export class EditorAutocompleteText implements OnInit {
     }
 
     save() {
+        if (this.limitToChoice && !this.selectableData.includes(this.selectedItem))  
+        {
+            this.selectedItem= this.content
+            return
+        }
+
         this.textChanged.next(this.selectedItem)
         this.content = this.selectedItem
         this.editMode = false
