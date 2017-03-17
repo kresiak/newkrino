@@ -120,6 +120,7 @@ export class AuthService {
     }
 
 
+
     getAnnotatedUsersByEquipeId(equipeId: string): Observable<any> {
         return this.getAnnotatedUsers().map(annotUsers => {
             return annotUsers.filter(annotUser => annotUser.annotation && annotUser.annotation.equipes && annotUser.annotation.equipes.map(eq => eq._id).includes(equipeId));
@@ -130,6 +131,12 @@ export class AuthService {
         return this.getAnnotatedUsers().map(users => users.filter(s => {
             return s.data._id === id
         })[0]);
+    }
+
+    getAnnotatedAdminUsers(): Observable<any> {
+        return this.getAnnotatedUsers().map(users => users.filter(s => {
+            return s.data.isAdmin
+        }));
     }
 
 
