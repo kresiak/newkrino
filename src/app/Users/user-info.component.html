@@ -1,40 +1,40 @@
 <div class="row col-sm-3">
     <div class="col-sm-3">
-		<img *ngIf="!userInfo.annotation.fullName.includes('Sandrina')" src="../../images/unknown-person.png">
-		<img *ngIf="userInfo.annotation.fullName.includes('Sandrina')" src="../../images/SandrinaEvrard.jpg">
+		<img *ngIf="!user.annotation.fullName.includes('Sandrina')" src="../../images/unknown-person.png">
+		<img *ngIf="user.annotation.fullName.includes('Sandrina')" src="../../images/SandrinaEvrard.jpg">
 	</div>
 </div>
 <div class="row col-sm-8">
 	<div class="row">
 		<div class="col-sm-2 col-lg-2">full name:</div>
-		<div class="col-sm-6">{{userInfo.annotation.fullName}}</div>
+		<div class="col-sm-6">{{user.annotation.fullName}}</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2 col-lg-2 vcenter">email:</div>
 		<div class="col-sm-6 vcenter">
-			<gg-editor [content]="userInfo.data.email" [showControls]="true" [regexp]="'^[0-9a-z_.-]+@[0-9a-z.-]+\\.[a-z]{2,3}$'" (editSaved)="emailUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
+			<gg-editor [content]="user.data.email" [showControls]="true" [regexp]="'^[0-9a-z_.-]+@[0-9a-z.-]+\\.[a-z]{2,3}$'" (editSaved)="emailUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2 col-lg-2 vcenter">name:</div>
 		<div class="col-sm-6 vcenter">
-			<gg-editor [content]="userInfo.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
+			<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2 col-lg-2 vcenter">first name:</div>
 		<div class="col-sm-6 vcenter">
-			<gg-editor [content]="userInfo.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
+			<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2 col-lg-2 vcenter">password:</div>
 		<div class="col-sm-6 vcenter">
-			<gg-editor [content]="userInfo.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
+			<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-2 vcenter">equipe(s):</div>
-		<div class="col-sm-6 vcenter">{{userInfo.annotation.equipesTxt}}</div>
+		<div class="col-sm-6 vcenter">{{user.annotation.equipesTxt}}</div>
 	</div> 
 </div>
