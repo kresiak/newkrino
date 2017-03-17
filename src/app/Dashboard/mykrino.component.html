@@ -3,23 +3,15 @@
 		<ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
 			<ngb-tab title="My account" id='tabMyAccount'>
 				<template ngbTabContent>
-					
 					<div class="card">
 						<div class="card-block">
-							<div class="row">
-                    			<div class="col-sm-2 ">
-									<img *ngIf="!currentUser.annotation.fullName.includes('Sandrina')" src="../../images/unknown-person.png">
-									<img *ngIf="currentUser.annotation.fullName.includes('Sandrina')" src="../../images/SandrinaEvrard.jpg">
-								</div>
-								<div class="col-sm-9 ">
+							<div class="col-sm-11 ">
 									
-									<gg-user-info [userInfo]="currentUser"></gg-user-info>
+								<gg-user-info [userInfo]="currentUser"></gg-user-info>
 
-								</div>
 							</div>
 						</div>
 					</div>
-
 				</template>
 			</ngb-tab>
 			<ngb-tab title="My notes" id="tabNotes">

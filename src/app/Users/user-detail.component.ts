@@ -50,7 +50,6 @@ export class UserDetailComponent implements OnInit {
          this.subscriptionUser.unsubscribe()
     }
     
-
     private user
     private webVouchersObservable: Observable<any>
     private stockOrdersObservable: Observable<any>;    
@@ -114,8 +113,6 @@ export class UserDetailComponent implements OnInit {
         }
     };
 
-    
-
     isReceptionistUpdated(receptionist) {
         this.user.data.isReceptionist = receptionist;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
@@ -130,6 +127,5 @@ export class UserDetailComponent implements OnInit {
         this.user.data.isProgrammer = isProgrammer;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     }
-
 
 }
