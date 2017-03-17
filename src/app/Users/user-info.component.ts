@@ -28,7 +28,7 @@ export class UserInfoComponent implements OnInit {
 
     private subscriptionAuthorization: Subscription   
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private subscriptionUser: Subscription         
+    //private subscriptionUser: Subscription         
 
     isAdminOrCurrentUser() {
         return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.userInfo.annotation.isCurrentUser)
