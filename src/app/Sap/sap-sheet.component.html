@@ -33,12 +33,12 @@
                     <div class="col-sm-1" *ngIf="isFacture"><b>Date Cpt</b></div>
 
                 </div>
-                <div class="row" *ngFor="let item of sapItem.items">
-                    <div class="col-sm-1">{{item.poste}}</div>
+                <div class="row" *ngFor="let item of sortedItems">
+                    <div class="col-sm-1">{{item.poste}} / {{item.codeTva}}</div>
                     <div class="col-sm-2">{{item.product}}</div>
                     <div class="col-sm-1">{{item.quantity}}</div>
                     <div class="col-sm-1">{{item.htva | currency:'EUR':true:'1.2-2'}}</div>
-                    <div class="col-sm-1">{{item.tvac | currency:'EUR':true:'1.2-2'}} ({{item.codeTva}})</div>
+                    <div class="col-sm-1">{{item.tvac | currency:'EUR':true:'1.2-2'}} </div>
                     <div class="col-sm-2 ">{{item.otp}}</div>
                     <div class="col-sm-1 ">{{item.isSuppr?'Suppr':''}} {{item.isBlocked?'Block':''}} {{item.isFactFinale?'FactFinal':''}} {{item.iChargUlter?'ChargUlt':''}}</div>
                     <div class="col-sm-1" *ngIf="isFacture">{{item.pieceType}} / {{item.pieceId}}</div>

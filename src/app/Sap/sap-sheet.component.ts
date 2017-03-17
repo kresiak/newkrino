@@ -16,10 +16,10 @@ export class SapSheetComponent implements OnInit {
     @Input() isFacture: boolean= false
     @Input() path: string
 
-
+    private sortedItems
 
     ngOnInit(): void {
-
+        this.sortedItems= this.sapItem.items.sort((a,b) => a.poste-b.poste)
     }
 
 

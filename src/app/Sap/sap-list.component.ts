@@ -14,7 +14,7 @@ import { SapService } from './../Shared/Services/sap.service'
 export class SapListComponent implements OnInit {
     @Input() sapsObservable: Observable<any>;
     @Input() state;
-    @Input() path: string= 'saps'
+    @Input() path: string = 'saps'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -24,7 +24,7 @@ export class SapListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
-    private subscriptionSaps: Subscription 
+    private subscriptionSaps: Subscription
 
     private saps;
 
@@ -41,16 +41,46 @@ export class SapListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionSaps= Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
-            if (searchTxt.trim() === '') return saps.slice(0, 200)
-            return saps.filter(sap => sap.mainData.data.sapId.toString().toUpperCase().includes(searchTxt.toUpperCase())
-                || sap.mainData.data.supplier.toUpperCase().includes(searchTxt.toUpperCase()) || sap.mainData.annotation.otpTxt.toUpperCase().includes(searchTxt.toUpperCase())).slice(0, 200);
+        this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
+
+            if (txt === '' || txt === '$') return saps.slice(0, 200)
+
+            return saps.filter(sap => {
+                if (txt.startsWith('$F')) {
+                    return sap.hasFactureFinale;
+                }
+                if (txt.startsWith('$D')) {
+                    return sap.isSuppr;
+                }
+                if (txt.startsWith('$T')) {
+                    return sap.hasFactureFinale || +sap.residuEngaged < 0.05;
+                }
+                if (txt.startsWith('$O')) {
+                    return +sap.residuEngaged >= 0.05;
+                }
+                if (txt.startsWith('$EO')) {
+                    return sap.hasOtpError;
+                }            
+
+                if (txt.startsWith('$>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + sap.residuEngaged >= montant;
+                }
+                if (txt.startsWith('$<') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return + sap.residuEngaged && + sap.residuEngaged <= montant;
+                }
+
+                return sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
+                    || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
+            }).slice(0, 200);
         }).subscribe(saps => this.saps = saps);
     }
 
     ngOnDestroy(): void {
-         this.subscriptionSaps.unsubscribe()
-   }
+        this.subscriptionSaps.unsubscribe()
+    }
 
     getSapObservable(sapId: number) {
         return this.sapService.getSapItemObservable(sapId)
@@ -70,9 +100,9 @@ export class SapListComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-/*    private getOtpText(sapInfo) {
-        var arr=  Array.from(sapInfo.mainData.annotation.otpMap.keys())
-        return arr.length === 0 ? 'no OTP' : arr.reduce((a, b) => a + ', ' + b)
-    }*/
+    /*    private getOtpText(sapInfo) {
+            var arr=  Array.from(sapInfo.mainData.annotation.otpMap.keys())
+            return arr.length === 0 ? 'no OTP' : arr.reduce((a, b) => a + ', ' + b)
+        }*/
 
 }

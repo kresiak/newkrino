@@ -118,17 +118,31 @@ export class SapService {
     private setPosteInfoArray(sapItemObj) {
         var engaged= sapItemObj.engaged
         var factured= sapItemObj.factured
-        var postList= (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : []).filter((elem, pos, arr) => arr.indexOf(elem) == pos).sort((a,b) => a-b)
+
+        var getDistinctOtps= function(poste) {
+            return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.otp) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.otp) : [])
+                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                            .sort()
+        }
+
+        var getDistinctPostes= function() {
+            return (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : [])
+                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                            .sort((a,b) => a-b)
+        }
+        var postList= getDistinctPostes()
+
         sapItemObj.postList= postList.map(poste => {
-            let itemForEngaged= engaged ? engaged.data.items.filter(item => item.poste == poste)[0] : undefined
-            let itemForFactured= factured ? factured.data.items.filter(item => item.poste == poste)[0] : undefined
-            if (engaged && factured && !itemForEngaged) sapItemObj.missingEngagementPoste= true
-            if (engaged && factured && !itemForFactured) sapItemObj.missingFacturedPoste= true
-            if (itemForEngaged && itemForFactured && itemForEngaged.otp !== itemForFactured.otp) sapItemObj.hasOtpDifference= true
+            let amountEngaged= (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
+            let amountFactured= (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
+            let otpsForPoste= getDistinctOtps(poste)
+            if (otpsForPoste.length != 1) sapItemObj.hasOtpError= true
             return {
                 poste: poste,
-                engaged: itemForEngaged,
-                factured: itemForFactured
+                otp: otpsForPoste[0],
+                amountEngaged: amountEngaged,
+                amountFactured: amountFactured,
+                amountResiduel: amountEngaged > amountFactured ? amountEngaged - amountFactured : 0
             }
         })
     }
@@ -155,7 +169,10 @@ export class SapService {
                 let obj2 = obj as any
                 obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
                 obj2.date = obj2.factured ? obj2.factured.data.dateCreation : obj2.engaged.data.dateCreation
-                //this.setPosteInfoArray(obj)
+                obj2.hasFactureFinale = (obj2.factured && obj2.factured.data.items.filter(i => i.isFactFinale).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => i.isFactFinale).length > 0)
+                obj2.isSuppr = !((obj2.factured && obj2.factured.data.items.filter(i => !i.isSuppr).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => !i.isSuppr).length > 0))
+                this.setPosteInfoArray(obj)
+                obj2.residuEngaged= obj2.hasFactureFinale ? 0 : obj2.postList.map(p => p.amountResiduel).reduce((a,b) => a+b, 0)
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
