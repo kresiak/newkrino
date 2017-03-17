@@ -20,7 +20,7 @@ export class UserInfoComponent implements OnInit {
     }
     
 
-    @Input() userInfo; 
+    @Input() user; 
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
@@ -31,27 +31,27 @@ export class UserInfoComponent implements OnInit {
     //private subscriptionUser: Subscription         
 
     isAdminOrCurrentUser() {
-        return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.userInfo.annotation.isCurrentUser)
+        return this.authorizationStatusInfo && (this.authorizationStatusInfo.isAdministrator() || this.user.annotation.isCurrentUser)
     }
 
     emailUserUpdated(email) {
-        this.userInfo.data.email = email;
-        this.dataStore.updateData('users.krino', this.userInfo.data._id, this.userInfo.data);
+        this.user.data.email = email;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
     nameUserUpdated(name) {
-        this.userInfo.data.name = name;
-        this.dataStore.updateData('users.krino', this.userInfo.data._id, this.userInfo.data);
+        this.user.data.name = name;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
     firstNameUserUpdated(firstName) {
-        this.userInfo.data.firstName = firstName;
-        this.dataStore.updateData('users.krino', this.userInfo.data._id, this.userInfo.data);
+        this.user.data.firstName = firstName;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
     passwordUpdated(password) {
-        this.userInfo.data.password = password;
-        this.dataStore.updateData('users.krino', this.userInfo.data._id, this.userInfo.data);
+        this.user.data.password = password;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
   

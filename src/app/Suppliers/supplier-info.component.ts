@@ -11,6 +11,6 @@ export class SupplierInfoComponent implements OnInit {
     ngOnInit(): void {}
     constructor() {}
 
-    @Input() supplierInfo; 
+    @Input() supplier; 
   
 }
