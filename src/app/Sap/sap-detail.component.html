@@ -1,18 +1,53 @@
 <template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
 
 <div>
-    <ngb-tabset *ngIf="sapItem" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+    <ngb-tabset *ngIf="sapObj" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
         <ngb-tab title="Details" id="tabDetails">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
                         <div class= "row">
-                            <div class="col-sm-2">Total without vat:</div>
-                            <div class="col-sm-3">{{sapItem.annotation.totalHtva | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-1">Reference:</div>             
+                            <div class="col-sm-8">{{sapItem.data.sapId}} / {{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</div>
                         </div>
                         <div class= "row">
-                            <div class="col-sm-2">Total including vat:</div>
-                            <div class="col-sm-3">{{sapItem.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-1">Supplier:</div>             
+                            <div class="col-sm-8">{{sapItem.data.supplier}}</div>
+                        </div>
+                        <div class= "row">
+                            <div class="col-sm-1">Engagement:</div>             
+                            <div class="col-sm-8">{{sapEngage ? sapEngage.data.maxDate : '(No engagement)'}}</div>
+                        </div>
+                        <div class= "row">
+                            <div class="col-sm-1">Final invoice:</div>             
+                            <div class="col-sm-8">{{sapObj.hasFactureFinale ? 'yes' : 'no'}}</div>
+                        </div>
+
+                        
+                        <br/>
+                        <div class= "row">
+                            <div class="col-sm-1"><b>Poste</b></div>
+                            <div class="col-sm-2"><b>Otp</b></div>
+                            <div class="col-sm-2"><b>Initial</b></div>
+                            <div class="col-sm-2"><b>Invoiced</b></div>
+                            <div class="col-sm-2"><b>Remaining</b></div>
+                            <div class="col-sm-2"><b>Last invoice</b></div>
+                        </div>
+                        <div class= "row" *ngFor="let poste of sapObj.postList">
+                            <div class="col-sm-1">{{poste.poste}}</div>
+                            <div class="col-sm-2">{{poste.otp}}</div>
+                            <div class="col-sm-2">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-2">{{poste.amountFactured | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-2">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-2">{{poste.lastInvoiceDate}}</div>
+                        </div>
+                        <div class= "row">
+                            <div class="col-sm-1"><b></b></div>
+                            <div class="col-sm-2"><b></b></div>
+                            <div class="col-sm-2"><b></b></div>
+                            <div class="col-sm-2"><b>{{sapObj.alreadyBilled | currency:'EUR':true:'1.2-2'}}</b></div>
+                            <div class="col-sm-2"><b>{{sapObj.residuEngaged | currency:'EUR':true:'1.2-2'}} </b>{{sapObj.hasFactureFinale? '(because of final invoice)' : ''}}</div>
+                            <div class="col-sm-2"><b></b></div>
                         </div>
                     </div>
                 </div>

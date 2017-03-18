@@ -7,9 +7,13 @@
 		<li>$t: terminé: avec facture finale ou montant restant engagé nul</li>
 		<li>$o: ouvert: avec un montant qui reste engagé</li>
 		<li>$EO: avec otp error: plusieurs otp différents sur le même poste</li>
-		<li>$>200: résidu engagé supérieur à 200 euros</li>
-		<li>$<10: résidu engagé inférieur à 10 euros</li>
-		
+		<li>$E>200: résidu engagé supérieur à 200 euros</li>
+		<li>$E<10: résidu engagé inférieur à 10 euros</li>
+		<li>$R>200: réalisé supérieur à 200 euros</li>
+		<li>$R<10: réalisé inférieur à 10 euros</li>
+		<li>#>2: nombre de postes supérieur à 2</li>
+		<li>#<5: nombre de postes inférieur à 5</li>
+		<li>#=2: nombre de postes égal à 2</li>
 	</ul>
 </template>
 
@@ -30,12 +34,13 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-1"><b>Sap Id</b></div>
-							<div class="col-sm-1"><b>Date</b></div>
-							<div class="col-sm-1"><b>Amount</b></div>
-							<div class="col-sm-1"><b>Type</b></div>
-							<div class="col-sm-3"><b>Supplier</b></div>
-                            <div class="col-sm-2"><b>Otp</b></div>
+							<div class="col-sm-1"><b>Eng. date</b></div>
+							<div class="col-sm-1"><b>Last activity</b></div>
+							<div class="col-sm-2"><b>Already invoiced</b></div>
 							<div class="col-sm-2"><b>Remaining engaged</b></div>
+							<div class="col-sm-1"><b>Type</b></div>
+							<div class="col-sm-2"><b>Supplier</b></div>
+                            <div class="col-sm-2"><b>Otp</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -46,12 +51,13 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{sap.mainData.data.sapId}}">
 							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
-							<div class="col-sm-1" >{{sap.date}}</div>
-							<div class="col-sm-1">{{sap.mainData.annotation.totalTvac | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged'))}}</div>
-							<div class="col-sm-3">{{ sap.mainData.data.supplier }}</div>
-                            <div class="col-sm-2">{{ sap.mainData.annotation.otpTxt }}</div>
+							<div class="col-sm-1" >{{sap.engaged ? sap.engaged.data.maxDate : ''}}</div>
+							<div class="col-sm-1" >{{sap.dateLastActivity}}</div>
+							<div class="col-sm-2">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>							
+							<div class="col-sm-1">{{sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged'))}}</div>
+							<div class="col-sm-2">{{ sap.mainData.data.supplier }}</div>
+                            <div class="col-sm-2">{{ sap.mainData.annotation.otpTxt }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

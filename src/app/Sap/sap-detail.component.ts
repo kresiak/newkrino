@@ -35,6 +35,7 @@ export class SapDetailComponent implements OnInit {
     private subscriptionAuthorization: Subscription
     private subscriptionSap: Subscription
 
+    private sapObj;
     private sapItem;
     private sapEngage;
     private sapFacture;    
@@ -47,6 +48,7 @@ export class SapDetailComponent implements OnInit {
         });
 
         this.subscriptionSap = this.sapObservable.subscribe(res => {
+            this.sapObj= res
             this.sapItem= res.mainData
             this.sapEngage= res.engaged
             this.sapFacture= res.factured

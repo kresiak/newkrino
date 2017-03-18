@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { NavigationService } from './../Shared/Services/navigation.service'
-
+import * as moment from "moment"
 
 @Component(
     {
@@ -19,7 +19,14 @@ export class SapSheetComponent implements OnInit {
     private sortedItems
 
     ngOnInit(): void {
-        this.sortedItems= this.sapItem.items.sort((a,b) => a.poste-b.poste)
+        this.sortedItems= this.sapItem.items.sort((a,b) => { 
+            var diff= a.poste-b.poste
+            if (diff != 0) return diff
+                var d1 = moment(a.dateCreation, 'DD/MM/YYYY').toDate()
+                var d2 = moment(b.dateCreation, 'DD/MM/YYYY').toDate()
+                return d1 > d2 ? -1 : 1
+
+        })
     }
 
 

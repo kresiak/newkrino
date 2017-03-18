@@ -44,7 +44,7 @@ export class SapListComponent implements OnInit {
         this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
 
-            if (txt === '' || txt === '$') return saps.slice(0, 200)
+            if (txt === '' || txt === '$' || txt === '#') return saps.slice(0, 200)
 
             return saps.filter(sap => {
                 if (txt.startsWith('$F')) {
@@ -63,13 +63,33 @@ export class SapListComponent implements OnInit {
                     return sap.hasOtpError;
                 }            
 
-                if (txt.startsWith('$>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
+                if (txt.startsWith('$E>') && +txt.slice(3)) {
+                    let montant = +txt.slice(3);
                     return + sap.residuEngaged >= montant;
                 }
-                if (txt.startsWith('$<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
+                if (txt.startsWith('$E<') && +txt.slice(3)) {
+                    let montant = +txt.slice(3);
                     return + sap.residuEngaged && + sap.residuEngaged <= montant;
+                }
+                if (txt.startsWith('$R>') && +txt.slice(3)) {
+                    let montant = +txt.slice(3);
+                    return + sap.alreadyBilled >= montant;
+                }
+                if (txt.startsWith('$R<') && +txt.slice(3)) {
+                    let montant = +txt.slice(3);
+                    return + sap.alreadyBilled && + sap.residuEngaged <= montant;
+                }
+                if (txt.startsWith('#>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return sap.engaged && sap.engaged.data.items.length > montant
+                }
+                if (txt.startsWith('#<') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return sap.engaged && sap.engaged.data.items.length < montant
+                }
+                if (txt.startsWith('#=') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return sap.engaged && sap.engaged.data.items.length == montant
                 }
 
                 return sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)

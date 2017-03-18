@@ -38,8 +38,8 @@ export class SapService {
                     sapItemsToReturn.push(sapIdMap.get(id))
             })
             return sapItemsToReturn.sort((v1, v2) => {
-                var d1 = moment(v1.date, 'DD/MM/YYYY').toDate()
-                var d2 = moment(v2.date, 'DD/MM/YYYY').toDate()
+                var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
+                var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
                 return d1 > d2 ? -1 : 1
             })
         })
@@ -49,7 +49,7 @@ export class SapService {
         return this.sapOtpMapObservable.switchMap(otpMap => {
             var sapIdList = otpMap.has(otp) ? Array.from(otpMap.get(otp).sapIdSet) : []
             return this.getSapItemsObservableBySapIdList(sapIdList as number[]).map(sapItems => sapItems.filter(mapItem => {
-                var d1 = moment(mapItem.date, 'DD/MM/YYYY').toDate()
+                var d1 = moment(mapItem.dateLastActivity, 'DD/MM/YYYY').toDate() //probably completely wrong to use date here
                 var d2 = moment(dateMin, 'DD/MM/YYYY').toDate()                
                 return d1 >= d2
             }))
@@ -135,6 +135,13 @@ export class SapService {
         sapItemObj.postList= postList.map(poste => {
             let amountEngaged= (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
             let amountFactured= (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
+
+            let lastInvoiceDate= !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
+                var d1 = moment(a, 'DD/MM/YYYY').toDate()
+                var d2 = moment(b, 'DD/MM/YYYY').toDate()
+                return d1 > d2 ? -1 : 1                
+            })[0]
+
             let otpsForPoste= getDistinctOtps(poste)
             if (otpsForPoste.length != 1) sapItemObj.hasOtpError= true
             return {
@@ -142,7 +149,8 @@ export class SapService {
                 otp: otpsForPoste[0],
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
-                amountResiduel: amountEngaged > amountFactured ? amountEngaged - amountFactured : 0
+                amountResiduel: amountEngaged > amountFactured ? amountEngaged - amountFactured : 0,
+                lastInvoiceDate: lastInvoiceDate
             }
         })
     }
@@ -168,11 +176,12 @@ export class SapService {
             Array.from(map2.values()).forEach(obj => {
                 let obj2 = obj as any
                 obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
-                obj2.date = obj2.factured ? obj2.factured.data.dateCreation : obj2.engaged.data.dateCreation
+                obj2.dateLastActivity = obj2.factured ? obj2.factured.data.maxDate : obj2.engaged.data.maxDate
                 obj2.hasFactureFinale = (obj2.factured && obj2.factured.data.items.filter(i => i.isFactFinale).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => i.isFactFinale).length > 0)
                 obj2.isSuppr = !((obj2.factured && obj2.factured.data.items.filter(i => !i.isSuppr).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => !i.isSuppr).length > 0))
                 this.setPosteInfoArray(obj)
                 obj2.residuEngaged= obj2.hasFactureFinale ? 0 : obj2.postList.map(p => p.amountResiduel).reduce((a,b) => a+b, 0)
+                obj2.alreadyBilled= obj2.postList.map(p => p.amountFactured).reduce((a,b) => a+b, 0)
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
@@ -215,8 +224,8 @@ export class SapService {
         this.sapItemsObservable= this.sapIdMapObservable.map(sapIdMap => {
             console.log('In initSapItemsObservable')
             return Array.from(sapIdMap.values()).sort((v1, v2) => {
-                var d1 = moment(v1.date, 'DD/MM/YYYY').toDate()
-                var d2 = moment(v2.date, 'DD/MM/YYYY').toDate()
+                var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
+                var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
                 return d1 > d2 ? -1 : 1
             })
         }).publishReplay(1)
