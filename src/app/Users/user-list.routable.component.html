@@ -27,6 +27,13 @@
                     </div>
                 </template>
             </ngb-tab>
+            <ngb-tab title="Current User" id="tabCurrentUser">
+                <template ngbTabContent>
+
+                    <gg-user-detail [userObservable]="currentUserObservable"></gg-user-detail>
+
+                </template>
+            </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>

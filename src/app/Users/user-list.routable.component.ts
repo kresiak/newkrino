@@ -14,6 +14,7 @@ export class UserListComponentRoutable implements OnInit {
 
     usersObservable: Observable<any>;
     adminsObservable: Observable<any>;
+    currentUserObservable: Observable<any>;
 
     state: {}
 
@@ -32,6 +33,7 @@ export class UserListComponentRoutable implements OnInit {
 
         this.usersObservable = this.authService.getAnnotatedUsers();
         this.adminsObservable = this.authService.getAnnotatedAdminUsers();
+        this.currentUserObservable = this.authService.getAnnotatedCurrentUser();
     }
 
     ngOnDestroy(): void {
