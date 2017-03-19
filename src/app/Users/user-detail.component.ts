@@ -33,6 +33,7 @@ export class UserDetailComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
          this.subscriptionUser=this.userObservable.subscribe(user => {
+            if (!user) return
             this.user = user;
             this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
             this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id)
