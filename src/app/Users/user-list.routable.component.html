@@ -9,6 +9,13 @@
 
                 </template>
             </ngb-tab>
+            <ngb-tab title="Administrators" id="tabAdministrators">
+                <template ngbTabContent>
+
+                    <gg-user-list [state]="state" [usersObservable]="adminsObservable"></gg-user-list>
+
+                </template>
+            </ngb-tab>
             <ngb-tab title="Create a User" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
