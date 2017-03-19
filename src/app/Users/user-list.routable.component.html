@@ -29,9 +29,11 @@
             </ngb-tab>
             <ngb-tab title="Current User" id="tabCurrentUser">
                 <template ngbTabContent>
-
-                    <gg-user-detail [userObservable]="currentUserObservable"></gg-user-detail>
-
+                    <div class="card">
+                        <div class="card-block">
+                            <gg-user-detail [userObservable]="currentUserObservable"></gg-user-detail>
+                        </div>
+                    </div>
                 </template>
             </ngb-tab>
         </ngb-tabset>
