@@ -12,7 +12,7 @@ import { SapService } from './../Shared/Services/sap.service'
 export class SapListBySapIdsComponent implements OnInit {
     @Input() sapIdList: any[];
     @Input() state;
-    @Input() path: string= 'saps'
+    @Input() path: string = 'saps'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -25,13 +25,19 @@ export class SapListBySapIdsComponent implements OnInit {
     }
 
     private sapsObservable: Observable<any>
+    private subscription: Subscription
+    private totalEngaged: number=0
 
     ngOnInit(): void {
         this.stateInit();
-        this.sapsObservable=  this.sapService.getSapItemsObservableBySapIdList(this.sapIdList)
+        this.sapsObservable = this.sapService.getSapItemsObservableBySapIdList(this.sapIdList)
+        this.subscription = this.sapsObservable.subscribe(sapList => {
+            this.totalEngaged= sapList.map(item => item.residuEngaged).reduce((acc, item) => acc + item, 0)
+        })
     }
 
     ngOnDestroy(): void {
-   }
+        this.subscription.unsubscribe()
+    }
 
 }

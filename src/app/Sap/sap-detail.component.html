@@ -2,7 +2,7 @@
 
 <div>
     <ngb-tabset *ngIf="sapObj" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-        <ngb-tab title="Details" id="tabDetails">
+        <ngb-tab title="Summary" id="tabDetails">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -28,26 +28,29 @@
                         <div class= "row">
                             <div class="col-sm-1"><b>Poste</b></div>
                             <div class="col-sm-2"><b>Otp</b></div>
+                            <div class="col-sm-2"><b>Product</b></div>
                             <div class="col-sm-2"><b>Initial</b></div>
                             <div class="col-sm-2"><b>Invoiced</b></div>
                             <div class="col-sm-2"><b>Remaining</b></div>
-                            <div class="col-sm-2"><b>Last invoice</b></div>
+                            <div class="col-sm-1"><b>Last invoice</b></div>
                         </div>
                         <div class= "row" *ngFor="let poste of sapObj.postList">
                             <div class="col-sm-1">{{poste.poste}}</div>
                             <div class="col-sm-2">{{poste.otp}}</div>
+                            <div class="col-sm-2">{{poste.product}}</div>
                             <div class="col-sm-2">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-2">{{poste.amountFactured | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-2">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
-                            <div class="col-sm-2">{{poste.lastInvoiceDate}}</div>
+                            <div class="col-sm-1">{{poste.lastInvoiceDate}}</div>
                         </div>
                         <div class= "row">
                             <div class="col-sm-1"><b></b></div>
                             <div class="col-sm-2"><b></b></div>
                             <div class="col-sm-2"><b></b></div>
-                            <div class="col-sm-2"><b>{{sapObj.alreadyBilled | currency:'EUR':true:'1.2-2'}}</b></div>
-                            <div class="col-sm-2"><b>{{sapObj.residuEngaged | currency:'EUR':true:'1.2-2'}} </b>{{sapObj.hasFactureFinale? '(because of final invoice)' : ''}}</div>
                             <div class="col-sm-2"><b></b></div>
+                            <div class="col-sm-2"><b>{{sapObj.alreadyBilled | currency:'EUR':true:'1.2-2'}}</b></div>
+                            <div class="col-sm-2"><b>{{sapObj.residuEngaged | currency:'EUR':true:'1.2-2'}} {{sapObj.hasFactureFinale? '(has a final invoice)' : ''}}</b></div>
+                            <div class="col-sm-1"></div>
                         </div>
                     </div>
                 </div>

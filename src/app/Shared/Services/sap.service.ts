@@ -125,6 +125,12 @@ export class SapService {
                             .sort()
         }
 
+        var getDistinctProducts= function(poste) {
+            return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.product) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.product) : [])
+                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                            .sort()
+        }
+
         var getDistinctPostes= function() {
             return (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : [])
                             .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
@@ -147,6 +153,7 @@ export class SapService {
             return {
                 poste: poste,
                 otp: otpsForPoste[0],
+                product: getDistinctProducts(poste)[0],
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
                 amountResiduel: amountEngaged > amountFactured ? amountEngaged - amountFactured : 0,
