@@ -54,7 +54,7 @@ export class SapListComponent implements OnInit {
                     return sap.isSuppr;
                 }
                 if (txt.startsWith('$T')) {
-                    return sap.hasFactureFinale || +sap.residuEngaged < 0.05;
+                    return +sap.residuEngaged < 0.05;
                 }
                 if (txt.startsWith('$O')) {
                     return +sap.residuEngaged >= 0.05;

@@ -14,15 +14,29 @@ export class SapService {
         this.initSapItemsObservable()
     }
 
+    private isConnected: boolean= false
+
+    private connectAll() {
+        if (this.isConnected) return        
+        this.isConnected= true
+        this.sapIdMapObservable.connect()
+        this.sapOtpMapObservable.connect()        
+        this.sapItemsObservable.connect()
+        
+    }
+
     getSapIdMapObservable(): Observable<Map<number, any>> {
+        this.connectAll()
         return this.sapIdMapObservable
     }
 
     getSapItemsObservable(): Observable<any> {
+        this.connectAll()
         return this.sapItemsObservable
     }
 
     getSapOtpMapObservable(): Observable<Map<string, any>> {
+        this.connectAll()
         return this.sapOtpMapObservable
     }
 
@@ -31,7 +45,7 @@ export class SapService {
     }
 
     getSapItemsObservableBySapIdList(sapIdList: number[]): Observable<any[]> {
-        return this.sapIdMapObservable.map(sapIdMap => {
+        return this.getSapIdMapObservable().map(sapIdMap => {
             var sapItemsToReturn= []
             sapIdList.forEach(id => {
                 if (sapIdMap.has(id)) 
@@ -150,13 +164,17 @@ export class SapService {
 
             let otpsForPoste= getDistinctOtps(poste)
             if (otpsForPoste.length != 1) sapItemObj.hasOtpError= true
+
+            var hasPosteFactureFinale= (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
+
             return {
                 poste: poste,
                 otp: otpsForPoste[0],
                 product: getDistinctProducts(poste)[0],
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
-                amountResiduel: amountEngaged > amountFactured ? amountEngaged - amountFactured : 0,
+                amountResiduel: (amountEngaged > amountFactured && ! hasPosteFactureFinale) ? amountEngaged - amountFactured : 0,
+                hasPosteFactureFinale: hasPosteFactureFinale,
                 lastInvoiceDate: lastInvoiceDate
             }
         })
@@ -184,23 +202,23 @@ export class SapService {
                 let obj2 = obj as any
                 obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
                 obj2.dateLastActivity = obj2.factured ? obj2.factured.data.maxDate : obj2.engaged.data.maxDate
-                obj2.hasFactureFinale = (obj2.factured && obj2.factured.data.items.filter(i => i.isFactFinale).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => i.isFactFinale).length > 0)
                 obj2.isSuppr = !((obj2.factured && obj2.factured.data.items.filter(i => !i.isSuppr).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => !i.isSuppr).length > 0))
                 this.setPosteInfoArray(obj)
-                obj2.residuEngaged= obj2.hasFactureFinale ? 0 : obj2.postList.map(p => p.amountResiduel).reduce((a,b) => a+b, 0)
+                obj2.hasFactureFinale = obj2.postList.filter(p => p.hasPosteFactureFinale).length > 0
+                obj2.residuEngaged= obj2.postList.map(p => p.amountResiduel).reduce((a,b) => a+b, 0)
                 obj2.alreadyBilled= obj2.postList.map(p => p.amountFactured).reduce((a,b) => a+b, 0)
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
 
             return map2
-        }).publishReplay(1)
-        this.sapIdMapObservable.connect()
+        }).publishReplay(1)        
     }
+
 
     // P2
     private initSapOtpMapObservable(): void {
-        this.sapOtpMapObservable = this.getSapIdMapObservable().map(idMap => {
+        this.sapOtpMapObservable = this.sapIdMapObservable.map(idMap => {
             let otpMap = new Map<string, any>()            
 
             Array.from(idMap.values()).forEach(value => {                
@@ -221,8 +239,7 @@ export class SapService {
             })
             console.log('In initSapOtpMapObservable: ' + otpMap.size)
             return otpMap
-        }).publishReplay(1)
-        this.sapOtpMapObservable.connect()
+        }).publishReplay(1)        
     }
 
 
@@ -235,8 +252,7 @@ export class SapService {
                 var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
                 return d1 > d2 ? -1 : 1
             })
-        }).publishReplay(1)
-        this.sapItemsObservable.connect()
+        }).publishReplay(1)        
     }
 
 
