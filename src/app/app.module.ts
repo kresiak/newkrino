@@ -121,6 +121,7 @@ import {Checkbox} from './ui/checkbox/checkbox'
 import {SelectorComponent} from './ui/selector/selector.component'
 import {CommentComponent} from './Comments/comment.component'
 import {CommentsComponent} from './Comments/comments.component'
+import {HelpPointerComponent} from './ui/help/help-pointer.component'
 
 import {WebSocketService} from './Shared/Services/websocket.service';
 import {NavigationService} from './Shared/Services/navigation.service';
@@ -207,7 +208,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
-                  FullDatePipe, ShortDatePipe, FromNowPipe,
+                  FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService, SapService ],
