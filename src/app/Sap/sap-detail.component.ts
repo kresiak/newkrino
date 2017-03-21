@@ -60,10 +60,6 @@ export class SapDetailComponent implements OnInit {
         this.subscriptionSap.unsubscribe()
     }
 
-    navigateToProduct(productId) {
-        this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
-    }
-
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
@@ -79,5 +75,14 @@ export class SapDetailComponent implements OnInit {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
+
+    navigateToOrder() {
+        if (+this.sapItem.data.ourRef)
+        {
+            this.navigationService.maximizeOrUnmaximize('/order', this.sapItem.data.ourRef, this.path, false)
+        }
+        
+    }
+
 
 }

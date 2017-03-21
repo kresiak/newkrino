@@ -92,7 +92,7 @@ export class SapListComponent implements OnInit {
                     return sap.engaged && sap.engaged.data.items.length == montant
                 }
 
-                return sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
+                return sap.mainData.data.ourRef.toString().toUpperCase().includes(txt) ||sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
                     || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
             }).slice(0, 200);
         }).subscribe(saps => this.saps = saps);

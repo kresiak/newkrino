@@ -257,7 +257,7 @@ export class OrderService {
 
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
-            this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id)[0]),
+            this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id || order.kid === +id)[0]),
             this.dataStore.getDataObservable('products').map(this.hashMapFactory),
             this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
             this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),

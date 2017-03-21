@@ -8,7 +8,7 @@
                     <div class="card-block">
                         <div class= "row">
                             <div class="col-sm-1">Reference:</div>             
-                            <div class="col-sm-8">{{sapItem.data.sapId}} / {{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</div>
+                            <div class="col-sm-8">{{sapItem.data.sapId}} /  <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</a> </div>
                         </div>
                         <div class= "row">
                             <div class="col-sm-1">Supplier:</div>             
