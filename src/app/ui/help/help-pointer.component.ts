@@ -16,5 +16,6 @@ export class HelpPointerComponent implements OnInit {
     ngOnInit(): void {
     }
 
-  
+    
+
 }
