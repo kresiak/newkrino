@@ -1,3 +1,5 @@
+<template #helpText>Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform.</template>
+
 <div class="card" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
 	<div class="card-block">
 		<ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
@@ -27,7 +29,7 @@
 						<div class="card-block">
 							<ngb-tabset>
 								<ngb-tab id="tabOrderVouchers" >
-									<template ngbTabTitle>My available vouchers <gg-help-pointer [helpTexte] ="helpTexte"></gg-help-pointer></template>
+									<template ngbTabTitle>My available vouchers <gg-help-pointer [ngbTooltip] ="helpText"></gg-help-pointer></template>
 									<template ngbTabContent>
 										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
 									</template>

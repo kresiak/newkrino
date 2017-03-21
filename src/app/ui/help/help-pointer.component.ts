@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 export class HelpPointerComponent implements OnInit {
   
-    @Input() helpTexte;
+    @Input() helpText;
 
 
     constructor() {
