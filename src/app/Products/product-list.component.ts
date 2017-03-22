@@ -80,6 +80,10 @@ export class ProductListComponent implements OnInit {
                     return product.annotation.multipleOccurences;
                 }
 
+                if (txt.startsWith('$D')) {
+                    return product.data.disabled;
+                }
+
                 return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).subscribe(products => {

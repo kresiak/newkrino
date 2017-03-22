@@ -14,7 +14,7 @@
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
-						<div class="col-sm-1 vcenter" *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo" placement="right" [ngbTooltip]="tipAddToBasket">
+						<div class="col-sm-1 vcenter" *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" placement="right" [ngbTooltip]="tipAddToBasket">
 							<img class="card-img img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()" ><span>{{product.annotation.quantity}}</span>
 						</div>
 						<div class="col-sm-1 vcenter" *ngIf="product.data.isFrigo">

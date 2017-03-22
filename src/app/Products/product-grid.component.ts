@@ -63,11 +63,18 @@ export class ProductGridComponent implements OnInit
                     let montant = +txt.slice(2);
                     return + product.data.price <= montant;
                 }
+                if (txt.startsWith('$M')) {
+                    return product.annotation.multipleOccurences;
+                }
+
+                if (txt.startsWith('$D')) {
+                    return product.data.disabled;
+                }
 
                 return product.data.name.toUpperCase().includes(txt) 
             });
         }).subscribe(products => {
-            this.products = products.slice(0, 30)
+            this.products = products.slice(0, 50)
         });
     }
 

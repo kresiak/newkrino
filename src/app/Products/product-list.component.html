@@ -8,6 +8,7 @@
 				<li>$T6 : product with 6% VAT</li>
 				<li>$T0 : product with 0% VAT</li>
 				<li>$M : product presents several times with the same CatalogNr</li>
+				<li>$D : disabled products</li>
 	</ul>
 </template>
 
@@ -36,6 +37,7 @@
 							<div class="col-sm-2"><b>Catalog nr.</b></div>
 							<div class="col-sm-2"><b>Price</b></div>
 							<div class="col-sm-1"><b>Frigo</b></div>
+							<div class="col-sm-1"><b>Disabled?</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -57,6 +59,7 @@
 								<img  *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
 							</div>
 							<div class="col-sm-1" *ngIf="product.annotation.basketId"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
+							<div class="col-sm-1" *ngIf="product.data.disabled"><img height="25" width="25" src="../../images/closed.png" /></div>
 							
 						</div>
 					</template>
