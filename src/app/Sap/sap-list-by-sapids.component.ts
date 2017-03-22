@@ -11,6 +11,7 @@ import { SapService } from './../Shared/Services/sap.service'
 )
 export class SapListBySapIdsComponent implements OnInit {
     @Input() sapIdList: any[];
+    @Input() otp: string
     @Input() state;
     @Input() path: string = 'saps'
     @Output() stateChanged = new EventEmitter();
@@ -32,7 +33,11 @@ export class SapListBySapIdsComponent implements OnInit {
         this.stateInit();
         this.sapsObservable = this.sapService.getSapItemsObservableBySapIdList(this.sapIdList)
         this.subscription = this.sapsObservable.subscribe(sapList => {
-            this.totalEngaged= sapList.map(item => item.residuEngaged).reduce((acc, item) => acc + item, 0)
+            this.totalEngaged= sapList.reduce((acc, sapItem) => {
+                return acc + sapItem.postList.filter(poste => poste.otp === this.otp).reduce((acc2, poste) => {
+                    return acc2 + poste.amountResiduel
+                }, 0)
+            }, 0)
         })
     }
 

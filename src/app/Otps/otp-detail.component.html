@@ -146,7 +146,7 @@
 					<ngb-tabset>
 						<ngb-tab title="All items" id="tabSapsAll">
 							<template ngbTabContent>
-								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [state]="state.Saps" [path]="path+'|O:Saps'"></gg-sap-by-sapids-list>
+								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [otp]="otp.data.name" [state]="state.Saps" [path]="path+'|O:Saps'"></gg-sap-by-sapids-list>
 							</template>
 						</ngb-tab>
 						<ngb-tab title="By date" id="tabSapsByDate">
