@@ -21,9 +21,12 @@ export class ProductService {
     private productDoubleObservable:  ConnectableObservable<any> = null
 
      private initProductDoubleObservable(): void {
-         this.productDoubleObservable= this.dataStore.getDataObservable('products').map(products => products.filter(p => p.catalogNr).map(p => p.catalogNr).filter((elem, pos, arr) => arr.indexOf(elem) != pos))
-                                        .map(catNumberList => new Set<string>(catNumberList))
-                                        .publishReplay(1) 
+        var toExclude= ['A COM', 'À COM', 'INCONNU', 'UNKNOWN', 'AUCUN', 'AUCUNE']
+
+         this.productDoubleObservable= this.dataStore.getDataObservable('products')
+                    .map(products => products.filter(p => p.catalogNr && !p.disabled && !toExclude.includes(p.catalogNr.toUpperCase()) && p.catalogNr.length > 3).map(p => p.catalogNr).filter((elem, pos, arr) => arr.indexOf(elem) != pos))
+                    .map(catNumberList => new Set<string>(catNumberList))
+                    .publishReplay(1) 
          this.productDoubleObservable.connect()
      }
 
@@ -284,6 +287,10 @@ export class ProductService {
 
     getAnnotatedProductsWithBasketInfoById(id: string): Observable<any> {
         return this.getAnnotatedProductsWithBasketInfoAll().map(products => products.filter(product => product.data._id === id)[0]);
+    }
+
+    getAnnotatedProductsWithBasketInfoByCatalogNr(catalogNr: string): Observable<any> {
+        return this.getAnnotatedProductsWithBasketInfoAll().map(products => products.filter(product => product.data.catalogNr === catalogNr));
     }
 
     getAnnotatedProductsWithBasketInfoBySupplier(supplierId): Observable<any> {

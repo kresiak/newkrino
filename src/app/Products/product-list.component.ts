@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
                 }
 
                 if (txt.startsWith('$M')) {
-                    return product.annotation.multipleOccurences;
+                    return !product.data.disabled && product.annotation.multipleOccurences;
                 }
 
                 if (txt.startsWith('$D')) {

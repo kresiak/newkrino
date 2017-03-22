@@ -115,6 +115,16 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab id="tabDoubleProducts" *ngIf="hasProductDoubles"> 
+		<template ngbTabTitle><span style="color: indianred">Duplicate Catalog Nr</span> <gg-help-pointer [helpText]="'Here you can see the other products with the same catalog number.'"></gg-help-pointer></template>
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<gg-product-list [productsObservable]="doubleProductsObservable" [state]="state.DoubleProducts" [path]="path+'|O:DoubleProducts'"  (stateChanged)="childDoubleProductsStateChanged($event)"></gg-product-list>
+				</div>
+			</div>			
+		</template>
+	</ngb-tab>
 	<ngb-tab title="Put into basket" id="tabBasket" *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo"> 
 		<template ngbTabContent>
 			<div class="card">

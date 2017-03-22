@@ -37,6 +37,9 @@ export class ProductDetailComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription     
     private subscriptionProduct: Subscription
+    private subscriptionDoubleProduct: Subscription
+
+
 
     ngOnInit(): void {
         this.stateInit();
@@ -50,6 +53,10 @@ export class ProductDetailComponent implements OnInit {
             this.product = product;
             if (product) {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
+                this.doubleProductsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCatalogNr(product.data.catalogNr)
+                this.subscriptionDoubleProduct= this.doubleProductsObservable.subscribe(res => {
+                    this.hasProductDoubles= res && res.length > 1
+                })
             }
         });
 
@@ -61,12 +68,15 @@ export class ProductDetailComponent implements OnInit {
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionProduct.unsubscribe()
+         this.subscriptionDoubleProduct.unsubscribe()
     }
     
 
     //private model;
     private product;
+    private hasProductDoubles: boolean= false
     private ordersObservable;
+    private doubleProductsObservable
     private selectableUsers: Observable<SelectableData[]>;
     private selectedUserIdsObservable: Observable<any>;
     private selectableCategoriesObservable: Observable<SelectableData[]>;
@@ -124,6 +134,12 @@ export class ProductDetailComponent implements OnInit {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     }
+
+    private childDoubleProductsStateChanged($event) {
+        this.state.DoubleProducts = $event;
+        this.stateChanged.next(this.state);
+    }    
+
 
     nameUpdated(name: string) {
         this.product.data.name = name;
