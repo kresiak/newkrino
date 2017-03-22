@@ -5,7 +5,7 @@ import { ApiService } from './api.service'
 import { OtpChoiceService } from './otp-choice.service'
 import { OrderService } from './order.service'
 import { SelectableData } from './../Classes/selectable-data'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 
 
@@ -13,8 +13,23 @@ Injectable()
 export class ProductService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
-        @Inject(OrderService) private orderService: OrderService) { }
+        @Inject(OrderService) private orderService: OrderService) {
+            this.initProductDoubleObservable()
+    }
+    
 
+    private productDoubleObservable:  ConnectableObservable<any> = null
+
+     private initProductDoubleObservable(): void {
+         this.productDoubleObservable= this.dataStore.getDataObservable('products').map(products => products.filter(p => p.catalogNr).map(p => p.catalogNr).filter((elem, pos, arr) => arr.indexOf(elem) != pos))
+                                        .map(catNumberList => new Set<string>(catNumberList))
+                                        .publishReplay(1) 
+         this.productDoubleObservable.connect()
+     }
+
+     getProductDoubleObservable(): Observable<any> {
+         return this.productDoubleObservable
+     }
 
     getSelectableManips(): Observable<SelectableData[]> {
         return this.dataStore.getDataObservable('manips').map(manips => {
@@ -236,8 +251,8 @@ export class ProductService {
 
     getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
-            this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(),
-            (products, basketItems, suppliers, productFrequenceMap, userId) => {
+            this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
+            (products, basketItems, suppliers, productFrequenceMap, userId, setProductsInDouble) => {
                 let mapSuppliers = suppliers.reduce((map, supplier) => {
                     map.set(supplier._id, supplier)
                     return map
@@ -253,7 +268,8 @@ export class ProductService {
                             hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                             quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
                             supplierName: supplier ? supplier.name : "unknown",
-                            productFrequence: productFrequenceMap.get(product._id) || 0
+                            productFrequence: productFrequenceMap.get(product._id) || 0,
+                            multipleOccurences: setProductsInDouble.has(product.catalogNr)
                         }
                     };
                 });
@@ -531,9 +547,9 @@ export class ProductService {
                                 basketId: basketItemFiltered[0]._id,
                                 hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                                 quantity: basketItemFiltered[0].quantity,
-                                totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva||21)/100),  // Todo Tva service
-                                otp: basketItemFiltered[0].otpId ? {name:'will never be used, or?', _id: basketItemFiltered[0].otpId } :
-                                  this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
+                                totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
+                                otp: basketItemFiltered[0].otpId ? { name: 'will never be used, or?', _id: basketItemFiltered[0].otpId } :
+                                    this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
                             }
                         } : null;
                     });
@@ -550,44 +566,44 @@ export class ProductService {
             (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig, classicOrders) => {
                 let annotatedFridgeOrdersOk = annotatedFridgeOrders.filter(o => !o.data.isDelivered)
                 let annotatedStockOrdersOk = annotatedStockOrders.filter(o => !o.data.isProcessed)
-                
+
                 return {
                     nbTotal: annotatedFridgeOrdersOk.length + annotatedStockOrdersOk.length + openRequestVouchers.length + usedVouchers.length + classicOrders.length,
                     fridgeOrders: annotatedFridgeOrdersOk,
                     stockOrders: annotatedStockOrdersOk,
                     requestVouchers: openRequestVouchers,
-                    usedVouchers: usedVouchers,   
-                    classicOrders: classicOrders,    
-                    equipeMonitors: logs.filter(log => log.data.type==='equipe' && adminConfig.equipe.ids.includes(log.data.id) && log.data.amount > adminConfig.equipe.amount),
-                    otpMonitors: logs.filter(log => log.data.type==='otp' && adminConfig.otp.ids.includes(log.data.id) && log.data.amount > adminConfig.otp.amount),
-                    userMonitors: logs.filter(log => log.data.type==='user' && adminConfig.user.ids.includes(log.data.id) && log.data.amount > adminConfig.user.amount),
-                    categoryMonitors: logs.filter(log => log.data.type==='category' && adminConfig.category.ids.includes(log.data.id) && log.data.amount > adminConfig.category.amount)
+                    usedVouchers: usedVouchers,
+                    classicOrders: classicOrders,
+                    equipeMonitors: logs.filter(log => log.data.type === 'equipe' && adminConfig.equipe.ids.includes(log.data.id) && log.data.amount > adminConfig.equipe.amount),
+                    otpMonitors: logs.filter(log => log.data.type === 'otp' && adminConfig.otp.ids.includes(log.data.id) && log.data.amount > adminConfig.otp.amount),
+                    userMonitors: logs.filter(log => log.data.type === 'user' && adminConfig.user.ids.includes(log.data.id) && log.data.amount > adminConfig.user.amount),
+                    categoryMonitors: logs.filter(log => log.data.type === 'category' && adminConfig.category.ids.includes(log.data.id) && log.data.amount > adminConfig.category.amount)
                 }
             });
     }
 
     getAdminMonitorForCurrentUser() {
-       return Observable.combineLatest(this.dataStore.getDataObservable('admin.monitor'), this.authService.getUserIdObservable(), (monitorConfigs, currentUserId) => {
-           return monitorConfigs.filter(c => c.userId===currentUserId)[0] || {
-               userId: currentUserId,
-               otp: {
-                   ids: [],
-                   amount: 1000
-               },
-               equipe: {
-                   ids: [],
-                   amount: 1000
-               },
-               user: {
-                   ids: [],
-                   amount: 1000
-               },
-               category: {
-                   ids: [],
-                   amount: 1000
-               }
-           }
-       })
+        return Observable.combineLatest(this.dataStore.getDataObservable('admin.monitor'), this.authService.getUserIdObservable(), (monitorConfigs, currentUserId) => {
+            return monitorConfigs.filter(c => c.userId === currentUserId)[0] || {
+                userId: currentUserId,
+                otp: {
+                    ids: [],
+                    amount: 1000
+                },
+                equipe: {
+                    ids: [],
+                    amount: 1000
+                },
+                user: {
+                    ids: [],
+                    amount: 1000
+                },
+                category: {
+                    ids: [],
+                    amount: 1000
+                }
+            }
+        })
     }
 
 
@@ -602,23 +618,23 @@ export class ProductService {
                 })
 
                 return relevantLogs.map(log => {
-                    var  info: string= ''
-                    switch(log.type) {
+                    var info: string = ''
+                    switch (log.type) {
                         case 'otp':
-                            let otp= otps.filter(otp => otp._id === log.id)[0]
-                            info= otp ? otp.name : 'unknown otp'
+                            let otp = otps.filter(otp => otp._id === log.id)[0]
+                            info = otp ? otp.name : 'unknown otp'
                             break
                         case 'user':
-                            let user= users.filter(user => user._id === log.id)[0]
-                            info= user ? user.firstName + ' ' + user.name : 'unknown user'
+                            let user = users.filter(user => user._id === log.id)[0]
+                            info = user ? user.firstName + ' ' + user.name : 'unknown user'
                             break
                         case 'equipe':
-                            let equipe= equipes.filter(equipe => equipe._id === log.id)[0]
-                            info= equipe ? equipe.name : 'unknown equipe'
+                            let equipe = equipes.filter(equipe => equipe._id === log.id)[0]
+                            info = equipe ? equipe.name : 'unknown equipe'
                             break
                         case 'category':
-                            let category= categories.filter(category => category._id === log.id)[0]
-                            info= category ? category.name : 'unknown category'
+                            let category = categories.filter(category => category._id === log.id)[0]
+                            info = category ? category.name : 'unknown category'
                             break
                     }
 
@@ -627,15 +643,15 @@ export class ProductService {
                         'annotation': {
                             info: info
                         }
-                    }                    
+                    }
                 }).sort((v1, v2) => {
                     var d1 = moment(v1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var d2 = moment(v2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1
                 });
-                
-        })
-            //return this.dataStore.getDataObservable('orders.log')
+
+            })
+        //return this.dataStore.getDataObservable('orders.log')
     }
 
 
@@ -794,21 +810,21 @@ export class ProductService {
     }
 
 
-//=======================
-// adhoc
+    //=======================
+    // adhoc
 
 
-flagStockProducts() {
-    var oldIds= [263, 3148, 3150, 284, 4, 3152, 51, 1090, 3937, 97, 220, 3721, 2782, 2778, 1003, 1005, 1006, 3225, 2588, 3919, 3918, 3920, 3921, 2790, 84, 1194, 129, 3667, 497, 130, 3633, 3731, 3732, 3681, 3680, 105, 3783, 170, 2424, 3239, 3141, 3506, 3505, 3504, 3703, 116, 199, 203, 201, 3116, 3678, 3679, 1432, 95, 2739, 2743, 94, 2741, 100, 447, 81, 126, 151, 213, 238, 2393, 3675, 231, 20, 58, 185, 183, 180, 184, 3082, 227, 3085, 3323, 3735, 3344, 3346, 3347, 321, 3033, 3179, 3215, 2982, 3038, 2985, 3871, 93, 798, 92, 2760, 38]
+    flagStockProducts() {
+        var oldIds = [263, 3148, 3150, 284, 4, 3152, 51, 1090, 3937, 97, 220, 3721, 2782, 2778, 1003, 1005, 1006, 3225, 2588, 3919, 3918, 3920, 3921, 2790, 84, 1194, 129, 3667, 497, 130, 3633, 3731, 3732, 3681, 3680, 105, 3783, 170, 2424, 3239, 3141, 3506, 3505, 3504, 3703, 116, 199, 203, 201, 3116, 3678, 3679, 1432, 95, 2739, 2743, 94, 2741, 100, 447, 81, 126, 151, 213, 238, 2393, 3675, 231, 20, 58, 185, 183, 180, 184, 3082, 227, 3085, 3323, 3735, 3344, 3346, 3347, 321, 3033, 3179, 3215, 2982, 3038, 2985, 3871, 93, 798, 92, 2760, 38]
 
-    this.dataStore.getDataObservable('products').map(products => products.filter(product => oldIds.includes(product.oldId))).first().subscribe(products => {
-        products.forEach(product => {
-            product.isStock= true
-            product.divisionFactor= 1
-            this.dataStore.updateData('products', product._id, product)
+        this.dataStore.getDataObservable('products').map(products => products.filter(product => oldIds.includes(product.oldId))).first().subscribe(products => {
+            products.forEach(product => {
+                product.isStock = true
+                product.divisionFactor = 1
+                this.dataStore.updateData('products', product._id, product)
+            })
         })
-    })
 
-}
+    }
 
 }

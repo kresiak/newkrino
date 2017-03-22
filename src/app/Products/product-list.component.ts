@@ -76,6 +76,10 @@ export class ProductListComponent implements OnInit {
                     return + product.data.tva == montant;
                 }
 
+                if (txt.startsWith('$M')) {
+                    return product.annotation.multipleOccurences;
+                }
+
                 return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).subscribe(products => {
