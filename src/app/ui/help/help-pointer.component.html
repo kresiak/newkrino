@@ -1,2 +1,7 @@
 
-<img src="../../../images/question.png" ngbTooltip = {{helpText}} >
+
+
+<img *ngIf="isSmall" src="../../../images/question.png" ngbTooltip = {{helpText}}> 
+<img *ngIf="!isSmall" src="../../../images/questionLarge.jpg" ngbTooltip = {{helpText}} >
+
+   
