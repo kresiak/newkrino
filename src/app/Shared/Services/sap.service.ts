@@ -12,6 +12,7 @@ export class SapService {
         this.initSapIdMapObservable()
         this.initSapOtpMapObservable()
         this.initSapItemsObservable()
+        this.initKrinoIdMapObservable()
     }
 
     private isConnected: boolean = false
@@ -38,6 +39,10 @@ export class SapService {
     getSapOtpMapObservable(): Observable<Map<string, any>> {
         this.connectAll()
         return this.sapOtpMapObservable
+    }
+
+    getKrinoIdMapObservable() : Observable<Map<number, number>> {
+        return this.krinoIdMapObservable
     }
 
     getSapItemObservable(sapId: number): Observable<any> {
@@ -100,6 +105,7 @@ export class SapService {
     private sapIdMapObservable: ConnectableObservable<Map<number, any>> = null
     private sapOtpMapObservable: ConnectableObservable<Map<string, any>> = null
     private sapItemsObservable: ConnectableObservable<any> = null
+    private krinoIdMapObservable: ConnectableObservable<Map<number, number>> = null
 
 
     // Helper for P1
@@ -264,6 +270,18 @@ export class SapService {
                 return d1 > d2 ? -1 : 1
             })
         }).publishReplay(1)
+    }
+
+    // P4
+    initKrinoIdMapObservable() {
+        this.krinoIdMapObservable = this.dataStore.getDataObservable('sap.engage').map(engs =>  engs.reduce((acc, eng) => {            
+            if (eng.ourRef && +eng.ourRef) {
+                acc.set(+eng.ourRef, +eng.sapId)
+            }
+            return acc
+        }, new Map<number, number>())).publishReplay(1)
+        console.log('In initKrinoIdMapObservable')
+        this.krinoIdMapObservable.connect()
     }
 
 

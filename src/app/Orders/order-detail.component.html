@@ -71,7 +71,7 @@
 										{{order.data.date | fullDate }}
 									</div>
 									<div class="row">
-										Reference: {{order.data.kid}} / <span class="imgSearch" *ngIf="order.data.sapId" (click)="navigateToSap(order.data.sapId)">{{order.data.sapId}}</span> <span *ngIf="!order.data.sapId">no sap id</span>
+										Reference: {{order.data.kid}} / <span class="imgSearch" *ngIf="order.annotation.sapId" (click)="navigateToSap(order.annotation.sapId)">{{order.annotation.sapId}}</span> <span *ngIf="!order.annotation.sapId">no sap id</span>
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6">

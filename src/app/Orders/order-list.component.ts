@@ -69,7 +69,7 @@ export class OrderListComponent implements OnInit {
                     || order.data._id.toUpperCase().includes(txt)
                     || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
                     || order.annotation.status.toUpperCase().includes(txt)
-                    || order.data.kid === +txt || order.data.sapId === +txt;
+                    || order.data.kid === +txt || order.annotation.sapId === +txt;
 
             }).slice(0,200).map(order => {
                 let x= order;

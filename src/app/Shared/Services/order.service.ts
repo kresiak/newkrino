@@ -174,7 +174,7 @@ export class OrderService {
         return 'Unknown status'
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser) {
+    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
         let equipe = equipes.get(order.equipeId)
@@ -186,6 +186,7 @@ export class OrderService {
         let retObj ={
             data: order,
             annotation: {
+                sapId: krinoSapMap.get(order.kid),
                 user: user ? user.firstName + ' ' + user.name : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
@@ -266,8 +267,9 @@ export class OrderService {
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
-            (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) => {
-                return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser);
+            this.sapService.getKrinoIdMapObservable(),
+            (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap) => {
+                return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap);
             })
     }
 
@@ -283,9 +285,10 @@ export class OrderService {
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
-            (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser) => {
+            this.sapService.getKrinoIdMapObservable(),
+            (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap) => {
                 return orders.map(order =>
-                    this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser)
+                    this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap)
                 );
             })
     }
