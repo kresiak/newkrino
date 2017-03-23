@@ -6,6 +6,8 @@
 		<li>$f: avec facture finale</li>
 		<li>$t: terminé: avec facture finale ou montant restant engagé nul</li>
 		<li>$o: ouvert: avec un montant qui reste engagé</li>
+		<li>$p: pièces sans engagement</li>
+		<li>$pTB: pièces sans engagement of type TB</li>
 		<li>$EO: avec otp error: plusieurs otp différents sur le même poste</li>
 		<li>$E>200: résidu engagé supérieur à 200 euros</li>
 		<li>$E<10: résidu engagé inférieur à 10 euros</li>
@@ -55,8 +57,8 @@
 							<div class="col-sm-1" >{{sap.dateLastActivity}}</div>
 							<div class="col-sm-2">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>							
-							<div class="col-sm-1">{{sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged'))}}</div>
-							<div class="col-sm-2">{{ sap.mainData.data.supplier }}</div>
+							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engagement' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged')))}}</div>
+							<div class="col-sm-2">{{!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece }}</div>
                             <div class="col-sm-2">{{ sap.mainData.annotation.otpTxt }}</div>
 						</div>
 					</template>

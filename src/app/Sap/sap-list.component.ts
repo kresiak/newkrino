@@ -59,6 +59,13 @@ export class SapListComponent implements OnInit {
                 if (txt.startsWith('$O')) {
                     return +sap.residuEngaged >= 0.05;
                 }
+                if (txt.startsWith('$P')) {
+                    let typ = txt.slice(2);
+                    if (typ.length === 2) {
+                        return sap.factured && sap.factured.data.isNoEngag && sap.typesPiece.toUpperCase().includes(typ);    
+                    }
+                    return sap.factured && sap.factured.data.isNoEngag;
+                }
                 if (txt.startsWith('$EO')) {
                     return sap.hasOtpError;
                 }            

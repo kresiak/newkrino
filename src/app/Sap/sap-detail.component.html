@@ -6,19 +6,23 @@
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
+                        <div class= "row" *ngIf="sapItem.data.isNoEngag">
+                            <div class="col-sm-1">Type:</div>             
+                            <div class="col-sm-8"><b>Pièce sans engagement</b> {{sapObj.typesPiece}}</div>
+                        </div>
                         <div class= "row">
                             <div class="col-sm-1">Reference:</div>             
                             <div class="col-sm-8">{{sapItem.data.sapId}} /  <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</a> </div>
                         </div>
-                        <div class= "row">
+                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
                             <div class="col-sm-1">Supplier:</div>             
                             <div class="col-sm-8">{{sapItem.data.supplier}}</div>
                         </div>
-                        <div class= "row">
+                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
                             <div class="col-sm-1">Engagement:</div>             
                             <div class="col-sm-8">{{sapEngage ? sapEngage.data.maxDate : '(No engagement)'}}</div>
                         </div>
-                        <div class= "row">
+                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
                             <div class="col-sm-1">Final invoice:</div>             
                             <div class="col-sm-8">{{sapObj.hasFactureFinale ? 'yes' : 'no'}}</div>
                         </div>
@@ -29,30 +33,30 @@
                             <div class="col-sm-1"><b>Poste</b></div>
                             <div class="col-sm-2"><b>Otp</b></div>
                             <div class="col-sm-3"><b>Product</b></div>
-                            <div class="col-sm-1"><b>Initial</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Initial</b></div>
                             <div class="col-sm-1"><b>Invoiced</b></div>
-                            <div class="col-sm-1"><b>Remaining</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Remaining</b></div>
                             <div class="col-sm-1"><b>Last invoice</b></div>
-                            <div class="col-sm-2"><b>Has Facture Finale</b></div>
+                            <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag"><b>Has Facture Finale</b></div>
                         </div>
                         <div class= "row" *ngFor="let poste of sapObj.postList">
                             <div class="col-sm-1">{{poste.poste}}</div>
                             <div class="col-sm-2">{{poste.otp}}</div>
                             <div class="col-sm-3">{{poste.product}}</div>
-                            <div class="col-sm-1">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1">{{poste.amountFactured | currency:'EUR':true:'1.2-2'}}</div>
-                            <div class="col-sm-1">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1">{{poste.lastInvoiceDate}}</div>
-                            <div class="col-sm-2">{{poste.hasPosteFactureFinale ? 'finale' : 'no'}}</div>
+                            <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag">{{poste.hasPosteFactureFinale ? 'finale' : 'no'}}</div>
                         </div>
                         <div class= "row">
                             <div class="col-sm-1"><b></b></div>
                             <div class="col-sm-2"><b></b></div>
                             <div class="col-sm-3"><b></b></div>
-                            <div class="col-sm-1"><b></b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b></b></div>
                             <div class="col-sm-1"><b>{{sapObj.alreadyBilled | currency:'EUR':true:'1.2-2'}}</b></div>
-                            <div class="col-sm-1"><b>{{sapObj.residuEngaged | currency:'EUR':true:'1.2-2'}}</b></div>
-                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>{{sapObj.residuEngaged | currency:'EUR':true:'1.2-2'}}</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"></div>
                         </div>
                     </div>
                 </div>

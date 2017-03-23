@@ -14,15 +14,15 @@ export class SapService {
         this.initSapItemsObservable()
     }
 
-    private isConnected: boolean= false
+    private isConnected: boolean = false
 
     private connectAll() {
-        if (this.isConnected) return        
-        this.isConnected= true
+        if (this.isConnected) return
+        this.isConnected = true
         this.sapIdMapObservable.connect()
-        this.sapOtpMapObservable.connect()        
+        this.sapOtpMapObservable.connect()
         this.sapItemsObservable.connect()
-        
+
     }
 
     getSapIdMapObservable(): Observable<Map<number, any>> {
@@ -46,9 +46,9 @@ export class SapService {
 
     getSapItemsObservableBySapIdList(sapIdList: number[]): Observable<any[]> {
         return this.getSapIdMapObservable().map(sapIdMap => {
-            var sapItemsToReturn= []
+            var sapItemsToReturn = []
             sapIdList.forEach(id => {
-                if (sapIdMap.has(id)) 
+                if (sapIdMap.has(id))
                     sapItemsToReturn.push(sapIdMap.get(id))
             })
             return sapItemsToReturn.sort((v1, v2) => {
@@ -59,12 +59,12 @@ export class SapService {
         })
     }
 
-    getSapItemsObservableByOtpAndDate(otp: string, dateMin: string) : Observable<any[]> {
+    getSapItemsObservableByOtpAndDate(otp: string, dateMin: string): Observable<any[]> {
         return this.sapOtpMapObservable.switchMap(otpMap => {
             var sapIdList = otpMap.has(otp) ? Array.from(otpMap.get(otp).sapIdSet) : []
             return this.getSapItemsObservableBySapIdList(sapIdList as number[]).map(sapItems => sapItems.filter(mapItem => {
                 var d1 = moment(mapItem.dateLastActivity, 'DD/MM/YYYY').toDate() //probably completely wrong to use date here
-                var d2 = moment(dateMin, 'DD/MM/YYYY').toDate()                
+                var d2 = moment(dateMin, 'DD/MM/YYYY').toDate()
                 return d1 >= d2
             }))
         })
@@ -130,42 +130,44 @@ export class SapService {
 
     // Helper for P1
     private setPosteInfoArray(sapItemObj) {
-        var engaged= sapItemObj.engaged
-        var factured= sapItemObj.factured
+        var engaged = sapItemObj.engaged
+        var factured = sapItemObj.factured
 
-        var getDistinctOtps= function(poste) {
+        var isNoEngag: boolean = factured && factured.data.isNoEngag
+
+        var getDistinctOtps = function (poste) {
             return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.otp) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.otp) : [])
-                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                            .sort()
+                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                .sort()
         }
 
-        var getDistinctProducts= function(poste) {
+        var getDistinctProducts = function (poste) {
             return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.product) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.product) : [])
-                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                            .sort()
+                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                .sort()
         }
 
-        var getDistinctPostes= function() {
+        var getDistinctPostes = function () {
             return (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : [])
-                            .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                            .sort((a,b) => a-b)
+                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                .sort((a, b) => a - b)
         }
-        var postList= getDistinctPostes()
+        var postList = getDistinctPostes()
 
-        sapItemObj.postList= postList.map(poste => {
-            let amountEngaged= (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
-            let amountFactured= (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a,b) => a+b, 0)
+        sapItemObj.postList = postList.map(poste => {
+            let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
+            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
 
-            let lastInvoiceDate= !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
+            let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
                 var d1 = moment(a, 'DD/MM/YYYY').toDate()
                 var d2 = moment(b, 'DD/MM/YYYY').toDate()
-                return d1 > d2 ? -1 : 1                
+                return d1 > d2 ? -1 : 1
             })[0]
 
-            let otpsForPoste= getDistinctOtps(poste)
-            if (otpsForPoste.length != 1) sapItemObj.hasOtpError= true
+            let otpsForPoste = getDistinctOtps(poste)
+            if (otpsForPoste.length != 1) sapItemObj.hasOtpError = true
 
-            var hasPosteFactureFinale= (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
+            var hasPosteFactureFinale = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
 
             return {
                 poste: poste,
@@ -173,7 +175,7 @@ export class SapService {
                 product: getDistinctProducts(poste)[0],
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
-                amountResiduel: (amountEngaged > amountFactured && ! hasPosteFactureFinale) ? amountEngaged - amountFactured : 0,
+                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag) ? amountEngaged - amountFactured : 0,
                 hasPosteFactureFinale: hasPosteFactureFinale,
                 lastInvoiceDate: lastInvoiceDate
             }
@@ -199,38 +201,47 @@ export class SapService {
             }, map)
 
             Array.from(map2.values()).forEach(obj => {
+
                 let obj2 = obj as any
+
+                var getDistinctTypesPiece = function () {
+                    return (obj2.factured ? obj2.factured.data.items.map(item => item.pieceType) : [])
+                        .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
+                        .sort()
+                }
+
                 obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
                 obj2.dateLastActivity = obj2.factured ? obj2.factured.data.maxDate : obj2.engaged.data.maxDate
                 obj2.isSuppr = !((obj2.factured && obj2.factured.data.items.filter(i => !i.isSuppr).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => !i.isSuppr).length > 0))
                 this.setPosteInfoArray(obj)
                 obj2.hasFactureFinale = obj2.postList.filter(p => p.hasPosteFactureFinale).length > 0
-                obj2.residuEngaged= obj2.postList.map(p => p.amountResiduel).reduce((a,b) => a+b, 0)
-                obj2.alreadyBilled= obj2.postList.map(p => p.amountFactured).reduce((a,b) => a+b, 0)
+                obj2.residuEngaged = obj2.postList.map(p => p.amountResiduel).reduce((a, b) => a + b, 0)
+                obj2.alreadyBilled = obj2.postList.map(p => p.amountFactured).reduce((a, b) => a + b, 0)
+                obj2.typesPiece= getDistinctTypesPiece().reduce((a, b) => a + (a === '' ? '' : ', ') + b, '')
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
 
             return map2
-        }).publishReplay(1)        
+        }).publishReplay(1)
     }
 
 
     // P2
     private initSapOtpMapObservable(): void {
         this.sapOtpMapObservable = this.sapIdMapObservable.map(idMap => {
-            let otpMap = new Map<string, any>()            
+            let otpMap = new Map<string, any>()
 
-            Array.from(idMap.values()).forEach(value => {                
-                let sapId= value.mainData.data.sapId;
+            Array.from(idMap.values()).forEach(value => {
+                let sapId = value.mainData.data.sapId;
 
-                var doWork= function(sapObj) {
+                var doWork = function (sapObj) {
                     if (!sapObj || !sapObj.data || !sapObj.data.items) return
                     sapObj.data.items.forEach(item => {
-                       let key = item.otp 
-                       if (!otpMap.has(key)) otpMap.set(key, {spent: 0, sapIdSet: new Set<number>()})
-                       let obj= otpMap.get(key)
-                       if (!obj.sapIdSet.has(sapId)) obj.sapIdSet.add(sapId)                        
+                        let key = item.otp
+                        if (!otpMap.has(key)) otpMap.set(key, { spent: 0, sapIdSet: new Set<number>() })
+                        let obj = otpMap.get(key)
+                        if (!obj.sapIdSet.has(sapId)) obj.sapIdSet.add(sapId)
                     })
                 }
 
@@ -239,20 +250,20 @@ export class SapService {
             })
             console.log('In initSapOtpMapObservable: ' + otpMap.size)
             return otpMap
-        }).publishReplay(1)        
+        }).publishReplay(1)
     }
 
 
     // P3
     initSapItemsObservable() {
-        this.sapItemsObservable= this.sapIdMapObservable.map(sapIdMap => {
+        this.sapItemsObservable = this.sapIdMapObservable.map(sapIdMap => {
             console.log('In initSapItemsObservable')
             return Array.from(sapIdMap.values()).sort((v1, v2) => {
                 var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
                 var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
                 return d1 > d2 ? -1 : 1
             })
-        }).publishReplay(1)        
+        }).publishReplay(1)
     }
 
 

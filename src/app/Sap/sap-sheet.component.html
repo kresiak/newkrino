@@ -4,8 +4,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6 col-md-6">
-                    <div class="row">
+                    <div class="row" *ngIf="!sapItem.isNoEngag" >
                         {{sapItem.supplier}} ({{sapItem.supplierId}})
+                    </div>
+                    <div class="row" *ngIf="sapItem.isNoEngag" >
+                        PIECE SANS ENGAGEMENT
                     </div>
                     <div class="row">
                         {{sapItem.maxDate}} (last activity)
@@ -36,7 +39,7 @@
                 <div class="row" *ngFor="let item of sortedItems; let i = index">
                     <div class="col-sm-1">{{i>0 && sortedItems[i-1].poste == item.poste ? '' :  item.poste + ' / ' + item.codeTva}}</div>
                     <div class="col-sm-2">{{i>0 && sortedItems[i-1].poste == item.poste ? '' : item.product}}</div>
-                    <div class="col-sm-2 ">{{i>0 && sortedItems[i-1].poste == item.poste ? '' : item.otp}}</div>
+                    <div class="col-sm-2 ">{{item.otp}}</div>
                     <div class="col-sm-1">{{item.quantity}}</div>
                     <div class="col-sm-1">{{item.htva | currency:'EUR':true:'1.2-2'}}</div>
                     <div class="col-sm-1">{{item.tvac | currency:'EUR':true:'1.2-2'}} </div>
