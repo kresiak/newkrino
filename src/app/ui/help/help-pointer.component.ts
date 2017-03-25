@@ -9,7 +9,9 @@ export class HelpPointerComponent implements OnInit {
   
     @Input() helpText;
     @Input() isSmall: boolean = true;
-
+    @Input() isBold: boolean = false;
+    @Input() isItalic: boolean = false;
+    
     constructor() {
     }
 
