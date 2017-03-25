@@ -1,9 +1,8 @@
 
 
-<span class="helpText" *ngIf="isSmall" >
-    <img src="../../../images/question.png" ngbTooltip =  {{helpText}}> 
-</span>
+<template #helpTextFormat>
+    <div [style.font-weight]="isBold ? 'bold' : 'lighter'" [style.font-style]="isItalic ? 'italic' : 'normal'">{{helpText}}</div>
+</template>
 
-<span class="helpText" *ngIf="!isSmall" >
-    <img src="../../../images/questionLarge.jpg" ngbTooltip = {{helpText}} >
-</span>
+<img *ngIf="isSmall" src="../../../images/question.png" [ngbTooltip] = "helpTextFormat"> 
+<img *ngIf="!isSmall" src="../../../images/questionLarge.jpg" [ngbTooltip] = "helpTextFormat">
