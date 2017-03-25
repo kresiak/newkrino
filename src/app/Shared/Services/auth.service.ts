@@ -105,7 +105,7 @@ export class AuthService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
-            (users, equipes, authStatus) => {
+            (users, equipes) => {
                 return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
             });
     }
