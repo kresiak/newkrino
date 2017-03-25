@@ -18,7 +18,6 @@ export class ProductEnterComponent implements OnInit {
 
     @Input() supplierId: string;
 
-    private catalogNrControl = new FormControl();
 
     private categoryData: SelectableData[]
     private subscriptioncategories: Subscription
@@ -36,16 +35,6 @@ export class ProductEnterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.subscriptionCheckCatNr= this.catalogNrControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
-            this.alreadyCatNrInDb=false
-            if (catNr.length > 3) {
-                this.productService.getAnnotatedProductsWithBasketInfoByCatalogNr(catNr).first().subscribe(prodList => {
-                    this.alreadyCatNrInDb= prodList && prodList.length > 0
-                })
-            }
-        })
-
-
         this.subscriptioncategories = this.productService.getSelectableCategories().subscribe(cd => this.categoryData = cd);
 
         this.subscriptioncategories2 = this.productService.getAnnotatedCategories().subscribe(categories => this.categories = categories)
@@ -67,6 +56,15 @@ export class ProductEnterComponent implements OnInit {
             divisionFactor: ['1'],
             stockPackage: ['']
         });
+
+        this.subscriptionCheckCatNr= this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
+            this.alreadyCatNrInDb=false
+            if (catNr.length > 3) {
+                this.productService.getAnnotatedProductsWithBasketInfoByCatalogNr(catNr).first().subscribe(prodList => {
+                    this.alreadyCatNrInDb= prodList && prodList.length > 0
+                })
+            }
+        })
     }
 
     ngOnDestroy(): void {

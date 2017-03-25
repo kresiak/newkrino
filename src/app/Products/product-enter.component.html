@@ -33,7 +33,7 @@
 		<div class="form-group row">
 			<label for="catalogNr" class="col-sm-2 col-form-label col-xl-2">Catalog nr.: <span style="color: red" *ngIf="alreadyCatNrInDb">Already in database!</span> </label>
 			<div class="col-sm-10">
-				<input type="text" min="1" step="any" class="form-control" [formControl]="catalogNrControl" formControlName="catalogNr" id="catalogNr" placeholder="number of catalog">
+				<input type="text" min="1" step="any" class="form-control" formControlName="catalogNr" id="catalogNr" placeholder="number of catalog">
 			</div>
 			<!--<p *ngIf="productForm.controls.catalogNr.errors">This field is required!</p>-->
 		</div>
