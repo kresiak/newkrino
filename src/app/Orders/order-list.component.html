@@ -22,12 +22,12 @@
 					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
 			</div>
 		</div>
-		<div class="card" *ngIf="((orders2Observable | async) || []).length === 0">
+		<div class="card" *ngIf="(orders || []).length === 0">
 			<div class="card-block">
 				<div class="centertextbox">No orders yet in the database for this query</div>
 			</div>
 		</div>
-		<div class="row" *ngIf="((orders2Observable | async) || []).length > 0">
+		<div class="row" *ngIf="(orders || []).length > 0">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
@@ -47,7 +47,7 @@
 					</template>
 
 				</ngb-panel>
-				<ngb-panel *ngFor="let order of orders2Observable | async " [id]="order.data._id">
+				<ngb-panel *ngFor="let order of orders " [id]="order.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{order.data._id}}">
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->

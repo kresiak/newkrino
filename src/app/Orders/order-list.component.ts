@@ -26,6 +26,7 @@ export class OrderListComponent implements OnInit {
     searchControl = new FormControl();
     searchForm;
 
+    private orders
 
     @Input() ordersObservable: Observable<any>;
     @Input() state;
@@ -40,6 +41,7 @@ export class OrderListComponent implements OnInit {
     @Input() config;
 
     private orders2Observable: Observable<any>;
+    private ordersSubscription: Subscription
 
     resetSerachControl() {
     this.searchControl.setValue('')
@@ -71,12 +73,16 @@ export class OrderListComponent implements OnInit {
                     || order.annotation.status.toUpperCase().includes(txt)
                     || order.data.kid === +txt || order.annotation.sapId === +txt;
 
-            }).slice(0,200).map(order => {
-                let x= order;
-                return order
-            });
+            })
         });
+
+        this.ordersSubscription=this.orders2Observable.subscribe(o => this.orders=o)
     }
+
+    ngOnDestroy(): void {
+         this.ordersSubscription.unsubscribe()
+    }
+
 
     getOrderObservable(id: string): Observable<any> {
         return this.ordersObservable.map(orders => orders.filter(s => s.data._id === id)[0]);
