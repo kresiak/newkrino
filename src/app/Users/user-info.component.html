@@ -27,7 +27,7 @@
 			<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" *ngIf="isAdminOrCurrentUser()">
 		<div class="col-sm-2 col-lg-2 vcenter">password:</div>
 		<div class="col-sm-6 vcenter">
 			<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
