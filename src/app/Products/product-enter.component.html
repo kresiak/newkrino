@@ -7,6 +7,12 @@
 			</div>
 			<!--<p *ngIf="productForm.controls.description.errors">This field is required!</p>-->
 		</div>
+		<div class="form-group row" ngbTooltip="Enter here a text of description." >
+			<label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+			</div>
+		</div>
 		<div class="form-group row">
 			<label for="price" class="col-sm-2 col-form-label col-xl-2">Price:</label>
 			<div class="col-sm-10">
@@ -87,12 +93,6 @@
 			<label for="stockPackage" class="col-sm-2 col-form-label col-xl-2">stock packaging:</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" step="any" class="form-control" formControlName="stockPackage" id="stockPackage" placeholder="stock package">
-			</div>
-		</div>
-		<div class="form-group row" ngbTooltip="Enter here a text of description." >
-			<label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
 			</div>
 		</div>
 	<!--</div>-->
