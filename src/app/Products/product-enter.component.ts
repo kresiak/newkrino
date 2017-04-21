@@ -43,6 +43,7 @@ export class ProductEnterComponent implements OnInit {
 
         this.productForm = this.formBuilder.group({
             nameOfProduct: ['', [Validators.required, Validators.minLength(5)]],
+            description: [''],
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]],
             package: ['', Validators.required],
             category: ['-1', this.isCategoryIdSelected],
@@ -54,8 +55,7 @@ export class ProductEnterComponent implements OnInit {
             isStock: [''],
             needsLotNumber: [''],
             divisionFactor: ['1'],
-            stockPackage: [''],
-            description: ['']
+            stockPackage: ['']
         });
 
         this.subscriptionCheckCatNr= this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
@@ -77,6 +77,7 @@ export class ProductEnterComponent implements OnInit {
     save(formValue, isValid) {
         this.productService.createProduct({
             name: formValue.nameOfProduct,
+            description: formValue.description,
             supplierId: this.supplierId,
             price: formValue.price,
             package: formValue.package,
@@ -89,8 +90,7 @@ export class ProductEnterComponent implements OnInit {
             needsLotNumber: formValue.needsLotNumber !== '' && formValue.needsLotNumber !== null,
             isStock: formValue.isStock !== '' && formValue.isStock !== null,
             divisionFactor: +formValue.divisionFactor,
-            stockPackage: formValue.stockPackage,
-            description: formValue.description
+            stockPackage: formValue.stockPackage
         }).subscribe(res => {
             var x = res;
             this.reset();
