@@ -10,7 +10,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter">product:</div>
+						<div class="col-sm-3 vcenter">name of product:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
@@ -104,6 +104,12 @@
 							<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
 							<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />							
 						</div>						
+					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">description:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="product.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+						</div>
 					</div>
 	 			
 					<div class="row" *ngIf="!authService.isProduction()">
