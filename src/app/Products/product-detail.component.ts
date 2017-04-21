@@ -213,4 +213,9 @@ export class ProductDetailComponent implements OnInit {
         this.dataStore.updateData('products', product.data._id, product.data);
     }
     
+    descriptionUpdated(description) {
+        this.product.data.description = description;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+    
 }
