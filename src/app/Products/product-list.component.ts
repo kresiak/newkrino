@@ -84,7 +84,7 @@ export class ProductListComponent implements OnInit {
                     return product.data.disabled;
                 }
 
-                return product.data.name.toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
+                return product.data.name.toUpperCase().includes(txt) || (product.data.description||'').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).subscribe(products => {
             this.products = products.slice(0, 250)

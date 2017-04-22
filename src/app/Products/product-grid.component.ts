@@ -71,7 +71,7 @@ export class ProductGridComponent implements OnInit
                     return product.data.disabled;
                 }
 
-                return product.data.name.toUpperCase().includes(txt) 
+                return product.data.name.toUpperCase().includes(txt)  || (product.data.description||'').toUpperCase().includes(txt) 
             });
         }).subscribe(products => {
             this.products = products.slice(0, 50)
