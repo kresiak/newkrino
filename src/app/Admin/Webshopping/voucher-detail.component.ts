@@ -3,6 +3,8 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../../Shared/Services/data.service'
 import { OrderService } from '../../Shared/Services/order.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
+
 
 @Component(
     {
@@ -12,7 +14,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class VoucherDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private orderService: OrderService, private authService: AuthService) {
     }
     private pieSpentChart;
 
@@ -30,6 +32,9 @@ export class VoucherDetailComponent implements OnInit {
     }
 
     private subscriptionVoucher: Subscription
+    private authorizationStatusInfo: AuthenticationStatusInfo
+    private subscriptionAuthorization: Subscription     
+    
 
     ngOnInit(): void {
         this.stateInit();
@@ -44,10 +49,15 @@ export class VoucherDetailComponent implements OnInit {
                 }));
             }
         });
+        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo= statusInfo
+        })        
+        
     }
 
     ngOnDestroy(): void {
          this.subscriptionVoucher.unsubscribe()
+         this.subscriptionAuthorization.unsubscribe()
     }    
 
 
@@ -83,6 +93,15 @@ export class VoucherDetailComponent implements OnInit {
             this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
         }
     }
+
+    deletePurchase() {
+        if (this.voucher.data.shopping) {
+            delete this.voucher.data.shopping
+            this.voucher.annotation.isUsed= false
+            this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
+        }
+    }
+
 
     deliveryChanged(newStatus) {
         this.voucher.data.delivery = newStatus;

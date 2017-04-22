@@ -49,12 +49,12 @@
 
 							<div class="col-sm-3">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}</div>
 
-							<div class="col-sm-3">{{(focusOnVoucherUsage ? voucher.data.shopping.date : voucher.data.dateCreation) | fullDate}}</div>
+							<div class="col-sm-3">{{(focusOnVoucherUsage && voucher.data.shopping ? voucher.data.shopping.date : voucher.data.dateCreation) | fullDate}}</div>
 
 							<div class="col-sm-1">{{voucher.data.sapId}}</div>
 
 							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}</div>
-							<div class="col-sm-2" *ngIf="focusOnVoucherUsage">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2' }}</div>
+							<div class="col-sm-2" *ngIf="focusOnVoucherUsage && voucher.data.shopping">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2' }}</div>
 							<div class="col-sm-1">
 								<img *ngIf="voucher.data.delivery=='partial'" src="../../../images/shipping.png" /><img *ngIf="voucher.data.delivery=='complete'" src="../../../images/ok.png" />
 							</div>
