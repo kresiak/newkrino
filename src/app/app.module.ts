@@ -15,6 +15,7 @@ import { HomeComponent} from './home.component'
 import {AdminMainComponent} from './Admin/admin-main.component'
 import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
 import {AdminAK} from './Admin/AK/component'
+import {AdminLabo} from './Admin/Laboratory/component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
 import {MonitoringDetailComponent}  from './Admin/Monitoring/monitoring-detail.component'
@@ -123,6 +124,7 @@ import {CommentComponent} from './Comments/comment.component'
 import {CommentsComponent} from './Comments/comments.component'
 import {HelpPointerComponent} from './ui/help/help-pointer.component'
 
+import {AdminService} from './Shared/Services/admin.service';
 import {WebSocketService} from './Shared/Services/websocket.service';
 import {NavigationService} from './Shared/Services/navigation.service';
 import {ApiService} from './Shared/Services/api.service';
@@ -189,7 +191,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
    ],
   declarations: [ AppComponent, HomeComponent, 
                   VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
-                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK,
+                  AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
                   ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
@@ -211,7 +213,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent
                  ],
-  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService, SapService ],
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService,
+                  AdminService, SapService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

@@ -1,0 +1,41 @@
+<div class="card" *ngIf="labo">
+    <div class="card-block">
+        <ngb-tabset>
+            <ngb-tab title="General" id="tabGeneral">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">name of laboratory:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor [content]="labo.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">head(s) of laboratory:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedAdminsIdsObservable" (selectionChanged)="headSelectionChanged($event)"></gg-selector>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">executive secretary:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedSecrExecIdsObservable" (selectionChanged)="secrExecSelectionChanged($event)"></gg-selector>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Order validation" id="tabValidation">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
