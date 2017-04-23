@@ -5,6 +5,8 @@ import { SelectableData } from '../../Shared/Classes/selectable-data'
 import { DataStore } from '../../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
 import { AdminService } from '../../Shared/Services/admin.service'
+import { OrderService } from '../../Shared/Services/order.service';
+
 
 @Component(
     {
@@ -14,13 +16,14 @@ import { AdminService } from '../../Shared/Services/admin.service'
 )
 
 export class AdminLabo {
-    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService) {
     }
 
     private selectableUsers: Observable<SelectableData[]>;
     private labo
     private selectedAdminsIdsObservable: Observable<any>;
     private selectedSecrExecIdsObservable: Observable<any>;
+    private equipeListObservable
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers(true);
@@ -30,6 +33,14 @@ export class AdminLabo {
             this.selectedAdminsIdsObservable = Observable.from([this.labo.data.adminIds]);
             this.selectedSecrExecIdsObservable = Observable.from([this.labo.data.secrExecIds]);
         })
+
+        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+            return {
+                id: eq.data._id,
+                name: eq.data.name
+            }
+        }));
+
     }
 
     private saveLabo() {
@@ -85,14 +96,30 @@ export class AdminLabo {
 
     stepUp(index) {
         if (index < 1) return
-        this.swapElements(this.labo.annotation.validationSteps, index-1, index)
+        this.swapElements(this.labo.annotation.validationSteps, index - 1, index)
         this.saveSteps()
     }
 
     stepDown(index) {
         if (index + 1 >= this.labo.data.validationSteps.length) return
-        this.swapElements(this.labo.annotation.validationSteps, index, index+1)
+        this.swapElements(this.labo.annotation.validationSteps, index, index + 1)
         this.saveSteps()
     }
+
+    equipeChanged(newid, index) {
+        if (!newid) {
+            this.labo.annotation.validationSteps[index].equipeId = undefined
+            if (this.labo.annotation.validationSteps[index].enabled) {
+                this.labo.annotation.validationSteps[index].enabled = false
+                this.saveSteps()
+            }
+            return
+        }
+        this.labo.annotation.validationSteps[index].equipeId = newid
+        if (this.labo.annotation.validationSteps[index].enabled) {
+            this.saveSteps()
+        }
+    }
+
 
 }

@@ -43,7 +43,9 @@
                                     <div *ngIf="step.name==='Equipe'">Any member of ...</div>
                                 </div>
                                 <div class="col-sm-2 vcenter">
-                                    <div *ngIf="step.name==='Equipe'">Choose equipe</div>
+                                    <div *ngIf="step.name==='Equipe'">
+                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="step.equipeId" (idChanged)="equipeChanged($event, index)" [emptyContentText]="'choose an equipe'"></gg-editor-autocomplete>
+                                    </div>
                                 </div>
                                 <div class="col-sm-1 vcenter">
                                     <button class="btn btn-success btn-sm" [disabled]="isFirst || !step.enabled" (click)="stepUp(index)">Up</button>
