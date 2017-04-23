@@ -1,4 +1,4 @@
-<div class="card" *ngIf="labo">
+<div class="card" *ngIf="labo && labo.data">
     <div class="card-block">
         <ngb-tabset>
             <ngb-tab title="General" id="tabGeneral">
@@ -8,7 +8,7 @@
                             <div class="row">
                                 <div class="col-sm-3 vcenter">name of laboratory:</div>
                                 <div class="col-sm-6 vcenter">
-                                    <gg-editor [content]="labo.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
+                                    <gg-editor [content]="labo.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
                                 </div>
                             </div>
                             <div class="row">
@@ -32,6 +32,27 @@
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
+                            <div class="row" *ngFor="let step of labo.annotation.validationSteps; let isFirst=first; let isLast=last; let index=index">
+
+                                <div class="col-sm-1 vcenter">
+                                    <input type="checkbox" [checked]="step.enabled" [disabled]="step.name==='Equipe' && !step.equipeId" (click)="selectStep($event.target.checked, step.name)" />
+                                </div>
+                                <div class="col-sm-2 vcenter">
+                                    <div *ngIf="step.name==='EquipeHead'">Head of equipe</div>                                    
+                                    <div *ngIf="step.name==='SecrExec'">Executive secretary</div>
+                                    <div *ngIf="step.name==='Equipe'">Any member of ...</div>
+                                </div>
+                                <div class="col-sm-2 vcenter">
+                                    <div *ngIf="step.name==='Equipe'">Choose equipe</div>
+                                </div>
+                                <div class="col-sm-1 vcenter">
+                                    <button class="btn btn-success btn-sm" [disabled]="isFirst || !step.enabled" (click)="stepUp(index)">Up</button>
+                                </div>
+                                <div class="col-sm-1 vcenter">
+                                    <button class="btn btn-success btn-sm" [disabled]="isLast || (index+1) == labo.data.validationSteps.length || !step.enabled" (click)="stepDown(index)">Down</button>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </template>
