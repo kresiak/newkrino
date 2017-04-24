@@ -105,7 +105,12 @@
 								</div>
 								<div class="row" *ngFor="let item of order.annotation.items">
 									<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
-									<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
+									
+									<div class="col-sm-1 vcenter">
+										<gg-editor [content]="item.data.quantity" [showControls]="true" (editSaved)="quantityChanged(item, $event)"
+											[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+									</div>
+									<!--<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>-->
 									<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 									<div class="col-sm-2 vcenter">
 										<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"

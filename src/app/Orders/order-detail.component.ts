@@ -148,7 +148,11 @@ export class OrderDetailComponent implements OnInit {
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
-
+    quantityChanged(item) {
+    this.order.data.quantity = item;
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
+    
     private order;
 
     otpUpdated(orderItem, newOtpId): void {
