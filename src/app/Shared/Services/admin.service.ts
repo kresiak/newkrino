@@ -1,12 +1,11 @@
-import {Observable} from 'rxjs/Rx';
-import {Injectable, Inject} from '@angular/core'
+import { Observable } from 'rxjs/Rx';
+import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 
 @Injectable()
-export class AdminService{
+export class AdminService {
 
-    constructor(@Inject(DataStore) private dataStore: DataStore)
-    {
+    constructor( @Inject(DataStore) private dataStore: DataStore) {
 
     }
 
@@ -14,18 +13,57 @@ export class AdminService{
         return Observable.combineLatest(
             this.dataStore.getDataObservable('labos'),
             (labos) => {
-                if (!labos || labos.length===0){
+                if (!labos || labos.length === 0) {
                     return {
-                        name: '',
-                        adminIds: [],
-                        secrExecIds: [],
-                        validationSteps: []
+                        data: {
+                            name: '',
+                            adminIds: [],
+                            secrExecIds: [],
+                            validationSteps: []
+                        },
+                        annotation: {
+                            validationSteps: this.getPossibleSteps()
+                        }
                     }
                 }
                 else {
-                    return labos[0]
+                    return{
+                        data: labos[0],
+                        annotation: {
+                            validationSteps: this.getSteps(labos[0].validationSteps || [])
+                        }
+                    }
                 }
             });
     }
-    
+
+    private getPossibleSteps():any[] {
+        return [
+            {
+                name: "EquipeHead",
+                enabled: false
+            },
+            {
+                name: "Equipe",
+                enabled: false,
+                equipeId: undefined
+            },
+            {
+                name: "SecrExec",
+                enabled: false
+            }
+        ]    
+    }
+
+    private getSteps(stepsFromDb: any[]): any[] {
+        var steps: any[]= stepsFromDb.map(s => s)
+        steps.forEach(step => {
+            step.enabled= true
+        })
+        this.getPossibleSteps().filter(possibleStep=> !steps.map(step => step.name).includes(possibleStep.name)).forEach(stepToAdd => {
+            steps.push(stepToAdd)
+        })
+        return steps
+    }
+
 }
