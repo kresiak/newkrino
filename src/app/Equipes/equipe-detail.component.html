@@ -24,7 +24,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">managers of equipe:</div>
-						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableManagers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="managerSelectionChanged($event)" 
+						<div class="col-sm-6 vcenter"><gg-selector [selectableData]="selectableManagers" [selectedIds]="selectedManagerIdsObservable" (selectionChanged)="managerSelectionChanged($event)" 
 									[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" ></gg-selector></div>
 					</div>										
 					<div class="row">

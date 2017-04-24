@@ -30,6 +30,12 @@
                 <gg-selector #userSelector [selectableData]="selectableUsers" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
             </div>
         </div>
+        <div class="form-group row">
+            <label for="managerIds" class="col-sm-2 col-form-label col-xl-2 vcenter">managers of equipe:</label>
+            <div class="col-sm-9 vcenter">
+                <gg-selector #userSelector [selectableData]="selectableManagers" (selectionChanged)="managerSelectionChanged($event)"></gg-selector>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-3 col-md-2 col-lg-2">
                 <button class="btn btn-success" type="submit" [disabled]="!equipeForm.valid">Submit</button>
