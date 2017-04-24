@@ -25,9 +25,15 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="userIds" class="col-sm-2 col-form-label col-xl-2 vcenter">user Ids:</label>
+            <label for="userIds" class="col-sm-2 col-form-label col-xl-2 vcenter">with following users:</label>
             <div class="col-sm-9 vcenter">
                 <gg-selector #userSelector [selectableData]="selectableUsers" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="managerIds" class="col-sm-2 col-form-label col-xl-2 vcenter">heads of equipe:</label>
+            <div class="col-sm-9 vcenter">
+                <gg-selector #userSelector [selectableData]="selectableManagers" (selectionChanged)="managerSelectionChanged($event)"></gg-selector>
             </div>
         </div>
         <div class="row">

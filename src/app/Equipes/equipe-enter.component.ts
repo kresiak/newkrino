@@ -14,6 +14,8 @@ export class EquipeEnterComponent implements OnInit {
     private equipeForm: FormGroup;
     private selectableUsers: Observable<any>;
     private selectedUserIds;
+    private selectableManagers: Observable<any>;
+    private selectedManagerIds;
 
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService) {
 
@@ -23,7 +25,7 @@ export class EquipeEnterComponent implements OnInit {
 
     ngOnInit():void {
         this.selectableUsers = this.authService.getSelectableUsers();
-
+        this.selectableManagers = this.authService.getSelectableUsers();
         this.equipeForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(2)]],
             description: ['', Validators.required],
@@ -39,7 +41,8 @@ export class EquipeEnterComponent implements OnInit {
             description: formValue.description,
             nbOfMonthAheadAllowed: formValue.nbOfMonthAheadAllowed,
             isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
-            userIds: this.selectedUserIds
+            userIds: this.selectedUserIds,
+            managerIds: this.selectedManagerIds
         }).first().subscribe(res =>
         {
             var x=res;
@@ -55,6 +58,10 @@ export class EquipeEnterComponent implements OnInit {
 
     userSelectionChanged(selectedUserIds: string[]) {        
         this.selectedUserIds = selectedUserIds;
+    }
+
+    managerSelectionChanged(selectedManagerIds: string[]) {        
+        this.selectedManagerIds = selectedManagerIds;
     }
 
 }

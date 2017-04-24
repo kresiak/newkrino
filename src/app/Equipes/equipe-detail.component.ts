@@ -40,6 +40,7 @@ export class EquipeDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        this.selectableManagers = this.authService.getSelectableUsers(true);
         this.selectableUsers = this.authService.getSelectableUsers(true);
         this.subscriptionEquipe = this.equipeObservable.subscribe(eq => {
             this.equipe = eq;
@@ -50,6 +51,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.orderService.hasEquipeAnyOrder(eq.data._id).first().subscribe(anyOrder => this.anyOrder = anyOrder);
 
+                this.selectedManagerIdsObservable = Observable.from([this.equipe.data.managerIds]);
                 this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
 
                 this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByEquipe(eq.data._id)
@@ -74,6 +76,8 @@ export class EquipeDetailComponent implements OnInit {
     /*    @Input() selectedTabId;
         @Output() tabChanged = new EventEmitter();
     */
+    private selectableManagers: Observable<SelectableData[]>;
+    private selectedManagerIdsObservable: Observable<any>;
     private selectableUsers: Observable<SelectableData[]>;
     private selectedUserIdsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
@@ -109,6 +113,11 @@ export class EquipeDetailComponent implements OnInit {
 
     userSelectionChanged(selectedIds: string[]) {
         this.equipe.data.userIds = selectedIds;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
+
+    managerSelectionChanged(selectedIds: string[]) {
+        this.equipe.data.managerIds = selectedIds;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     }
 
