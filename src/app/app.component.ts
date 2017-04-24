@@ -36,8 +36,6 @@ export class AppComponent implements OnInit {
     private usersShort: any[];
     private possibleEquipes: any[];
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private initializingUser: boolean = false
-    private initializingEquipe: boolean = false
 
     private userValue
     private equipeValue
@@ -63,8 +61,6 @@ export class AppComponent implements OnInit {
         })
 
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.initializingUser = true
-            this.initializingEquipe = true
             this.authorizationStatusInfo = statusInfo
             this.usersShort = statusInfo.annotatedUserList.map(user => {
                 return {

@@ -3,12 +3,15 @@ import { DataStore } from './data.service'
 import { Observable, BehaviorSubject, ReplaySubject, Subscription } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
 
+// helper class
+// ============
+
 export class AuthenticationStatusInfo {
     public currentUserId: string = ''
     public currentEquipeId: string = ''
     public isLoggedIn: boolean = false
     public isLoginError: boolean = false
-    public annotatedUser: any = null
+    private annotatedUser: any = null
 
     public annotatedUserList: any[]
     public equipeList: any[] = []
@@ -18,6 +21,11 @@ export class AuthenticationStatusInfo {
         this.currentEquipeId = currentEquipeId
         this.isLoggedIn = isLoggedIn
     }
+
+    setAnnotatedUser(user) {
+        this.annotatedUser= user
+    }
+
 
     isReadyForPassword() {
         return this.currentUserId !== '' && this.currentEquipeId !== '' && !this.isLoggedIn
@@ -55,12 +63,49 @@ export class AuthenticationStatusInfo {
 
 }
 
+// Service
+// =======
+
 @Injectable()
 export class AuthService {
     constructor( @Inject(DataStore) private dataStore: DataStore) {
-
+        this.getAnnotatedUsersLight().subscribe(users => {
+            if (users && users.length > 0) {
+                this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)   
+            }
+        })        
     }
 
+    private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
+    private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
+
+
+    // Login/Logout services + helper
+    // ==============================
+
+    private emitCurrentAuthenticationStatus() {
+        this.authInfoSubject.next(this.authInfo)
+    }
+
+
+    private usersSubscription: Subscription
+
+    private prepareUserId(id: string) {
+        this.authInfo.currentUserId = id
+
+        if (this.usersSubscription) this.usersSubscription.unsubscribe()
+
+        this.usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
+            if (users && users.length > 0) {
+                let user = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]   
+                this.authInfo.equipeList = !user ? [] : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
+                this.emitCurrentAuthenticationStatus()
+            }
+        })
+    }
+    
+    private LSUserKey: string = 'krinoUser'
+    private LSEquipeKey: string = 'krinoEquipe'
 
     initFromLocalStorage(): void {
         var equipeFromLS = localStorage.getItem(this.LSEquipeKey)
@@ -76,17 +121,54 @@ export class AuthService {
         }
     }
 
-    private LSUserKey: string = 'krinoUser'
-    private LSEquipeKey: string = 'krinoEquipe'
 
-
-    private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
-
-    private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
-
-    private emitCurrentAuthenticationStatus() {
-        this.authInfoSubject.next(this.authInfo)
+    setUserId(id: string): void {
+        if (this.authInfo.currentUserId !== id) {
+            this.authInfo.currentEquipeId = ''
+            this.authInfo.logout()
+            localStorage.setItem(this.LSUserKey, id)
+            this.prepareUserId(id)
+            //this.currentUserIdObservable.next(id);
+        }
     }
+
+    setEquipeId(id: string): void {
+        if (this.authInfo.currentEquipeId !== id) {
+            this.authInfo.currentEquipeId = id
+            this.authInfo.logout()
+            localStorage.setItem(this.LSEquipeKey, id)
+            this.emitCurrentAuthenticationStatus()
+        }
+    }
+
+    private setLoggedIn() {
+        this.authInfo.isLoggedIn = true
+        this.emitCurrentAuthenticationStatus()
+    }
+
+    setLoggedOut() {
+        this.authInfo.isLoggedIn = false
+        this.emitCurrentAuthenticationStatus()
+    }
+
+    tryLogin(password: string) {
+        this.authInfo.isLoginError = false
+        this.getAnnotatedCurrentUser().first().subscribe(user => {
+            if (!user.data.password || user.data.password === password) {
+                this.authInfo.setAnnotatedUser(user)
+                this.setLoggedIn()
+            }
+            else {
+                this.authInfo.isLoginError = true
+                this.emitCurrentAuthenticationStatus()
+            }
+        })
+    }
+
+
+
+    // helper functions for general public services
+    // ============================================
 
     private createAnnotatedUser(user, equipes) {
         if (!user) return null;
@@ -101,7 +183,7 @@ export class AuthService {
         };
     }
 
-    getAnnotatedUsersLight(): Observable<any> {
+    private getAnnotatedUsersLight(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
@@ -110,16 +192,17 @@ export class AuthService {
             });
     }
 
+    // General services: about users, equipes, current user
+    // =====================================================
+
     getAnnotatedUsers(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedUsersLight(), this.getUserIdObservable(), (annotatedUsers: any[], currentUserId) => {
-            annotatedUsers.forEach(annotatedUser => {
-                annotatedUser.annotation.isCurrentUser= annotatedUser.data._id===currentUserId
+            annotatedUsers.forEach(user => {
+                user.annotation.isCurrentUser= user.data._id===currentUserId
             })
             return annotatedUsers
         })
     }
-
-
 
     getAnnotatedUsersByEquipeId(equipeId: string): Observable<any> {
         return this.getAnnotatedUsers().map(annotUsers => {
@@ -159,6 +242,14 @@ export class AuthService {
         return this.authInfo.currentUserId;
     }
 
+    getEquipeId(): string {
+        return this.authInfo.currentEquipeId;
+    }
+
+
+    // Services for getting the observables to track login changes
+    // ===========================================================
+
     getUserIdObservable(): Observable<any> {
         return this.authInfoSubject.map(authInfo => authInfo.currentUserId);
     }
@@ -167,67 +258,10 @@ export class AuthService {
         return this.authInfoSubject
     }
 
-    private prepareUserId(id: string) {
-        this.authInfo.currentUserId = id
-
-        var usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
-            if (users && users.length > 0) {
-                this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)
-                let annotatedUser = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]
-                this.authInfo.equipeList = !annotatedUser ? [] : annotatedUser.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
-                this.emitCurrentAuthenticationStatus()
-                //usersSubscription.unsubscribe()
-            }
-        })
-    }
 
 
-    setUserId(id: string): void {
-        if (this.authInfo.currentUserId !== id) {
-            this.authInfo.currentEquipeId = ''
-            this.authInfo.logout()
-            localStorage.setItem(this.LSUserKey, id)
-            this.prepareUserId(id)
-            //this.currentUserIdObservable.next(id);
-        }
-    }
-
-    getEquipeId(): string {
-        return this.authInfo.currentEquipeId;
-    }
-
-    setEquipeId(id: string): void {
-        if (this.authInfo.currentEquipeId !== id) {
-            this.authInfo.currentEquipeId = id
-            this.authInfo.logout()
-            localStorage.setItem(this.LSEquipeKey, id)
-            this.emitCurrentAuthenticationStatus()
-        }
-    }
-
-    private setLoggedIn() {
-        this.authInfo.isLoggedIn = true
-        this.emitCurrentAuthenticationStatus()
-    }
-
-    setLoggedOut() {
-        this.authInfo.isLoggedIn = false
-        this.emitCurrentAuthenticationStatus()
-    }
-
-    tryLogin(password: string) {
-        this.authInfo.isLoginError = false
-        this.getAnnotatedCurrentUser().first().subscribe(user => {
-            if (!user.data.password || user.data.password === password) {
-                this.authInfo.annotatedUser = user
-                this.setLoggedIn()
-            }
-            else {
-                this.authInfo.isLoginError = true
-                this.emitCurrentAuthenticationStatus()
-            }
-        })
-    }
+    // should not be here
+    // ==================
 
     isProduction() {
         return true;
