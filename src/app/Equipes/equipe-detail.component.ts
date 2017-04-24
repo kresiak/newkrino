@@ -50,8 +50,8 @@ export class EquipeDetailComponent implements OnInit {
                 this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.orderService.hasEquipeAnyOrder(eq.data._id).first().subscribe(anyOrder => this.anyOrder = anyOrder);
-this.managersObservable = this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id);
-this.selectedManagerIdsObservable = Observable.from([this.equipe.data.managerIds]);
+
+                this.selectedManagerIdsObservable = Observable.from([this.equipe.data.managerIds]);
                 this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
 
                 this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByEquipe(eq.data._id)
@@ -84,7 +84,6 @@ this.selectedManagerIdsObservable = Observable.from([this.equipe.data.managerIds
     private subscriptionAuthorization: Subscription
     private subscriptionEquipe: Subscription
 
-    private managersObservable: Observable<any>;
     private usersObservable: Observable<any>;
     private otpsObservable: Observable<any>;
     private ordersObservable: Observable<any>;
