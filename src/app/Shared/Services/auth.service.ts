@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
+import { AdminService } from './admin.service'
 import { Observable, BehaviorSubject, ReplaySubject, Subscription } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
 
@@ -68,7 +69,7 @@ export class AuthenticationStatusInfo {
 
 @Injectable()
 export class AuthService {
-    constructor( @Inject(DataStore) private dataStore: DataStore) {
+    constructor( @Inject(DataStore) private dataStore: DataStore,  @Inject(AdminService) private adminService: AdminService) {
         this.getAnnotatedUsersLight().subscribe(users => {
             if (users && users.length > 0) {
                 this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)   
@@ -170,13 +171,15 @@ export class AuthService {
     // helper functions for general public services
     // ============================================
 
-    private createAnnotatedUser(user, equipes) {
+    private createAnnotatedUser(user, equipes, labo) {
         if (!user) return null;
         let filteredEquipes = equipes.filter(equipe => equipe.userIds && equipe.userIds.includes(user._id));
         return {
             data: user,
             annotation: {
                 fullName: user.firstName + ' ' + user.name,
+                isSecrExec: labo && labo.data.secrExecIds && labo.data.secrExecIds.includes(user._id),
+                equipesLeading: equipes.filter(eq => eq.managerIds && eq.managerIds.includes(user._id)).map(eq => eq._id),
                 equipes: filteredEquipes,
                 equipesTxt: (filteredEquipes && filteredEquipes.length > 0) ? filteredEquipes.map(eq => eq.name).reduce((a, b) => a + ', ' + b) : ''
             }
@@ -187,8 +190,9 @@ export class AuthService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('users.krino'),
             this.dataStore.getDataObservable('equipes'),
-            (users, equipes) => {
-                return users.map(user => this.createAnnotatedUser(user, equipes)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
+            this.adminService.getLabo(),
+            (users, equipes, labo) => {
+                return users.map(user => this.createAnnotatedUser(user, equipes, labo)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
             });
     }
 
