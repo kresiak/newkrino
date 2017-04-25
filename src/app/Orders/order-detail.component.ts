@@ -148,7 +148,11 @@ export class OrderDetailComponent implements OnInit {
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
-
+    quantityChanged(item, newQuantity) {
+        item.data.quantity = newQuantity;
+        this.orderService.updateOrder(this.order.data);
+    }
+    
     private order;
 
     otpUpdated(orderItem, newOtpId): void {
@@ -163,6 +167,11 @@ export class OrderDetailComponent implements OnInit {
             orderItem.data.total = +newAmount;
             this.orderService.updateOrder(this.order.data);
         }
+    }
+
+    updateComment(item, newComment) {
+        item.data.comment = newComment;
+        this.orderService.updateOrder(this.order.data);
     }
 
     setDashlet() {
