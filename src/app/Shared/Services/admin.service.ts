@@ -37,6 +37,20 @@ export class AdminService {
             });
     }
 
+    canUserValidateStep(annotatedUser, annotatedLabo, validationStepName: string, orderingEquipeId: string) : boolean {
+        if (validationStepName === "SecrExec") return annotatedUser.annotation.isSecrExec;
+        if (validationStepName === "Equipe") {
+            var step= annotatedLabo.data.validationSteps.filter(step => step.name==='Equipe')[0]
+            if (!step || !step.equipeId) return false
+            return annotatedUser.annotation.equipes.map(eq => eq._id).includes(step.equipeId);
+        }
+        if (validationStepName === "EquipeHead") {
+            return annotatedUser.annotation.equipesLeading && orderingEquipeId && annotatedUser.annotation.equipesLeading.includes(orderingEquipeId)
+        }
+        return false
+    }
+
+
     private getPossibleSteps():any[] {
         return [
             {

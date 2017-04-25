@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
+import { AdminService } from './admin.service'
 import { UserService } from './user.service'
 import { SapService } from './sap.service'
 import { SelectableData } from './../Classes/selectable-data'
@@ -10,7 +11,8 @@ import * as moment from "moment"
 
 Injectable()
 export class OrderService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService, @Inject(SapService) private sapService: SapService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService, 
+                    @Inject(SapService) private sapService: SapService, @Inject(AdminService) private adminService: AdminService) { }
 
     // otps
     // ======
@@ -174,7 +176,7 @@ export class OrderService {
         return 'Unknown status'
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap) {
+    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap, labo) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
         let equipe = equipes.get(order.equipeId)
@@ -191,6 +193,8 @@ export class OrderService {
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
                 isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
+                needsValidation: status==='created' && order.pendingValidation,
+                canCurrentUserValidate: currentUser && status==='created' && order.pendingValidation && this.adminService.canUserValidateStep(currentUser, labo, order.pendingValidation, order.equipeId),
                 //equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined, 
@@ -268,8 +272,9 @@ export class OrderService {
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
             this.sapService.getKrinoIdMapObservable(),
-            (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap) => {
-                return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap);
+            this.adminService.getLabo(),            
+            (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo) => {
+                return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo);
             })
     }
 
@@ -286,9 +291,10 @@ export class OrderService {
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
             this.sapService.getKrinoIdMapObservable(),
-            (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap) => {
+            this.adminService.getLabo(),
+            (orders, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo) => {
                 return orders.map(order =>
-                    this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap)
+                    this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo)
                 );
             })
     }
@@ -299,6 +305,10 @@ export class OrderService {
 
     getAnnotedOrdersWithStockDeliveries(): Observable<any> {
         return this.getAnnotedOrdersFromAll().map(orders => orders.filter(order => order.annotation.anyDeliveredByNewKrino));
+    }
+
+    getAnnotedOrdersValidable(): Observable<any> {
+        return this.getAnnotedOrdersFromAll().map(orders => orders.filter(order => order.annotation.canCurrentUserValidate));
     }
 
 

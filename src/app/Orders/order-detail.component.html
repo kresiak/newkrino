@@ -73,6 +73,9 @@
 									<div class="row">
 										Reference: {{order.data.kid}} / <span class="imgSearch" *ngIf="order.annotation.sapId" (click)="navigateToSap(order.annotation.sapId)">{{order.annotation.sapId}}</span> <span *ngIf="!order.annotation.sapId">no sap id</span>
 									</div>
+									<div class="row" *ngIf="order.annotation.canCurrentUserValidate">
+										<button type="button" class="btn btn-success" (click)="authorizeOrder()">Authorize the order</button>
+									</div>
 								</div>
 								<div class="col-sm-6 col-md-6">
 									<div class="row">

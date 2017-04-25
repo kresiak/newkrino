@@ -148,6 +148,12 @@ export class OrderDetailComponent implements OnInit {
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 
+    authorizeOrder() {
+        this.order.data.validatedSteps.push(this.order.data.pendingValidation)
+        this.order.data.pendingValidation=''
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
+
     quantityChanged(item, newQuantity) {
         item.data.quantity = newQuantity;
         this.orderService.updateOrder(this.order.data);
