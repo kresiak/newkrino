@@ -37,6 +37,12 @@ export class AdminService {
             });
     }
 
+    getValidationStepDescription(validationStepName: string): string {
+         if (validationStepName === "SecrExec") return 'Executive Secretary'
+         if (validationStepName === "EquipeHead") return 'Head of equipe'
+         if (validationStepName === "Equipe") return 'Validator'
+    }
+
     canUserValidateStep(annotatedUser, annotatedLabo, validationStepName: string, orderingEquipeId: string) : boolean {
         if (validationStepName === "SecrExec") return annotatedUser.annotation.isSecrExec;
         if (validationStepName === "Equipe") {

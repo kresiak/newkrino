@@ -76,6 +76,9 @@
 									<div class="row" *ngIf="order.annotation.canCurrentUserValidate">
 										<button type="button" class="btn btn-success" (click)="authorizeOrder()">Authorize the order</button>
 									</div>
+									<div class="row" *ngIf="order.annotation.needsValidation">
+										Waiting for authorization by {{order.annotation.validationStatus}}
+									</div>
 								</div>
 								<div class="col-sm-6 col-md-6">
 									<div class="row">

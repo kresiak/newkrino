@@ -194,6 +194,7 @@ export class OrderService {
                 status: status,
                 isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
                 needsValidation: status==='created' && order.pendingValidation,
+                validationStatus: status==='created' && order.pendingValidation ? this.adminService.getValidationStepDescription(order.pendingValidation) : '',
                 canCurrentUserValidate: currentUser && status==='created' && order.pendingValidation && this.adminService.canUserValidateStep(currentUser, labo, order.pendingValidation, order.equipeId),
                 //equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
