@@ -81,11 +81,11 @@ export class EquipeDetailComponent implements OnInit {
         this.subscriptionEquipe.unsubscribe()
     }
 
-    reset() {
+    resetNewBudget() {
         this.budgetForm.reset();
     }
 
-    save(formValue, isValid) {
+    saveNewBudget(formValue, isValid) {
         
     }
 
