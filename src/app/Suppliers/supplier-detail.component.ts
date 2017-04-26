@@ -27,6 +27,7 @@ export class SupplierDetailComponent implements OnInit {
     @ViewChild('sapIdResultPopup') sapIdResultPopup;
 
     private useVoucherForm: FormGroup;
+    private fixCostsForm: FormGroup;
 
     @Input() supplierObservable: Observable<any>;
     @Input() state;
@@ -57,7 +58,10 @@ export class SupplierDetailComponent implements OnInit {
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]]
         });
 
-
+        this.fixCostsForm = this.formBuilder.group({
+            descriptionFixCosts: ['', [Validators.required]],
+            prix: ['', [Validators.required, Validators.pattern(priceRegEx)]]
+        });
 
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
@@ -89,6 +93,13 @@ export class SupplierDetailComponent implements OnInit {
          this.subscriptionCurrentUser.unsubscribe()
     }
     
+    resetFixCosts() {
+        this.fixCostsForm.reset();
+    }
+
+    saveFixCosts(formValue, isValid) {
+    
+    }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription     
