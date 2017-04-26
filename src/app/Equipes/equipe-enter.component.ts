@@ -22,6 +22,8 @@ export class EquipeEnterComponent implements OnInit {
     }
  
     @ViewChild('userSelector') usersChild;
+    @ViewChild('mgrSelector') mgrsChild;
+    
 
     ngOnInit():void {
         this.selectableUsers = this.authService.getSelectableUsers();
@@ -54,6 +56,7 @@ export class EquipeEnterComponent implements OnInit {
     {
         this.equipeForm.reset();    
         this.usersChild.emptyContent()    
+        this.mgrsChild.emptyContent()
     }
 
     userSelectionChanged(selectedUserIds: string[]) {        
