@@ -80,7 +80,7 @@
             			<ngb-tab title="Add Budget" id="tabAddBudget">
                 			<template ngbTabContent>
 								<div class="container-fluid">
-									<form [formGroup]="budgetForm" (ngSubmit)="save(budgetForm.value, budgetForm.valid)">
+									<form [formGroup]="budgetForm" (ngSubmit)="saveNewBudget(budgetForm.value, budgetForm.valid)">
 										<div class="form-group row">
 											<label for="montant" class="col-sm-2 col-form-label col-xl-2">Montant:</label>
 											<div class="col-sm-10">
