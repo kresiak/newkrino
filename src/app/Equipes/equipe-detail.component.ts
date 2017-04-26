@@ -10,6 +10,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
+import * as moment from "moment"
 
 @Component(
     {
@@ -33,6 +34,8 @@ export class EquipeDetailComponent implements OnInit {
 
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
+
+    private otpListObservable: any
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -62,17 +65,24 @@ export class EquipeDetailComponent implements OnInit {
                 this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByEquipe(eq.data._id)
                 this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfEquipeByDate(eq.data._id)
 
-                this.bilanObservable= this.orderService.getBilanForEquipe(eq.data._id)
+                this.bilanObservable = this.orderService.getBilanForEquipe(eq.data._id)
             }
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
 
+        this.otpListObservable = this.orderService.getAnnotatedOtps().map(otps => otps.map(otp => {
+            return {
+                id: otp.data._id,
+                name: otp.data.name
+            }
+        }));
+
         const montantRegEx = `^\\d+(.\\d*)?$`;
         this.budgetForm = this.formBuilder.group({
             montant: ['', [Validators.required, Validators.pattern(montantRegEx)]],
-            comment: ['']
+            comment: ['', [Validators.required]]
         });
     }
 
@@ -86,7 +96,20 @@ export class EquipeDetailComponent implements OnInit {
     }
 
     saveNewBudget(formValue, isValid) {
-        
+        if (!isValid) return
+        if (!+formValue.montant) return
+
+        if (!this.equipe.data.budgets) this.equipe.data.budgets= []
+        let now = moment().format('DD/MM/YYYY HH:mm:ss')
+
+        this.equipe.data.budgets.push({
+            comment: formValue.comment,
+            amount: +formValue.montant,
+            otpId: this.selectedOtpIdForNewBudget,
+            date: now
+        })
+            
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     }
 
 
@@ -190,5 +213,11 @@ export class EquipeDetailComponent implements OnInit {
     blockedUpdated(isBlock) {
         this.equipe.data.isBlocked = isBlock;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    }
+
+    private selectedOtpIdForNewBudget: string = ''
+
+    otpForNewBudgetChanged(otpId) {
+        this.selectedOtpIdForNewBudget = otpId
     }
 }
