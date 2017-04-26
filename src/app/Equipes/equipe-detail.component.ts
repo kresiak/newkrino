@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service'
@@ -18,7 +19,9 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
+    private budgetForm: FormGroup;
+
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
         private productService: ProductService, private navigationService: NavigationService, private authService: AuthService) {
     }
     private pieSpentChart;
@@ -65,12 +68,27 @@ export class EquipeDetailComponent implements OnInit {
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
+
+        const montantRegEx = `^\\d+(.\\d*)?$`;
+        this.budgetForm = this.formBuilder.group({
+            montant: ['', [Validators.required, Validators.pattern(montantRegEx)]],
+            comment: ['']
+        });
     }
 
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
         this.subscriptionEquipe.unsubscribe()
     }
+
+    reset() {
+        this.budgetForm.reset();
+    }
+
+    save(formValue, isValid) {
+        
+    }
+
 
 
     /*    @Input() selectedTabId;
