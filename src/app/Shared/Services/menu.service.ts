@@ -123,18 +123,6 @@ export class MenuService {
                 hide: !isLoggedIn
             },
             {
-                route: '/manips',
-                title: 'Manips',
-                active: false,
-                hide: true
-            },
-            {
-                route: '/prestations',
-                title: 'Prestations',
-                active: false,
-                hide: true
-            },
-            {
                 route: '/admin',
                 title: 'Administration',
                 active: false,

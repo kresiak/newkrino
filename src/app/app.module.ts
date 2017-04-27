@@ -56,11 +56,6 @@ import {OtpEnterComponent} from './Otps/otp-enter.component';
 import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
 
 
-import {ManipDetailComponent} from './Manips/manip-detail.component'
-import {ManipListComponent} from './Manips/manip-list.component'
-import {PrestationDetailComponent} from './Prestations/prestation-detail'
-import {PrestationListComponent} from './Prestations/prestation-list'
-
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
 import {UserEnterComponent} from './Users/user-enter.component'
@@ -138,7 +133,6 @@ import {UserService} from './Shared/Services/user.service'
 import {SapService} from './Shared/Services/sap.service'
 import {MenuService} from './Shared/Services/menu.service'
 import {ChartService} from './Shared/Services/chart.service'
-import {PrestationService} from './Shared/Services/prestation.service'
 import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
 import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
 import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
@@ -177,9 +171,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: "mykrino", component: MyKrinoComponent},
             { path: "home", component: HomeComponent},
             { path: "stock", component: StockComponentRoutable},
-            { path: "manips", component: ManipListComponent},
             { path: "unmaximize", component: UnMaximizeComponent},
-            { path: "prestations", component: PrestationListComponent},
             { path: "", component: HomeComponent, pathMatch: 'full'},
             { path: 'preorder/:id', component: PreOrderComponent },
             { path: 'order/:id', component: OrderComponentRoutable },
@@ -203,7 +195,6 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   StockDetailComponent, StockComponentRoutable, StockListComponent,StockProductEnterComponent, StockOrderListComponent, StockOrderDetailComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable, UserInfoComponent,
-                  ManipDetailComponent, ManipListComponent, PrestationDetailComponent, PrestationListComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
                   EquipeGiftGridComponent, EquipeBilanComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
@@ -213,7 +204,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent
                  ],
-  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, PrestationService, WebSocketService, MenuService,
+  providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService ],
     bootstrap:    [ AppComponent ]
 })

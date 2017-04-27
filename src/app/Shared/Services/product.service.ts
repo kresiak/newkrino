@@ -34,14 +34,6 @@ export class ProductService {
          return this.productDoubleObservable
      }
 
-    getSelectableManips(): Observable<SelectableData[]> {
-        return this.dataStore.getDataObservable('manips').map(manips => {
-            return manips.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(manip =>
-                new SelectableData(manip._id, manip.name)
-            )
-        });
-    }
-
 
     // stock
     // ==========

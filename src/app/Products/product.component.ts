@@ -28,9 +28,6 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.productObservable.map(product => product.data.categoryIds);
 
-        this.selectableManipsObservable = this.productService.getSelectableManips();
-        this.selectedManipIdsObservable = this.productObservable.map(product => product.data.manipIds);
-
         this.subscrProduct = this.productObservable.subscribe(product => {
             this.product = product;
         });
@@ -55,9 +52,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     private product;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
-
-    private selectableManipsObservable: Observable<any>;
-    private selectedManipIdsObservable: Observable<any>;
 
 
     showColumn(columnName: string) {
@@ -96,11 +90,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     categoryHasBeenAdded(newCategory: string) {
         this.productService.createCategory(newCategory);
-    }
-
-    manipSelectionChanged(selectedIds: string[]) {
-        this.product.data.manipIds = selectedIds;
-        this.productService.updateProduct(this.product.data);
     }
 
     quantityBasketUpdated(quantity: string) {

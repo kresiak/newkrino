@@ -7,7 +7,7 @@
 					<div class="card">
 						<div class="card-block">
 							<div class="row">
-								<gg-product-grid [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'supplier', 'manip']}"></gg-product-grid>
+								<gg-product-grid [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'supplier']}"></gg-product-grid>
 							</div>
 							<div class="row" *ngIf="authorizationStatusInfo.isAdministrator()">
 								<div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
