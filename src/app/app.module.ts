@@ -28,7 +28,6 @@ import {SupplierListComponent} from './Suppliers/supplier-list.component';
 import {SupplierListComponentRoutable} from './Suppliers/supplier-list.routable.component'
 import {SupplierDetailComponent} from './Suppliers/supplier-detail.component';
 import {SupplierDetailComponentRoutable} from './Suppliers/supplier-detail.routable.component';
-import {ProductComponent} from './Products/product.component';
 import {ProductGridComponent} from './Products/product-grid.component';
 import {ProductListComponent} from './Products/product-list.component';
 import {ProductListComponentRoutable} from './Products/product-list.routable.component'
@@ -186,7 +185,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
                   CommentComponent, CommentsComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
-                  ProductComponent, ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
+                  ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   ProductFridgeOrderButtonComponent,
                   OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent,
 

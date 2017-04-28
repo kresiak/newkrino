@@ -85,7 +85,7 @@
 
 	<ngb-tab title="Products" id="tabProducts">
 		<template ngbTabContent>
-			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" [config]="{skip:['supplier']}"></gg-product-grid>
+			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" [config]="{skip:['otp', 'totalPrice']}"></gg-product-grid>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
@@ -99,7 +99,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-grid [path]="path+'|O:Basket'" [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp', 'supplier']}"></gg-product-grid>
+						<gg-product-grid [path]="path+'|O:Basket'" [isBasket]="true" [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
 					</div>
 					<div class="row">
 						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>

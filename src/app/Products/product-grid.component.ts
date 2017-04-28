@@ -1,7 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChildren, QueryList} from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service';
+import { ProductService } from './../Shared/Services/product.service';
+import { NavigationService } from './../Shared/Services/navigation.service'
+import { SelectableData } from './../Shared/Classes/selectable-data'
+import { Editor} from './../ui/editor/editor'
+import { DataStore } from './../Shared/Services/data.service'
+import { ActivatedRoute, Params, Router } from '@angular/router'
+
 
 @Component(
     {
@@ -14,11 +22,13 @@ export class ProductGridComponent implements OnInit
 {
     @Input() productsObservable: Observable<any>;
     @Input() config;
+    @Input() isBasket: boolean= false;
     @Input() path: string = 'products'
 
     private products;
 
-    constructor(private orderService: OrderService)
+    constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
+                        private router: Router)
     {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -28,19 +38,32 @@ export class ProductGridComponent implements OnInit
     searchControl = new FormControl();
     searchForm;
     private subscriptionProducts: Subscription 
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    private subscriptionAuthorization: Subscription
+    private selectableCategoriesObservable: Observable<any>;
+    
+    
     private otpListObservable: any
     
+    @ViewChildren(Editor) priceChildren : QueryList<Editor>;
+
     resetSerachControl() {
         this.searchControl.setValue('')
     }
 
     ngOnInit() : void{
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+
         this.otpListObservable = this.orderService.getAnnotatedOtps().map(otps => otps.map(otp => {
             return {
                 id: otp.data._id,
                 name: otp.data.name
             }
         }));        
+
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });        
 
         this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
@@ -79,20 +102,66 @@ export class ProductGridComponent implements OnInit
     }
 
     ngOnDestroy(): void {
-         this.subscriptionProducts.unsubscribe()
+        this.subscriptionProducts.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()                 
     }
 
-
-    getProductObservable(id: string) : Observable<any>
-    {
-        return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
-    }
 
     showColumn(columnName: string) {
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
 
-/*    getProductObservable(id: string): Observable<any> {
-        return this.productsObservable.map(products => products.filter(product => product._id === id)[0]);
-    }*/
+    getProductCategoryIdsObservable(id: string) : Observable<any>
+    {
+        return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0].data.categoryIds);
+    }
+
+    descriptionUpdated(desc: string, product) {
+        if (product.data.name !== desc) {
+            product.data.name = desc;
+            this.productService.updateProduct(product.data);
+        }
+    }
+
+    prixUpdated(prix: string, product) {
+        var p: number = +prix && (+prix) >= 0 ? +prix : -1;
+        if (p !== -1) {
+            if (product.price !== p) {
+                product.data.price = p;
+                this.productService.updateProduct(product.data);
+            }
+        }
+        else {
+            var ctrl= this.priceChildren.toArray().filter(editorControl => editorControl.id === product.data._id)[0]
+            if (ctrl)                
+                ctrl.resetContent(product.data.price);
+        }
+    }
+
+    categorySelectionChanged(selectedIds: string[], product) {
+        product.data.categoryIds = selectedIds;
+        this.productService.updateProduct(product.data);
+    }
+
+    categoryHasBeenAdded(newCategory: string) {
+        this.productService.createCategory(newCategory);
+    }
+
+    quantityBasketUpdated(quantity: string, product) {
+        this.productService.doBasketUpdate(product, quantity)
+    }
+
+    navigateToProduct(product) {
+        this.navigationService.maximizeOrUnmaximize('/product', product.data._id, this.path, false)
+    }
+
+    otpUpdated(newOtpId, product): void {
+        if (newOtpId && newOtpId.length > 0) {
+            this.productService.doBasketOtpUpdate(product, newOtpId)
+        }
+    }
+
+    setNotUrgent(product): void {
+        
+    }
 }
