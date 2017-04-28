@@ -55,12 +55,12 @@ export class SupplierDetailComponent implements OnInit {
 
         this.useVoucherForm = this.formBuilder.group({
             description: ['', [Validators.required, Validators.minLength(5)]],
-            price: ['', [Validators.required, Validators.pattern(priceRegEx)]]
+            priceFixCosts: ['', [Validators.required, Validators.pattern(priceRegEx)]]
         });
 
         this.fixCostsForm = this.formBuilder.group({
             descriptionFixCosts: ['', [Validators.required]],
-            prix: ['', [Validators.required, Validators.pattern(priceRegEx)]]
+            priceFixCosts: ['', [Validators.required, Validators.pattern(priceRegEx)]]
         });
 
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -98,7 +98,17 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     saveFixCosts(formValue, isValid) {
-    
+        if (!isValid) return
+        if (!+formValue.priceFixCosts) return
+
+        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts= []
+
+        this.supplier.data.fixCosts.push({
+            description: formValue.descriptionFixCosts,
+            price: +formValue.priceFixCosts
+        })
+            
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
@@ -217,6 +227,13 @@ export class SupplierDetailComponent implements OnInit {
         this.useVoucherForm.reset();
     }
 
+    costsPriceUpdated(costsObject, price) {
+        costsObject.price = +price;     
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
+
+    costsDescriptionUpdated(costsObject, description) {
+        costsObject.description = description;     
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
 }
-
-
