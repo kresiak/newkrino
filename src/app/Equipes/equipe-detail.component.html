@@ -80,7 +80,26 @@
 						<ngb-tab title="Budget" id="tabBudget">
 							<template ngbTabContent>
 								<div class="card">
-
+									<div class="card-block">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-sm-2 vcenter"><b>Date</b></div>
+												<div class="col-sm-2 vcenter"><b>Amount</b></div>
+												<div class="col-sm-2 vcenter"><b>Comment</b></div>
+											</div>
+											<div *ngFor="let budgetObject of equipe.data.budgets">
+												<div class="row">
+													<div class="col-sm-2 vcenter">{{budgetObject.date | fullDate}}</div>
+													<div class="col-sm-2 vcenter">
+														<gg-editor [content]="budgetObject.amount" [showControls]="true" [isMonetary]="true" (editSaved)="budgetAmountUpdated(budgetObject, $event)"></gg-editor>
+													</div>
+													<div class="col-sm-2 vcenter">
+														<gg-editor [content]="budgetObject.comment" [showControls]="true" (editSaved)="budgetCommentUpdated(budgetObject, $event)"></gg-editor>
+													</div>
+												</div>
+											</div>
+										</div>
+                        			</div>
 								</div>
 							</template>
 						</ngb-tab>

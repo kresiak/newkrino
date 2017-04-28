@@ -135,7 +135,7 @@ export class EquipeDetailComponent implements OnInit {
 
     private equipe: any;
     private anyOrder: boolean;
-
+    
     setDashlet() {
         this.userService.createEquipeDashletForCurrentUser(this.equipe.data._id);
     }
@@ -220,4 +220,14 @@ export class EquipeDetailComponent implements OnInit {
     otpForNewBudgetChanged(otpId) {
         this.selectedOtpIdForNewBudget = otpId
     }
+
+    budgetAmountUpdated(budgetObject, amount: number) {
+        budgetObject.amount = +amount;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
+
+    budgetCommentUpdated(budgetObject, comment) {
+        budgetObject.comment = comment;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
 }
