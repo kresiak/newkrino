@@ -67,6 +67,11 @@ export class AdminLabo {
         this.saveLabo()
     }
 
+    groupedPasswordChanged(groupedPassword: string) {
+        this.labo.data.passwordGroupOrdersUser = groupedPassword;
+        this.saveLabo()
+    }
+
     private findStepByName(stepName) {
         return this.labo.annotation.validationSteps.filter(s => s.name === stepName)[0]
     }

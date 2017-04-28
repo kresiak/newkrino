@@ -23,6 +23,12 @@
                                     <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedSecrExecIdsObservable" (selectionChanged)="secrExecSelectionChanged($event)"></gg-selector>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">grouped orders user password:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor [content]="labo.data.passwordGroupOrdersUser" [showControls]="true" (editSaved)="groupedPasswordChanged($event)"></gg-editor>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
