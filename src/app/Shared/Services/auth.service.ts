@@ -12,6 +12,7 @@ export class AuthenticationStatusInfo {
     public currentEquipeId: string = ''
     public isLoggedIn: boolean = false
     public isLoginError: boolean = false
+    public needsEquipeSelection: boolean = true
     private annotatedUser: any = null
 
     public annotatedUserList: any[]
@@ -29,7 +30,7 @@ export class AuthenticationStatusInfo {
 
 
     isReadyForPassword() {
-        return this.currentUserId !== '' && this.currentEquipeId !== '' && !this.isLoggedIn
+        return this.currentUserId !== '' && (this.currentEquipeId !== '' || !this.needsEquipeSelection) && !this.isLoggedIn
     }
 
     hasUserId() {
@@ -99,6 +100,7 @@ export class AuthService {
         this.usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
             if (users && users.length > 0) {
                 let user = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]   
+                this.authInfo.needsEquipeSelection= user ? !user.annotation.equipeNotNeeded : true
                 this.authInfo.equipeList = !user ? [] : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
                 this.emitCurrentAuthenticationStatus()
             }
@@ -155,7 +157,7 @@ export class AuthService {
     tryLogin(password: string) {
         this.authInfo.isLoginError = false
         this.getAnnotatedCurrentUser().first().subscribe(user => {
-            if (!user.data.password || user.data.password === password) {
+            if ((!user.data.password && user.data.password != '') || user.data.password === password) {
                 this.authInfo.setAnnotatedUser(user)
                 this.setLoggedIn()
             }
@@ -170,6 +172,25 @@ export class AuthService {
 
     // helper functions for general public services
     // ============================================
+
+    public readonly systemGroupUserId: string= 'SystemGroupUser'
+
+
+    private createGroupingUser(password: string) {
+        return {
+            data: { 
+                _id: this.systemGroupUserId,
+                password: password
+            },
+            annotation: {
+                fullName: 'System: Group Orders',
+                equipes: [],
+                isSystem: true,
+                equipeNotNeeded: true
+            }
+        }
+    }
+
 
     private createAnnotatedUser(user, equipes, labo) {
         if (!user) return null;
@@ -192,7 +213,9 @@ export class AuthService {
             this.dataStore.getDataObservable('equipes'),
             this.adminService.getLabo(),
             (users, equipes, labo) => {
-                return users.map(user => this.createAnnotatedUser(user, equipes, labo)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
+                var list: any[]= users.map(user => this.createAnnotatedUser(user, equipes, labo)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
+                list.push(this.createGroupingUser(labo.data.passwordGroupOrdersUser))
+                return list
             });
     }
 

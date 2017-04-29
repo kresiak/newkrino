@@ -19,7 +19,8 @@ export class AdminService {
                             name: '',
                             adminIds: [],
                             secrExecIds: [],
-                            validationSteps: []
+                            validationSteps: [],
+                            passwordGroupOrdersUser: 'go'
                         },
                         annotation: {
                             validationSteps: this.getPossibleSteps()

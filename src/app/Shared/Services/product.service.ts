@@ -14,25 +14,25 @@ export class ProductService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
         @Inject(OrderService) private orderService: OrderService) {
-            this.initProductDoubleObservable()
+        this.initProductDoubleObservable()
     }
-    
 
-    private productDoubleObservable:  ConnectableObservable<any> = null
 
-     private initProductDoubleObservable(): void {
-        var toExclude= ['A COM', 'À COM', 'INCONNU', 'UNKNOWN', 'AUCUN', 'AUCUNE']
+    private productDoubleObservable: ConnectableObservable<any> = null
 
-         this.productDoubleObservable= this.dataStore.getDataObservable('products')
-                    .map(products => products.filter(p => p.catalogNr && !p.disabled && !toExclude.includes(p.catalogNr.toUpperCase()) && p.catalogNr.length > 3).map(p => p.catalogNr).filter((elem, pos, arr) => arr.indexOf(elem) != pos))
-                    .map(catNumberList => new Set<string>(catNumberList))
-                    .publishReplay(1) 
-         this.productDoubleObservable.connect()
-     }
+    private initProductDoubleObservable(): void {
+        var toExclude = ['A COM', 'À COM', 'INCONNU', 'UNKNOWN', 'AUCUN', 'AUCUNE']
 
-     getProductDoubleObservable(): Observable<any> {
-         return this.productDoubleObservable
-     }
+        this.productDoubleObservable = this.dataStore.getDataObservable('products')
+            .map(products => products.filter(p => p.catalogNr && !p.disabled && !toExclude.includes(p.catalogNr.toUpperCase()) && p.catalogNr.length > 3).map(p => p.catalogNr).filter((elem, pos, arr) => arr.indexOf(elem) != pos))
+            .map(catNumberList => new Set<string>(catNumberList))
+            .publishReplay(1)
+        this.productDoubleObservable.connect()
+    }
+
+    getProductDoubleObservable(): Observable<any> {
+        return this.productDoubleObservable
+    }
 
 
     // stock
@@ -244,7 +244,7 @@ export class ProductService {
         });
     }
 
-    getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
+    private getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
             this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
             (products, basketItems, suppliers, productFrequenceMap, userId, setProductsInDouble) => {
@@ -676,6 +676,36 @@ export class ProductService {
         }
     }
 
+    doBasketNotUrgent(productAnnotated): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('basket'), (basket) => {
+            var groupOrderUserId = this.authService.systemGroupUserId
+            var nonUrgentBasketItem = basket.filter(item => item.user === groupOrderUserId && item.produit === productAnnotated.data._id)[0]
+            let now = moment().format('DD/MM/YYYY HH:mm:ss')
+            var item= {
+                    date: now,
+                    userId: this.authService.getUserId(),
+                    equipeId: this.authService.getEquipeId(),
+                    quantity: productAnnotated.annotation.quantity
+                }
+
+            if (nonUrgentBasketItem) {
+                if (!nonUrgentBasketItem.items) nonUrgentBasketItem.items = []
+                nonUrgentBasketItem.items.push(item)
+                nonUrgentBasketItem.quantity += productAnnotated.annotation.quantity
+                this.dataStore.updateData('basket', nonUrgentBasketItem._id, nonUrgentBasketItem)
+            }
+            else {
+                this.dataStore.addData('basket', {
+                    user: groupOrderUserId,
+                    produit: productAnnotated.data._id,
+                    quantity: productAnnotated.annotation.quantity,
+                    items: [item]
+                })
+            }
+            this.removeBasketItem(productAnnotated.annotation.basketId)
+        })
+    }
+
     private createBasketItem(product, quantity: number) {
         this.dataStore.addData('basket', { user: this.authService.getUserId(), produit: product._id, quantity: quantity });
     }
@@ -687,6 +717,7 @@ export class ProductService {
     private removeBasketItem(basketItemId) {
         this.dataStore.deleteData('basket', basketItemId);
     }
+
 
     //     create order from basket
     //     ========================

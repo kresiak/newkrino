@@ -162,6 +162,8 @@ export class ProductGridComponent implements OnInit
     }
 
     setNotUrgent(product): void {
-        
+        this.productService.doBasketNotUrgent(product).first().subscribe(res => {
+            
+        })
     }
 }
