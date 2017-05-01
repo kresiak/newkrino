@@ -536,7 +536,8 @@ export class ProductService {
     getAnnotatedProductsInBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
     {
         return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(),
-            (products, basketItems, otps, userId) => {
+            this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
+            (products, basketItems, otps, userId, equipes, annotatedUsers) => {
                 return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
                     .map(product => {
                         let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
@@ -544,6 +545,17 @@ export class ProductService {
                             data: product,
                             annotation: {
                                 basketId: basketItemFiltered[0]._id,
+                                basketItems: !basketItemFiltered[0].items ? [] : basketItemFiltered[0].items.map(item => {
+                                    let user= annotatedUsers.filter(user => user.data._id === item.userId)[0]
+                                    let equipe= equipes.filter(eq => eq._id === item.equipeId)[0]
+                                    return {
+                                        data: item,
+                                        annotation: {
+                                            userFullName: user ? user.annotation.fullName : 'unknown user',
+                                            equipe: equipe ? equipe.name : 'unknown equipe'
+                                        }
+                                    }
+                                }),
                                 hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
                                 quantity: basketItemFiltered[0].quantity,
                                 totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service

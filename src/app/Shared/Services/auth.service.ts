@@ -62,6 +62,9 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isProgrammer
     }
 
+    isGroupOrdersUser() {
+        return this.annotatedUser && this.annotatedUser.annotation.isGroupOrdersUser
+    }
 
 }
 
@@ -186,7 +189,8 @@ export class AuthService {
                 fullName: 'System: Group Orders',
                 equipes: [],
                 isSystem: true,
-                equipeNotNeeded: true
+                equipeNotNeeded: true,
+                isGroupOrdersUser: true
             }
         }
     }
