@@ -59,9 +59,9 @@
 					 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter">
-					<gg-editor-number *ngIf="product.annotation.hasUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" [content]="product.annotation.quantity"
-					 (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="authorizationStatusInfo && authorizationStatusInfo.isGroupOrdersUser()"></gg-editor-number>
-					<div *ngIf="!product.annotation.hasUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
+					<gg-editor-number *ngIf="product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" [content]="product.annotation.quantity"
+					 (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="isGroupedBasket"></gg-editor-number>
+					<div *ngIf="!product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
 					<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="productObservable"></gg-product-fridge-order-button>
 
 				</div>
@@ -72,10 +72,10 @@
 					 [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
-				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isBasket && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isBasket && !isGroupedBasket">
 					<button type="button" class="btn btn-link" (click)="setNotUrgent(product)">Set as not urgent</button>
 				</div>
-				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isBasket && authorizationStatusInfo && authorizationStatusInfo.isGroupOrdersUser()">
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isBasket && isGroupedBasket">
 					<button type="button" class="btn btn-link" (click)="product.annotation.isClosed=!product.annotation.isClosed">Show/hide details</button>					
 				</div>				
 			</div>

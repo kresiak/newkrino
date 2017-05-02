@@ -70,8 +70,13 @@ export class SupplierDetailComponent implements OnInit {
             this.supplier = supplier;
             if (supplier) {
                 this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplier.data._id);
+
+                this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(supplier.data._id);
                 this.subscriptionIsBasket= this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
+
+                this.productsGroupedBasketObservable = this.productService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(supplier.data._id);
+                this.subscriptionIsGroupedBasket= this.productsGroupedBasketObservable.subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
+
                 this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
                 this.subscriptionAnyOrder= this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
                 this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(user => {
@@ -89,6 +94,7 @@ export class SupplierDetailComponent implements OnInit {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionSupplier.unsubscribe()
          this.subscriptionIsBasket.unsubscribe()
+         this.subscriptionIsGroupedBasket.unsubscribe()
          this.subscriptionAnyOrder.unsubscribe()
          this.subscriptionCurrentUser.unsubscribe()
     }
@@ -116,14 +122,17 @@ export class SupplierDetailComponent implements OnInit {
     private subscriptionSupplier: Subscription    
 
     private subscriptionIsBasket: Subscription
+    private subscriptionIsGroupedBasket: Subscription
     private subscriptionAnyOrder: Subscription
     private subscriptionCurrentUser: Subscription
 
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
+    private productsGroupedBasketObservable: Observable<any>;
     private ordersObservable: Observable<any>;
     private supplier: any;
     private isThereABasket: boolean = false;
+    private isThereAGroupedBasket: boolean = false;    
     private anyOrder: boolean;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;

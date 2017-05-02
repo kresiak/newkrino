@@ -289,6 +289,10 @@ export class AuthService {
         return this.authInfoSubject
     }
 
+    getGroupOrdersUserIdObservable(): Observable<any> {
+        return Observable.from([this.systemGroupUserId]);
+    }
+
 
 
     // should not be here

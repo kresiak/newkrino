@@ -23,6 +23,7 @@ export class ProductGridComponent implements OnInit
     @Input() productsObservable: Observable<any>;
     @Input() config;
     @Input() isBasket: boolean= false;
+    @Input() isGroupedBasket: boolean= false;
     @Input() path: string = 'products'
 
     private products;
@@ -163,7 +164,7 @@ export class ProductGridComponent implements OnInit
 
     setNotUrgent(product): void {
         this.productService.doBasketNotUrgent(product).first().subscribe(res => {
-            
+
         })
     }
 }

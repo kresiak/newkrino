@@ -33,7 +33,7 @@ export class PreOrderComponent implements OnInit {
             let supplierId = params['id']
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier)
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInBasketBySupplier(supplierId)
+                this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(supplierId)
                 this.subscriptionProductBasket= this.productsBasketObservable.subscribe(pb => {
                     this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
                         if (!eq) return

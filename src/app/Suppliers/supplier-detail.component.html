@@ -116,10 +116,21 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-grid [path]="path+'|O:Basket'" [isBasket]="true" [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
+						<gg-product-grid [path]="path+'|O:Basket'" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()" [isBasket]="true" [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
 					</div>
 					<div class="row">
 						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Shopping non urgent Basket" *ngIf='isThereAGroupedBasket' id="tabGroupedBasket">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<gg-product-grid [path]="path+'|O:GroupedBasket'" [isBasket]="true" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
 					</div>
 				</div>
 			</div>

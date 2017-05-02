@@ -247,7 +247,7 @@ export class ProductService {
     private getAnnotatedProductsWithBasketInfo(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.getBasketItemsForCurrentUser(), this.dataStore.getDataObservable("suppliers"),
             this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
-            (products, basketItems, suppliers, productFrequenceMap, userId, setProductsInDouble) => {
+            (products, basketItems, suppliers, productFrequenceMap, currentUserId, setProductsInDouble) => {
                 let mapSuppliers = suppliers.reduce((map, supplier) => {
                     map.set(supplier._id, supplier)
                     return map
@@ -260,7 +260,7 @@ export class ProductService {
                         data: product,
                         annotation: {
                             basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
-                            hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
+                            hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
                             quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
                             supplierName: supplier ? supplier.name : "unknown",
                             productFrequence: productFrequenceMap.get(product._id) || 0,
@@ -524,20 +524,27 @@ export class ProductService {
     }
 
     getBasketItemsForCurrentUser(): Observable<any> {
+        return this.getBasketItemsForUser(this.authService.getUserIdObservable())
+    }
+
+    private getBasketItemsForGroupOrdersUser(): Observable<any> {
+        return this.getBasketItemsForUser(this.authService.getGroupOrdersUserIdObservable())
+    }
+
+    private getBasketItemsForUser(userIdObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('basket'),
-            this.authService.getUserIdObservable(),
+            userIdObservable,
             (basket, userId) => {
                 return basket.filter(basketItem => basketItem.user === userId);
             }
         );
     }
 
-    getAnnotatedProductsInBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
-    {
-        return Observable.combineLatest(this.getProductsBySupplier(supplierId), this.getBasketItemsForCurrentUser(), this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(),
+    private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>): Observable<any> {
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), basketObservable, this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
-            (products, basketItems, otps, userId, equipes, annotatedUsers) => {
+            (products, basketItems, otps, currentUserId, equipes, annotatedUsers) => {
                 return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
                     .map(product => {
                         let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
@@ -556,7 +563,7 @@ export class ProductService {
                                         }
                                     }
                                 }),
-                                hasUserPermissionToShop: !product.userIds || product.userIds.includes(userId),
+                                hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
                                 quantity: basketItemFiltered[0].quantity,
                                 totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
                                 otp: basketItemFiltered[0].otpId ? { name: 'will never be used, or?', _id: basketItemFiltered[0].otpId } :
@@ -567,6 +574,18 @@ export class ProductService {
             }
         );
     }
+
+
+    getAnnotatedProductsInCurrentUserBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
+    {
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForCurrentUser())        
+    }
+
+    getAnnotatedProductsInGroupOrdersUserBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
+    {
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForGroupOrdersUser())        
+    }
+
 
     // orders LM warning
     // ==================
