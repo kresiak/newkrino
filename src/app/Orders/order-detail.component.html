@@ -81,12 +81,15 @@
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6">
-									<div class="row">
+									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
 										<div class="col-sm-10">{{order.annotation.user}}</div>										
 									</div>
-									<div class="row">
+									<div class="row" *ngIf="order.annotation.isGroupedOrder">
+										<div class="col-sm-10">Non urgent order</div>										
+									</div>
+									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
 										<div class="col-sm-10">
-										<gg-editor-autocomplete  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"  [selectableData]="equipeListObservable" 
+										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"  [selectableData]="equipeListObservable" 
 										             [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
 										<div *ngIf="order.annotation.equipeGroup">group: {{order.annotation.equipeGroup}}</div>
 										</div>

@@ -44,6 +44,7 @@ export class AuthenticationStatusInfo {
     logout() {
         this.isLoggedIn = false
         this.annotatedUser = null
+        this.currentEquipeId = ''
     }
 
     isAdministrator() {
@@ -239,6 +240,15 @@ export class AuthService {
         })
     }
 
+    getAnnotatedUsersHashmap(): Observable<any> {
+        return this.getAnnotatedUsers().map(users => users.reduce((map, p) => {
+            map.set(p.data._id, p)
+            return map
+        }, new Map()))
+
+    }
+
+
     getAnnotatedUsersByEquipeId(equipeId: string): Observable<any> {
         return this.getAnnotatedUsers().map(annotUsers => {
             return annotUsers.filter(annotUser => annotUser.annotation && annotUser.annotation.equipes && annotUser.annotation.equipes.map(eq => eq._id).includes(equipeId));
@@ -297,7 +307,9 @@ export class AuthService {
         return Observable.from([this.systemGroupUserId]);
     }
 
-
+    isUserGroupOrderUser(userId): boolean {
+        return userId === this.systemGroupUserId
+    }
 
     // should not be here
     // ==================

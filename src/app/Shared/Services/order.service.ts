@@ -176,12 +176,12 @@ export class OrderService {
         return 'Unknown status'
     }
 
-    private createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap, labo) {
+    private createAnnotedOrder(order, products, otps, annotatedUsers, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap, labo) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
         let equipe = equipes.get(order.equipeId)
         let equipeGroup = !order.equipeRepartition ? null : groups.get(order.equipeRepartition.equipeGroupId)
-        let user = users.get(order.userId)
+        let annotatedUser = annotatedUsers.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
         let status= order.status && order.status.value ? order.status.value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
         
@@ -189,9 +189,10 @@ export class OrderService {
             data: order,
             annotation: {
                 sapId: krinoSapMap.get(order.kid),
-                user: user ? user.firstName + ' ' + user.name : 'Unknown user',
+                user: annotatedUser ? annotatedUser.annotation.fullName : 'Unknown user',
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
+                isGroupedOrder: annotatedUser && this.authService.isUserGroupOrderUser(annotatedUser.data._id),
                 isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
                 needsValidation: status==='created' && order.pendingValidation,
                 validationStatus: status==='created' && order.pendingValidation ? this.adminService.getValidationStepDescription(order.pendingValidation) : '',
@@ -217,11 +218,11 @@ export class OrderService {
                             allDelivered: item.quantity===nbDelivered,
                             anyDelivered: item.quantity !==0 && nbDelivered != 0,
                             deliveries: (item.deliveries || []).map(delivery => {
-                                let userLm = users.get(delivery.userId)
+                                let userLm = annotatedUsers.get(delivery.userId)
                                 return {
                                     data: delivery,
                                     annotation: {
-                                        userLm: userLm ? userLm.firstName + ' ' + userLm.name : 'Unknown user',
+                                        userLm: userLm ? userLm.annotation.fullName : 'Unknown user',
                                         isStock: delivery.stockId 
                                     }
                                 }
@@ -266,7 +267,7 @@ export class OrderService {
             this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id || order.kid === +id)[0]),
             this.dataStore.getDataObservable('products').map(this.hashMapFactory),
             this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
+            this.authService.getAnnotatedUsersHashmap(),
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
             this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
@@ -280,12 +281,12 @@ export class OrderService {
     }
 
 
-    getAnnotedOrders(ordersObservable: Observable<any>): Observable<any> {
+    private getAnnotedOrders(ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
             ordersObservable,
             this.dataStore.getDataObservable('products').map(this.hashMapFactory),
             this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('users.krino').map(this.hashMapFactory),
+            this.authService.getAnnotatedUsersHashmap(),
             this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
             this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
             this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
