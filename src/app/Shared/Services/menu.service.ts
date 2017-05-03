@@ -61,13 +61,13 @@ export class MenuService {
                 route: '/dashboard',
                 title: 'Dashboard',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/mykrino',
                 title: 'My Krino',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/orders',
@@ -78,49 +78,49 @@ export class MenuService {
                 route: '/products',
                 title: 'Products',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/suppliers',
                 title: 'Suppliers',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/stock',
                 title: 'Stock',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/categories',
                 title: 'Categories',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/equipes',
                 title: 'Equipes',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/users',
                 title: 'Users',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/otps',
                 title: 'Otps',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/saps',
                 title: 'Sap',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/admin',
@@ -132,13 +132,13 @@ export class MenuService {
                 route: '/reception',
                 title: 'Reception',
                 active: false,
-                hide: false
+                hide: statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/communication',
                 title: 'Communication',
                 active: false,
-                hide: !isLoggedIn
+                hide: !isLoggedIn 
             }
         ];
         this.menu = this.menu.filter(item => !item.hide)

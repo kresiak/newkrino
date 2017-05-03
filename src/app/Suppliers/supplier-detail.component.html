@@ -33,7 +33,7 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Fix costs" id="tabFixCosts">
+	<ngb-tab title="Fix costs" id="tabFixCosts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -100,12 +100,12 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Products" id="tabProducts">
+	<ngb-tab title="Products" id="tabProducts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" [config]="{skip:['otp', 'totalPrice']}"></gg-product-grid>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
+	<ngb-tab title="Orders" *ngIf="anyOrder && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()" id="tabOrders" >
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders"
 				(stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
@@ -125,7 +125,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Shopping non urgent Basket" *ngIf='isThereAGroupedBasket' id="tabGroupedBasket">
+	<ngb-tab title="Shopping non urgent Basket" *ngIf='isThereAGroupedBasket && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()' id="tabGroupedBasket">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -136,7 +136,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Add a product" id="tabAddProduct">
+	<ngb-tab title="Add a product" id="tabAddProduct" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -147,7 +147,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Web Shopping" id="tabWebShopping">
+	<ngb-tab title="Web Shopping" id="tabWebShopping" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
