@@ -226,6 +226,17 @@ export class OrderService {
                                         isStock: delivery.stockId 
                                     }
                                 }
+                            }),
+                            detail: (item.detail || []).map(detailItem => {
+                                let user = annotatedUsers.get(detailItem.userId)
+                                let eq = equipes.get(detailItem.equipeId)
+                                return {
+                                    data: detailItem,
+                                    annotation: {
+                                        userFullName: user ? user.annotation.fullName : 'Unknown user',
+                                        equipe: eq ? eq.name : 'Unknown equipe' 
+                                    }
+                                }
                             })
                         }
                     }

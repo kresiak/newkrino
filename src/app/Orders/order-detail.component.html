@@ -71,7 +71,7 @@
 										{{order.data.date | fullDate }}
 									</div>
 									<div class="row">
-										Reference: {{order.data.kid}} / <span class="imgSearch" *ngIf="order.annotation.sapId" (click)="navigateToSap(order.annotation.sapId)">{{order.annotation.sapId}}</span> <span *ngIf="!order.annotation.sapId">no sap id</span>
+										Reference: {{order.data.kid}} / <span class="imgSearch" *ngIf="order.annotation.sapId" (click)="navigateToSap(order.annotation.sapId)">{{order.annotation.sapId}}</span>										<span *ngIf="!order.annotation.sapId">no sap id</span>
 									</div>
 									<div class="row" *ngIf="order.annotation.canCurrentUserValidate">
 										<button type="button" class="btn btn-success" (click)="authorizeOrder()">Authorize the order</button>
@@ -82,25 +82,25 @@
 								</div>
 								<div class="col-sm-6 col-md-6">
 									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
-										<div class="col-sm-10">{{order.annotation.user}}</div>										
+										<div class="col-sm-10">{{order.annotation.user}}</div>
 									</div>
 									<div class="row" *ngIf="order.annotation.isGroupedOrder">
-										<div class="col-sm-10">Non urgent order</div>										
+										<div class="col-sm-10">Non urgent order</div>
 									</div>
 									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
 										<div class="col-sm-10">
-										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"  [selectableData]="equipeListObservable" 
-										             [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
-										<div *ngIf="order.annotation.equipeGroup">group: {{order.annotation.equipeGroup}}</div>
+											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="equipeListObservable"
+											 [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
+											<div *ngIf="order.annotation.equipeGroup">group: {{order.annotation.equipeGroup}}</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-4 vcenter">
-											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"  [limitToChoice]="true"
-											 		[selectableData]="getStatusList()" 
-												 	[selectedText]="order.annotation.status" (textChanged)="statusChanged($event)" >
-											 </gg-editor-autocomplete-text></div>
-										  <div *ngIf="order.annotation.isDeletable" class="col-sm-7 vcenter"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></div>
+											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [limitToChoice]="true"
+											 [selectableData]="getStatusList()" [selectedText]="order.annotation.status" (textChanged)="statusChanged($event)">
+											</gg-editor-autocomplete-text>
+										</div>
+										<div *ngIf="order.annotation.isDeletable" class="col-sm-7 vcenter"><button type="button" class="btn btn-link" (click)="deleteOrder()"> Delete</button></div>
 									</div>
 								</div>
 							</div> <br><br>
@@ -113,28 +113,44 @@
 									<div class="col-sm-2 vcenter"><b>Otp</b></div>
 									<div class="col-sm-2 vcenter"><b>Comment</b></div>
 								</div>
-								<div class="row" *ngFor="let item of order.annotation.items">
-									<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
-									
-									<div class="col-sm-1 vcenter">
-										<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)"
-											[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+								<div *ngFor="let item of order.annotation.items">
+									<div class="row">
+										<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
+
+										<div class="col-sm-1 vcenter">
+											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+										</div>
+
+										<div class="col-sm-1 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
+										<div class="col-sm-2 vcenter">
+											<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
+											 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+										</div>
+										<div class="col-sm-2 vcenter" *ngIf="!smallScreen">
+											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
+											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
+										</div>
+										<div class="col-sm-2 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
+										<div class="col-sm-2 vcenter">
+											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+											<span *ngIf="order.annotation.isGroupedOrder">
+												<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">Show/hide details</button>
+											</span>
+										</div>
+									</div>
+									<div class="row" [ngbCollapse]="!item.annotation.isClosed">
+										<div class="col-sm-1 col-md-1"></div>
+										<div class="col-sm-11 col-md-11">
+											<div class="row" *ngFor="let detailItem of item.annotation.detail">
+												<div class="col-sm-2 col-md-2">{{detailItem.data.date | fromNowDate}}</div>
+												<div class="col-sm-2 col-md-3">{{detailItem.annotation.userFullName}}</div>
+												<div class="col-sm-2 col-md-3">{{detailItem.annotation.equipe}}</div>
+												<div class="col-sm-2 col-md-2">{{detailItem.data.quantity}}
+												</div>
+											</div>
+										</div>
 									</div>
 
-									<div class="col-sm-1 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
-									<div class="col-sm-2 vcenter">
-										<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
-											[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-									</div>
-									<div class="col-sm-2 vcenter" *ngIf="!smallScreen">
-										<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
-											[selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
-									</div>
-									<div class="col-sm-2 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
-									<div class="col-sm-2 vcenter">
-										<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)"
-											[readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-									</div>
 								</div>
 							</div>
 							<div class="row">
@@ -184,64 +200,65 @@
 										<div class="card-block">
 
 
-									<br/><br/>
-									<div class="container-fluid">
-										<div class="row">
-											<div class="col-sm-6 col-md-6">
+											<br/><br/>
+											<div class="container-fluid">
 												<div class="row">
-													{{order.annotation.supplier}}
-												</div>
+													<div class="col-sm-6 col-md-6">
+														<div class="row">
+															{{order.annotation.supplier}}
+														</div>
+														<div class="row">
+															{{order.data.date }}
+														</div>
+														<div class="row">
+															Reference: {{order.data._id}}
+														</div>
+													</div>
+													<div class="col-sm-6 col-md-6">
+														<div class="row">
+															{{order.annotation.user}}
+														</div>
+														<div class="row">
+															{{order.annotation.equipe}}
+														</div>
+													</div>
+												</div> <br><br>
 												<div class="row">
-													{{order.data.date }}
-												</div>
-												<div class="row">
-													Reference: {{order.data._id}}
-												</div>
-											</div>
-											<div class="col-sm-6 col-md-6">
-												<div class="row">
-													{{order.annotation.user}}
-												</div>
-												<div class="row">
-													{{order.annotation.equipe}}
-												</div>
-											</div>
-										</div> <br><br>
-										<div class="row">
-											<div class="row">
-												<div class="col-sm-3 vcenter"><b>Product</b></div>
-												<div class="col-sm-1 vcenter"><b>Qty</b></div>
-												<div class="col-sm-2 vcenter"><b>Price/Unity</b></div>
-												<div class="col-sm-1 vcenter"><b>Qty delivered</b></div>
-											</div>
-											<div class="row" *ngFor="let item of order.annotation.items">
-												<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
-												<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
-												<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
-												<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
-												<div class="col-sm-2 vcenter">
-													<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
-														style="margin:5px">Add delivery</div>
+													<div class="row">
+														<div class="col-sm-3 vcenter"><b>Product</b></div>
+														<div class="col-sm-1 vcenter"><b>Qty</b></div>
+														<div class="col-sm-2 vcenter"><b>Price/Unity</b></div>
+														<div class="col-sm-1 vcenter"><b>Qty delivered</b></div>
+													</div>
+													<div class="row" *ngFor="let item of order.annotation.items">
+														<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
+														<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
+														<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
+														<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
+														<div class="col-sm-2 vcenter">
+															<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
+															 style="margin:5px">Add delivery</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-										</div></div>
-							</template>
-						</ngb-tab>
-							<ngb-tab title="All deliveries details" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino" >
+								</template>
+							</ngb-tab>
+							<ngb-tab title="All deliveries details" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
-												<div class="row" >
-													<div class="col-sm-3 "><b>When</b></div>
-													<div class="col-sm-2 "><b>Who</b></div>
-													<div class="col-sm-3 "><b>Product</b></div>
-													<div class="col-sm-1 "><b>Quantity</b></div>
-													<div class="col-sm-1 "><b>Lot Number</b></div>
-													<div class="col-sm-2 "><b>Location</b></div>
-												</div>
-											
+											<div class="row">
+												<div class="col-sm-3 "><b>When</b></div>
+												<div class="col-sm-2 "><b>Who</b></div>
+												<div class="col-sm-3 "><b>Product</b></div>
+												<div class="col-sm-1 "><b>Quantity</b></div>
+												<div class="col-sm-1 "><b>Lot Number</b></div>
+												<div class="col-sm-2 "><b>Location</b></div>
+											</div>
+
 											<div *ngFor="let item of order.annotation.items">
 												<div class="row" *ngFor="let delivery of item.annotation.deliveries">
 													<div class="col-sm-3 ">{{delivery.data.date | fullDate}}</div>
@@ -256,19 +273,19 @@
 									</div>
 								</template>
 							</ngb-tab>
-				</ngb-tabset>
-			</div>
-		</div>
-	</template>
-</ngb-tab>
-<ngb-tab id="tabMax">
-	<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-	<template ngbTabContent></template>
-</ngb-tab>
-<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-	<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
-	<template ngbTabContent></template>
-</ngb-tab>
+						</ngb-tabset>
+					</div>
+				</div>
+			</template>
+		</ngb-tab>
+		<ngb-tab id="tabMax">
+			<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
+			<template ngbTabContent></template>
+		</ngb-tab>
+		<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
+			<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
+			<template ngbTabContent></template>
+		</ngb-tab>
 
-</ngb-tabset>
+	</ngb-tabset>
 </div>
