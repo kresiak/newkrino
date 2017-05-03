@@ -50,6 +50,10 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isAdmin
     }
 
+    isThisUser(userId) {
+        return this.isLoggedIn && this.currentUserId === userId
+    }
+
     isReceptionist() {
         return this.annotatedUser && this.annotatedUser.data.isReceptionist
     }

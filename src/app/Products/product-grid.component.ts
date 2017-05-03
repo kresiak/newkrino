@@ -152,6 +152,13 @@ export class ProductGridComponent implements OnInit
         this.productService.doBasketUpdate(product, quantity)
     }
 
+    quantityGroupedBasketUpdated(quantity: string, product, item) {
+        if (!+quantity) return
+        item.data.quantity=+quantity
+        product.annotation.basketData.quantity= (product.annotation.basketData.items || []).reduce((acc,item) => acc + item.quantity, 0)
+        this.dataStore.updateData('basket', product.annotation.basketId, product.annotation.basketData)
+    }
+
     navigateToProduct(product) {
         this.navigationService.maximizeOrUnmaximize('/product', product.data._id, this.path, false)
     }

@@ -552,6 +552,7 @@ export class ProductService {
                             data: product,
                             annotation: {
                                 basketId: basketItemFiltered[0]._id,
+                                basketData: basketItemFiltered[0],
                                 basketItems: !basketItemFiltered[0].items ? [] : basketItemFiltered[0].items.map(item => {
                                     let user= annotatedUsers.filter(user => user.data._id === item.userId)[0]
                                     let equipe= equipes.filter(eq => eq._id === item.equipeId)[0]

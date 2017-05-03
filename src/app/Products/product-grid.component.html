@@ -86,7 +86,11 @@
 						<div class="col-sm-2 col-md-2">{{item.data.date | fromNowDate}}</div>
 						<div class="col-sm-2 col-md-3">{{item.annotation.userFullName}}</div>
 						<div class="col-sm-2 col-md-3">{{item.annotation.equipe}}</div>
-						<div class="col-sm-2 col-md-2">{{item.data.quantity}}</div>
+						<div class="col-sm-2 col-md-2">
+							<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" 
+									[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+							</gg-editor-number> 
+						</div>
 					</div>
 				</div>
 			</div>
