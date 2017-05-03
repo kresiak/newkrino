@@ -26,6 +26,8 @@ export class PreOrderComponent implements OnInit {
     private subscriptionProductBasket: Subscription
 
     private isEnoughBudget: boolean= false
+    private isGroupOrdersUser: boolean= false
+
     private isOtpOk: boolean= false
 
     ngOnInit(): void {
@@ -34,13 +36,6 @@ export class PreOrderComponent implements OnInit {
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier)
                 this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(supplierId)
-                this.subscriptionProductBasket= this.productsBasketObservable.subscribe(pb => {
-                    this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
-                        if (!eq) return
-                        var total= pb.map(item => item.annotation.totalPrice).reduce((a,b)=> a+b, 0)
-                        this.isEnoughBudget= total < eq.annotation.amountAvailable
-                    })
-                })
                 this.productsBasketObservable.subscribe(products => {
                     this.productsInBasket= products
                     this.isOtpOk= products.filter(product => product.annotation.otp && !product.annotation.otp._id).length == 0
@@ -62,6 +57,20 @@ export class PreOrderComponent implements OnInit {
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
+            if (statusInfo.isGroupOrdersUser())
+            {
+                this.isGroupOrdersUser= true
+            }
+            else {
+                this.isGroupOrdersUser= false
+                this.subscriptionProductBasket= this.productsBasketObservable.subscribe(pb => {
+                    this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
+                        if (!eq) return
+                        var total= pb.map(item => item.annotation.totalPrice).reduce((a,b)=> a+b, 0)
+                        this.isEnoughBudget= total < eq.annotation.amountAvailable
+                    })
+                })
+            }            
         });
         
     }
@@ -70,7 +79,7 @@ export class PreOrderComponent implements OnInit {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionRoute.unsubscribe()
          this.subscriptionEquipeGroups.unsubscribe()
-         this.subscriptionProductBasket.unsubscribe()
+         if (this.subscriptionProductBasket) this.subscriptionProductBasket.unsubscribe()
     }
     
 

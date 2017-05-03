@@ -17,8 +17,8 @@
 								</div>
 							</div>
 							<div class="row">
-								<button *ngIf="isEnoughBudget && isOtpOk" class="btn btn-warning" (click)="createOrder()">Pass the order</button>
-								<h6 *ngIf="!isEnoughBudget">Sorry, you don't have enough budget available</h6>
+								<button *ngIf="(isEnoughBudget || isGroupOrdersUser) && isOtpOk" class="btn btn-warning" (click)="createOrder()">Pass the order</button>
+								<h6 *ngIf="!isEnoughBudget && !isGroupOrdersUser">Sorry, you don't have enough budget available</h6>
 								<h6 *ngIf="!isOtpOk">Sorry, there is an Otp problem. Contact your administrator!</h6>
 							</div>
 						</div>

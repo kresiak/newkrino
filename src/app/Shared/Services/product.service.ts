@@ -845,12 +845,16 @@ export class ProductService {
                 //equipeId: this.authService.getEquipeId(),
                 supplierId: supplierId,
                 items: products.filter(product => product.annotation.quantity > 0).map(product => {
-                    return {
+                    var obj: any= {
                         productId: product.data._id,
                         quantity: product.annotation.quantity,
                         otpId: product.annotation.otp._id,
                         total: product.annotation.totalPrice
                     };
+                    if (product.annotation.basketData.items) {
+                        obj.detail= product.annotation.basketData.items
+                    }
+                    return  obj
                 })
             },
             basketItems: products.filter(product => product.annotation.quantity > 0).map(product => product.annotation.basketId)
