@@ -229,6 +229,14 @@ export class OrderDetailComponent implements OnInit {
         this.updateStatus(newStatus)
     }
 
+    quantityDetailUpdated(quantity: string, orderItem, detailItem) {
+        if (!+quantity) return
+        detailItem.data.quantity=+quantity
+        orderItem.data.quantity= (orderItem.data.detail || []).reduce((acc,i) => acc + i.quantity, 0)
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
+
+
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();

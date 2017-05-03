@@ -118,7 +118,7 @@
 										<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
 
 										<div class="col-sm-1 vcenter">
-											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="order.annotation.isGroupedOrder || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 										</div>
 
 										<div class="col-sm-1 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
@@ -145,7 +145,10 @@
 												<div class="col-sm-2 col-md-2">{{detailItem.data.date | fromNowDate}}</div>
 												<div class="col-sm-2 col-md-3">{{detailItem.annotation.userFullName}}</div>
 												<div class="col-sm-2 col-md-3">{{detailItem.annotation.equipe}}</div>
-												<div class="col-sm-2 col-md-2">{{detailItem.data.quantity}}
+												<div class="col-sm-2 col-md-2">
+													<gg-editor-number [content]="detailItem.data.quantity" (editSaved)="quantityDetailUpdated($event, item, detailItem)" 
+															[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(detailItem.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+													</gg-editor-number> 													
 												</div>
 											</div>
 										</div>
