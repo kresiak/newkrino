@@ -25,7 +25,11 @@ export class MyKrinoComponent implements OnInit {
     private productsObservable: Observable<any>;
     private webSuppliersObservable: Observable<any>
     private webVouchersObservable: Observable<any>
+
     private suppliersWithBasketObservable: Observable<any>;
+    private suppliersWithNonUrgentBasketObservable: Observable<any>;
+
+
     private equipesObservable: Observable<any>
     private currentUser;
     private authorizationStatusInfo: AuthenticationStatusInfo;
@@ -51,6 +55,9 @@ export class MyKrinoComponent implements OnInit {
         })        
         
         this.suppliersWithBasketObservable = this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
+
+        this.suppliersWithNonUrgentBasketObservable = this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasNonUrgentBasketForCurrentUser));
+
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
 
         this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByCurrentUser()
@@ -109,6 +116,12 @@ export class MyKrinoComponent implements OnInit {
         this.state.Baskets = $event;
         this.stateChanged.next(this.state);
     }
+    private childNonUrgentBasketsStateChanged($event) {
+        this.state.NonUrgentBaskets = $event;
+        this.stateChanged.next(this.state);
+    }
+
+
 
     private childProductsStateChanged($event) {
         this.state.Products = $event;

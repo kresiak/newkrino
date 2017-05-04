@@ -20,20 +20,27 @@ export class SupplierService {
         })
     }
 
+    private hasSupplierBasketItems(supplier, produits, basketitems: any[]): boolean {
+        return produits.filter(produit => produit.supplierId === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
+    }
+
+
+
     getAnnotatedSuppliers(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(),
-            this.orderService.getSupplierFrequenceMapObservable(), this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
-            (suppliers, produits, basketItems, supplierFrequenceMap, voucherMap, categories) => {
+            this.productService.getBasketItemsForGroupOrdersUser() , this.productService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation(), this.orderService.getSupplierFrequenceMapObservable(), 
+            this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
+            (suppliers, produits, basketItems, basketNonUrgentItems, basketNonUrgentItemsForCurrentUser, supplierFrequenceMap, voucherMap, categories) => {
+                if (!this.authService.getUserId() || !this.authService.getEquipeId()) return [];
+
                 return suppliers.map(supplier => {
                     let voucherCategoryMap = voucherMap && voucherMap.get(supplier._id) ? voucherMap.get(supplier._id)['categoryMap'] : undefined
-                    let xx = voucherCategoryMap ? voucherCategoryMap.values() : null
-                    if (xx) {
-                        let res = xx
-                    }
                     return {
                         data: supplier,
                         annotation: {
-                            hasBasket: this.productService.hasSupplierBasketItems(supplier, produits, basketItems),
+                            hasBasket: this.hasSupplierBasketItems(supplier, produits, basketItems),
+                            hasNonUrgentBasket: this.hasSupplierBasketItems(supplier, produits, basketNonUrgentItems),  
+                            hasNonUrgentBasketForCurrentUser: this.hasSupplierBasketItems(supplier, produits, basketNonUrgentItemsForCurrentUser),                           
                             supplierFrequence: supplierFrequenceMap.get(supplier._id) || 0,
                             voucherCategoryMap: voucherCategoryMap,
                             webShopping: {

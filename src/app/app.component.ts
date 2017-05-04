@@ -117,6 +117,7 @@ export class AppComponent implements OnInit {
             this.authService.setUserId(value.id);
         }
         else {
+            this.navigateToHome()
             this.authService.setUserId('');
         }
     }
@@ -127,6 +128,7 @@ export class AppComponent implements OnInit {
             this.authService.setEquipeId(value.id);
         }
         else {
+            this.navigateToHome()
             this.authService.setEquipeId('');
         }
     }
@@ -143,6 +145,11 @@ export class AppComponent implements OnInit {
 
     navigateToBasket() {
         let link = ['/basket'];
+        this.router.navigate(link);
+    }
+
+    navigateToHome() {
+        let link = ['/home'];
         this.router.navigate(link);
     }
 

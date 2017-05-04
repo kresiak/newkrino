@@ -20,6 +20,12 @@
 					<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)" [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
 				</template>
 			</ngb-tab>
+			<ngb-tab title="Non urgent basket(s)" id="tabNonUrgentBaskets"  *ngIf="((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
+				<template ngbTabContent>
+					<gg-supplier-list [path]="'mykrino|O:NonUrgentBaskets'" [state]="state.NonUrgentBaskets" (stateChanged)="childNonUrgentBasketsStateChanged($event)" 
+															[suppliersObservable]="suppliersWithNonUrgentBasketObservable" [initialTabInSupplierDetail]="'tabGroupedBasket'"></gg-supplier-list>
+				</template>
+			</ngb-tab>
 			<ngb-tab id="tabVouchers">
 				<template ngbTabTitle>My webshopping vouchers</template>
 				<template ngbTabContent>

@@ -519,15 +519,11 @@ export class ProductService {
     //    ==========
 
 
-    hasSupplierBasketItems(supplier, produits, basketitems: any[]): boolean {
-        return produits.filter(produit => produit.supplierId === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
-    }
-
     getBasketItemsForCurrentUser(): Observable<any> {
         return this.getBasketItemsForUser(this.authService.getUserIdObservable())
     }
 
-    private getBasketItemsForGroupOrdersUser(): Observable<any> {
+    getBasketItemsForGroupOrdersUser(): Observable<any> {
         return this.getBasketItemsForUser(this.authService.getGroupOrdersUserIdObservable())
     }
 
@@ -540,6 +536,18 @@ export class ProductService {
             }
         );
     }
+
+    getBasketItemsForGroupOrdersUserWithCurrentUserParticipation(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('basket'),
+            this.authService.getGroupOrdersUserIdObservable(),
+            this.authService.getUserIdObservable(),
+            (basket, groupOrdersUserId, currentUserId) => {
+                return basket.filter(basketItem => basketItem.user === groupOrdersUserId && basketItem.items && basketItem.items.map(item => item.userId).includes(currentUserId));
+            }
+        );
+    }
+
 
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(this.getProductsBySupplier(supplierId), basketObservable, this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(),
