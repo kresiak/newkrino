@@ -44,7 +44,7 @@ export class AuthenticationStatusInfo {
     logout() {
         this.isLoggedIn = false
         this.annotatedUser = null
-        this.currentEquipeId = ''
+        //this.currentEquipeId = ''
     }
 
     isAdministrator() {
