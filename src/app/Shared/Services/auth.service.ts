@@ -311,6 +311,11 @@ export class AuthService {
         return userId === this.systemGroupUserId
     }
 
+    isCurrentUserGroupOrderUser(): boolean {
+        return this.authInfo.currentUserId === this.systemGroupUserId
+    }
+
+
     // should not be here
     // ==================
 
