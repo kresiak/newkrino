@@ -80,16 +80,25 @@
 				</div>				
 			</div>
 			<div class="row"  [ngbCollapse]="!product.annotation.isClosed">
-				<div class="col-sm-1 col-md-1"></div>
-				<div class="col-sm-11 col-md-11">
-					<div class="row" *ngFor="let item of product.annotation.basketItems">
-						<div class="col-sm-2 col-md-2">{{item.data.date | fromNowDate}}</div>
-						<div class="col-sm-2 col-md-3">{{item.annotation.userFullName}}</div>
-						<div class="col-sm-2 col-md-3">{{item.annotation.equipe}}</div>
-						<div class="col-sm-2 col-md-2">
-							<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" 
-									[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
-							</gg-editor-number> 
+				<div class="col-sm-12 col-md-12">
+					<div class="card">
+						<div class="row">
+							<div class="col-sm-2 col-md-2">When?</div>
+							<div class="col-sm-2 col-md-3">Who?</div>	
+							<div class="col-sm-2 col-md-3">Equipe</div>
+							<div class="col-sm-2 col-md-2">How many</div>
+						</div>
+						<div class="card">
+							<div class="row" *ngFor="let item of product.annotation.basketItems">
+								<div class="col-sm-2 col-md-2 vcenter">{{item.data.date | fromNowDate}}</div>
+								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.userFullName}}</div>
+								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.equipe}}</div>
+								<div class="col-sm-2 col-md-2 vcenter">
+									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" 
+										[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+									</gg-editor-number> 
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
