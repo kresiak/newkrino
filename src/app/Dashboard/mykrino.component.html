@@ -15,15 +15,25 @@
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My basket(s)" id="tabBaskets"  *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
+			<ngb-tab title="My basket(s)" id="tabMainBaskets">
 				<template ngbTabContent>
-					<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)" [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
-				</template>
-			</ngb-tab>
-			<ngb-tab title="Non urgent basket(s)" id="tabNonUrgentBaskets"  *ngIf="((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
-				<template ngbTabContent>
-					<gg-supplier-list [path]="'mykrino|O:NonUrgentBaskets'" [state]="state.NonUrgentBaskets" (stateChanged)="childNonUrgentBasketsStateChanged($event)" 
+					<div class="card">
+						<div class="card-block">
+							<ngb-tabset>
+								<ngb-tab title="My basket(s)" id="tabBaskets"  *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
+									<template ngbTabContent>
+										<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)" [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
+									</template>
+								</ngb-tab>
+								<ngb-tab title="Non urgent basket(s)" id="tabNonUrgentBaskets"  *ngIf="((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
+									<template ngbTabContent>
+										<gg-supplier-list [path]="'mykrino|O:NonUrgentBaskets'" [state]="state.NonUrgentBaskets" (stateChanged)="childNonUrgentBasketsStateChanged($event)" 
 															[suppliersObservable]="suppliersWithNonUrgentBasketObservable" [initialTabInSupplierDetail]="'tabGroupedBasket'"></gg-supplier-list>
+									</template>
+								</ngb-tab>
+							</ngb-tabset>
+						</div>
+					</div>
 				</template>
 			</ngb-tab>
 			<ngb-tab id="tabVouchers">

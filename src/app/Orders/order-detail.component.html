@@ -109,9 +109,9 @@
 									<div class="col-sm-3 vcenter"><b>Product</b></div>
 									<div class="col-sm-1 vcenter"><b>Qty</b></div>
 									<div class="col-sm-1 vcenter"><b>Price</b></div>
-									<div class="col-sm-2 vcenter"><b>Total</b></div>
+									<div class="col-sm-1 vcenter"><b>Total</b></div>
 									<div class="col-sm-2 vcenter"><b>Otp</b></div>
-									<div class="col-sm-2 vcenter"><b>Comment</b></div>
+									<div class="col-sm-3 vcenter"><b>Comment</b></div>
 								</div>
 								<div *ngFor="let item of order.annotation.items">
 									<div class="row">
@@ -122,7 +122,7 @@
 										</div>
 
 										<div class="col-sm-1 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
-										<div class="col-sm-2 vcenter">
+										<div class="col-sm-1 vcenter">
 											<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
 											 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 										</div>
@@ -130,12 +130,12 @@
 											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
 											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
 										</div>
-										<div class="col-sm-2 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
+										<div class="col-sm-1 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 										<div class="col-sm-2 vcenter">
 											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-											<span *ngIf="order.annotation.isGroupedOrder">
-												<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">Show/hide details</button>
-											</span>
+										</div>
+										<div  class="col-sm-1 vcenter" *ngIf="order.annotation.isGroupedOrder">
+											<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">Show/hide details</button>
 										</div>
 									</div>
 									<div class="row" [ngbCollapse]="!item.annotation.isClosed">
