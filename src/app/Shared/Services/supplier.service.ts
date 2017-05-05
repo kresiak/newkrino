@@ -31,7 +31,7 @@ export class SupplierService {
             this.productService.getBasketItemsForGroupOrdersUser() , this.productService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation(), this.orderService.getSupplierFrequenceMapObservable(), 
             this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, basketItems, basketNonUrgentItems, basketNonUrgentItemsForCurrentUser, supplierFrequenceMap, voucherMap, categories) => {
-                if (!this.authService.getUserId() || !this.authService.getEquipeId()) return [];
+                if (!this.authService.getUserId() || (!this.authService.getEquipeId() && !this.authService.isCurrentUserGroupOrderUser())) return [];
 
                 return suppliers.map(supplier => {
                     let voucherCategoryMap = voucherMap && voucherMap.get(supplier._id) ? voucherMap.get(supplier._id)['categoryMap'] : undefined
