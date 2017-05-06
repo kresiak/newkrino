@@ -90,7 +90,7 @@
 						</div>
 						<div class="card">
 							<div class="row" *ngFor="let item of product.annotation.basketItems">
-								<div class="col-sm-2 col-md-2 vcenter">{{item.data.date | fromNowDate}}</div>
+								<div class="col-sm-2 col-md-2 vcenter"><gg-date-pointer [datePointer]="item.data.date | fullDate"></gg-date-pointer>{{item.data.date | fromNowDate}}</div>
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.userFullName}}</div>
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.equipe}}</div>
 								<div class="col-sm-2 col-md-2 vcenter">
