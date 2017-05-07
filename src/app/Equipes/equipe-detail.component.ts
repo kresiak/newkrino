@@ -222,12 +222,20 @@ export class EquipeDetailComponent implements OnInit {
     }
 
     budgetAmountUpdated(budgetObject, amount: number) {
+        if (!+amount) return
         budgetObject.amount = +amount;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     };
 
     budgetCommentUpdated(budgetObject, comment) {
+        if (!comment) return
         budgetObject.comment = comment;
+        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
+    };
+
+    budgetOtpUpdated(budgetObject, otpId) {
+        if (!otpId) return
+        budgetObject.otpId = otpId;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     };
 }

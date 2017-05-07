@@ -85,6 +85,7 @@
 											<div class="row">
 												<div class="col-sm-3 vcenter"><b>Date</b></div>
 												<div class="col-sm-2 vcenter"><b>Amount</b></div>
+												<div class="col-sm-2 vcenter"><b>Otp</b></div>
 												<div class="col-sm-2 vcenter"><b>Comment</b></div>
 											</div>
 											<div *ngFor="let budgetObject of equipe.data.budgets">
@@ -92,6 +93,9 @@
 													<div class="col-sm-3 vcenter">{{budgetObject.date | fullDate}}</div>
 													<div class="col-sm-2 vcenter">
 														<gg-editor [content]="budgetObject.amount" [showControls]="true" [isMonetary]="true" (editSaved)="budgetAmountUpdated(budgetObject, $event)"></gg-editor>
+													</div>
+													<div class="col-sm-2 vcenter">
+														<gg-editor-autocomplete [selectableData]="otpListObservable" [selectedId]="budgetObject.otpId" (idChanged)="budgetOtpUpdated(budgetObject, $event)" [emptyContentText]="'choose an otp'" ></gg-editor-autocomplete>
 													</div>
 													<div class="col-sm-2 vcenter">
 														<gg-editor [content]="budgetObject.comment" [showControls]="true" (editSaved)="budgetCommentUpdated(budgetObject, $event)"></gg-editor>
