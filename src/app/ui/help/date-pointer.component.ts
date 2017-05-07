@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 export class DatePointerComponent implements OnInit {
   
-    @Input() datePointer;
+    @Input() date;
     
     constructor() {
     }

@@ -1,11 +1,5 @@
 
 
-<template #datePointerFrom>
-    <div>{{datePointer}}"</div>
-</template>
-
-<!--<div [ngbTooltip] = ""></div>
-
-<img src="../../../images/question.png" [ngbTooltip] = "datePointerFrom"> -->
-
-<template [ngbTooltip] = "datePointerFrom"></template>
+<div>
+    <div [ngbTooltip] ="date | fullDate">{{date | fromNowDate}}</div>
+</div>
