@@ -245,4 +245,8 @@ export class SupplierDetailComponent implements OnInit {
         costsObject.description = description;     
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
     }
+
+    deleteFixCost(){
+        
+    }
 }
