@@ -137,7 +137,6 @@ export class SupplierDetailComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
     private currentAnnotatedUser: any;
-    private delete: any;
 
     gotoPreOrder() {
         let link = ['/preorder', this.supplier.data._id];
