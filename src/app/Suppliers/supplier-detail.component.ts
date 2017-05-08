@@ -138,7 +138,6 @@ export class SupplierDetailComponent implements OnInit {
     private selectedCategoryIdsObservable: Observable<any>;
     private currentAnnotatedUser: any;
 
-
     gotoPreOrder() {
         let link = ['/preorder', this.supplier.data._id];
         this.router.navigate(link);
@@ -244,5 +243,9 @@ export class SupplierDetailComponent implements OnInit {
     costsDescriptionUpdated(costsObject, description) {
         costsObject.description = description;     
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
+
+    deleteFixCost(costsObject) {
+       
     }
 }

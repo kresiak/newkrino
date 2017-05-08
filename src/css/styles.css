@@ -473,7 +473,7 @@ button {
 .isCheckbox {
     width: 14px;
 }
-.imgSearch{
+.imgSearch, .imgTrash{
     cursor: pointer;
 }
 
