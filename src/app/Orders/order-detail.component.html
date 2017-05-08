@@ -149,7 +149,7 @@
 												</div>
 												<div class="card">
 													<div class="row" *ngFor="let detailItem of item.annotation.detail">
-														<div class="col-sm-2 col-md-2 vcenter">{{detailItem.data.date | fromNowDate}}</div>
+														<div class="col-sm-2 col-md-2 vcenter"><gg-date-pointer [date]="detailItem.data.date"></gg-date-pointer></div>
 														<div class="col-sm-2 col-md-3 vcenter">{{detailItem.annotation.userFullName}}</div>
 														<div class="col-sm-2 col-md-3 vcenter">{{detailItem.annotation.equipe}}</div>
 														<div class="col-sm-2 col-md-2 vcenter">

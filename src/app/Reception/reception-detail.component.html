@@ -60,7 +60,7 @@
                                 </div>
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter"> {{reception.data.createDate | fromNowDate }}</div>
+                                        <div class="col-sm-2 vcenter"><gg-date-pointer [date]="reception.data.createDate"></gg-date-pointer></div>
                                         <div class="col-sm-2 vcenter">
                                             <gg-editor [content]="reception.data.reference" [showControls]="true" (editSaved)="referenceUpdated($event, reception)"></gg-editor>
                                         </div>
