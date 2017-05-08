@@ -40,7 +40,7 @@
                                 </div>
                                 <div *ngFor="let messageObject of messagesList">
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter">{{messageObject.data.createDate | fromNowDate }}</div>
+                                        <div class="col-sm-2 vcenter"><gg-date-pointer [date]="messageObject.data.createDate"></gg-date-pointer></div>
                                         <div class="col-sm-2 vcenter">{{messageObject.annotation.user}}</div>
                                         <div class="col-sm-5 vcenter">
                                             <gg-editor [content]="messageObject.data.message" [showControls]="true" (editSaved)="messageUpdated($event, messageObject)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>

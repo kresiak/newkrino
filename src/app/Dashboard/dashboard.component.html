@@ -9,7 +9,7 @@
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
 					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let order of labManagerMessages.classicOrders">{{order.data.date | fromNowDate }}: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
+						<li *ngFor="let order of labManagerMessages.classicOrders"><gg-date-pointer [date]="order.data.date"></gg-date-pointer>: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
 					</ul>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
 					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let order of labManagerMessages.validableOrders">{{order.data.date | fromNowDate }}: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
+						<li *ngFor="let order of labManagerMessages.validableOrders"><gg-date-pointer [date]="order.data.date"></gg-date-pointer>: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
 					</ul>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
 					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let order of labManagerMessages.fridgeOrders">{{order.data.createDate | fromNowDate }}: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
+						<li *ngFor="let order of labManagerMessages.fridgeOrders"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
 					</ul>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				<div class="card-block">
 					<h6 class="card-title">New orders</h6>
 					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let order of labManagerMessages.stockOrders">{{order.data.createDate | fromNowDate }}: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
+						<li *ngFor="let order of labManagerMessages.stockOrders"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
 					</ul>
 				</div>
 			</div>
@@ -80,7 +80,7 @@
 					<h6 class="card-title">New orders ready for SAP</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.usedVouchers">
-							{{order.data.shopping.date | fromNowDate }}: {{order.annotation.user}} spent {{order.data.shopping.total  | currency:'EUR':true:'1.2-2'}} on a voucher at {{order.annotation.supplier}} / {{order.annotation.category}}</li>
+							<gg-date-pointer [date]="order.data.shopping.date"></gg-date-pointer>: {{order.annotation.user}} spent {{order.data.shopping.total  | currency:'EUR':true:'1.2-2'}} on a voucher at {{order.annotation.supplier}} / {{order.annotation.category}}</li>
 					</ul>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
 					<ul class="card-text text-xs-left spending">
-						<li *ngFor="let log of labManagerMessages.userMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+						<li *ngFor="let log of labManagerMessages.userMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
 					<ul class="card-text text-xs-left spending">
-						<li *ngFor="let log of labManagerMessages.equipeMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+						<li *ngFor="let log of labManagerMessages.equipeMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
 					</ul>
 				</div>
@@ -124,7 +124,7 @@
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
 					<ul class="card-text text-xs-left spending">
-						<li *ngFor="let log of labManagerMessages.otpMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+						<li *ngFor="let log of labManagerMessages.otpMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
 					</ul>
 				</div>
@@ -139,7 +139,7 @@
 				<div class="card-block">
 					<h6 class="card-title">Following orders</h6>
 					<ul class="card-text text-xs-left spending">
-						<li *ngFor="let log of labManagerMessages.categoryMonitors">{{log.data.createDate | fromNowDate }}: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
+						<li *ngFor="let log of labManagerMessages.categoryMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
 					</ul>
 				</div>

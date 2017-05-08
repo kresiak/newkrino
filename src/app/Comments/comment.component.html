@@ -3,7 +3,7 @@
     <img src="../../images/user.png">
   </div>
   <div class="comment__user-name">{{user.fullName}}</div>
-  <div class="comment__time">{{time | fromNowDate }}</div>
+  <div class="comment__time"><gg-date-pointer [date]="time"></gg-date-pointer></div>
 </div>
 <div class="comment__l-main">
   <div class="comment__message">
