@@ -137,7 +137,7 @@ export class SupplierDetailComponent implements OnInit {
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
     private currentAnnotatedUser: any;
-
+    private delete: any;
 
     gotoPreOrder() {
         let link = ['/preorder', this.supplier.data._id];
@@ -246,7 +246,7 @@ export class SupplierDetailComponent implements OnInit {
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
     }
 
-    deleteFixCost(){
-        
+    deleteFixCost(costsObject) {
+       
     }
 }
