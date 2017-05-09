@@ -111,8 +111,7 @@ export class SupplierDetailComponent implements OnInit {
 
         this.supplier.data.fixCosts.push({
             description: formValue.descriptionFixCosts,
-            price: +formValue.priceFixCosts,
-            deleted: false
+            price: +formValue.priceFixCosts
         })
             
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);

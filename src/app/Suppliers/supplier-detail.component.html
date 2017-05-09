@@ -49,7 +49,7 @@
 												<div class="col-sm-2 vcenter"><b>Trash</b></div>
 											</div>
 											<div *ngFor="let costsObject of supplier.data.fixCosts">
-												<div  *ngIf="costsObject.deleted === false">
+												<div  *ngIf="costsObject.deleted === false || costsObject.deleted === undefined">
 													<div class="row">
 														<div class="col-sm-3 vcenter">
 															<gg-editor [content]="costsObject.description" [showControls]="true" (editSaved)="costsDescriptionUpdated(costsObject, $event)"></gg-editor>														
