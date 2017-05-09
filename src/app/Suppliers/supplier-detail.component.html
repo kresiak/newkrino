@@ -49,15 +49,17 @@
 												<div class="col-sm-2 vcenter"><b>Trash</b></div>
 											</div>
 											<div *ngFor="let costsObject of supplier.data.fixCosts">
-												<div class="row">
-													<div class="col-sm-3 vcenter">
-														<gg-editor [content]="costsObject.description" [showControls]="true" (editSaved)="costsDescriptionUpdated(costsObject, $event)"></gg-editor>														
-													</div>
-													<div class="col-sm-2 vcenter">
-														<gg-editor [content]="costsObject.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(costsObject, $event)"></gg-editor>
-													</div>
-													<div class="col-sm-2 vcenter">
-														<img src="../../images/trash.png" (click)="deleteFixCost()" class="imgTrash" />
+												<div  *ngIf="!costsObject.deleted">
+													<div class="row">
+														<div class="col-sm-3 vcenter">
+															<gg-editor [content]="costsObject.description" [showControls]="true" (editSaved)="costsDescriptionUpdated(costsObject, $event)"></gg-editor>														
+														</div>
+														<div class="col-sm-2 vcenter">
+															<gg-editor [content]="costsObject.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(costsObject, $event)"></gg-editor>
+														</div>
+														<div class="col-sm-2 vcenter">
+															<img src="../../images/trash.png" (click)="deleteFixCost(costsObject, deleted)" class="imgTrash" />
+														</div>
 													</div>
 												</div>
 											</div>
