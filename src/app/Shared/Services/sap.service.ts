@@ -13,6 +13,7 @@ export class SapService {
         this.initSapOtpMapObservable()
         this.initSapItemsObservable()
         this.initKrinoIdMapObservable()
+        //this.initTvaSetObservable()
     }
 
     private isConnected: boolean = false
@@ -41,7 +42,7 @@ export class SapService {
         return this.sapOtpMapObservable
     }
 
-    getKrinoIdMapObservable() : Observable<Map<number, number>> {
+    getKrinoIdMapObservable(): Observable<Map<number, number>> {
         return this.krinoIdMapObservable
     }
 
@@ -223,7 +224,7 @@ export class SapService {
                 obj2.hasFactureFinale = obj2.postList.filter(p => p.hasPosteFactureFinale).length > 0
                 obj2.residuEngaged = obj2.postList.map(p => p.amountResiduel).reduce((a, b) => a + b, 0)
                 obj2.alreadyBilled = obj2.postList.map(p => p.amountFactured).reduce((a, b) => a + b, 0)
-                obj2.typesPiece= getDistinctTypesPiece().reduce((a, b) => a + (a === '' ? '' : ', ') + b, '')
+                obj2.typesPiece = getDistinctTypesPiece().reduce((a, b) => a + (a === '' ? '' : ', ') + b, '')
             })
 
             console.log('In getSapIdMapObservable: ' + map2.size)
@@ -274,7 +275,7 @@ export class SapService {
 
     // P4
     initKrinoIdMapObservable() {
-        this.krinoIdMapObservable = this.dataStore.getDataObservable('sap.engage').map(engs =>  engs.reduce((acc, eng) => {            
+        this.krinoIdMapObservable = this.dataStore.getDataObservable('sap.engage').map(engs => engs.reduce((acc, eng) => {
             if (eng.ourRef && +eng.ourRef) {
                 acc.set(+eng.ourRef, +eng.sapId)
             }
@@ -283,6 +284,30 @@ export class SapService {
         console.log('In initKrinoIdMapObservable')
         this.krinoIdMapObservable.connect()
     }
+
+    private sapTvaCodesObservable: ConnectableObservable<any> = null
+
+/*    // P5
+    initTvaSetObservable() {
+        this.sapTvaCodesObservable = this.dataStore.getDataObservable('sap.engage').map(engs => {
+            var list = [1, 2];
+            list = [...list, 3, 4];            
+            var xx= engs.reduce((acc, eng) => {
+                eng.items.forEach(item => {
+                    if (+item.codeTva || item.codeTva === '') {
+                        var ddqw=''
+                    }
+                    acc.add(item.codeTva)
+                })
+                return acc
+            }, new Set<string>())
+            var yy= Array.from(xx).sort()
+            console.log(yy.reduce((a,b) => a + ', ' + b))
+            return yy
+        }).publishReplay(1)
+        console.log('In initTvaSetObservable')
+        this.sapTvaCodesObservable.connect()
+    }*/
 
 
 }
