@@ -146,7 +146,7 @@
 			</div>			
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Permissions" id="tabPermissions" *ngIf="authorizationStatusInfo.isAdministrator()"> 
+	<ngb-tab title="Permissions" id="tabPermissions" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"> 
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
