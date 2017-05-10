@@ -247,8 +247,9 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     deleteFixCost(costsObject, deleted: boolean) {
+        if (this.authorizationStatusInfo.isAdministrator() === true){
         costsObject.deleted = true;
         this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
-    }
+    }}
     
 }
