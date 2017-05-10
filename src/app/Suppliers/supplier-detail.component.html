@@ -46,7 +46,7 @@
                                 			<div class="row">
 												<div class="col-sm-3 vcenter"><b>Description</b></div>
 												<div class="col-sm-2 vcenter"><b>Price</b></div>
-												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo.isAdministrator()"><b>Trash</b></div>
+												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Trash</b></div>
 											</div>
 											<div *ngFor="let costsObject of supplier.data.fixCosts">
 												<div  *ngIf="!costsObject.deleted">
@@ -59,7 +59,7 @@
 															<gg-editor [content]="costsObject.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(costsObject, $event)"
 															  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 														</div>
-														<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo.isAdministrator()">
+														<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 															<img src="../../images/trash.png" (click)="deleteFixCost(costsObject, deleted)" class="imgTrash" />
 														</div>
 													</div>
@@ -70,7 +70,7 @@
 								</div>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="Add Fix cost" id="tabAddFixCost" *ngIf="authorizationStatusInfo.isAdministrator()">
+						<ngb-tab title="Add Fix cost" id="tabAddFixCost" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">

@@ -110,7 +110,7 @@
 								</div>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="Add Budget" id="tabAddBudget" *ngIf="authorizationStatusInfo.isAdministrator()">
+						<ngb-tab title="Add Budget" id="tabAddBudget" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
