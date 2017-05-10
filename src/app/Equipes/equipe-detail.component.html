@@ -92,13 +92,16 @@
 												<div class="row">
 													<div class="col-sm-3 vcenter">{{budgetObject.date | fullDate}}</div>
 													<div class="col-sm-2 vcenter">
-														<gg-editor [content]="budgetObject.amount" [showControls]="true" [isMonetary]="true" (editSaved)="budgetAmountUpdated(budgetObject, $event)"></gg-editor>
+														<gg-editor [content]="budgetObject.amount" [showControls]="true" [isMonetary]="true" (editSaved)="budgetAmountUpdated(budgetObject, $event)"
+														  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 													</div>
 													<div class="col-sm-2 vcenter">
-														<gg-editor-autocomplete [selectableData]="otpListObservable" [selectedId]="budgetObject.otpId" (idChanged)="budgetOtpUpdated(budgetObject, $event)" [emptyContentText]="'choose an otp'" ></gg-editor-autocomplete>
+														<gg-editor-autocomplete [selectableData]="otpListObservable" [selectedId]="budgetObject.otpId" (idChanged)="budgetOtpUpdated(budgetObject, $event)" [emptyContentText]="'choose an otp'"
+														  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-autocomplete>
 													</div>
 													<div class="col-sm-2 vcenter">
-														<gg-editor [content]="budgetObject.comment" [showControls]="true" (editSaved)="budgetCommentUpdated(budgetObject, $event)"></gg-editor>
+														<gg-editor [content]="budgetObject.comment" [showControls]="true" (editSaved)="budgetCommentUpdated(budgetObject, $event)"
+														 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 													</div>
 												</div>
 											</div>
@@ -122,8 +125,7 @@
 												<div class="form-group row">
 													<label for="montant" class="col-sm-2 col-form-label col-xl-2">Budget from which Otp:</label>
 													<div class="col-sm-10">
-														<gg-editor-autocomplete [selectableData]="otpListObservable" (idChanged)="otpForNewBudgetChanged($event)" [emptyContentText]="'choose an otp'" 
-														 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-autocomplete>
+														<gg-editor-autocomplete [selectableData]="otpListObservable" (idChanged)="otpForNewBudgetChanged($event)" [emptyContentText]="'choose an otp'"></gg-editor-autocomplete>
 													</div>
 												</div>
 												<div class="form-group row">
