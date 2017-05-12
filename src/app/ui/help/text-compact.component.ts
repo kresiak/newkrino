@@ -17,6 +17,8 @@ export class TextCompactComponent implements OnInit {
     }
 
     numberOfCharacters() {
-        return this.text.substring(0,this.numberOfChar)+'...';
+        if (this.text.length > (this.numberOfChar + 3)) { 
+            return this.text.substring(0,this.numberOfChar)+'...'}
+        else return this.text;
     }
 }
