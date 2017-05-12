@@ -40,7 +40,7 @@ class Path2StateHelper {
             let value = arr[1]
             switch (arr[0]) {
                 case 'P':
-                    acc.current.openPanelId = value
+                    acc.current.openPanelId = value.toString()
                     break
                 case 'O':
                     acc.current.selectedTabId = 'tab' + value

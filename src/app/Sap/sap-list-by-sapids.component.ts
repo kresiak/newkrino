@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { SapService } from './../Shared/Services/sap.service'
-
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NavigationService } from './../Shared/Services/navigation.service'
 
 @Component(
     {
@@ -22,12 +23,14 @@ export class SapListBySapIdsComponent implements OnInit {
     }
 
 
-    constructor(private sapService: SapService) {
+    constructor(private sapService: SapService, private navigationService: NavigationService) {
     }
 
     private sapsObservable: Observable<any>
     private subscription: Subscription
     private totalEngaged: number=0
+
+    private sapPostesEngOpenList: any[]
 
     ngOnInit(): void {
         this.stateInit();
@@ -38,11 +41,39 @@ export class SapListBySapIdsComponent implements OnInit {
                     return acc2 + poste.amountResiduel
                 }, 0)
             }, 0)
+
+            this.sapPostesEngOpenList= []
+            var sum: number= 0
+            sapList.sort((a, b) => a.mainData.data.sapId- b.mainData.data.sapId).forEach(sapObj => {
+                sapObj.postList.filter(poste => poste.otp === this.otp && poste.amountResiduel > 0).forEach(sapPoste => {
+                    sum+= sapPoste.amountResiduel
+                    this.sapPostesEngOpenList.push({
+                        sum: sum,
+                        poste: sapPoste,
+                        sapId: sapObj.mainData.data.sapId
+                    })
+                })
+            })
         })
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe()
     }
+
+    public beforeTabChange($event: NgbTabChangeEvent) {
+        this.state.selectedTabId = $event.nextId;
+        this.stateChanged.next(this.state);
+    };
+
+    private childAllStateChanged($event) {
+        this.state.All = $event;
+        this.stateChanged.next(this.state);
+    }
+
+    navigateToSap(sapId) {
+        this.navigationService.maximizeOrUnmaximize('/sap', sapId, this.path+'|O:EngagementOpen', false)
+    }
+
 
 }

@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" >
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
@@ -49,7 +49,7 @@
 
 					</template>
 				</ngb-panel>
-				<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId">
+				<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId.toString()">
 					<template ngbPanelTitle>
 						<div class="row" id="{{sap.mainData.data.sapId}}">
 							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>

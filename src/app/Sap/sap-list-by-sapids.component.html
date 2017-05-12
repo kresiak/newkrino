@@ -7,8 +7,41 @@
             <div class="col-sm-4">{{totalEngaged | currency:'EUR':true:'1.2-2'}}</div>
         </div>
 
-        <gg-sap-list [state]="state" [sapsObservable]="sapsObservable"></gg-sap-list>
-
+        <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+            <ngb-tab title="All" id="tabAll">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <gg-sap-list [sapsObservable]="sapsObservable" [state]="state.All" [path]="path+'|O:All'" (stateChanged)="childAllStateChanged($event)" ></gg-sap-list>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Postes engagement open" id="tabEngagementOpen">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-1"><b>Sap Id</b></div>
+                                <div class="col-sm-1"><b>Poste</b></div>
+                                <div class="col-sm-2"><b>Open</b></div>
+                                <div class="col-sm-2"><b>Sum</b></div>
+                                <div class="col-sm-3"><b>Product</b></div>
+                            </div>
+                            <div *ngFor="let poste of sapPostesEngOpenList">
+                                <div class="row">
+                                    <div class="col-sm-1"><span class="imgSearch"  (click)="navigateToSap(poste.sapId)">{{poste.sapId}}</span></div>
+                                    <div class="col-sm-1">{{poste.poste.poste}}</div>
+                                    <div class="col-sm-2">{{poste.poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
+                                    <div class="col-sm-2">{{poste.sum | currency:'EUR':true:'1.2-2'}}</div>
+                                    <div class="col-sm-3">{{poste.poste.product}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
 
     </div>
 </div>

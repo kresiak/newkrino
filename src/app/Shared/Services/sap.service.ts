@@ -164,6 +164,9 @@ export class SapService {
         sapItemObj.postList = postList.map(poste => {
             let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
             let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
+            let qtyEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity).reduce((a, b) => a + b, 0)
+            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity/10).reduce((a, b) => a + b, 0)  // temporary division / 10
+            let allBilledOnPoste= qtyFactured > 0 && qtyFactured >=qtyEngaged
 
             let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
                 var d1 = moment(a, 'DD/MM/YYYY').toDate()
@@ -182,7 +185,9 @@ export class SapService {
                 product: getDistinctProducts(poste)[0],
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
-                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag) ? amountEngaged - amountFactured : 0,
+                qtyEngaged: qtyEngaged,
+                qtyFactured: qtyFactured,              
+                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag &&!allBilledOnPoste) ? amountEngaged - amountFactured : 0,
                 hasPosteFactureFinale: hasPosteFactureFinale,
                 lastInvoiceDate: lastInvoiceDate
             }
@@ -193,6 +198,7 @@ export class SapService {
     private initSapIdMapObservable(): void {
         this.sapIdMapObservable = Observable.combineLatest(this.dataStore.getDataObservable('sap.engage'), this.dataStore.getDataObservable('sap.facture'), (engages, factures) => {
 
+            // Create hash table/map: one element per SapId
             let map = engages.reduce((acc: Map<number, any>, e) => {
                 acc.set(e.sapId, { engaged: this.createSapObject(e) })
                 return acc
@@ -207,6 +213,7 @@ export class SapService {
                 return acc
             }, map)
 
+            // Do some processing on each entry of the Map and do there another hashtable: the per Post hashtable
             Array.from(map2.values()).forEach(obj => {
 
                 let obj2 = obj as any

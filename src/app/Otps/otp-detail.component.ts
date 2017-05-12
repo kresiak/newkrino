@@ -133,6 +133,12 @@ export class OtpDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    private childSapsStateChanged($event) {
+        this.state.Saps = $event;
+        this.stateChanged.next(this.state);
+    }
+
+
     equipeChanged(newid) {
         if (!newid) return
         this.otp.data.equipeId = newid;
