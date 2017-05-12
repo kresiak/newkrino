@@ -16,5 +16,7 @@ export class TextCompactComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    
+    numberOfCharacters() {
+        return this.text.substring(0,this.numberOfChar)+'...';
+    }
 }
