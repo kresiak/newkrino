@@ -43,7 +43,7 @@
                         <div class= "row" *ngFor="let poste of sapObj.postList">
                             <div class="col-sm-1">{{poste.poste}}</div>
                             <div class="col-sm-2">{{poste.otp}}</div>
-                            <div class="col-sm-2">{{poste.product}}</div>
+                            <div class="col-sm-2"><gg-text-compact [text]="poste.product"></gg-text-compact></div>
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1">{{poste.amountFactured | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>

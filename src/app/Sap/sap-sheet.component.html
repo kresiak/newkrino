@@ -38,7 +38,7 @@
                 </div>
                 <div class="row" *ngFor="let item of sortedItems; let i = index">
                     <div class="col-sm-1">{{i>0 && sortedItems[i-1].poste == item.poste ? '' :  item.poste + ' / ' + item.codeTva}}</div>
-                    <div class="col-sm-2">{{i>0 && sortedItems[i-1].poste == item.poste ? '' : item.product}}</div>
+                    <div class="col-sm-2"><gg-text-compact [text]="i>0 && sortedItems[i-1].poste == item.poste ? '' : item.product"></gg-text-compact></div>
                     <div class="col-sm-2 ">{{item.otp}}</div>
                     <div class="col-sm-1">{{item.quantity}}</div>
                     <div class="col-sm-1">{{item.htva | currency:'EUR':true:'1.2-2'}}</div>
