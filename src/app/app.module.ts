@@ -118,6 +118,7 @@ import {CommentComponent} from './Comments/comment.component'
 import {CommentsComponent} from './Comments/comments.component'
 import {HelpPointerComponent} from './ui/help/help-pointer.component'
 import {DatePointerComponent} from './ui/help/date-pointer.component'
+import {TextCompactComponent} from './ui/help/text-compact.component'
 
 import {AdminService} from './Shared/Services/admin.service';
 import {WebSocketService} from './Shared/Services/websocket.service';
@@ -201,7 +202,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
-                  FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, 
+                  FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
