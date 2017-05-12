@@ -55,12 +55,12 @@ export class ProductGridComponent implements OnInit
     ngOnInit() : void{
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
 
-        this.otpListObservable = this.orderService.getAnnotatedOtps().map(otps => otps.map(otp => {
+        this.otpListObservable = this.dataStore.getDataObservable('otps').map(otps => otps.map(otp => {
             return {
-                id: otp.data._id,
-                name: otp.data.name
+                id: otp._id,
+                name: otp.name
             }
-        }));        
+        }));     
 
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
