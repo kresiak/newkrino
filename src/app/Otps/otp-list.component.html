@@ -21,7 +21,6 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-2"><b>Otp</b></div>
-							<div class="col-sm-1"><b>In SAP</b></div>
 							<div class="col-sm-2" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
 							<div class="col-sm-2"><b>Available</b></div>
 							<div class="col-sm-2"><b>Spent</b></div>
@@ -37,7 +36,6 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{otp.data._id}}">							
 							<div class="col-sm-2" [style.font-weight]="otp.data._id === state.openPanelId ? 'bold' : 'lighter'">{{otp.data.name}}</div>
-							<div class="col-sm-1">{{ otp.annotation.nbSapItems || '' }}</div>
 							<div class="col-sm-2" *ngIf="showColumn('equipe')">{{otp.annotation.equipe}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>

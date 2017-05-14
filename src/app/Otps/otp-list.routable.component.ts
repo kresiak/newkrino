@@ -17,8 +17,6 @@ export class OtpListComponentRoutable implements OnInit {
     state: {}
     equipesObservable: Observable<any>;
 
-    private otpsBySap
-
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
@@ -33,15 +31,11 @@ export class OtpListComponentRoutable implements OnInit {
             this.authorizationStatusInfo= statusInfo
         })
 
-        this.subscriptionSapOtp= this.sapService.getSapOtpMapObservable().subscribe(otpMap => {
-            this.otpsBySap= Array.from(otpMap.entries())
-        })
     }
 
     ngOnDestroy(): void {
          this.subscriptionAuthorization.unsubscribe()
          this.subscriptionState.unsubscribe()
-         this.subscriptionSapOtp.unsubscribe()
    }
     
 
@@ -49,6 +43,5 @@ export class OtpListComponentRoutable implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription    
     private subscriptionState: Subscription 
-    private subscriptionSapOtp: Subscription
 }
 

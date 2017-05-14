@@ -38,7 +38,7 @@ export class OrderService {
         }, new Map()))
     }
 
-    private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[], sapOtpMap) {
+    private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[]) {
 
         if (!otp) return null;
         if (!otp.priority) otp.priority=0
@@ -56,8 +56,7 @@ export class OrderService {
                 amountSpent: amountSpent,
                 amountAvailable: (+(otp.budget)) - amountSpent,
                 equipe: equipe ? equipe.name : 'no equipe',
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
-                nbSapItems: sapOtpMap.has(otp.name) ? sapOtpMap.get(otp.name).sapIdSet.size : 0
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         }
     }
@@ -68,9 +67,8 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes'),
             this.getOtpMoneySpentMapObservable(),
             this.userService.getOtpDashletsForCurrentUser(),
-            this.sapService.getSapOtpMapObservable(),
             (otps, equipes, otpSpentMap, dashlets, sapOtpMap) => {
-                return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets, sapOtpMap)).sort((a,b)=> b.annotation.nbSapItems-a.annotation.nbSapItems)
+                return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
             });
     }
 
