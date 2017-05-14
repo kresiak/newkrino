@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
+import { SapService } from './../Shared/Services/sap.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -16,7 +17,7 @@ export class OtpListComponent implements OnInit {
     @Input() otpsObservable: Observable<any>;
     @Input() config;
     @Input() state;
-    @Input() path: string= 'otps'
+    @Input() path: string = 'otps'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -26,11 +27,11 @@ export class OtpListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
-    private subscriptionOtps: Subscription 
+    private subscriptionOtps: Subscription
 
     private otps;
 
-    constructor() {
+    constructor(private sapService: SapService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -43,17 +44,22 @@ export class OtpListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
+        var otpAddSapCounter = function (otp, otpSapMap) {
+            otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
+            return otp
+        }
 
-        this.subscriptionOtps= Observable.combineLatest(this.otpsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (otps, searchTxt: string) => {
-            if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted);
-            return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
-                || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(otps => this.otps = otps);
+        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''),
+            (otps, otpSapMap, searchTxt: string) => {
+                if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddSapCounter(otp, otpSapMap));
+                return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
+                    || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddSapCounter(otp, otpSapMap));
+            }).subscribe(otps => this.otps = otps);
     }
 
     ngOnDestroy(): void {
-         this.subscriptionOtps.unsubscribe()
-   }
+        this.subscriptionOtps.unsubscribe()
+    }
 
     getOtpObservable(id: string) {
         return this.otpsObservable.map(otps => otps.filter(otp => otp.data._id === id)[0]);

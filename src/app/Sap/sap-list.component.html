@@ -57,7 +57,7 @@
 							<div class="col-sm-1" >{{sap.dateLastActivity}}</div>
 							<div class="col-sm-2">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>							
-							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engagement' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged')))}}</div>
+							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged')))}}</div>
 							<div class="col-sm-2"><gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece"></gg-text-compact></div>
                             <div class="col-sm-2"><gg-text-compact [text]="sap.mainData.annotation.otpTxt"></gg-text-compact> </div>
 						</div>

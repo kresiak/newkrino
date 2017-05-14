@@ -48,6 +48,8 @@ export class OtpDetailComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
     private subscriptionOtp: Subscription
+    private subscriptionSapIdList: Subscription
+
 
 
     ngOnInit(): void {
@@ -62,8 +64,8 @@ export class OtpDetailComponent implements OnInit {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
 
-                this.sapService.getSapOtpMapObservable().first().subscribe(map => {
-                    this.sapIdList= !map.has(otp.data.name) ? null : Array.from(map.get(otp.data.name).sapIdSet)
+                this.subscriptionSapIdList= this.sapService.getSapItemsByOtpObservable(otp.data.name).subscribe(lst => {
+                    this.sapIdList= lst
                 })
             }
         });
@@ -83,6 +85,7 @@ export class OtpDetailComponent implements OnInit {
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
         this.subscriptionOtp.unsubscribe()
+        this.subscriptionSapIdList.unsubscribe()
     }
 
 

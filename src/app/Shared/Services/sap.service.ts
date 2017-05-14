@@ -37,9 +37,13 @@ export class SapService {
         return this.sapItemsObservable
     }
 
-    getSapOtpMapObservable(): Observable<Map<string, any>> {
+    public getSapOtpMapObservable(): Observable<Map<string, any>> {
         this.connectAll()
         return this.sapOtpMapObservable
+    }
+
+    getSapItemsByOtpObservable(otpName: string) : Observable<any> {
+        return this.getSapOtpMapObservable().map(map => !map.has(otpName) ? null : Array.from(map.get(otpName).sapIdSet))
     }
 
     getKrinoIdMapObservable(): Observable<Map<number, number>> {

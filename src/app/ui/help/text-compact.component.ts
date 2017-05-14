@@ -8,7 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class TextCompactComponent implements OnInit {
   
     @Input() text;
-    @Input() numberOfChar = 20;
+    @Input() numberOfChar = 15;
 
     constructor() {
     }
