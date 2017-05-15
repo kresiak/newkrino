@@ -41,12 +41,10 @@ export class OrderService {
             })
     }
 
-    private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[]) {
+    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
-        let amountSpent = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
-        //orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
         if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
@@ -55,8 +53,6 @@ export class OrderService {
             data: otp,
             annotation: {
                 budget: (+(otp.budget)),
-                amountSpent: amountSpent,
-                amountAvailable: (+(otp.budget)) - amountSpent,
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
@@ -68,7 +64,7 @@ export class OrderService {
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
         let amountSpentNotYetInSap = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
-        let sapIds = sapOtpMap.has(otp.data.name) ? Array.from(sapOtpMap.get(otp.data.name).sapIdSet).map(id => +id) : []
+        let sapIds = sapOtpMap.has(otp.name) ? Array.from(sapOtpMap.get(otp.name).sapIdSet).map(id => +id) : []
         let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
 
@@ -78,6 +74,7 @@ export class OrderService {
                 budget: (+(otp.budget)),
                 amountSpentNotYetInSap: amountSpentNotYetInSap,
                 amountEngaged: amountEngaged,
+                amountSpent: amountSpentNotYetInSap + amountEngaged,
                 amountAvailable: (+(otp.budget)) - amountSpentNotYetInSap - amountEngaged,
             }
         }
@@ -87,21 +84,31 @@ export class OrderService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('equipes'),
-            this.getOtpMoneySpentMapObservable(),
             this.userService.getOtpDashletsForCurrentUser(),
-            (otps, equipes, otpSpentMap, dashlets) => {
-                return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+            (otps, equipes, dashlets) => {
+                return otps.map(otp => this.createAnnotatedOtp(otp, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
             });
     }
 
-    getAnnotatedOtpsForBudget(): Observable<any> {
+
+
+
+    getAnnotatedOtpsForBudgetMap(): Observable<any> {
+
+        var hashMapFactory = list => {
+            return list.reduce((map, p) => {
+                map.set(p.data._id, p)
+                return map
+            }, new Map())
+        }
+
         return Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.getOtpMoneySpentMapObservable(),
             this.sapService.getSapIdMapObservable(),
             this.sapService.getSapOtpMapObservable(),
             (otps, otpSpentMap, sapIdMap, sapOtpMap) => {
-                return otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+                return hashMapFactory(otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap)).sort((a, b) => a.data.name < b.data.name ? -1 : 1))
             });
     }
 

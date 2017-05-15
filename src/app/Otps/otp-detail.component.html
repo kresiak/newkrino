@@ -94,17 +94,29 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Spending" id="tabSpending">
+	<ngb-tab title="Spending" id="tabSpending" *ngIf="otpBudget">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
+						<div class="col-sm-4">total budget:</div>
+						<div class="col-sm-6">{{otpBudget.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4">money spent:</div>
-						<div class="col-sm-6">{{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-6">{{otpBudget.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money spent not yet in Sap:</div>
+						<div class="col-sm-6">{{otpBudget.annotation.amountSpentNotYetInSap | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money still engaged:</div>
+						<div class="col-sm-6">{{otpBudget.annotation.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4">money available:</div>
-						<div class="col-sm-6">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-6">{{otpBudget.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 				</div>
 			</div>

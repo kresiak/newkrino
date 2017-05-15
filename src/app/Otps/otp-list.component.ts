@@ -31,7 +31,7 @@ export class OtpListComponent implements OnInit {
 
     private otps;
 
-    constructor(private sapService: SapService) {
+    constructor(private sapService: SapService, private orderService: OrderService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -44,16 +44,24 @@ export class OtpListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        var otpAddSapCounter = function (otp, otpSapMap) {
+        var otpAddInfo = function (otp, otpSapMap, otpForBudgetMap) {
             otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
+            if (otpForBudgetMap.has(otp.data._id)) {
+                let budgetInfo= otpForBudgetMap.get(otp.data._id)
+                otp.annotation.amountSpentNotYetInSap= budgetInfo.annotation.amountSpentNotYetInSap
+                otp.annotation.amountEngaged= budgetInfo.annotation.amountEngaged                
+                otp.annotation.amountSpent= budgetInfo.annotation.amountSpent
+                otp.annotation.amountAvailable= budgetInfo.annotation.amountAvailable
+            }
             return otp
         }
 
-        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''),
-            (otps, otpSapMap, searchTxt: string) => {
-                if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddSapCounter(otp, otpSapMap));
+        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.orderService.getAnnotatedOtpsForBudgetMap(),
+                                                        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''),
+            (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
+                if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
                 return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
-                    || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddSapCounter(otp, otpSapMap));
+                    || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
             }).subscribe(otps => this.otps = otps);
     }
 

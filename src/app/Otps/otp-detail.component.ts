@@ -40,6 +40,7 @@ export class OtpDetailComponent implements OnInit {
 
     private equipeListObservable
     private otp;
+    private otpBudget;
     private sapIdList: any[]
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
@@ -60,12 +61,16 @@ export class OtpDetailComponent implements OnInit {
             this.otp = otp;
 
             if (otp) {
-                this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
 
                 this.subscriptionSapIdList= this.sapService.getSapItemsByOtpObservable(otp.data.name).subscribe(lst => {
                     this.sapIdList= lst
+                })
+
+                this.orderService.getAnnotatedOtpsForBudgetMap().subscribe(map => {
+                    this.otpBudget= map.get(otp.data._id)
+                    this.pieSpentChart = this.chartService.getSpentPieData(this.otpBudget.annotation.amountSpent / this.otpBudget.annotation.budget * 100);
                 })
             }
         });
