@@ -27,6 +27,34 @@ export class SapService {
 
     }
 
+    // return values
+    // =============
+
+    getSapItemsBySapIdList(sapIdMap: Map<number, any>, sapIdList: number[]) {
+        var sapItemsToReturn = []
+        sapIdList.forEach(id => {
+            if (sapIdMap.has(id))
+                sapItemsToReturn.push(sapIdMap.get(id))
+        })
+        return sapItemsToReturn.sort((v1, v2) => {
+            var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
+            var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
+            return d1 > d2 ? -1 : 1
+        })
+    }
+
+    getAmountEngagedByOtpInSapItems(otpName: string, sapItems: any[]) {
+        var res=sapItems.reduce((acc, sapItem) => {
+                return acc + sapItem.postList.filter(poste => poste.otp === otpName).reduce((acc2, poste) => {
+                    return acc2 + poste.amountResiduel
+                }, 0)
+            }, 0)
+        return res
+    }
+
+    // return observables
+    // ==================
+
     getSapIdMapObservable(): Observable<Map<number, any>> {
         this.connectAll()
         return this.sapIdMapObservable
@@ -42,7 +70,7 @@ export class SapService {
         return this.sapOtpMapObservable
     }
 
-    getSapItemsByOtpObservable(otpName: string) : Observable<any> {
+    getSapItemsByOtpObservable(otpName: string): Observable<any> {
         return this.getSapOtpMapObservable().map(map => !map.has(otpName) ? null : Array.from(map.get(otpName).sapIdSet))
     }
 
@@ -56,16 +84,7 @@ export class SapService {
 
     getSapItemsObservableBySapIdList(sapIdList: number[]): Observable<any[]> {
         return this.getSapIdMapObservable().map(sapIdMap => {
-            var sapItemsToReturn = []
-            sapIdList.forEach(id => {
-                if (sapIdMap.has(id))
-                    sapItemsToReturn.push(sapIdMap.get(id))
-            })
-            return sapItemsToReturn.sort((v1, v2) => {
-                var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
-                var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
-                return d1 > d2 ? -1 : 1
-            })
+            return this.getSapItemsBySapIdList(sapIdMap, sapIdList)
         })
     }
 
@@ -169,8 +188,8 @@ export class SapService {
             let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
             let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
             let qtyEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity).reduce((a, b) => a + b, 0)
-            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity/10).reduce((a, b) => a + b, 0)  // temporary division / 10
-            let allBilledOnPoste= qtyFactured > 0 && qtyFactured >=qtyEngaged
+            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
+            let allBilledOnPoste = qtyFactured > 0 && qtyFactured >= qtyEngaged
 
             let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
                 var d1 = moment(a, 'DD/MM/YYYY').toDate()
@@ -190,8 +209,8 @@ export class SapService {
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
                 qtyEngaged: qtyEngaged,
-                qtyFactured: qtyFactured,              
-                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag &&!allBilledOnPoste) ? amountEngaged - amountFactured : 0,
+                qtyFactured: qtyFactured,
+                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag && !allBilledOnPoste) ? amountEngaged - amountFactured : 0,
                 hasPosteFactureFinale: hasPosteFactureFinale,
                 lastInvoiceDate: lastInvoiceDate
             }
@@ -298,27 +317,27 @@ export class SapService {
 
     private sapTvaCodesObservable: ConnectableObservable<any> = null
 
-/*    // P5
-    initTvaSetObservable() {
-        this.sapTvaCodesObservable = this.dataStore.getDataObservable('sap.engage').map(engs => {
-            var list = [1, 2];
-            list = [...list, 3, 4];            
-            var xx= engs.reduce((acc, eng) => {
-                eng.items.forEach(item => {
-                    if (+item.codeTva || item.codeTva === '') {
-                        var ddqw=''
-                    }
-                    acc.add(item.codeTva)
-                })
-                return acc
-            }, new Set<string>())
-            var yy= Array.from(xx).sort()
-            console.log(yy.reduce((a,b) => a + ', ' + b))
-            return yy
-        }).publishReplay(1)
-        console.log('In initTvaSetObservable')
-        this.sapTvaCodesObservable.connect()
-    }*/
+    /*    // P5
+        initTvaSetObservable() {
+            this.sapTvaCodesObservable = this.dataStore.getDataObservable('sap.engage').map(engs => {
+                var list = [1, 2];
+                list = [...list, 3, 4];            
+                var xx= engs.reduce((acc, eng) => {
+                    eng.items.forEach(item => {
+                        if (+item.codeTva || item.codeTva === '') {
+                            var ddqw=''
+                        }
+                        acc.add(item.codeTva)
+                    })
+                    return acc
+                }, new Set<string>())
+                var yy= Array.from(xx).sort()
+                console.log(yy.reduce((a,b) => a + ', ' + b))
+                return yy
+            }).publishReplay(1)
+            console.log('In initTvaSetObservable')
+            this.sapTvaCodesObservable.connect()
+        }*/
 
 
 }

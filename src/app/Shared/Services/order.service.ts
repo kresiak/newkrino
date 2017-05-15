@@ -11,8 +11,8 @@ import * as moment from "moment"
 
 Injectable()
 export class OrderService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService, 
-                    @Inject(SapService) private sapService: SapService, @Inject(AdminService) private adminService: AdminService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService,
+        @Inject(SapService) private sapService: SapService, @Inject(AdminService) private adminService: AdminService) { }
 
     // otps
     // ======
@@ -26,23 +26,25 @@ export class OrderService {
     }
 
     private getOtpMoneySpentMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
-        return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
-            if (order.items) {
-                order.items.filter(item => item.otpId && item.total).forEach(item => {
-                    let otpId = item.otpId
-                    if (!map.has(otpId)) map.set(otpId, 0)
-                    map.set(otpId, map.get(otpId) + item.total)
-                })
-            }
-            return map
-        }, new Map()))
+        return Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.sapService.getKrinoIdMapObservable(),
+            (orders, krinoSapMap) => {
+                return orders.filter(order => !krinoSapMap.has(order.kid)).reduce((map, order) => {
+                    if (order.items) {
+                        order.items.filter(item => item.otpId && item.total).forEach(item => {
+                            let otpId = item.otpId
+                            if (!map.has(otpId)) map.set(otpId, 0)
+                            map.set(otpId, map.get(otpId) + item.total)
+                        })
+                    }
+                    return map
+                }, new Map())
+            })
     }
 
     private createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets: any[]) {
-
         if (!otp) return null;
-        if (!otp.priority) otp.priority=0
-        otp.priority= +otp.priority || 0
+        if (!otp.priority) otp.priority = 0
+        otp.priority = +otp.priority || 0
         let amountSpent = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
         //orders.map(order => !order.items ? 0 : order.items.filter(item => item.otpId === otp._id).map(item => item.total).reduce((a, b) => a + b, 0)).reduce((a, b) => a + b, 0);
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
@@ -61,16 +63,48 @@ export class OrderService {
         }
     }
 
+    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>) {
+        if (!otp) return null;
+        if (!otp.priority) otp.priority = 0
+        otp.priority = +otp.priority || 0
+        let amountSpentNotYetInSap = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
+        let sapIds = sapOtpMap.has(otp.data.name) ? Array.from(sapOtpMap.get(otp.data.name).sapIdSet).map(id => +id) : []
+        let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
+        let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
+
+        return {
+            data: otp,
+            annotation: {
+                budget: (+(otp.budget)),
+                amountSpentNotYetInSap: amountSpentNotYetInSap,
+                amountEngaged: amountEngaged,
+                amountAvailable: (+(otp.budget)) - amountSpentNotYetInSap - amountEngaged,
+            }
+        }
+    }
+
     getAnnotatedOtps(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('equipes'),
             this.getOtpMoneySpentMapObservable(),
             this.userService.getOtpDashletsForCurrentUser(),
-            (otps, equipes, otpSpentMap, dashlets, sapOtpMap) => {
+            (otps, equipes, otpSpentMap, dashlets) => {
                 return otps.map(otp => this.createAnnotatedOtp(otp, otpSpentMap, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
             });
     }
+
+    getAnnotatedOtpsForBudget(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('otps'),
+            this.getOtpMoneySpentMapObservable(),
+            this.sapService.getSapIdMapObservable(),
+            this.sapService.getSapOtpMapObservable(),
+            (otps, otpSpentMap, sapIdMap, sapOtpMap) => {
+                return otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+            });
+    }
+
 
     getAnnotatedOtpsByEquipe(equipeId): Observable<any> {
         return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.equipeId === equipeId));
@@ -132,23 +166,23 @@ export class OrderService {
 
     private getTotalOfFridgeOrders(orders, products): number {
         return orders.length === 0 ? 0 : orders.filter(order => order.isDelivered).map(order => {
-            let product= products.filter(p => p._id===order.productId)[0]
+            let product = products.filter(p => p._id === order.productId)[0]
             return product ? +product.price * order.quantity : 0
         }).reduce((a, b) => a + b, 0);
     }
 
     private getTotalOfStockOrders(orders, products, stockItems): number {
-        return orders.length === 0 ? 0 : orders.filter(order => order.isProcessed && order.stockItemIds).map(order => {            
-            let product= products.filter(p => p._id===order.productId)[0]
-            let stockItem= stockItems.filter(item => item._id === order.stockItemIds[0])[0]
+        return orders.length === 0 ? 0 : orders.filter(order => order.isProcessed && order.stockItemIds).map(order => {
+            let product = products.filter(p => p._id === order.productId)[0]
+            let stockItem = stockItems.filter(item => item._id === order.stockItemIds[0])[0]
             return product && stockItem ? (+product.price / +stockItem.divisionFactor) * +order.quantity : 0
         }).reduce((a, b) => a + b, 0);
     }
 
 
 
-    private mapOldKrinoStatus(id: number){
-        var map={
+    private mapOldKrinoStatus(id: number) {
+        var map = {
             1: 'Ready',
             2: 'Blocked',
             3: 'Deleted',
@@ -181,9 +215,9 @@ export class OrderService {
         let equipeGroup = !order.equipeRepartition ? null : groups.get(order.equipeRepartition.equipeGroupId)
         let annotatedUser = annotatedUsers.get(order.userId)
         let dashlet = dashlets.filter(dashlet => dashlet.id === order._id);
-        let status= order.status && order.status.value ? order.status.value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
-        
-        let retObj ={
+        let status = order.status && order.status.value ? order.status.value : (order.oldKrino && order.oldKrino.status ? this.mapOldKrinoStatus(order.oldKrino.status) : '?')
+
+        let retObj = {
             data: order,
             annotation: {
                 sapId: krinoSapMap.get(order.kid),
@@ -191,17 +225,17 @@ export class OrderService {
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
                 isGroupedOrder: annotatedUser && this.authService.isUserGroupOrderUser(annotatedUser.data._id),
-                isDeletable: status==='created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
-                needsValidation: status==='created' && order.pendingValidation,
-                validationStatus: status==='created' && order.pendingValidation ? this.adminService.getValidationStepDescription(order.pendingValidation) : '',
-                canCurrentUserValidate: currentUser && status==='created' && order.pendingValidation && this.adminService.canUserValidateStep(currentUser, labo, order.pendingValidation, order.equipeId),
+                isDeletable: status === 'created' && currentUser && (order.userId === currentUser.data._id || currentUser.data.isAdmin),
+                needsValidation: status === 'created' && order.pendingValidation,
+                validationStatus: status === 'created' && order.pendingValidation ? this.adminService.getValidationStepDescription(order.pendingValidation) : '',
+                canCurrentUserValidate: currentUser && status === 'created' && order.pendingValidation && this.adminService.canUserValidateStep(currentUser, labo, order.pendingValidation, order.equipeId),
                 //equipe: equipe ? equipe.name : 'Unknown equipe',
                 total: this.getTotalOfOrder(order),
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined, 
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
                 items: !order.items ? [] : order.items.map(item => {
                     let product = products.get(item.productId)
-                    let otp = otps.get(item.otpId) 
-                    let nbDelivered= (item.deliveries || []).reduce((acc, delivery) => acc + (+delivery.quantity), 0)
+                    let otp = otps.get(item.otpId)
+                    let nbDelivered = (item.deliveries || []).reduce((acc, delivery) => acc + (+delivery.quantity), 0)
                     return {
                         data: item,
                         annotation: {
@@ -209,19 +243,19 @@ export class OrderService {
                             description: product ? product.name + (product.package ? ' / ' + product.package : '') : 'Unknown product',
                             isStockProduct: product && product.isStock,
                             needsLotNumber: product && product.needsLotNumber,
-                            stockDivisionFactor: (product && +product.divisionFactor && (+product.divisionFactor)>0) ? +product.divisionFactor : 1,
+                            stockDivisionFactor: (product && +product.divisionFactor && (+product.divisionFactor) > 0) ? +product.divisionFactor : 1,
                             stockPackaging: (product && product.stockPackage && product.stockPackage !== '') ? product.stockPackage : (product ? product.package : ''),
-                            price: product ? product.price : '0',                            
+                            price: product ? product.price : '0',
                             nbDelivered: nbDelivered,
-                            allDelivered: item.quantity===nbDelivered,
-                            anyDelivered: item.quantity !==0 && nbDelivered != 0,
+                            allDelivered: item.quantity === nbDelivered,
+                            anyDelivered: item.quantity !== 0 && nbDelivered != 0,
                             deliveries: (item.deliveries || []).map(delivery => {
                                 let userLm = annotatedUsers.get(delivery.userId)
                                 return {
                                     data: delivery,
                                     annotation: {
                                         userLm: userLm ? userLm.annotation.fullName : 'Unknown user',
-                                        isStock: delivery.stockId 
+                                        isStock: delivery.stockId
                                     }
                                 }
                             }),
@@ -232,24 +266,24 @@ export class OrderService {
                                     data: detailItem,
                                     annotation: {
                                         userFullName: user ? user.annotation.fullName : 'Unknown user',
-                                        equipe: eq ? eq.name : 'Unknown equipe' 
+                                        equipe: eq ? eq.name : 'Unknown equipe'
                                     }
                                 }
                             })
                         }
                     }
                 })
-            }            
+            }
         };
 
-        retObj.annotation['anyDeliveredByNewKrino']= retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0
-        retObj.annotation['anyDelivered']= (order.oldKrino && order.oldKrino.status===6) || (retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0)
-        retObj.annotation['allDelivered']= (order.oldKrino && order.oldKrino.status===7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
+        retObj.annotation['anyDeliveredByNewKrino'] = retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0
+        retObj.annotation['anyDelivered'] = (order.oldKrino && order.oldKrino.status === 6) || (retObj.annotation.items.filter(item => item.annotation.anyDelivered).length > 0)
+        retObj.annotation['allDelivered'] = (order.oldKrino && order.oldKrino.status === 7) || (retObj.annotation.items.filter(item => !item.annotation.allDelivered).length === 0)
 
-        if (equipe) retObj.annotation['equipe']= equipe.name
+        if (equipe) retObj.annotation['equipe'] = equipe.name
         if (equipeGroup) {
-            retObj.annotation['equipeGroup']= equipeGroup.name
-            retObj.annotation['equipes']= order.equipeRepartition.repartition.map(item => {
+            retObj.annotation['equipeGroup'] = equipeGroup.name
+            retObj.annotation['equipes'] = order.equipeRepartition.repartition.map(item => {
                 let equipe = equipes.get(item.equipeId)
                 return {
                     weight: item.weight,
@@ -283,7 +317,7 @@ export class OrderService {
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
             this.sapService.getKrinoIdMapObservable(),
-            this.adminService.getLabo(),            
+            this.adminService.getLabo(),
             (order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo) => {
                 return this.createAnnotedOrder(order, products, otps, users, equipes, groups, suppliers, dashlets, currentUser, krinoSapMap, labo);
             })
@@ -397,7 +431,7 @@ export class OrderService {
     // equipes
     // =======
 
-    private createBilanForEquipe(equipeId, orders: any[], ordersFridge: any[], ordersStock: any[], ordersVoucher: any[], products: any[], stockItems: any[]){
+    private createBilanForEquipe(equipeId, orders: any[], ordersFridge: any[], ordersStock: any[], ordersVoucher: any[], products: any[], stockItems: any[]) {
         let ordersFiltered = orders.filter(order => order.equipeId === equipeId);
         let ordersFridgeFiltered = ordersFridge.filter(order => order.equipeId === equipeId);
         let ordersStockFiltered = ordersStock.filter(order => order.equipeId === equipeId);
@@ -421,7 +455,7 @@ export class OrderService {
             this.dataStore.getDataObservable('products.stock'),
             (orders: any[], ordersFridge: any[], ordersStock: any[], ordersVoucher: any[], products: any[], stockItems: any[]) => {
                 return this.createBilanForEquipe(equipeId, orders, ordersFridge, ordersStock, ordersVoucher, products, stockItems)
-            });        
+            });
     }
 
     private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[]) {
@@ -464,7 +498,7 @@ export class OrderService {
     }
 
     getAnnotatedCurrentEquipe(): Observable<any> {
-        return this.getAnnotatedEquipes().map(equipes => equipes.filter(eq => eq.data._id===this.authService.getEquipeId())[0]) 
+        return this.getAnnotatedEquipes().map(equipes => equipes.filter(eq => eq.data._id === this.authService.getEquipeId())[0])
     }
 
 
@@ -493,24 +527,24 @@ export class OrderService {
 
     private createAnnotatedEquipeGroup(group, equipes) {
         if (!group) return null;
-        let weightSum= group.equipeIds.reduce((acc, idObj) => acc + idObj.weight, 0)
+        let weightSum = group.equipeIds.reduce((acc, idObj) => acc + idObj.weight, 0)
 
         return {
             data: group,
             annotation:
             {
-                equipesTxt: group.equipeIds.reduce((acc, idObj) =>{
-                    let equipe= equipes.filter(eq => eq._id === idObj.id)[0]
-                    if (equipe) acc= acc + (acc === '' ? '' : ', ') + equipe.name
+                equipesTxt: group.equipeIds.reduce((acc, idObj) => {
+                    let equipe = equipes.filter(eq => eq._id === idObj.id)[0]
+                    if (equipe) acc = acc + (acc === '' ? '' : ', ') + equipe.name
                     return acc
                 }, ''),
                 equipes: group.equipeIds.map(idObj => {
-                    let equipe= equipes.filter(eq => eq._id === idObj.id)[0]
+                    let equipe = equipes.filter(eq => eq._id === idObj.id)[0]
                     return {
                         data: idObj,
                         annotation: {
                             equipe: equipe ? equipe.name : 'unknown equipe',
-                            pc: idObj.weight/weightSum * 100
+                            pc: idObj.weight / weightSum * 100
                         }
                     }
                 })
@@ -534,9 +568,9 @@ export class OrderService {
     private createAnnotatedEquipeGift(gift, equipes, annotatedUsers) {
         if (!gift) return null;
 
-        let equipeGiving= equipes.filter(eq => eq._id===gift.equipeGivingId)[0]
-        let equipeTaking= equipes.filter(eq => eq._id===gift.equipeTakingId)[0]
-        let user= annotatedUsers.filter(user => user.data._id === gift.userId)[0]
+        let equipeGiving = equipes.filter(eq => eq._id === gift.equipeGivingId)[0]
+        let equipeTaking = equipes.filter(eq => eq._id === gift.equipeTakingId)[0]
+        let user = annotatedUsers.filter(user => user.data._id === gift.userId)[0]
 
         return {
             data: gift,
@@ -553,11 +587,11 @@ export class OrderService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('equipes.gifts'),
-             this.authService.getAnnotatedUsers(),            
+            this.authService.getAnnotatedUsers(),
             (equipes, gifts, annotatedUsers) => {
                 return gifts.map(gift => this.createAnnotatedEquipeGift(gift, equipes, annotatedUsers))
             });
-    }    
+    }
 
 
     // messages
@@ -566,7 +600,7 @@ export class OrderService {
     private createAnnotatedMessage(message, annotatedUsers) {
         if (!message) return null;
 
-        let user= annotatedUsers.filter(user => user.data._id === message.userId)[0]
+        let user = annotatedUsers.filter(user => user.data._id === message.userId)[0]
 
         return {
             data: message,
@@ -580,7 +614,7 @@ export class OrderService {
     getAnnotatedMessages(): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('messages'),
-             this.authService.getAnnotatedUsers(),            
+            this.authService.getAnnotatedUsers(),
             (messages, annotatedUsers) => {
                 return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
                     var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
@@ -588,7 +622,7 @@ export class OrderService {
                     return d1 > d2 ? -1 : 1
                 });
             });
-    }    
+    }
 
 
 
@@ -598,9 +632,9 @@ export class OrderService {
     private createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers) {
         if (!order) return null;
 
-        let user= annotatedUsers.filter(user => user.data._id === order.userId)[0]
-        let equipe= equipes.filter(eq => eq._id === order.equipeId)[0]
-        let product= products.filter(p => p._id === order.productId)[0]
+        let user = annotatedUsers.filter(user => user.data._id === order.userId)[0]
+        let equipe = equipes.filter(eq => eq._id === order.equipeId)[0]
+        let product = products.filter(p => p._id === order.productId)[0]
 
         return {
             data: order,
@@ -615,10 +649,10 @@ export class OrderService {
 
     getAnnotatedFridgeOrders(): Observable<any> {
         return Observable.combineLatest(
-                this.dataStore.getDataObservable('orders.fridge'),
-                this.dataStore.getDataObservable('products'),
-                this.dataStore.getDataObservable('equipes'),
-                 this.authService.getAnnotatedUsers(),            
+            this.dataStore.getDataObservable('orders.fridge'),
+            this.dataStore.getDataObservable('products'),
+            this.dataStore.getDataObservable('equipes'),
+            this.authService.getAnnotatedUsers(),
             (orders, products, equipes, annotatedUsers) => {
                 return orders.map(order => this.createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers)).sort((r1, r2) => {
                     var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
@@ -626,7 +660,7 @@ export class OrderService {
                     return d1 > d2 ? -1 : 1
                 });
             });
-    }    
+    }
 
     getAnnotatedFridgeOrdersByUser(userId): Observable<any> {
         return this.getAnnotatedFridgeOrders().map(orders => orders.filter(order => order.data.userId === userId))
@@ -637,9 +671,9 @@ export class OrderService {
     }
 
     getAnnotatedFridgeOrdersByCurrentUser(): Observable<any> {
-        return Observable.combineLatest(this.getAnnotatedFridgeOrders(), this.authService.getUserIdObservable(), (orders, userId)=> {
+        return Observable.combineLatest(this.getAnnotatedFridgeOrders(), this.authService.getUserIdObservable(), (orders, userId) => {
             return orders.filter(order => order.data.userId === userId)
-        })        
+        })
     }
 
 }

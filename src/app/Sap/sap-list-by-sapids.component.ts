@@ -36,11 +36,7 @@ export class SapListBySapIdsComponent implements OnInit {
         this.stateInit();
         this.sapsObservable = this.sapService.getSapItemsObservableBySapIdList(this.sapIdList)
         this.subscription = this.sapsObservable.subscribe(sapList => {
-            this.totalEngaged= sapList.reduce((acc, sapItem) => {
-                return acc + sapItem.postList.filter(poste => poste.otp === this.otp).reduce((acc2, poste) => {
-                    return acc2 + poste.amountResiduel
-                }, 0)
-            }, 0)
+            this.totalEngaged= this.sapService.getAmountEngagedByOtpInSapItems(this.otp, sapList)
 
             this.sapPostesEngOpenList= []
             var sum: number= 0
