@@ -100,23 +100,35 @@
 				<div class="card-block">
 					<div class="row">
 						<div class="col-sm-4">total budget:</div>
-						<div class="col-sm-6">{{otpBudget.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-6">+ {{otpBudget.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money spent:</div>
-						<div class="col-sm-6">{{otpBudget.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-4">amount spent or blocked:</div>
+						<div class="col-sm-6">- {{otpBudget.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money spent not yet in Sap:</div>
+						<div class="col-sm-4"></div>
+						<div class="col-sm-6">================</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">amount available:</div>
+						<div class="col-sm-6">= {{otpBudget.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4"></div>
+						<div class="col-sm-6"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">amount blocked in purchase orders:</div>
 						<div class="col-sm-6">{{otpBudget.annotation.amountSpentNotYetInSap | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money still engaged:</div>
+						<div class="col-sm-4">amount blocked still engaged:</div>
 						<div class="col-sm-6">{{otpBudget.annotation.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money available:</div>
-						<div class="col-sm-6">{{otpBudget.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+						<div class="col-sm-4">amount spent in invoices:</div>
+						<div class="col-sm-6">{{otpBudget.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 				</div>
 			</div>

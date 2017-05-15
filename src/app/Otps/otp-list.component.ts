@@ -50,6 +50,7 @@ export class OtpListComponent implements OnInit {
                 let budgetInfo= otpForBudgetMap.get(otp.data._id)
                 otp.annotation.amountSpentNotYetInSap= budgetInfo.annotation.amountSpentNotYetInSap
                 otp.annotation.amountEngaged= budgetInfo.annotation.amountEngaged                
+                otp.annotation.amountBilled= budgetInfo.annotation.amountBilled         
                 otp.annotation.amountSpent= budgetInfo.annotation.amountSpent
                 otp.annotation.amountAvailable= budgetInfo.annotation.amountAvailable
             }

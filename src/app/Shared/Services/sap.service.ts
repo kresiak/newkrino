@@ -52,6 +52,23 @@ export class SapService {
         return res
     }
 
+    getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
+        var res=sapItems.reduce((acc, sapItem) => {
+                var sumInThis= !sapItem.factured ? 0 : sapItem.factured.data.items.filter(item => item.otp===otpName && !item.isBlocked && !item.isSuppr)
+                .filter(item => {
+                    var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
+                    return dInvoice >= dOtpStart
+                })
+                .reduce((acc2, item) => {
+                    return acc2 + item.tvac
+                }, 0)
+
+                return acc + sumInThis
+            }, 0)
+        return res
+    }
+
     // return observables
     // ==================
 
@@ -163,6 +180,10 @@ export class SapService {
         var engaged = sapItemObj.engaged
         var factured = sapItemObj.factured
 
+/*        if (engaged.data.sapId===1529194) {
+            var xf=10
+        }
+*/
         var isNoEngag: boolean = factured && factured.data.isNoEngag
 
         var getDistinctOtps = function (poste) {
@@ -186,9 +207,10 @@ export class SapService {
 
         sapItemObj.postList = postList.map(poste => {
             let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
-            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
+            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
             let qtyEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity).reduce((a, b) => a + b, 0)
-            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
+            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : [])
+                .map(item => (item.pieceType==='NC' ? -item.quantity : item.quantity) / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
             let allBilledOnPoste = qtyFactured > 0 && qtyFactured >= qtyEngaged
 
             let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
@@ -201,6 +223,9 @@ export class SapService {
             if (otpsForPoste.length != 1) sapItemObj.hasOtpError = true
 
             var hasPosteFactureFinale = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
+            var hasPosteFactureFinaleInEng = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
+            hasPosteFactureFinale= hasPosteFactureFinale || hasPosteFactureFinaleInEng
+
 
             return {
                 poste: poste,
@@ -210,7 +235,7 @@ export class SapService {
                 amountFactured: amountFactured,
                 qtyEngaged: qtyEngaged,
                 qtyFactured: qtyFactured,
-                amountResiduel: (amountEngaged > amountFactured && !hasPosteFactureFinale && !isNoEngag && !allBilledOnPoste) ? amountEngaged - amountFactured : 0,
+                amountResiduel: (!hasPosteFactureFinale && !isNoEngag && qtyEngaged!=0  && !allBilledOnPoste) ? (qtyEngaged-qtyFactured) * amountEngaged/qtyEngaged  : 0,
                 hasPosteFactureFinale: hasPosteFactureFinale,
                 lastInvoiceDate: lastInvoiceDate
             }

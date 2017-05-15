@@ -67,6 +67,7 @@ export class OrderService {
         let sapIds = sapOtpMap.has(otp.name) ? Array.from(sapOtpMap.get(otp.name).sapIdSet).map(id => +id) : []
         let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
+        let amountBilled= this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
 
         return {
             data: otp,
@@ -74,8 +75,9 @@ export class OrderService {
                 budget: (+(otp.budget)),
                 amountSpentNotYetInSap: amountSpentNotYetInSap,
                 amountEngaged: amountEngaged,
-                amountSpent: amountSpentNotYetInSap + amountEngaged,
-                amountAvailable: (+(otp.budget)) - amountSpentNotYetInSap - amountEngaged,
+                amountBilled: amountBilled,
+                amountSpent: amountSpentNotYetInSap + amountEngaged + amountBilled,
+                amountAvailable: (+(otp.budget)) - amountSpentNotYetInSap - amountEngaged - amountBilled
             }
         }
     }
