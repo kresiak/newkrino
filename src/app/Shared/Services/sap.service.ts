@@ -52,15 +52,19 @@ export class SapService {
         return res
     }
 
-    getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
-        var res=sapItems.reduce((acc, sapItem) => {
-                var sumInThis= !sapItem.factured ? 0 : sapItem.factured.data.items.filter(item => item.otp===otpName && !item.isBlocked && !item.isSuppr)
+    filterFactureItemsBasedOnOtp(items, otpName: string, otpStartingDate: string) {
+        return items.filter(item => item.otp===otpName && !item.isBlocked && !item.isSuppr)
                 .filter(item => {
                     var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
                     return dInvoice >= dOtpStart
                 })
-                .reduce((acc2, item) => {
+    }
+
+    getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
+        var res=sapItems.reduce((acc, sapItem) => {
+                var sumInThis= !sapItem.factured ? 0 : 
+                this.filterFactureItemsBasedOnOtp(sapItem.factured.data.items, otpName, otpStartingDate).reduce((acc2, item) => {
                     return acc2 + item.tvac
                 }, 0)
 

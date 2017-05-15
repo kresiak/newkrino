@@ -12,7 +12,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 export class SapListBySapIdsComponent implements OnInit {
     @Input() sapIdList: any[];
-    @Input() otp: string
+    @Input() otp: any
     @Input() state;
     @Input() path: string = 'saps'
     @Output() stateChanged = new EventEmitter();
@@ -31,17 +31,20 @@ export class SapListBySapIdsComponent implements OnInit {
     private totalEngaged: number=0
 
     private sapPostesEngOpenList: any[]
+    private sapFacturesItemsList: any[]
 
     ngOnInit(): void {
         this.stateInit();
         this.sapsObservable = this.sapService.getSapItemsObservableBySapIdList(this.sapIdList)
         this.subscription = this.sapsObservable.subscribe(sapList => {
-            this.totalEngaged= this.sapService.getAmountEngagedByOtpInSapItems(this.otp, sapList)
+            this.totalEngaged= this.sapService.getAmountEngagedByOtpInSapItems(this.otp.data.name, sapList)
 
             this.sapPostesEngOpenList= []
+            this.sapFacturesItemsList= []
             var sum: number= 0
+            var sum2: number= 0
             sapList.sort((a, b) => a.mainData.data.sapId- b.mainData.data.sapId).forEach(sapObj => {
-                sapObj.postList.filter(poste => poste.otp === this.otp && poste.amountResiduel > 0).forEach(sapPoste => {
+                sapObj.postList.filter(poste => poste.otp === this.otp.data.name && poste.amountResiduel > 0).forEach(sapPoste => {
                     sum+= sapPoste.amountResiduel
                     this.sapPostesEngOpenList.push({
                         sum: sum,
@@ -49,6 +52,22 @@ export class SapListBySapIdsComponent implements OnInit {
                         sapId: sapObj.mainData.data.sapId
                     })
                 })
+
+                if (sapObj.factured) {
+                    this.sapService.filterFactureItemsBasedOnOtp(sapObj.factured.data.items, this.otp.data.name, this.otp.data.datStart).sort((a,b)=>a.poste-b.poste)
+                    .forEach(sapItem => {
+                        sum2 += sapItem.tvac
+                        this.sapFacturesItemsList.push({
+                            sum: sum2,
+                            sapId: sapObj.mainData.data.sapId,
+                            poste: sapItem.poste,
+                            date: sapItem.dateCreation,
+                            product: sapItem.product,
+                            tvac: sapItem.tvac,
+                            htva: sapItem.htva
+                        })
+                    })
+                }
             })
         })
     }
@@ -69,6 +88,10 @@ export class SapListBySapIdsComponent implements OnInit {
 
     navigateToSap(sapId) {
         this.navigationService.maximizeOrUnmaximize('/sap', sapId, this.path+'|O:EngagementOpen', false)
+    }
+
+    navigateToSap2(sapId) {
+        this.navigationService.maximizeOrUnmaximize('/sap', sapId, this.path+'|O:Invoiced', false)
     }
 
 
