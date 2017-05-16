@@ -24,6 +24,7 @@ export class AdminLabo {
     private selectedAdminsIdsObservable: Observable<any>;
     private selectedSecrExecIdsObservable: Observable<any>;
     private equipeListObservable
+    private deliveryAdresses: any[]
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers(true);
@@ -32,6 +33,10 @@ export class AdminLabo {
             this.labo = labo
             this.selectedAdminsIdsObservable = Observable.from([this.labo.data.adminIds]);
             this.selectedSecrExecIdsObservable = Observable.from([this.labo.data.secrExecIds]);
+        })
+
+        this.dataStore.getDataObservable('delivery.address').subscribe(deliveryAdresses => {
+            this.deliveryAdresses= deliveryAdresses
         })
 
         this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
