@@ -6,7 +6,7 @@ import { DataStore } from '../../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
 import { AdminService } from '../../Shared/Services/admin.service'
 import { OrderService } from '../../Shared/Services/order.service';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component(
     {
@@ -16,7 +16,8 @@ import { OrderService } from '../../Shared/Services/order.service';
 )
 
 export class AdminLabo {
-    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService,
+        private formBuilder: FormBuilder) {
     }
 
     private selectableUsers: Observable<SelectableData[]>;
@@ -25,6 +26,7 @@ export class AdminLabo {
     private selectedSecrExecIdsObservable: Observable<any>;
     private equipeListObservable
     private deliveryAdresses: any[]
+    private addAddressForm: FormGroup;
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers(true);
@@ -46,8 +48,30 @@ export class AdminLabo {
             }
         }));
 
-    }
+        this.addAddressForm = this.formBuilder.group({
+            nomAddAddress: ['', [Validators.required]],
+            descriptionAddAddress1: ['', [Validators.required]],
+            descriptionAddAddress2: ['', [Validators.required]],
+            descriptionAddAddress3: ['', [Validators.required]],
+            descriptionAddAddress4: ['', [Validators.required]]
+        });
 
+    }
+/*
+    saveAddAddress(formValue, isValid) {
+        if (!isValid) return
+        if (!+formValue.priceFixCosts) return
+
+        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts= []
+
+        this.supplier.data.fixCosts.push({
+            description: formValue.descriptionFixCosts,
+            price: +formValue.priceFixCosts
+        })
+            
+        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    }
+*/
     private saveLabo() {
         if (this.labo.data._id) {
             this.dataStore.updateData('labos', this.labo.data._id, this.labo.data);
