@@ -49,21 +49,21 @@
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-sm-1"><b>Sap Id</b></div>
+                                <div class="col-sm-2"><b>Piece</b></div>
                                 <div class="col-sm-1"><b>Poste</b></div>
                                 <div class="col-sm-2"><b>Date</b></div>
                                 <div class="col-sm-2"><b>HTva</b></div>
                                 <div class="col-sm-2"><b>TvaC</b></div>
-                                <div class="col-sm-2"><b>Sum</b></div>
                                 <div class="col-sm-2"><b>Product</b></div>
                             </div>
                             <div *ngFor="let item of sapFacturesItemsList">
                                 <div class="row">
                                     <div class="col-sm-1"><span class="imgSearch"  (click)="navigateToSap2(item.sapId)">{{item.sapId}}</span></div>
-                                    <div class="col-sm-1">{{item.poste}}</div>
+                                    <div class="col-sm-2">{{item.pieceId}}</div>
+                                    <div class="col-sm-1">{{item.poste}} / {{item.tvaCode}}</div>
                                     <div class="col-sm-2">{{item.date | shortDate}}</div>
                                     <div class="col-sm-2">{{item.htva | currency:'EUR':true:'1.2-2'}}</div>
                                     <div class="col-sm-2">{{item.tvac | currency:'EUR':true:'1.2-2'}}</div>
-                                    <div class="col-sm-2">{{item.sum | currency:'EUR':true:'1.2-2'}}</div>
                                     <div class="col-sm-2"><gg-text-compact [text]="item.product" [numberOfChar]="20"></gg-text-compact></div>
                                 </div>
                             </div>
