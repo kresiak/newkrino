@@ -27,6 +27,7 @@
                                 <div class="col-sm-2"><b>Open</b></div>
                                 <div class="col-sm-2"><b>Sum</b></div>
                                 <div class="col-sm-3"><b>Product</b></div>
+                                <div class="col-sm-1"><b>Code Tva</b></div>
                             </div>
                             <div *ngFor="let poste of sapPostesEngOpenList">
                                 <div class="row">
@@ -35,6 +36,7 @@
                                     <div class="col-sm-2">{{poste.poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
                                     <div class="col-sm-2">{{poste.sum | currency:'EUR':true:'1.2-2'}}</div>
                                     <div class="col-sm-3">{{poste.poste.product}}</div>
+                                    <div class="col-sm-1">{{poste.poste.codeTvaEngag}}</div>
                                 </div>
                             </div>
                         </div>

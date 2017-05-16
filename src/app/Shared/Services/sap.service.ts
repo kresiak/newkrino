@@ -179,6 +179,17 @@ export class SapService {
         }
     }
 
+    private correctTvaCAmount(tvac: number, tvaCode: string): number {
+        tvaCode= tvaCode.toUpperCase()
+        if (tvaCode === 'F1') return tvac * 1.06
+        if (tvaCode === 'F3') return tvac * 1.21
+        if (tvaCode === 'F9') return tvac * 1.21
+        if (tvaCode === 'C5') return tvac * 1.21
+        if (tvaCode === 'R3') return tvac * 1.21
+        if (tvaCode === 'BD') return tvac / 1.21
+        return tvac        
+    }
+
     // Helper for P1
     private setPosteInfoArray(sapItemObj) {
         var engaged = sapItemObj.engaged
@@ -210,11 +221,13 @@ export class SapService {
         var postList = getDistinctPostes()
 
         sapItemObj.postList = postList.map(poste => {
-            let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
-            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : []).map(item => item.tvac).reduce((a, b) => a + b, 0)
+            let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => this.correctTvaCAmount(item.tvac, item.codeTva))
+                                .reduce((a, b) => a + b, 0)            
+            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : [])
+                    .map(item => item.tvac).reduce((a, b) => a + b, 0)
             let qtyEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity).reduce((a, b) => a + b, 0)
             let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : [])
-                .map(item => (item.pieceType==='NC' ? -item.quantity : item.quantity) / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
+                .map(item => ((item.pieceType==='NC' || (item.tvac < 0 && item.quantity > 0)) ? -item.quantity : item.quantity) / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
             let allBilledOnPoste = qtyFactured > 0 && qtyFactured >= qtyEngaged
 
             let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
@@ -222,6 +235,8 @@ export class SapService {
                 var d2 = moment(b, 'DD/MM/YYYY').toDate()
                 return d1 > d2 ? -1 : 1
             })[0]
+
+            let codeTvaEngag= (engaged ? engaged.data.items.filter(item => item.poste == poste).map(item => item.codeTva)[0] : 'No')
 
             let otpsForPoste = getDistinctOtps(poste)
             if (otpsForPoste.length != 1) sapItemObj.hasOtpError = true
@@ -235,6 +250,7 @@ export class SapService {
                 poste: poste,
                 otp: otpsForPoste[0],
                 product: getDistinctProducts(poste)[0],
+                codeTvaEngag: codeTvaEngag || 'No',
                 amountEngaged: amountEngaged,
                 amountFactured: amountFactured,
                 qtyEngaged: qtyEngaged,
