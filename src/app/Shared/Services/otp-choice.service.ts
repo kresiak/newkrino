@@ -14,10 +14,12 @@ export class OtpChoiceService {
 
     }
 
-    determineOtp(product, quantity: number, annotatedOtps: any[]) : any
+    determineOtp(product, quantity: number, otpsBudgetMap, currentEquipeId: string) : any
     {
         var equipeId= this.authService.getEquipeId();
         var totalPrice= +product.price * quantity * 1.21;
+
+        var annotatedOtps: any[]=  Array.from(otpsBudgetMap.values())
 
         let possibleOtps= !annotatedOtps ? [] : 
             annotatedOtps.filter(otp => otp.annotation.amountAvailable > totalPrice).filter(otp => {

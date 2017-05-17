@@ -299,6 +299,10 @@ export class AuthService {
         return this.authInfoSubject.map(authInfo => authInfo.currentUserId);
     }
 
+    getEquipeIdObservable(): Observable<any> {
+        return this.authInfoSubject.map(authInfo => authInfo.currentEquipeId);
+    }
+
     getStatusObservable(): Observable<AuthenticationStatusInfo> {
         return this.authInfoSubject
     }

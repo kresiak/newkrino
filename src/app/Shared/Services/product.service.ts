@@ -548,11 +548,16 @@ export class ProductService {
         );
     }
 
+    private emptyObservable(): Observable<any> {
+        return Observable.from([[]])         // we need the double [[]]   the emptyobservable has to return a first value. Otherwise combineLatest gets stuck
+    }
 
-    private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(this.getProductsBySupplier(supplierId), basketObservable, this.orderService.getAnnotatedOtps(), this.authService.getUserIdObservable(),
-            this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
-            (products, basketItems, otps, currentUserId, equipes, annotatedUsers) => {
+    private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId), basketObservable, 
+                otpNeeded ? this.orderService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
+                this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
+                this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
+            (products, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
                 return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
                     .map(product => {
                         let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
@@ -576,7 +581,7 @@ export class ProductService {
                                 quantity: basketItemFiltered[0].quantity,
                                 totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
                                 otp: basketItemFiltered[0].otpId ? { name: 'will never be used, or?', _id: basketItemFiltered[0].otpId } :
-                                    this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otps)
+                                    otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otpsBudgetMap, currentEquipeId) : null
                             }
                         } : null;
                     });
@@ -587,13 +592,24 @@ export class ProductService {
 
     getAnnotatedProductsInCurrentUserBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
     {
-        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForCurrentUser())        
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForCurrentUser(), false)        
     }
 
     getAnnotatedProductsInGroupOrdersUserBasketBySupplier(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
     {
-        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForGroupOrdersUser())        
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForGroupOrdersUser(), false)        
     }
+
+    getAnnotatedProductsInCurrentUserBasketBySupplierWithOtp(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
+    {
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForCurrentUser(), true)        
+    }
+
+/*    getAnnotatedProductsInGroupOrdersUserBasketBySupplierWithOtp(supplierId): Observable<any>   // getAnnoted results cannot be used to resave into database
+    {
+        return this.getAnnotatedProductsInUserBasketBySupplier(supplierId, this.getBasketItemsForGroupOrdersUser(), true)        
+    }
+*/
 
 
     // orders LM warning

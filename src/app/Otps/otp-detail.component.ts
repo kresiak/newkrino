@@ -68,7 +68,7 @@ export class OtpDetailComponent implements OnInit {
                     this.sapIdList= lst
                 })
 
-                this.orderService.getAnnotatedOtpsForBudgetMap().subscribe(map => {
+                this.orderService.getAnnotatedOtpsForBudgetMap().first().subscribe(map => {
                     this.otpBudget= map.get(otp.data._id)
                     this.pieSpentChart = this.chartService.getSpentPieData(this.otpBudget.annotation.amountSpent / this.otpBudget.annotation.budget * 100);
                 })
