@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
+import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
@@ -19,8 +20,8 @@ import { NavigationService } from './../Shared/Services/navigation.service'
     }
 )
 export class SupplierDetailComponent implements OnInit {
-    constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, 
-                private router: Router, private authService: AuthService, private navigationService: NavigationService) {
+    constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
+        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService) {
 
     }
 
@@ -29,7 +30,8 @@ export class SupplierDetailComponent implements OnInit {
     private useVoucherForm: FormGroup;
     private fixCostsForm: FormGroup;
 
-    @Input() supplierObservable: Observable<any>;
+    private supplierObservable: Observable<any>;
+    @Input() supplierId: string
     @Input() state;
     @Input() path: string
     @Input() isRoot: boolean = false
@@ -39,7 +41,7 @@ export class SupplierDetailComponent implements OnInit {
     private showAdminWebShoppingTab: boolean = true
 
     private stateInit() {
-        if (this.initialTab==='') this.initialTab='tabProducts' 
+        if (this.initialTab === '') this.initialTab = 'tabProducts'
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
 
@@ -48,9 +50,7 @@ export class SupplierDetailComponent implements OnInit {
         //if (!this.state.selectedWebShoppingTabId) this.state.selectedWebShoppingTabId = this.initialTab;        
     }
 
-    ngOnInit(): void {
-        this.stateInit();
-
+    private initForms() {
         const priceRegEx = `^\\d+(.\\d*)?$`;
 
         this.useVoucherForm = this.formBuilder.group({
@@ -62,43 +62,50 @@ export class SupplierDetailComponent implements OnInit {
             descriptionFixCosts: ['', [Validators.required]],
             priceFixCosts: ['', [Validators.required, Validators.pattern(priceRegEx)]]
         });
+    }
+
+    ngOnInit(): void {
+        this.stateInit()
+        this.initForms()
+
+        this.supplierObservable = this.supplierService.getAnnotatedSupplierById(this.supplierId)
+
+        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(this.supplierId);
+
+        this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
+        this.subscriptionIsBasket = this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
+
+        this.productsGroupedBasketObservable = this.productService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(this.supplierId);
+        this.subscriptionIsGroupedBasket = this.productsGroupedBasketObservable.subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
+
+        this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(this.supplierId);
+        this.subscriptionAnyOrder = this.orderService.hasSupplierAnyOrder(this.supplierId).subscribe(anyOrder => this.anyOrder = anyOrder);
+        this.subscriptionCurrentUser = this.authService.getAnnotatedCurrentUser().subscribe(user => {
+            this.currentAnnotatedUser = user
+        })
+
 
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
-        this.subscriptionSupplier= this.supplierObservable.subscribe(supplier => {
+        this.subscriptionSupplier = this.supplierObservable.subscribe(supplier => {
             this.supplier = supplier;
-            if (supplier) {
-                this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(supplier.data._id);
-
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(supplier.data._id);
-                this.subscriptionIsBasket= this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
-
-                this.productsGroupedBasketObservable = this.productService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(supplier.data._id);
-                this.subscriptionIsGroupedBasket= this.productsGroupedBasketObservable.subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
-
-                this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(supplier.data._id);
-                this.subscriptionAnyOrder= this.orderService.hasSupplierAnyOrder(supplier.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
-                this.subscriptionCurrentUser= this.authService.getAnnotatedCurrentUser().subscribe(user => {
-                    this.currentAnnotatedUser = user
-                })
-            }
         });
 
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
-        })        
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionSupplier.unsubscribe()
-         this.subscriptionIsBasket.unsubscribe()
-         this.subscriptionIsGroupedBasket.unsubscribe()
-         this.subscriptionAnyOrder.unsubscribe()
-         this.subscriptionCurrentUser.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionSupplier.unsubscribe()
+        this.subscriptionIsBasket.unsubscribe()
+        this.subscriptionIsGroupedBasket.unsubscribe()
+        this.subscriptionAnyOrder.unsubscribe()
+        this.subscriptionCurrentUser.unsubscribe()
     }
-    
+
     resetFixCosts() {
         this.fixCostsForm.reset();
     }
@@ -107,19 +114,19 @@ export class SupplierDetailComponent implements OnInit {
         if (!isValid) return
         if (!+formValue.priceFixCosts) return
 
-        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts= []
+        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts = []
 
         this.supplier.data.fixCosts.push({
             description: formValue.descriptionFixCosts,
             price: +formValue.priceFixCosts
         })
-            
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription     
-    private subscriptionSupplier: Subscription    
+    private subscriptionAuthorization: Subscription
+    private subscriptionSupplier: Subscription
 
     private subscriptionIsBasket: Subscription
     private subscriptionIsGroupedBasket: Subscription
@@ -132,7 +139,7 @@ export class SupplierDetailComponent implements OnInit {
     private ordersObservable: Observable<any>;
     private supplier: any;
     private isThereABasket: boolean = false;
-    private isThereAGroupedBasket: boolean = false;    
+    private isThereAGroupedBasket: boolean = false;
     private anyOrder: boolean;
     private selectableCategoriesObservable: Observable<any>;
     private selectedCategoryIdsObservable: Observable<any>;
@@ -140,14 +147,14 @@ export class SupplierDetailComponent implements OnInit {
     private deleted: boolean = false;
 
     gotoPreOrder() {
-        let link = ['/preorder', this.supplier.data._id];
+        let link = ['/preorder', this.supplierId];
         this.router.navigate(link);
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();
-            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplier.data._id, this.path, this.isRoot)
+            this.navigationService.maximizeOrUnmaximize('/supplier', this.supplierId, this.path, this.isRoot)
             return
         }
         if ($event.nextId === 'gotoTop') {
@@ -174,13 +181,13 @@ export class SupplierDetailComponent implements OnInit {
     webShoppingUpdated(isEnabled) {
         if (!this.supplier.data.webShopping) this.supplier.data.webShopping = {}
         this.supplier.data.webShopping.isEnabled = isEnabled
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
     categorySelectionChanged(selectedIds: string[]) {
         if (!this.supplier.data.webShopping) this.supplier.data.webShopping = {}
         this.supplier.data.webShopping.categoryIds = selectedIds;
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
     categoryHasBeenAdded(newCategory: string) {
@@ -197,11 +204,11 @@ export class SupplierDetailComponent implements OnInit {
 
     nbVouchersOrderedUpdated(categoryId, nbOrdered) {
         if (!this.currentAnnotatedUser.data.voucherRequests) this.currentAnnotatedUser.data.voucherRequests = []
-        let request = this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplier.data._id && request.categoryId === categoryId)[0]
+        let request = this.currentAnnotatedUser.data.voucherRequests.filter(request => request.supplierId === this.supplierId && request.categoryId === categoryId)[0]
         if (!request) {
             if (nbOrdered === 0) return
             request = {
-                supplierId: this.supplier.data._id,
+                supplierId: this.supplierId,
                 categoryId: categoryId
             }
             this.currentAnnotatedUser.data.voucherRequests.push(request)
@@ -214,20 +221,20 @@ export class SupplierDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.currentAnnotatedUser.data._id, this.currentAnnotatedUser.data)
     }
 
-    private voucherUseError: string= undefined
-    private sapId: string= undefined
+    private voucherUseError: string = undefined
+    private sapId: string = undefined
 
     save(formValue, isValid, supplierId, categoryId) {
-        this.voucherUseError= undefined
+        this.voucherUseError = undefined
         if (isValid) {
             this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(res => {
                 if (res.error) {
-                    this.voucherUseError= res.error
-                }          
-                if (res.sapId){
-                    this.sapId= res.sapId
+                    this.voucherUseError = res.error
+                }
+                if (res.sapId) {
+                    this.sapId = res.sapId
                     const modalRef = this.modalService.open(this.sapIdResultPopup, { keyboard: true, backdrop: false, size: "lg" });
-                }      
+                }
             })
         }
     }
@@ -237,18 +244,18 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     costsPriceUpdated(costsObject, price) {
-        costsObject.price = +price;     
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        costsObject.price = +price;
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
     costsDescriptionUpdated(costsObject, description) {
-        costsObject.description = description;     
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        costsObject.description = description;
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
     deleteFixCost(costsObject, deleted: boolean) {
         costsObject.deleted = true;
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
-    
+
 }

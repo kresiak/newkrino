@@ -70,14 +70,6 @@ export class SupplierListComponent implements OnInit {
     }
     
 
-    getSupplierObservable(id: string): Observable<any> {
-        return this.suppliersObservable.map(suppliers => 
-        {
-            let supplier= suppliers.filter(s => s.data._id === id)[0];
-            return supplier ? supplier : null; 
-        } );
-    }
-
    // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
         if ($event.nextState)
