@@ -5,7 +5,7 @@ import { AdminService } from './admin.service'
 import { UserService } from './user.service'
 import { SapService } from './sap.service'
 import { SelectableData } from './../Classes/selectable-data'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 
 
@@ -93,6 +93,7 @@ export class OrderService {
     }
 
 
+    private annotatedOtpsForBudgetMapObservable: ConnectableObservable<any>;
 
 
     getAnnotatedOtpsForBudgetMap(): Observable<any> {
@@ -104,14 +105,22 @@ export class OrderService {
             }, new Map())
         }
 
-        return Observable.combineLatest(
+        if (this.annotatedOtpsForBudgetMapObservable) return this.annotatedOtpsForBudgetMapObservable
+
+        this.annotatedOtpsForBudgetMapObservable= Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.getOtpMoneySpentMapObservable(),
             this.sapService.getSapIdMapObservable(),
             this.sapService.getSapOtpMapObservable(),
             (otps, otpSpentMap, sapIdMap, sapOtpMap) => {
-                return hashMapFactory(otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap)).sort((a, b) => a.data.name < b.data.name ? -1 : 1))
-            });
+                var a=otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap))
+                var b= a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+                return hashMapFactory(b)
+            }).publishReplay(1);
+
+        this.annotatedOtpsForBudgetMapObservable.connect();
+
+        return this.annotatedOtpsForBudgetMapObservable
     }
 
 

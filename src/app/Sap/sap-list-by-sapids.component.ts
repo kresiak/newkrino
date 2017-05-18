@@ -64,11 +64,17 @@ export class SapListBySapIdsComponent implements OnInit {
                             date: sapItem.dateCreation,
                             product: sapItem.product,
                             tvac: sapItem.tvac,
-                            htva: sapItem.htva
+                            htva: sapItem.htva, 
+                            tvaCode: sapItem.codeTva,
+                            pieceId: sapItem.pieceId
                         })
                     })
                 }
             })
+            this.sapFacturesItemsList.sort((a, b)=> {
+                if (a.pieceId !== b.pieceId) return +a.pieceId - +b.pieceId
+                return +a.poste - +b.poste
+            } )
         })
     }
 
