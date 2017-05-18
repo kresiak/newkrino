@@ -9,7 +9,8 @@ export class TextCompactComponent implements OnInit {
   
     @Input() text;
     @Input() numberOfChar = 15;
-
+    @Input() extraTooltipText: string = '';
+    
     constructor() {
     }
 

@@ -50,28 +50,31 @@ export class AdminLabo {
 
         this.addAddressForm = this.formBuilder.group({
             nomAddAddress: ['', [Validators.required]],
-            descriptionAddAddress1: ['', [Validators.required]],
-            descriptionAddAddress2: ['', [Validators.required]],
-            descriptionAddAddress3: ['', [Validators.required]],
-            descriptionAddAddress4: ['', [Validators.required]]
+            descriptionAddAddress1: [''],
+            descriptionAddAddress2: [''],
+            descriptionAddAddress3: [''],
+            descriptionAddAddress4: ['']
         });
 
     }
-/*
-    saveAddAddress(formValue, isValid) {
-        if (!isValid) return
-        if (!+formValue.priceFixCosts) return
 
-        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts= []
-
-        this.supplier.data.fixCosts.push({
-            description: formValue.descriptionFixCosts,
-            price: +formValue.priceFixCosts
-        })
-            
-        this.dataStore.updateData('suppliers', this.supplier.data._id, this.supplier.data);
+    save(formValue, isValid) {
+       this.dataStore.addData('delivery.address', {
+            nom: formValue.nomAddAddress,
+            description1: formValue.descriptionAddAddress1,
+            description2: formValue.descriptionAddAddress2,
+            description3: formValue.descriptionAddAddress3,
+            description4: formValue.descriptionAddAddress4
+        }).first().subscribe(res => {
+            var x = res;
+            this.resetAddAddressForm();
+        });
     }
-*/
+
+    resetAddAddressForm() {
+        this.addAddressForm.reset();
+    }
+
     private saveLabo() {
         if (this.labo.data._id) {
             this.dataStore.updateData('labos', this.labo.data._id, this.labo.data);
@@ -155,5 +158,24 @@ export class AdminLabo {
         }
     }
 
+    nomDeliveryUpdated(nomDelivery, delivery) {
+        this.deliveryAdresses[delivery].nom = nomDelivery;
+       // this.dataStore.updateData('delivery.address', this.dataStore.updateData.objectId)
+    }
 
+    description1DeliveryUpdated(desc1) {
+        this.deliveryAdresses = desc1 
+    }
+
+    description2DeliveryUpdated(desc2) {
+        this.deliveryAdresses = desc2
+    }
+
+    description3DeliveryUpdated(desc3) {
+        this.deliveryAdresses = desc3
+    }
+
+    description4DeliveryUpdated(desc4) {
+        this.deliveryAdresses = desc4
+    }
 }

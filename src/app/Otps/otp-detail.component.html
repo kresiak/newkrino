@@ -82,10 +82,10 @@
 				<div class="card-block">
 					<div class="row">
 						<div class="row">
-						<div class="col-sm-3 vcenter">total budget:</div>
-						<div class="col-sm-7 vcenter">
-							<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-						</div>
+							<div class="col-sm-3 vcenter">total budget:</div>
+							<div class="col-sm-7 vcenter">
+								<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-3 vcenter">from:</div>

@@ -75,6 +75,35 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 
+                                                <div class="container-fluid">
+        						<div class="row">
+                                    <div class="col-sm-2 vcenter"><b>Nom</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Description 1</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Description 2</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Description 3</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Description 4</b></div>
+                                </div>
+                                <div *ngFor="let delivery of deliveryAdresses" [id]="delivery">
+                                    <div class="row">
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="delivery.nom" [showControls]="true" (editSaved)="nomDeliveryUpdated($event)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="delivery.description1" [showControls]="true" (editSaved)="description1DeliveryUpdated($event)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="delivery.description2" [showControls]="true" (editSaved)="description2DeliveryUpdated($event)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="delivery.description3" [showControls]="true" (editSaved)="description3DeliveryUpdated($event)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="delivery.description4" [showControls]="true" (editSaved)="description4DeliveryUpdated($event)"></gg-editor>
+                                        </div>
+                                    </div>                        
+                                </div>
+                            </div>
+											
                                             </div>
                                         </div>
                                     </template>
@@ -84,7 +113,7 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="container-fluid">
-                                                    <form [formGroup]="addAddress" (ngSubmit)="saveAddAddress(addAddressForm.value, addAddressForm.valid)">
+                                                    <form [formGroup]="addAddressForm" (ngSubmit)="save(addAddressForm.value, addAddressForm.valid)">
                                                         <div class="form-group row">
                                                             <label for="nomAddAddress" class="col-sm-2 col-form-label col-xl-2">Nom:</label>
                                                             <div class="col-sm-10">
@@ -92,25 +121,25 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress1" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+                                                            <label for="descriptionAddAddress1" class="col-sm-2 col-form-label col-xl-2">Description 1:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress1" id="descriptionAddAddress1" placeholder="Description 1">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress2" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+                                                            <label for="descriptionAddAddress2" class="col-sm-2 col-form-label col-xl-2">Description 2:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress2" id="descriptionAddAddress2" placeholder="Description 2">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress3" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+                                                            <label for="descriptionAddAddress3" class="col-sm-2 col-form-label col-xl-2">Description 3:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress3" id="descriptionAddAddress3" placeholder="Description 3">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress4" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+                                                            <label for="descriptionAddAddress4" class="col-sm-2 col-form-label col-xl-2">Description 4:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress4" id="descriptionAddAddress4" placeholder="Description 4">
                                                             </div>
