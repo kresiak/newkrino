@@ -20,17 +20,67 @@ export class SupplierService {
         })
     }
 
-    private hasSupplierBasketItems(supplier, produits, basketitems: any[]): boolean {
-        return produits.filter(produit => produit.supplierId === supplier._id).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
+/*    private hasSupplierBasketItems(supplierId, produits, basketitems: any[]): boolean {
+        return produits.filter(produit => produit.supplierId === supplierId).filter(produit => basketitems.map(item => item.produit).includes(produit._id)).length > 0;
+    }
+*/
+    private supplierIdsInBasketItems(produitsMap, basketitems: any[]): Set<string> {
+        var supplierIdSet = new Set<string>()
+        basketitems.forEach(item => {
+            var product = produitsMap.get(item.produit)
+            if (product && !supplierIdSet.has(product.supplierId)) {
+                supplierIdSet.add(product.supplierId)
+            }
+        })
+        return supplierIdSet
     }
 
 
+    private hashMapFactory = list2 => {
+        return list2.reduce((map, p) => {
+            map.set(p._id, p)
+            return map
+        }, new Map())
+    }
+
+    private getSupplierIdsSetObservableInBasketItems(basketItemsObservable: Observable<any>): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('products').map(this.hashMapFactory), basketItemsObservable,
+            (productsMap, basketItems) => {
+                return this.supplierIdsInBasketItems(productsMap, basketItems)
+            })
+    }
+
+    getSupplierIdsSetObservableWithBasketForCurrentUser(): Observable<any> {
+        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForCurrentUser())
+    }
+
+    getSupplierIdsSetObservableWithBasketForGroupOrdersUser(): Observable<any> {
+        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForGroupOrdersUser())
+    }
+
+    getSupplierIdsSetObservableWithCurrentUserParticipationInGroupsOrder(): Observable<any> {
+        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation())
+    }
+
+    getAnnotatedSupplierseWithBasketForCurrentUser(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotatedSuppliers(), this.getSupplierIdsSetObservableWithBasketForCurrentUser(),
+                    (annotatedSuppliers, supplierIdsSet) => {
+                        return annotatedSuppliers.filter(s => supplierIdsSet.has(s.data._id))
+                    })
+    }
+
+    getAnnotatedSupplierseWithCurrentUserParticipationInGroupsOrder(): Observable<any> {
+        return Observable.combineLatest(this.getAnnotatedSuppliers(), this.getSupplierIdsSetObservableWithCurrentUserParticipationInGroupsOrder(),
+                    (annotatedSuppliers, supplierIdsSet) => {
+                        return annotatedSuppliers.filter(s => supplierIdsSet.has(s.data._id))
+                    })
+    }
+
 
     getAnnotatedSuppliers(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.productService.getBasketItemsForCurrentUser(),
-            this.productService.getBasketItemsForGroupOrdersUser() , this.productService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation(), this.orderService.getSupplierFrequenceMapObservable(), 
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.orderService.getSupplierFrequenceMapObservable(),
             this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
-            (suppliers, produits, basketItems, basketNonUrgentItems, basketNonUrgentItemsForCurrentUser, supplierFrequenceMap, voucherMap, categories) => {
+            (suppliers, produits, supplierFrequenceMap, voucherMap, categories) => {
                 if (!this.authService.getUserId() || (!this.authService.getEquipeId() && !this.authService.isCurrentUserGroupOrderUser())) return [];
 
                 return suppliers.map(supplier => {
@@ -38,9 +88,6 @@ export class SupplierService {
                     return {
                         data: supplier,
                         annotation: {
-                            hasBasket: this.hasSupplierBasketItems(supplier, produits, basketItems),
-                            hasNonUrgentBasket: this.hasSupplierBasketItems(supplier, produits, basketNonUrgentItems),  
-                            hasNonUrgentBasketForCurrentUser: this.hasSupplierBasketItems(supplier, produits, basketNonUrgentItemsForCurrentUser),                           
                             supplierFrequence: supplierFrequenceMap.get(supplier._id) || 0,
                             voucherCategoryMap: voucherCategoryMap,
                             webShopping: {
@@ -65,6 +112,8 @@ export class SupplierService {
     getAnnotatedSuppliersByFrequence(): Observable<any> {
         return this.getAnnotatedSuppliers().map(prods => prods.sort((a, b) => b.annotation.supplierFrequence - a.annotation.supplierFrequence));
     }
+
+
 
     getAnnotatedSupplierById(id: string): Observable<any> {
         return this.getAnnotatedSuppliers().map(suppliers => {

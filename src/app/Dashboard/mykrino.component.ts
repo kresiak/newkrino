@@ -54,9 +54,9 @@ export class MyKrinoComponent implements OnInit {
             this.state= state
         })        
         
-        this.suppliersWithBasketObservable = this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
+        this.suppliersWithBasketObservable = this.supplierService.getAnnotatedSupplierseWithBasketForCurrentUser()
 
-        this.suppliersWithNonUrgentBasketObservable = this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasNonUrgentBasketForCurrentUser));
+        this.suppliersWithNonUrgentBasketObservable = this.supplierService.getAnnotatedSupplierseWithCurrentUserParticipationInGroupsOrder()
 
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
 
