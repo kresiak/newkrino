@@ -23,7 +23,7 @@ export class ProductListComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
-        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoAll();
+        this.productsObservable = this.productService.getAnnotatedProductsAll();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo

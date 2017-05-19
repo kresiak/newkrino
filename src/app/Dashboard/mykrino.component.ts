@@ -64,7 +64,7 @@ export class MyKrinoComponent implements OnInit {
 
         this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByCurrentUser()
 
-        this.productsObservable = this.productService.getAnnotatedProductsBoughtByCurrentUserWithBasketInfo();
+        this.productsObservable = this.productService.getAnnotatedProductsBoughtByCurrentUser();
         this.subscriptionCurrentUser = this.authService.getAnnotatedCurrentUser().subscribe(res => {
             this.currentUser = res;
         });

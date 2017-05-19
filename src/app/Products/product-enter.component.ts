@@ -61,7 +61,7 @@ export class ProductEnterComponent implements OnInit {
         this.subscriptionCheckCatNr= this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
             this.alreadyCatNrInDb=false
             if (catNr.length > 3) {
-                this.productService.getAnnotatedProductsWithBasketInfoByCatalogNr(catNr).first().subscribe(prodList => {
+                this.productService.getAnnotatedProductsByCatalogNr(catNr).first().subscribe(prodList => {
                     this.alreadyCatNrInDb= prodList && prodList.length > 0
                 })
             }
