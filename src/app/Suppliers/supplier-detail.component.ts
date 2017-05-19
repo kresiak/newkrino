@@ -64,6 +64,8 @@ export class SupplierDetailComponent implements OnInit {
         });
     }
 
+    private isPageRunning: boolean= true
+
     ngOnInit(): void {
         this.stateInit()
         this.initForms()
@@ -73,14 +75,14 @@ export class SupplierDetailComponent implements OnInit {
         this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(this.supplierId);
 
         this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
-        this.subscriptionIsBasket = this.productsBasketObservable.subscribe(products => this.isThereABasket = products && products.length > 0);
+        this.productsBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereABasket = products && products.length > 0);
 
         this.productsGroupedBasketObservable = this.productService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(this.supplierId);
-        this.subscriptionIsGroupedBasket = this.productsGroupedBasketObservable.subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
+        this.productsGroupedBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
 
         this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(this.supplierId);
-        this.subscriptionAnyOrder = this.orderService.hasSupplierAnyOrder(this.supplierId).subscribe(anyOrder => this.anyOrder = anyOrder);
-        this.subscriptionCurrentUser = this.authService.getAnnotatedCurrentUser().subscribe(user => {
+        this.orderService.hasSupplierAnyOrder(this.supplierId).takeWhile(() => this.isPageRunning).subscribe(anyOrder => this.anyOrder = anyOrder);
+        this.authService.getAnnotatedCurrentUser().takeWhile(() => this.isPageRunning).subscribe(user => {
             this.currentAnnotatedUser = user
         })
 
@@ -88,22 +90,17 @@ export class SupplierDetailComponent implements OnInit {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
-        this.subscriptionSupplier = this.supplierObservable.subscribe(supplier => {
+        this.supplierObservable.takeWhile(() => this.isPageRunning).subscribe(supplier => {
             this.supplier = supplier;
         });
 
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         })
     }
 
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionSupplier.unsubscribe()
-        this.subscriptionIsBasket.unsubscribe()
-        this.subscriptionIsGroupedBasket.unsubscribe()
-        this.subscriptionAnyOrder.unsubscribe()
-        this.subscriptionCurrentUser.unsubscribe()
+        this.isPageRunning= false
     }
 
     resetFixCosts() {
@@ -125,13 +122,6 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private subscriptionSupplier: Subscription
-
-    private subscriptionIsBasket: Subscription
-    private subscriptionIsGroupedBasket: Subscription
-    private subscriptionAnyOrder: Subscription
-    private subscriptionCurrentUser: Subscription
 
     private productsObservable: Observable<any>;
     private productsBasketObservable: Observable<any>;
