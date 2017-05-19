@@ -18,7 +18,7 @@ export class BasketRoutableComponent implements OnInit {
     suppliersWithBasketObservable: Observable<any>;
 
     ngOnInit(): void {
-        this.suppliersWithBasketObservable= this.supplierService.getAnnotatedSuppliers().map(suppliers => suppliers.filter(supplier => supplier.annotation.hasBasket));
+        this.suppliersWithBasketObservable= this.supplierService.getAnnotatedSupplierseWithBasketForCurrentUser()
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo

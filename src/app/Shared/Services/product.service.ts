@@ -552,21 +552,27 @@ export class ProductService {
         return Observable.from([[]])         // we need the double [[]]   the emptyobservable has to return a first value. Otherwise combineLatest gets stuck
     }
 
+    private hashMapFactory = list => {
+        return list.reduce((map, p) => {
+            map.set(p._id, p)
+            return map
+        }, new Map())
+    }
+
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
-        return Observable.combineLatest(this.getProductsBySupplier(supplierId), basketObservable, 
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId).map(this.hashMapFactory), basketObservable, 
                 otpNeeded ? this.orderService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
                 this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
                 this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
             (products, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
-                return products.filter(product => basketItems.map(item => item.produit).includes(product._id))
-                    .map(product => {
-                        let basketItemFiltered = basketItems.filter(item => item.produit === product._id);
-                        return basketItemFiltered && basketItemFiltered.length > 0 ? {
+                return basketItems.filter(item => products.has(item.produit)).map(basketItemFiltered => {
+                    let product= products.get(basketItemFiltered.produit)
+                    return {
                             data: product,
                             annotation: {
-                                basketId: basketItemFiltered[0]._id,
-                                basketData: basketItemFiltered[0],
-                                basketItems: !basketItemFiltered[0].items ? [] : basketItemFiltered[0].items.map(item => {
+                                basketId: basketItemFiltered._id,
+                                basketData: basketItemFiltered,
+                                basketItems: !basketItemFiltered.items ? [] : basketItemFiltered.items.map(item => {
                                     let user= annotatedUsers.filter(user => user.data._id === item.userId)[0]
                                     let equipe= equipes.filter(eq => eq._id === item.equipeId)[0]
                                     return {
@@ -578,13 +584,13 @@ export class ProductService {
                                     }
                                 }),
                                 hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
-                                quantity: basketItemFiltered[0].quantity,
-                                totalPrice: product.price * basketItemFiltered[0].quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
-                                otp: basketItemFiltered[0].otpId ? { name: 'will never be used, or?', _id: basketItemFiltered[0].otpId } :
-                                    otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered[0].quantity, otpsBudgetMap, currentEquipeId) : null
+                                quantity: basketItemFiltered.quantity,
+                                totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
+                                otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId } :
+                                    otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
                             }
-                        } : null;
-                    });
+                        }
+                })
             }
         );
     }

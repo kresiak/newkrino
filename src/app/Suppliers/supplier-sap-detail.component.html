@@ -22,7 +22,7 @@
 				<div class="card-block">
 					<div *ngIf="krinoSupplier">
 						<h6>{{supplier.name}} is already in Krino</h6> <br>
-						<gg-supplier-detail [supplierObservable]="krinoSupplierObservable" [initialTab]="'tabInfo'"></gg-supplier-detail>
+						<gg-supplier-detail [supplierId]="krinoSupplier.data._id" [initialTab]="'tabInfo'"></gg-supplier-detail>
 					</div>
 					<div *ngIf="!krinoSupplier">
 						<br/>

@@ -27,11 +27,11 @@ export class ReceptionDetailComponent implements OnInit {
             position: ['']
         });
         
-        this.supplierSubscrible = this.supplierService.getAnnotatedSuppliers().subscribe(suppliers => {
+        this.supplierSubscrible = this.dataStore.getDataObservable('suppliers').subscribe(suppliers => {
             this.suppliersList = suppliers.map(supplier => {
                 return {
-                    id: supplier.data._id,
-                    value: supplier.data.name
+                    id: supplier._id,
+                    value: supplier.name
                 }
             })
         });
