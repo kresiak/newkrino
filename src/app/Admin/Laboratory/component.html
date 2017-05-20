@@ -83,22 +83,22 @@
                                     <div class="col-sm-2 vcenter"><b>Description 3</b></div>
                                     <div class="col-sm-2 vcenter"><b>Description 4</b></div>
                                 </div>
-                                <div *ngFor="let delivery of deliveryAdresses" [id]="delivery">
+                                <div *ngFor="let delivery of deliveryAdresses">
                                     <div class="row">
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.nom" [showControls]="true" (editSaved)="nomDeliveryUpdated($event)"></gg-editor>
+                                            <gg-editor [content]="delivery.nom" [showControls]="true" (editSaved)="nomDeliveryUpdated(delivery, $event)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description1" [showControls]="true" (editSaved)="description1DeliveryUpdated($event)"></gg-editor>
+                                            <gg-editor [content]="delivery.description1" [showControls]="true" (editSaved)="description1DeliveryUpdated(delivery, $event)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description2" [showControls]="true" (editSaved)="description2DeliveryUpdated($event)"></gg-editor>
+                                            <gg-editor [content]="delivery.description2" [showControls]="true" (editSaved)="description2DeliveryUpdated(delivery, $event)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description3" [showControls]="true" (editSaved)="description3DeliveryUpdated($event)"></gg-editor>
+                                            <gg-editor [content]="delivery.description3" [showControls]="true" (editSaved)="description3DeliveryUpdated(delivery, $event)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description4" [showControls]="true" (editSaved)="description4DeliveryUpdated($event)"></gg-editor>
+                                            <gg-editor [content]="delivery.description4" [showControls]="true" (editSaved)="description4DeliveryUpdated(delivery, $event)"></gg-editor>
                                         </div>
                                     </div>                        
                                 </div>

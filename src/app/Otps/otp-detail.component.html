@@ -102,38 +102,38 @@
 						<div class="row">
 							<label for="isAnnual" class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
 							<div class="col-md-1 vcenter">
-								<input type="checkbox" name="isAnnual" (click)="isAnnualChecked($event, otp, isAnnual)" id="isAnnual" class="isCheckbox" value="">
+								<gg-checkbox [checked]="isAnnualSelected(isAnnual)" (checkedChange)="isAnnualChecked($event)"></gg-checkbox>
 							</div>
 						</div>
-						<div class="form-group row" [hidden]="!isAnnual">
-						<form [formGroup]="annualForm" (ngSubmit)="save(annualForm.value, annualForm.valid)" >
-							<div class="form-group row">
-								<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
-								<div class="col-sm-9">
-									<input type="number" min="0" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="budget">
+						<div class="form-group row" *ngIf="otp.data.isAnnual">
+							<form [formGroup]="annualForm" (ngSubmit)="save(annualForm.value, annualForm.valid)" >
+								<div class="form-group row">
+									<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
+									<div class="col-sm-7">
+										<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="Budget annual">
+									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-3 vcenter">from:</div>
-								<div class="col-sm-7 vcenter">
-									<gg-editor-date [content]="otp.data.datStartAnnual" (editSaved)="updatedDateStartAnnual($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+								<div class="form-group row">
+									<div class="col-sm-3 vcenter">from:</div>
+									<div class="col-sm-7 vcenter">
+										<gg-editor-date [content]="otp.data.datStartAnnual" (editSaved)="updatedDateStartAnnual($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-3 vcenter">to:</div>
-								<div class="col-sm-7 vcenter">
-									<gg-editor-date [content]="otp.data.datEndAnnual" (editSaved)="updatedDateEndAnnual($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+								<div class="form-group row">
+									<div class="col-sm-3 vcenter">to:</div>
+									<div class="col-sm-7 vcenter">
+										<gg-editor-date [content]="otp.data.datEndAnnual" (editSaved)="updatedDateEndAnnual($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								<div class="col-sm-3 col-md-2 col-lg-2">
-									<button class="btn btn-success" type="submit" [disabled]="!annualForm.valid">Submit</button>
+								<div class="form-group row">
+									<div class="col-sm-3 col-md-2 col-lg-2">
+										<button class="btn btn-success" type="submit" [disabled]="!annualForm.valid">Submit</button>
+									</div>
+									<div class="col-sm-3 col-md-2 col-lg-2">
+										<button class="btn btn-info"  [disabled]="annualForm.pristine" (click)="reset()">Reset</button>
+									</div>
 								</div>
-								<div class="col-sm-3 col-md-2 col-lg-2">
-									<button class="btn btn-info"  [disabled]="annualForm.pristine" (click)="reset()">Reset</button>
-								</div>
-							</div>
-						</form>
+							</form>
 						</div>
 					</div>
 				</div>

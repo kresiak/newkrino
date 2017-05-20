@@ -157,25 +157,29 @@ export class AdminLabo {
             this.saveSteps()
         }
     }
-
-    nomDeliveryUpdated(nomDelivery, delivery) {
-        this.deliveryAdresses[delivery].nom = nomDelivery;
-       // this.dataStore.updateData('delivery.address', this.dataStore.updateData.objectId)
+    
+    nomDeliveryUpdated(delivery, nomDelivery) {
+        delivery.nom = nomDelivery;
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
 
-    description1DeliveryUpdated(desc1) {
-        this.deliveryAdresses = desc1 
+    description1DeliveryUpdated(delivery, desc1) {
+        delivery.description1 = desc1
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
 
-    description2DeliveryUpdated(desc2) {
-        this.deliveryAdresses = desc2
+    description2DeliveryUpdated(delivery, desc2) {
+        delivery.description2 = desc2
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
 
-    description3DeliveryUpdated(desc3) {
-        this.deliveryAdresses = desc3
+    description3DeliveryUpdated(delivery, desc3) {
+        delivery.description3 = desc3
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
 
-    description4DeliveryUpdated(desc4) {
-        this.deliveryAdresses = desc4
+    description4DeliveryUpdated(delivery, desc4) {
+        delivery.description4 = desc4
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
 }

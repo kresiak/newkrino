@@ -90,12 +90,12 @@ export class OtpDetailComponent implements OnInit {
         }));
 
         this.annualForm = this.formBuilder.group({
-            budgetAnnual: ['', Validators.required]
+            budgetAnnual: ['', [Validators.required]]
         });
     }
 
     save(formValue, isValid) {
-        this.dataStore.addData('otps', {
+/*        this.otp.data._id.push({
             budgetAnnual: formValue.budgetAnnual,
             datStartAnnual: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
             datEndAnnual: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
@@ -103,12 +103,11 @@ export class OtpDetailComponent implements OnInit {
             var x = res;
             this.reset();
         });
-    }
+*/    }
 
     reset() {
         this.annualForm.reset();
     }
-
 
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
@@ -229,15 +228,21 @@ export class OtpDetailComponent implements OnInit {
 
     updatedDateStartAnnual(date) {
         this.datStartAnnual = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
     updatedDateEndAnnual(date) {
         this.datEndAnnual = date;
-    }
-private isAnnual: boolean = false;
-    isAnnualChecked($event, otp, isAnnual: boolean) {
-        this.otp.data.isAnnual = isAnnual;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    isAnnualChecked(isAnnual) {
+        this.otp.data.isAnnual = isAnnual
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    isAnnualSelected(isAnnual) {
+        return this.otp.data.isAnnual 
+    }
+    
 }
