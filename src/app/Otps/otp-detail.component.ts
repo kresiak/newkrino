@@ -94,16 +94,9 @@ export class OtpDetailComponent implements OnInit {
         });
     }
 
-    save(formValue, isValid) {
-/*        this.otp.data._id.push({
-            budgetAnnual: formValue.budgetAnnual,
-            datStartAnnual: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
-            datEndAnnual: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
-        }).first().subscribe(res => {
-            var x = res;
-            this.reset();
-        });
-*/    }
+    SaveNewBudget(formValue, isValid) {
+
+    }
 
     reset() {
         this.annualForm.reset();
@@ -236,13 +229,10 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    isAnnualChecked(isAnnual) {
+    updatedIsAnnualChecked(isAnnual) {
         this.otp.data.isAnnual = isAnnual
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    isAnnualSelected(isAnnual) {
-        return this.otp.data.isAnnual 
-    }
-    
+
 }

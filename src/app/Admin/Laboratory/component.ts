@@ -50,8 +50,8 @@ export class AdminLabo {
 
         this.addAddressForm = this.formBuilder.group({
             nomAddAddress: ['', [Validators.required]],
-            descriptionAddAddress1: [''],
-            descriptionAddAddress2: [''],
+            descriptionAddAddress1: ['', [Validators.required]],
+            descriptionAddAddress2: ['', [Validators.required]],
             descriptionAddAddress3: [''],
             descriptionAddAddress4: ['']
         });
@@ -159,8 +159,9 @@ export class AdminLabo {
     }
     
     nomDeliveryUpdated(delivery, nomDelivery) {
+        if (nomDelivery == '') return 
         delivery.nom = nomDelivery;
-        this.dataStore.updateData('delivery.address', delivery._id, delivery);
+        this.dataStore.updateData('delivery.address', delivery._id, delivery)       
     }
 
     description1DeliveryUpdated(delivery, desc1) {

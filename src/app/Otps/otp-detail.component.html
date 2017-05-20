@@ -100,13 +100,13 @@
 							</div>
 						</div>
 						<div class="row">
-							<label for="isAnnual" class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
+							<label for="fsdffsf" class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
 							<div class="col-md-1 vcenter">
-								<gg-checkbox [checked]="isAnnualSelected(isAnnual)" (checkedChange)="isAnnualChecked($event)"></gg-checkbox>
+								<gg-checkbox [checked]="this.otp.data.isAnnual" (checkedChange)="updatedIsAnnualChecked($event)"></gg-checkbox>
 							</div>
 						</div>
 						<div class="form-group row" *ngIf="otp.data.isAnnual">
-							<form [formGroup]="annualForm" (ngSubmit)="save(annualForm.value, annualForm.valid)" >
+							<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)" >
 								<div class="form-group row">
 									<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
 									<div class="col-sm-7">
