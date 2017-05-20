@@ -257,22 +257,29 @@
 									<div class="card">
 										<div class="card-block">
 											<div class="row">
-												<div class="col-sm-3 "><b>When</b></div>
+												<div class="col-sm-2 "><b>When</b></div>
 												<div class="col-sm-2 "><b>Who</b></div>
-												<div class="col-sm-3 "><b>Product</b></div>
+												<div class="col-sm-2 "><b>Product</b></div>
 												<div class="col-sm-1 "><b>Quantity</b></div>
 												<div class="col-sm-1 "><b>Lot Number</b></div>
 												<div class="col-sm-2 "><b>Location</b></div>
+												<div class="col-sm-2 " *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Delete</b></div>
 											</div>
 
 											<div *ngFor="let item of order.annotation.items">
 												<div class="row" *ngFor="let delivery of item.annotation.deliveries">
-													<div class="col-sm-3 ">{{delivery.data.date | fullDate}}</div>
-													<div class="col-sm-2 ">{{delivery.annotation.userLm}}</div>
-													<div class="col-sm-3 ">{{item.annotation.description}}</div>
-													<div class="col-sm-1 ">{{delivery.data.quantity}}</div>
+													<div class="col-sm-2">{{delivery.data.date | fullDate}}</div>
+													<div class="col-sm-2">{{delivery.annotation.userLm}}</div>
+													<div class="col-sm-2">{{item.annotation.description}}</div>
+													<div class="col-sm-1">{{delivery.data.quantity}}</div>
 													<div class="col-sm-1">{{delivery.data.lotNb}}</div>
 													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
+													<div class="col-sm-2" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">  
+														<input type="checkbox" [ngbTooltip]="'click here to select the delivery for deletion'" *ngIf="!delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete" />
+														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected delivery item and can't be undone. Click here if you are sure you want to delete it." 
+																	*ngIf="delivery.data.isDueToDelete" (click)="deteteDeliveryItem(item, delivery)">Delete</div>
+														<div class="btn btn-success btn-sm" *ngIf="delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete">Cancel</div>
+													</div>
 												</div>
 											</div>
 										</div>

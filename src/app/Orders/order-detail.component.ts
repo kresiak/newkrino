@@ -82,7 +82,7 @@ export class OrderDetailComponent implements OnInit {
         var self = this
 
         this.dataStore.getDataObservable('products.stock').first().subscribe(stockItems => {
-            var stockSaveTaskList: Observable<any>[]=[]
+            var stockSaveTaskList: Observable<any>[] = []
 
             var prepareDeliveryDataForOrder = function (qty: number): any {
                 return {
@@ -103,7 +103,7 @@ export class OrderDetailComponent implements OnInit {
                     history: [{ userId: self.authorizationStatusInfo.currentUserId, date: moment().format('DD/MM/YYYY HH:mm:ss'), quantity: qtyInStock, orderId: orderId }]
                 };
                 let stockItem = stockItems.filter(si => si.productId === prodData.productId && si.divisionFactor === prodData.divisionFactor
-                    && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]                    
+                    && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]
                 if (stockItem) {
                     stockItem.quantity += prodData.quantity;
                     (stockItem.history = stockItem.history || []).push(prodData.history[0])
@@ -111,7 +111,7 @@ export class OrderDetailComponent implements OnInit {
                     stockSaveTaskList.push(self.dataStore.updateData('products.stock', stockItem._id, stockItem))
                 }
                 else {
-                    var obs= self.dataStore.addData('products.stock', prodData).first().do(res => fnSetStockIdOnOrderDeliveryItem(res._id))
+                    var obs = self.dataStore.addData('products.stock', prodData).first().do(res => fnSetStockIdOnOrderDeliveryItem(res._id))
                     stockSaveTaskList.push(obs)
                 }
             }
@@ -122,8 +122,8 @@ export class OrderDetailComponent implements OnInit {
                 var deliveryDataForOrder: any = prepareDeliveryDataForOrder(+tmpItem.nbDelivered)
                 if (orderItem.annotation.needsLotNumber) deliveryDataForOrder.lotNb = tmpItem.noLot
                 orderItem.data.deliveries.push(deliveryDataForOrder)
-                if (orderItem.annotation.isStockProduct && tmpItem.isForStock) 
-                    doStockWorkAndPrepareObservable(stockItems, this.order.data._id, orderItem, +tmpItem.nbDelivered, tmpItem.noLot, stockId => deliveryDataForOrder.stockId= stockId)
+                if (orderItem.annotation.isStockProduct && tmpItem.isForStock)
+                    doStockWorkAndPrepareObservable(stockItems, this.order.data._id, orderItem, +tmpItem.nbDelivered, tmpItem.noLot, stockId => deliveryDataForOrder.stockId = stockId)
             })
 
             Observable.forkJoin(stockSaveTaskList).subscribe(res => {
@@ -134,7 +134,7 @@ export class OrderDetailComponent implements OnInit {
 
     private tmpDeliveryItems;
 
-    
+
 
     openModal(template) {
         this.tmpDeliveryItems = this.order.annotation.items.map(item => {
@@ -277,4 +277,33 @@ export class OrderDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     };
 
+    deteteDeliveryItem(orderItem, deliveryItem) {
+        var stockId = deliveryItem.data.stockId
+        var qty = +deliveryItem.data.quantity
+
+        if (stockId) {
+            this.dataStore.getDataObservable('products.stock').first().subscribe(stockProducts => {
+                var stockItem = stockProducts.filter(sp => sp._id === stockId)[0]
+                if (stockItem) {
+                    let qtyInStock = qty * +orderItem.annotation.stockDivisionFactor
+                    stockItem.quantity -= qtyInStock;
+                    (stockItem.history = stockItem.history || []).push(
+                        { 
+                            userId: this.authorizationStatusInfo.currentUserId, 
+                            date: moment().format('DD/MM/YYYY HH:mm:ss'), 
+                            quantity: -qtyInStock, 
+                            orderId: this.order.data._id 
+                        })
+                    this.dataStore.updateData('products.stock', stockItem._id, stockItem)
+                }
+            })
+        }
+        var pos = orderItem.data.deliveries.indexOf(deliveryItem.data)
+        if (pos >= 0) orderItem.data.deliveries.splice(pos, 1)
+        this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+    }
 }
+
+
+
+
