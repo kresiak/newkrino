@@ -126,9 +126,14 @@ export class OrderDetailComponent implements OnInit {
                     doStockWorkAndPrepareObservable(stockItems, this.order.data._id, orderItem, +tmpItem.nbDelivered, tmpItem.noLot, stockId => deliveryDataForOrder.stockId = stockId)
             })
 
-            Observable.forkJoin(stockSaveTaskList).subscribe(res => {
+            if (stockSaveTaskList.length > 0) {
+                Observable.forkJoin(stockSaveTaskList).subscribe(res => {
+                    this.dataStore.updateData('orders', this.order.data._id, this.order.data);
+                })
+            }
+            else {
                 this.dataStore.updateData('orders', this.order.data._id, this.order.data);
-            })
+            }
         })
     }
 
@@ -288,11 +293,11 @@ export class OrderDetailComponent implements OnInit {
                     let qtyInStock = qty * +orderItem.annotation.stockDivisionFactor
                     stockItem.quantity -= qtyInStock;
                     (stockItem.history = stockItem.history || []).push(
-                        { 
-                            userId: this.authorizationStatusInfo.currentUserId, 
-                            date: moment().format('DD/MM/YYYY HH:mm:ss'), 
-                            quantity: -qtyInStock, 
-                            orderId: this.order.data._id 
+                        {
+                            userId: this.authorizationStatusInfo.currentUserId,
+                            date: moment().format('DD/MM/YYYY HH:mm:ss'),
+                            quantity: -qtyInStock,
+                            orderId: this.order.data._id
                         })
                     this.dataStore.updateData('products.stock', stockItem._id, stockItem)
                 }
