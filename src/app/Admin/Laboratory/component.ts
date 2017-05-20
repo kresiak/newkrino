@@ -159,7 +159,7 @@ export class AdminLabo {
     }
     
     nomDeliveryUpdated(delivery, nomDelivery) {
-        if (nomDelivery == '') return 
+        if (nomDelivery === '') return 
         delivery.nom = nomDelivery;
         this.dataStore.updateData('delivery.address', delivery._id, delivery)       
     }

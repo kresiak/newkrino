@@ -1,5 +1,10 @@
 
-
 <div [ngbTooltip]="text">{{shortText()}}</div>
 
-<div *ngIf="extraText" [ngbTooltip]="text + ' (' + extraTooltipText +')'">{{shortText()}}</div>
+<div #cvf>
+    <div [ngbTooltip]="cvf"> {{shortText}}</div>
+</div>
+
+
+<div [ngbTooltip]="text + ' (' + extraTooltipText +')'">{{shortText()}}</div>
+
