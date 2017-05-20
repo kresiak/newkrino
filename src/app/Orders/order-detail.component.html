@@ -19,7 +19,8 @@
 					<div class="col-sm-2"><b>Resell as</b></div>
 				</div>
 				<div class="row" *ngFor="let item of tmpDeliveryItems">
-					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr"[style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')" >{{item.product}}</div>
+					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr"
+							[style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered && +item.nbDelivered > 0 && +item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')" >{{item.product}}</div>
 					<div class="col-sm-1">{{item.nbOrdered}}</div>
 					<div class="col-sm-1">{{item.nbAlready}}</div>
 					<div class="col-sm-2">
