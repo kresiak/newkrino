@@ -19,16 +19,16 @@
 					<div class="col-sm-2"><b>Resell as</b></div>
 				</div>
 				<div class="row" *ngFor="let item of tmpDeliveryItems">
-					<div class="col-sm-4">{{item.product}}</div>
+					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr"[style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')" >{{item.product}}</div>
 					<div class="col-sm-1">{{item.nbOrdered}}</div>
 					<div class="col-sm-1">{{item.nbAlready}}</div>
 					<div class="col-sm-2">
-						<input type="number" class="form-control" [(ngModel)]="item.nbDelivered"/>
+						<input *ngIf="item.nbAlready < item.nbOrdered" type="number" class="form-control" [(ngModel)]="item.nbDelivered"/>
 					</div>
-					<div class="col-sm-2" *ngIf="item.noLot || item.noLot===''">
+					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')">
 						<input type="text" class="form-control" [(ngModel)]="item.noLot"/>
 					</div>
-					<div class="col-sm-2" *ngIf="item.stockPackaging">
+					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging">
 						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock"/>
 					</div>
 				</div>

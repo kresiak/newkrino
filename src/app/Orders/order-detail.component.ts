@@ -134,12 +134,15 @@ export class OrderDetailComponent implements OnInit {
 
     private tmpDeliveryItems;
 
+    
+
     openModal(template) {
         this.tmpDeliveryItems = this.order.annotation.items.map(item => {
 
             var obj: any = {
                 item: item,
                 product: item.annotation.description,
+                catalogNr: item.annotation.catalogNr,
                 nbOrdered: item.data.quantity,
                 nbAlready: item.annotation.nbDelivered,
                 nbDelivered: 0,
