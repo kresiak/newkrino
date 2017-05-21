@@ -15,18 +15,19 @@ export class TextCompactComponent implements OnInit {
 
     ngOnInit(): void {}
 
+private cvf : boolean = false
+
     shortText() {
+        if (this.extraTooltipText == '') {
+           return this.cvf = false
+        }
         if (this.text.length > (this.numberOfChar + 3)) {
             var lengthText = this.text.substring(this.numberOfChar)
             var addNumberOfChar = lengthText.indexOf(' ')
             var firstSpace = this.numberOfChar + addNumberOfChar
-            this.text.substring(0, firstSpace)+'...'
-
-                if (this.extraTooltipText != '') {
-                    return this.extraT
-                }
+                 return  this.text.substring(0, firstSpace)+'...'
+            }
         else return this.text;
         }
-    }
-private extraT 
+    
 }
