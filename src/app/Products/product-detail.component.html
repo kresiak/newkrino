@@ -95,7 +95,7 @@
 								<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 							</div>
 						</div>
-						<div class="row"  ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
+						<div class="row" [style.color]="product.data.divisionFactor===1 || product.data.stockPackage ? 'black' : 'red'"  ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
 							<div class="col-sm-3 vcenter">stock packaging:</div>
 							<div class="col-sm-6 vcenter">
 								<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
