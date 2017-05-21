@@ -31,7 +31,6 @@
 			<div class="col-sm-3 col-md-3 vcenter">
 				<b>Product</b>
 			</div>
-			<div class="col-sm-2 col-md-2 vcenter" ><b>Category</b></div>
 			<div class="col-sm-2 col-md-2 vcenter">
 				<b>Price</b>
 			</div>
@@ -39,6 +38,8 @@
 			<div class="col-sm-2 col-md-2 vcenter">
 				<b>Qty in basket</b>
 			</div>
+			<div class="col-sm-1 col-md-1 vcenter"><b>Total</b></div>
+			<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('otp')"><b>Otp</b></div>
 
 		</div>
 
@@ -47,10 +48,6 @@
 				<div class="col-sm-3 col-md-3 vcenter">
 					<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event, product)" class="imgSearch"
 					 (click)="navigateToProduct(product)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-				</div>
-				<div class="col-sm-2 col-md-2 vcenter">
-					<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getProductCategoryIdsObservable(product.data._id)" (selectionChanged)="categorySelectionChanged($event, product)"
-					 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter">
 					<gg-editor [id]="product.data._id" [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event, product)"
@@ -62,6 +59,43 @@
 					<div *ngIf="!product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
 					<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="getProductObservable(product.data._id)"></gg-product-fridge-order-button>
 
+				</div>
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="product.annotation.totalPrice">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
+
+				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && product.annotation.otp._id && showColumn('otp')">
+					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
+					 [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete>
+				</div>
+				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="!isGroupedBasket">
+					<button type="button" class="btn btn-link" (click)="setNotUrgent(product)">Set as not urgent</button>
+				</div>
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isGroupedBasket">
+					<button type="button" class="btn btn-link" (click)="product.annotation.isClosed=!product.annotation.isClosed">Show/hide details</button>					
+				</div>				
+			</div>
+			<div class="row"  [ngbCollapse]="!product.annotation.isClosed">
+				<div class="col-sm-12 col-md-12">
+					<div class="card">
+						<div class="row">
+							<div class="col-sm-2 col-md-2 vcenter">When?</div>
+							<div class="col-sm-2 col-md-3 vcenter">Who?</div>	
+							<div class="col-sm-2 col-md-3 vcenter">Equipe</div>
+							<div class="col-sm-2 col-md-2 vcenter">How many</div>
+						</div>
+						<div class="card">
+							<div class="row" *ngFor="let item of product.annotation.basketItems">
+								<div class="col-sm-2 col-md-2 vcenter"><gg-date-pointer [date]="item.data.date"></gg-date-pointer></div>
+								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.userFullName}}</div>
+								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.equipe}}</div>
+								<div class="col-sm-2 col-md-2 vcenter">
+									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" 
+										[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+									</gg-editor-number> 
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 

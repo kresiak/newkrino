@@ -39,7 +39,7 @@ export class CategoryDetailComponent implements OnInit {
          this.subscriptionCategory= this.categoryObservable.subscribe(category => {
             this.category = category;
             if (category) {
-                this.productsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCategory(category.data._id)
+                this.productsObservable= this.productService.getAnnotatedProductsByCategory(category.data._id)
                 this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id)
             }
         });

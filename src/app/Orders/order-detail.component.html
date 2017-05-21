@@ -11,30 +11,26 @@
 		<div class="card">
 			<div class="card-block">
 				<div class="row">
-					<div class="col-sm-3">Product:</div>
-					<div class="col-sm-8">{{selectedDeliveryItem.annotation.description}}</div>
+					<div class="col-sm-4"><b>Product</b></div>
+					<div class="col-sm-1"><b>Ordered</b></div>
+					<div class="col-sm-1"><b>Already</b></div>
+					<div class="col-sm-2"><b>Today</b></div>
+					<div class="col-sm-2"><b>No Lot</b></div>
+					<div class="col-sm-2"><b>Resell as</b></div>
 				</div>
-				<div class="row">
-					<div class="col-sm-3">Quantity ordered:</div>
-					<div class="col-sm-8">{{selectedDeliveryItem.data.quantity}}</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-3">Already delivered:</div>
-					<div class="col-sm-8">{{selectedDeliveryItem.annotation.nbDelivered}}</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-3 vcenter">Quantity delivered today:</div>
-					<div class="col-sm-8 vcenter"><input #inputQty type="number" class="form-control" placeholder="enter quantity delivered" min="1" [max]="selectedDeliveryItem.data.quantity-selectedDeliveryItem.annotation.nbDelivered"
-						/></div>
-				</div>
-				<div class="row" [hidden]="!selectedDeliveryItem.annotation.needsLotNumber">
-					<div class="col-sm-3 vcenter">No lot:</div>
-					<div class="col-sm-8 vcenter"><input #inputLotNo type="text" class="form-control" placeholder="enter lot number" /></div>
-				</div>
-				<div class="row" [hidden]="!selectedDeliveryItem.annotation.isStockProduct">
-					<div class="col-sm-6">
-						<label>Put in the stock and resell as {{selectedDeliveryItem.annotation.stockPackaging}}</label>
-						<input type="checkbox" [checked]="false" #inputIsResell/>
+				<div class="row" *ngFor="let item of tmpDeliveryItems">
+					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr"
+							[style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered && +item.nbDelivered > 0 && +item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')" >{{item.product}}</div>
+					<div class="col-sm-1">{{item.nbOrdered}}</div>
+					<div class="col-sm-1">{{item.nbAlready}}</div>
+					<div class="col-sm-2">
+						<input *ngIf="item.nbAlready < item.nbOrdered" type="number" class="form-control" [(ngModel)]="item.nbDelivered"/>
+					</div>
+					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')">
+						<input type="text" class="form-control" [(ngModel)]="item.noLot"/>
+					</div>
+					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging">
+						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock"/>
 					</div>
 				</div>
 			</div>
@@ -47,7 +43,7 @@
 
 				</div>
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-success" (click)="c({qty:inputQty.value, lot: inputLotNo.value, resell: inputIsResell.checked })">Save delivery</button>
+					<button type="button" class="btn btn-success" (click)="c({ })">Save delivery</button>
 				</div>
 			</div>
 		</div>
@@ -246,7 +242,7 @@
 														<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 														<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
 														<div class="col-sm-2 vcenter">
-															<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal, item)"
+															<div *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal)"
 															 style="margin:5px">Add delivery</div>
 														</div>
 													</div>
@@ -261,22 +257,29 @@
 									<div class="card">
 										<div class="card-block">
 											<div class="row">
-												<div class="col-sm-3 "><b>When</b></div>
+												<div class="col-sm-2 "><b>When</b></div>
 												<div class="col-sm-2 "><b>Who</b></div>
-												<div class="col-sm-3 "><b>Product</b></div>
+												<div class="col-sm-2 "><b>Product</b></div>
 												<div class="col-sm-1 "><b>Quantity</b></div>
 												<div class="col-sm-1 "><b>Lot Number</b></div>
 												<div class="col-sm-2 "><b>Location</b></div>
+												<div class="col-sm-2 " *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Delete</b></div>
 											</div>
 
 											<div *ngFor="let item of order.annotation.items">
 												<div class="row" *ngFor="let delivery of item.annotation.deliveries">
-													<div class="col-sm-3 ">{{delivery.data.date | fullDate}}</div>
-													<div class="col-sm-2 ">{{delivery.annotation.userLm}}</div>
-													<div class="col-sm-3 ">{{item.annotation.description}}</div>
-													<div class="col-sm-1 ">{{delivery.data.quantity}}</div>
+													<div class="col-sm-2">{{delivery.data.date | fullDate}}</div>
+													<div class="col-sm-2">{{delivery.annotation.userLm}}</div>
+													<div class="col-sm-2">{{item.annotation.description}}</div>
+													<div class="col-sm-1">{{delivery.data.quantity}}</div>
 													<div class="col-sm-1">{{delivery.data.lotNb}}</div>
 													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
+													<div class="col-sm-2" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">  
+														<input type="checkbox" [ngbTooltip]="'click here to select the delivery for deletion'" *ngIf="!delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete" />
+														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected delivery item and can't be undone. Click here if you are sure you want to delete it." 
+																	*ngIf="delivery.data.isDueToDelete" (click)="deteteDeliveryItem(item, delivery)">Delete</div>
+														<div class="btn btn-success btn-sm" *ngIf="delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete">Cancel</div>
+													</div>
 												</div>
 											</div>
 										</div>

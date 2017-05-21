@@ -259,6 +259,7 @@ export class OrderService {
                         annotation: {
                             otp: otp ? otp.name : 'Unknown otp',
                             description: product ? product.name + (product.package ? ' / ' + product.package : '') : 'Unknown product',
+                            catalogNr: product && product.catalogNr ? product.catalogNr : 'No catalogNr',
                             isStockProduct: product && product.isStock,
                             needsLotNumber: product && product.needsLotNumber,
                             stockDivisionFactor: (product && +product.divisionFactor && (+product.divisionFactor) > 0) ? +product.divisionFactor : 1,
