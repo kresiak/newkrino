@@ -48,31 +48,31 @@
 								(selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-4 vcenter">is limited to owner equipe:</div>
+					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
+						<div class="col-sm-4 vcenter" >is limited to owner equipe:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" [style.color]="otp.data.isBlocked ? 'red' : 'black'">
 						<div class="col-sm-4 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" [style.color]="otp.data.isClosed ? 'red' : 'black'">
 						<div class="col-sm-4 vcenter">is closed:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" [style.color]="otp.data.isDeleted ? 'red' : 'black'">
 						<div class="col-sm-4 vcenter">is deleted:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isDeleted" (editSaved)="deletedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" [style.color]="!otp.data.priority ? 'red' : 'black'">
 						<div class="col-sm-4 vcenter">priority:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="otp.data.priority" (editSaved)="priorityUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
