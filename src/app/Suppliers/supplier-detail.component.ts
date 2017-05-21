@@ -72,7 +72,7 @@ export class SupplierDetailComponent implements OnInit {
 
         this.supplierObservable = this.supplierService.getAnnotatedSupplierById(this.supplierId)
 
-        this.productsObservable = this.productService.getAnnotatedProductsWithBasketInfoBySupplier(this.supplierId);
+        this.productsObservable = this.productService.getAnnotatedProductsBySupplier(this.supplierId);
 
         this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
         this.productsBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereABasket = products && products.length > 0);

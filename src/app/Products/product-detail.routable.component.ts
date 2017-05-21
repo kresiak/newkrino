@@ -25,7 +25,7 @@ export class ProductDetailComponentRoutable implements OnInit {
     productObservable: Observable<any>;
     initData(id: string) {
         if (id) {
-            this.productObservable = this.productService.getAnnotatedProductsWithBasketInfoById(id);
+            this.productObservable = this.productService.getAnnotatedProductsById(id);
             this.productObservable.subscribe(obj => {
                 this.product = obj
             })

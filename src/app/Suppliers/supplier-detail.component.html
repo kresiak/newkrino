@@ -110,7 +110,7 @@
 
 	<ngb-tab title="Products" id="tabProducts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
-			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" [config]="{skip:['otp', 'totalPrice']}"></gg-product-grid>
+			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" ></gg-product-grid>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Orders" *ngIf="anyOrder && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()" id="tabOrders" >
@@ -124,7 +124,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-grid [path]="path+'|O:Basket'" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()" [isBasket]="true" [productsObservable]="productsBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
+						<gg-product-grid-basket [path]="path+'|O:Basket'" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()" [productsObservable]="productsBasketObservable" [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>
 					<div class="row">
 						<button class="btn btn-warning" (click)="gotoPreOrder()">Proceed to Checkout</button>
@@ -138,7 +138,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<gg-product-grid [path]="path+'|O:GroupedBasket'" [isBasket]="true" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable" [config]="{skip:['category', 'otp']}"></gg-product-grid>
+						<gg-product-grid-basket [path]="path+'|O:GroupedBasket'" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable" [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>
 				</div>
 			</div>

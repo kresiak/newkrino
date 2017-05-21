@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
 
     private products;
 
-    constructor(private dataStore: DataStore, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -44,6 +44,8 @@ export class ProductListComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo
     private subscriptionAuthorization: Subscription 
     private subscriptionProducts: Subscription
+
+    private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
     ngOnInit(): void {
         this.stateInit();
@@ -88,7 +90,13 @@ export class ProductListComponent implements OnInit {
             });
         }).subscribe(products => {
             this.products = products.slice(0, 250)
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
+
+        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
+            this.basketPorductsMap= basketPorductsMap
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
+        })
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo

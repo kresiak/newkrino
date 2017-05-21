@@ -39,7 +39,7 @@ export class ProductDetailComponent implements OnInit {
     private subscriptionProduct: Subscription
     private subscriptionDoubleProduct: Subscription
 
-
+    private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
     ngOnInit(): void {
         this.stateInit();
@@ -51,9 +51,10 @@ export class ProductDetailComponent implements OnInit {
 
         this.subscriptionProduct= this.productObservable.subscribe(product => {
             this.product = product;
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
             if (product) {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
-                this.doubleProductsObservable= this.productService.getAnnotatedProductsWithBasketInfoByCatalogNr(product.data.catalogNr)
+                this.doubleProductsObservable= this.productService.getAnnotatedProductsByCatalogNr(product.data.catalogNr)
                 this.subscriptionDoubleProduct= this.doubleProductsObservable.subscribe(res => {
                     this.hasProductDoubles= res && res.length > 1
                 })
@@ -63,6 +64,12 @@ export class ProductDetailComponent implements OnInit {
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })        
+
+        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
+            this.basketPorductsMap= basketPorductsMap
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
+        })
+        
     }
 
     ngOnDestroy(): void {

@@ -14,16 +14,18 @@ import { ActivatedRoute, Params, Router } from '@angular/router'
 @Component(
     {
         //moduleId: module.id,
-        selector: 'gg-product-grid',
-        templateUrl: './product-grid.component.html'
+        selector: 'gg-product-grid-basket',
+        templateUrl: './product-grid-basket.component.html'
     }
 )
-export class ProductGridComponent implements OnInit
+export class ProductGridBasketComponent implements OnInit
 {
     @Input() productsObservable: Observable<any>;
-    @Input() path: string = 'products'
+    @Input() config;
+    @Input() isGroupedBasket: boolean= false;
+    @Input() path: string = 'productsBasket'
 
-    private products= [];
+    private products;
 
     constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
                         private router: Router)
@@ -48,8 +50,6 @@ export class ProductGridComponent implements OnInit
     resetSerachControl() {
         this.searchControl.setValue('')
     }
-
-    private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
     ngOnInit() : void{
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
@@ -98,13 +98,7 @@ export class ProductGridComponent implements OnInit
             });
         }).subscribe(products => {
             this.products = products.slice(0, 50)
-            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
-
-        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
-            this.basketPorductsMap= basketPorductsMap
-            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
-        })
     }
 
     ngOnDestroy(): void {
@@ -117,6 +111,10 @@ export class ProductGridComponent implements OnInit
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
     }
 
+
+    showColumn(columnName: string) {
+        return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
+    }
 
     getProductCategoryIdsObservable(id: string) : Observable<any>
     {
@@ -145,22 +143,30 @@ export class ProductGridComponent implements OnInit
         }
     }
 
-    categorySelectionChanged(selectedIds: string[], product) {
-        product.data.categoryIds = selectedIds;
-        this.productService.updateProduct(product.data);
-    }
-
-    categoryHasBeenAdded(newCategory: string) {
-        this.productService.createCategory(newCategory);
-    }
-
     quantityBasketUpdated(quantity: string, product) {
         this.productService.doBasketUpdate(product, quantity)
+    }
+
+    quantityGroupedBasketUpdated(quantity: string, product, item) {
+        if (!+quantity) return
+        item.data.quantity=+quantity
+        product.annotation.basketData.quantity= (product.annotation.basketData.items || []).reduce((acc,item) => acc + item.quantity, 0)
+        this.dataStore.updateData('basket', product.annotation.basketId, product.annotation.basketData)
     }
 
     navigateToProduct(product) {
         this.navigationService.maximizeOrUnmaximize('/product', product.data._id, this.path, false)
     }
 
+    otpUpdated(newOtpId, product): void {
+        if (newOtpId && newOtpId.length > 0) {
+            this.productService.doBasketOtpUpdate(product, newOtpId)
+        }
+    }
 
+    setNotUrgent(product): void {
+        this.productService.doBasketNotUrgent(product).first().subscribe(res => {
+
+        })
+    }
 }
