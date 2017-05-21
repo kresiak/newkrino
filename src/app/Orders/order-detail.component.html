@@ -111,7 +111,7 @@
 								</div>
 								<div *ngFor="let item of order.annotation.items">
 									<div class="row">   
-										<div class="col-sm-2 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)"><gg-text-compact [text]="item.annotation.description" [extraTooltipText]="'12234 3456 acbd 34567 89000'" ></gg-text-compact></div>
+										<div class="col-sm-2 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)"><gg-text-compact [text]="item.annotation.description"></gg-text-compact></div>
 
 										<div class="col-sm-1 vcenter">
 											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="order.annotation.isGroupedOrder || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>

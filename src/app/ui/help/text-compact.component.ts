@@ -6,21 +6,24 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 
 export class TextCompactComponent implements OnInit {
-  
+    isExtraText: any;
+
     @Input() text;
     @Input() numberOfChar = 15;
     @Input() extraTooltipText: string = '';
     
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
 
-private cvf : boolean = false
+        this.isExtraText = this.extraTooltipText !== '' 
+            return 
+        
+    }
+
+
 
     shortText() {
-        if (this.extraTooltipText == '') {
-           return this.cvf = false
-        }
         if (this.text.length > (this.numberOfChar + 3)) {
             var lengthText = this.text.substring(this.numberOfChar)
             var addNumberOfChar = lengthText.indexOf(' ')
