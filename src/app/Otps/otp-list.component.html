@@ -44,7 +44,10 @@
 							<div class="col-sm-2">{{(otp.annotation.amountEngaged + otp.annotation.amountSpentNotYetInSap) | currency:'EUR':true:'1.2-2'}} / {{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-1">{{ otp.data.datEnd | shortDate }}</div>
-							<div class="col-sm-1">{{ otp.data.isDeleted ? 'Deleted' : '' }}</div>
+							<div class="col-sm-1" [style.color]="'red'">
+								{{ otp.data.isDeleted ? 'Deleted ' : '' }}{{ otp.data.isBlocked ? 'Blocked ' : '' }}{{ otp.data.isLimitedToOwner ? 'Limited ' : '' }}{{ otp.data.isClosed ? 'Closed ' : '' }}
+								{{ !otp.data.priority ? 'No priority ' : '' }}
+							</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

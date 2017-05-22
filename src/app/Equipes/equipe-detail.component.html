@@ -37,8 +37,8 @@
 							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed" (editSaved)="nbOfMonthAheadAllowedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-4 vcenter">is blocked:</div>
+					<div class="row" [style.color]="equipe.data.isBlocked ? 'red' : 'black'">
+						<div class="col-sm-4 vcenter" >is blocked:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>

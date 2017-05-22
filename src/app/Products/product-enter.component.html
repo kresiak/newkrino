@@ -79,23 +79,23 @@
 		<div class="form-group row" ngbTooltip="Define here if this product might potentially be resold from the stock">
 			<label for="isStock" class="col-sm-2 col-form-label col-xl-2 vcenter">may be resold in stock:</label>
 			<div class="col-md-1 vcenter">
-				<input type="checkbox" class="form-control" formControlName="isStock" id="isStock" class="isCheckbox">
+				<input type="checkbox" class="form-control" formControlName="isStock" id="isStock" class="isCheckbox" #showhideStockDetail >
 			</div>
 		</div>
-	<!--<div *ngIf="checked == ''" >	-->
+	<div *ngIf="showhideStockDetail && showhideStockDetail.checked" >	
 		<div class="form-group row" ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
 			<label for="divisionFactor" class="col-sm-2 col-form-label col-xl-2">division factor for stock:</label>
 			<div class="col-sm-10">
-				<input type="number" min="0" max="100" step="any" class="form-control" formControlName="divisionFactor" id="divisionFactor" placeholder="division factor">
+				<input type="number" min="0" max="100" step="any" class="form-control" formControlName="divisionFactor" id="divisionFactor" placeholder="division factor" #divisionFactor>
 			</div>
 		</div>
-		<div class="form-group row" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1" >
-			<label for="stockPackage" class="col-sm-2 col-form-label col-xl-2">stock packaging:</label>
+		<div class="form-group row" [style.color]="divisionFactor.value==='1' ? 'black' : 'red'" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1" >
+			<label for="stockPackage" class="col-sm-2 col-form-label col-xl-2">stock packaging: {{divisionFactor.value==='1' ? '' : 'enter this!!!'}}</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" step="any" class="form-control" formControlName="stockPackage" id="stockPackage" placeholder="stock package">
 			</div>
 		</div>
-	<!--</div>-->
+	</div>
         <div class="row">
             <div class="col-sm-3 col-md-2 col-lg-2">
                 <button class="btn btn-success" type="submit" [disabled]="!productForm.valid">Submit</button>

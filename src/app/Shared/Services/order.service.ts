@@ -263,7 +263,7 @@ export class OrderService {
                             isStockProduct: product && product.isStock,
                             needsLotNumber: product && product.needsLotNumber,
                             stockDivisionFactor: (product && +product.divisionFactor && (+product.divisionFactor) > 0) ? +product.divisionFactor : 1,
-                            stockPackaging: (product && product.stockPackage && product.stockPackage !== '') ? product.stockPackage : (product ? product.package : ''),
+                            stockPackaging: (product && product.stockPackage && product.stockPackage !== '') ? product.stockPackage : (product ? product.package + ' divided by ' + product.divisionFactor : ''),
                             price: product ? product.price : '0',
                             nbDelivered: nbDelivered,
                             allDelivered: item.quantity === nbDelivered,
