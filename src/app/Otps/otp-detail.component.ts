@@ -95,7 +95,7 @@ export class OtpDetailComponent implements OnInit {
     }
 
     SaveNewBudget(formValue, isValid) {
-
+        
     }
 
     reset() {
@@ -216,16 +216,6 @@ export class OtpDetailComponent implements OnInit {
 
     priorityUpdated(priority) {
         this.otp.data.priority = priority;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    updatedDateStartAnnual(date) {
-        this.datStartAnnual = date;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    updatedDateEndAnnual(date) {
-        this.datEndAnnual = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
