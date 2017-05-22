@@ -28,7 +28,7 @@ export class OrderService {
     private getOtpMoneySpentMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
         return Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.sapService.getKrinoIdMapObservable(),
             (orders, krinoSapMap) => {
-                return orders.filter(order => !krinoSapMap.has(order.kid)).reduce((map, order) => {
+                return orders.filter(order => !krinoSapMap.has(order.kid) && order.status.value !=='deleted').reduce((map, order) => {
                     if (order.items) {
                         order.items.filter(item => item.otpId && item.total).forEach(item => {
                             let otpId = item.otpId
