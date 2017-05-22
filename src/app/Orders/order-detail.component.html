@@ -26,11 +26,11 @@
 					<div class="col-sm-2">
 						<input *ngIf="item.nbAlready < item.nbOrdered" type="number" class="form-control" [(ngModel)]="item.nbDelivered"/>
 					</div>
-					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')">
-						<input type="text" class="form-control" [(ngModel)]="item.noLot"/>
+					<div class="col-sm-2" >
+						<input type="text" class="form-control" [(ngModel)]="item.noLot" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')"/>
 					</div>
-					<div class="col-sm-2" *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging">
-						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock"/>
+					<div class="col-sm-2" >
+						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock" *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging"/>
 					</div>
 				</div>
 			</div>
