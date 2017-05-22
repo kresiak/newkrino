@@ -6,7 +6,7 @@ import { DataStore } from '../../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
 import { AdminService } from '../../Shared/Services/admin.service'
 import { OrderService } from '../../Shared/Services/order.service';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component(
     {
@@ -16,7 +16,8 @@ import { OrderService } from '../../Shared/Services/order.service';
 )
 
 export class AdminLabo {
-    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService,
+        private formBuilder: FormBuilder) {
     }
 
     private selectableUsers: Observable<SelectableData[]>;
@@ -25,6 +26,7 @@ export class AdminLabo {
     private selectedSecrExecIdsObservable: Observable<any>;
     private equipeListObservable
     private deliveryAdresses: any[]
+    private addAddressForm: FormGroup;
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers(true);
@@ -46,6 +48,31 @@ export class AdminLabo {
             }
         }));
 
+        this.addAddressForm = this.formBuilder.group({
+            nomAddAddress: ['', [Validators.required]],
+            descriptionAddAddress1: ['', [Validators.required]],
+            descriptionAddAddress2: ['', [Validators.required]],
+            descriptionAddAddress3: [''],
+            descriptionAddAddress4: ['']
+        });
+
+    }
+
+    save(formValue, isValid) {
+       this.dataStore.addData('delivery.address', {
+            nom: formValue.nomAddAddress,
+            description1: formValue.descriptionAddAddress1,
+            description2: formValue.descriptionAddAddress2,
+            description3: formValue.descriptionAddAddress3,
+            description4: formValue.descriptionAddAddress4
+        }).first().subscribe(res => {
+            var x = res;
+            this.resetAddAddressForm();
+        });
+    }
+
+    resetAddAddressForm() {
+        this.addAddressForm.reset();
     }
 
     private saveLabo() {
@@ -130,6 +157,30 @@ export class AdminLabo {
             this.saveSteps()
         }
     }
+    
+    nomDeliveryUpdated(delivery, nomDelivery) {
+        if (nomDelivery.trim() === '') return 
+        delivery.nom = nomDelivery;
+        this.dataStore.updateData('delivery.address', delivery._id, delivery)       
+    }
 
+    description1DeliveryUpdated(delivery, desc1) {
+        delivery.description1 = desc1
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
+    }
 
+    description2DeliveryUpdated(delivery, desc2) {
+        delivery.description2 = desc2
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
+    }
+
+    description3DeliveryUpdated(delivery, desc3) {
+        delivery.description3 = desc3
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
+    }
+
+    description4DeliveryUpdated(delivery, desc4) {
+        delivery.description4 = desc4
+        this.dataStore.updateData('delivery.address', delivery._id, delivery);
+    }
 }

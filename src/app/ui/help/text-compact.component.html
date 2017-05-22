@@ -1,3 +1,5 @@
 
 
-<div [ngbTooltip]="text">{{numberOfCharacters()}}</div>
+<div *ngIf="!isExtraText" [ngbTooltip]="text">{{shortText()}}</div>
+<div *ngIf="isExtraText" [ngbTooltip]="text + ' (' + extraTooltipText +')'">{{shortText()}}</div>
+

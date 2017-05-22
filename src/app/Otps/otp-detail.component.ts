@@ -12,7 +12,7 @@ import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component(
     {
@@ -23,10 +23,14 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
-        private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService) {
+        private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService,
+        private formBuilder: FormBuilder) {
     }
     private pieSpentChart;
-
+    private annualForm: FormGroup;
+    private datStartAnnual: string 
+    private datEndAnnual: string
+    
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
@@ -85,6 +89,21 @@ export class OtpDetailComponent implements OnInit {
             }
         }));
 
+        this.annualForm = this.formBuilder.group({
+            budgetAnnual: ['', [Validators.required]]
+        });
+    }
+
+    SaveNewBudget(formValue, isValid) {
+        ({
+        budgetAnnual: formValue.budgetAnnual,
+        datStartAnnual: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
+        datEndAnnual: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
+        })
+    }
+
+    reset() {
+        this.annualForm.reset();
     }
 
     ngOnDestroy(): void {
@@ -203,4 +222,19 @@ export class OtpDetailComponent implements OnInit {
         this.otp.data.priority = priority;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
+
+    dateStartAnnualUpdated(date) {
+        this.datStartAnnual = date;
+    }
+
+    dateEndAnnualUpdated(date) {
+        this.datEndAnnual = date;
+    }
+
+    updatedIsAnnualChecked(isAnnual) {
+        this.otp.data.isAnnual = isAnnual
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+
 }
