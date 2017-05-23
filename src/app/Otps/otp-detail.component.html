@@ -88,6 +88,12 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="col-sm-3 vcenter">budget blocked:</div>
+							<div class="col-sm-7 vcenter">
+								<gg-editor [content]="otp.data.budgetBlocked" [showControls]="true" [isMonetary]="true" (editSaved)="budgetBlockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-sm-3 vcenter">from:</div>
 							<div class="col-sm-7 vcenter">
 								<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>

@@ -192,8 +192,8 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    budgetUpdated(budget) {
-        if (! +budget) return
+    budgetUpdated(budget: number) {
+        if (!+budget) return
         this.otp.data.budget = budget;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
@@ -236,5 +236,9 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-
+    budgetBlockedUpdated(budgetBlocked: number) {
+        if (!+budgetBlocked) return
+        this.otp.data.budgetBlocked = budgetBlocked
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
 }
