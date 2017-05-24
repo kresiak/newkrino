@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -29,6 +29,7 @@ export class SupplierListComponent implements OnInit {
     @Input() initialTabInSupplierDetail: string = '';
     @Output() stateChanged = new EventEmitter();
 
+
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
@@ -40,6 +41,11 @@ export class SupplierListComponent implements OnInit {
     private subscriptionSupplierIdsSet: Subscription
 
     private supplierIdsSetWithBasketForCurrentUser: Set<string> = new Set<string>()
+
+    private nbHitsShown: number= 10
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
 
     resetSerachControl() {
         this.searchControl.setValue('')
@@ -68,10 +74,18 @@ export class SupplierListComponent implements OnInit {
                     (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt))
 
             });
+        }).do(suppliers => {
+            this.nbHits= suppliers.length
+        })
+        .switchMap(suppliers => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return suppliers.slice(0, nbItems)
+            })
         }).subscribe(suppliers => {
-            this.suppliers = suppliers
+            this.suppliers = suppliers //.slice(0, 15)
             this.setBasketInformation()
         });
+
 
         this.subscriptionSupplierIdsSet = this.supplierService.getSupplierIdsSetObservableWithBasketForCurrentUser().subscribe(idsSet => {
             this.supplierIdsSetWithBasketForCurrentUser = idsSet
@@ -97,6 +111,11 @@ export class SupplierListComponent implements OnInit {
     private childStateChanged(newState, objectId) {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
+    }
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 }
 
