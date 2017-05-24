@@ -30,6 +30,7 @@ export class OtpDetailComponent implements OnInit {
     private annualForm: FormGroup;
     private datStartAnnual: string 
     private datEndAnnual: string
+    private budgetHistory: any[]
     
     @Input() otpObservable: Observable<any>;
     @Input() state;
@@ -95,11 +96,15 @@ export class OtpDetailComponent implements OnInit {
     }
 
     SaveNewBudget(formValue, isValid) {
-        ({
-        budgetAnnual: formValue.budgetAnnual,
-        datStartAnnual: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
-        datEndAnnual: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
+        if (!isValid) return
+        if (!this.otp.data.budgetHistory) this.otp.data.budgetHistory = []
+
+        this.otp.data.budgetHistory.push({
+            budget: formValue.budgetAnnual,
+            datStart: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
+            datEnd: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
         })
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
     }
 
     reset() {
@@ -239,6 +244,21 @@ export class OtpDetailComponent implements OnInit {
     budgetBlockedUpdated(budgetBlocked) {
         if (! +budgetBlocked) return
         this.otp.data.budgetBlocked = +budgetBlocked
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    budgetAnnualUpdated(budgetHistory, budgetAnnual) {
+        budgetHistory.budget = +budgetAnnual;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    datStartAnnualUpdated(budgetHistory, date) {
+        budgetHistory.datStart = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    datEndAnnualUpdated(budgetHistory, date) {
+        budgetHistory.datEnd = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }
