@@ -5,16 +5,25 @@ import { ApiService } from './api.service'
 import { OtpChoiceService } from './otp-choice.service'
 import { OrderService } from './order.service'
 import { SelectableData } from './../Classes/selectable-data'
+import { SharedObservable } from './../Classes/shared-observable'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 
 
 Injectable()
 export class ProductService {
+
+    private allProductsObservable: SharedObservable
+
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
         @Inject(OrderService) private orderService: OrderService) {
         this.initProductDoubleObservable()
+
+        this.allProductsObservable = new SharedObservable(this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
+            prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence))
+        )
+
     }
 
 
@@ -248,9 +257,9 @@ export class ProductService {
     setBasketInformationOnProducts(basketPorductsMap: Map<string, any>, products: any[]) {
         products.forEach(product => {
             product.annotation.hasBasket = basketPorductsMap.has(product.data._id)
-            var basketItem= basketPorductsMap.get(product.data._id)
-            product.annotation.basketId= product.annotation.hasBasket ? basketItem._id : null
-            product.annotation.quantity= product.annotation.hasBasket ? basketItem.quantity : 0
+            var basketItem = basketPorductsMap.get(product.data._id)
+            product.annotation.basketId = product.annotation.hasBasket ? basketItem._id : null
+            product.annotation.quantity = product.annotation.hasBasket ? basketItem.quantity : 0
         })
     }
 
@@ -283,10 +292,13 @@ export class ProductService {
         );
     }
 
+
+
     getAnnotatedProductsAll(): Observable<any> {     // here and product list routable
-        return this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
+        return this.allProductsObservable.getObservable()
+/*        return this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
             prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence));
-    }
+*/    }
 
     getAnnotatedProductsById(id: string): Observable<any> {   // product detail routable
         return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data._id === id)[0]);
