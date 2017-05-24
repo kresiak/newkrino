@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +30,11 @@ export class ProductListComponent implements OnInit {
 
 
     private products;
+    private nbHitsShown: number= 15
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+    
 
     constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService) {
         this.searchForm = new FormGroup({
@@ -88,8 +93,15 @@ export class ProductListComponent implements OnInit {
 
                 return product.data.name.toUpperCase().includes(txt) || (product.data.description||'').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
+        }).do(products => {
+            this.nbHits= products.length
+        })
+        .switchMap(products => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return products.slice(0, nbItems)
+            })
         }).subscribe(products => {
-            this.products = products.slice(0, 250)
+            this.products = products
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
 
@@ -137,4 +149,10 @@ export class ProductListComponent implements OnInit {
         product.data.isFrigo = isFrigo;
         this.dataStore.updateData('products', product.data._id, product.data);
     }
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+    
 }
