@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -28,6 +28,12 @@ export class OrderListComponent implements OnInit {
 
     private orders
 
+    private nbHitsShown: number= 10
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+    
+
     @Input() ordersObservable: Observable<any>;
     @Input() state;
     @Input() path: string= 'orders'
@@ -51,7 +57,7 @@ export class OrderListComponent implements OnInit {
         this.stateInit();
         this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (orders, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted').slice(0, 200);
+            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted');
             return orders.filter(order => {
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
@@ -73,6 +79,13 @@ export class OrderListComponent implements OnInit {
                     || order.annotation.status.toUpperCase().includes(txt)
                     || order.data.kid === +txt || order.annotation.sapId === +txt;
 
+            })
+        }).do(orders => {
+            this.nbHits= orders.length
+        })
+        .switchMap(orders => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return orders.slice(0, nbItems)
             })
         });
 
@@ -114,5 +127,12 @@ export class OrderListComponent implements OnInit {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
     }
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
+    
 }
 
