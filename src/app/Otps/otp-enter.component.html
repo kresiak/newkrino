@@ -19,15 +19,15 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="datStart" class="col-sm-2 col-form-label col-xl-2 vcenter">from:</label>
+			<label class="col-sm-2 col-form-label col-xl-2 vcenter">from:</label>
 			<div class="col-sm-9 vcenter">
-				<gg-editor-date #datStart [content]="" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
+				<gg-editor-date [content]="" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="datEnd" class="col-sm-2 col-form-label col-xl-2 vcenter">to:</label>
+			<label class="col-sm-2 col-form-label col-xl-2 vcenter">to:</label>
 			<div class="col-sm-9 vcenter">
-				<gg-editor-date #datEnd [content]="" (editSaved)="dateUpdatedEnd($event)"></gg-editor-date>
+				<gg-editor-date [content]="" (editSaved)="dateUpdatedEnd($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
