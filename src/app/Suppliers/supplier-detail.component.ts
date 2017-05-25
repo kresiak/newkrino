@@ -55,7 +55,7 @@ export class SupplierDetailComponent implements OnInit {
 
         this.useVoucherForm = this.formBuilder.group({
             description: ['', [Validators.required, Validators.minLength(5)]],
-            priceFixCosts: ['', [Validators.required, Validators.pattern(priceRegEx)]]
+            price: ['', [Validators.required, Validators.pattern(priceRegEx)]]
         });
 
         this.fixCostsForm = this.formBuilder.group({

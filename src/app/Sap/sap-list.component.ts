@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SapService } from './../Shared/Services/sap.service'
@@ -26,6 +26,11 @@ export class SapListComponent implements OnInit {
     searchForm;
     private subscriptionSaps: Subscription
 
+    private nbHitsShown: number= 10
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+
     private saps;
 
     constructor(private sapService: SapService) {
@@ -44,7 +49,7 @@ export class SapListComponent implements OnInit {
         this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
 
-            if (txt === '' || txt === '$' || txt === '#') return saps.slice(0, 200)
+            if (txt === '' || txt === '$' || txt === '#') return saps
 
             return saps.filter(sap => {
                 if (txt.startsWith('$F')) {
@@ -101,7 +106,14 @@ export class SapListComponent implements OnInit {
 
                 return sap.mainData.data.ourRef.toString().toUpperCase().includes(txt) ||sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
                     || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
-            }).slice(0, 200);
+            })
+        }).do(saps => {
+            this.nbHits= saps.length
+        })
+        .switchMap(saps => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return saps.slice(0, nbItems)
+            })
         }).subscribe(saps => this.saps = saps);
     }
 
@@ -131,5 +143,11 @@ export class SapListComponent implements OnInit {
             var arr=  Array.from(sapInfo.mainData.annotation.otpMap.keys())
             return arr.length === 0 ? 'no OTP' : arr.reduce((a, b) => a + ', ' + b)
         }*/
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
 
 }

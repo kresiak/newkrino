@@ -69,5 +69,12 @@
 				</ngb-panel>
 			</ngb-accordion>
 		</div>
+		<div class="row" *ngIf="nbHitsShown < nbHits">
+			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+		</div>
+		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+			{{nbHits}} hits shown
+		</div>
+		
 	</div>
 </div>
