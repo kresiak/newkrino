@@ -7,6 +7,7 @@ import { SapService } from './sap.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as utils from './../Utils/observables'
 
 
 Injectable()
@@ -28,7 +29,7 @@ export class OrderService {
     private getOtpMoneySpentMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map otp => money spent    (more performance friendly)
         return Observable.combineLatest(this.dataStore.getDataObservable('orders'), this.sapService.getKrinoIdMapObservable(),
             (orders, krinoSapMap) => {
-                return orders.filter(order => !krinoSapMap.has(order.kid) && order.status.value !=='deleted').reduce((map, order) => {
+                return orders.filter(order => !krinoSapMap.has(order.kid) && order.status.value !== 'deleted').reduce((map, order) => {
                     if (order.items) {
                         order.items.filter(item => item.otpId && item.total).forEach(item => {
                             let otpId = item.otpId
@@ -67,7 +68,7 @@ export class OrderService {
         let sapIds = sapOtpMap.has(otp.name) ? Array.from(sapOtpMap.get(otp.name).sapIdSet).map(id => +id) : []
         let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
-        let amountBilled= this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
+        let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
 
         return {
             data: otp,
@@ -98,24 +99,17 @@ export class OrderService {
 
     getAnnotatedOtpsForBudgetMap(): Observable<any> {
 
-        var hashMapFactory = list => {
-            return list.reduce((map, p) => {
-                map.set(p.data._id, p)
-                return map
-            }, new Map())
-        }
-
         if (this.annotatedOtpsForBudgetMapObservable) return this.annotatedOtpsForBudgetMapObservable
 
-        this.annotatedOtpsForBudgetMapObservable= Observable.combineLatest(
+        this.annotatedOtpsForBudgetMapObservable = Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.getOtpMoneySpentMapObservable(),
             this.sapService.getSapIdMapObservable(),
             this.sapService.getSapOtpMapObservable(),
             (otps, otpSpentMap, sapIdMap, sapOtpMap) => {
-                var a=otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap))
-                var b= a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
-                return hashMapFactory(b)
+                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap))
+                var b = a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+                return utils.hashMapFactoryForAnnotated(b)
             }).publishReplay(1);
 
         this.annotatedOtpsForBudgetMapObservable.connect();
@@ -317,22 +311,15 @@ export class OrderService {
     // viewing orders
     // ==============
 
-    private hashMapFactory = list => {
-        return list.reduce((map, p) => {
-            map.set(p._id, p)
-            return map
-        }, new Map())
-    }
-
     getAnnotedOrder(id: string): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order._id === id || order.kid === +id)[0]),
-            this.dataStore.getDataObservable('products').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('otps').map(utils.hashMapFactory),
             this.authService.getAnnotatedUsersHashmap(),
-            this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('equipes.groups').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('suppliers').map(utils.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
             this.sapService.getKrinoIdMapObservable(),
@@ -346,12 +333,12 @@ export class OrderService {
     private getAnnotedOrders(ordersObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
             ordersObservable,
-            this.dataStore.getDataObservable('products').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('otps').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('otps').map(utils.hashMapFactory),
             this.authService.getAnnotatedUsersHashmap(),
-            this.dataStore.getDataObservable('equipes').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('equipes.groups').map(this.hashMapFactory),
-            this.dataStore.getDataObservable('suppliers').map(this.hashMapFactory),
+            this.dataStore.getDataObservable('equipes').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('equipes.groups').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('suppliers').map(utils.hashMapFactory),
             this.userService.getOrderDashletsForCurrentUser(),
             this.authService.getAnnotatedCurrentUser(),
             this.sapService.getKrinoIdMapObservable(),
@@ -694,6 +681,28 @@ export class OrderService {
             return orders.filter(order => order.data.userId === userId)
         })
     }
+
+
+
+    // sap annotations
+    // ===============
+
+    annotateEquipesOnSap() {
+        Observable.combineLatest(this.sapService.getSapItemsObservable(), this.getAnnotedOrdersFromAll(), this.dataStore.getDataObservable('sap.annotation').startWith([]), 
+            (sapItems: any[], orders: any[], annotations: any[]) => {
+
+                annotations.forEach(annotation => {
+                    annotation.processed= false
+                })
+
+
+
+            }
+        )
+
+    }
+
+
 
 }
 

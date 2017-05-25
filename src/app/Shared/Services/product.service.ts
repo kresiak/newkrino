@@ -8,7 +8,7 @@ import { SelectableData } from './../Classes/selectable-data'
 import { SharedObservable } from './../Classes/shared-observable'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
-
+import * as utils from './../Utils/observables'
 
 Injectable()
 export class ProductService {
@@ -585,15 +585,8 @@ export class ProductService {
         return Observable.from([[]])         // we need the double [[]]   the emptyobservable has to return a first value. Otherwise combineLatest gets stuck
     }
 
-    private hashMapFactory = list => {
-        return list.reduce((map, p) => {
-            map.set(p._id, p)
-            return map
-        }, new Map())
-    }
-
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
-        return Observable.combineLatest(this.getProductsBySupplier(supplierId).map(this.hashMapFactory), basketObservable,
+        return Observable.combineLatest(this.getProductsBySupplier(supplierId).map(utils.hashMapFactory), basketObservable,
             otpNeeded ? this.orderService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),

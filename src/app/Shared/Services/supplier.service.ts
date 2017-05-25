@@ -8,6 +8,7 @@ import { OrderService } from './order.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as utils from './../Utils/observables'
 
 Injectable()
 export class SupplierService {
@@ -36,15 +37,8 @@ export class SupplierService {
     }
 
 
-    private hashMapFactory = list2 => {
-        return list2.reduce((map, p) => {
-            map.set(p._id, p)
-            return map
-        }, new Map())
-    }
-
     private getSupplierIdsSetObservableInBasketItems(basketItemsObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('products').map(this.hashMapFactory), basketItemsObservable,
+        return Observable.combineLatest(this.dataStore.getDataObservable('products').map(utils.hashMapFactory), basketItemsObservable,
             (productsMap, basketItems) => {
                 return this.supplierIdsInBasketItems(productsMap, basketItems)
             })
