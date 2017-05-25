@@ -247,18 +247,18 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    budgetAnnualUpdated(budgetHistory, budgetAnnual) {
-        budgetHistory.budget = +budgetAnnual;
+    budgetAnnualUpdated(budgetHistoryItem, budgetAnnual) {
+        budgetHistoryItem.budget = +budgetAnnual;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datStartAnnualUpdated(budgetHistory, date) {
-        budgetHistory.datStart = date;
+    datStartAnnualUpdated(budgetHistoryItem, date) {
+        budgetHistoryItem.datStart = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datEndAnnualUpdated(budgetHistory, date) {
-        budgetHistory.datEnd = date;
+    datEndAnnualUpdated(budgetHistoryItem, date) {
+        budgetHistoryItem.datEnd = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 }
