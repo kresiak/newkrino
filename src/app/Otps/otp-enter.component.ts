@@ -37,6 +37,7 @@ export class OtpEnterComponent implements OnInit {
         this.otpForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
             budget: ['', Validators.required],
+            budgetBlocked: ['', Validators.required],
             description: ['', Validators.required],
             isBlocked: [''],
             isClosed: [''],
@@ -49,6 +50,7 @@ export class OtpEnterComponent implements OnInit {
         this.dataStore.addData('otps', {
             name: formValue.name,
             budget: formValue.budget,
+            budgetBlocked: formValue.budgetBlocked,
             description: formValue.description,
             datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
             datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss'),
