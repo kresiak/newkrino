@@ -4,6 +4,8 @@ import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { ProductService } from './../Shared/Services/product.service'
+import { StockService } from '../Shared/Services/stock.service';
+
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 
 
@@ -14,7 +16,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
     }
 )
 export class StockComponentRoutable implements OnInit {
-    constructor(private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private route: ActivatedRoute) { }
+    constructor(private stockService: StockService, private navigationService: NavigationService, private authService: AuthService, private route: ActivatedRoute) { }
 
     state
     initTabId= ''
@@ -34,8 +36,8 @@ export class StockComponentRoutable implements OnInit {
             this.state= state
         })        
 
-        this.productsObservable = this.productService.getAnnotatedAvailableStockProductsAll();
-        this.ordersObservable = this.productService.getAnnotatedStockOrdersAll()
+        this.productsObservable = this.stockService.getAnnotatedAvailableStockProductsAll();
+        this.ordersObservable = this.stockService.getAnnotatedStockOrdersAll()
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo

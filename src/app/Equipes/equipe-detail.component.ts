@@ -5,6 +5,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { OtpService } from '../Shared/Services/otp.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { ProductService } from './../Shared/Services/product.service'
+import { StockService } from '../Shared/Services/stock.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
@@ -25,7 +26,8 @@ export class EquipeDetailComponent implements OnInit {
     private budgetForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
-        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService, private equipeService: EquipeService) {
+        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService, 
+        private equipeService: EquipeService, private stockService: StockService) {
     }
     private pieSpentChart;
 
@@ -62,7 +64,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.selectedManagerIdsObservable = Observable.from([this.equipe.data.managerIds]);
                 this.selectedUserIdsObservable = Observable.from([this.equipe.data.userIds]);
 
-                this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByEquipe(eq.data._id)
+                this.stockOrdersObservable = this.stockService.getAnnotatedStockOrdersByEquipe(eq.data._id)
 
                 this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByEquipe(eq.data._id)
                 this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfEquipeByDate(eq.data._id)

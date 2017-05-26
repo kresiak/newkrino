@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { ProductService } from './../Shared/Services/product.service'
+import { StockService } from '../Shared/Services/stock.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -15,7 +16,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class OrderListComponentRoutable implements OnInit {
     constructor(private productService: ProductService, private orderService: OrderService, private route: ActivatedRoute, private supplierService: SupplierService, 
-                        private navigationService: NavigationService, private authService: AuthService) { }
+                        private navigationService: NavigationService, private authService: AuthService, private stockService: StockService) { }
 
     state
     initTabId= ''
@@ -34,7 +35,7 @@ export class OrderListComponentRoutable implements OnInit {
         
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence()
         this.ordersObservable = this.orderService.getAnnotedOrdersByNewest()
-        this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersAll()
+        this.stockOrdersObservable = this.stockService.getAnnotatedStockOrdersAll()
         this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersByDate()
 
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {

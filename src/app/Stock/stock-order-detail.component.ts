@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
+import { StockService } from '../Shared/Services/stock.service';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
@@ -16,7 +17,7 @@ import * as moment from "moment"
     }
 )
 export class StockOrderDetailComponent implements OnInit {
-    constructor(private authService: AuthService, private navigationService: NavigationService, private dataStore: DataStore, private productService: ProductService) {
+    constructor(private authService: AuthService, private navigationService: NavigationService, private dataStore: DataStore, private stockService: StockService) {
 
     }
 
@@ -52,7 +53,7 @@ export class StockOrderDetailComponent implements OnInit {
         this.subscriptionOrder= this.orderObservable.subscribe(order => {
             this.order = order;
             if (order) {
-                this.stockItemsObservable= this.productService.getAnnotatedAvailableStockProductsByProduct(order.data.productId)
+                this.stockItemsObservable= this.stockService.getAnnotatedAvailableStockProductsByProduct(order.data.productId)
                 this.stockItemsObservable.first().subscribe(stockItems =>{
                     this.stockItems= stockItems
                     this.formStockInit(stockItems)

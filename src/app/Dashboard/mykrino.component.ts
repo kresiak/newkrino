@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { ProductService } from './../Shared/Services/product.service'
+import { StockService } from '../Shared/Services/stock.service';
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { DataStore } from './../Shared/Services/data.service'
@@ -18,7 +19,8 @@ import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth
 )
 export class MyKrinoComponent implements OnInit {
     constructor(private orderService: OrderService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore,
-        private supplierService: SupplierService, private navigationService: NavigationService, private equipeService: EquipeService) { }
+        private supplierService: SupplierService, private navigationService: NavigationService, private equipeService: EquipeService,
+        private stockService: StockService) { }
 
     private ordersObservable: Observable<any>;
     private fridgeOrdersObservable: Observable<any>;
@@ -61,7 +63,7 @@ export class MyKrinoComponent implements OnInit {
 
         this.ordersObservable = this.orderService.getAnnotedOrdersOfCurrentUser();
 
-        this.stockOrdersObservable = this.productService.getAnnotatedStockOrdersByCurrentUser()
+        this.stockOrdersObservable = this.stockService.getAnnotatedStockOrdersByCurrentUser()
 
         this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByCurrentUser()
 
