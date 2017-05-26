@@ -17,6 +17,8 @@ export class EditorDate implements OnInit, OnChanges {
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() editSaved = new EventEmitter();
 
+    private initialized=false;
+
     private contentEdited;    
     private savedContentEdited;
 
@@ -49,9 +51,11 @@ export class EditorDate implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.contentEdited = this.toDatePickerDateObject(this.content)
+        this.initialized= true
     }
 
     ngOnChanges(changes) {
+        if (! this.initialized) return
         if (changes.content)
         {
             this.contentEdited = this.toDatePickerDateObject(this.content)
