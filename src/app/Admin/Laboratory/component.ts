@@ -183,4 +183,9 @@ export class AdminLabo {
         delivery.description4 = desc4
         this.dataStore.updateData('delivery.address', delivery._id, delivery);
     }
+
+    startOfKrino(krinoStartDate) {
+        this.labo.data.krinoStartDate = krinoStartDate;
+        this.saveLabo()
+    }
 }
