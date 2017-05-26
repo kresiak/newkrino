@@ -87,10 +87,10 @@
 								<gg-editor [content]="otp.data.budgetBlocked" [showControls]="true" [isMonetary]="true" (editSaved)="budgetBlockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 							</div>
 						</div>
-						<div class="row" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+						<div class="row">
 							<label class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
-							<div class="col-md-1 vcenter">
-								<gg-checkbox [checked]="otp.data.isAnnual" (checkedChange)="updatedIsAnnualChecked($event)"></gg-checkbox>
+							<div class="col-md-3 vcenter">
+								<gg-editor-boolean [content]="otp.data.isAnnual" (editSaved)="updatedIsAnnualChecked($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 							</div>
 						</div>
 						<div class="row" *ngIf="!otp.data.isAnnual">
