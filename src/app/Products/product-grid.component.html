@@ -67,6 +67,14 @@
 
 		</div>
 
+		<div class="row" *ngIf="nbHitsShown < nbHits">
+			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+		</div>
+		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+			{{nbHits}} hits shown
+		</div>
+		
+
 <!--		<gg-product [otpListObservable]="otpListObservable" [path]="path" *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)"
 		 [config]="config"></gg-product>
 -->	</div>

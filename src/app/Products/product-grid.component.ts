@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChildren, QueryList} from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service';
@@ -24,6 +24,11 @@ export class ProductGridComponent implements OnInit
     @Input() path: string = 'products'
 
     private products= [];
+
+    private nbHitsShown: number= 15
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
 
     constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
                         private router: Router)
@@ -67,7 +72,7 @@ export class ProductGridComponent implements OnInit
 
         this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products.filter(product => !product.data.disabled);
 
             return products.filter(product => {
                 if (txt.startsWith('$S/')) {
@@ -96,8 +101,15 @@ export class ProductGridComponent implements OnInit
 
                 return product.data.name.toUpperCase().includes(txt)  || (product.data.description||'').toUpperCase().includes(txt) 
             });
+        }).do(products => {
+            this.nbHits= products.length
+        })
+        .switchMap(products => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return products.slice(0, nbItems)
+            })
         }).subscribe(products => {
-            this.products = products.slice(0, 50)
+            this.products = products
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
 
@@ -162,5 +174,9 @@ export class ProductGridComponent implements OnInit
         this.navigationService.maximizeOrUnmaximize('/product', product.data._id, this.path, false)
     }
 
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
 
 }
