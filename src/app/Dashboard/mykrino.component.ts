@@ -3,6 +3,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { ProductService } from './../Shared/Services/product.service'
 import { StockService } from '../Shared/Services/stock.service';
+import { VoucherService } from '../Shared/Services/voucher.service';
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { DataStore } from './../Shared/Services/data.service'
@@ -20,7 +21,7 @@ import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth
 export class MyKrinoComponent implements OnInit {
     constructor(private orderService: OrderService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore,
         private supplierService: SupplierService, private navigationService: NavigationService, private equipeService: EquipeService,
-        private stockService: StockService) { }
+        private stockService: StockService, private voucherService: VoucherService) { }
 
     private ordersObservable: Observable<any>;
     private fridgeOrdersObservable: Observable<any>;
@@ -77,7 +78,7 @@ export class MyKrinoComponent implements OnInit {
             this.authorizationStatusInfo = statusInfo
             this.equipesObservable= this.equipeService.getAnnotatedEquipesOfUser(statusInfo.currentUserId)
         });
-        this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfCurrentUserByDate()
+        this.webVouchersObservable = this.voucherService.getAnnotatedUsedVouchersOfCurrentUserByDate()
     }
 
     ngOnDestroy(): void {

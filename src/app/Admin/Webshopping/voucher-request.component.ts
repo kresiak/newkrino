@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { OtpService } from '../../Shared/Services/otp.service'
-import { ProductService } from '../../Shared/Services/product.service'
+import { VoucherService } from '../../Shared/Services/voucher.service'
 import { DataStore } from './../../Shared/Services/data.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 
@@ -17,7 +17,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 export class AdminWebShoppingVoucherRequestComponent {
     private voucherForm: FormGroup;
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private otpService: OtpService, private productService: ProductService, private _sanitizer: DomSanitizer) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private otpService: OtpService, private voucherService: VoucherService, private _sanitizer: DomSanitizer) {
 
     }
 
@@ -50,7 +50,7 @@ export class AdminWebShoppingVoucherRequestComponent {
             otpId: formValue.otp.id
         }
 
-        this.productService.createVoucher(data)
+        this.voucherService.createVoucher(data)
         
     }
 

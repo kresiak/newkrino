@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
-import { ProductService } from './../../Shared/Services/product.service'
+import { VoucherService } from './../../Shared/Services/voucher.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 
 @Component(
@@ -12,7 +12,7 @@ import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 )
 
 export class AdminWebShoppingComponent {
-    constructor(private productService: ProductService) {
+    constructor(private voucherService: VoucherService) {
 
     }
 
@@ -31,9 +31,9 @@ export class AdminWebShoppingComponent {
 
     ngOnInit(): void {
         this.stateInit()
-        this.vouchersObservable = this.productService.getAnnotatedVouchersByCreationDate()
-        this.usedVouchersObservable= this.productService.getAnnotatedUsedVouchersByDate()
-        this.vouchersReadyForSapObservable= this.productService.getAnnotatedUsedVouchersReadyForSap()
+        this.vouchersObservable = this.voucherService.getAnnotatedVouchersByCreationDate()
+        this.usedVouchersObservable= this.voucherService.getAnnotatedUsedVouchersByDate()
+        this.vouchersReadyForSapObservable= this.voucherService.getAnnotatedUsedVouchersReadyForSap()
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {        

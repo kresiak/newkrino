@@ -6,7 +6,7 @@ import * as moment from "moment"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { OrderService } from './../Shared/Services/order.service'
-import { ProductService } from './../Shared/Services/product.service'
+import { VoucherService } from '../Shared/Services/voucher.service';
 import { StockService } from '../Shared/Services/stock.service';
 import { EquipeService } from '../Shared/Services/equipe.service';
 
@@ -20,7 +20,7 @@ import { EquipeService } from '../Shared/Services/equipe.service';
 
 export class UserDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, 
-                private productService: ProductService, private equipeService: EquipeService, private stockService: StockService) {
+                private voucherService: VoucherService, private equipeService: EquipeService, private stockService: StockService) {
     }
 
     @Input() userObservable: Observable<any>;
@@ -43,7 +43,7 @@ export class UserDetailComponent implements OnInit {
             this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id)
             this.fridgeOrdersObservable= this.orderService.getAnnotatedFridgeOrdersByUser(user.data._id)
             this.stockOrdersObservable= this.stockService.getAnnotatedStockOrdersByUser(user.data._id)
-            this.webVouchersObservable= this.productService.getAnnotatedUsedVouchersOfUserByDate(user.data._id)
+            this.webVouchersObservable= this.voucherService.getAnnotatedUsedVouchersOfUserByDate(user.data._id)
         });
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo

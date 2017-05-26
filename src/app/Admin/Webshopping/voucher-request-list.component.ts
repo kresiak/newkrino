@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { ProductService } from '../../Shared/Services/product.service'
+import { VoucherService } from '../../Shared/Services/voucher.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,7 +12,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 )
 
 export class AdminWebShoppingVoucherRequestListComponent {
-    constructor(private productService: ProductService) {
+    constructor(private voucherService: VoucherService) {
 
     }
 
@@ -28,7 +28,7 @@ export class AdminWebShoppingVoucherRequestListComponent {
 
     ngOnInit(): void {
         this.stateInit()
-        this.openRequestsObservable = this.productService.getOpenRequestedVouchers()
+        this.openRequestsObservable = this.voucherService.getOpenRequestedVouchers()
     }
 
     private openRequestsObservable: Observable<any>

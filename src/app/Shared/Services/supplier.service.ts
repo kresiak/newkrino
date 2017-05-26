@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { ProductService } from './product.service'
+import { VoucherService } from './voucher.service'
 import { OrderService } from './order.service'
 
 
@@ -12,7 +13,9 @@ import * as utils from './../Utils/observables'
 
 Injectable()
 export class SupplierService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(ProductService) private productService: ProductService, @Inject(OrderService) private orderService: OrderService, @Inject(AuthService) private authService: AuthService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(ProductService) private productService: ProductService, 
+                @Inject(OrderService) private orderService: OrderService, @Inject(AuthService) private authService: AuthService,
+                @Inject(VoucherService) private voucherService: VoucherService) { }
 
     getSupplier(supplierId): Observable<any> {
         return this.dataStore.getDataObservable('suppliers').map(suppliers => {
@@ -73,7 +76,7 @@ export class SupplierService {
 
     getAnnotatedSuppliers(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.orderService.getSupplierFrequenceMapObservable(),
-            this.productService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
+            this.voucherService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, supplierFrequenceMap, voucherMap, categories) => {
                 if (!this.authService.getUserId() || (!this.authService.getEquipeId() && !this.authService.isCurrentUserGroupOrderUser())) return [];
 

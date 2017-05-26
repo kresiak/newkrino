@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
+import { VoucherService } from '../Shared/Services/voucher.service';
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
@@ -21,7 +22,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 export class SupplierDetailComponent implements OnInit {
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
-        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService) {
+        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService, private voucherService: VoucherService) {
 
     }
 
@@ -217,7 +218,7 @@ export class SupplierDetailComponent implements OnInit {
     save(formValue, isValid, supplierId, categoryId) {
         this.voucherUseError = undefined
         if (isValid) {
-            this.productService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(res => {
+            this.voucherService.useVoucherForCurrentUser(supplierId, categoryId, formValue.price, formValue.description).subscribe(res => {
                 if (res.error) {
                     this.voucherUseError = res.error
                 }
