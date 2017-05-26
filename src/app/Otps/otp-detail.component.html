@@ -113,7 +113,7 @@
 						</div>
 						<div class="form-group row" *ngIf="otp.data.isAnnual">
 							<ngb-tabset>
-								<ngb-tab title="Add new budget period" id="tabAddNewBudgetPeriod">
+								<ngb-tab title="Add new budget period" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo.isAdministrator()">
 									<template ngbTabContent>
 										<div class="card">
 											<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)" >
@@ -162,16 +162,16 @@
 															<div class="col-sm-3 vcenter"><b>Date start</b></div>
 															<div class="col-sm-3 vcenter"><b>Date end</b></div>
 														</div>
-														<div *ngFor="let budget of otp.data.budgetHistory">
+														<div *ngFor="let budgetItem of otp.data.budgetHistory">
 															<div class="row">
 																<div class="col-sm-2 vcenter">
-																	<gg-editor [content]="budget.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budget, $event)"></gg-editor>
+																	<gg-editor [content]="budgetItem.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 																</div>
 																<div class="col-sm-3 vcenter">
-																	<gg-editor [content]="budget.datStart" [showControls]="true" (editSaved)="datStartAnnualUpdated(budget, $event)"></gg-editor>
+																	<gg-editor [content]="budgetItem.datStart" [showControls]="true" (editSaved)="datStartAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 																</div>
 																<div class="col-sm-3 vcenter">
-																	<gg-editor [content]="budget.datEnd" [showControls]="true" (editSaved)="datEndAnnualUpdated(budget, $event)"></gg-editor>
+																	<gg-editor [content]="budgetItem.datEnd" [showControls]="true" (editSaved)="datEndAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 																</div>
 															</div>                        
 														</div>
