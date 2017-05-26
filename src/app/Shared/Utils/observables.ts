@@ -7,7 +7,7 @@
         return hashMapFactoryHelper(list, element => element.data._id)
     }
 
-    function hashMapFactoryHelper(list, fnIdSelector) {
+    export function hashMapFactoryHelper(list, fnIdSelector) {
         return list.reduce((map, element) => {
             map.set(fnIdSelector(element), element)
             return map

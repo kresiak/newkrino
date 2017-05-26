@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { Observable, Subscription } from 'rxjs/Rx'
-import { OrderService } from './../Shared/Services/order.service'
+import { OtpService } from '../Shared/Services/otp.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
@@ -12,7 +12,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class OtpDetailComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
+    constructor(private otpService: OtpService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
 
     ourObject: any
     state: {}    
@@ -25,7 +25,7 @@ export class OtpDetailComponentRoutable implements OnInit {
     otpObservable: Observable<any>;
     initData(id: string) {
         if (id) {
-            this.otpObservable = this.orderService.getAnnotatedOtpById(id);
+            this.otpObservable = this.otpService.getAnnotatedOtpById(id);
             this.otpObservable.subscribe(obj => {
                 this.ourObject = obj
             })

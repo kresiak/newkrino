@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
-import { OrderService } from './../Shared/Services/order.service'
+import { OtpService } from './../Shared/Services/otp.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -17,7 +17,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 
 export class CategoryDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private otpService: OtpService, private navigationService: NavigationService, private authService: AuthService) {
     }
 
     private subscriptionAuthorization: Subscription 
@@ -40,7 +40,7 @@ export class CategoryDetailComponent implements OnInit {
             this.category = category;
             if (category) {
                 this.productsObservable= this.productService.getAnnotatedProductsByCategory(category.data._id)
-                this.otpsObservable= this.orderService.getAnnotatedOpenOtpsByCategory(category.data._id)
+                this.otpsObservable= this.otpService.getAnnotatedOpenOtpsByCategory(category.data._id)
             }
         });
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { OtpService } from '../Shared/Services/otp.service'
 import { ProductService } from './../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
@@ -23,7 +24,7 @@ export class EquipeDetailComponent implements OnInit {
     private budgetForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
-        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService) {
+        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService) {
     }
     private pieSpentChart;
 
@@ -53,7 +54,7 @@ export class EquipeDetailComponent implements OnInit {
             if (eq) {
                 this.pieSpentChart = this.chartService.getSpentPieData(this.equipe.annotation.amountSpent / this.equipe.annotation.budget * 100);
                 this.usersObservable = this.authService.getAnnotatedUsersByEquipeId(this.equipe.data._id)
-                this.otpsObservable = this.orderService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
+                this.otpsObservable = this.otpService.getAnnotatedOtpsByEquipe(this.equipe.data._id);
                 this.ordersObservable = this.orderService.getAnnotedOrdersByEquipe(eq.data._id);
                 this.orderService.hasEquipeAnyOrder(eq.data._id).first().subscribe(anyOrder => this.anyOrder = anyOrder);
 

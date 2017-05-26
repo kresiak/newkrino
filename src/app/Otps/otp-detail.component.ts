@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
+import { OtpService } from '../Shared/Services/otp.service'
 import { UserService } from './../Shared/Services/user.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SapService } from './../Shared/Services/sap.service'
@@ -24,7 +25,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
         private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder, private otpService: OtpService) {
     }
     private pieSpentChart;
     private annualForm: FormGroup;
@@ -73,7 +74,7 @@ export class OtpDetailComponent implements OnInit {
                     this.sapIdList= lst
                 })
 
-                this.orderService.getAnnotatedOtpsForBudgetMap().first().subscribe(map => {
+                this.otpService.getAnnotatedOtpsForBudgetMap().first().subscribe(map => {
                     this.otpBudget= map.get(otp.data._id)
                     this.pieSpentChart = this.chartService.getSpentPieData(this.otpBudget.annotation.amountSpent / this.otpBudget.annotation.budget * 100);
                 })

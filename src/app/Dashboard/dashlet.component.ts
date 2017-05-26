@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { UserService } from '../Shared/Services/user.service'
 import { OrderService } from '../Shared/Services/order.service'
+import { OtpService } from '../Shared/Services/otp.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
@@ -11,7 +12,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
     }
 )
 export class DashletComponent implements OnInit {
-    constructor(private userService: UserService, private orderService: OrderService) {
+    constructor(private userService: UserService, private orderService: OrderService, private otpService: OtpService) {
 
     }
 
@@ -20,7 +21,7 @@ export class DashletComponent implements OnInit {
 
     ngOnInit(): void {
         if (this.isOtpDashlet()) {
-            this.dataObservable = this.orderService.getAnnotatedOtpById(this.id);
+            this.dataObservable = this.otpService.getAnnotatedOtpById(this.id);
         }
 
         if (this.isEquipeDashlet()) {
