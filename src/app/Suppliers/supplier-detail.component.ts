@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductService } from './../Shared/Services/product.service'
+import { BasketService } from './../Shared/Services/basket.service'
 import { VoucherService } from '../Shared/Services/voucher.service';
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
@@ -22,7 +23,8 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 )
 export class SupplierDetailComponent implements OnInit {
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
-        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService, private voucherService: VoucherService) {
+        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService, 
+        private voucherService: VoucherService, private basketService: BasketService) {
 
     }
 
@@ -75,10 +77,10 @@ export class SupplierDetailComponent implements OnInit {
 
         this.productsObservable = this.productService.getAnnotatedProductsBySupplier(this.supplierId);
 
-        this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
+        this.productsBasketObservable = this.basketService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
         this.productsBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereABasket = products && products.length > 0);
 
-        this.productsGroupedBasketObservable = this.productService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(this.supplierId);
+        this.productsGroupedBasketObservable = this.basketService.getAnnotatedProductsInGroupOrdersUserBasketBySupplier(this.supplierId);
         this.productsGroupedBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
 
         this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(this.supplierId);

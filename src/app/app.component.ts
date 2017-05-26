@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
 import { ProductService } from './Shared/Services/product.service'
+import { BasketService } from './Shared/Services/basket.service'
 import { MenuService } from './Shared/Services/menu.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
@@ -17,8 +18,8 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private menuService: MenuService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService,
-        private _sanitizer: DomSanitizer) {
+    constructor(private authService: AuthService, private menuService: MenuService, private productService: ProductService, private basketService: BasketService,
+                private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
     }
@@ -56,7 +57,7 @@ export class AppComponent implements OnInit {
             this.labManagerMessages = res
         })
 
-        this.subscriptionBasketItems = this.productService.getBasketItemsForCurrentUser().subscribe(items => {
+        this.subscriptionBasketItems = this.basketService.getBasketItemsForCurrentUser().subscribe(items => {
             this.nbProductsInBasket = items.length
         })
 

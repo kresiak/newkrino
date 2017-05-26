@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service';
 import { ProductService } from './../Shared/Services/product.service';
+import { BasketService } from './../Shared/Services/basket.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { Editor} from './../ui/editor/editor'
@@ -31,7 +32,7 @@ export class ProductGridComponent implements OnInit
     private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
 
     constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
-                        private router: Router)
+                        private basketService: BasketService, private router: Router)
     {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -113,7 +114,7 @@ export class ProductGridComponent implements OnInit
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
 
-        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
+        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
             this.basketPorductsMap= basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         })
@@ -167,7 +168,7 @@ export class ProductGridComponent implements OnInit
     }
 
     quantityBasketUpdated(quantity: string, product) {
-        this.productService.doBasketUpdate(product, quantity)
+        this.basketService.doBasketUpdate(product, quantity)
     }
 
     navigateToProduct(product) {

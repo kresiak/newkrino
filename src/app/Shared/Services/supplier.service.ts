@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { ProductService } from './product.service'
+import { BasketService } from './basket.service'
 import { VoucherService } from './voucher.service'
 import { OrderService } from './order.service'
 
@@ -13,7 +14,7 @@ import * as utils from './../Utils/observables'
 
 Injectable()
 export class SupplierService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(ProductService) private productService: ProductService, 
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(ProductService) private productService: ProductService, @Inject(BasketService) private basketService: BasketService,
                 @Inject(OrderService) private orderService: OrderService, @Inject(AuthService) private authService: AuthService,
                 @Inject(VoucherService) private voucherService: VoucherService) { }
 
@@ -48,15 +49,15 @@ export class SupplierService {
     }
 
     getSupplierIdsSetObservableWithBasketForCurrentUser(): Observable<any> {
-        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForCurrentUser())
+        return this.getSupplierIdsSetObservableInBasketItems(this.basketService.getBasketItemsForCurrentUser())
     }
 
     getSupplierIdsSetObservableWithBasketForGroupOrdersUser(): Observable<any> {
-        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForGroupOrdersUser())
+        return this.getSupplierIdsSetObservableInBasketItems(this.basketService.getBasketItemsForGroupOrdersUser())
     }
 
     getSupplierIdsSetObservableWithCurrentUserParticipationInGroupsOrder(): Observable<any> {
-        return this.getSupplierIdsSetObservableInBasketItems(this.productService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation())
+        return this.getSupplierIdsSetObservableInBasketItems(this.basketService.getBasketItemsForGroupOrdersUserWithCurrentUserParticipation())
     }
 
     getAnnotatedSupplierseWithBasketForCurrentUser(): Observable<any> {

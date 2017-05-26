@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
+import { BasketService } from './../Shared/Services/basket.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -36,7 +37,7 @@ export class ProductListComponent implements OnInit {
     private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
     
 
-    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -105,7 +106,7 @@ export class ProductListComponent implements OnInit {
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
 
-        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
+        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
             this.basketPorductsMap= basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         })

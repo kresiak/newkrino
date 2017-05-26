@@ -131,6 +131,7 @@ import {OrderService} from './Shared/Services/order.service'
 import {OtpService} from './Shared/Services/otp.service'
 import {EquipeService} from './Shared/Services/equipe.service'
 import {StockService} from './Shared/Services/stock.service'
+import {BasketService} from './Shared/Services/basket.service'
 import {VoucherService} from './Shared/Services/voucher.service'
 import {DataStore} from './Shared/Services/data.service';
 import {AuthService} from './Shared/Services/auth.service'
@@ -211,7 +212,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierSapDetailComponent, SupplierSapListComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
-                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService ],
+                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

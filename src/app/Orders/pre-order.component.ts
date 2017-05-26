@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
-import { ProductService } from './../Shared/Services/product.service'
+import { BasketService } from './../Shared/Services/basket.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { SupplierService } from './../Shared/Services/supplier.service'
@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
     }
 )
 export class PreOrderComponent implements OnInit {
-    constructor(private orderService: OrderService, private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, 
+    constructor(private orderService: OrderService, private supplierService: SupplierService, private basketService: BasketService, private route: ActivatedRoute, 
                 private authService: AuthService, private equipeService: EquipeService, private router: Router) {
 
     }
@@ -38,7 +38,7 @@ export class PreOrderComponent implements OnInit {
             let supplierId = params['id']
             if (supplierId) {
                 this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier)
-                this.productsBasketObservable = this.productService.getAnnotatedProductsInCurrentUserBasketBySupplierWithOtp(supplierId)
+                this.productsBasketObservable = this.basketService.getAnnotatedProductsInCurrentUserBasketBySupplierWithOtp(supplierId)
                 this.subscriptionProductBasket2 = this.productsBasketObservable.subscribe(products => {
                     this.productsInBasket = products
                     this.isOtpOk = products.filter(product => product.annotation.otp && !product.annotation.otp._id).length == 0
@@ -94,7 +94,7 @@ export class PreOrderComponent implements OnInit {
     private supplier;
 
     createOrder(): void {
-        var observable = this.productService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(group => group.data._id === this.selectedGroupId)[0]);
+        var observable = this.basketService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(group => group.data._id === this.selectedGroupId)[0]);
 
         if (observable) {
             observable.subscribe(res => {

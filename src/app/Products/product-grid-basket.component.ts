@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service';
 import { ProductService } from './../Shared/Services/product.service';
+import { BasketService } from './../Shared/Services/basket.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { Editor} from './../ui/editor/editor'
@@ -28,7 +29,7 @@ export class ProductGridBasketComponent implements OnInit
     private products;
 
     constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
-                        private router: Router)
+                        private basketService: BasketService, private router: Router)
     {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -144,7 +145,7 @@ export class ProductGridBasketComponent implements OnInit
     }
 
     quantityBasketUpdated(quantity: string, product) {
-        this.productService.doBasketUpdate(product, quantity)
+        this.basketService.doBasketUpdate(product, quantity)
     }
 
     quantityGroupedBasketUpdated(quantity: string, product, item) {
@@ -160,12 +161,12 @@ export class ProductGridBasketComponent implements OnInit
 
     otpUpdated(newOtpId, product): void {
         if (newOtpId && newOtpId.length > 0) {
-            this.productService.doBasketOtpUpdate(product, newOtpId)
+            this.basketService.doBasketOtpUpdate(product, newOtpId)
         }
     }
 
     setNotUrgent(product): void {
-        this.productService.doBasketNotUrgent(product).first().subscribe(res => {
+        this.basketService.doBasketNotUrgent(product).first().subscribe(res => {
 
         })
     }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
+import { BasketService } from './../Shared/Services/basket.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +21,8 @@ import { Router } from '@angular/router'
 )
 
 export class ProductDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private authService: AuthService, private router: Router) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, 
+                private authService: AuthService, private basketService: BasketService, private router: Router) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -65,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
             this.authorizationStatusInfo= statusInfo
         })        
 
-        this.productService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
+        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
             this.basketPorductsMap= basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
         })
@@ -113,11 +115,11 @@ export class ProductDetailComponent implements OnInit {
     }
 
     quantityBasketUpdated(quantity: string) {
-        this.productService.doBasketUpdate(this.product, quantity)
+        this.basketService.doBasketUpdate(this.product, quantity)
     }
 
     quantityBasketIncremented() {        
-        this.productService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString() )
+        this.basketService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString() )
         this.product.annotation.quantity++ // to display it more rapidly, even if the observable would bring it anyway
     }
 
