@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
-import { SupplierService } from './Shared/Services/supplier.service';
+import { NotificationService } from './Shared/Services/notification.service';
 import { ProductService } from './Shared/Services/product.service'
 import { ApiService } from './Shared/Services/api.service';
-import { OrderService } from './Shared/Services/order.service'
 import { SapService } from './Shared/Services/sap.service'
 
 
@@ -20,7 +19,7 @@ export class HomeComponent implements OnInit {
     private messageList: any;
 
 
-    constructor(private supplierService: SupplierService, private apiService: ApiService, private orderService: OrderService, private productService: ProductService, private sapService: SapService) {
+    constructor(private notificationService: NotificationService, private apiService: ApiService, private productService: ProductService, private sapService: SapService) {
 
     /*            var interval = Observable.interval(1000);
         
@@ -82,7 +81,7 @@ export class HomeComponent implements OnInit {
 
         //this.productService.flagStockProducts()
 
-        this.supplierService.getAnnotatedReceptions().map(receptions => receptions.filter(reception => !reception.data.isProcessed)).subscribe(receptions => {
+        this.notificationService.getAnnotatedReceptions().map(receptions => receptions.filter(reception => !reception.data.isProcessed)).subscribe(receptions => {
             this.receptionList = receptions ? receptions : [];
         });
 
@@ -90,7 +89,7 @@ export class HomeComponent implements OnInit {
                     let x= res
                 })
         */
-        this.orderService.getAnnotatedMessages().map(messages => messages.filter(message => !message.data.isDisabled)).subscribe(res => {
+        this.notificationService.getAnnotatedMessages().map(messages => messages.filter(message => !message.data.isDisabled)).subscribe(res => {
             this.messageList = res
         })
 

@@ -3,6 +3,7 @@ import { SelectableData } from '../../Shared/Classes/selectable-data'
 import { EquipeService } from '../../Shared/Services/equipe.service';
 import { OtpService } from '../../Shared/Services/otp.service'
 import { ProductService } from '../../Shared/Services/product.service'
+import { NotificationService } from '../../Shared/Services/notification.service'
 
 import { DataStore } from '../../Shared/Services/data.service';
 //import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +19,8 @@ import { Observable, Subscription } from 'rxjs/Rx'
 
 export class MonitoringDetailComponent implements OnInit {
 
-    constructor(private equipeService: EquipeService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore, private otpService: OtpService ) {}
+    constructor(private equipeService: EquipeService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore, 
+                    private otpService: OtpService, private notificationService: NotificationService ) {}
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers();
@@ -26,7 +28,7 @@ export class MonitoringDetailComponent implements OnInit {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectableOtps = this.otpService.getSelectableOtps();
 
-        this.subscribeConfig= this.productService.getAdminMonitorForCurrentUser().subscribe(res => {
+        this.subscribeConfig= this.notificationService.getAdminMonitorForCurrentUser().subscribe(res => {
             this.config= res
 
             this.userIds= Observable.from([this.config.user.ids])

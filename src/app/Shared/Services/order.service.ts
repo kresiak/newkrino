@@ -298,36 +298,6 @@ export class OrderService {
 
 
 
-    // messages
-    // ==============
-
-    private createAnnotatedMessage(message, annotatedUsers) {
-        if (!message) return null;
-
-        let user = annotatedUsers.filter(user => user.data._id === message.userId)[0]
-
-        return {
-            data: message,
-            annotation:
-            {
-                user: user ? user.annotation.fullName : 'unknown user'
-            }
-        };
-    }
-
-    getAnnotatedMessages(): Observable<any> {
-        return Observable.combineLatest(
-            this.dataStore.getDataObservable('messages'),
-            this.authService.getAnnotatedUsers(),
-            (messages, annotatedUsers) => {
-                return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
-                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
-            });
-    }
-
 
 
     // fridge orders

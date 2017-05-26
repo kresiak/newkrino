@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.service'
-import { ProductService } from './Shared/Services/product.service'
+import { NotificationService } from './Shared/Services/notification.service'
 import { BasketService } from './Shared/Services/basket.service'
 import { MenuService } from './Shared/Services/menu.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
@@ -18,7 +18,7 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private menuService: MenuService, private productService: ProductService, private basketService: BasketService,
+    constructor(private authService: AuthService, private menuService: MenuService, private notificationService: NotificationService, private basketService: BasketService,
                 private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
             this.menu = menu
         })
 
-        this.subscriptionLmMessages = this.productService.getLmWarningMessages().subscribe(res => {
+        this.subscriptionLmMessages = this.notificationService.getLmWarningMessages().subscribe(res => {
             this.labManagerMessages = res
         })
 

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import {OrderService} from '../Shared/Services/order.service'
+import {NotificationService} from '../Shared/Services/notification.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component(
@@ -22,7 +22,7 @@ export class CommunicationEnterComponent implements OnInit {
     private subscriptionUsers: Subscription
     private subscriptionMessages: Subscription
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private orderService: OrderService ) {}
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private authService: AuthService, private notificationService: NotificationService ) {}
 
     ngOnInit(): void {
         this.communicationMessageForm = this.formBuilder.group({
@@ -33,7 +33,7 @@ export class CommunicationEnterComponent implements OnInit {
             this.currentUserId = id
         });
 
-        this.subscriptionMessages = this.orderService.getAnnotatedMessages().subscribe(messages => {
+        this.subscriptionMessages = this.notificationService.getAnnotatedMessages().subscribe(messages => {
         this.messagesList = messages;
         });
     

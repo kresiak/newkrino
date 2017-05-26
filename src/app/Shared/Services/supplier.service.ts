@@ -147,24 +147,5 @@ export class SupplierService {
             );
         }*/
 
-    getAnnotatedReceptions(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('orders.reception'),
-            (suppliers, receptions) => {
-                return receptions.map(reception => {
-                    let supplier = suppliers.filter(supplier => supplier._id === reception.supplierId)[0]
-                    return {
-                        data: reception,
-                        annotation: {
-                            supplier: supplier ? supplier.name : reception.supplier
-                        }
-                    }
-                }).sort((r1, r2) => {
-                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
-            }
-        );
-    }
 
 }

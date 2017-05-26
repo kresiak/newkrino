@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SupplierService } from './../Shared/Services/supplier.service';
+import { NotificationService } from './../Shared/Services/notification.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Observable, Subscription } from 'rxjs/Rx'
@@ -17,7 +17,7 @@ export class ReceptionDetailComponent implements OnInit {
     private receptionForm: FormGroup;
     private suppliersList: any;
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private supplierService: SupplierService, private _sanitizer: DomSanitizer, private authService: AuthService ) {}
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private notificationService: NotificationService, private _sanitizer: DomSanitizer, private authService: AuthService ) {}
 
     ngOnInit(): void {
         this.receptionForm = this.formBuilder.group({
@@ -36,7 +36,7 @@ export class ReceptionDetailComponent implements OnInit {
             })
         });
 
-        this.receptionSubscrible = this.supplierService.getAnnotatedReceptions().subscribe(receptions => {
+        this.receptionSubscrible = this.notificationService.getAnnotatedReceptions().subscribe(receptions => {
             this.receptionList = receptions;
         });
 

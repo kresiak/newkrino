@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { UserService } from '../Shared/Services/user.service'
-import { ProductService } from '../Shared/Services/product.service'
+import { NotificationService } from '../Shared/Services/notification.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     initTabId = ''
 
 
-    constructor(private userService: UserService, private authService: AuthService, private productService: ProductService, private navigationService: NavigationService) {
+    constructor(private userService: UserService, private authService: AuthService, private notificationService: NotificationService, private navigationService: NavigationService) {
 
     }
 
@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
-        this.subscriptionLmMessages = this.productService.getLmWarningMessages().subscribe(m => {
+        this.subscriptionLmMessages = this.notificationService.getLmWarningMessages().subscribe(m => {
             this.labManagerMessages = m
         })
 
