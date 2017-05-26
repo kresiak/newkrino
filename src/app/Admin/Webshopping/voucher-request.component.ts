@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import { OrderService } from '../../Shared/Services/order.service'
+import { OtpService } from '../../Shared/Services/otp.service'
 import { ProductService } from '../../Shared/Services/product.service'
 import { DataStore } from './../../Shared/Services/data.service'
 import { Observable, Subscription } from 'rxjs/Rx'
@@ -17,7 +17,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 export class AdminWebShoppingVoucherRequestComponent {
     private voucherForm: FormGroup;
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private orderService: OrderService, private productService: ProductService, private _sanitizer: DomSanitizer) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private otpService: OtpService, private productService: ProductService, private _sanitizer: DomSanitizer) {
 
     }
 
@@ -31,7 +31,7 @@ export class AdminWebShoppingVoucherRequestComponent {
             otp: ['', [Validators.required, Validators.minLength(5)]]
         })
 
-        this.orderService.getAnnotatedOpenOtpsByCategory(this.openRequest.categoryId).subscribe(otps => {
+        this.otpService.getAnnotatedOpenOtpsByCategory(this.openRequest.categoryId).subscribe(otps => {
             this.otpList = otps.map(otp => {
                 return {
                     id: otp.data._id,

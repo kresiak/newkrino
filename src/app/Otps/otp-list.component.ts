@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
-import { OrderService } from './../Shared/Services/order.service'
+import { OtpService } from '../Shared/Services/otp.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,7 +31,7 @@ export class OtpListComponent implements OnInit {
 
     private otps;
 
-    constructor(private sapService: SapService, private orderService: OrderService) {
+    constructor(private sapService: SapService, private otpService: OtpService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -57,7 +57,7 @@ export class OtpListComponent implements OnInit {
             return otp
         }
 
-        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.orderService.getAnnotatedOtpsForBudgetMap(),
+        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.otpService.getAnnotatedOtpsForBudgetMap(),
                                                         this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''),
             (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
                 if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));

@@ -4,6 +4,7 @@ import { AuthService } from './auth.service'
 import { ApiService } from './api.service'
 import { OtpChoiceService } from './otp-choice.service'
 import { OrderService } from './order.service'
+import { OtpService } from './otp.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { SharedObservable } from './../Classes/shared-observable'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
@@ -17,7 +18,7 @@ export class ProductService {
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
-        @Inject(OrderService) private orderService: OrderService) {
+        @Inject(OrderService) private orderService: OrderService, @Inject(OtpService) private otpService: OtpService) {
         this.initProductDoubleObservable()
 
         this.allProductsObservable = new SharedObservable(this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
@@ -587,7 +588,7 @@ export class ProductService {
 
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
         return Observable.combineLatest(this.getProductsBySupplier(supplierId).map(utils.hashMapFactory), basketObservable,
-            otpNeeded ? this.orderService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
+            otpNeeded ? this.otpService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
             (products, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {

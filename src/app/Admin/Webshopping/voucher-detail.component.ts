@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../../Shared/Services/data.service'
-import { OrderService } from '../../Shared/Services/order.service'
+import { OtpService } from '../../Shared/Services/otp.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
 
@@ -14,7 +14,7 @@ import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/aut
     }
 )
 export class VoucherDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private otpService: OtpService, private authService: AuthService) {
     }
     private pieSpentChart;
 
@@ -41,7 +41,7 @@ export class VoucherDetailComponent implements OnInit {
         this.subscriptionVoucher= this.voucherObservable.subscribe(eq => {
             this.voucher = eq;
             if (this.voucher) {
-                this.otpListObservable = this.orderService.getAnnotatedOpenOtpsByCategory(this.voucher.data.categoryId).map(otps => otps.map(otp => {
+                this.otpListObservable = this.otpService.getAnnotatedOpenOtpsByCategory(this.voucher.data.categoryId).map(otps => otps.map(otp => {
                     return {
                         id: otp.data._id,
                         name: otp.data.name
