@@ -12,6 +12,12 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-sm-3 vcenter">start of Krino:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor-date [content]="labo.data.krinoStartDate" (editSaved)="startOfKrino($event)"></gg-editor-date>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-3 vcenter">head(s) of laboratory:</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedAdminsIdsObservable" (selectionChanged)="headSelectionChanged($event)"></gg-selector>
