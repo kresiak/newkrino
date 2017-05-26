@@ -3,7 +3,6 @@ import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { BasketService } from './basket.service'
 import { VoucherService } from './voucher.service'
-import { OrderService } from './order.service'
 
 
 import { SelectableData } from './../Classes/selectable-data'
@@ -14,7 +13,7 @@ import * as utils from './../Utils/observables'
 Injectable()
 export class SupplierService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(BasketService) private basketService: BasketService,
-                @Inject(OrderService) private orderService: OrderService, @Inject(AuthService) private authService: AuthService,
+                @Inject(AuthService) private authService: AuthService,
                 @Inject(VoucherService) private voucherService: VoucherService) { }
 
     getSupplier(supplierId): Observable<any> {
@@ -73,9 +72,20 @@ export class SupplierService {
                     })
     }
 
+    private getSupplierFrequenceMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map supplier => nb orders    
+        return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
+            let supplierId = order.supplierId
+            if (supplierId) {
+                if (!map.has(supplierId)) map.set(supplierId, 0)
+                map.set(supplierId, map.get(supplierId) + 1)
+            }
+            return map
+        }, new Map()))
+    }
+
 
     getAnnotatedSuppliers(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.orderService.getSupplierFrequenceMapObservable(),
+        return Observable.combineLatest(this.dataStore.getDataObservable('suppliers'), this.dataStore.getDataObservable('products'), this.getSupplierFrequenceMapObservable(),
             this.voucherService.getVoucherMapForCurrentUser(), this.dataStore.getDataObservable('categories'),
             (suppliers, produits, supplierFrequenceMap, voucherMap, categories) => {
                 if (!this.authService.getUserId() || (!this.authService.getEquipeId() && !this.authService.isCurrentUserGroupOrderUser())) return [];

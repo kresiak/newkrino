@@ -1,12 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
-import { ApiService } from './api.service'
-import { OtpChoiceService } from './otp-choice.service'
-import { OrderService } from './order.service'
-import { StockService } from './stock.service'
-import { VoucherService } from './voucher.service'
-import { OtpService } from './otp.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { SharedObservable } from './../Classes/shared-observable'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
@@ -18,10 +12,7 @@ export class ProductService {
 
     private allProductsObservable: SharedObservable
 
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
-        @Inject(ApiService) private apiService: ApiService, @Inject(OtpChoiceService) private otpChoiceService: OtpChoiceService,
-        @Inject(OrderService) private orderService: OrderService, @Inject(OtpService) private otpService: OtpService,
-        @Inject(StockService) private stockService: StockService, @Inject(VoucherService) private voucherService: VoucherService) {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) {
         this.initProductDoubleObservable()
 
         this.allProductsObservable = new SharedObservable(this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
@@ -146,10 +137,24 @@ export class ProductService {
     }
 
 
+    private getProductFrequenceMapObservable(): Observable<Map<string, number>> {    // parse the orders in a linear way to create a map product => nb orders    
+        return this.dataStore.getDataObservable('orders').map(orders => orders.reduce((map, order) => {
+            if (order.items) {
+                order.items.filter(item => item.productId && item.quantity).forEach(item => {
+                    let productId = item.productId
+                    if (!map.has(productId)) map.set(productId, 0)
+                    map.set(productId, map.get(productId) + 1)
+                })
+            }
+            return map
+        }, new Map()))
+    }
+
+
 
     private getAnnotatedProducts(productsObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsObservable, this.dataStore.getDataObservable("suppliers"),
-            this.orderService.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
+            this.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
             (products, suppliers, productFrequenceMap, currentUserId, setProductsInDouble) => {
                 let mapSuppliers = suppliers.reduce((map, supplier) => {
                     map.set(supplier._id, supplier)
