@@ -4,6 +4,7 @@ import * as moment from "moment"
 @Pipe({name: 'shortDate'})
 export class ShortDatePipe implements PipeTransform {
   transform(date, param) {
+    if (!moment(date, 'DD/MM/YYYY HH:mm:ss').isValid()) return date
     return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LL');    
   }
 }
