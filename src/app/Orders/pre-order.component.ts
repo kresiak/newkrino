@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ProductService } from './../Shared/Services/product.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { Observable, Subscription } from 'rxjs/Rx'
@@ -13,7 +14,8 @@ import { Observable, Subscription } from 'rxjs/Rx'
     }
 )
 export class PreOrderComponent implements OnInit {
-    constructor(private orderService: OrderService, private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
+    constructor(private orderService: OrderService, private supplierService: SupplierService, private productService: ProductService, private route: ActivatedRoute, 
+                private authService: AuthService, private equipeService: EquipeService, private router: Router) {
 
     }
 
@@ -48,7 +50,7 @@ export class PreOrderComponent implements OnInit {
                         }
                         else {
                             this.isGroupOrdersUser = false
-                            this.orderService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
+                            this.equipeService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
                                 if (!eq) return
                                 var total = products.map(item => item.annotation.totalPrice).reduce((a, b) => a + b, 0)
                                 this.isEnoughBudget = total < eq.annotation.amountAvailable
@@ -63,14 +65,14 @@ export class PreOrderComponent implements OnInit {
             }
         });
 
-        this.groupsForSelectionObservable = this.orderService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
+        this.groupsForSelectionObservable = this.equipeService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
             return {
                 id: group.data._id,
                 name: group.data.name
             }
         }))
 
-        this.subscriptionEquipeGroups = this.orderService.getAnnotatedEquipesGroups().subscribe(groups => {
+        this.subscriptionEquipeGroups = this.equipeService.getAnnotatedEquipesGroups().subscribe(groups => {
             this.groups = groups
         })
 

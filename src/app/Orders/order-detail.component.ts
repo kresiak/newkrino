@@ -7,6 +7,8 @@ import { UserService } from './../Shared/Services/user.service'
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
+
 import * as moment from "moment"
 
 
@@ -18,7 +20,7 @@ import * as moment from "moment"
     }
 )
 export class OrderDetailComponent implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService, private authService: AuthService,
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private equipeService: EquipeService,
         private dataStore: DataStore, private elementRef: ElementRef, private modalService: NgbModal, private router: Router, private navigationService: NavigationService) {
 
     }
@@ -57,7 +59,7 @@ export class OrderDetailComponent implements OnInit {
             }
         }));
 
-        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
             return {
                 id: eq.data._id,
                 name: eq.data.name

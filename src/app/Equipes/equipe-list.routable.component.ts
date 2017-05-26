@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, Inject }
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import { OrderService } from '../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 
 @Component(
     {
@@ -12,7 +12,7 @@ import { OrderService } from '../Shared/Services/order.service'
 )
 export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
     
-    constructor(private navigationService: NavigationService, private authService: AuthService, private orderService: OrderService) { 
+    constructor(private navigationService: NavigationService, private authService: AuthService, private equipeService: EquipeService) { 
 
     }
 
@@ -32,10 +32,10 @@ export class EquipeListComponentRoutable implements OnInit, AfterViewInit {
             this.authorizationStatusInfo= statusInfo
         })
 
-        this.equipesObservable = this.orderService.getAnnotatedEquipes();
-        this.annotatedGiftsObservable= this.orderService.getAnnotatedEquipesGifts()
+        this.equipesObservable = this.equipeService.getAnnotatedEquipes();
+        this.annotatedGiftsObservable= this.equipeService.getAnnotatedEquipesGifts()
 
-        this.equipeObservable = this.orderService.getAnnotatedCurrentEquipe()
+        this.equipeObservable = this.equipeService.getAnnotatedCurrentEquipe()
     }
 
     ngOnDestroy(): void {

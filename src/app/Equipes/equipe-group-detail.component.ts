@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataStore } from './../Shared/Services/data.service'
-import { OrderService } from './../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
@@ -16,7 +16,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class EquipeGroupDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private orderService: OrderService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private equipeService: EquipeService, private authService: AuthService) {
     }
 
     @Input() equipeGroupObservable: Observable<any>;
@@ -41,7 +41,7 @@ export class EquipeGroupDetailComponent implements OnInit {
             this.equipeGroup = eq;
         });
 
-        this.selectableEquipes = this.orderService.getSelectableEquipes();
+        this.selectableEquipes = this.equipeService.getSelectableEquipes();
         this.selectedEquipeIdsObservable = this.equipeGroupObservable.map(group => group.data.equipeIds.map(idObj => idObj.id));
 
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {

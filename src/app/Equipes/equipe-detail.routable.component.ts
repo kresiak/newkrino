@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
-import { OrderService } from '../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -12,7 +12,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class EquipeDetailComponentRoutable implements OnInit {
-    constructor(private orderService: OrderService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
+    constructor(private equipeService: EquipeService, private route: ActivatedRoute, private navigationService: NavigationService, private authService: AuthService) { }
 
     equipe: any
     state: {}
@@ -26,7 +26,7 @@ export class EquipeDetailComponentRoutable implements OnInit {
     equipeObservable: Observable<any>;
     initData(id: string) {
         if (id) {
-            this.equipeObservable = this.orderService.getAnnotatedEquipeById(id);
+            this.equipeObservable = this.equipeService.getAnnotatedEquipeById(id);
             this.equipeObservable.subscribe(obj => {
                 this.equipe = obj
             })

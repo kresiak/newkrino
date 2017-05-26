@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { OrderService } from './../Shared/Services/order.service';
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { OtpService } from '../Shared/Services/otp.service'
 import { UserService } from './../Shared/Services/user.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
@@ -25,7 +26,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
         private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService,
-        private formBuilder: FormBuilder, private otpService: OtpService) {
+        private formBuilder: FormBuilder, private otpService: OtpService, private equipeService: EquipeService) {
     }
     private pieSpentChart;
     private annualForm: FormGroup;
@@ -84,7 +85,7 @@ export class OtpDetailComponent implements OnInit {
             this.authorizationStatusInfo = statusInfo
         });
 
-        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
             return {
                 id: eq.data._id,
                 name: eq.data.name

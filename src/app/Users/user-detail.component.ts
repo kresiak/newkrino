@@ -7,6 +7,8 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { ProductService } from './../Shared/Services/product.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
+
 
 @Component(
     {
@@ -16,7 +18,8 @@ import { ProductService } from './../Shared/Services/product.service'
 )
 
 export class UserDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, private productService: ProductService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, 
+                private productService: ProductService, private equipeService: EquipeService) {
     }
 
     @Input() userObservable: Observable<any>;
@@ -35,7 +38,7 @@ export class UserDetailComponent implements OnInit {
          this.subscriptionUser=this.userObservable.subscribe(user => {
             if (!user) return
             this.user = user;
-            this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(user.data._id)
+            this.equipesObservable= this.equipeService.getAnnotatedEquipesOfUser(user.data._id)
             this.ordersObservable = this.orderService.getAnnotedOrdersByUser(user.data._id)
             this.fridgeOrdersObservable= this.orderService.getAnnotatedFridgeOrdersByUser(user.data._id)
             this.stockOrdersObservable= this.productService.getAnnotatedStockOrdersByUser(user.data._id)

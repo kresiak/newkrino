@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { OrderService } from './../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { ProductService } from './../Shared/Services/product.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
@@ -17,7 +18,7 @@ import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth
 )
 export class MyKrinoComponent implements OnInit {
     constructor(private orderService: OrderService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore,
-        private supplierService: SupplierService, private navigationService: NavigationService) { }
+        private supplierService: SupplierService, private navigationService: NavigationService, private equipeService: EquipeService) { }
 
     private ordersObservable: Observable<any>;
     private fridgeOrdersObservable: Observable<any>;
@@ -72,7 +73,7 @@ export class MyKrinoComponent implements OnInit {
 
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
-            this.equipesObservable= this.orderService.getAnnotatedEquipesOfUser(statusInfo.currentUserId)
+            this.equipesObservable= this.equipeService.getAnnotatedEquipesOfUser(statusInfo.currentUserId)
         });
         this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfCurrentUserByDate()
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
-import { OrderService } from './../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
@@ -16,7 +16,7 @@ import { DOCUMENT } from '@angular/platform-browser'
     }
 )
 export class EquipeGroupListComponent implements OnInit {
-    constructor(private orderService: OrderService) {
+    constructor(private equipeService: EquipeService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -46,7 +46,7 @@ export class EquipeGroupListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        this.equipesObservable = this.orderService.getAnnotatedEquipesGroups();
+        this.equipesObservable = this.equipeService.getAnnotatedEquipesGroups();
 
         this.equipeGroupSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (equipes, searchTxt: string) => {
             if (searchTxt.trim() === '') return equipes;

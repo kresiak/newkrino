@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { OtpService } from '../Shared/Services/otp.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { ProductService } from './../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
@@ -24,7 +25,7 @@ export class EquipeDetailComponent implements OnInit {
     private budgetForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
-        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService) {
+        private productService: ProductService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService, private equipeService: EquipeService) {
     }
     private pieSpentChart;
 
@@ -66,7 +67,7 @@ export class EquipeDetailComponent implements OnInit {
                 this.fridgeOrdersObservable = this.orderService.getAnnotatedFridgeOrdersByEquipe(eq.data._id)
                 this.webVouchersObservable = this.productService.getAnnotatedUsedVouchersOfEquipeByDate(eq.data._id)
 
-                this.bilanObservable = this.orderService.getBilanForEquipe(eq.data._id)
+                this.bilanObservable = this.equipeService.getBilanForEquipe(eq.data._id)
             }
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {

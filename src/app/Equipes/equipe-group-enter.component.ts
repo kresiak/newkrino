@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
 import { AuthService } from '../Shared/Services/auth.service'
-import { OrderService } from '../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 
 @Component({
@@ -16,14 +16,14 @@ export class EquipeGroupEnterComponent implements OnInit {
     private selectableEquipes: Observable<any>;
     private selectedEquipeIds;
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService, private orderService: OrderService) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService, private equipeService: EquipeService) {
 
     }
 
     @ViewChild('equipeSelector') equipesChild;
 
     ngOnInit(): void {
-        this.selectableEquipes = this.orderService.getSelectableEquipes();
+        this.selectableEquipes = this.equipeService.getSelectableEquipes();
 
         this.equipeForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],

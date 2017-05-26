@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { SelectableData } from '../../Shared/Classes/selectable-data'
-import { OrderService } from '../../Shared/Services/order.service'
+import { EquipeService } from '../../Shared/Services/equipe.service';
 import { OtpService } from '../../Shared/Services/otp.service'
 import { ProductService } from '../../Shared/Services/product.service'
 
@@ -18,11 +18,11 @@ import { Observable, Subscription } from 'rxjs/Rx'
 
 export class MonitoringDetailComponent implements OnInit {
 
-    constructor(private orderService: OrderService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore, private otpService: OtpService ) {}
+    constructor(private equipeService: EquipeService, private productService: ProductService, private authService: AuthService, private dataStore: DataStore, private otpService: OtpService ) {}
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers();
-        this.selectableEquipes = this.orderService.getSelectableEquipes();
+        this.selectableEquipes = this.equipeService.getSelectableEquipes();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectableOtps = this.otpService.getSelectableOtps();
 

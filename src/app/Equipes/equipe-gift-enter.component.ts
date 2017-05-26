@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
 import { AuthService } from '../Shared/Services/auth.service'
-import { OrderService } from '../Shared/Services/order.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
@@ -18,7 +18,7 @@ export class EquipeGiftEnterComponent implements OnInit {
     private currentUserId: string
 
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService, private orderService: OrderService, private _sanitizer: DomSanitizer) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authService: AuthService, private equipeService: EquipeService, private _sanitizer: DomSanitizer) {
 
     }
 
@@ -30,7 +30,7 @@ export class EquipeGiftEnterComponent implements OnInit {
             this.currentUserId = id
         })
 
-        this.orderService.getAnnotatedEquipes().subscribe(equipes => {
+        this.equipeService.getAnnotatedEquipes().subscribe(equipes => {
             this.equipesList = equipes.map(supplier => {
                 return {
                     id: supplier.data._id,

@@ -5,7 +5,7 @@ import { SelectableData } from '../../Shared/Classes/selectable-data'
 import { DataStore } from '../../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/auth.service'
 import { AdminService } from '../../Shared/Services/admin.service'
-import { OrderService } from '../../Shared/Services/order.service';
+import { EquipeService } from '../../Shared/Services/equipe.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component(
@@ -16,7 +16,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 )
 
 export class AdminLabo {
-    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private orderService: OrderService,
+    constructor(private dataStore: DataStore, private authService: AuthService, private adminService: AdminService, private EquipeService: EquipeService,
         private formBuilder: FormBuilder) {
     }
 
@@ -41,7 +41,7 @@ export class AdminLabo {
             this.deliveryAdresses= deliveryAdresses
         })
 
-        this.equipeListObservable = this.orderService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+        this.equipeListObservable = this.EquipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
             return {
                 id: eq.data._id,
                 name: eq.data.name
