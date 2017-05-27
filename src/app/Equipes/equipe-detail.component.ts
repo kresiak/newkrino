@@ -10,6 +10,7 @@ import { StockService } from '../Shared/Services/stock.service';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { ChartService } from './../Shared/Services/chart.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -28,7 +29,7 @@ export class EquipeDetailComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
         private voucherService: VoucherService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService, 
-        private equipeService: EquipeService, private stockService: StockService) {
+        private equipeService: EquipeService, private stockService: StockService, private configService: ConfigService) {
     }
     private pieSpentChart;
 

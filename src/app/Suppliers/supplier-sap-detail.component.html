@@ -7,7 +7,7 @@
 				<div class="card-block">
 					<gg-supplier-info [supplier]="supplier"></gg-supplier-info>
 
-					<div class="row" *ngIf="!authService.isProduction()">
+					<div class="row" *ngIf="!configService.isProduction()">
 						<div class="col-sm-2">_id:</div>
 						<div class="col-sm-6">{{supplier._id}}</div>
 					</div>

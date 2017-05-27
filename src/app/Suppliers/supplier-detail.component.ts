@@ -8,6 +8,7 @@ import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { DataStore } from './../Shared/Services/data.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +25,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 export class SupplierDetailComponent implements OnInit {
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
         private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService, 
-        private voucherService: VoucherService, private basketService: BasketService) {
+        private voucherService: VoucherService, private basketService: BasketService, private configService: ConfigService) {
 
     }
 

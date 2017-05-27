@@ -9,6 +9,7 @@ import { OtpService } from '../Shared/Services/otp.service'
 import { UserService } from './../Shared/Services/user.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SapService } from './../Shared/Services/sap.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +27,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class OtpDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private userService: UserService,
         private chartService: ChartService, private navigationService: NavigationService, private router: Router, private authService: AuthService, private sapService: SapService,
-        private formBuilder: FormBuilder, private otpService: OtpService, private equipeService: EquipeService) {
+        private formBuilder: FormBuilder, private otpService: OtpService, private equipeService: EquipeService, private configService: ConfigService) {
     }
     private pieSpentChart;
     private annualForm: FormGroup;

@@ -319,13 +319,4 @@ export class AuthService {
         return this.authInfo.currentUserId === this.systemGroupUserId
     }
 
-
-    // should not be here
-    // ==================
-
-    isProduction() {
-        return true;
-    }
-
-
 }

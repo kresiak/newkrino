@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { OtpService } from './../Shared/Services/otp.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -17,7 +18,8 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 
 export class CategoryDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private otpService: OtpService, private navigationService: NavigationService, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private productService: ProductService, private otpService: OtpService, private navigationService: NavigationService, 
+                private authService: AuthService, private configService: ConfigService) {
     }
 
     private subscriptionAuthorization: Subscription 

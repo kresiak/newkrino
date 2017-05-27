@@ -1,18 +1,24 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import { Http, Headers, RequestMethod, Request } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
-
+import { ConfigService } from './config.service'
 
 
 @Injectable()
 export class ApiService {
-    private urlBaseForData = 'http://localhost:1337/data';  
-    private urlBaseForService =  'http://localhost:1337/service'; 
+    private urlBaseForData   
+    private urlBaseForService 
 
-//    private urlBaseForData = 'http://139.165.56.57:3002/data'  
-    // private urlBaseForService =   'http://139.165.56.57:3002/service' 
-
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, @Inject(ConfigService) private configService: ConfigService) { 
+        if (configService.isProduction()) {
+            this.urlBaseForData= 'http://139.165.56.57:3002/data'
+            this.urlBaseForService=  'http://139.165.56.57:3002/service'
+        }
+        else {
+            this.urlBaseForData= 'http://localhost:1337/data'
+            this.urlBaseForService= 'http://localhost:1337/service'
+        }
+    }
 
     private getOptions(type: RequestMethod, url) {
         return {

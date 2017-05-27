@@ -4,6 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { ProductService } from './../Shared/Services/product.service';
 import { BasketService } from './../Shared/Services/basket.service'
 import { OrderService } from './../Shared/Services/order.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -22,7 +23,7 @@ import { Router } from '@angular/router'
 
 export class ProductDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, 
-                private authService: AuthService, private basketService: BasketService, private router: Router) {
+                private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService) {
     }
 
     @Input() productObservable: Observable<any>;

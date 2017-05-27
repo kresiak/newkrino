@@ -4,6 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { VoucherService } from '../Shared/Services/voucher.service';
@@ -20,7 +21,7 @@ import { EquipeService } from '../Shared/Services/equipe.service';
 
 export class UserDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, 
-                private voucherService: VoucherService, private equipeService: EquipeService, private stockService: StockService) {
+                private voucherService: VoucherService, private equipeService: EquipeService, private stockService: StockService, private configService: ConfigService) {
     }
 
     @Input() userObservable: Observable<any>;

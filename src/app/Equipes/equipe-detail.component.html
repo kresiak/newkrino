@@ -63,7 +63,7 @@
 						</div>
 					</div>
 
-					<div class="row" *ngIf="!authService.isProduction()">
+					<div class="row" *ngIf="!configService.isProduction()">
 						<div class="col-sm-4">_id:</div>
 						<div class="col-sm-6">{{equipe.data._id}}</div>
 					</div>

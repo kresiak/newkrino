@@ -1,19 +1,24 @@
 import {Observable} from 'rxjs/Rx';
 import {Injectable, Inject} from '@angular/core'
 import { DataStore } from './data.service'
+import { ConfigService } from './config.service'
 
 @Injectable()
 export class WebSocketService{
 
-    constructor(@Inject(DataStore) private dataStore: DataStore)
+    constructor(@Inject(DataStore) private dataStore: DataStore, @Inject(ConfigService) private configService: ConfigService)
     {
-
+        if (configService.isProduction()) {
+            this.url =    'ws://139.165.56.57:3002'
+        }
+        else {
+            this.url =   'ws://localhost:1337';
+        }
     }
 
     
     ws: WebSocket;
-    private url =   'ws://localhost:1337'; 
-     //private url = 'ws://139.165.56.57:3002'; 
+    private url; 
 
     init() {
         this.createObservableSocket().subscribe(data => {

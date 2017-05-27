@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { DataStore } from './../Shared/Services/data.service'
@@ -13,7 +14,7 @@ import { SupplierService } from './../Shared/Services/supplier.service'
     }
 )
 export class SupplierSapDetailComponent implements OnInit {
-    constructor(private authService: AuthService, private supplierService: SupplierService, private dataStore: DataStore) {
+    constructor(private authService: AuthService, private supplierService: SupplierService, private dataStore: DataStore, private configService: ConfigService) {
 
     }
 
