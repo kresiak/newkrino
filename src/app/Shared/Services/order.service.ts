@@ -263,17 +263,6 @@ export class OrderService {
     }
 
 
-    // updating orders
-    // ==============
-
-    updateOrder(order): void {
-        this.dataStore.updateData('orders', order._id, order);
-    }
-
-
-
-
-
 
 
     // fridge orders
