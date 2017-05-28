@@ -22,7 +22,6 @@ export class OtpEnterComponent implements OnInit {
     private datEnd: string 
     private selectableCategoriesObservable: Observable<any>;
     private selectedIds;
-    private otp;
 
     @Input() equipeId: string;
 
@@ -71,6 +70,12 @@ export class OtpEnterComponent implements OnInit {
         }
         else {
             this.dataStore.addData('otps', {
+                //budgetHistory: [],
+                budgetHistory: [].push({
+                    budget: formValue.budget,
+                    datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+                    datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+                }),
                 name: formValue.name,
                 isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
                 budgetBlocked: formValue.budgetBlocked,
@@ -81,18 +86,10 @@ export class OtpEnterComponent implements OnInit {
                 equipeId: this.equipeId,
                 note: formValue.note,
                 categoryIds: this.selectedIds
-            })
-            //this.otp.data.budgetHistory = []
-            this.otp.data.budgetHistory.push({
-                budget: formValue.budget,
-                datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-                datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
-            })
-        /*    .first().subscribe(res => {
-                    var x = res;
-                    this.reset();
-          }); */
-            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+            }).first().subscribe(res => {
+                var x = res;
+                this.reset();
+            }); 
         }
     }
 
