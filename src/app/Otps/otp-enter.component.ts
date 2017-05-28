@@ -22,6 +22,7 @@ export class OtpEnterComponent implements OnInit {
     private datEnd: string 
     private selectableCategoriesObservable: Observable<any>;
     private selectedIds;
+    private otp;
 
     @Input() equipeId: string;
 
@@ -36,6 +37,7 @@ export class OtpEnterComponent implements OnInit {
 
         this.otpForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(5)]],
+            isAnnual: [''],
             budget: ['', Validators.required],
             budgetBlocked: ['', Validators.required],
             description: ['', Validators.required],
@@ -47,23 +49,51 @@ export class OtpEnterComponent implements OnInit {
     }
 
     save(formValue, isValid) {
-        this.dataStore.addData('otps', {
-            name: formValue.name,
-            budget: formValue.budget,
-            budgetBlocked: formValue.budgetBlocked,
-            description: formValue.description,
-            datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-            datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss'),
-            isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
-            isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
-            isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
-            equipeId: this.equipeId,
-            note: formValue.note,
-            categoryIds: this.selectedIds
-        }).first().subscribe(res => {
-            var x = res;
-            this.reset();
-        });
+        if (formValue.isAnnual === '') {
+            this.dataStore.addData('otps', {
+                name: formValue.name,
+                isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
+                budget: formValue.budget,
+                budgetBlocked: formValue.budgetBlocked,
+                description: formValue.description,
+                datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+                datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss'),
+                isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
+                isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
+                isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
+                equipeId: this.equipeId,
+                note: formValue.note,
+                categoryIds: this.selectedIds
+            }).first().subscribe(res => {
+                var x = res;
+                this.reset();
+            });
+        }
+        else {
+            this.dataStore.addData('otps', {
+                name: formValue.name,
+                isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
+                budgetBlocked: formValue.budgetBlocked,
+                description: formValue.description,
+                isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
+                isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
+                isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
+                equipeId: this.equipeId,
+                note: formValue.note,
+                categoryIds: this.selectedIds
+            })
+            //this.otp.data.budgetHistory = []
+            this.otp.data.budgetHistory.push({
+                budget: formValue.budget,
+                datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+                datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+            })
+        /*    .first().subscribe(res => {
+                    var x = res;
+                    this.reset();
+          }); */
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+        }
     }
 
     reset() {
