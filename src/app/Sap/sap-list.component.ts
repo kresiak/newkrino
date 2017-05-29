@@ -119,7 +119,9 @@ export class SapListComponent implements OnInit {
             return this.orderService.getOrderEquipeInfoMap().map(orderMap => {
                 return saps.map(sap => {
                     if (sap.mainData && sap.mainData.data.ourRef && +sap.mainData.data.ourRef && orderMap.has(+sap.mainData.data.ourRef)) {
-                        sap.equipeInfo= orderMap.get(+sap.mainData.data.ourRef).annotation.equipe
+                        var orderInfo= orderMap.get(+sap.mainData.data.ourRef)
+                        sap.equipeInfo= orderInfo.annotation.equipe || orderInfo.annotation.equipeGroup
+                        sap.extraEquipeInfo= orderInfo.annotation.equipeGroupRepartition
                     }
                     return sap
                 })
