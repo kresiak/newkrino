@@ -16,8 +16,7 @@ export class TextCompactComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.isExtraText = this.extraTooltipText !== '' 
-            return 
+        this.isExtraText =  this.extraTooltipText && this.extraTooltipText.trim() !== '' 
         
     }
 
