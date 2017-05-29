@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/route
 import { SapService } from '../Shared/Services/sap.service'
 import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -16,7 +17,8 @@ import * as moment from "moment"
     }
 )
 export class SapDetailComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private navigationService: NavigationService) {
+    constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, 
+                private navigationService: NavigationService, private equipeService: EquipeService) {
     }
 
     @Input() sapObservable: Observable<any>;
@@ -38,7 +40,10 @@ export class SapDetailComponent implements OnInit {
     private sapObj;
     private sapItem;
     private sapEngage;
-    private sapFacture;    
+    private sapFacture;  
+
+    private equipeListObservable: Observable<any>  
+    private groupsForSelectionObservable: Observable<any>
 
     ngOnInit(): void {
         this.stateInit();
@@ -53,6 +58,21 @@ export class SapDetailComponent implements OnInit {
             this.sapEngage= res.engaged
             this.sapFacture= res.factured
         })
+
+        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
+            return {
+                id: eq.data._id,
+                name: eq.data.name
+            }
+        }));
+
+        this.groupsForSelectionObservable = this.equipeService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
+            return {
+                id: group.data._id,
+                name: group.data.name
+            }
+        }))
+        
     }
 
     ngOnDestroy(): void {
@@ -84,5 +104,12 @@ export class SapDetailComponent implements OnInit {
         
     }
 
+    equipeChanged(newid) {
+        if (!newid) return
+    }
+
+    equipeGroupChanged(newid) {
+        if (!newid) return
+    }
 
 }

@@ -6,30 +6,30 @@
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
-                        <div class= "row" *ngIf="sapItem.data.isNoEngag">
-                            <div class="col-sm-1">Type:</div>             
+                        <div class="row" *ngIf="sapItem.data.isNoEngag">
+                            <div class="col-sm-1">Type:</div>
                             <div class="col-sm-8"><b>Pièce sans engagement</b> {{sapObj.typesPiece}}</div>
                         </div>
-                        <div class= "row">
-                            <div class="col-sm-1">Reference:</div>             
-                            <div class="col-sm-8">{{sapItem.data.sapId}} /  <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</a> </div>
+                        <div class="row">
+                            <div class="col-sm-1">Reference:</div>
+                            <div class="col-sm-8">{{sapItem.data.sapId}} / <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</a>                                </div>
                         </div>
-                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-1">Supplier:</div>             
+                        <div class="row" *ngIf="!sapItem.data.isNoEngag">
+                            <div class="col-sm-1">Supplier:</div>
                             <div class="col-sm-8">{{sapItem.data.supplier}}</div>
                         </div>
-                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-1">Engagement:</div>             
+                        <div class="row" *ngIf="!sapItem.data.isNoEngag">
+                            <div class="col-sm-1">Engagement:</div>
                             <div class="col-sm-8">{{sapEngage ? sapEngage.data.maxDate : '(No engagement)'}}</div>
                         </div>
-                        <div class= "row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-1">Final invoice:</div>             
+                        <div class="row" *ngIf="!sapItem.data.isNoEngag">
+                            <div class="col-sm-1">Final invoice:</div>
                             <div class="col-sm-8">{{sapObj.hasFactureFinale ? 'yes' : 'no'}}</div>
                         </div>
 
-                        
+
                         <br/>
-                        <div class= "row">
+                        <div class="row">
                             <div class="col-sm-1"><b>Poste</b></div>
                             <div class="col-sm-2"><b>Otp</b></div>
                             <div class="col-sm-2"><b>Product</b></div>
@@ -40,10 +40,12 @@
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Fact. Finale?</b></div>
                             <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag"><b>Qty not factured</b></div>
                         </div>
-                        <div class= "row" *ngFor="let poste of sapObj.postList">
+                        <div class="row" *ngFor="let poste of sapObj.postList">
                             <div class="col-sm-1">{{poste.poste}}</div>
                             <div class="col-sm-2">{{poste.otp}}</div>
-                            <div class="col-sm-2"><gg-text-compact [text]="poste.product"></gg-text-compact></div>
+                            <div class="col-sm-2">
+                                <gg-text-compact [text]="poste.product"></gg-text-compact>
+                            </div>
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1">{{poste.amountFactured | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.amountResiduel | currency:'EUR':true:'1.2-2'}}</div>
@@ -51,7 +53,7 @@
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag">{{poste.hasPosteFactureFinale ? 'finale' : 'no'}}</div>
                             <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag">{{poste.qtyEngaged-poste.qtyFactured}}</div>
                         </div>
-                        <div class= "row">
+                        <div class="row">
                             <div class="col-sm-1"><b></b></div>
                             <div class="col-sm-2"><b></b></div>
                             <div class="col-sm-2"><b></b></div>
@@ -72,6 +74,28 @@
         <ngb-tab title="Invoiced" id="tabInvoiced" *ngIf="sapFacture">
             <template ngbTabContent>
                 <gg-sap-sheet [isFacture]="true" [sapItem]="sapFacture.data"></gg-sap-sheet>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Attribution équipes" id="tabEquipes">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-2 vcenter">Equipe:</div>
+                            <div class="col-sm-6 vcenter">
+                                <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'choose an equipe'" [selectedId]="undefined"
+                                    (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
+                            <div class="col-sm-6 vcenter">
+                                <gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"
+                                    (idChanged)="equipeGroupChanged($event)"></gg-editor-autocomplete>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </template>
         </ngb-tab>
         <ngb-tab id="tabMax">
