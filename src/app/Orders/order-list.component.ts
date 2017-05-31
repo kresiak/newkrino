@@ -60,16 +60,16 @@ export class OrderListComponent implements OnInit {
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted');
             return orders.filter(order => {
                 if (txt.startsWith('#AD')) {
-                    return order.annotation.allDelivered
+                    return order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
                 if (txt.startsWith('#ND')) {
-                    return !order.annotation.allDelivered
+                    return !order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
                 if (txt.startsWith('#ZD')) {
-                    return !order.annotation.allDelivered && !order.annotation.anyDelivered
+                    return !order.annotation.allDelivered && !order.annotation.anyDelivered && order.data.status.value!=='deleted'
                 }
                 if (txt.startsWith('#PD')) {
-                    return order.annotation.anyDelivered && !order.annotation.allDelivered
+                    return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
