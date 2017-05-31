@@ -1,7 +1,7 @@
 <template #searchPopContent>
 	<ul>
 		<li>1245: si le Sap Id contient '1245'</li>
-        <li>vwr: si le fournisseur contient 'vwr'</li>
+		<li>vwr: si le fournisseur contient 'vwr'</li>
 		<li>$d: supprimée/deleted</li>
 		<li>$f: avec facture finale</li>
 		<li>$t: terminé: avec facture finale ou montant restant engagé nul</li>
@@ -10,24 +10,31 @@
 		<li>$pTB: pièces sans engagement of type TB</li>
 		<li>$EO: avec otp error: plusieurs otp différents sur le même poste</li>
 		<li>$E>200: résidu engagé supérieur à 200 euros</li>
-		<li>$E<10: résidu engagé inférieur à 10 euros</li>
-		<li>$R>200: réalisé supérieur à 200 euros</li>
-		<li>$R<10: réalisé inférieur à 10 euros</li>
-		<li>#>2: nombre de postes supérieur à 2</li>
-		<li>#<5: nombre de postes inférieur à 5</li>
-		<li>#=2: nombre de postes égal à 2</li>
+		<li>$E
+			<10: résidu engagé inférieur à 10 euros</li>
+				<li>$R>200: réalisé supérieur à 200 euros</li>
+				<li>$R
+					<10: réalisé inférieur à 10 euros</li>
+						<li>#>2: nombre de postes supérieur à 2</li>
+						<li>#
+							<5: nombre de postes inférieur à 5</li>
+								<li>#=2: nombre de postes égal à 2</li>
 	</ul>
 </template>
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific sap</div></template>
+<template #tipSearchLoupe>
+	<div style="font-size: 70%;">Click here to <br/> search specific sap</div>
+</template>
 
 <div class="card" id="asdfgh">
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+				/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
+				 src="../../images/close.png" (click)="resetSerachControl()" />
 			</div>
 		</div>
 		<div class="row">
@@ -36,13 +43,15 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-1"><b>Sap Id</b></div>
+							<div class="col-sm-1"><b>Our Ref</b></div>
 							<div class="col-sm-1"><b>Eng. date</b></div>
 							<div class="col-sm-1"><b>Last activity</b></div>
-							<div class="col-sm-2"><b>Already invoiced</b></div>
-							<div class="col-sm-2"><b>Remaining engaged</b></div>
+							<div class="col-sm-1"><b>Already invoiced</b></div>
+							<div class="col-sm-1"><b>Remaining engaged</b></div>
 							<div class="col-sm-1"><b>Type</b></div>
-							<div class="col-sm-2"><b>Supplier</b></div>
-                            <div class="col-sm-2"><b>Otp</b></div>
+							<div class="col-sm-1"><b>Supplier</b></div>
+							<div class="col-sm-2"><b>Otp</b></div>
+							<div class="col-sm-2"><b>Equipe</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -53,17 +62,27 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{sap.mainData.data.sapId}}">
 							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
-							<div class="col-sm-1" >{{sap.engaged ? sap.engaged.data.maxDate : ''}}</div>
-							<div class="col-sm-1" >{{sap.dateLastActivity}}</div>
-							<div class="col-sm-2">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-2">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>							
-							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured ? 'invoiced' : 'engaged')))}}</div>
-							<div class="col-sm-2"><gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece"></gg-text-compact></div>
-                            <div class="col-sm-2"><gg-text-compact [text]="sap.mainData.annotation.otpTxt"></gg-text-compact> </div>
+							<div class="col-sm-1">{{sap.mainData.data.ourRef}}</div>
+							<div class="col-sm-1">{{sap.engaged ? sap.engaged.data.maxDate : ''}}</div>
+							<div class="col-sm-1">{{sap.dateLastActivity}}</div>
+							<div class="col-sm-1">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-1">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured
+								? 'invoiced' : 'engaged')))}}</div>
+							<div class="col-sm-1">
+								<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="1"></gg-text-compact>
+							</div>
+							<div class="col-sm-2">
+								<gg-text-compact [text]="sap.mainData.annotation.otpTxt"></gg-text-compact>
+							</div>
+							<div class="col-sm-2">
+								<gg-text-compact [text]="sap.equipeInfo || ''" [extraTooltipText]="sap.extraEquipeInfo" ></gg-text-compact>
+							</div>
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId" (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
+						<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId"
+						 (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>
@@ -75,6 +94,6 @@
 		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
 			{{nbHits}} hits shown
 		</div>
-		
+
 	</div>
 </div>

@@ -33,7 +33,7 @@ export class SapListComponent implements OnInit {
 
     private saps;
 
-    constructor(private sapService: SapService) {
+    constructor(private sapService: SapService, private orderService: OrderService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -46,7 +46,8 @@ export class SapListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (saps, searchTxt: string) => {
+        this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), 
+            (saps, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
 
             if (txt === '' || txt === '$' || txt === '#') return saps
@@ -113,7 +114,18 @@ export class SapListComponent implements OnInit {
         .switchMap(saps => {
             return this.nbHitsShownObservable.map(nbItems => {
                 return saps.slice(0, nbItems)
-            })
+            }) 
+        }).switchMap(saps => {
+            return this.orderService.getOrderEquipeInfoMap().map(orderMap => {
+                return saps.map(sap => {
+                    if (sap.mainData && sap.mainData.data.ourRef && +sap.mainData.data.ourRef && orderMap.has(+sap.mainData.data.ourRef)) {
+                        var orderInfo= orderMap.get(+sap.mainData.data.ourRef)
+                        sap.equipeInfo= orderInfo.annotation.equipe || orderInfo.annotation.equipeGroup
+                        sap.extraEquipeInfo= orderInfo.annotation.equipeGroupRepartition
+                    }
+                    return sap
+                })
+            })            
         }).subscribe(saps => this.saps = saps);
     }
 

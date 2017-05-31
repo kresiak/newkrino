@@ -16,6 +16,38 @@ export class OrderService {
         @Inject(SapService) private sapService: SapService, @Inject(AdminService) private adminService: AdminService) { }
 
 
+
+
+    getOrderEquipeInfoMap() : Observable<Map<number, any>> {
+        var x= Observable.combineLatest(this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.kid)), 
+            this.dataStore.getDataObservable('equipes').map(utils.hashMapFactory), this.dataStore.getDataObservable('equipes.groups').map(utils.hashMapFactory),
+            (orders, equipesMap, equipesGroupMap) => {
+                return orders.map(order => {
+                    let equipe= order.equipeId ? equipesMap.get(order.equipeId) : undefined
+                    let equipeGroup= order.equipeRepartition ? equipesGroupMap.get(order.equipeRepartition.equipeGroupId) : undefined
+                    return {
+                        data: order,
+                        annotation: {
+                            equipe: equipe ? equipe.name : null,
+                            equipeGroup: equipeGroup ? equipeGroup.name : null,
+                            equipeGroupRepartition: equipeGroup ? order.equipeRepartition.repartition.reduce((acc, repItem) => {
+                                if (acc) acc += ', '
+                                var eq= equipesMap.get(repItem.equipeId)
+                                acc += (eq ? eq.name : 'unknown equipe') + ': ' + repItem.weight + '%'
+                                return acc
+                            }, '') : null
+                        }
+                    }
+                })
+
+            }).map(utils.hashMapFactoryCurry(element => element.data.kid)).publishReplay(1)
+        x.connect()
+
+        return x
+    }
+
+
+
     // orders
     // ======
 
