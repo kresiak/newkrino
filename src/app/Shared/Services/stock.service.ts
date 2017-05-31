@@ -30,6 +30,7 @@ export class StockService {
             annotation: {
                 supplier: supplier ? supplier.name : 'unknown supplier',
                 product: product.name + ' ' + productStock.package,
+                catalogNr: product.catalogNr,
                 nbInitialInStock: productStock.quantity,
                 lotNb: productStock.lotNumber,
                 nbSold: nbSold,
@@ -95,6 +96,7 @@ export class StockService {
             data: orderStock,
             annotation: {
                 product: product ? product.name + ' / ' + (product.stockPackage || product.package) : 'unknown product',
+                catalogNr: product ? product.catalogNr : '',
                 user: user ? user.annotation.fullName : 'unknown User',
                 equipe: equipe ? equipe.name : 'unknown equipe',
                 orderProcessItems: orderProcessItems
