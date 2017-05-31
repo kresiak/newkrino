@@ -24,6 +24,12 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">note:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor [content]="otp.data.note" [showControls]="true" (editSaved)="noteUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4 vcenter">allowed products:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"

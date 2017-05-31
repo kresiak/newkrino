@@ -200,6 +200,11 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    noteUpdated(note) {
+        this.otp.data.note = note;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
     budgetUpdated(budget) {
         if (! +budget) return
         this.otp.data.budget = +budget;
