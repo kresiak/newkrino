@@ -11,8 +11,9 @@
 				<template ngbPanelTitle>
 					<div class="row">
 						<div class="col-sm-2"><b>When?</b></div>
-						<div class="col-sm-3"><b>Who?</b></div>
+						<div class="col-sm-2"><b>Who?</b></div>
 						<div class="col-sm-3"><b>Product</b></div>
+						<div class="col-sm-2"><b>Catalog Nr</b></div>
 						<div class="col-sm-2"><b>Quantity</b></div>
 						<div class="col-sm-1"><b>Processed?</b></div>
 					</div>
@@ -24,8 +25,9 @@
 				<template ngbPanelTitle>
 					<div class="row">
 						<div class="col-sm-2"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer></div>
-						<div class="col-sm-3">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
+						<div class="col-sm-2">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
 						<div class="col-sm-3">{{order.annotation.product}}</div>
+						<div class="col-sm-2">{{order.annotation.catalogNr}}</div>
 						<div class="col-sm-2">{{order.data.quantity}}</div>
 						<div class="col-sm-1" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'no'}}</div>
 					</div>
