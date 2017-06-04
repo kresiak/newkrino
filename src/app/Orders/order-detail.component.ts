@@ -67,7 +67,17 @@ export class OrderDetailComponent implements OnInit {
         }));
 
         this.subscriptionOrder = this.orderObservable.subscribe(order => {
-            this.order = order
+            var x= JSON.stringify(order.data)
+            var y = JSON.stringify((this.order || {}).data)
+            if (x !== y)
+            {
+                this.order = order
+            }
+            else {
+                //this.order = order
+                this.orderService.copyAnnotation(this.order.annotation, order.annotation)
+            }
+                
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo

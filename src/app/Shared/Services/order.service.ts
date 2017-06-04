@@ -18,13 +18,13 @@ export class OrderService {
 
 
 
-    getOrderEquipeInfoMap() : Observable<Map<number, any>> {
-        var x= Observable.combineLatest(this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.kid)), 
+    getOrderEquipeInfoMap(): Observable<Map<number, any>> {
+        var x = Observable.combineLatest(this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.kid)),
             this.dataStore.getDataObservable('equipes').map(utils.hashMapFactory), this.dataStore.getDataObservable('equipes.groups').map(utils.hashMapFactory),
             (orders, equipesMap, equipesGroupMap) => {
                 return orders.map(order => {
-                    let equipe= order.equipeId ? equipesMap.get(order.equipeId) : undefined
-                    let equipeGroup= order.equipeRepartition ? equipesGroupMap.get(order.equipeRepartition.equipeGroupId) : undefined
+                    let equipe = order.equipeId ? equipesMap.get(order.equipeId) : undefined
+                    let equipeGroup = order.equipeRepartition ? equipesGroupMap.get(order.equipeRepartition.equipeGroupId) : undefined
                     return {
                         data: order,
                         annotation: {
@@ -32,7 +32,7 @@ export class OrderService {
                             equipeGroup: equipeGroup ? equipeGroup.name : null,
                             equipeGroupRepartition: equipeGroup ? order.equipeRepartition.repartition.reduce((acc, repItem) => {
                                 if (acc) acc += ', '
-                                var eq= equipesMap.get(repItem.equipeId)
+                                var eq = equipesMap.get(repItem.equipeId)
                                 acc += (eq ? eq.name : 'unknown equipe') + ': ' + repItem.weight + '%'
                                 return acc
                             }, '') : null
@@ -89,6 +89,50 @@ export class OrderService {
         }
         if (map[id]) return map[id]
         return 'Unknown status'
+    }    
+
+
+
+    public copyAnnotation(target, source) {   // returns true if he copies it; otherwise he says: copy it yourself (because it is primitive type)
+        if (JSON.stringify(target) === JSON.stringify(source)) return true;
+
+        if (target instanceof Array) {
+            if (source instanceof Array) {
+                if (target.length === source.length) {
+                    for (var i = 0; i < target.length; i++) {
+                        if (!this.copyAnnotation(target[i], source[i])) {
+                            target[i]= source[i]  //if array items  are primitive, I will copy myself
+                        }
+                    }
+                }
+                else {
+                    console.log('strange copyAnnotation source array of different length. Expected length was ' + target.length + '. Source: ' + JSON.stringify(source))    
+                }
+            }
+            else {
+                console.log('strange copyAnnotation source not array: ' + JSON.stringify(source))
+            }
+            return true
+        }
+        else if (target instanceof Object) {
+            if (source instanceof Object) {
+                Object.keys(target).forEach(propName => {
+                    if (!this.copyAnnotation(target[propName], source[propName])) { 
+                        target[propName]= source[propName]  //if properties are primitive, I will copy myself
+                    }
+                })
+            }
+            else {
+                console.log('strange copyAnnotation source not object: ' + JSON.stringify(source))
+            }
+            return true
+        }
+        else {  // primitive type: sorry cannot copy it copy for you because passed by value
+            if (source instanceof Object || source instanceof Array) {
+                console.log('strange copyAnnotation source not primitive but is array or object: ' + JSON.stringify(source))
+            }
+            return false
+        }
     }
 
     private createAnnotedOrder(order, products, otps, annotatedUsers, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap, labo) {
@@ -353,22 +397,22 @@ export class OrderService {
     // ===============
 
     annotateEquipesOnSap() {
-        Observable.combineLatest(this.sapService.getSapItemsObservable(), this.getAnnotedOrdersFromAll(), this.dataStore.getDataObservable('sap.annotation').startWith([]), 
+        Observable.combineLatest(this.sapService.getSapItemsObservable(), this.getAnnotedOrdersFromAll(), this.dataStore.getDataObservable('sap.annotation').startWith([]),
             (sapItems: any[], orders: any[], annotations: any[]) => {
 
-                var ordersMap= utils.hashMapFactoryForAnnotated(orders)
-                var ordersBySapIdMap= utils.hashMapFactoryHelper(orders.filter(order => order.data.sapId), order => order.data.sapId)
-                var annotationsMap= utils.hashMapFactoryHelper(annotations, element => element.sapId)
-                
-                var krinoStartDate= moment('08/03/2017', 'DD/MM/YYYY').toDate()
+                var ordersMap = utils.hashMapFactoryForAnnotated(orders)
+                var ordersBySapIdMap = utils.hashMapFactoryHelper(orders.filter(order => order.data.sapId), order => order.data.sapId)
+                var annotationsMap = utils.hashMapFactoryHelper(annotations, element => element.sapId)
+
+                var krinoStartDate = moment('08/03/2017', 'DD/MM/YYYY').toDate()
 
                 annotations.forEach(annotation => {
-                    annotation.processed= false
+                    annotation.processed = false
                 })
 
                 sapItems.forEach(sapItem => {
-                    var sapId= sapId.mainData.sapId
-                    var krinoId= +sapId.mainData.ourRef
+                    var sapId = sapId.mainData.sapId
+                    var krinoId = +sapId.mainData.ourRef
 
                     if (krinoId) {
 
