@@ -4,9 +4,7 @@ import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
-
-
-
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 
 @Component(
@@ -101,7 +99,11 @@ export class OrderListComponent implements OnInit {
             })
         });
 
-        this.ordersSubscription=this.orders2Observable.subscribe(o => this.orders=o)
+        this.ordersSubscription=this.orders2Observable.subscribe(o => {
+            if (!comparatorsUtils.softCopy(this.orders, o)) {
+                this.orders=o
+            }            
+        })
     }
 
     ngOnDestroy(): void {

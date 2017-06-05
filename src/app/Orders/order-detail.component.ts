@@ -10,6 +10,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 import { EquipeService } from '../Shared/Services/equipe.service';
 
 import * as moment from "moment"
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 
 @Component(
@@ -67,17 +68,8 @@ export class OrderDetailComponent implements OnInit {
         }));
 
         this.subscriptionOrder = this.orderObservable.subscribe(order => {
-            var x= JSON.stringify(order.data)
-            var y = JSON.stringify((this.order || {}).data)
-            if (x !== y)
-            {
-                this.order = order
-            }
-            else {
-                //this.order = order
-                this.orderService.copyAnnotation(this.order.annotation, order.annotation)
-            }
-                
+            if (!comparatorsUtils.softCopy(this.order, order))
+                this.order= order
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo

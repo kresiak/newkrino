@@ -93,48 +93,6 @@ export class OrderService {
 
 
 
-    public copyAnnotation(target, source) {   // returns true if he copies it; otherwise he says: copy it yourself (because it is primitive type)
-        if (JSON.stringify(target) === JSON.stringify(source)) return true;
-
-        if (target instanceof Array) {
-            if (source instanceof Array) {
-                if (target.length === source.length) {
-                    for (var i = 0; i < target.length; i++) {
-                        if (!this.copyAnnotation(target[i], source[i])) {
-                            target[i]= source[i]  //if array items  are primitive, I will copy myself
-                        }
-                    }
-                }
-                else {
-                    console.log('strange copyAnnotation source array of different length. Expected length was ' + target.length + '. Source: ' + JSON.stringify(source))    
-                }
-            }
-            else {
-                console.log('strange copyAnnotation source not array: ' + JSON.stringify(source))
-            }
-            return true
-        }
-        else if (target instanceof Object) {
-            if (source instanceof Object) {
-                Object.keys(target).forEach(propName => {
-                    if (!this.copyAnnotation(target[propName], source[propName])) { 
-                        target[propName]= source[propName]  //if properties are primitive, I will copy myself
-                    }
-                })
-            }
-            else {
-                console.log('strange copyAnnotation source not object: ' + JSON.stringify(source))
-            }
-            return true
-        }
-        else {  // primitive type: sorry cannot copy it copy for you because passed by value
-            if (source instanceof Object || source instanceof Array) {
-                console.log('strange copyAnnotation source not primitive but is array or object: ' + JSON.stringify(source))
-            }
-            return false
-        }
-    }
-
     private createAnnotedOrder(order, products, otps, annotatedUsers, equipes, groups, suppliers, dashlets: any[], currentUser, krinoSapMap, labo) {
         if (!order) return null;
         let supplier = suppliers.get(order.supplierId)
