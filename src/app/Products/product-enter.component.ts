@@ -60,7 +60,7 @@ export class ProductEnterComponent implements OnInit {
 
         this.subscriptionCheckCatNr= this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
             this.alreadyCatNrInDb=false
-            if (catNr.length > 3) {
+            if (catNr && catNr.length > 3) {   // Testing catNr because on KR computer it crashed with catNr === null - don't understand how it could happen
                 this.productService.getAnnotatedProductsByCatalogNr(catNr).first().subscribe(prodList => {
                     this.alreadyCatNrInDb= prodList && prodList.length > 0
                 })

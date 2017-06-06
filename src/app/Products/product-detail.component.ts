@@ -11,7 +11,7 @@ import * as moment from "moment"
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Router } from '@angular/router'
-
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -53,7 +53,8 @@ export class ProductDetailComponent implements OnInit {
         this.selectedUserIdsObservable = this.productObservable.map(product => product.data.userIds);
 
         this.subscriptionProduct= this.productObservable.subscribe(product => {
-            this.product = product;
+            if (!comparatorsUtils.softCopy(this.product, product))
+                this.product = product;
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
             if (product) {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)

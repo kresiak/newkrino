@@ -6,6 +6,7 @@ import { BasketService } from './../Shared/Services/basket.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -102,7 +103,8 @@ export class ProductListComponent implements OnInit {
                 return products.slice(0, nbItems)
             })
         }).subscribe(products => {
-            this.products = products
+            if (!comparatorsUtils.softCopy(this.products, products))
+                this.products = products
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         });
 
