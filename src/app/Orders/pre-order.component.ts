@@ -5,11 +5,10 @@ import { OrderService } from './../Shared/Services/order.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { AuthenticationStatusInfo, AuthService } from './../Shared/Services/auth.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 
 @Component(
     {
-        //moduleId: module.id,
         templateUrl: './pre-order.component.html'
     }
 )
@@ -22,35 +21,31 @@ export class PreOrderComponent implements OnInit {
     private groupsForSelectionObservable: Observable<any>
     private groups: any[]
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private subscriptionRoute: Subscription
-    private subscriptionEquipeGroups: Subscription
-    //private subscriptionProductBasket: Subscription
-    private subscriptionProductBasket2: Subscription
 
     private isEnoughBudget: boolean = false
     private isGroupOrdersUser: boolean = false
 
     private isOtpOk: boolean = false
+    private isPageRunning: boolean= true
 
     ngOnInit(): void {
-        this.subscriptionRoute = this.route.params.subscribe((params: Params) => {
+        this.route.params.takeWhile(() => this.isPageRunning).subscribe((params: Params) => {
             let supplierId = params['id']
             if (supplierId) {
-                this.supplierService.getSupplier(supplierId).subscribe(supplier => this.supplier = supplier)
+                this.supplierService.getSupplier(supplierId).takeWhile(() => this.isPageRunning).subscribe(supplier => this.supplier = supplier)
                 this.productsBasketObservable = this.basketService.getAnnotatedProductsInCurrentUserBasketBySupplierWithOtp(supplierId)
-                this.subscriptionProductBasket2 = this.productsBasketObservable.subscribe(products => {
+                this.productsBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => {
                     this.productsInBasket = products
                     this.isOtpOk = products.filter(product => product.annotation.otp && !product.annotation.otp._id).length == 0
 
-                    this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+                    this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
                         this.authorizationStatusInfo = statusInfo
                         if (statusInfo.isGroupOrdersUser()) {
                             this.isGroupOrdersUser = true
                         }
                         else {
                             this.isGroupOrdersUser = false
-                            this.equipeService.getAnnotatedCurrentEquipe().first().subscribe(eq => {
+                            this.equipeService.getAnnotatedCurrentEquipe().takeWhile(() => this.isPageRunning).subscribe(eq => {
                                 if (!eq) return
                                 var total = products.map(item => item.annotation.totalPrice).reduce((a, b) => a + b, 0)
                                 this.isEnoughBudget = total < eq.annotation.amountAvailable
@@ -72,7 +67,7 @@ export class PreOrderComponent implements OnInit {
             }
         }))
 
-        this.subscriptionEquipeGroups = this.equipeService.getAnnotatedEquipesGroups().subscribe(groups => {
+        this.equipeService.getAnnotatedEquipesGroups().takeWhile(() => this.isPageRunning).subscribe(groups => {
             this.groups = groups
         })
 
@@ -80,11 +75,7 @@ export class PreOrderComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionRoute.unsubscribe()
-        this.subscriptionEquipeGroups.unsubscribe()
-        //if (this.subscriptionProductBasket) this.subscriptionProductBasket.unsubscribe()
-        if (this.subscriptionProductBasket2) this.subscriptionProductBasket2.unsubscribe()
+        this.isPageRunning = false
     }
 
 
@@ -96,8 +87,8 @@ export class PreOrderComponent implements OnInit {
     createOrder(): void {
         var observable = this.basketService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(group => group.data._id === this.selectedGroupId)[0]);
 
-        if (observable) {
-            observable.subscribe(res => {
+        if (observable) { 
+            observable.takeWhile(() => this.isPageRunning).subscribe(res => {
                 var orderId = res._id;
                 let link = ['/order', orderId];
                 this.router.navigate(link);
