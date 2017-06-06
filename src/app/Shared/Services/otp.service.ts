@@ -6,6 +6,7 @@ import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
+import * as utilsDate from './../Utils/dates'
 
 
 Injectable()
@@ -48,10 +49,16 @@ export class OtpService {
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
         if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
         if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
+        let currentBudget: number
+        if (otp.isAnnual && otp.budgetHistory) {
+            var x = otp.budgetHistory.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
+            currentBudget= x ? x.budget : 0
+        }
+
         return {
             data: otp,
             annotation: {
-                budget: (+(otp.budget)),
+                budget: otp.isAnnual ? currentBudget : (+(otp.budget)),
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
@@ -67,11 +74,16 @@ export class OtpService {
         let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
         let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
+        let currentBudget: number
+        if (otp.isAnnual && otp.budgetHistory) {
+            var x = otp.budgetHistory.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
+            currentBudget= x ? x.budget : 0
+        }
 
         return {
             data: otp,
             annotation: {
-                budget: (+(otp.budget)),
+                budget: otp.isAnnual ? currentBudget : (+(otp.budget)),
                 amountSpentNotYetInSap: amountSpentNotYetInSap,
                 amountEngaged: amountEngaged,
                 amountBilled: amountBilled,

@@ -3,7 +3,7 @@ import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { OrderService } from './order.service'
 import { Observable, Subscription } from 'rxjs/Rx'
-import * as moment from "moment"
+import * as utilsDate from './../Utils/dates'
 
 
 Injectable()
@@ -17,7 +17,6 @@ export class OtpChoiceService {
     determineOtp(product, quantity: number, otpsBudgetMap, currentEquipeId: string): any {
         //var equipeId = this.authService.getEquipeId();
         var totalPrice = +product.price * quantity * 1.21;
-        var now = moment()
 
         var annotatedOtps: any[] = Array.from(otpsBudgetMap.values())
 
@@ -27,11 +26,7 @@ export class OtpChoiceService {
                 .filter(otp => 
                     !otp.data.isLimitedToOwner || otp.data.equipeId === currentEquipeId)  
                 .filter(otp => !otp.data.isBlocked && !otp.data.isClosed && !otp.data.isDeleted)
-                .filter( otp => {
-                    var d1 = moment(otp.data.datStart, 'DD/MM/YYYY HH:mm:ss').startOf('day')
-                    var d2 = moment(otp.data.datEnd, 'DD/MM/YYYY HH:mm:ss').add(1, 'day').startOf('day')
-                    return d1 && d2 && d1.isSameOrBefore(now) && now.isBefore(d2)
-                })
+                .filter(otp => utilsDate.isDateIntervalCompatibleWithNow(otp.data.datStart, otp.data.datEnd))
                 .filter(otp => otp.annotation.amountAvailable > totalPrice)                
                 .filter(otp => {
                     let productCategories: string[] = product.categoryIds ? product.categoryIds : [];
