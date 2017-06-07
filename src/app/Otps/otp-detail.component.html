@@ -180,7 +180,7 @@
 															<div class="col-sm-3 vcenter"><b>Date start</b></div>
 															<div class="col-sm-3 vcenter"><b>Date end</b></div>
 														</div>
-														<div *ngFor="let budgetItem of otp.data.budgetHistory">
+														<div *ngFor="let budgetItem of otp.data.budgetPeriods">
 															<div class="row">
 																<div class="col-sm-2 vcenter">
 																	<gg-editor [content]="budgetItem.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>

@@ -66,13 +66,13 @@ export class OtpEnterComponent implements OnInit {
             newOtpEnter.datEnd = this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
         }
         else {
-            let budgetHistory = []
-            budgetHistory.push({
+            let budgetPeriods = []
+            budgetPeriods.push({
                 budget: formValue.budget,
                 datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
                 datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
             })
-            newOtpEnter.budgetHistory = budgetHistory
+            newOtpEnter.budgetPeriods = budgetPeriods
         }
         this.dataStore.addData('otps', newOtpEnter
         ).first().subscribe(res => {
