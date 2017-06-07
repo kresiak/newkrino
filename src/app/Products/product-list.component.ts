@@ -32,11 +32,11 @@ export class ProductListComponent implements OnInit {
 
 
     private products;
-    private nbHitsShown: number= 15
-    private nbHitsIncrement: number= 10
+    private nbHitsShown: number = 15
+    private nbHitsIncrement: number = 10
     private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
-    
+    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
+
 
     constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService) {
         this.searchForm = new FormGroup({
@@ -49,7 +49,7 @@ export class ProductListComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private subscriptionAuthorization: Subscription 
+    private subscriptionAuthorization: Subscription
     private subscriptionProducts: Subscription
 
     private basketPorductsMap: Map<string, any> = new Map<string, any>()
@@ -57,16 +57,16 @@ export class ProductListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionProducts=Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
+        this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 
-            
+
 
             return products.filter(product => {
                 if (txt.startsWith('$S/')) {
                     let txt2 = txt.slice(3);
-                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))                     
+                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))
                 }
                 if (txt.startsWith('!')) {
                     let txt2 = txt.slice(1);
@@ -80,7 +80,7 @@ export class ProductListComponent implements OnInit {
                     let montant = +txt.slice(2);
                     return + product.data.price <= montant;
                 }
-                if (txt.startsWith('$T') && (+txt.slice(2)+1)) {
+                if (txt.startsWith('$T') && (+txt.slice(2) + 1)) {
                     let montant = +txt.slice(2);
                     return + product.data.tva == montant;
                 }
@@ -93,36 +93,37 @@ export class ProductListComponent implements OnInit {
                     return product.data.disabled;
                 }
 
-                return product.data.name.toUpperCase().includes(txt) || (product.data.description||'').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
+                return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).do(products => {
-            this.nbHits= products.length
+            this.nbHits = products.length
         })
-        .switchMap(products => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return products.slice(0, nbItems)
-            })
-        }).subscribe(products => {
-            if (!comparatorsUtils.softCopy(this.products, products))
-                this.products = products
-            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
-        });
+            .switchMap(products => {
+                return this.nbHitsShownObservable.map(nbItems => {
+                    return products.slice(0, nbItems)
+                })
+            }).subscribe(products => {
+                if (!comparatorsUtils.softCopy(this.products, products)) {
+                    this.products = comparatorsUtils.clone(products)
+                }
+                this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
+            });
 
-        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
-            this.basketPorductsMap= basketPorductsMap
+        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap => {
+            this.basketPorductsMap = basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         })
 
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
-        })        
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionProducts.unsubscribe()
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionProducts.unsubscribe()
     }
-        
+
 
     getProductObservable(id: string) {
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
@@ -154,8 +155,8 @@ export class ProductListComponent implements OnInit {
     }
 
     private moreHits() {
-        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShown += this.nbHitsIncrement
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
-    
+
 }
