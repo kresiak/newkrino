@@ -92,6 +92,7 @@ import {SapListComponent} from './Sap/sap-list.component'
 import {SapListBySapIdsComponent} from './Sap/sap-list-by-sapids.component'
 
 
+import {StockDetailComponent} from './Stock/stock-detail.component'
 import {StockListComponent} from './Stock/stock-list.component'
 import {StockComponentRoutable} from './Stock/stock.routable.component'
 import {StockProductEnterComponent} from './Stock/stock-product-order.component'
@@ -200,7 +201,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
                   ReceptionDetailComponent, CommunicationEnterComponent,
-                  StockComponentRoutable, StockListComponent,StockProductEnterComponent, StockOrderListComponent, StockOrderDetailComponent,
+                  StockComponentRoutable, StockListComponent,StockProductEnterComponent, StockOrderListComponent, StockOrderDetailComponent, StockDetailComponent,
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable, UserInfoComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,

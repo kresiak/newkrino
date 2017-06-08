@@ -297,6 +297,12 @@ export class OrderService {
     }
 
 
+    // light methods
+    // ==============
+
+    getKrinoIdLightMap() {
+        return this.dataStore.getDataObservable('orders').map(orders => orders.map(order => {return {_id: order._id, kid: order.kid}})).map(utils.hashMapFactory)
+    }
 
 
     // fridge orders

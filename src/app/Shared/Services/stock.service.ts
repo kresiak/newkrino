@@ -40,7 +40,7 @@ export class StockService {
         };
     }
 
-    getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
+    private getAnnotatedStockProducts(productsStockObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(productsStockObservable, this.dataStore.getDataObservable('products'), this.dataStore.getDataObservable('suppliers'),
             this.dataStore.getDataObservable('orders.stock'), this.authService.getUserIdObservable(), (productsStock, products, suppliers, stockOrders, currentUserId) => {
                 let unprocessedStockOrders = stockOrders.filter(order => !order.isProcessed)
@@ -61,7 +61,7 @@ export class StockService {
         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('products.stock')).map(sps => sps.groupBy(sp => sp.data.productId));
     }
 
-    getNbAvailableInStockByProduct(): Observable<any> {
+/*    getNbAvailableInStockByProduct(): Observable<any> {
         return this.getAnnotatedAvailableStockProductsAll().map(groups =>
             groups.map(group => {
                 return {
@@ -70,7 +70,7 @@ export class StockService {
                 }
             }));
     }
-
+*/
 
     // Stock orders
     // ============

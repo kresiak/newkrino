@@ -59,7 +59,7 @@ export class StockListComponent implements OnInit {
     }
 
     nbAvailable(product) {
-        return product.values.reduce((acc, b) => acc + b.annotation.nbAvailable, 0);
+        return product ? product.values.reduce((acc, b) => acc + b.annotation.nbAvailable, 0) : 0;
     }
 
     resetSerachControl() {
