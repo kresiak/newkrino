@@ -307,8 +307,9 @@ export class OrderDetailComponent implements OnInit {
                 }
             })
         }
-        var pos = orderItem.data.deliveries.indexOf(deliveryItem.data)
-        if (pos >= 0) orderItem.data.deliveries.splice(pos, 1)
+        var pos = orderItem.annotation.deliveries.indexOf(deliveryItem)
+        if (pos >= 0) orderItem.data.deliveries.splice(pos, 1)  // Here we don't delete on the same array we used to find the position. This was necessary because after  Softcopy we cannot rely anymore on egality of memory addresses between deliveryItem in annotation and in data.
+                                        // but the sort order of the two arrays should be the same, so we can delete in that way
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
 }
