@@ -13,7 +13,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
-
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -95,7 +95,8 @@ export class SupplierDetailComponent implements OnInit {
         this.selectedCategoryIdsObservable = this.supplierObservable.map(supplier => supplier.data.webShopping && supplier.data.webShopping.categoryIds ? supplier.data.webShopping.categoryIds : []);
 
         this.supplierObservable.takeWhile(() => this.isPageRunning).subscribe(supplier => {
-            this.supplier = supplier;
+            if (!comparatorsUtils.softCopy(this.supplier, supplier))
+                this.supplier = supplier;
         });
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {

@@ -100,9 +100,8 @@ export class OrderListComponent implements OnInit {
         });
 
         this.ordersSubscription=this.orders2Observable.subscribe(o => {
-            if (!comparatorsUtils.softCopy(this.orders, o)) {
-                this.orders=o
-            }            
+            if (!comparatorsUtils.softCopy(this.orders, o))
+                this.orders= comparatorsUtils.clone(o)
         })
     }
 

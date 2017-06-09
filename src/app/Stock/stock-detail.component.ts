@@ -1,10 +1,12 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
-import { AuthService } from './../Shared/Services/auth.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from "moment"
+import { OrderService } from './../Shared/Services/order.service'
+import { StockService } from '../Shared/Services/stock.service';
+import { NavigationService } from './../Shared/Services/navigation.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -14,67 +16,54 @@ import * as moment from "moment"
     }
 )
 export class StockDetailComponent implements OnInit {
-    constructor(private authService: AuthService, private dataStore: DataStore) {
+    constructor(private authService: AuthService, private orderService: OrderService, private dataStore: DataStore) {
 
     }
 
-    private product;
-    private frmStockOrder: FormGroup;
     @Input() productObservable: Observable<any>;
     @Input() state;
+    @Input() path: string
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
+
+    private productStockSets;
 
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
     }
 
-    formStockInit(product) {
-        this.frmStockOrder = new FormGroup({});
-        product.values.forEach(prod => {
-            this.frmStockOrder.addControl(prod.data._id, new FormControl('0'));
-        });
-    }
-
-    subscriptionProduct: Subscription
+    private isPageRunning: boolean= true
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    
+    private getUserName
+    private getOrderId
 
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionProduct= this.productObservable.subscribe(product => {
-            this.product = product;
-            if (product)
-                this.formStockInit(product);
+        this.productObservable.takeWhile(() => this.isPageRunning).subscribe(product => {
+            this.productStockSets = product ? product.values : [];
         });
+
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
+
+        this.authService.getAnnotatedUsersHashmap().takeWhile(() => this.isPageRunning).subscribe(usersMap => {
+            this.getUserName= userId => usersMap.get(userId).annotation.fullName
+        })
+
+        this.orderService.getKrinoIdLightMap().takeWhile(() => this.isPageRunning).subscribe(orderIdMap => {
+            this.getOrderId= orderId => orderIdMap.get(orderId).kid
+        })
+        
     }
 
     ngOnDestroy(): void {
-         this.subscriptionProduct.unsubscribe()
+        this.isPageRunning= false
     }
 
-
-    save(formValue, isValid) {
-        let userId = this.authService.getUserId();
-        let equipeId = this.authService.getEquipeId();
-        let now = moment().format('DD/MM/YYYY HH:mm:ss')
-        this.product.values.forEach(stockItem => {
-            if (formValue[stockItem.data._id] && +formValue[stockItem.data._id] > 0) {
-                if (!stockItem.data.sales) stockItem.data.sales = [];
-                stockItem.data.sales.push({
-                    quantity: +formValue[stockItem.data._id],
-                    userId: userId,
-                    equipeId: equipeId,
-                    date: now
-                });
-                this.dataStore.updateData('products.stock', stockItem.data._id, stockItem.data);
-            }
-        });
-    }
-
-    reset() {
-        this.formStockInit(this.product);
-    }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
         this.state.selectedTabId = $event.nextId;
@@ -85,4 +74,17 @@ export class StockDetailComponent implements OnInit {
         this.state.Orders = $event;
         this.stateChanged.next(this.state);
     }
+
+    deteteHistoryItem(stockProductItem, historyItem) {
+        var pos = stockProductItem.data.history.indexOf(historyItem)
+        if (pos >= 0) stockProductItem.data.history.splice(pos, 1)
+        this.dataStore.updateData('products.stock', stockProductItem.data._id, stockProductItem.data);
+    }
+
+    stockQuantitySaved(stockProductItem, qty) {
+        stockProductItem.data.quantity= qty
+        this.dataStore.updateData('products.stock', stockProductItem.data._id, stockProductItem.data);
+    }
+
+
 }

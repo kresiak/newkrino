@@ -44,11 +44,9 @@
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-stock-product-enter [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
-							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-product-enter>
-						<!--					<gg-stock-detail [productObservable]="getProductObservable(product.key)"  [state]="state[product.key]"  
-							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
--->
+
+						<gg-stock-detail [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
+							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>						
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

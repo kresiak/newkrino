@@ -4,7 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -79,7 +79,10 @@ export class SupplierListComponent implements OnInit {
                 return suppliers.slice(0, nbItems)
             })
         }).takeWhile(() => this.isPageRunning).subscribe(suppliers => {
-            this.suppliers = suppliers //.slice(0, 15)
+            if (!comparatorsUtils.softCopy(this.suppliers, suppliers))
+            {
+                this.suppliers= comparatorsUtils.clone(suppliers)
+            }
             this.setBasketInformation()
         });
 

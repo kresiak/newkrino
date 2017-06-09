@@ -6,6 +6,7 @@ import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
+import * as utilsKrino from './../Utils/krino'
 
 
 Injectable()
@@ -76,7 +77,7 @@ export class EquipeService {
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
         let otpsFiltered = otps.filter(otp => otp.equipeId === equipe._id);
-        let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => +otp.budget).reduce((a, b) => a + b) : 0;
+        let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => utilsKrino.getOtpBudget(otp)).reduce((a, b) => a + b) : 0;
         let amountSpent = this.getTotalOfOrders(ordersFiltered);
         let dashlet = dashlets.filter(dashlet => dashlet.id === equipe._id);
 

@@ -25,6 +25,9 @@ export class ProductEnterComponent implements OnInit {
     private subscriptionCheckCatNr: Subscription
     private categories
     private alreadyCatNrInDb: boolean= false
+    private savingNewProduct: boolean= false
+    private lastProductSaved: string= ''
+
 
     private isCategoryIdSelected(control: FormControl) {   // custom validator implementing ValidatorFn 
         if (control.value === '-1') {
@@ -75,6 +78,10 @@ export class ProductEnterComponent implements OnInit {
     }
 
     save(formValue, isValid) {
+        if (!isValid) return
+        if (!formValue.nameOfProduct) return
+        this.savingNewProduct= true
+        this.lastProductSaved= ''
         this.productService.createProduct({
             name: formValue.nameOfProduct,
             description: formValue.description,
@@ -92,8 +99,10 @@ export class ProductEnterComponent implements OnInit {
             divisionFactor: +formValue.divisionFactor,
             stockPackage: formValue.stockPackage
         }).subscribe(res => {
+            this.lastProductSaved= res.name
             var x = res;
             this.reset();
+            this.savingNewProduct= false
         });
     }
 

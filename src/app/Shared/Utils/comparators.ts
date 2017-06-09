@@ -13,7 +13,7 @@ export function softCopy(target, source) {   // returns true if he copies it; ot
                 }
             }
             else {
-                console.log('strange softCopy source array of different length. Expected length was ' + target.length + '. Source: ' + JSON.stringify(source))
+                return false // if you are setting the value of an object or array it is Pass by Value 
             }
         }
         else {
@@ -40,5 +40,9 @@ export function softCopy(target, source) {   // returns true if he copies it; ot
         }
         return false
     }
+}
+
+export function clone(source) {
+    return JSON.parse(JSON.stringify(source))
 }
 
