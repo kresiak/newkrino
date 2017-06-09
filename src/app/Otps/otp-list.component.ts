@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 import { OtpService } from '../Shared/Services/otp.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 
 @Component(
@@ -63,7 +64,11 @@ export class OtpListComponent implements OnInit {
                 if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
                 return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
-            }).subscribe(otps => this.otps = otps);
+            }).subscribe(otps => {
+                if (!comparatorsUtils.softCopy(this.otps, otps)) {
+                    this.otps = comparatorsUtils.clone(otps)
+                }                
+            });
     }
 
     ngOnDestroy(): void {

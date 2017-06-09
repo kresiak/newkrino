@@ -14,6 +14,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
@@ -69,7 +70,9 @@ export class OtpDetailComponent implements OnInit {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
         this.subscriptionOtp = this.otpObservable.subscribe(otp => {
-            this.otp = otp;
+
+            if (!comparatorsUtils.softCopy(this.otp, otp))
+                this.otp = otp;
 
             if (otp) {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
