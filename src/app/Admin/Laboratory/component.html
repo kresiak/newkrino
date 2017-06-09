@@ -80,36 +80,34 @@
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
-                                                
                                                 <div class="container-fluid">
-        						<div class="row">
-                                    <div class="col-sm-2 vcenter"><b>Name of delivery</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Description 1</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Description 2</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Description 3</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Description 4</b></div>
-                                </div>
-                                <div *ngFor="let delivery of deliveryAdresses">
-                                    <div class="row">
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.nom" [showControls]="true" (editSaved)="nomDeliveryUpdated(delivery, $event)"></gg-editor>
-                                        </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description1" [showControls]="true" (editSaved)="description1DeliveryUpdated(delivery, $event)"></gg-editor>
-                                        </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description2" [showControls]="true" (editSaved)="description2DeliveryUpdated(delivery, $event)"></gg-editor>
-                                        </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description3" [showControls]="true" (editSaved)="description3DeliveryUpdated(delivery, $event)"></gg-editor>
-                                        </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="delivery.description4" [showControls]="true" (editSaved)="description4DeliveryUpdated(delivery, $event)"></gg-editor>
-                                        </div>
-                                    </div>                        
-                                </div>
-                            </div>
-											
+                                                    <div class="row">
+                                                        <div class="col-sm-2 vcenter"><b>Name of delivery</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>Description 1</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>Description 2</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>Description 3</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>Description 4</b></div>
+                                                    </div>
+                                                    <div *ngFor="let delivery of deliveryAdresses">
+                                                        <div class="row">
+                                                            <div class="col-sm-2 vcenter">
+                                                                <gg-editor [content]="delivery.nom" [showControls]="true" (editSaved)="nomDeliveryUpdated(delivery, $event)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-2 vcenter">
+                                                                <gg-editor [content]="delivery.description1" [showControls]="true" (editSaved)="description1DeliveryUpdated(delivery, $event)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-2 vcenter">
+                                                                <gg-editor [content]="delivery.description2" [showControls]="true" (editSaved)="description2DeliveryUpdated(delivery, $event)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-2 vcenter">
+                                                                <gg-editor [content]="delivery.description3" [showControls]="true" (editSaved)="description3DeliveryUpdated(delivery, $event)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-2 vcenter">
+                                                                <gg-editor [content]="delivery.description4" [showControls]="true" (editSaved)="description4DeliveryUpdated(delivery, $event)"></gg-editor>
+                                                            </div>
+                                                        </div>                        
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </template>
@@ -169,6 +167,32 @@
                     </div>
                 </template>
             </ngb-tab>
+            <ngb-tab title="Sap" id="tabSap">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">Maximal amount in one order:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor [content]="labo.data.maxOrderAmount" [showControls]="true" [isMonetary]="true" (editSaved)="maxOrderAmount($event)"></gg-editor>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">Last sap Id before Krino:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor-number [content]="labo.data.sapIdMaxIdBeforeKrino" (editSaved)="sapIdMaxIdBeforeKrino($event)"></gg-editor-number>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 vcenter">List of others Sap Ids before Krino:</div>
+                                <div class="col-sm-6 vcenter">
+                                    <gg-editor [content]="labo.data.sapOtherMaxIdsBeforeKrino" [showControls]="true" (editSaved)="sapOtherMaxIdsBeforeKrino($event)"  [ngbTooltip]="'please separate the numbers by \';\' '"></gg-editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>        
         </ngb-tabset>
     </div>
 </div>

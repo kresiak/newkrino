@@ -188,4 +188,19 @@ export class AdminLabo {
         this.labo.data.krinoStartDate = krinoStartDate;
         this.saveLabo()
     }
+
+    maxOrderAmount(amount) {
+        this.labo.data.maxOrderAmount = +amount
+        this.saveLabo()
+    }
+
+    sapIdMaxIdBeforeKrino(maxId) {
+        this.labo.data.sapIdMaxIdBeforeKrino = +maxId
+        this.saveLabo()
+    }
+
+    sapOtherMaxIdsBeforeKrino(otherMaxId) {
+        this.labo.data.sapOtherMaxIdsBeforeKrino = otherMaxId
+        this.saveLabo()
+    }
 }
