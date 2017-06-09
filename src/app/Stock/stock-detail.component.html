@@ -1,4 +1,5 @@
 <ngb-tabset #tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
+    <!--TABSET-->
     <ngb-tab title="Order products" id="tabOrder">
         <template ngbTabContent>
             <div class="card">
@@ -8,7 +9,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Product lot details" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+    <ngb-tab title="Details" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -19,33 +20,35 @@
                         <div class="col-sm-2 vcenter"><b>Qty received</b></div>
                         <div class="col-sm-2 vcenter"><b>Qty sold</b></div>
                     </div>
-                    <div *ngFor="let productStockSet of productStockSets">
+                    <div *ngFor="let stockProduct of stockProducts">
+                        <!--FOR in StockProducts-->
                         <div class="row">
                             <div class="col-sm-2 vcenter">
-                                {{productStockSet.data.package}}
+                                {{stockProduct.data.package}}
                             </div>
                             <div class="col-sm-1 vcenter">
-                                {{productStockSet.data.divisionFactor}}
+                                {{stockProduct.data.divisionFactor}}
                             </div>
                             <div class="col-sm-2 vcenter">
-                                {{productStockSet.data.lotNumber}}
-                            </div>
-                            <div class="col-sm-2 vcenter">                                
-                                <gg-editor-number [content]="productStockSet.data.quantity"  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" 
-                                        (editSaved)="stockQuantitySaved(productStockSet, $event)" > </gg-editor-number>
-                            
+                                {{stockProduct.data.lotNumber}}
                             </div>
                             <div class="col-sm-2 vcenter">
-                                {{productStockSet.annotation.nbSold}}
+                                <gg-editor-number [content]="stockProduct.data.quantity" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isProgrammer()"
+                                    (editSaved)="stockQuantitySaved(stockProduct, $event)"> </gg-editor-number>
+
                             </div>
                             <div class="col-sm-2 vcenter">
-                                <button type="button" class="btn btn-link" (click)="productStockSet.annotation.isClosed=!productStockSet.annotation.isClosed">Show/hide quantity history</button>
+                                {{stockProduct.annotation.nbSold}}
+                            </div>
+                            <div class="col-sm-2 vcenter">
+                                <button type="button" class="btn btn-link" (click)="stockProduct.annotation.isClosed=!stockProduct.annotation.isClosed">Show/hide quantity history</button>
                             </div>
                         </div>
 
-                        <div class="row" [ngbCollapse]="!productStockSet.annotation.isClosed">
+                        <div class="row" [ngbCollapse]="!stockProduct.annotation.isClosed">
 
                             <ngb-tabset>
+                                <!--TABSET-->
                                 <ngb-tab title="Quantities received from delivery">
                                     <template ngbTabContent>
                                         <div class="card">
@@ -60,7 +63,8 @@
                                                             <div class="col-sm-2 col-md-2 vcenter">How many added</div>
                                                         </div>
                                                         <div class="card">
-                                                            <div class="row" *ngFor="let historyItem of productStockSet.data.history">
+                                                            <div class="row" *ngFor="let historyItem of stockProduct.data.history">
+                                                                <!--FOR in History items (we are in a praticular StockProduct) -->
                                                                 <div class="col-sm-2 col-md-2 vcenter">
                                                                     <gg-date-pointer [date]="historyItem.date"></gg-date-pointer>
                                                                 </div>
@@ -71,10 +75,12 @@
                                                                     </gg-editor-number>
                                                                 </div>
 
-                                                                <div class="col-sm-2  col-md-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
-                                                                    <input type="checkbox" [ngbTooltip]="'Dont use this, if you are not Alex! Click here to select the item for deletion'" *ngIf="!historyItem.isDueToDelete" (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete"/>
+                                                                <div class="col-sm-2  col-md-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer()">
+                                                                    <input type="checkbox" [ngbTooltip]="'Dont use this, if you are not Alex! Click here to select the item for deletion'" *ngIf="!historyItem.isDueToDelete"
+                                                                        (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete"
+                                                                    />
                                                                     <div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected item and can't be undone. Click here if you are sure you want to delete it."
-                                                                        *ngIf="historyItem.isDueToDelete" (click)="deteteHistoryItem(productStockSet, historyItem)">Delete</div>
+                                                                        *ngIf="historyItem.isDueToDelete" (click)="deteteHistoryItem(stockProduct, historyItem)">Delete</div>
                                                                     <div class="btn btn-success btn-sm" *ngIf="historyItem.isDueToDelete" (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete">Cancel</div>
                                                                 </div>
                                                             </div>
@@ -96,15 +102,16 @@
                                                     <div class="card">
                                                         <div class="row">
                                                             <div class="col-sm-2 col-md-2 vcenter">When?</div>
-                                                            <div class="col-sm-2 col-md-3 vcenter">Who bought them?</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">Who bought them?</div>
                                                             <div class="col-sm-2 col-md-2 vcenter">How many bought</div>
                                                         </div>
                                                         <div class="card">
-                                                            <div class="row" *ngFor="let historyItem of productStockSet.data.sales">
+                                                            <div class="row" *ngFor="let historyItem of stockProduct.data.sales">
+                                                                <!--FOR in Sale items (we are in a particular StockProduct) -->
                                                                 <div class="col-sm-2 col-md-2 vcenter">
                                                                     <gg-date-pointer [date]="historyItem.date"></gg-date-pointer>
                                                                 </div>
-                                                                <div class="col-sm-2 col-md-3 vcenter">{{getUserName(historyItem.userId)}}</div>
+                                                                <div class="col-sm-2 col-md-2 vcenter">{{getUserName(historyItem.userId)}}</div>
                                                                 <div class="col-sm-2 col-md-2 vcenter">
                                                                     <gg-editor-number [content]="historyItem.quantity" [readOnly]="true">
                                                                     </gg-editor-number>
@@ -117,6 +124,93 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
+                                <ngb-tab title="Manual corrections of quantities">
+                                    <template ngbTabContent>
+                                        <div class="card">
+                                            <div class="card-block">
+
+                                                <ngb-tabset>
+                                                    <!--TABSET-->
+                                                    <ngb-tab title="History of manual corrections">
+                                                        <template ngbTabContent>
+                                                            <div class="card">
+                                                                <div class="card-block">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="card">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-2 col-md-2 vcenter">When?</div>
+                                                                                <div class="col-sm-2 col-md-2 vcenter">Who entered the change?</div>
+                                                                                <div class="col-sm-3 col-md-3 vcenter">How many where manually added?</div>
+                                                                                <div class="col-sm-4 vcenter">Why?</div>
+                                                                            </div>
+                                                                            <div class="card">
+                                                                                <div class="row" *ngFor="let historyItem of stockProduct.data.manualChanges">
+                                                                                    <!--FOR in Manual Changes items (we are in a particular StockProduct) -->
+                                                                                    <div class="col-sm-2 col-md-2 vcenter">
+                                                                                        <gg-date-pointer [date]="historyItem.date"></gg-date-pointer>
+                                                                                    </div>
+                                                                                    <div class="col-sm-2 col-md-2 vcenter">{{getUserName(historyItem.userId)}}</div>
+                                                                                    <div class="col-sm-3 col-md-3 vcenter">
+                                                                                        <gg-editor-number [content]="historyItem.quantity" [readOnly]="true">
+                                                                                        </gg-editor-number>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 vcenter">{{historyItem.comment}}</div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </ngb-tab>
+                                                    <ngb-tab title="Enter a manual correction">
+                                                        <template ngbTabContent>
+                                                            <div class="card">
+                                                                <div class="card-block">
+
+
+                                                                    <form [formGroup]="manualQuantityForm" (ngSubmit)="saveQuantityForm(stockProduct, manualQuantityForm.value, manualQuantityForm.valid)">
+                                                                        <!--FORM-->
+                                                                        <div class="form-group row">
+                                                                            <label for="name" class="col-sm-3">why do we change the quantity:</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" class="form-control" formControlName="comment" placeholder="comment/explication">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="form-group row">
+                                                                            <label for="budgetBlocked" class="col-sm-3">quantity change (ex: -5 or 3):</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="number" class="form-control" formControlName="quantityIncrement" placeholder="quantity increment. Ex.: -10">
+                                                                            </div>
+                                                                        </div>
+
+
+
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                                <button class="btn btn-success" type="submit" [disabled]="!manualQuantityForm.valid">Submit</button>
+                                                                            </div>
+                                                                            <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                                <button class="btn btn-info" [disabled]="manualQuantityForm.pristine" (click)="resetForm()">Reset</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </ngb-tab>
+                                                </ngb-tabset>
+
+                                            </div>
+                                        </div>
+
+                                    </template>
+                                </ngb-tab>
+
+
+
                             </ngb-tabset>
 
 

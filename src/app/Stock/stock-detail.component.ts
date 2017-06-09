@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,8 @@ import { OrderService } from './../Shared/Services/order.service'
 import { StockService } from '../Shared/Services/stock.service';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+
+import * as utilsdate from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -16,7 +18,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class StockDetailComponent implements OnInit {
-    constructor(private authService: AuthService, private orderService: OrderService, private dataStore: DataStore) {
+    constructor(private authService: AuthService, private orderService: OrderService, private dataStore: DataStore, private formBuilder: FormBuilder) {
 
     }
 
@@ -26,24 +28,32 @@ export class StockDetailComponent implements OnInit {
     @Input() initialTab: string = '';
     @Output() stateChanged = new EventEmitter();
 
-    private productStockSets;
+    private stockProducts;
+
+    private manualQuantityForm: FormGroup;
 
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.selectedTabId) this.state.selectedTabId = this.initialTab;
     }
 
-    private isPageRunning: boolean= true
+    private isPageRunning: boolean = true
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    
+
     private getUserName
     private getOrderId
 
     ngOnInit(): void {
         this.stateInit();
 
+        this.manualQuantityForm = this.formBuilder.group({
+            comment: ['', [Validators.required, Validators.minLength(5)]],
+            quantityIncrement: ['', Validators.required],
+        });
+
+
         this.productObservable.takeWhile(() => this.isPageRunning).subscribe(product => {
-            this.productStockSets = product ? product.values : [];
+            this.stockProducts = product ? product.values : [];
         });
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
@@ -51,17 +61,17 @@ export class StockDetailComponent implements OnInit {
         })
 
         this.authService.getAnnotatedUsersHashmap().takeWhile(() => this.isPageRunning).subscribe(usersMap => {
-            this.getUserName= userId => usersMap.get(userId).annotation.fullName
+            this.getUserName = userId => usersMap.get(userId).annotation.fullName
         })
 
         this.orderService.getKrinoIdLightMap().takeWhile(() => this.isPageRunning).subscribe(orderIdMap => {
-            this.getOrderId= orderId => orderIdMap.get(orderId).kid
+            this.getOrderId = orderId => orderIdMap.get(orderId).kid
         })
-        
+
     }
 
     ngOnDestroy(): void {
-        this.isPageRunning= false
+        this.isPageRunning = false
     }
 
 
@@ -75,16 +85,33 @@ export class StockDetailComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    deteteHistoryItem(stockProductItem, historyItem) {
-        var pos = stockProductItem.data.history.indexOf(historyItem)
-        if (pos >= 0) stockProductItem.data.history.splice(pos, 1)
-        this.dataStore.updateData('products.stock', stockProductItem.data._id, stockProductItem.data);
+    deteteHistoryItem(stockProduct, historyItem) {
+        var pos = stockProduct.data.history.indexOf(historyItem)
+        if (pos >= 0) stockProduct.data.history.splice(pos, 1)
+        this.dataStore.updateData('products.stock', stockProduct.data._id, stockProduct.data);
     }
 
-    stockQuantitySaved(stockProductItem, qty) {
-        stockProductItem.data.quantity= qty
-        this.dataStore.updateData('products.stock', stockProductItem.data._id, stockProductItem.data);
+    stockQuantitySaved(stockProduct, qty) {
+        stockProduct.data.quantity = qty
+        this.dataStore.updateData('products.stock', stockProduct.data._id, stockProduct.data);
     }
 
+    saveQuantityForm(stockProduct, formValue, isValid) {
+        if (! +formValue.quantityIncrement) return
+        if (!stockProduct.data.manualChanges) stockProduct.data.manualChanges= []
+        var x= {         
+            comment: formValue.comment,
+            quantity: +formValue.quantityIncrement,
+            date: utilsdate.nowFormated(),
+            userId: this.authorizationStatusInfo.currentUserId
+        }
+        stockProduct.data.manualChanges.push(x)
+        stockProduct.data.quantity += +formValue.quantityIncrement
+        this.dataStore.updateData('products.stock', stockProduct.data._id, stockProduct.data);
+    }
+
+    resetForm() {
+        this.manualQuantityForm.reset();
+    }
 
 }
