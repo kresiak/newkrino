@@ -48,50 +48,37 @@ export class OtpEnterComponent implements OnInit {
     }
 
     save(formValue, isValid) {
+        var newOtpEnter: any = {
+            name: formValue.name,
+            isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
+            budgetBlocked: formValue.budgetBlocked,
+            description: formValue.description,
+            isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
+            isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
+            isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
+            equipeId: this.equipeId,
+            note: formValue.note,
+            categoryIds: this.selectedIds
+        }
         if (formValue.isAnnual === '') {
-            this.dataStore.addData('otps', {
-                name: formValue.name,
-                isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
-                budget: formValue.budget,
-                budgetBlocked: formValue.budgetBlocked,
-                description: formValue.description,
-                datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-                datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss'),
-                isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
-                isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
-                isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
-                equipeId: this.equipeId,
-                note: formValue.note,
-                categoryIds: this.selectedIds
-            }).first().subscribe(res => {
-                var x = res;
-                this.reset();
-            });
+            newOtpEnter.budget = formValue.budget,
+            newOtpEnter.datStart = this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+            newOtpEnter.datEnd = this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
         }
         else {
-            let table = []
-            table.push({
+            let budgetPeriods = []
+            budgetPeriods.push({
                 budget: formValue.budget,
                 datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
                 datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
             })
-            this.dataStore.addData('otps', {
-                budgetHistory: table,
-                name: formValue.name,
-                isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
-                budgetBlocked: formValue.budgetBlocked,
-                description: formValue.description,
-                isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
-                isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
-                isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
-                equipeId: this.equipeId,
-                note: formValue.note,
-                categoryIds: this.selectedIds
-            }).first().subscribe(res => {
-                var x = res;
-                this.reset();
-            }); 
+            newOtpEnter.budgetPeriods = budgetPeriods
         }
+        this.dataStore.addData('otps', newOtpEnter
+        ).first().subscribe(res => {
+            var x = res;
+            this.reset();
+        }); 
     }
 
     reset() {

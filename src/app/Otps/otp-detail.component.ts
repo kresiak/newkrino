@@ -31,10 +31,13 @@ export class OtpDetailComponent implements OnInit {
     }
     private pieSpentChart;
     private annualForm: FormGroup;
-    private datStartAnnual: string 
+    private budgetChangeForm: FormGroup
+    private datStartAnnual: string
     private datEndAnnual: string
+    private budgetPeriods: any[]
     private budgetHistory: any[]
-    
+    private dateInBudgetChangeForm: string
+
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
@@ -58,7 +61,7 @@ export class OtpDetailComponent implements OnInit {
     private subscriptionAuthorization: Subscription
     private subscriptionOtp: Subscription
     private subscriptionSapIdList: Subscription
-
+    
 
 
     ngOnInit(): void {
@@ -72,12 +75,12 @@ export class OtpDetailComponent implements OnInit {
                 this.ordersObservable = this.orderService.getAnnotedOrdersByOtp(otp.data._id);
                 this.orderService.hasOtpAnyOrder(otp.data._id).subscribe(anyOrder => this.anyOrder = anyOrder);
 
-                this.subscriptionSapIdList= this.sapService.getSapItemsByOtpObservable(otp.data.name).subscribe(lst => {
-                    this.sapIdList= lst
+                this.subscriptionSapIdList = this.sapService.getSapItemsByOtpObservable(otp.data.name).subscribe(lst => {
+                    this.sapIdList = lst
                 })
 
                 this.otpService.getAnnotatedOtpsForBudgetMap().first().subscribe(map => {
-                    this.otpBudget= map.get(otp.data._id)
+                    this.otpBudget = map.get(otp.data._id)
                     this.pieSpentChart = this.chartService.getSpentPieData(this.otpBudget.annotation.amountSpent / this.otpBudget.annotation.budget * 100);
                 })
             }
@@ -96,13 +99,18 @@ export class OtpDetailComponent implements OnInit {
         this.annualForm = this.formBuilder.group({
             budgetAnnual: ['', [Validators.required]]
         });
+
+        this.budgetChangeForm = this.formBuilder.group({
+            budgetChange: ['', [Validators.required]],
+            commentBudgetChange: ['', [Validators.required]]
+        })
     }
 
     SaveNewBudget(formValue, isValid) {
         if (!isValid) return
-        if (!this.otp.data.budgetHistory) this.otp.data.budgetHistory = []
+        if (!this.otp.data.budgetPeriods) this.otp.data.budgetPeriods = []
 
-        this.otp.data.budgetHistory.push({
+        this.otp.data.budgetPeriods.push({
             budget: formValue.budgetAnnual,
             datStart: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
             datEnd: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
@@ -112,6 +120,23 @@ export class OtpDetailComponent implements OnInit {
 
     reset() {
         this.annualForm.reset();
+    }
+
+    SaveBudgetChange(formValue, budgetItem, isValid) {
+        if (!isValid) return
+        if (!budgetItem.budgetHistory) budgetItem.budgetHistory = []
+
+        if (budgetItem.hasOwnProperty('isClosed')) delete budgetItem.isClosed
+        budgetItem.budgetHistory.push({
+            budget: formValue.budgetChange,
+            date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
+            comment: formValue.commentBudgetChange
+        })
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+    }
+
+    resetBudgetChange() {
+        this.budgetChangeForm.reset();
     }
 
     ngOnDestroy(): void {
@@ -255,18 +280,38 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    budgetAnnualUpdated(budgetHistoryItem, budgetAnnual) {
-        budgetHistoryItem.budget = +budgetAnnual;
+    budgetAnnualUpdated(budgetPeriodsItem, budgetAnnual) {
+        budgetPeriodsItem.budget = +budgetAnnual;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datStartAnnualUpdated(budgetHistoryItem, date) {
-        budgetHistoryItem.datStart = date;
+    datStartAnnualUpdated(budgetPeriodsItem, date) {
+        budgetPeriodsItem.datStart = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datEndAnnualUpdated(budgetHistoryItem, date) {
-        budgetHistoryItem.datEnd = date;
+    datEndAnnualUpdated(budgetPeriodsItem, date) {
+        budgetPeriodsItem.datEnd = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    budgetChangeUpdated(budgetHistoryItem, budgetChange) {
+        if (! +budgetChange) return
+        budgetHistoryItem.budget = +budgetChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    dateBudgetChangeUpdated(budgetHistoryItem, dateChange) {
+        budgetHistoryItem.date = dateChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    commentsBudgetChangeUpdated(budgetHistoryItem, comment) {
+        budgetHistoryItem.comment = comment
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    dateBudgetChangeInForm(dateInForm) {
+        this.dateInBudgetChangeForm = dateInForm
     }
 }

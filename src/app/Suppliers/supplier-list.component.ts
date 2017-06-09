@@ -2,11 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
-
-
 
 @Component(
     {
@@ -37,8 +35,6 @@ export class SupplierListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
-    private subscriptionSuppliers: Subscription
-    private subscriptionSupplierIdsSet: Subscription
 
     private supplierIdsSetWithBasketForCurrentUser: Set<string> = new Set<string>()
 
@@ -46,6 +42,7 @@ export class SupplierListComponent implements OnInit {
     private nbHitsIncrement: number= 10
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+    private isPageRunning: boolean = true
 
     resetSerachControl() {
         this.searchControl.setValue('')
@@ -60,7 +57,7 @@ export class SupplierListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionSuppliers = Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (suppliers, searchTxt: string) => {
+        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (suppliers, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$') return suppliers;
 
@@ -81,7 +78,7 @@ export class SupplierListComponent implements OnInit {
             return this.nbHitsShownObservable.map(nbItems => {
                 return suppliers.slice(0, nbItems)
             })
-        }).subscribe(suppliers => {
+        }).takeWhile(() => this.isPageRunning).subscribe(suppliers => {
             if (!comparatorsUtils.softCopy(this.suppliers, suppliers))
             {
                 this.suppliers= comparatorsUtils.clone(suppliers)
@@ -90,15 +87,14 @@ export class SupplierListComponent implements OnInit {
         });
 
 
-        this.subscriptionSupplierIdsSet = this.supplierService.getSupplierIdsSetObservableWithBasketForCurrentUser().subscribe(idsSet => {
+        this.supplierService.getSupplierIdsSetObservableWithBasketForCurrentUser().takeWhile(() => this.isPageRunning).subscribe(idsSet => {
             this.supplierIdsSetWithBasketForCurrentUser = idsSet
             this.setBasketInformation()
         })
     }
 
     ngOnDestroy(): void {
-        this.subscriptionSuppliers.unsubscribe()
-        this.subscriptionSupplierIdsSet.unsubscribe()
+        this.isPageRunning = false
     }
 
 
