@@ -100,7 +100,8 @@ export class BasketService {
                             }),
                             hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
                             quantity: basketItemFiltered.quantity,
-                            totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  // Todo Tva service
+                            totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  
+                            totalPriceHTva: product.price * basketItemFiltered.quantity,
                             otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId } :
                                 otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
                         }

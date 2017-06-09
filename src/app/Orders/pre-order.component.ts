@@ -23,6 +23,7 @@ export class PreOrderComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     private isEnoughBudget: boolean = false
+    private isTotalUnderLimit: boolean = false
     private isGroupOrdersUser: boolean = false
 
     private isOtpOk: boolean = false
@@ -49,6 +50,8 @@ export class PreOrderComponent implements OnInit {
                                 if (!eq) return
                                 var total = products.map(item => item.annotation.totalPrice).reduce((a, b) => a + b, 0)
                                 this.isEnoughBudget = total < eq.annotation.amountAvailable
+                                var totalHtva = products.map(item => item.annotation.totalPriceHTva).reduce((a, b) => a + b, 0)
+                                this.isTotalUnderLimit= totalHtva < 8500
                             })
 
                         }
