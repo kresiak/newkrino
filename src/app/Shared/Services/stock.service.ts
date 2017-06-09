@@ -53,12 +53,13 @@ export class StockService {
             .map(annotatedStockProducts => annotatedStockProducts.filter(annotatedStockProduct => annotatedStockProduct && annotatedStockProduct.annotation.nbAvailable > 0));
     }
 
+
     getAnnotatedAvailableStockProductsByProduct(productId): Observable<any> {
         return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('products.stock').map(stockProducts => stockProducts.filter(sp => sp.productId === productId)));
     }
 
-    getAnnotatedAvailableStockProductsAll(): Observable<any> {
-        return this.getAnnotatedAvailableStockProducts(this.dataStore.getDataObservable('products.stock')).map(sps => sps.groupBy(sp => sp.data.productId));
+    getAnnotatedStockProductsAll(): Observable<any> {
+        return this.getAnnotatedStockProducts(this.dataStore.getDataObservable('products.stock')).map(sps => sps.groupBy(sp => sp.data.productId));
     }
 
 /*    getNbAvailableInStockByProduct(): Observable<any> {
