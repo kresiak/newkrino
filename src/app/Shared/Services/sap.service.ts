@@ -4,6 +4,7 @@ import { AuthService } from './auth.service'
 import { ApiService } from './api.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as utilsObservable from './../Utils/observables'
 
 
 Injectable()
@@ -153,165 +154,17 @@ export class SapService {
     private krinoIdMapObservable: ConnectableObservable<Map<number, number>> = null
 
 
-    // Helper for P1
-    private createSapObject(sapObj) {
-        var totalObj = sapObj.items.filter(item => !item.isSuppr && !item.isBlocked).reduce((acc, item) => {
-            acc.totalHtva += item.htva
-            acc.totalTvac += item.tvac
-            if (!acc.otpMap.has(item.otp)) acc.otpMap.set(item.otp, { totalHtva: 0, totalTvac: 0 })
-            var oo = acc.otpMap.get(item.otp)
-            oo.totalHtva += item.htva
-            oo.totalTvac += item.tvac
-            return acc
-        }, {
-                totalHtva: 0,
-                totalTvac: 0,
-                otpMap: new Map<string, any>()
-            })
-        return {
-            data: sapObj,
-            annotation: {
-                totalHtva: totalObj.totalHtva,
-                totalTvac: totalObj.totalTvac,
-                otpMap: totalObj.otpMap,
-                otpTxt: totalObj.otpMap.size === 0 ? 'no OTP' : Array.from(totalObj.otpMap.keys()).reduce((a, b) => a + ', ' + b)
-            }
-        }
-    }
-
-    private correctTvaCAmount(tvac: number, tvaCode: string): number {
-        tvaCode= tvaCode.toUpperCase()
-        if (tvaCode === 'F1') return tvac * 1.06
-        if (tvaCode === 'F3') return tvac * 1.21
-        if (tvaCode === 'F9') return tvac * 1.21
-        if (tvaCode === 'C5') return tvac * 1.21
-        if (tvaCode === 'R3') return tvac * 1.21
-        if (tvaCode === 'BD') return tvac / 1.21
-        return tvac        
-    }
-
-    // Helper for P1
-    private setPosteInfoArray(sapItemObj) {
-        var engaged = sapItemObj.engaged
-        var factured = sapItemObj.factured
-
-/*        if (engaged.data.sapId===1529194) {
-            var xf=10
-        }
-*/
-        var isNoEngag: boolean = factured && factured.data.isNoEngag
-
-        var getDistinctOtps = function (poste) {
-            return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.otp) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.otp) : [])
-                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                .sort()
-        }
-
-        var getDistinctProducts = function (poste) {
-            return (engaged ? engaged.data.items.filter(item => item.poste === poste).map(item => item.product) : []).concat(factured ? factured.data.items.filter(item => item.poste === poste).map(item => item.product) : [])
-                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                .sort()
-        }
-
-        var getDistinctPostes = function () {
-            return (engaged ? engaged.data.items.map(item => item.poste) : []).concat(factured ? factured.data.items.map(item => item.poste) : [])
-                .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                .sort((a, b) => a - b)
-        }
-        var postList = getDistinctPostes()
-
-        sapItemObj.postList = postList.map(poste => {
-            let amountEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr) : []).map(item => this.correctTvaCAmount(item.tvac, item.codeTva))
-                                .reduce((a, b) => a + b, 0)            
-            let amountFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : [])
-                    .map(item => item.tvac).reduce((a, b) => a + b, 0)
-            let qtyEngaged = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked) : []).map(item => item.quantity).reduce((a, b) => a + b, 0)
-            let qtyFactured = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && !item.isBlocked && !item.iChargUlter) : [])
-                .map(item => ((item.pieceType==='NC' || (item.tvac < 0 && item.quantity > 0)) ? -item.quantity : item.quantity) / 10).reduce((a, b) => a + b, 0)  // temporary division / 10
-            let allBilledOnPoste = qtyFactured > 0 && qtyFactured >= qtyEngaged
-
-            let lastInvoiceDate = !factured ? '' : factured.data.items.filter(i => !i.isSuppr).map(i => i.dateCreation).sort((a, b) => {
-                var d1 = moment(a, 'DD/MM/YYYY').toDate()
-                var d2 = moment(b, 'DD/MM/YYYY').toDate()
-                return d1 > d2 ? -1 : 1
-            })[0]
-
-            let codeTvaEngag= (engaged ? engaged.data.items.filter(item => item.poste == poste).map(item => item.codeTva)[0] : 'No')
-
-            let otpsForPoste = getDistinctOtps(poste)
-            if (otpsForPoste.length != 1) sapItemObj.hasOtpError = true
-
-            var hasPosteFactureFinale = (factured ? factured.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
-            var hasPosteFactureFinaleInEng = (engaged ? engaged.data.items.filter(item => item.poste == poste && !item.isSuppr && item.isFactFinale) : []).length > 0
-            hasPosteFactureFinale= hasPosteFactureFinale || hasPosteFactureFinaleInEng
-
-
-            return {
-                poste: poste,
-                otp: otpsForPoste[0],
-                product: getDistinctProducts(poste)[0],
-                codeTvaEngag: codeTvaEngag || 'No',
-                amountEngaged: amountEngaged,
-                amountFactured: amountFactured,
-                qtyEngaged: qtyEngaged,
-                qtyFactured: qtyFactured,
-                amountResiduel: (!hasPosteFactureFinale && !isNoEngag && qtyEngaged!=0  && !allBilledOnPoste) ? (qtyEngaged-qtyFactured) * amountEngaged/qtyEngaged  : 0,
-                hasPosteFactureFinale: hasPosteFactureFinale,
-                lastInvoiceDate: lastInvoiceDate
-            }
-        })
-    }
 
     // P1
     private initSapIdMapObservable(): void {
-        this.sapIdMapObservable = Observable.combineLatest(this.dataStore.getDataObservable('sap.engage'), this.dataStore.getDataObservable('sap.facture'), (engages, factures) => {
-
-            // Create hash table/map: one element per SapId
-            let map = engages.reduce((acc: Map<number, any>, e) => {
-                acc.set(e.sapId, { engaged: this.createSapObject(e) })
-                return acc
-            }, new Map<number, any>())
-
-            let map2 = factures.reduce((acc: Map<number, any>, f) => {
-                if (!acc.has(f.sapId)) {
-                    acc.set(f.sapId, {})
-                }
-                acc.get(f.sapId).factured = this.createSapObject(f)
-
-                return acc
-            }, map)
-
-            // Do some processing on each entry of the Map and do there another hashtable: the per Post hashtable
-            Array.from(map2.values()).forEach(obj => {
-
-                let obj2 = obj as any
-
-                var getDistinctTypesPiece = function () {
-                    return (obj2.factured ? obj2.factured.data.items.map(item => item.pieceType) : [])
-                        .filter((elem, pos, arr) => arr.indexOf(elem) == pos)   // distinct
-                        .sort()
-                }
-
-                obj2.mainData = obj2.factured ? obj2.factured : obj2.engaged
-                obj2.dateLastActivity = obj2.factured ? obj2.factured.data.maxDate : obj2.engaged.data.maxDate
-                obj2.isSuppr = !((obj2.factured && obj2.factured.data.items.filter(i => !i.isSuppr).length > 0) || (obj2.engaged && obj2.engaged.data.items.filter(i => !i.isSuppr).length > 0))
-                this.setPosteInfoArray(obj)
-                obj2.hasFactureFinale = obj2.postList.filter(p => p.hasPosteFactureFinale).length > 0
-                obj2.residuEngaged = obj2.postList.map(p => p.amountResiduel).reduce((a, b) => a + b, 0)
-                obj2.alreadyBilled = obj2.postList.map(p => p.amountFactured).reduce((a, b) => a + b, 0)
-                obj2.typesPiece = getDistinctTypesPiece().reduce((a, b) => a + (a === '' ? '' : ', ') + b, '')
-            })
-
-            console.log('In getSapIdMapObservable: ' + map2.size)
-
-            return map2
-        }).publishReplay(1)
+        this.sapIdMapObservable = this.dataStore.getDataObservable('sap.fusion').map(utilsObservable.hashMapFactoryCurry(elem => elem.sapId)).publishReplay(1)
     }
 
 
     // P2
     private initSapOtpMapObservable(): void {
         this.sapOtpMapObservable = this.sapIdMapObservable.map(idMap => {
+            console.log('In initSapOtpMapObservable: entering' )
             let otpMap = new Map<string, any>()
 
             Array.from(idMap.values()).forEach(value => {
