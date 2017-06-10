@@ -27,6 +27,8 @@ export class PreOrderComponent implements OnInit {
     private isGroupOrdersUser: boolean = false
 
     private isOtpOk: boolean = false
+    private isSubmitButtonFree: boolean = true
+
     private isPageRunning: boolean= true
 
     ngOnInit(): void {
@@ -88,6 +90,8 @@ export class PreOrderComponent implements OnInit {
     private supplier;
 
     createOrder(): void {
+        if (!this.isSubmitButtonFree) return
+        this.isSubmitButtonFree= false
         var observable = this.basketService.createOrderFromBasket(this.productsInBasket, this.supplier._id, !this.selectedGroupId ? undefined : this.groups.filter(group => group.data._id === this.selectedGroupId)[0]);
 
         if (observable) { 
