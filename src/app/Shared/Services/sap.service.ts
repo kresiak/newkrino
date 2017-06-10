@@ -191,14 +191,7 @@ export class SapService {
 
     // P3
     initSapItemsObservable() {
-        this.sapItemsObservable = this.sapIdMapObservable.map(sapIdMap => {
-            console.log('In initSapItemsObservable')
-            return Array.from(sapIdMap.values()).sort((v1, v2) => {
-                var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
-                var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
-                return d1 > d2 ? -1 : 1
-            })
-        }).publishReplay(1)
+        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').publishReplay(1)   // forst this publishReplay is not really needed...
     }
 
     // P4
