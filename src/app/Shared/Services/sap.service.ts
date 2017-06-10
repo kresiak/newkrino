@@ -37,11 +37,7 @@ export class SapService {
             if (sapIdMap.has(id))
                 sapItemsToReturn.push(sapIdMap.get(id))
         })
-        return sapItemsToReturn.sort((v1, v2) => {
-            var d1 = moment(v1.dateLastActivity, 'DD/MM/YYYY').toDate()
-            var d2 = moment(v2.dateLastActivity, 'DD/MM/YYYY').toDate()
-            return d1 > d2 ? -1 : 1
-        })
+        return sapItemsToReturn
     }
 
     getAmountEngagedByOtpInSapItems(otpName: string, sapItems: any[]) {
