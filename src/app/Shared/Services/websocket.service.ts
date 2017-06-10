@@ -31,7 +31,7 @@ export class WebSocketService{
         })
     }
 
-    createObservableSocket():Observable<any>{
+    private createObservableSocket():Observable<any>{
 
         this.ws = new WebSocket(this.url);
 
