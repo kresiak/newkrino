@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { OrderService } from './../Shared/Services/order.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SapService } from './../Shared/Services/sap.service'
 
@@ -26,14 +27,18 @@ export class SapListComponent implements OnInit {
     searchForm;
     private subscriptionSaps: Subscription
 
-    private nbHitsShown: number= 10
-    private nbHitsIncrement: number= 10
+    private nbHitsShown: number = 10
+    private nbHitsIncrement: number = 10
     private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
     private saps;
 
-    constructor(private sapService: SapService, private orderService: OrderService) {
+    private listName = 'sapList'
+    private showSearch: boolean = false
+
+
+    constructor(private sapService: SapService, private orderService: OrderService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -45,88 +50,95 @@ export class SapListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        var initialSearch = this.configService.listGetSearchText(this.listName)
+        if (initialSearch) {
+            this.showSearch = true
+            this.searchControl.setValue(initialSearch)
+        }
+        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
-        this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), 
+        this.subscriptionSaps = Observable.combineLatest(this.sapsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
             (saps, searchTxt: string) => {
-            let txt: string = searchTxt.trim().toUpperCase();
+                this.configService.listSaveSearchText(this.listName, searchTxt)
+                let txt: string = searchTxt.trim().toUpperCase();
 
-            if (txt === '' || txt === '$' || txt === '#') return saps
+                if (txt === '' || txt === '$' || txt === '#') return saps
 
-            return saps.filter(sap => {
-                if (txt.startsWith('$F')) {
-                    return sap.hasFactureFinale;
-                }
-                if (txt.startsWith('$D')) {
-                    return sap.isSuppr;
-                }
-                if (txt.startsWith('$T')) {
-                    return +sap.residuEngaged < 0.05;
-                }
-                if (txt.startsWith('$O')) {
-                    return +sap.residuEngaged >= 0.05;
-                }
-                if (txt.startsWith('$P')) {
-                    let typ = txt.slice(2);
-                    if (typ.length === 2) {
-                        return sap.factured && sap.factured.data.isNoEngag && sap.typesPiece.toUpperCase().includes(typ);    
+                return saps.filter(sap => {
+                    if (txt.startsWith('$F')) {
+                        return sap.hasFactureFinale;
                     }
-                    return sap.factured && sap.factured.data.isNoEngag;
-                }
-                if (txt.startsWith('$EO')) {
-                    return sap.hasOtpError;
-                }            
-
-                if (txt.startsWith('$E>') && +txt.slice(3)) {
-                    let montant = +txt.slice(3);
-                    return + sap.residuEngaged >= montant;
-                }
-                if (txt.startsWith('$E<') && +txt.slice(3)) {
-                    let montant = +txt.slice(3);
-                    return + sap.residuEngaged && + sap.residuEngaged <= montant;
-                }
-                if (txt.startsWith('$R>') && +txt.slice(3)) {
-                    let montant = +txt.slice(3);
-                    return + sap.alreadyBilled >= montant;
-                }
-                if (txt.startsWith('$R<') && +txt.slice(3)) {
-                    let montant = +txt.slice(3);
-                    return + sap.alreadyBilled && + sap.residuEngaged <= montant;
-                }
-                if (txt.startsWith('#>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return sap.engaged && sap.engaged.data.items.length > montant
-                }
-                if (txt.startsWith('#<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return sap.engaged && sap.engaged.data.items.length < montant
-                }
-                if (txt.startsWith('#=') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return sap.engaged && sap.engaged.data.items.length == montant
-                }
-
-                return sap.mainData.data.ourRef.toString().toUpperCase().includes(txt) ||sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
-                    || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
-            })
-        }).do(saps => {
-            this.nbHits= saps.length
-        })
-        .switchMap(saps => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return saps.slice(0, nbItems)
-            }) 
-        }).switchMap(saps => {
-            return this.orderService.getOrderEquipeInfoMap().map(orderMap => {
-                return saps.map(sap => {
-                    if (sap.mainData && sap.mainData.data.ourRef && +sap.mainData.data.ourRef && orderMap.has(+sap.mainData.data.ourRef)) {
-                        var orderInfo= orderMap.get(+sap.mainData.data.ourRef)
-                        sap.equipeInfo= orderInfo.annotation.equipe || orderInfo.annotation.equipeGroup
-                        sap.extraEquipeInfo= orderInfo.annotation.equipeGroupRepartition
+                    if (txt.startsWith('$D')) {
+                        return sap.isSuppr;
                     }
-                    return sap
+                    if (txt.startsWith('$T')) {
+                        return +sap.residuEngaged < 0.05;
+                    }
+                    if (txt.startsWith('$O')) {
+                        return +sap.residuEngaged >= 0.05;
+                    }
+                    if (txt.startsWith('$P')) {
+                        let typ = txt.slice(2);
+                        if (typ.length === 2) {
+                            return sap.factured && sap.factured.data.isNoEngag && sap.typesPiece.toUpperCase().includes(typ);
+                        }
+                        return sap.factured && sap.factured.data.isNoEngag;
+                    }
+                    if (txt.startsWith('$EO')) {
+                        return sap.hasOtpError;
+                    }
+
+                    if (txt.startsWith('$E>') && +txt.slice(3)) {
+                        let montant = +txt.slice(3);
+                        return + sap.residuEngaged >= montant;
+                    }
+                    if (txt.startsWith('$E<') && +txt.slice(3)) {
+                        let montant = +txt.slice(3);
+                        return + sap.residuEngaged && + sap.residuEngaged <= montant;
+                    }
+                    if (txt.startsWith('$R>') && +txt.slice(3)) {
+                        let montant = +txt.slice(3);
+                        return + sap.alreadyBilled >= montant;
+                    }
+                    if (txt.startsWith('$R<') && +txt.slice(3)) {
+                        let montant = +txt.slice(3);
+                        return + sap.alreadyBilled && + sap.residuEngaged <= montant;
+                    }
+                    if (txt.startsWith('#>') && +txt.slice(2)) {
+                        let montant = +txt.slice(2);
+                        return sap.engaged && sap.engaged.data.items.length > montant
+                    }
+                    if (txt.startsWith('#<') && +txt.slice(2)) {
+                        let montant = +txt.slice(2);
+                        return sap.engaged && sap.engaged.data.items.length < montant
+                    }
+                    if (txt.startsWith('#=') && +txt.slice(2)) {
+                        let montant = +txt.slice(2);
+                        return sap.engaged && sap.engaged.data.items.length == montant
+                    }
+
+                    return sap.mainData.data.ourRef.toString().toUpperCase().includes(txt) || sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
+                        || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
                 })
-            })            
-        }).subscribe(saps => this.saps = saps);
+            }).do(saps => {
+                this.nbHits = saps.length
+            })
+            .switchMap(saps => {
+                return this.nbHitsShownObservable.map(nbItems => {
+                    return saps.slice(0, nbItems)
+                })
+            }).switchMap(saps => {
+                return this.orderService.getOrderEquipeInfoMap().map(orderMap => {
+                    return saps.map(sap => {
+                        if (sap.mainData && sap.mainData.data.ourRef && +sap.mainData.data.ourRef && orderMap.has(+sap.mainData.data.ourRef)) {
+                            var orderInfo = orderMap.get(+sap.mainData.data.ourRef)
+                            sap.equipeInfo = orderInfo.annotation.equipe || orderInfo.annotation.equipeGroup
+                            sap.extraEquipeInfo = orderInfo.annotation.equipeGroupRepartition
+                        }
+                        return sap
+                    })
+                })
+            }).subscribe(saps => this.saps = saps);
     }
 
     ngOnDestroy(): void {
@@ -157,7 +169,8 @@ export class SapListComponent implements OnInit {
         }*/
 
     private moreHits() {
-        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShown += this.nbHitsIncrement
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
