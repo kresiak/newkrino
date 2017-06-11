@@ -54,6 +54,8 @@ export class OrderListComponent implements OnInit {
     this.searchControl.setValue('')
     };
 
+    private total: number= 0
+
     ngOnInit(): void {        
         this.stateInit();
         var initialSearch= this.configService.listGetSearchText(this.listName)
@@ -104,6 +106,7 @@ export class OrderListComponent implements OnInit {
             })
         }).do(orders => {
             this.nbHits= orders.length
+            this.total= orders.reduce((acc, order) => acc + order.annotation.total, 0)
         })
         .switchMap(orders => {
             return this.nbHitsShownObservable.map(nbItems => {
