@@ -48,20 +48,20 @@ export class PreOrderComponent implements OnInit {
             this.productsBasketObservable= productObervable
         })
         .switchMap(productObervable => {
-            return productObervable.takeWhile(() => this.isPageRunning)   //takeWhile necessary on each switchmap 
+            return productObervable.takeWhile(() => this.isPageRunning)   //takeWhile necessary on each starting observable path  (otherwise will survive the page)
         })        
         .do(products => {
             this.productsInBasket = products
             this.isOtpOk = products.filter(product => product.annotation.otp && !product.annotation.otp._id).length == 0            
         })
         .combineLatest(
-            this.authService.getStatusObservable()
+            this.authService.getStatusObservable().takeWhile(() => this.isPageRunning)    //takeWhile necessary on each starting observable path
                 .do((statusInfo) => {
                     this.authorizationStatusInfo = statusInfo
                     this.isGroupOrdersUser= statusInfo.isGroupOrdersUser()
                 })
                 .map(statusInfo => statusInfo.isGroupOrdersUser()),
-            this.adminService.getLabo().map(labo => labo.data.maxOrderAmount),
+            this.adminService.getLabo().map(labo => labo.data.maxOrderAmount).takeWhile(() => this.isPageRunning),    //takeWhile necessary on each starting observable path
             (products, isGroupOrderUser, maxOrderAmount) => {
                 var totalHtva = products.map(item => item.annotation.totalPriceHTva).reduce((a, b) => a + b, 0)
                 return { 
