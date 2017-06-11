@@ -187,7 +187,7 @@ export class SapService {
 
     // P3
     initSapItemsObservable() {
-        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').publishReplay(1)   // forst this publishReplay is not really needed...
+        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').map(saps => saps.sort((a,b)=>a.counter-b.counter)).publishReplay(1)   // forst this publishReplay is not really needed...
     }
 
     // P4
