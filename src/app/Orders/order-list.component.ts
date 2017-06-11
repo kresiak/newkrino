@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { OrderService } from './../Shared/Services/order.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -15,11 +15,14 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class OrderListComponent implements OnInit {
-    constructor() {
+    constructor(private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
     }
+
+    private listName= 'orderList'
+    private showSearch: boolean= false
 
     searchControl = new FormControl();
     searchForm;
@@ -51,9 +54,18 @@ export class OrderListComponent implements OnInit {
     this.searchControl.setValue('')
     };
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
         this.stateInit();
-        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (orders, searchTxt: string) => {
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
+        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+
+
+        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (orders, searchTxt: string) => {
+            this.configService.listSaveSearchText(this.listName, searchTxt)            
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted');
             return orders.filter(order => {
@@ -143,6 +155,7 @@ export class OrderListComponent implements OnInit {
 
     private moreHits() {
         this.nbHitsShown+= this.nbHitsIncrement
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
