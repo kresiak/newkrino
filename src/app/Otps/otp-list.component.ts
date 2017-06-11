@@ -40,6 +40,8 @@ export class OtpListComponent implements OnInit {
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
+    private total: number= 0
+
     constructor(private sapService: SapService, private otpService: OtpService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -79,8 +81,9 @@ export class OtpListComponent implements OnInit {
                 if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
                 return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
-            }).do(products => {
-                this.nbHits = products.length
+            }).do(otps => {
+                this.nbHits = otps.length
+                this.total= otps.reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
             })
             .switchMap(otps => {
                 return this.nbHitsShownObservable.map(nbItems => {
