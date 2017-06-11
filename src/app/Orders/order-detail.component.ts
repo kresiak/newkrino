@@ -234,6 +234,10 @@ export class OrderDetailComponent implements OnInit {
         this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
     }
 
+    navigateToOtp(otpId) {
+        this.navigationService.maximizeOrUnmaximize('/otp', otpId, this.path, false)
+    }
+
     navigateToSap(sapId) {
         this.navigationService.maximizeOrUnmaximize('/sap', sapId, this.path, false)
     }
