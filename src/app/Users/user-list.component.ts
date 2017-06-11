@@ -54,8 +54,12 @@ export class UserListComponent implements OnInit{
         }              
 
         this.subscriptionUsers= Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (users, searchTxt: string) => {
+            this.configService.listSaveSearchText(this.listName, searchTxt)
             if (searchTxt.trim() === '') return users;
-            return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.firstName.toUpperCase().includes(searchTxt.toUpperCase()));
+            
+            return users.filter(user => {
+                return (user.data.name || '').toUpperCase().includes(searchTxt.toUpperCase()) || (user.data.firstName || '').toUpperCase().includes(searchTxt.toUpperCase())
+            });
         }).subscribe(users => this.users = users);
         
     }
