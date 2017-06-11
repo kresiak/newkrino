@@ -43,7 +43,7 @@ export class ProductGridBasketComponent implements OnInit
     private subscriptionAuthorization: Subscription
     private selectableCategoriesObservable: Observable<any>;
     
-    
+    private total: number= 0
     private otpListObservable: any
     
     @ViewChildren(Editor) priceChildren : QueryList<Editor>;
@@ -97,7 +97,11 @@ export class ProductGridBasketComponent implements OnInit
 
                 return product.data.name.toUpperCase().includes(txt)  || (product.data.description||'').toUpperCase().includes(txt) 
             });
-        }).subscribe(products => {
+        })
+        .do (products => {
+            this.total= products.reduce((acc, product) => acc + (+product.annotation.totalPrice || 0), 0)
+        })
+        .subscribe(products => {
             this.products = products.slice(0, 50)
         });
     }
