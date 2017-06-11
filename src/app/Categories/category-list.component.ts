@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import {ProductService} from './../Shared/Services/product.service'
 import {Observable, Subscription} from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from './../Shared/Services/config.service'
 
 @Component(
  {
@@ -12,7 +13,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
  }
 )
 export class CategoryListComponent implements OnInit{
-    constructor(private productService: ProductService)    {
+    constructor(private productService: ProductService, private configService: ConfigService)    {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -42,11 +43,21 @@ export class CategoryListComponent implements OnInit{
     searchControl = new FormControl();
     searchForm;    
 
+    private listName= 'categoryList'
+    private showSearch: boolean= false    
+
     ngOnInit():void{
         this.stateInit();
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
+        
         this.categoryObservable= this.productService.getAnnotatedCategories(); 
 
-    this.subscriptionCategories= Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (categories, searchTxt: string) => {
+    this.subscriptionCategories= Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (categories, searchTxt: string) => {
+        this.configService.listSaveSearchText(this.listName, searchTxt)
         if (searchTxt.trim() === '') return categories;
             return categories.filter(category => category.data.name &&  (category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase()))   );
         }).subscribe(categories => this.categories = categories);

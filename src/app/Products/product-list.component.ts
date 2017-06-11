@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
 import { BasketService } from './../Shared/Services/basket.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -30,6 +31,8 @@ export class ProductListComponent implements OnInit {
     searchControl = new FormControl();
     searchForm;
 
+    private listName= 'productList'
+    private showSearch: boolean= false
 
     private products;
     private nbHitsShown: number = 15
@@ -38,7 +41,7 @@ export class ProductListComponent implements OnInit {
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
 
-    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -56,8 +59,16 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
+        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+        
 
-        this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
+        this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (products, searchTxt: string) => {
+            this.configService.listSaveSearchText(this.listName, searchTxt)
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
 
@@ -156,6 +167,7 @@ export class ProductListComponent implements OnInit {
 
     private moreHits() {
         this.nbHitsShown += this.nbHitsIncrement
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
@@ -14,7 +15,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SupplierListComponent implements OnInit {
-    constructor(private dataStore: DataStore, private supplierService: SupplierService) {
+    constructor(private dataStore: DataStore, private supplierService: SupplierService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -35,6 +36,9 @@ export class SupplierListComponent implements OnInit {
 
     searchControl = new FormControl();
     searchForm;
+    private listName= 'supplierList'
+    private showSearch: boolean= false
+    
 
     private supplierIdsSetWithBasketForCurrentUser: Set<string> = new Set<string>()
 
@@ -56,8 +60,16 @@ export class SupplierListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
+        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+        
 
-        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (suppliers, searchTxt: string) => {
+        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (suppliers, searchTxt: string) => {
+            this.configService.listSaveSearchText(this.listName, searchTxt)
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$') return suppliers;
 
@@ -114,6 +126,7 @@ export class SupplierListComponent implements OnInit {
 
     private moreHits() {
         this.nbHitsShown+= this.nbHitsIncrement
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 }

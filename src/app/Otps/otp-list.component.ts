@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { OtpService } from '../Shared/Services/otp.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
@@ -30,9 +31,12 @@ export class OtpListComponent implements OnInit {
     searchForm;
     private subscriptionOtps: Subscription
 
+    private listName= 'otpList'
+    private showSearch: boolean= false
+
     private otps;
 
-    constructor(private sapService: SapService, private otpService: OtpService) {
+    constructor(private sapService: SapService, private otpService: OtpService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -44,6 +48,11 @@ export class OtpListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
 
         var otpAddInfo = function (otp, otpSapMap, otpForBudgetMap) {
             otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
@@ -59,8 +68,9 @@ export class OtpListComponent implements OnInit {
         }
 
         this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.otpService.getAnnotatedOtpsForBudgetMap(),
-                                                        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''),
+                                                        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
             (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
+                this.configService.listSaveSearchText(this.listName, searchTxt)
                 if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
                 return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));

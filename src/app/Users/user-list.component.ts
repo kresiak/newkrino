@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import {ProductService} from './../Shared/Services/product.service'
+import { ConfigService } from './../Shared/Services/config.service'
 import {Observable, Subscription} from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -13,7 +14,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class UserListComponent implements OnInit{
 
-    constructor(private authService: AuthService)    {
+    constructor(private authService: AuthService, private configService: ConfigService)    {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -37,14 +38,22 @@ export class UserListComponent implements OnInit{
     searchForm;    
     private subscriptionUsers: Subscription 
 
+    private listName= 'userList'
+    private showSearch: boolean= false
+
     resetSerachControl() {
         this.searchControl.setValue('')
     }
 
     ngOnInit():void{
-        this.stateInit();         
+        this.stateInit();  
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }              
 
-        this.subscriptionUsers= Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (users, searchTxt: string) => {
+        this.subscriptionUsers= Observable.combineLatest(this.usersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (users, searchTxt: string) => {
             if (searchTxt.trim() === '') return users;
             return users.filter(user => user.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || user.data.firstName.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(users => this.users = users);

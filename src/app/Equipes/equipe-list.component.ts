@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
+import { ConfigService } from './../Shared/Services/config.service'
 import { DOCUMENT } from '@angular/platform-browser'
 
 
@@ -15,7 +16,7 @@ import { DOCUMENT } from '@angular/platform-browser'
     }
 )
 export class EquipeListComponent implements OnInit {
-    constructor() {
+    constructor(private configService: ConfigService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
@@ -30,6 +31,9 @@ export class EquipeListComponent implements OnInit {
     @Input() initialTabInEquipeDetail: string = '';
     @Input() path: string= 'equipes'
     @Output() stateChanged = new EventEmitter();
+
+    private listName= 'equipeList'
+    private showSearch: boolean= false
 
 
     private stateInit() {
@@ -46,8 +50,14 @@ export class EquipeListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
+        var initialSearch= this.configService.listGetSearchText(this.listName)
+        if (initialSearch){ 
+            this.showSearch= true
+            this.searchControl.setValue(initialSearch)
+        }
 
-        this.equipesSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (equipes, searchTxt: string) => {
+        this.equipesSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (equipes, searchTxt: string) => {
+            this.configService.listSaveSearchText(this.listName, searchTxt)
             if (searchTxt.trim() === '') return equipes;
             return equipes.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || otp.data.description.toUpperCase().includes(searchTxt.toUpperCase()));
         }).subscribe(equipes => this.equipes = equipes);
