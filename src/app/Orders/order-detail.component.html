@@ -19,18 +19,19 @@
 					<div class="col-sm-2"><b>Resell as</b></div>
 				</div>
 				<div class="row" *ngFor="let item of tmpDeliveryItems">
-					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr"
-							[style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered && +item.nbDelivered > 0 && +item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')" >{{item.product}}</div>
+					<div class="col-sm-4" [ngbTooltip]="'Catalog Nr.: ' + item.catalogNr" [style.color]="!item.nbDelivered ? 'black' : (+item.nbDelivered && +item.nbDelivered > 0 && +item.nbDelivered <= (+item.nbOrdered-+item.nbAlready) ? 'green' : 'red')">{{item.product}}</div>
 					<div class="col-sm-1">{{item.nbOrdered}}</div>
 					<div class="col-sm-1">{{item.nbAlready}}</div>
 					<div class="col-sm-2">
-						<input *ngIf="item.nbAlready < item.nbOrdered" type="number" class="form-control" [(ngModel)]="item.nbDelivered"/>
+						<input *ngIf="item.nbAlready < item.nbOrdered" type="number" class="form-control" [(ngModel)]="item.nbDelivered" />
 					</div>
-					<div class="col-sm-2" >
-						<input type="text" class="form-control" [(ngModel)]="item.noLot" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')"/>
+					<div class="col-sm-2">
+						<input type="text" class="form-control" [(ngModel)]="item.noLot" *ngIf="item.nbAlready < item.nbOrdered && (item.noLot || item.noLot==='')"
+						/>
 					</div>
-					<div class="col-sm-2" >
-						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock" *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging"/>
+					<div class="col-sm-2">
+						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock"
+						 *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging" />
 					</div>
 				</div>
 			</div>
@@ -85,8 +86,8 @@
 									</div>
 									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
 										<div class="col-sm-10">
-											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator() || order.annotation.equipeGroup" [selectableData]="equipeListObservable"
-											 [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
+											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator() || order.annotation.equipeGroup"
+											 [selectableData]="equipeListObservable" [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
 											<div *ngIf="order.annotation.equipeGroup">group: {{order.annotation.equipeGroup}}</div>
 										</div>
 									</div>
@@ -110,8 +111,11 @@
 									<div class="col-sm-3 vcenter"><b>Comment</b></div>
 								</div>
 								<div *ngFor="let item of order.annotation.items">
-									<div class="row">   
-										<div class="col-sm-2 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)"><gg-text-compact [text]="item.annotation.description"></gg-text-compact></div>
+									<!--FOR-->
+									<div class="row">
+										<div class="col-sm-2 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">
+											<gg-text-compact [text]="item.annotation.description"></gg-text-compact>
+										</div>
 
 										<div class="col-sm-1 vcenter">
 											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="order.annotation.isGroupedOrder || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
@@ -130,28 +134,31 @@
 										<div class="col-sm-2 vcenter">
 											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 										</div>
-										<div  class="col-sm-1 vcenter" *ngIf="order.annotation.isGroupedOrder">
+										<div class="col-sm-1 vcenter" *ngIf="order.annotation.isGroupedOrder">
 											<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">Show/hide details</button>
 										</div>
 									</div>
+
 									<div class="row" [ngbCollapse]="!item.annotation.isClosed">
 										<div class="col-sm-12 col-md-12">
 											<div class="card">
 												<div class="row">
 													<div class="col-sm-2 col-md-2 vcenter">When?</div>
-													<div class="col-sm-2 col-md-3 vcenter">Who?</div>	
+													<div class="col-sm-2 col-md-3 vcenter">Who?</div>
 													<div class="col-sm-2 col-md-3 vcenter">Equipe</div>
 													<div class="col-sm-2 col-md-2 vcenter">How many</div>
 												</div>
 												<div class="card">
 													<div class="row" *ngFor="let detailItem of item.annotation.detail">
-														<div class="col-sm-2 col-md-2 vcenter"><gg-date-pointer [date]="detailItem.data.date"></gg-date-pointer></div>
+														<!--FOR-->
+														<div class="col-sm-2 col-md-2 vcenter">
+															<gg-date-pointer [date]="detailItem.data.date"></gg-date-pointer>
+														</div>
 														<div class="col-sm-2 col-md-3 vcenter">{{detailItem.annotation.userFullName}}</div>
 														<div class="col-sm-2 col-md-3 vcenter">{{detailItem.annotation.equipe}}</div>
 														<div class="col-sm-2 col-md-2 vcenter">
-															<gg-editor-number [content]="detailItem.data.quantity" (editSaved)="quantityDetailUpdated($event, item, detailItem)" 
-																	[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(detailItem.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
-															</gg-editor-number> 													
+															<gg-editor-number [content]="detailItem.data.quantity" (editSaved)="quantityDetailUpdated($event, item, detailItem)" [readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(detailItem.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+															</gg-editor-number>
 														</div>
 													</div>
 												</div>
@@ -160,6 +167,13 @@
 									</div>
 								</div>
 							</div>
+							<div class="row" [style.color]="'darkturquoise'" *ngIf="order.annotation.items && order.annotation.items.length > 1">
+								<div class="col-sm-2 vcenter"></div>
+								<div class="col-sm-1 vcenter"></div>
+								<div class="col-sm-1 vcenter">Total:</div>
+								<div class="col-sm-2 vcenter">{{order.annotation.total | currency:'EUR':true:'1.2-2'}} </div>
+							</div>
+
 							<div class="row">
 								<div class="col-sm-2">
 									<img *ngIf="!order.annotation.dashletId" src="../../images/pin.png" (click)="setDashlet()" />
@@ -274,10 +288,11 @@
 													<div class="col-sm-1">{{delivery.data.quantity}}</div>
 													<div class="col-sm-1">{{delivery.data.lotNb}}</div>
 													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
-													<div class="col-sm-2" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">  
-														<input type="checkbox" [ngbTooltip]="'click here to select the delivery for deletion'" *ngIf="!delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete" />
-														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected delivery item and can't be undone. Click here if you are sure you want to delete it." 
-																	*ngIf="delivery.data.isDueToDelete" (click)="deteteDeliveryItem(item, delivery)">Delete</div>
+													<div class="col-sm-2" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+														<input type="checkbox" [ngbTooltip]="'click here to select the delivery for deletion'" *ngIf="!delivery.data.isDueToDelete"
+														 (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete" />
+														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected delivery item and can't be undone. Click here if you are sure you want to delete it."
+														 *ngIf="delivery.data.isDueToDelete" (click)="deteteDeliveryItem(item, delivery)">Delete</div>
 														<div class="btn btn-success btn-sm" *ngIf="delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete">Cancel</div>
 													</div>
 												</div>
