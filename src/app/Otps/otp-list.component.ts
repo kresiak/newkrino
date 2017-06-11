@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
 import { OtpService } from '../Shared/Services/otp.service'
 import { ConfigService } from './../Shared/Services/config.service'
 import { SapService } from './../Shared/Services/sap.service'
@@ -31,10 +31,14 @@ export class OtpListComponent implements OnInit {
     searchForm;
     private subscriptionOtps: Subscription
 
-    private listName= 'otpList'
-    private showSearch: boolean= false
+    private listName = 'otpList'
+    private showSearch: boolean = false
 
     private otps;
+    private nbHitsShown: number = 15
+    private nbHitsIncrement: number = 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
     constructor(private sapService: SapService, private otpService: OtpService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
@@ -48,36 +52,44 @@ export class OtpListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch= this.configService.listGetSearchText(this.listName)
-        if (initialSearch){ 
-            this.showSearch= true
+        var initialSearch = this.configService.listGetSearchText(this.listName)
+        if (initialSearch) {
+            this.showSearch = true
             this.searchControl.setValue(initialSearch)
         }
+        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
         var otpAddInfo = function (otp, otpSapMap, otpForBudgetMap) {
             otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
             if (otpForBudgetMap.has(otp.data._id)) {
-                let budgetInfo= otpForBudgetMap.get(otp.data._id)
-                otp.annotation.amountSpentNotYetInSap= budgetInfo.annotation.amountSpentNotYetInSap
-                otp.annotation.amountEngaged= budgetInfo.annotation.amountEngaged                
-                otp.annotation.amountBilled= budgetInfo.annotation.amountBilled         
-                otp.annotation.amountSpent= budgetInfo.annotation.amountSpent
-                otp.annotation.amountAvailable= budgetInfo.annotation.amountAvailable
+                let budgetInfo = otpForBudgetMap.get(otp.data._id)
+                otp.annotation.amountSpentNotYetInSap = budgetInfo.annotation.amountSpentNotYetInSap
+                otp.annotation.amountEngaged = budgetInfo.annotation.amountEngaged
+                otp.annotation.amountBilled = budgetInfo.annotation.amountBilled
+                otp.annotation.amountSpent = budgetInfo.annotation.amountSpent
+                otp.annotation.amountAvailable = budgetInfo.annotation.amountAvailable
             }
             return otp
         }
 
         this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.otpService.getAnnotatedOtpsForBudgetMap(),
-                                                        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
+            this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
             (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
                 this.configService.listSaveSearchText(this.listName, searchTxt)
                 if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
                 return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
+            }).do(products => {
+                this.nbHits = products.length
+            })
+            .switchMap(otps => {
+                return this.nbHitsShownObservable.map(nbItems => {
+                    return otps.slice(0, nbItems)
+                })
             }).subscribe(otps => {
                 if (!comparatorsUtils.softCopy(this.otps, otps)) {
                     this.otps = comparatorsUtils.clone(otps)
-                }                
+                }
             });
     }
 
@@ -105,6 +117,12 @@ export class OtpListComponent implements OnInit {
     private childStateChanged(newState, objectId) {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
+    }
+
+    private moreHits() {
+        this.nbHitsShown += this.nbHitsIncrement
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
+        this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
 }
