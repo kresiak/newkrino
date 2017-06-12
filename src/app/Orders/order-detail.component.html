@@ -126,9 +126,9 @@
 											<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
 											 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 										</div>
-										<div class="col-sm-2 vcenter imgSearch" *ngIf="!smallScreen" (click)="navigateToOtp(item.data.otpId)">
+										<div class="col-sm-2 vcenter" *ngIf="!smallScreen" >
 											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
-											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)"></gg-editor-autocomplete>
+											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)" [linkable]="true" (hasBeenClicked)="navigateToOtp(item.data.otpId)"></gg-editor-autocomplete>
 										</div>
 										<div class="col-sm-1 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 										<div class="col-sm-2 vcenter">

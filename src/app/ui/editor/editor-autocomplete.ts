@@ -20,9 +20,11 @@ export class EditorAutocomplete implements OnInit {
     @Input() selectableData: Observable<SelectableData[]>;
     @Input() selectedId: string
     @Input() emptyContentText: string = ''
+    @Input() linkable: boolean= false
     
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() idChanged = new EventEmitter();
+    @Output() hasBeenClicked = new EventEmitter();
 
     private content;    
     private selectedItem;
@@ -61,5 +63,8 @@ export class EditorAutocomplete implements OnInit {
         return this._sanitizer.bypassSecurityTrustHtml(html);
     }
 
+    clicked() {
+        this.hasBeenClicked.next()
+    }
 
 }
