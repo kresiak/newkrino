@@ -8,7 +8,7 @@ export function softCopy(target, source) {   // returns true if he copies it; ot
             if (target.length === source.length) {
                 for (var i = 0; i < target.length; i++) {
                     if (!this.softCopy(target[i], source[i])) {
-                        target[i] = source[i]  //if array items  are primitive, I will copy myself
+                        target[i] = clone(source[i])  //if array items  are primitive, I will copy myself
                     }
                 }
             }
@@ -18,19 +18,24 @@ export function softCopy(target, source) {   // returns true if he copies it; ot
         }
         else {
             console.log('strange softCopy source not array: ' + JSON.stringify(source))
+            return false
         }
         return true
     }
     else if (target instanceof Object) {
         if (source instanceof Object) {
+            Object.keys(source).filter(sourcekey => !Object.keys(target).includes(sourcekey)).forEach(key => target[key]= undefined)
+            Object.keys(target).filter(sourcekey => !Object.keys(source).includes(sourcekey)).forEach(key => delete target[key])
+
             Object.keys(target).forEach(propName => {
                 if (!this.softCopy(target[propName], source[propName])) {
-                    target[propName] = source[propName]  //if properties are primitive, I will copy myself
+                    target[propName] = clone(source[propName])  //if properties are primitive, I will copy myself
                 }
             })
         }
         else {
             console.log('strange softCopy source not object: ' + JSON.stringify(source))
+            return false
         }
         return true
     }
@@ -43,6 +48,7 @@ export function softCopy(target, source) {   // returns true if he copies it; ot
 }
 
 export function clone(source) {
+    if (!(source instanceof Array) && !(source instanceof Object)) return source
     return JSON.parse(JSON.stringify(source))
 }
 
