@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { ConfigService } from './../Shared/Services/config.service'
-import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { FormControl, FormGroup } from '@angular/forms'
-import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
@@ -15,11 +16,13 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class OrderListComponent implements OnInit {
-    constructor(private configService: ConfigService) {
+    constructor(private configService: ConfigService, private authService: AuthService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });
     }
+
+    private isPageRunning: boolean = true
 
     private listName= 'orderList'
     private showSearch: boolean= false
@@ -48,7 +51,8 @@ export class OrderListComponent implements OnInit {
     @Input() config;
 
     private orders2Observable: Observable<any>;
-    private ordersSubscription: Subscription
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 
     resetSerachControl() {
     this.searchControl.setValue('')
@@ -98,15 +102,15 @@ export class OrderListComponent implements OnInit {
                 }
                 return order.annotation.user.toUpperCase().includes(txt)
                     || order.annotation.supplier.toUpperCase().includes(txt)
-                    || order.data._id.toUpperCase().includes(txt)
+                    || (this.authorizationStatusInfo.isProgrammer() &&  order.data._id.toUpperCase().includes(txt))
                     || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
                     || order.annotation.status.toUpperCase().includes(txt)
-                    || order.data.kid === +txt || order.annotation.sapId === +txt;
+                    || (order.data.kid || '').toString().includes(txt) || (order.annotation.sapId ||'').toString().includes(txt);
 
             })
         }).do(orders => {
             this.nbHits= orders.length
-            this.total= orders.reduce((acc, order) => acc + order.annotation.total, 0)
+            this.total= orders.filter(order =>  !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
         })
         .switchMap(orders => {
             return this.nbHitsShownObservable.map(nbItems => {
@@ -114,14 +118,19 @@ export class OrderListComponent implements OnInit {
             })
         });
 
-        this.ordersSubscription=this.orders2Observable.subscribe(o => {
+        this.orders2Observable.takeWhile(() => this.isPageRunning).subscribe(o => {
             if (!comparatorsUtils.softCopy(this.orders, o))
                 this.orders= comparatorsUtils.clone(o)
         })
+
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });
+        
     }
 
     ngOnDestroy(): void {
-         this.ordersSubscription.unsubscribe()
+         this.isPageRunning = false
     }
 
 
