@@ -11,13 +11,13 @@ export class TextCompactComponent implements OnInit {
     @Input() text;
     @Input() numberOfChar = 15;
     @Input() extraTooltipText: string = '';
-    
-    constructor() {}
+
+    constructor() { }
 
     ngOnInit(): void {
 
-        this.isExtraText =  this.extraTooltipText && this.extraTooltipText.trim() !== '' 
-        
+        this.isExtraText = this.extraTooltipText && this.extraTooltipText.trim() !== ''
+
     }
 
 
@@ -27,9 +27,9 @@ export class TextCompactComponent implements OnInit {
             var lengthText = this.text.substring(this.numberOfChar)
             var addNumberOfChar = lengthText.indexOf(' ')
             var firstSpace = this.numberOfChar + addNumberOfChar
-                 return  this.text.substring(0, firstSpace)+'...'
-            }
-        else return this.text;
+            return this.text.substring(0, firstSpace) + '...'
         }
-    
+        else return this.text;
+    }
+
 }
