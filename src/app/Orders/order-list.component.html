@@ -24,9 +24,10 @@
 				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+				<span *ngIf="nbHits" [style.color]="'darkturquoise'">{{'  ' + total | currency:'EUR':true:'1.2-2'}} in {{nbHits}} orders	</span>
 			</div>
 		</div>
-		<div class="row" *ngIf="nbHits" [style.color]="'darkturquoise'">{{total | currency:'EUR':true:'1.2-2'}} in {{nbHits}} orders</div>
+		
 		<div class="card" *ngIf="(orders || []).length === 0">
 			<div class="card-block">
 				<div class="centertextbox">No orders yet in the database for this query</div>
