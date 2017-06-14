@@ -87,6 +87,13 @@ export class OrderListComponent implements OnInit {
                 if (txt.startsWith('#PD')) {
                     return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
+                if (txt.startsWith('#NU')) {
+                    return order.annotation.isGroupedOrder
+                }
+                if (txt.startsWith('#>') && +txt.slice(2)) {
+                    let montant = +txt.slice(2);
+                    return order.data.items && order.data.items.length >= montant;
+                }
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
                     return order.annotation.items.filter(item =>
