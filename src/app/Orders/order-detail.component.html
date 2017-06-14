@@ -106,18 +106,18 @@
 							</div> <br><br>
 							<div class="row">
 								<div class="row">
-									<div class="col-sm-2 vcenter"><b>Product</b></div>
+									<div class="vcenter" [class.col-sm-3]="!order.annotation.isGroupedOrder" [class.col-sm-2]="order.annotation.isGroupedOrder"><b>Product</b></div>
 									<div class="col-sm-1 vcenter"><b>Qty</b></div>
 									<div class="col-sm-1 vcenter"><b>Price</b></div>
 									<div class="col-sm-2 vcenter"><b>Total</b></div>
 									<div class="col-sm-2 vcenter"><b>Otp</b></div>
-									<div class="col-sm-3 vcenter"><b>Comment</b></div>
+									<div class="col-sm-2 vcenter"><b>Comment</b></div>
 								</div>
 								<div *ngFor="let item of order.annotation.items">
 									<!--FOR-->
 									<div class="row">
-										<div class="col-sm-2 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">
-											<gg-text-compact [text]="item.annotation.description"></gg-text-compact>
+										<div class="vcenter imgSearch" [class.col-sm-3]="!order.annotation.isGroupedOrder" [class.col-sm-2]="order.annotation.isGroupedOrder" (click)="navigateToProduct(item.data.productId)">
+											<gg-text-compact [numberOfChar]="order.annotation.isGroupedOrder ? 20 : 40" [extraTooltipText]="item.annotation.catalogNr" [text]="item.annotation.description"></gg-text-compact>
 										</div>
 
 										<div class="col-sm-1 vcenter">
@@ -171,7 +171,7 @@
 								</div>
 							</div>
 							<div class="row" [style.color]="'darkturquoise'" *ngIf="order.annotation.items && order.annotation.items.length > 1">
-								<div class="col-sm-2 vcenter"></div>
+								<div class="vcenter" [class.col-sm-3]="!order.annotation.isGroupedOrder" [class.col-sm-2]="order.annotation.isGroupedOrder"></div>
 								<div class="col-sm-1 vcenter"></div>
 								<div class="col-sm-1 vcenter">Total:</div>
 								<div class="col-sm-2 vcenter">{{order.annotation.total | currency:'EUR':true:'1.2-2'}} </div>
