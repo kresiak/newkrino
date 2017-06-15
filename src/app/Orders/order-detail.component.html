@@ -78,7 +78,7 @@
 									</div>
 									<div class="row" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer()">
 										{{order.data._id}}
-									</div>									
+									</div>
 								</div>
 								<div class="col-sm-6 col-md-6">
 									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
@@ -116,8 +116,10 @@
 								<div *ngFor="let item of order.annotation.items">
 									<!--FOR-->
 									<div class="row">
-										<div class="vcenter imgSearch" [class.col-sm-3]="!order.annotation.isGroupedOrder" [class.col-sm-2]="order.annotation.isGroupedOrder" (click)="navigateToProduct(item.data.productId)">
-											<gg-text-compact [numberOfChar]="order.annotation.isGroupedOrder ? 20 : 40" [extraTooltipText]="item.annotation.catalogNr" [text]="item.annotation.description"></gg-text-compact>
+										<div class="vcenter imgSearch" [class.col-sm-3]="!order.annotation.isGroupedOrder" [class.col-sm-2]="order.annotation.isGroupedOrder"
+										 (click)="navigateToProduct(item.data.productId)">
+											<gg-text-compact [numberOfChar]="order.annotation.isGroupedOrder ? 20 : 40" [extraTooltipText]="item.annotation.catalogNr"
+											 [text]="item.annotation.description"></gg-text-compact>
 										</div>
 
 										<div class="col-sm-1 vcenter">
@@ -129,7 +131,7 @@
 											<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
 											 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 										</div>
-										<div class="col-sm-2 vcenter" *ngIf="!smallScreen" >
+										<div class="col-sm-2 vcenter" *ngIf="!smallScreen">
 											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
 											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)" [linkable]="true" (hasBeenClicked)="navigateToOtp(item.data.otpId)"></gg-editor-autocomplete>
 										</div>
@@ -249,12 +251,16 @@
 												<div class="row">
 													<div class="row">
 														<div class="col-sm-3 vcenter"><b>Product</b></div>
+														<div class="col-sm-2 vcenter"><b>Catalog Nr</b></div>
 														<div class="col-sm-1 vcenter"><b>Qty</b></div>
 														<div class="col-sm-2 vcenter"><b>Price/Unity</b></div>
 														<div class="col-sm-1 vcenter"><b>Qty delivered</b></div>
 													</div>
 													<div class="row" *ngFor="let item of order.annotation.items">
-														<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">{{item.annotation.description}}</div>
+														<div class="col-sm-3 vcenter imgSearch" (click)="navigateToProduct(item.data.productId)">
+															<gg-text-compact [numberOfChar]="40" [extraTooltipText]="item.annotation.catalogNr" [text]="item.annotation.description"></gg-text-compact>
+														</div>
+														<div class="col-sm-2 vcenter">{{item.annotation.catalogNr}}</div>
 														<div class="col-sm-1 vcenter">{{item.data.quantity}}</div>
 														<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 														<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
@@ -287,7 +293,9 @@
 												<div class="row" *ngFor="let delivery of item.annotation.deliveries">
 													<div class="col-sm-2">{{delivery.data.date | fullDate}}</div>
 													<div class="col-sm-2">{{delivery.annotation.userLm}}</div>
-													<div class="col-sm-2">{{item.annotation.description}}</div>
+													<div class="col-sm-2">
+														<gg-text-compact [numberOfChar]="25" [extraTooltipText]="item.annotation.catalogNr" [text]="item.annotation.description"></gg-text-compact>
+													</div>
 													<div class="col-sm-1">{{delivery.data.quantity}}</div>
 													<div class="col-sm-1">{{delivery.data.lotNb}}</div>
 													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
