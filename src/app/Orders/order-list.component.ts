@@ -97,7 +97,7 @@ export class OrderListComponent implements OnInit {
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
                     return order.annotation.items.filter(item =>
-                        item.annotation.description.toUpperCase().includes(txt2)).length > 0;
+                        item.annotation.description.toUpperCase().includes(txt2) ||  item.annotation.catalogNr.toUpperCase().includes(txt2)).length > 0;
                 }
                 if (txt.startsWith('$>') && +txt.slice(2)) {
                     let montant = +txt.slice(2);
