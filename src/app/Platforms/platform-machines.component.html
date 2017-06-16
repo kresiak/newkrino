@@ -67,6 +67,43 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="container-fluid">
+                            
+                            <div class="container-fluid">
+        						<div class="row">
+                                    <div class="col-sm-2 vcenter"><b>Name</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Description</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Lifetime</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Maintenance price</b></div>
+                                    <div class="col-sm-1 vcenter"><b>Occupancy</b></div>
+                                    <div class="col-sm-1 vcenter"><b>Runtime</b></div>
+                                    <div class="col-sm-1 vcenter"><b>Hours per day</b></div>
+                                </div>
+                                <div *ngFor="let machineItem of machinesList">
+                                    <div class="row">
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="machineItem.lifetime" [showControls]="true" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="machineItem.maintenancePrice" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-1 vcenter">
+                                            <gg-editor [content]="machineItem.occupancy" [showControls]="true" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-1 vcenter">
+                                            <gg-editor [content]="machineItem.runtime" [showControls]="true" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-1 vcenter">
+                                            <gg-editor [content]="machineItem.hoursPerDay" [showControls]="true" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                    </div>                        
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -53,6 +53,34 @@ private machinesList: any
     {
         this.machineForm.reset()
     }
+
+    nameMachineUpdated(name, machineItem) {
+        var a = 3
+    }
+
+    descriptionMachineUpdated(description, machineItem) {
+
+    }
+
+    lifetimeMachineUpdated(lifetime, machineItem) {
+
+    }
+
+    maintenancePriceMachineUpdated(maintenancePrice, machineItem) {
+
+    }
+
+    occupancyMachineUpdated(occupancy, machineItem) {
+
+    }
+
+    runtimeMachineUpdated(runtime, machineItem) {
+
+    }
+
+    hoursPerDayMachineUpdated(hoursPerDay, machineItem) {
+        
+    }
     
    
 }
