@@ -55,6 +55,7 @@ import {OtpDetailComponentRoutable} from './Otps/otp-detail.routable.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
 import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
 
+import {PlatformMainComponent} from './Platforms/platform-main-component'
 
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
@@ -187,6 +188,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: 'sap/:id', component: SapComponentRoutable },            
             { path: 'reception', component: ReceptionDetailComponent },
             { path: 'communication', component: CommunicationEnterComponent },
+            { path: 'platform', component: PlatformMainComponent },
+            
             { path: '**', redirectTo: '/home'}
           ])
    ],
@@ -211,7 +214,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
-                  SupplierSapDetailComponent, SupplierSapListComponent
+                  SupplierSapDetailComponent, SupplierSapListComponent,
+                  PlatformMainComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService ],
