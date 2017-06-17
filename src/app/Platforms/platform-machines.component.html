@@ -72,49 +72,62 @@
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
-                        <div class="container-fluid">
-                            
-                            <div class="container-fluid">
-        						<div class="row">
-                                    <div class="col-sm-2 vcenter"><b>Name</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Description</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Price</b></div>
-                                    <div class="col-sm-1 vcenter"><b>Lifetime</b></div>
-                                    <div class="col-sm-1 vcenter"><b>Maintenance price</b></div>
-                                    <div class="col-sm-1 vcenter"><b>Occupancy</b></div>
-                                    <div class="col-sm-1 vcenter"><b>Runtime</b></div>
-                                    <div class="col-sm-1 vcenter"><b>Hours per day</b></div>
-                                </div>
-                                <div *ngFor="let machineItem of machinesList">
-                                    <div class="row">
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                        <div class="row">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                <ngb-panel [disabled]="true">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-3"><b>Name</b></div>
+                                            <div class="col-sm-3"><b>Description</b></div>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                    </template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let machineItem of machinesList"> <!-- [id]="user.data._id">-->
+                                    <template ngbPanelTitle>
+                                        <div class="row" id="{{machineItem._id}}">
+                                            <div class="col-sm-3" [style.font-weight]="machineItem._id">{{machineItem.name}}</div>
+                                            <div class="col-sm-3">{{machineItem.description}}</div>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                    </template>
+                                    <template ngbPanelContent>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Price</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Lifetime</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Maintenance price</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Occupancy</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Runtime</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor-number [content]="machineItem.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                            </div>
+                                            <div class="col-sm-3 vcenter"><b>Hours per day</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                <gg-editor-number [content]="machineItem.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-1 vcenter">
-                                            <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
-                                        </div>
-                                        <div class="col-sm-1 vcenter">
-                                            <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
-                                        </div>
-                                        <div class="col-sm-1 vcenter">
-                                            <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
-                                        </div>
-                                        <div class="col-sm-1 vcenter">
-                                            <gg-editor-number [content]="machineItem.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
-                                        </div>
-                                        <div class="col-sm-1 vcenter">
-                                            <gg-editor-number [content]="machineItem.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
-                                        </div>
-                                    </div>                        
-                                </div>
-                            </div>
-                        </div>
+                                    </template>
+				                </ngb-panel>
+			                </ngb-accordion>
+		                </div>
                     </div>
                 </div>
             </template>
