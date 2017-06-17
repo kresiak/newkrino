@@ -19,6 +19,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="price" class="col-sm-2 col-form-label col-xl-2">price:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="0" class="form-control" formControlName="price" id="price" placeholder="price">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="lifetime" class="col-sm-2 col-form-label col-xl-2">lifetime (in years):</label>
                                     <div class="col-sm-10">
                                         <input type="number" min="0" class="form-control" formControlName="lifetime" id="lifetime" placeholder="lifetime (in years)">
@@ -72,8 +78,9 @@
         						<div class="row">
                                     <div class="col-sm-2 vcenter"><b>Name</b></div>
                                     <div class="col-sm-2 vcenter"><b>Description</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Lifetime</b></div>
-                                    <div class="col-sm-2 vcenter"><b>Maintenance price</b></div>
+                                    <div class="col-sm-2 vcenter"><b>Price</b></div>
+                                    <div class="col-sm-1 vcenter"><b>Lifetime</b></div>
+                                    <div class="col-sm-1 vcenter"><b>Maintenance price</b></div>
                                     <div class="col-sm-1 vcenter"><b>Occupancy</b></div>
                                     <div class="col-sm-1 vcenter"><b>Runtime</b></div>
                                     <div class="col-sm-1 vcenter"><b>Hours per day</b></div>
@@ -87,10 +94,13 @@
                                             <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
+                                            <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                        </div>
+                                        <div class="col-sm-1 vcenter">
                                             <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
-                                            <gg-editor-number [content]="machineItem.maintenancePrice" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor-number>
+                                        <div class="col-sm-1 vcenter">
+                                            <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
                                         </div>
                                         <div class="col-sm-1 vcenter">
                                             <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>

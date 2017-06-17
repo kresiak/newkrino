@@ -21,6 +21,7 @@ private isPageRunning: boolean = true
         this.machineForm = this.formBuilder.group({
             nameOfMachine: ['', [Validators.required, Validators.minLength(3)]],
             description: [''],
+            price: ['', Validators.required],
             lifetime: ['', Validators.required],
             maintenancePrice: ['', Validators.required],
             occupancy: ['', Validators.required],
@@ -38,6 +39,7 @@ private isPageRunning: boolean = true
         this.dataStore.addData('platform.machines', {
             name: formValue.nameOfMachine,
             description: formValue.description,
+            price: formValue.price,
             lifetime: formValue.lifetime,
             maintenancePrice: formValue.maintenancePrice,
             occupancy: formValue.occupancy,
@@ -65,6 +67,11 @@ private isPageRunning: boolean = true
 
     descriptionMachineUpdated(description, machineItem) {
         machineItem.description = description
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+    }
+
+    priceMachineUpdated(price, machineItem) {
+        machineItem.price = +price
         this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
