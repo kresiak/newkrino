@@ -14,3 +14,4 @@ export class PlatformMainComponent implements OnInit {
     ngOnInit(): void {
     }
 
+}
