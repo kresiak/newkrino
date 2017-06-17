@@ -259,11 +259,9 @@ ul.spending{
 .checkbox__input{display:block;overflow:hidden;width:0;height:20px}
 
 
+/*alex: this is removing the select focus on accordeon titles: https://stackoverflow.com/questions/30237114/how-to-remove-outline-appeared-on-click-in-bootstrap-ui-accordion */
 
-
-
-
-
+html * {outline: 0 !important;}
 
 body, html {
     box-sizing: border-box;
@@ -276,7 +274,7 @@ body, html {
 
 a, body, button, html, input, select, table {
     font-family: Roboto,Arial,Helvetica Neue,Helvetica,sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.25;
 }
 
