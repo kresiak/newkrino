@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -14,7 +14,6 @@ export class PlatformMachinesComponent implements OnInit {
     }
 
 private machineForm: FormGroup
-private machineSubscrible: Subscription
 private machinesList: any
 private isPageRunning: boolean = true
 
@@ -29,7 +28,7 @@ private isPageRunning: boolean = true
             hoursPerDay: ['', Validators.required]
         })
 
-        this.machineSubscrible = this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).subscribe(machines => {
+        this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).subscribe(machines => {
             this.machinesList = machines
         })
         
