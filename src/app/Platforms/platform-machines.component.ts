@@ -16,6 +16,7 @@ export class PlatformMachinesComponent implements OnInit {
 private machineForm: FormGroup
 private machineSubscrible: Subscription
 private machinesList: any
+private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.machineForm = this.formBuilder.group({
@@ -28,7 +29,7 @@ private machinesList: any
             hoursPerDay: ['', Validators.required]
         })
 
-        this.machineSubscrible = this.dataStore.getDataObservable('platform.machines').subscribe(machines => {
+        this.machineSubscrible = this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).subscribe(machines => {
             this.machinesList = machines
         })
         
@@ -54,32 +55,43 @@ private machinesList: any
         this.machineForm.reset()
     }
 
+    ngOnDestroy(): void {
+        this.isPageRunning = false
+    }
+
     nameMachineUpdated(name, machineItem) {
-        var a = 3
+        machineItem.name = name
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     descriptionMachineUpdated(description, machineItem) {
-
+        machineItem.description = description
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     lifetimeMachineUpdated(lifetime, machineItem) {
-
+        machineItem.lifetime = +lifetime
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     maintenancePriceMachineUpdated(maintenancePrice, machineItem) {
-
+        machineItem.maintenancePrice = +maintenancePrice
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     occupancyMachineUpdated(occupancy, machineItem) {
-
+        machineItem.occupancy = +occupancy
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     runtimeMachineUpdated(runtime, machineItem) {
-
+        machineItem.runtime = +runtime
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
     hoursPerDayMachineUpdated(hoursPerDay, machineItem) {
-        
+        machineItem.hoursPerDay = +hoursPerDay
+        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
     
    
