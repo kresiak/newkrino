@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-   <ngb-tab title="List of services" id="tabListOfServices">
+        <ngb-tab title="List of steps" id="tabListOfServices">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -10,15 +10,17 @@
                                     <template ngbPanelTitle>
                                         <div class="row">
                                             <div class="col-sm-3"><b>Service</b></div>
+                                            <div class="col-sm-3"><b>Step</b></div>
                                             <div class="col-sm-3"><b>Description</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel *ngFor="let serviceItem of servicesList">
+                                <ngb-panel *ngFor="let serviceStep of serviceStepsList">
                                     <template ngbPanelTitle>
-                                        <div class="row" id="{{serviceItem._id}}">
-                                            <div class="col-sm-3">{{serviceItem.name}}</div>
-                                            <div class="col-sm-3">{{serviceItem.description}}</div>
+                                        <div class="row" id="{{serviceStep.data._id}}">
+                                            <div class="col-sm-3">{{serviceStep.annotation.serviceName}}</div>
+                                            <div class="col-sm-3">{{serviceStep.data.name}}</div>
+                                            <div class="col-sm-3">{{serviceStep.data.description}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
@@ -28,24 +30,15 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>Name of step</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="serviceItem.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
+                                                                <gg-editor [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceStep)"></gg-editor>
                                                             </div>
                                                             <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
+                                                                <gg-editor [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceStep)"></gg-editor>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </ngb-tab>
-                                        <ngb-tab title="Service steps" id="tabSteps">
-                                            <template ngbTabContent>
-                                                <div class="card">
-                                                    <div class="card-block">
-                                                        <gg-platform-service-step-list [serviceId]="serviceItem._id"></gg-platform-service-step-list>
                                                     </div>
                                                 </div>
                                             </template>
@@ -58,17 +51,17 @@
                     </div>
                 </div>
             </template>
-        </ngb-tab>        
-        <ngb-tab title="Add service" id="tabAddService">
+        </ngb-tab>
+        <ngb-tab title="Add step" id="tabAddService">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
                         <div class="container-fluid">
-                            <form [formGroup]="serviceForm" (ngSubmit)="save(serviceForm.value, serviceForm.valid)">
+                            <form [formGroup]="serviceStepForm" (ngSubmit)="save(serviceStepForm.value, serviceStepForm.valid)">
                                 <div class="form-group row">
-                                    <label for="nameOfService" class="col-sm-2 col-form-label col-xl-2">name of service:</label>
+                                    <label for="name" class="col-sm-2 col-form-label col-xl-2">name of service step:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="nameOfService" id="nameOfService" placeholder="name of service">
+                                        <input type="text" class="form-control" formControlName="name" placeholder="name of service step">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -79,10 +72,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-success" type="submit" [disabled]="!serviceForm.valid">Submit</button>
+                                        <button class="btn btn-success" type="submit" [disabled]="!serviceStepForm.valid">Submit</button>
                                     </div>
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-info"  [disabled]="serviceForm.pristine" (click)="reset()">Reset</button>
+                                        <button class="btn btn-info"  [disabled]="serviceStepForm.pristine" (click)="reset()">Reset</button>
                                     </div>
                                 </div>                                
                             </form>
@@ -91,6 +84,5 @@
                 </div>
             </template>
         </ngb-tab>
-     
     </ngb-tabset>
 </div>
