@@ -65,4 +65,22 @@ export class PlatformService {
     }
     
 
+    cloneService(serviceId: string, newName: string, newDescription: string): Observable<any> {
+        return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()
+            .switchMap(service => {
+                service.name= newName
+                service.description= newDescription
+                delete service._id
+                return Observable.forkJoin(this.dataStore.addData('platform.services', service), this.getAnnotatedServiceStepsByService(serviceId).first())
+            }).switchMap(res => {
+                var newServiceId= res[0]._id
+                var steps: any[]= res[1].map(annotatedStep => annotatedStep.data)
+                steps.forEach(step => {
+                    step.serviceId= newServiceId
+                    delete step._id
+                })
+                return Observable.forkJoin(steps.map(step => this.dataStore.addData('platform.service.steps', step)))
+            })
+    }
+
 }

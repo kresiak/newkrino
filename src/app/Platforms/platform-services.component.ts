@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
+import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
@@ -11,15 +12,21 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServicesComponent implements OnInit {
-    constructor (private formBuilder: FormBuilder, private dataStore: DataStore) {
+    constructor (private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
 private serviceForm: FormGroup
+private cloneForm: FormGroup
+
 private servicesList: any
 private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.serviceForm = this.formBuilder.group({
+            nameOfService: ['', [Validators.required, Validators.minLength(3)]],
+            description: ['']
+        })
+        this.cloneForm = this.formBuilder.group({
             nameOfService: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
         })
@@ -31,7 +38,8 @@ private isPageRunning: boolean = true
         
     }
 
-    save(formValue, isValid) {
+    addService(formValue, isValid) {
+        if (!isValid) return
         this.dataStore.addData('platform.services', {
             name: formValue.nameOfService,
             description: formValue.description
@@ -40,6 +48,21 @@ private isPageRunning: boolean = true
             this.reset()
         })
     }
+
+    cloneService(service, formValue, isValid) {
+        if (!isValid) return
+        this.platformService.cloneService(service._id, formValue.nameOfService, formValue.description).subscribe(res =>
+        {
+            this.resetCloneForm()
+        })
+    }
+
+    resetCloneForm()
+    {
+        this.cloneForm.reset()
+    }
+
+
 
     reset()
     {
