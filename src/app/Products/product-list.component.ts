@@ -21,7 +21,10 @@ export class ProductListComponent implements OnInit {
     @Input() config;
     @Input() state;
     @Input() path: string = 'products'
+    @Input() isForSelection: boolean = false
+
     @Output() stateChanged = new EventEmitter();
+    @Output() productsSelected = new EventEmitter();
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -31,8 +34,8 @@ export class ProductListComponent implements OnInit {
     searchControl = new FormControl();
     searchForm;
 
-    private listName= 'productList'
-    private showSearch: boolean= false
+    private listName = 'productList'
+    private showSearch: boolean = false
 
     private products;
     private nbHitsShown: number = 15
@@ -59,13 +62,13 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch= this.configService.listGetSearchText(this.listName)
-        if (initialSearch){ 
-            this.showSearch= true
+        var initialSearch = this.configService.listGetSearchText(this.listName)
+        if (initialSearch) {
+            this.showSearch = true
             this.searchControl.setValue(initialSearch)
         }
-        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
-        
+        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+
 
         this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (products, searchTxt: string) => {
             this.configService.listSaveSearchText(this.listName, searchTxt)
@@ -167,8 +170,22 @@ export class ProductListComponent implements OnInit {
 
     private moreHits() {
         this.nbHitsShown += this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
+    private selectedProductIds= new Set<string>()
+
+    productSelectedInList(event, product, isSelected: boolean) {
+        event.preventDefault()
+        event.stopPropagation()
+        var id=(product.data || {})._id
+        if (isSelected && this.selectedProductIds.has(id)) this.selectedProductIds.delete(id)
+        if (!isSelected && !this.selectedProductIds.has(id)) this.selectedProductIds.add(id)
+        this.productsSelected.next(Array.from(this.selectedProductIds.values()))
+    }
+
+    isProductSelected(product) {
+        return this.selectedProductIds.has(product.data._id)
+    }
 }
