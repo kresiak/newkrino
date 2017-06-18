@@ -82,7 +82,7 @@
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel *ngFor="let machineItem of machinesList"> <!-- [id]="user.data._id">-->
+                                <ngb-panel *ngFor="let machineItem of machinesList">
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{machineItem._id}}">
                                             <div class="col-sm-3" [style.font-weight]="machineItem._id">{{machineItem.name}}</div>
@@ -90,41 +90,51 @@
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
-                                        <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Price</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Lifetime</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Maintenance price</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Occupancy</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Runtime</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor-number [content]="machineItem.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
-                                            </div>
-                                            <div class="col-sm-3 vcenter"><b>Hours per day</b></div>
-                                            <div class="col-sm-8 vcenter">
-                                                <gg-editor-number [content]="machineItem.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
-                                            </div>
-                                        </div>
-                                    </template>
+                                    <ngb-tabset>
+                                        <ngb-tab title="Info" id="tabInfo">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Price</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Lifetime</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Maintenance price</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Occupancy</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Runtime</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor-number [content]="machineItem.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Hours per day</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor-number [content]="machineItem.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+		                            </template>
 				                </ngb-panel>
 			                </ngb-accordion>
 		                </div>
