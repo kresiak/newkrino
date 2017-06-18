@@ -54,10 +54,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" [style.color]="'darkturquoise'">
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter"><b>Total:</b></div>
+                                            <div class="col-sm-2 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>                                        
                                     </div>
@@ -79,4 +79,22 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="Labour" id="tabLabour">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="Used hours" id="tabUsedLabourHours">
+                            <template ngbTabContent>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Add labour type" id="tabAddLabourType">
+                            <template ngbTabContent>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>    
 </ngb-tabset>
