@@ -37,7 +37,7 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         */
         this.platformService.getAnnotatedServiceStep(this.serviceStepId).takeWhile(() => this.isPageRunning).subscribe(serviceStep => {
             if (!comparatorsUtils.softCopy(this.serviceStep, serviceStep))
-                this.serviceStep = comparatorsUtils.clone(serviceStep)
+                this.serviceStep = serviceStep
         })
 
         this.machineListObservable = this.dataStore.getDataObservable('platform.machines').map(machines => machines.map(machine => {
@@ -92,7 +92,24 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     productsChanged(productIds: string[]) {
+        if (!this.serviceStep.data.products) this.serviceStep.data.products=[]
+        var products= this.serviceStep.data.products
         
+        products= products.filter(prod => productIds.includes(prod.id))
+
+        productIds.filter(id => !products.map(p => p.id).includes(id)).forEach(id => products.push({id: id, quantity: 1}))
+
+        this.serviceStep.data.products= products
+
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 
+    productQuantityUpdated(pos, quantity) {
+        this.serviceStep.data.products[pos].quantity= quantity
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
+    }
+
+    getProductIdsSelected() {
+        return (this.serviceStep.data.products || []).map(p => p.id)
+    }
 }

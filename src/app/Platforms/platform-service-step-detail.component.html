@@ -26,11 +26,40 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <ngb-tabset >
+                    <ngb-tabset>
                         <ngb-tab title="Used products" id="tabUsedProducts">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Product</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Quantity</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Price</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Total</b></div>
+                                        </div>
+                                        <div *ngFor="let product of (serviceStep.annotation.products || []); let pos = index">
+                                            <!--FOR  -->
+                                            <div class="row">
+                                                <div class="col-sm-3 vcenter">
+                                                    {{product.annotation.product}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    <gg-editor-number [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b></b></div>
+                                            <div class="col-sm-2 vcenter"><b></b></div>
+                                            <div class="col-sm-2 vcenter"><b>Total:</b></div>
+                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </template>
@@ -39,7 +68,8 @@
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
-                                        <gg-product-list [isForSelection]="true" [productsObservable]="productsObservable" (productsSelected)="productsChanged($event)"></gg-product-list>
+                                        <gg-product-list [isForSelection]="true" [productsObservable]="productsObservable" [selectedProductIds]="getProductIdsSelected()"
+                                                    (productsSelected)="productsChanged($event)"></gg-product-list>
                                     </div>
                                 </div>
                             </template>

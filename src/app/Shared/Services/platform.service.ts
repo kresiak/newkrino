@@ -12,7 +12,7 @@ export class PlatformService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
 
-    private createAnnotatedServiceStep(serviceStep, services: any[], machines) {
+    private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>) {
         if (!serviceStep) return null;
 
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
@@ -24,7 +24,22 @@ export class PlatformService {
             {
                 serviceName: (service || {}).name,
                 serviceDescription: (service || {}).description,
-                machineName: (machine || {}).name
+                machineName: (machine || {}).name,
+                total: (serviceStep.products || []).reduce((acc, p) => {
+                        let unitPrice= productMap.has(p.id) ? productMap.get(p.id).price : 0
+                        return acc + unitPrice * p.quantity
+                    } , 0),
+                products: (serviceStep.products || []).map(prod => {
+                    let unitPrice= productMap.has(prod.id) ? productMap.get(prod.id).price : -1
+                    return {
+                        data: prod,
+                        annotation: {
+                            product: productMap.has(prod.id) ? productMap.get(prod.id).name : 'unknown product', 
+                            productPrice: unitPrice, 
+                            productTotal: prod.quantity * unitPrice                           
+                        }
+                    }
+                })
             }
         };
     }
@@ -35,8 +50,9 @@ export class PlatformService {
             stepObservable,
             this.dataStore.getDataObservable('platform.services'),
             this.dataStore.getDataObservable('platform.machines'),
-            (serviceSteps, services, machines) => {
-                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines))
+            this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
+            (serviceSteps, services, machines, productMap) => {
+                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap))
             });
     }
 

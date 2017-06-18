@@ -22,6 +22,7 @@ export class ProductListComponent implements OnInit {
     @Input() state;
     @Input() path: string = 'products'
     @Input() isForSelection: boolean = false
+    @Input() selectedProductIds: string[]= []
 
     @Output() stateChanged = new EventEmitter();
     @Output() productsSelected = new EventEmitter();
@@ -61,6 +62,7 @@ export class ProductListComponent implements OnInit {
     private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
     ngOnInit(): void {
+        this.selectedProductIdsMap= new Set(this.selectedProductIds)
         this.stateInit();
         var initialSearch = this.configService.listGetSearchText(this.listName)
         if (initialSearch) {
@@ -174,18 +176,18 @@ export class ProductListComponent implements OnInit {
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
-    private selectedProductIds= new Set<string>()
+    private selectedProductIdsMap: Set<string>
 
     productSelectedInList(event, product, isSelected: boolean) {
         event.preventDefault()
         event.stopPropagation()
         var id=(product.data || {})._id
-        if (isSelected && this.selectedProductIds.has(id)) this.selectedProductIds.delete(id)
-        if (!isSelected && !this.selectedProductIds.has(id)) this.selectedProductIds.add(id)
-        this.productsSelected.next(Array.from(this.selectedProductIds.values()))
+        if (isSelected && this.selectedProductIdsMap.has(id)) this.selectedProductIdsMap.delete(id)
+        if (!isSelected && !this.selectedProductIdsMap.has(id)) this.selectedProductIdsMap.add(id)
+        this.productsSelected.next(Array.from(this.selectedProductIdsMap.values()))
     }
 
     isProductSelected(product) {
-        return this.selectedProductIds.has(product.data._id)
+        return this.selectedProductIdsMap.has(product.data._id)
     }
 }
