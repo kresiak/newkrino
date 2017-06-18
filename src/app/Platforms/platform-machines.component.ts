@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -30,7 +31,8 @@ private isPageRunning: boolean = true
         })
 
         this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).subscribe(machines => {
-            this.machinesList = machines
+            if (!comparatorsUtils.softCopy(this.machinesList, machines))
+                this.machinesList= comparatorsUtils.clone(machines)            
         })
         
     }
