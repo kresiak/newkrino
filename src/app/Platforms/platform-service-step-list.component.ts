@@ -21,6 +21,8 @@ export class PlatformServiceStepListComponent implements OnInit {
     private serviceStepsList: any
     private isPageRunning: boolean = true
 
+    private machineListObservable
+
     ngOnInit(): void {
         this.serviceStepForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(3)]],
@@ -31,13 +33,28 @@ export class PlatformServiceStepListComponent implements OnInit {
             if (!comparatorsUtils.softCopy(this.serviceStepsList, serviceSteps))
                 this.serviceStepsList = comparatorsUtils.clone(serviceSteps)
         })
+
+        this.machineListObservable = this.dataStore.getDataObservable('platform.machines').map(machines => machines.map(machine => {
+            return {
+                id: machine._id,
+                name: machine.name
+            }
+        }));
+        
+    }
+
+    private machineId: string
+
+    machineChanged(machineId) {
+        this.machineId= machineId
     }
 
     save(formValue, isValid) {
         this.dataStore.addData('platform.service.steps', {
             name: formValue.name,
             description: formValue.description,
-            serviceId: this.serviceId
+            serviceId: this.serviceId,
+            machineId: this.machineId
         }).subscribe(res => {
             this.reset()
         })

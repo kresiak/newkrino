@@ -12,17 +12,19 @@ export class PlatformService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
 
-    private createAnnotatedServiceStep(serviceStep, services: any[]) {
+    private createAnnotatedServiceStep(serviceStep, services: any[], machines) {
         if (!serviceStep) return null;
 
-        let service = services.filter(service => serviceStep.serviceId === service._id)[0];
+        let service = services.filter(service => serviceStep.serviceId === service._id)[0]
+        let machine = machines.filter(machine => serviceStep.machineId === machine._id)[0]
 
         return {
             data: serviceStep,
             annotation:
             {
                 serviceName: (service || {}).name,
-                serviceDescription: (service || {}).description
+                serviceDescription: (service || {}).description,
+                machineName: (machine || {}).name
             }
         };
     }
@@ -32,8 +34,9 @@ export class PlatformService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId===serviceId)),
             this.dataStore.getDataObservable('platform.services'),
-            (serviceSteps, services) => {
-                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services))
+            this.dataStore.getDataObservable('platform.machines'),
+            (serviceSteps, services, machines) => {
+                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines))
             });
     }
 
