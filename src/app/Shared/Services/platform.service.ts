@@ -30,14 +30,23 @@ export class PlatformService {
     }
 
 
-    getAnnotatedServiceSteps(serviceId: string): Observable<any> {
+    private getAnnotatedServiceSteps(stepObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
-            this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId===serviceId)),
+            stepObservable,
             this.dataStore.getDataObservable('platform.services'),
             this.dataStore.getDataObservable('platform.machines'),
             (serviceSteps, services, machines) => {
                 return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines))
             });
     }
+
+    getAnnotatedServiceStepsByService(serviceId: string): Observable<any> {
+        return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId===serviceId)))
+    }
+    
+    getAnnotatedServiceStep(serviceStepId: string): Observable<any> {
+        return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step._id===serviceStepId))).map(steps => steps[0])
+    }
+    
 
 }

@@ -26,26 +26,7 @@
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
-                                    <ngb-tabset>
-                                        <ngb-tab title="Info" id="tabInfo">
-                                            <template ngbTabContent>
-                                                <div class="card">
-                                                    <div class="card-block">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>Name of step</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceStep)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceStep)"></gg-editor>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </ngb-tab>
-                                    </ngb-tabset>
+                                        <gg-platform-service-step-detail [serviceStepId]="serviceStep.data._id" ></gg-platform-service-step-detail>
 		                            </template>
 				                </ngb-panel>
 			                </ngb-accordion>

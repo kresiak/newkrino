@@ -1,0 +1,52 @@
+<ngb-tabset *ngIf="serviceStep">
+    <ngb-tab title="Info" id="tabInfo">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Name of step</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Used machine</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
+                                (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Products" id="tabProducts">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset >
+                        <ngb-tab title="Used products" id="tabUsedProducts">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Select products" id="tabSelectProducts">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <gg-product-list [isForSelection]="true" [productsObservable]="productsObservable" (productsSelected)="productsChanged($event)"></gg-product-list>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+</ngb-tabset>

@@ -29,7 +29,7 @@ export class PlatformServiceStepListComponent implements OnInit {
             description: ['']
         })
 
-        this.platformService.getAnnotatedServiceSteps(this.serviceId).takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
+        this.platformService.getAnnotatedServiceStepsByService(this.serviceId).takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
             if (!comparatorsUtils.softCopy(this.serviceStepsList, serviceSteps))
                 this.serviceStepsList = comparatorsUtils.clone(serviceSteps)
         })
