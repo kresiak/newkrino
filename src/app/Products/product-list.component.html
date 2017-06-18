@@ -2,7 +2,8 @@
 	<ul>
 		<li>liquid : the product or the supplier should contain the string 'liquid'</li>
 		<li>$>200 : montants supérieurs à 200 euros</li>
-		<li>$<50 : montants inférieurs à 200 euros</li>
+		<li>$
+			<50 : montants inférieurs à 200 euros</li>
 				<li>$S/ : product that might be found in the stock</li>
 				<li>$S/tip : stock product that includes tip in the name</li>
 				<li>$T6 : product with 6% VAT</li>
@@ -15,15 +16,19 @@
 <template #tipContentFrigo>Click to desactivate frigo</template>
 
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific products</div></template>
+<template #tipSearchLoupe>
+	<div style="font-size: 70%;">Click here to <br/> search specific products</div>
+</template>
 
 <div class="card">
 	<div class="card-block">
 		<div class="row">
 			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
+				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+				/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
+				 src="../../images/close.png" (click)="resetSerachControl()" />
 			</div>
 		</div>
 		<div class="row">
@@ -31,7 +36,8 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3"><b>Product</b></div>
+							<div class="col-sm-1" *ngIf="isForSelection"></div>
+							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>Product</b></div>
 							<div class="col-sm-2"><b>Supplier</b></div>
 							<div class="col-sm-1"><b>Package</b></div>
 							<div class="col-sm-2"><b>Catalog nr.</b></div>
@@ -47,24 +53,35 @@
 				<ngb-panel *ngFor="let product of products" [id]="product.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{product.data._id}}">
-							<div class="col-sm-3" [style.font-weight]="product.data._id === state.openPanelId ? 'bold' : 'lighter'">{{product.data.name}}</div>
+							<div class="col-sm-1" *ngIf="isForSelection">
+								<img ngbTooltip="select product" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" 
+																	(click)="productSelectedInList($event, product, false)" />
+
+								<img ngbTooltip="unselect product" *ngIf="isProductSelected(product)" height="25" width="25" src="../../images/remove.png" 
+																	(click)="productSelectedInList($event, product, true)" />
+							</div>
+							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection" [style.font-weight]="product.data._id === state.openPanelId ? 'bold' : 'lighter'">{{product.data.name}}</div>
 							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
 							<div class="col-sm-1">{{product.data.package}}</div>
 							<div class="col-sm-2">{{product.data.catalogNr}}</div>
 							<div class="col-sm-2">{{product.data.price | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-1">
-								<img  [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
+								<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25"
+								 width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
 
-								<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png" />
-								<img  *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25" width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
+								<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png"
+								/>
+								<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25"
+								 width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
 							</div>
 							<div class="col-sm-1" *ngIf="product.annotation.hasBasket"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
 							<div class="col-sm-1" *ngIf="product.data.disabled"><img height="25" width="25" src="../../images/closed.png" /></div>
-							
+
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]" (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
+						<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]"
+						 (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>
@@ -75,6 +92,6 @@
 		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
 			{{nbHits}} hits shown
 		</div>
-		
+
 	</div>
 </div>
