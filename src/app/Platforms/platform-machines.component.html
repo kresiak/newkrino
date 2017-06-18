@@ -85,7 +85,7 @@
                                 <ngb-panel *ngFor="let machineItem of machinesList">
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{machineItem._id}}">
-                                            <div class="col-sm-3" [style.font-weight]="machineItem._id">{{machineItem.name}}</div>
+                                            <div class="col-sm-3">{{machineItem.name}}</div>
                                             <div class="col-sm-3">{{machineItem.description}}</div>
                                         </div>
                                     </template>

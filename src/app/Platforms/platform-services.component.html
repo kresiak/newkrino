@@ -1,0 +1,86 @@
+<div class="card-block">
+    <ngb-tabset>
+        <ngb-tab title="Add service" id="tabAddService">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="container-fluid">
+                            <form [formGroup]="serviceForm" (ngSubmit)="save(serviceForm.value, serviceForm.valid)">
+                                <div class="form-group row">
+                                    <label for="nameOfService" class="col-sm-2 col-form-label col-xl-2">name of service:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="nameOfService" id="nameOfService" placeholder="name of service">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-success" type="submit" [disabled]="!serviceForm.valid">Submit</button>
+                                    </div>
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-info"  [disabled]="serviceForm.pristine" (click)="reset()">Reset</button>
+                                    </div>
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="List of services" id="tabListOfServices">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                <ngb-panel [disabled]="true">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-3"><b>Name</b></div>
+                                            <div class="col-sm-3"><b>Description</b></div>
+                                        </div>
+                                    </template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let serviceItem of servicesList">
+                                    <template ngbPanelTitle>
+                                        <div class="row" id="{{serviceItem._id}}">
+                                            <div class="col-sm-3">{{serviceItem.name}}</div>
+                                            <div class="col-sm-3">{{serviceItem.description}}</div>
+                                        </div>
+                                    </template>
+                                    <template ngbPanelContent>
+                                    <ngb-tabset>
+                                        <ngb-tab title="Info" id="tabInfo">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="serviceItem.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+		                            </template>
+				                </ngb-panel>
+			                </ngb-accordion>
+		                </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

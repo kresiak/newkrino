@@ -57,6 +57,8 @@ import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
 
 import {PlatformMainComponent} from './Platforms/platform-main-component'
 import {PlatformMachinesComponent} from './Platforms/platform-machines.component'
+import {PlatformServicesComponent} from './Platforms/platform-services.component'
+
 
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
@@ -123,6 +125,7 @@ import {HelpPointerComponent} from './ui/help/help-pointer.component'
 import {DatePointerComponent} from './ui/help/date-pointer.component'
 import {TextCompactComponent} from './ui/help/text-compact.component'
 
+import {PlatformService} from './Shared/Services/platform.service';
 import {AdminService} from './Shared/Services/admin.service';
 import {WebSocketService} from './Shared/Services/websocket.service';
 import {NavigationService} from './Shared/Services/navigation.service';
@@ -216,10 +219,10 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent,
-                  PlatformMainComponent, PlatformMachinesComponent
+                  PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
-                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService ],
+                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
