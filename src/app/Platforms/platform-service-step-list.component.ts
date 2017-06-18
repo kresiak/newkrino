@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
@@ -23,7 +24,15 @@ export class PlatformServiceStepListComponent implements OnInit {
 
     private machineListObservable
 
+    private state
+
+    private stateInit() {
+        if (!this.state) this.state = {};
+        if (!this.state.openPanelId) this.state.openPanelId = '';
+    }
+
     ngOnInit(): void {
+        this.stateInit()
         this.serviceStepForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
@@ -42,6 +51,12 @@ export class PlatformServiceStepListComponent implements OnInit {
         }));
         
     }
+
+    private beforeAccordionChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState) {
+            this.state.openPanelId = $event.panelId;
+        }
+    };
 
     private machineId: string
 

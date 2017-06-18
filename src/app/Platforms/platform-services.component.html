@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
@@ -14,10 +14,10 @@
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel *ngFor="let serviceItem of servicesList"> <!--FOR-->
+                                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem._id"> <!--FOR-->
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{serviceItem._id}}">
-                                            <div class="col-sm-3">{{serviceItem.name}}</div>
+                                            <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
                                             <div class="col-sm-3">{{serviceItem.description}}</div>
                                         </div>
                                     </template>
