@@ -57,6 +57,7 @@ import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
 
 import {PlatformMainComponent} from './Platforms/platform-main-component'
 import {PlatformMachinesComponent} from './Platforms/platform-machines.component'
+import {PlatformLabourComponent} from './Platforms/platform-labour.component'
 
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
@@ -216,7 +217,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent,
-                  PlatformMainComponent, PlatformMachinesComponent
+                  PlatformMainComponent, PlatformMachinesComponent, 
+                  PlatformLabourComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService ],
