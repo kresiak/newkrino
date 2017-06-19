@@ -75,6 +75,32 @@
                                                     </div>
                                                 </template>
                                             </ngb-tab>
+                                            <ngb-tab title="Snapshot this service" id="tabSnapshot">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <div class="container-fluid">
+                                                                <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(serviceItem, snapshotForm.value, snapshotForm.valid)">
+                                                                    <div class="form-group row">
+                                                                        <label for="nameOfService" class="col-sm-3 col-form-label col-xl-3">version for service:</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" formControlName="version" id="version" placeholder="version for service">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                            <button class="btn btn-success" type="submit" [disabled]="!snapshotForm.valid">Submit</button>
+                                                                        </div>
+                                                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                            <button class="btn btn-info" [disabled]="snapshotForm.pristine" (click)="resetSnapshotForm()">Reset</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
                                             <ngb-tab title="Service steps" id="tabSteps">
                                                 <template ngbTabContent>
                                                     <div class="card">

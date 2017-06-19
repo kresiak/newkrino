@@ -99,24 +99,21 @@ export class PlatformService {
     }
 
 
-    snapshotService(serviceId: string, version: string) {
-        var serviceObservable= this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()
-        var serviceStepsObservable= this.getAnnotatedServiceStepsByService(serviceId).first()
-
-        return Observable.combineLatest(serviceObservable, serviceStepsObservable, this.dataStore.getDataObservable('platform.machines'), 
-                        this.dataStore.getDataObservable('products').map(utils.hashMapFactory), (service, stepsAnnotated, machines, productsMap) => {
-                            return {
-                                serviceId: serviceId,
-                                version: version,
-                                service: service.name,
-                                steps: stepsAnnotated.map(step=> {
-                                    return {
-                                        step: step.data.name,
-
-                                    }
-                                })
-                            }
-                        })
+    snapshotService(serviceId: string, version: string): Observable<any>  {
+        return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()
+            .switchMap(service => {
+                service.version= version
+                service.serviceId= serviceId
+                delete service._id
+                return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service), this.getAnnotatedServiceStepsByService(serviceId).first())
+            }).switchMap(res => {
+                var newServiceId= res[0]._id
+                var steps: any[]= res[1]
+                steps.forEach(step => {
+                    step.serviceId= newServiceId
+                })
+                return Observable.forkJoin(steps.map(step => this.dataStore.addData('platform.service.step.snapshots', step)))
+            })
     }
 
 
