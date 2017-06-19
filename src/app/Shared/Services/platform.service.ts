@@ -16,7 +16,12 @@ export class PlatformService {
         if (!serviceStep) return null;
 
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
-        let machine = machines.filter(machine => serviceStep.machineId === machine._id)[0]
+        let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0]
+
+        let  productsCost= (serviceStep.products || []).reduce((acc, p) => {
+                        let unitPrice= productMap.has(p.id) ? productMap.get(p.id).price : 0
+                        return acc + unitPrice * p.quantity
+                    } , 0)
 
         return {
             data: serviceStep,
@@ -24,11 +29,10 @@ export class PlatformService {
             {
                 serviceName: (service || {}).name,
                 serviceDescription: (service || {}).description,
-                machineName: (machine || {}).name,
-                total: (serviceStep.products || []).reduce((acc, p) => {
-                        let unitPrice= productMap.has(p.id) ? productMap.get(p.id).price : 0
-                        return acc + unitPrice * p.quantity
-                    } , 0),
+                machineName: (machine.data || {}).name,
+                machineCost: (machine.annotation || {}).costOfRun,
+                productsCost: productsCost,
+                totalCost: productsCost + (machine.annotation || {}).costOfRun,
                 products: (serviceStep.products || []).map(prod => {
                     let unitPrice= productMap.has(prod.id) ? productMap.get(prod.id).price : -1
                     return {
@@ -49,12 +53,13 @@ export class PlatformService {
         return Observable.combineLatest(
             stepObservable,
             this.dataStore.getDataObservable('platform.services'),
-            this.dataStore.getDataObservable('platform.machines'),
+            this.getAnnotatedMachines(),
             this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
             (serviceSteps, services, machines, productMap) => {
                 return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap))
             });
     }
+    
 
     getAnnotatedServiceStepsByService(serviceId: string): Observable<any> {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId===serviceId)))
@@ -81,6 +86,49 @@ export class PlatformService {
                 })
                 return Observable.forkJoin(steps.map(step => this.dataStore.addData('platform.service.steps', step)))
             })
+    }
+
+
+    snapshotService(serviceId: string, version: string) {
+        var serviceObservable= this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()
+        var serviceStepsObservable= this.getAnnotatedServiceStepsByService(serviceId).first()
+
+        return Observable.combineLatest(serviceObservable, serviceStepsObservable, this.dataStore.getDataObservable('platform.machines'), 
+                        this.dataStore.getDataObservable('products').map(utils.hashMapFactory), (service, stepsAnnotated, machines, productsMap) => {
+                            return {
+                                serviceId: serviceId,
+                                version: version,
+                                service: service.name,
+                                steps: stepsAnnotated.map(step=> {
+                                    return {
+                                        step: step.data.name,
+
+                                    }
+                                })
+                            }
+                        })
+    }
+
+
+    getAnnotatedMachines() {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.machines'), (machines) => {
+            return machines.map(machine => {
+                var annualAmortisation= +machine.price / +machine.lifetime
+                var nbHoursPerYear= +machine.hoursPerDay * 365 * +machine.occupancy / 100
+                var annualCost= annualAmortisation + +machine.maintenancePrice
+                var nbRunsPerYear= nbHoursPerYear / +machine.runtime
+                return {
+                    data: machine,
+                    annotation: {
+                        annualAmortisation: annualAmortisation,
+                        annualCost: annualCost,
+                        nbHoursPerYear: nbHoursPerYear,
+                        nbRunsPerYear: nbRunsPerYear,
+                        costOfRun: annualCost / nbRunsPerYear
+                    }
+                }
+            })
+        })
     }
 
 }

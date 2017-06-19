@@ -22,6 +22,32 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="Cost detail" id="tabCost">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Name of step</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.data.name}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Machine cost of run</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.annotation.machineCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Cost of products</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
+                        <div class="col-sm-8 vcenter" [style.color]="'darkturquoise'">
+                            {{serviceStep.annotation.totalCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
     <ngb-tab title="Products" id="tabProducts">
         <template ngbTabContent>
             <div class="card">
@@ -58,7 +84,7 @@
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
-                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>                                        
                                     </div>
                                 </div>
