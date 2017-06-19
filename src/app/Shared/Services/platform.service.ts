@@ -79,6 +79,15 @@ export class PlatformService {
         })
     }
 
+    getSnapshotpsCostInfo(): Observable<any> {
+        return this.dataStore.getDataObservable('platform.service.step.snapshots').map(steps => {
+            return steps.reduce((map: Map<string, number>, step) => {
+                if (!map.has(step.serviceId)) map.set(step.serviceId, 0)
+                map.set(step.serviceId, map.get(step.serviceId) + step.annotation.totalCost)
+                return map
+            }, new Map())
+        })
+    }
 
     cloneService(serviceId: string, newName: string, newDescription: string): Observable<any> {
         return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()
