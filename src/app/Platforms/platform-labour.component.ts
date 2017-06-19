@@ -52,6 +52,19 @@ private isPageRunning: boolean = true
         this.isPageRunning = false
     }
 
-    
+    nameLabourUpdated(name, labourItem) {
+        labourItem.name = name
+        this.dataStore.updateData('platform.labour.types', labourItem._id, labourItem)
+    }
+
+    descriptionLabourUpdated(description, labourItem) {
+        labourItem.description = description
+        this.dataStore.updateData('platform.labour.types', labourItem._id, labourItem)
+    }
+
+    hourlyRateLabourUpdated(hourlyRate, labourItem) {
+        labourItem.hourlyRate = +hourlyRate
+        this.dataStore.updateData('platform.labour.types', labourItem._id, labourItem)
+    }
 
 }
