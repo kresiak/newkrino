@@ -15,7 +15,7 @@ export class PlatformLabourComponent implements OnInit {
     }
 
 private labourForm: FormGroup
-private labourList: any
+private labourList = []
 private isPageRunning: boolean = true
 
     ngOnInit(): void {

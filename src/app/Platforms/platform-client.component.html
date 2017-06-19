@@ -5,15 +5,15 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-2 vcenter"><b>Client type</b></div>
-                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                            <div class="col-sm-3 vcenter"><b>Client type</b></div>
+                            <div class="col-sm-8 vcenter"><b>Description</b></div>
 		                </div>
                         <div *ngFor="let clientItem of clientList">
                             <div class="row">
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-3 vcenter">
                                     <gg-editor [content]="clientItem.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-3 vcenter">
+                                <div class="col-sm-8 vcenter">
                                     <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
                                 </div>
                             </div>                        
