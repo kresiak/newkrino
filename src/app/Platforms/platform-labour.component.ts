@@ -63,7 +63,7 @@ private isPageRunning: boolean = true
     }
 
     hourlyRateLabourUpdated(hourlyRate, labourItem) {
-        labourItem.hourlyRate = hourlyRate
+        labourItem.hourlyRate = +hourlyRate
         this.dataStore.updateData('platform.labour.types', labourItem._id, labourItem)
     }
 

@@ -1,0 +1,58 @@
+<div class="card-block">
+    <ngb-tabset>
+        <ngb-tab title="List of client types" id="tabListOfClientType">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-2 vcenter"><b>Client type</b></div>
+                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+		                </div>
+                        <div *ngFor="let clientItem of clientList">
+                            <div class="row">
+                                <div class="col-sm-2 vcenter">
+                                    <gg-editor [content]="clientItem.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
+                                </div>
+                                <div class="col-sm-3 vcenter">
+                                    <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
+                                </div>
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Add a client type" id="tabAddAClientType">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="container-fluid">
+                            <form [formGroup]="clientForm" (ngSubmit)="save(clientForm.value, clientForm.valid)">
+                                <div class="form-group row">
+                                    <label for="clientType" class="col-sm-2 col-form-label col-xl-2">client type:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="clientType" id="clientType" placeholder="client type">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-success" type="submit" [disabled]="!clientForm.valid">Submit</button>
+                                    </div>
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-info"  [disabled]="clientForm.pristine" (click)="reset()">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
