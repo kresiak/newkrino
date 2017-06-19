@@ -5,14 +5,23 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
-                                <ngb-panel [disabled]="true">
-                                    <template ngbPanelTitle>
-
-		                            </template>
-				                </ngb-panel>
-			                </ngb-accordion>
+                            <div class="col-sm-2 vcenter"><b>Labour type</b></div>
+                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                            <div class="col-sm-2 vcenter"><b>Hourly rate</b></div>
 		                </div>
+                        <div *ngFor="let labourItem of labourList">
+                            <div class="row">
+                                <div class="col-sm-2 vcenter">
+                                    <gg-editor [content]="labourItem.name" [showControls]="true" (editSaved)="nameLabourUpdated($event, labourItem)"></gg-editor>
+                                </div>
+                                <div class="col-sm-3 vcenter">
+                                    <gg-editor [content]="labourItem.description" [showControls]="true" (editSaved)="descriptionLabourUpdated($event, labourItem)"></gg-editor>
+                                </div>
+                                <div class="col-sm-2 vcenter">
+                                    <gg-editor-number [content]="labourItem.hourlyRate" (editSaved)="hourlyRateLabourUpdated($event, labourItem)"></gg-editor-number>
+                                </div>
+                            </div>                        
+                        </div>
                     </div>
                 </div>
             </template>
