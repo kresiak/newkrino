@@ -110,6 +110,15 @@
                                                     </div>
                                                 </template>
                                             </ngb-tab>
+                                            <ngb-tab title="List of snapshots" id="tabSnapshotList">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <gg-platform-service-snapshots [serviceId]="serviceItem._id"></gg-platform-service-snapshots>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
                                         </ngb-tabset>
                                     </template>
                                 </ngb-panel>

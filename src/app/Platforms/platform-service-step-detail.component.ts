@@ -17,8 +17,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     @Input() serviceStepId: string = ''
+    @Input() isSnapshot: boolean = false
 
-    //private serviceStepForm: FormGroup
 
     private serviceStep: any
 
@@ -30,15 +30,21 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     private machineListObservable
 
     ngOnInit(): void {
-        /*        this.serviceStepForm = this.formBuilder.group({
-                    name: ['', [Validators.required, Validators.minLength(3)]],
-                    description: ['']
-                })
-        */
-        this.platformService.getAnnotatedServiceStep(this.serviceStepId).takeWhile(() => this.isPageRunning).subscribe(serviceStep => {
-            if (!comparatorsUtils.softCopy(this.serviceStep, serviceStep))
-                this.serviceStep = serviceStep
-        })
+
+        if (!this.isSnapshot) {
+            this.platformService.getAnnotatedServiceStep(this.serviceStepId).takeWhile(() => this.isPageRunning).subscribe(serviceStep => {
+                if (!comparatorsUtils.softCopy(this.serviceStep, serviceStep))
+                    this.serviceStep = serviceStep
+            })
+
+            this.productsObservable = this.productService.getAnnotatedProductsAll();
+        }
+        else {
+            this.dataStore.getDataObservable('platform.service.step.snapshots').map(snapshots => snapshots.filter(s => s._id === this.serviceStepId)[0])
+                            .takeWhile(() => this.isPageRunning).subscribe(step => {
+                                this.serviceStep= step
+                            })            
+        }
 
         this.machineListObservable = this.dataStore.getDataObservable('platform.machines').map(machines => machines.map(machine => {
             return {
@@ -47,31 +53,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
             }
         }));
 
-        this.productsObservable = this.productService.getAnnotatedProductsAll();        
-
     }
 
-    /*    private machineId: string
-    
-        machineChanged(machineId) {
-            this.machineId= machineId
-        }
-    
-        save(formValue, isValid) {
-            this.dataStore.addData('platform.service.steps', {
-                name: formValue.name,
-                description: formValue.description,
-                serviceId: this.serviceId,
-                machineId: this.machineId
-            }).subscribe(res => {
-                this.reset()
-            })
-        }
-    
-        reset() {
-            this.serviceStepForm.reset()
-        }
-    */
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
@@ -92,20 +75,20 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     productsChanged(productIds: string[]) {
-        if (!this.serviceStep.data.products) this.serviceStep.data.products=[]
-        var products= this.serviceStep.data.products
-        
-        products= products.filter(prod => productIds.includes(prod.id))
+        if (!this.serviceStep.data.products) this.serviceStep.data.products = []
+        var products = this.serviceStep.data.products
 
-        productIds.filter(id => !products.map(p => p.id).includes(id)).forEach(id => products.push({id: id, quantity: 1}))
+        products = products.filter(prod => productIds.includes(prod.id))
 
-        this.serviceStep.data.products= products
+        productIds.filter(id => !products.map(p => p.id).includes(id)).forEach(id => products.push({ id: id, quantity: 1 }))
+
+        this.serviceStep.data.products = products
 
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 
     productQuantityUpdated(pos, quantity) {
-        this.serviceStep.data.products[pos].quantity= quantity
+        this.serviceStep.data.products[pos].quantity = quantity
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 

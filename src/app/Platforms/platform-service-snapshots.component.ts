@@ -18,7 +18,7 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
 
     @Input() serviceId: string
 
-    private servicesList: any
+    private snapshotsList: any
     private isPageRunning: boolean = true
 
     private state
@@ -33,13 +33,13 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit()
 
-        this.dataStore.getDataObservable('platform.services').takeWhile(() => this.isPageRunning).subscribe(services => {
-            if (!comparatorsUtils.softCopy(this.servicesList, services))
-                this.servicesList = comparatorsUtils.clone(services)
+        this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId)).takeWhile(() => this.isPageRunning).subscribe(services => {
+            if (!comparatorsUtils.softCopy(this.snapshotsList, services))
+                this.snapshotsList = comparatorsUtils.clone(services)
         })
 
         this.platformService.getServicesCostInfo().takeWhile(() => this.isPageRunning).subscribe(serviceCostMap => {
-            this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
+            //this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
         })
 
     }

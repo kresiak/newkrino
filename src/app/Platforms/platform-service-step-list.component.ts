@@ -16,7 +16,8 @@ export class PlatformServiceStepListComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
-    @Input() serviceId: string= ''
+    @Input() serviceId: string = ''
+    @Input() isSnapshot: boolean = false
 
     private serviceStepForm: FormGroup
     private serviceStepsList: any
@@ -38,18 +39,27 @@ export class PlatformServiceStepListComponent implements OnInit {
             description: ['']
         })
 
-        this.platformService.getAnnotatedServiceStepsByService(this.serviceId).takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
-            if (!comparatorsUtils.softCopy(this.serviceStepsList, serviceSteps))
-                this.serviceStepsList = comparatorsUtils.clone(serviceSteps)
-        })
+        if (!this.isSnapshot) {
+            this.platformService.getAnnotatedServiceStepsByService(this.serviceId).takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
+                if (!comparatorsUtils.softCopy(this.serviceStepsList, serviceSteps))
+                    this.serviceStepsList = comparatorsUtils.clone(serviceSteps)
+            })
 
-        this.machineListObservable = this.dataStore.getDataObservable('platform.machines').map(machines => machines.map(machine => {
-            return {
-                id: machine._id,
-                name: machine.name
-            }
-        }));
-        
+            this.machineListObservable = this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).map(machines => machines.map(machine => {
+                return {
+                    id: machine._id,
+                    name: machine.name
+                }
+            }));
+        }
+        else {
+            this.dataStore.getDataObservable('platform.service.step.snapshots').map(snapshots => snapshots.filter(s => s.serviceId === this.serviceId))
+                            .takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
+                                this.serviceStepsList= serviceSteps
+                            })
+        }
+
+
     }
 
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
@@ -61,7 +71,7 @@ export class PlatformServiceStepListComponent implements OnInit {
     private machineId: string
 
     machineChanged(machineId) {
-        this.machineId= machineId
+        this.machineId = machineId
     }
 
     save(formValue, isValid) {

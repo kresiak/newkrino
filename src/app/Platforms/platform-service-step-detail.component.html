@@ -6,16 +6,16 @@
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>Name of step</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
+                            <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
                         </div>
                         <div class="col-sm-3 vcenter"><b>Description</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
+                            <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
                         </div>
                         <div class="col-sm-3 vcenter"><b>Used machine</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
-                                (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
+                                [readOnly]="isSnapshot" (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                                                     {{product.annotation.product}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
-                                                    <gg-editor-number [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
@@ -90,7 +90,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Select products" id="tabSelectProducts">
+                        <ngb-tab title="Select products" id="tabSelectProducts" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -114,7 +114,7 @@
                             <template ngbTabContent>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Add labour type" id="tabAddLabourType">
+                        <ngb-tab title="Add labour type" id="tabAddLabourType" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                             </template>
                         </ngb-tab>

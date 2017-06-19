@@ -5,19 +5,19 @@
                 <ngb-panel [disabled]="true">
                     <template ngbPanelTitle>
                         <div class="row">
+                            <div class="col-sm-3"><b>Version</b></div>
                             <div class="col-sm-3"><b>Service</b></div>
-                            <div class="col-sm-3"><b>Description</b></div>
                             <div class="col-sm-3"><b>Cost of service</b></div>
                         </div>
                     </template>
                 </ngb-panel>
-                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem._id">
+                <ngb-panel *ngFor="let snapshot of snapshotsList" [id]="snapshot._id">
                     <!--FOR-->
                     <template ngbPanelTitle>
-                        <div class="row" id="{{serviceItem._id}}">
-                            <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
-                            <div class="col-sm-3">{{serviceItem.description}}</div>
-                            <div class="col-sm-3" [style.color]="'darkturquoise'">{{fnGetCostByService(serviceItem._id) | currency:'EUR':true:'1.2-2'}}</div>
+                        <div class="row" id="{{snapshot._id}}">
+                            <div class="col-sm-3" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
+                            <div class="col-sm-3">{{snapshot.name}}</div>
+                            <div class="col-sm-3" [style.color]="'darkturquoise'">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
                         </div>
                     </template>
                     <template ngbPanelContent>
@@ -27,14 +27,12 @@
                                     <div class="card">
                                         <div class="card-block">
                                             <div class="row">
-                                                <div class="col-sm-3 vcenter"><b>Name</b></div>
-                                                <div class="col-sm-8 vcenter">
-                                                    <gg-editor [content]="serviceItem.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
-                                                </div>
+                                                <div class="col-sm-3 vcenter"><b>Service name</b></div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.name}}</div>
                                                 <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                <div class="col-sm-8 vcenter">
-                                                    <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
-                                                </div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
+                                                <div class="col-sm-3 vcenter"><b>Version</b></div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -44,7 +42,7 @@
                                 <template ngbTabContent>
                                     <div class="card">
                                         <div class="card-block">
-                                            <gg-platform-service-step-list [serviceId]="serviceItem._id"></gg-platform-service-step-list>
+                                            <gg-platform-service-step-list [serviceId]="snapshot._id" [isSnapshot]="true"></gg-platform-service-step-list>
                                         </div>
                                     </div>
                                 </template>
