@@ -12,7 +12,7 @@ export class PlatformService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
 
-    private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>) {
+    private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>, labourTypes) {
         if (!serviceStep) return null;
 
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
@@ -21,6 +21,12 @@ export class PlatformService {
         let  productsCost= (serviceStep.products || []).reduce((acc, p) => {
                         let unitPrice= productMap.has(p.id) ? productMap.get(p.id).price : 0
                         return acc + unitPrice * p.quantity
+                    } , 0)
+
+        let labourCost= (serviceStep.labourTypes || []).reduce((acc, ltInDb) => {
+                        let labourType= labourTypes.filter(lt => lt._id === ltInDb.id)[0]
+                        let unitPrice= labourType ? labourType.hourlyRate : 0
+                        return acc + unitPrice * ltInDb.nbHours
                     } , 0)
 
         return {
@@ -32,7 +38,8 @@ export class PlatformService {
                 machineName: (machine.data || {}).name,
                 machineCost: (machine.annotation || {}).costOfRun,
                 productsCost: productsCost,
-                totalCost: productsCost + (machine.annotation || {}).costOfRun,
+                labourCost: labourCost,
+                totalCost: labourCost + productsCost + (machine.annotation || {}).costOfRun,
                 products: (serviceStep.products || []).map(prod => {
                     let unitPrice= productMap.has(prod.id) ? productMap.get(prod.id).price : -1
                     return {
@@ -41,6 +48,17 @@ export class PlatformService {
                             product: productMap.has(prod.id) ? productMap.get(prod.id).name : 'unknown product', 
                             productPrice: unitPrice, 
                             productTotal: prod.quantity * unitPrice                           
+                        }
+                    }
+                }),
+                labourTypes: labourTypes.sort((a, b) => a.name <= b.name ? -1 : 1).map(lt => {
+                    var labourTypeAsInDb= (serviceStep.labourTypes||[]).filter(slt => slt.id===lt._id)[0]
+                    var nbHours= labourTypeAsInDb ? labourTypeAsInDb.nbHours : 0
+                    return {
+                        data: lt,
+                        annotation: {
+                            nbHours: nbHours,
+                            totalCost: nbHours * lt.hourlyRate
                         }
                     }
                 })
@@ -55,8 +73,9 @@ export class PlatformService {
             this.dataStore.getDataObservable('platform.services'),
             this.getAnnotatedMachines(),
             this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
-            (serviceSteps, services, machines, productMap) => {
-                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap))
+            this.dataStore.getDataObservable('platform.labour.types'),
+            (serviceSteps, services, machines, productMap, labourTypes) => {
+                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap, labourTypes))
             });
     }
     

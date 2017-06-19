@@ -92,6 +92,17 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 
+    labourQuantityUpdated(pos, quantity) {
+        this.serviceStep.annotation.labourTypes[pos].annotation.nbHours= quantity
+        this.serviceStep.data.labourTypes= this.serviceStep.annotation.labourTypes.filter(lt => lt.annotation.nbHours > 0).map(lt => {
+            return {
+                id: lt.data._id,
+                nbHours: lt.annotation.nbHours
+            }
+        })
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
+    }
+
     getProductIdsSelected() {
         return (this.serviceStep.data.products || []).map(p => p.id)
     }
