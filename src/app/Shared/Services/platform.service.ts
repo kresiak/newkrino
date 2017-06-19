@@ -69,6 +69,16 @@ export class PlatformService {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step._id===serviceStepId))).map(steps => steps[0])
     }
     
+    getServicesCostInfo(): Observable<any> {
+        return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps')).map(steps => {
+            return steps.reduce((map: Map<string, number>, step) => {
+                if (!map.has(step.data.serviceId)) map.set(step.data.serviceId, 0)
+                map.set(step.data.serviceId, map.get(step.data.serviceId) + step.annotation.totalCost)
+                return map
+            }, new Map())
+        })
+    }
+
 
     cloneService(serviceId: string, newName: string, newDescription: string): Observable<any> {
         return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id===serviceId)[0]).first()

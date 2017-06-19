@@ -29,6 +29,7 @@ export class PlatformServicesComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
+    private fnGetCostByService = (id) => 0 // this is a function
 
     ngOnInit(): void {
         this.stateInit()
@@ -44,6 +45,10 @@ export class PlatformServicesComponent implements OnInit {
         this.dataStore.getDataObservable('platform.services').takeWhile(() => this.isPageRunning).subscribe(services => {
             if (!comparatorsUtils.softCopy(this.servicesList, services))
                 this.servicesList = comparatorsUtils.clone(services)
+        })
+
+        this.platformService.getServicesCostInfo().takeWhile(() => this.isPageRunning).subscribe(serviceCostMap => {
+            this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
         })
 
     }
@@ -95,4 +100,5 @@ export class PlatformServicesComponent implements OnInit {
         serviceItem.description = description
         this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)
     }
+
 }
