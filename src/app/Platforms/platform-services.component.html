@@ -11,6 +11,7 @@
                                         <div class="row">
                                             <div class="col-sm-3"><b>Service</b></div>
                                             <div class="col-sm-3"><b>Description</b></div>
+                                            <div class="col-sm-3"><b>Cost of service</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -19,6 +20,7 @@
                                         <div class="row" id="{{serviceItem._id}}">
                                             <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
                                             <div class="col-sm-3">{{serviceItem.description}}</div>
+                                            <div class="col-sm-3" [style.color]="'darkturquoise'">{{fnGetCostByService(serviceItem._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
@@ -37,6 +39,24 @@
                                                                     <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
+                                            <ngb-tab title="Service steps" id="tabSteps">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <gg-platform-service-step-list [serviceId]="serviceItem._id"></gg-platform-service-step-list>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
+                                            <ngb-tab title="List of snapshots" id="tabSnapshotList">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <gg-platform-service-snapshots [serviceId]="serviceItem._id"></gg-platform-service-snapshots>
                                                         </div>
                                                     </div>
                                                 </template>
@@ -61,7 +81,7 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-sm-3 col-md-2 col-lg-2">
-                                                                            <button class="btn btn-success" type="submit" [disabled]="!cloneForm.valid">Submit</button>
+                                                                            <button class="btn btn-success" type="submit" [disabled]="!cloneForm.valid">Clone</button>
                                                                         </div>
                                                                         <div class="col-sm-3 col-md-2 col-lg-2">
                                                                             <button class="btn btn-info" [disabled]="cloneForm.pristine" (click)="resetCloneForm()">Reset</button>
@@ -73,15 +93,33 @@
                                                     </div>
                                                 </template>
                                             </ngb-tab>
-                                            <ngb-tab title="Service steps" id="tabSteps">
+                                            <ngb-tab title="Snapshot this service" id="tabSnapshot">
                                                 <template ngbTabContent>
                                                     <div class="card">
                                                         <div class="card-block">
-                                                            <gg-platform-service-step-list [serviceId]="serviceItem._id"></gg-platform-service-step-list>
+                                                            <div class="container-fluid">
+                                                                <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(serviceItem, snapshotForm.value, snapshotForm.valid)">
+                                                                    <div class="form-group row">
+                                                                        <label for="nameOfService" class="col-sm-3 col-form-label col-xl-3">version of snapshot:</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" formControlName="version" id="version" placeholder="version for service">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                            <button class="btn btn-success" type="submit" [disabled]="!snapshotForm.valid">Snapshot</button>
+                                                                        </div>
+                                                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                            <button class="btn btn-info" [disabled]="snapshotForm.pristine" (click)="resetSnapshotForm()">Reset</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </template>
                                             </ngb-tab>
+                                            
                                         </ngb-tabset>
                                     </template>
                                 </ngb-panel>

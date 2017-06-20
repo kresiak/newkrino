@@ -11,14 +11,16 @@
                                         <div class="row">
                                             <div class="col-sm-3"><b>Name</b></div>
                                             <div class="col-sm-8"><b>Description</b></div>
+                                            <div class="col-sm-2"><b>Cost of run</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
                                 <ngb-panel *ngFor="let machineItem of machinesList">
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{machineItem._id}}">
-                                            <div class="col-sm-3">{{machineItem.name}}</div>
-                                            <div class="col-sm-8">{{machineItem.description}}</div>
+                                            <div class="col-sm-3">{{machineItem.data.name}}</div>
+                                            <div class="col-sm-3">{{machineItem.data.description}}</div>
+                                            <div class="col-sm-2" [style.color]="'darkturquoise'">{{machineItem.annotation.costOfRun | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
@@ -30,35 +32,69 @@
                                                         <div class="row">
                                                             <div class="col-sm-3 vcenter"><b>Name</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                                                                <gg-editor [content]="machineItem.data.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
                                                             </div>
                                                             <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                                                <gg-editor [content]="machineItem.data.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
                                                             </div>
                                                             <div class="col-sm-3 vcenter"><b>Price</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                                                <gg-editor [content]="machineItem.data.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Lifetime</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>Lifetime (in years)</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                <gg-editor-number [content]="machineItem.data.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Maintenance price</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>Maintenance price (per year)</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
+                                                                <gg-editor [content]="machineItem.data.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Occupancy</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>Occupancy (in %)</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                <gg-editor-number [content]="machineItem.data.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Runtime</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>Runtime (in hours)</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                <gg-editor-number [content]="machineItem.data.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
                                                             </div>
                                                             <div class="col-sm-3 vcenter"><b>Hours per day</b></div>
                                                             <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                <gg-editor-number [content]="machineItem.data.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                        <ngb-tab title="Cost" id="tabCost">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                {{machineItem.data.name}}
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Annual amortization</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                {{machineItem.annotation.annualAmortisation | currency:'EUR':true:'1.2-2'}}
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Annual cost (incl. maintenance)</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                {{machineItem.annotation.annualCost | currency:'EUR':true:'1.2-2'}}
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Nb running hours per year</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                {{machineItem.annotation.nbHoursPerYear}}
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Nb runs per year</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                {{machineItem.annotation.nbRunsPerYear}}
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Cost of one run</b></div>
+                                                            <div class="col-sm-8 vcenter" [style.color]="'darkturquoise'">
+                                                                {{machineItem.annotation.costOfRun | currency:'EUR':true:'1.2-2'}}
                                                             </div>
                                                         </div>
                                                     </div>

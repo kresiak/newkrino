@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+                <ngb-panel [disabled]="true">
+                    <template ngbPanelTitle>
+                        <div class="row">
+                            <div class="col-sm-3"><b>Version</b></div>
+                            <div class="col-sm-3"><b>Service</b></div>
+                            <div class="col-sm-3"><b>Cost of service</b></div>
+                        </div>
+                    </template>
+                </ngb-panel>
+                <ngb-panel *ngFor="let snapshot of snapshotsList" [id]="snapshot._id">
+                    <!--FOR-->
+                    <template ngbPanelTitle>
+                        <div class="row" id="{{snapshot._id}}">
+                            <div class="col-sm-3" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
+                            <div class="col-sm-3">{{snapshot.name}}</div>
+                            <div class="col-sm-3" [style.color]="'darkturquoise'">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-1">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
+
+                        </div>
+                    </template>
+                    <template ngbPanelContent>
+                        <ngb-tabset>
+                            <ngb-tab title="Info" id="tabInfo">
+                                <template ngbTabContent>
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <div class="row">
+                                                <div class="col-sm-3 vcenter"><b>Service name</b></div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.name}}</div>
+                                                <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
+                                                <div class="col-sm-3 vcenter"><b>Version</b></div>
+                                                <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </ngb-tab>
+                            <ngb-tab title="Service steps" id="tabSteps">
+                                <template ngbTabContent>
+                                    <div class="card">
+                                        <div class="card-block">
+                                            <gg-platform-service-step-list [serviceId]="snapshot._id" [isSnapshot]="true"></gg-platform-service-step-list>
+                                        </div>
+                                    </div>
+                                </template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+</div>

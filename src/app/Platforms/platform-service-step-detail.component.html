@@ -6,16 +6,46 @@
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>Name of step</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
+                            <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
                         </div>
                         <div class="col-sm-3 vcenter"><b>Description</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
+                            <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
                         </div>
                         <div class="col-sm-3 vcenter"><b>Used machine</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
-                                (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
+                                [readOnly]="isSnapshot" (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Cost detail" id="tabCost">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Name of step</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.data.name}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Machine cost of run</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.annotation.machineCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Cost of products</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Cost of labour</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
+                        <div class="col-sm-8 vcenter" [style.color]="'darkturquoise'">
+                            {{serviceStep.annotation.totalCost | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                 </div>
@@ -44,7 +74,7 @@
                                                     {{product.annotation.product}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
-                                                    <gg-editor-number [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
@@ -58,13 +88,13 @@
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
-                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>                                        
                                     </div>
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Select products" id="tabSelectProducts">
+                        <ngb-tab title="Select products" id="tabSelectProducts" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -86,9 +116,43 @@
                     <ngb-tabset>
                         <ngb-tab title="Used hours" id="tabUsedLabourHours">
                             <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Labour</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Nb Hours</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Rate</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Total</b></div>
+                                        </div>
+                                        <div *ngFor="let labourType of (serviceStep.annotation.labourTypes || []); let pos = index">
+                                            <!--FOR  -->
+                                            <div class="row">
+                                                <div class="col-sm-3 vcenter">
+                                                    {{labourType.data.name}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="labourType.annotation.nbHours" (editSaved)="labourQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    {{labourType.data.hourlyRate | currency:'EUR':true:'1.2-2'}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    {{labourType.annotation.totalCost | currency:'EUR':true:'1.2-2'}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" [style.color]="'darkturquoise'">
+                                            <div class="col-sm-3 vcenter"><b></b></div>
+                                            <div class="col-sm-2 vcenter"><b></b></div>
+                                            <div class="col-sm-2 vcenter">Total:</div>
+                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}</div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Add labour type" id="tabAddLabourType">
+                        <ngb-tab title="Add labour type" id="tabAddLabourType" *ngIf="false && !isSnapshot">
                             <template ngbTabContent>
                             </template>
                         </ngb-tab>

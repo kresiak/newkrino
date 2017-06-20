@@ -12,6 +12,7 @@
                                             <div class="col-sm-3"><b>Step</b></div>
                                             <div class="col-sm-3"><b>Description</b></div>
                                             <div class="col-sm-2"><b>Machine</b></div>
+                                            <div class="col-sm-2"><b>Cost of step</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -21,10 +22,12 @@
                                             <div class="col-sm-3" [style.font-weight]="serviceStep.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceStep.data.name}}</div>
                                             <div class="col-sm-3">{{serviceStep.data.description}}</div>
                                             <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
+                                            <div class="col-sm-2" [style.color]="'darkturquoise'">{{serviceStep.annotation.totalCost | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-1" *ngIf="isSnapshot">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
-                                        <gg-platform-service-step-detail [serviceStepId]="serviceStep.data._id" ></gg-platform-service-step-detail>
+                                        <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot" ></gg-platform-service-step-detail>
 		                            </template>
 				                </ngb-panel>
 			                </ngb-accordion>
@@ -33,7 +36,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add step" id="tabAddService">
+        <ngb-tab title="Add step" id="tabAddService" *ngIf="!isSnapshot">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
