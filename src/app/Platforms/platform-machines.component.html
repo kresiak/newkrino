@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab title="List of machines" id="tabListOfMachines">
+        <ngb-tab *ngIf="machinesList !== undefind && machinesList.length !== 0" title="List of machines" id="tabListOfMachines">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
