@@ -1,24 +1,24 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab title="List of labour types" id="tabListOfLabourTypes">
+        <ngb-tab *ngIf="labourList && labourList.length !== 0" title="List of labour types" id="tabListOfLabourTypes">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-2 vcenter"><b>Labour type</b></div>
-                            <div class="col-sm-3 vcenter"><b>Description</b></div>
-                            <div class="col-sm-2 vcenter"><b>Hourly rate</b></div>
+                            <div class="col-sm-3 vcenter"><b>Labour type</b></div>
+                            <div class="col-sm-5 vcenter"><b>Description</b></div>
+                            <div class="col-sm-3 vcenter"><b>Hourly rate</b></div>
 		                </div>
                         <div *ngFor="let labourItem of labourList">
                             <div class="row">
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-3 vcenter">
                                     <gg-editor [content]="labourItem.name" [showControls]="true" (editSaved)="nameLabourUpdated($event, labourItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-3 vcenter">
+                                <div class="col-sm-5 vcenter">
                                     <gg-editor [content]="labourItem.description" [showControls]="true" (editSaved)="descriptionLabourUpdated($event, labourItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-2 vcenter">
-                                    <gg-editor-number [content]="labourItem.hourlyRate" (editSaved)="hourlyRateLabourUpdated($event, labourItem)"></gg-editor-number>
+                                <div class="col-sm-3 vcenter">
+                                    <gg-editor [content]="labourItem.hourlyRate" [isMonetary]="true" [showControls]="true" (editSaved)="hourlyRateLabourUpdated($event, labourItem)"></gg-editor>
                                 </div>
                             </div>                        
                         </div>

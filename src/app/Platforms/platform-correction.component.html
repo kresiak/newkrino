@@ -1,23 +1,23 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab title="List of correction types" id="tabListOfCorrectionTypes">
+        <ngb-tab *ngIf="correctionList && correctionList.length !== 0" title="List of correction types" id="tabListOfCorrectionTypes">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-2 vcenter"><b>Correction type</b></div>
-                            <div class="col-sm-3 vcenter"><b>Description</b></div>
-                            <div class="col-sm-2 vcenter"><b>dafault value (in %)</b></div>
+                            <div class="col-sm-3 vcenter"><b>Correction type</b></div>
+                            <div class="col-sm-5 vcenter"><b>Description</b></div>
+                            <div class="col-sm-3 vcenter"><b>dafault value (in %)</b></div>
 		                </div>
                         <div *ngFor="let correctionItem of correctionList">
                             <div class="row">
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-3 vcenter">
                                     <gg-editor [content]="correctionItem.name" [showControls]="true" (editSaved)="nameCorrectionUpdated($event, correctionItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-3 vcenter">
+                                <div class="col-sm-5 vcenter">
                                     <gg-editor [content]="correctionItem.description" [showControls]="true" (editSaved)="descriptionCorrectionUpdated($event, correctionItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-3 vcenter">
                                     <gg-editor-number [content]="correctionItem.defaultPerCent" (editSaved)="defaultPerCentUpdated($event, correctionItem)"></gg-editor-number>
                                 </div>
                             </div>                        
