@@ -16,6 +16,7 @@ export class PlatformClientComponent implements OnInit {
 
 private clientForm: FormGroup
 private clientList: any
+private correctionList: any
 private isPageRunning: boolean = true
 
     ngOnInit(): void {
@@ -29,6 +30,10 @@ private isPageRunning: boolean = true
                 this.clientList= comparatorsUtils.clone(client)            
         })
         
+        this.dataStore.getDataObservable('platform.correction.types').takeWhile(() => this.isPageRunning).subscribe(corrections => {
+            if (!comparatorsUtils.softCopy(this.correctionList, corrections))
+                this.correctionList= comparatorsUtils.clone(corrections)            
+        })        
     }
 
     save(formValue, isValid) {
@@ -58,5 +63,51 @@ private isPageRunning: boolean = true
     descriptionClientUpdated(description, clientItem) {
         clientItem.description = description
         this.dataStore.updateData('platform.client.types', clientItem._id, clientItem)
+    }
+
+    correctionGetValue(correctionId, clientId) {        
+        var client= this.clientList.filter(c => c._id===clientId)[0]
+        if (!client) return -1
+        if (client.corrections && client.corrections.map(c => c.id).includes(correctionId)) {
+            return client.corrections.filter(c => c.id === correctionId)[0].perCent
+        }
+        var corr= this.correctionList.filter(c => c._id===correctionId)[0]
+        if (! corr) return -2
+        return corr.defaultPerCent
+    }
+
+    isCorrectionDefaultValue(correctionId, clientId) {        
+        var client= this.clientList.filter(c => c._id===clientId)[0]
+        if (!client) return true
+        if (client.corrections && client.corrections.map(c => c.id).includes(correctionId)) {
+            return false
+        }
+        return true
+    }
+
+    correctionSaveValue(newValue, correctionId, clientId) {
+        if (! + newValue) return
+
+        var client= this.clientList.filter(c => c._id===clientId)[0]
+        if (!client) return 
+
+        if (!client.corrections) client.corrections = []
+
+        if (client.corrections.map(c => c.id).includes(correctionId)) {
+            var corrEntry=  client.corrections.filter(c => c.id === correctionId)[0]
+            if (+newValue > 0) corrEntry.perCent= +newValue
+            else {
+                var pos= client.corrections.indexOf(corrEntry)
+                if (pos >= 0) client.corrections.splice(pos, 1)
+            }
+        }
+        else if (+newValue > 0) {
+            client.corrections.push({id: correctionId, perCent: +newValue})
+        }
+        else {
+            return
+        }
+        
+        this.dataStore.updateData('platform.client.types', client._id, client)
     }
 }

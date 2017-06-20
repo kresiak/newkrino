@@ -81,5 +81,29 @@
                 </div>
             </template>
         </ngb-tab>
+        <ngb-tab title="Correction factors" id="tabCorrections">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-2 vcenter"></div>
+                            <div *ngFor="let correctionItem of correctionList" class="col-sm-1 vcenter"><b>{{correctionItem.shortcut}}</b></div>
+                        </div>
+                        <div *ngFor="let clientItem of clientList">
+                            <div class="row">
+                                <div class="col-sm-2 vcenter">
+                                    {{clientItem.name}}
+                                </div>
+                                <div class="col-sm-1 vcenter" *ngFor="let correctionItem of correctionList" [style.color]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'green' : 'red'">
+                                    <gg-editor-number [minimumValue]="-1" [content]="correctionGetValue(correctionItem._id, clientItem._id)" (editSaved)="correctionSaveValue($event, correctionItem._id, clientItem._id)"></gg-editor-number>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+
     </ngb-tabset>
 </div>
