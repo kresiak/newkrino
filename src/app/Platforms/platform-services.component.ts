@@ -18,7 +18,6 @@ export class PlatformServicesComponent implements OnInit {
 
     private serviceForm: FormGroup
     private cloneForm: FormGroup
-    private snapshotForm: FormGroup
 
     private servicesList: any
     private isPageRunning: boolean = true
@@ -42,13 +41,10 @@ export class PlatformServicesComponent implements OnInit {
             nameOfService: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
         })
-        this.snapshotForm = this.formBuilder.group({
-            version: ['', [Validators.required, Validators.minLength(3)]]
-        })
-
         this.dataStore.getDataObservable('platform.services').takeWhile(() => this.isPageRunning).subscribe(services => {
             if (!comparatorsUtils.softCopy(this.servicesList, services))
                 this.servicesList = comparatorsUtils.clone(services)
+            this.state.selectedTabId='tabListOfServices'
         })
 
         this.platformService.getServicesCostInfo().takeWhile(() => this.isPageRunning).subscribe(serviceCostMap => {
@@ -77,19 +73,6 @@ export class PlatformServicesComponent implements OnInit {
     resetCloneForm() {
         this.cloneForm.reset()
     }
-
-    snapshotService(service, formValue, isValid) {
-        if (!isValid) return
-        this.platformService.snapshotService(service._id, formValue.version).subscribe(res => {
-            this.resetSnapshotForm()
-        })
-    }
-
-    resetSnapshotForm() {
-        this.snapshotForm.reset()
-    }
-
-
 
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
         if ($event.nextState) {

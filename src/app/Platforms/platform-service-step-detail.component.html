@@ -57,7 +57,7 @@
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="Used products" id="tabUsedProducts">
+                        <ngb-tab title="Used products" id="tabUsedProducts" *ngIf="serviceStep.annotation.products && serviceStep.annotation.products.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">

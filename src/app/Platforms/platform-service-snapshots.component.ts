@@ -13,7 +13,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceSnapshotsComponent implements OnInit {
-    constructor(private dataStore: DataStore, private platformService: PlatformService) {
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
     @Input() serviceId: string
@@ -22,6 +22,8 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     private isPageRunning: boolean = true
 
     private state
+    private snapshotForm: FormGroup
+
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -33,9 +35,14 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit()
 
+        this.snapshotForm = this.formBuilder.group({
+            version: ['', [Validators.required, Validators.minLength(3)]]
+        })
+
         this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId)).takeWhile(() => this.isPageRunning).subscribe(services => {
-            if (!comparatorsUtils.softCopy(this.snapshotsList, services))
+            if (!comparatorsUtils.softCopy(this.snapshotsList, services))                
                 this.snapshotsList = comparatorsUtils.clone(services)
+            this.state.selectedTabId= 'tabListOfSnapshots'
         })
 
         this.platformService.getSnapshotpsCostInfo().takeWhile(() => this.isPageRunning).subscribe(serviceCostMap => {
@@ -55,5 +62,17 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
+
+    snapshotService(formValue, isValid) {
+        if (!isValid) return
+        this.platformService.snapshotService(this.serviceId, formValue.version).subscribe(res => {
+            this.resetSnapshotForm()
+        })
+    }
+
+    resetSnapshotForm() {
+        this.snapshotForm.reset()
+    }
+
 
 }
