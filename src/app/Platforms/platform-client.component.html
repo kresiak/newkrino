@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="clientList !== undefined && clientList.length !== 0" title="List of client types" id="tabListOfClientType">
+        <ngb-tab *ngIf="clientList && clientList.length !== 0" title="List of client types" id="tabListOfClientType">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
