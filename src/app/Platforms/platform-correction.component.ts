@@ -20,8 +20,8 @@ private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.correctionForm = this.formBuilder.group({
-            correctionType: ['', [Validators.required, Validators.minLength(3)]],
-            description: [''],
+            correctionType: ['', [Validators.required, Validators.minLength(2)]],
+            shortcut: [''],
             defaultPerCent: ['', [Validators.required]]
         })
 
@@ -35,7 +35,7 @@ private isPageRunning: boolean = true
     save(formValue, isValid) {
         this.dataStore.addData('platform.correction.types', {
             name: formValue.correctionType,
-            description: formValue.description,
+            shortcut: formValue.shortcut,
             defaultPerCent: formValue.defaultPerCent
         }).subscribe(res =>
         {
@@ -57,8 +57,8 @@ private isPageRunning: boolean = true
         this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
     }
 
-    descriptionCorrectionUpdated(description, correctionItem) {
-        correctionItem.description = description
+    shortcutCorrectionUpdated(shortcut, correctionItem) {
+        correctionItem.shortcut = shortcut
         this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
     }
 

@@ -4,20 +4,47 @@
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
-                        <div class="row">
-                            <div class="col-sm-3 vcenter"><b>Client type</b></div>
-                            <div class="col-sm-8 vcenter"><b>Description</b></div>
-		                </div>
-                        <div *ngFor="let clientItem of clientList">
-                            <div class="row">
-                                <div class="col-sm-3 vcenter">
-                                    <gg-editor [content]="clientItem.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
-                                </div>
-                                <div class="col-sm-8 vcenter">
-                                    <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
-                                </div>
-                            </div>                        
-                        </div>
+
+                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                            <ngb-panel [disabled]="true">
+                                <template ngbPanelTitle>
+                                    <div class="row">
+                                        <div class="col-sm-3"><b>Name</b></div>
+                                        <div class="col-sm-5"><b>Description</b></div>
+                                    </div>
+                                </template>
+                            </ngb-panel>
+                            <ngb-panel *ngFor="let clientItem of clientList">
+                                <template ngbPanelTitle>
+                                    <div class="row" id="{{clientItem._id}}">
+                                        <div class="col-sm-3">{{clientItem.name}}</div>
+                                        <div class="col-sm-5">{{clientItem.description}}</div>
+                                    </div>
+                                </template>
+                                <template ngbPanelContent>
+                                    <ngb-tabset>
+                                        <ngb-tab title="Info" id="tabInfo">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                    </ngb-tabset>
+                                </template>
+                            </ngb-panel>
+                        </ngb-accordion>
                     </div>
                 </div>
             </template>
@@ -45,7 +72,7 @@
                                         <button class="btn btn-success" type="submit" [disabled]="!clientForm.valid">Submit</button>
                                     </div>
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-info"  [disabled]="clientForm.pristine" (click)="reset()">Reset</button>
+                                        <button class="btn btn-info" [disabled]="clientForm.pristine" (click)="reset()">Reset</button>
                                     </div>
                                 </div>
                             </form>
