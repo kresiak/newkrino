@@ -41,6 +41,29 @@
                                                 </div>
                                             </template>
                                         </ngb-tab>
+                                        <ngb-tab title="Specific corrections" id="tabCorrections">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div *ngFor="let correctionItem of fnGetCorrectionsForClient(clientItem._id)">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3 vcenter">
+                                                                        {{correctionItem.name}}
+                                                                    </div>
+                                                                    <div class="col-sm-2 vcenter">
+                                                                        {{correctionItem.perCent + ' %'}}
+                                                                    </div>
+                                                                    <div class="col-sm-3 vcenter" [style.color]= "correctionItem.isDefault ? 'black' : 'red'">
+                                                                        {{correctionItem.isDefault ? 'default value' : 'specificed by client type'}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
                                     </ngb-tabset>
                                 </template>
                             </ngb-panel>
@@ -94,8 +117,9 @@
                                 <div class="col-sm-2 vcenter">
                                     {{clientItem.name}}
                                 </div>
-                                <div class="col-sm-1 vcenter" *ngFor="let correctionItem of correctionList" [style.color]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'green' : 'red'">
-                                    <gg-editor-number [minimumValue]="-1" [content]="correctionGetValue(correctionItem._id, clientItem._id)" (editSaved)="correctionSaveValue($event, correctionItem._id, clientItem._id)"></gg-editor-number>
+                                <div [ngbTooltip]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'This is a default value. You can overwrite it' : 'Set -1 if you want to use default value'" class="col-sm-1 vcenter" *ngFor="let correctionItem of correctionList" 
+                                        [style.color]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'green' : 'red'">
+                                    <gg-editor-number [minimumValue]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 0 : -1" [content]="correctionGetValue(correctionItem._id, clientItem._id)" (editSaved)="correctionSaveValue($event, correctionItem._id, clientItem._id)"></gg-editor-number>
                                 </div>
                             </div>
                         </div>
