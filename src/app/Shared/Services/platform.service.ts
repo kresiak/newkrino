@@ -21,16 +21,52 @@ export class PlatformService {
 
         let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0]
 
+        // products 
+        // ========
+
         let productsCost = (serviceStep.products || []).reduce((acc, p) => {
             let unitPrice = productMap.has(p.id) ? productMap.get(p.id).price : 0
             return acc + unitPrice * p.quantity
         }, 0)
+
+        let productsExtras = correctionsFactors.filter(cf => cf.data.isOnProduct).map(cf => {
+            return {
+                labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                extraValue: cf.perCent / 100 * productsCost
+            }
+        })
+        let sumProductsExtras = productsExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
+
+        // labour
+        // ======
 
         let labourCost = (serviceStep.labourTypes || []).reduce((acc, ltInDb) => {
             let labourType = labourTypes.filter(lt => lt._id === ltInDb.id)[0]
             let unitPrice = labourType ? labourType.hourlyRate : 0
             return acc + unitPrice * ltInDb.nbHours
         }, 0)
+
+        let labourReductions = correctionsFactors.filter(cf => cf.data.isOnLabour).map(cf => {
+            return {
+                labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                extraValue: -(100 - cf.perCent) / 100 * labourCost
+            }
+        })
+        let sumLabourReduction = labourReductions.reduce((acc, pe) => acc + +pe.extraValue, 0)
+
+        // totals
+        // ======
+
+        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + (machine.annotation || {}).costOfRun
+
+        let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
+            return {
+                labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                extraValue: cf.perCent / 100 * total
+            }
+        })
+
+        let sumOfTotalExtras = totalExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
 
         return {
             data: serviceStep,
@@ -41,8 +77,12 @@ export class PlatformService {
                 machineName: (machine.data || {}).name,
                 machineCost: (machine.annotation || {}).costOfRun,
                 productsCost: productsCost,
+                productsExtras: productsExtras,
                 labourCost: labourCost,
-                totalCost: labourCost + productsCost + (machine.annotation || {}).costOfRun,                
+                labourReductions: labourReductions,
+                totalCost: total,   
+                totalExtras: totalExtras,  
+                grandTotalCost: total + sumOfTotalExtras,           
                 products: (serviceStep.products || []).map(prod => {
                     let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price : -1
                     return {
@@ -191,7 +231,7 @@ export class PlatformService {
         })
     }
 
-    private getCorrectionsOfClientType(clientTypeId, clients, corrections) {
+    getCorrectionsOfClientType(clientTypeId, clients, corrections) {
         var client = clients.filter(c => c._id === clientTypeId)[0]
         return corrections.map(corr => {
             var customCor = (!client || !client.corrections) ? null : client.corrections.filter(cc => cc.id === corr._id)[0]
@@ -199,7 +239,8 @@ export class PlatformService {
                 id: corr._id,
                 name: corr.name,
                 perCent: customCor ? customCor.perCent : corr.defaultPerCent,
-                isDefault: !customCor
+                isDefault: !customCor,
+                data: corr
             }
         })
     }
