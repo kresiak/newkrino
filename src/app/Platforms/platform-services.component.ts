@@ -99,16 +99,16 @@ export class PlatformServicesComponent implements OnInit {
 
     nameServiceUpdated(name, serviceItem) {
         serviceItem.data.name = name
-        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)
     }
 
     descriptionServiceUpdated(description, serviceItem) {
         serviceItem.data.description = description
-        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)
     }
 
     clientTypeChanged(typeid, serviceItem) {
         serviceItem.data.clientTypeId = typeid
-        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)        
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)        
     }
 }
