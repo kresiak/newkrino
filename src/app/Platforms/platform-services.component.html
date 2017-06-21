@@ -21,7 +21,7 @@
                                         <div class="row" id="{{serviceItem._id}}">
                                             <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
                                             <div class="col-sm-3">{{serviceItem.description}}</div>
-                                            <div class="col-sm-3" [style.color]="'darkturquoise'">{{fnGetCostByService(serviceItem._id) | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-3 gg-price">{{fnGetCostByService(serviceItem._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>

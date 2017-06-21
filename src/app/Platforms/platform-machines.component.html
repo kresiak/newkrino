@@ -20,7 +20,7 @@
                                         <div class="row" id="{{machineItem._id}}">
                                             <div class="col-sm-3">{{machineItem.data.name}}</div>
                                             <div class="col-sm-5">{{machineItem.data.description}}</div>
-                                            <div class="col-sm-2" [style.color]="'darkturquoise'">{{machineItem.annotation.costOfRun | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2 gg-price">{{machineItem.annotation.costOfRun | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
@@ -93,7 +93,7 @@
                                                                 {{machineItem.annotation.nbRunsPerYear}}
                                                             </div>
                                                             <div class="col-sm-3 vcenter"><b>Cost of one run</b></div>
-                                                            <div class="col-sm-8 vcenter" [style.color]="'darkturquoise'">
+                                                            <div class="col-sm-8 vcenter gg-price">
                                                                 {{machineItem.annotation.costOfRun | currency:'EUR':true:'1.2-2'}}
                                                             </div>
                                                         </div>
