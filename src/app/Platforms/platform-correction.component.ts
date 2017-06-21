@@ -67,5 +67,20 @@ private isPageRunning: boolean = true
         this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
     }
 
+    isOnProductUpdated(ischecked, correctionItem) {
+        correctionItem.isOnProduct = ischecked
+        this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
+    }
+
+    isOnTotalUpdated(ischecked, correctionItem) {
+        correctionItem.isOnTotal = ischecked
+        this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
+    }
+
+    isOnLabourUpdated(ischecked, correctionItem) {
+        correctionItem.isOnLabour = ischecked
+        this.dataStore.updateData('platform.correction.types', correctionItem._id, correctionItem)
+    }
+    
 
 }
