@@ -152,12 +152,11 @@ export class PlatformService {
 
 
     snapshotService(serviceId: string, version: string): Observable<any> {
-        return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id === serviceId)[0]).first()
+        return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
             .switchMap(service => {
                 var service2= utilsComparator.clone(service)
                 service2.version = version
                 service2.serviceId = serviceId
-                delete service2._id
                 return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2), this.getAnnotatedServiceStepsByService(serviceId).first())
             }).switchMap(res => {
                 var newServiceId = res[0]._id
@@ -193,9 +192,8 @@ export class PlatformService {
 
     private getCorrectionsOfClientType(clientTypeId, clients, corrections) {
         var client = clients.filter(c => c._id === clientTypeId)[0]
-        if (!client) return
         return corrections.map(corr => {
-            var customCor = !client.corrections ? null : client.corrections.filter(cc => cc.id === corr._id)[0]
+            var customCor = (!client || !client.corrections) ? null : client.corrections.filter(cc => cc.id === corr._id)[0]
             return {
                 id: corr._id,
                 name: corr.name,

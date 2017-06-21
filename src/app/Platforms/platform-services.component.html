@@ -42,8 +42,29 @@
                                                                 <div class="col-sm-3 vcenter"><b>Client type used</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
-                                                                         (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
+                                                                        (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
 
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
+                                            <ngb-tab title="Correction factors" id="tabCorrFactors">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <div *ngFor="let correctionItem of serviceItem.annotation.correctionsFactors">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3 vcenter">
+                                                                        {{correctionItem.name}}
+                                                                    </div>
+                                                                    <div class="col-sm-2 vcenter">
+                                                                        {{correctionItem.perCent + ' %'}}
+                                                                    </div>
+                                                                    <div class="col-sm-3 vcenter" [style.color]= "correctionItem.isDefault ? 'black' : 'red'">
+                                                                        {{correctionItem.isDefault ? 'default value' : 'specificed by client type'}}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

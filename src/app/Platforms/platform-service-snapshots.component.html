@@ -19,7 +19,7 @@
                                 <template ngbPanelTitle>
                                     <div class="row" id="{{snapshot._id}}">
                                         <div class="col-sm-3" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
-                                        <div class="col-sm-3">{{snapshot.name}}</div>
+                                        <div class="col-sm-3">{{snapshot.data.name}}</div>
                                         <div class="col-sm-3 gg-price">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
 
@@ -33,11 +33,32 @@
                                                     <div class="card-block">
                                                         <div class="row">
                                                             <div class="col-sm-3 vcenter"><b>Service name</b></div>
-                                                            <div class="col-sm-8 vcenter">{{snapshot.name}}</div>
+                                                            <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
                                                             <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                            <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
+                                                            <div class="col-sm-8 vcenter">{{snapshot.data.description}}</div>
                                                             <div class="col-sm-3 vcenter"><b>Version</b></div>
                                                             <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                        <ngb-tab title="Correction factors" id="tabCorrFactors">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div *ngFor="let correctionItem of snapshot.annotation.correctionsFactors">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 vcenter">
+                                                                    {{correctionItem.name}}
+                                                                </div>
+                                                                <div class="col-sm-2 vcenter">
+                                                                    {{correctionItem.perCent + ' %'}}
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter" [style.color]="correctionItem.isDefault ? 'black' : 'red'">
+                                                                    {{correctionItem.isDefault ? 'default value' : 'specificed by client type'}}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
