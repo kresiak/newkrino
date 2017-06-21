@@ -8,7 +8,8 @@
                             <ngb-panel [disabled]="true">
                                 <template ngbPanelTitle>
                                     <div class="row">
-                                        <div class="col-sm-3"><b>Version</b></div>
+                                        <div class="col-sm-2"><b>Version</b></div>
+                                        <div class="col-sm-3"><b>Description</b></div>
                                         <div class="col-sm-3"><b>Service</b></div>
                                         <div class="col-sm-3"><b>Cost of service</b></div>
                                     </div>
@@ -18,7 +19,8 @@
                                 <!--FOR-->
                                 <template ngbPanelTitle>
                                     <div class="row" id="{{snapshot._id}}">
-                                        <div class="col-sm-3" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
+                                        <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
+                                        <div class="col-sm-3">{{snapshot.description}}</div>
                                         <div class="col-sm-3">{{snapshot.data.name}}</div>
                                         <div class="col-sm-3 gg-price">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
@@ -35,7 +37,7 @@
                                                             <div class="col-sm-3 vcenter"><b>Service name</b></div>
                                                             <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
                                                             <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                            <div class="col-sm-8 vcenter">{{snapshot.data.description}}</div>
+                                                            <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
                                                             <div class="col-sm-3 vcenter"><b>Version</b></div>
                                                             <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
                                                         </div>
@@ -90,9 +92,13 @@
                     <div class="container-fluid">
                         <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(snapshotForm.value, snapshotForm.valid)">
                             <div class="form-group row">
-                                <label for="nameOfService" class="col-sm-3 col-form-label col-xl-3">version of snapshot:</label>
+                                <label for="version" class="col-sm-3 col-form-label col-xl-3">version of snapshot:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" formControlName="version" id="version" placeholder="version for service">
+                                    <input type="text" class="form-control" formControlName="version" id="version" placeholder="version of service snapshot">
+                                </div>
+                                <label for="description" class="col-sm-3 col-form-label col-xl-3">description:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="description of snapshot">
                                 </div>
                             </div>
                             <div class="row">

@@ -36,7 +36,8 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
         this.stateInit()
 
         this.snapshotForm = this.formBuilder.group({
-            version: ['', [Validators.required, Validators.minLength(3)]]
+            version: ['', [Validators.required, Validators.minLength(3)]],
+            description: ['', [Validators.required, Validators.minLength(3)]]
         })
 
         this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId)).takeWhile(() => this.isPageRunning).subscribe(services => {
@@ -65,7 +66,7 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
 
     snapshotService(formValue, isValid) {
         if (!isValid) return
-        this.platformService.snapshotService(this.serviceId, formValue.version).subscribe(res => {
+        this.platformService.snapshotService(this.serviceId, formValue.version, formValue.description).subscribe(res => {
             this.resetSnapshotForm()
         })
     }

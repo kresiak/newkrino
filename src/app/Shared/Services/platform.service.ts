@@ -151,12 +151,13 @@ export class PlatformService {
     }
 
 
-    snapshotService(serviceId: string, version: string): Observable<any> {
+    snapshotService(serviceId: string, version: string, description: string): Observable<any> {
         return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
             .switchMap(service => {
                 var service2= utilsComparator.clone(service)
                 service2.version = version
                 service2.serviceId = serviceId
+                service2.description= description
                 return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2), this.getAnnotatedServiceStepsByService(serviceId).first())
             }).switchMap(res => {
                 var newServiceId = res[0]._id
