@@ -201,6 +201,10 @@ ul.spending{
     float: none;
 }
 
+.gg-price {
+    color: darkturquoise;
+}
+
 .enter-newselectableitem-input {
     display: block;
     width: 100%;

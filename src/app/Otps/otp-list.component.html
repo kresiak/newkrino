@@ -15,7 +15,7 @@
 					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
 			</div>
 		</div>
-		<div class="row" *ngIf="nbHits" [style.color]="'darkturquoise'">{{total | currency:'EUR':true:'1.2-2'}} available in {{nbHits}} otps</div>
+		<div class="row gg-price" *ngIf="nbHits">{{total | currency:'EUR':true:'1.2-2'}} available in {{nbHits}} otps</div>
 		<div class="row">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
