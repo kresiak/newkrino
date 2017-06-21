@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,12 +13,25 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceSnapshotsComponent implements OnInit {
+    snapshotObservable: Observable<any>;
+    searchForm: FormGroup;
+    searchControl = new FormControl();
+
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
+        this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });        
     }
 
     @Input() serviceId: string
 
+    private nbHitsShown: number= 10
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)    
+
     private snapshotsList: any
+    private snapshotsListAll: any
     private isPageRunning: boolean = true
 
     private state
@@ -40,9 +53,26 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
             description: ['', [Validators.required, Validators.minLength(3)]]
         })
 
-        this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId)).takeWhile(() => this.isPageRunning).subscribe(services => {
-            if (!comparatorsUtils.softCopy(this.snapshotsList, services))                
-                this.snapshotsList = comparatorsUtils.clone(services)
+        this.snapshotObservable = Observable.combineLatest(this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId)),
+                     this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (snapshots, searchTxt: string) => {
+            this.snapshotsListAll= snapshots
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '' ) return snapshots
+            return snapshots.filter(s => {
+                return (s.description || '').toUpperCase().includes(txt) || (s.version || '').toUpperCase().includes(txt)
+            })
+        }).do(snapshots => {
+            this.nbHits= snapshots.length
+        })
+        .switchMap(snapshots => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return snapshots.slice(0, nbItems)
+            })
+        });
+
+        this.snapshotObservable.takeWhile(() => this.isPageRunning).subscribe(snapshots => {
+            if (!comparatorsUtils.softCopy(this.snapshotsList, snapshots))                
+                this.snapshotsList = comparatorsUtils.clone(snapshots)
             this.state.selectedTabId= 'tabListOfSnapshots'
         })
 
@@ -75,5 +105,13 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
         this.snapshotForm.reset()
     }
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    };
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
 
 }

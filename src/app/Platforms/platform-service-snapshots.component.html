@@ -1,9 +1,30 @@
+<template #searchPopContent>
+    <ul>
+        <li>pme: search for snapshots having 'pme' in either version or description</li>
+    </ul>
+</template>
+
+<template #tipSearchLoupe>
+    <div style="font-size: 70%;">Click here to <br/> search specific snapshot</div>
+</template>
+
+
 <ngb-tabset [activeId]="state.selectedTabId">
-    <ngb-tab title="List of snapshots" id="tabListOfSnapshots" *ngIf="snapshotsList && snapshotsList.length > 0">
+    <ngb-tab title="List of snapshots" id="tabListOfSnapshots" *ngIf="snapshotsListAll && snapshotsListAll.length > 0">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <div class="row">
+                        <div class="row">
+                            <div [formGroup]="searchForm">
+                                <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+                                />
+                                <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+                                    placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img
+                                    *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()" />
+                            </div>
+                        </div>
+
                         <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
                             <ngb-panel [disabled]="true">
                                 <template ngbPanelTitle>
@@ -79,6 +100,12 @@
                                 </template>
                             </ngb-panel>
                         </ngb-accordion>
+                    </div>
+                    <div class="row" *ngIf="nbHitsShown < nbHits">
+                        <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+                    </div>
+                    <div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+                        {{nbHits}} hits shown
                     </div>
                 </div>
             </div>
