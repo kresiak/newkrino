@@ -15,7 +15,8 @@
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem._id"> <!--FOR-->
+                                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem._id">
+                                    <!--FOR-->
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{serviceItem._id}}">
                                             <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
@@ -37,6 +38,12 @@
                                                                 <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Client type used</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.clientTypeId"
+                                                                         (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
+
                                                                 </div>
                                                             </div>
                                                         </div>

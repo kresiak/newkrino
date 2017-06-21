@@ -23,6 +23,7 @@ export class PlatformServicesComponent implements OnInit {
     private isPageRunning: boolean = true
 
     private state
+    private clientListObservable
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -44,12 +45,19 @@ export class PlatformServicesComponent implements OnInit {
         this.dataStore.getDataObservable('platform.services').takeWhile(() => this.isPageRunning).subscribe(services => {
             if (!comparatorsUtils.softCopy(this.servicesList, services))
                 this.servicesList = comparatorsUtils.clone(services)
-            this.state.selectedTabId='tabListOfServices'
+            this.state.selectedTabId = 'tabListOfServices'
         })
 
         this.platformService.getServicesCostInfo().takeWhile(() => this.isPageRunning).subscribe(serviceCostMap => {
-            this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
+            this.fnGetCostByService = (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
         })
+
+        this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(machines => machines.map(machine => {
+            return {
+                id: machine._id,
+                name: machine.name
+            }
+        }));
 
     }
 
@@ -99,4 +107,8 @@ export class PlatformServicesComponent implements OnInit {
         this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)
     }
 
+    clientTypeChanged(typeid, serviceItem) {
+        serviceItem.clientTypeId = typeid
+        this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)        
+    }
 }
