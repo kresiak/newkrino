@@ -15,13 +15,13 @@
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem._id">
+                                <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem.data._id">
                                     <!--FOR-->
                                     <template ngbPanelTitle>
-                                        <div class="row" id="{{serviceItem._id}}">
-                                            <div class="col-sm-3" [style.font-weight]="serviceItem._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.name}}</div>
-                                            <div class="col-sm-3">{{serviceItem.description}}</div>
-                                            <div class="col-sm-3 gg-price">{{fnGetCostByService(serviceItem._id) | currency:'EUR':true:'1.2-2'}}</div>
+                                        <div class="row" id="{{serviceItem.data._id}}">
+                                            <div class="col-sm-3" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.data.name}}</div>
+                                            <div class="col-sm-3">{{serviceItem.data.description}}</div>
+                                            <div class="col-sm-3 gg-price">{{fnGetCostByService(serviceItem.data._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
@@ -33,15 +33,15 @@
                                                             <div class="row">
                                                                 <div class="col-sm-3 vcenter"><b>Name</b></div>
                                                                 <div class="col-sm-8 vcenter">
-                                                                    <gg-editor [content]="serviceItem.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
+                                                                    <gg-editor [content]="serviceItem.data.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
                                                                 </div>
                                                                 <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                                 <div class="col-sm-8 vcenter">
-                                                                    <gg-editor [content]="serviceItem.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
+                                                                    <gg-editor [content]="serviceItem.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                                                                 </div>
                                                                 <div class="col-sm-3 vcenter"><b>Client type used</b></div>
                                                                 <div class="col-sm-8 vcenter">
-                                                                    <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.clientTypeId"
+                                                                    <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
                                                                          (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
 
                                                                 </div>
@@ -54,7 +54,7 @@
                                                 <template ngbTabContent>
                                                     <div class="card">
                                                         <div class="card-block">
-                                                            <gg-platform-service-step-list [serviceId]="serviceItem._id"></gg-platform-service-step-list>
+                                                            <gg-platform-service-step-list [serviceId]="serviceItem.data._id"></gg-platform-service-step-list>
                                                         </div>
                                                     </div>
                                                 </template>
@@ -63,7 +63,7 @@
                                                 <template ngbTabContent>
                                                     <div class="card">
                                                         <div class="card-block">
-                                                            <gg-platform-service-snapshots [serviceId]="serviceItem._id"></gg-platform-service-snapshots>
+                                                            <gg-platform-service-snapshots [serviceId]="serviceItem.data._id"></gg-platform-service-snapshots>
                                                         </div>
                                                     </div>
                                                 </template>

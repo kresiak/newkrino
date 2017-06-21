@@ -42,7 +42,7 @@ export class PlatformServicesComponent implements OnInit {
             nameOfService: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
         })
-        this.dataStore.getDataObservable('platform.services').takeWhile(() => this.isPageRunning).subscribe(services => {
+        this.platformService.getAnnotatedServices().takeWhile(() => this.isPageRunning).subscribe(services => {
             if (!comparatorsUtils.softCopy(this.servicesList, services))
                 this.servicesList = comparatorsUtils.clone(services)
             this.state.selectedTabId = 'tabListOfServices'
@@ -73,7 +73,7 @@ export class PlatformServicesComponent implements OnInit {
 
     cloneService(service, formValue, isValid) {
         if (!isValid) return
-        this.platformService.cloneService(service._id, formValue.nameOfService, formValue.description).subscribe(res => {
+        this.platformService.cloneService(service.data._id, formValue.nameOfService, formValue.description).subscribe(res => {
             this.resetCloneForm()
         })
     }
@@ -98,17 +98,17 @@ export class PlatformServicesComponent implements OnInit {
     }
 
     nameServiceUpdated(name, serviceItem) {
-        serviceItem.name = name
-        this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)
+        serviceItem.data.name = name
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)
     }
 
     descriptionServiceUpdated(description, serviceItem) {
-        serviceItem.description = description
-        this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)
+        serviceItem.data.description = description
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)
     }
 
     clientTypeChanged(typeid, serviceItem) {
-        serviceItem.clientTypeId = typeid
-        this.dataStore.updateData('platform.services', serviceItem._id, serviceItem)        
+        serviceItem.data.clientTypeId = typeid
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem)        
     }
 }
