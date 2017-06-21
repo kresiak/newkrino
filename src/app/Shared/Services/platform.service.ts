@@ -141,10 +141,12 @@ export class PlatformService {
             (services, clients, corrections) => {                
                 return services.map(service => {
                     let correctionsFactors= this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
+                    let clientType= clients.filter(ct => ct._id===service.clientTypeId)[0]
                     return {
                         data: service,
                         annotation: {
-                            correctionsFactors: correctionsFactors
+                            correctionsFactors: correctionsFactors,
+                            clientType: clientType ? clientType.name : 'no client type selected, default corrections'
                         }
                     }
                 })

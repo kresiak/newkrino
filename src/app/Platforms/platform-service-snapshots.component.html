@@ -53,7 +53,7 @@
                                         <ngb-tab title="Info" id="tabInfo">
                                             <template ngbTabContent>
                                                 <div class="card">
-                                                    <div class="card-block">
+                                                    <div class="card-block gg-line-height">
                                                         <div class="row">
                                                             <div class="col-sm-3 vcenter"><b>Service name</b></div>
                                                             <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
@@ -61,6 +61,8 @@
                                                             <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
                                                             <div class="col-sm-3 vcenter"><b>Version</b></div>
                                                             <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
+                                                            <div class="col-sm-3 vcenter"><b>Client type</b></div>
+                                                            <div class="col-sm-8 vcenter">{{snapshot.annotation.clientType}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
