@@ -483,6 +483,9 @@ button {
     color: red;
 }
 
+.gg-line-height {
+    line-height: 50px;
+}
 
 .invisible-without-hover { 
     opacity : 0; 
