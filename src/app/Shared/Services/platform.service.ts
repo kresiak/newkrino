@@ -19,7 +19,7 @@ export class PlatformService {
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
         let correctionsFactors= this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
 
-        let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0]
+        let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0] || {}
 
         // products 
         // ========
@@ -57,7 +57,7 @@ export class PlatformService {
         // totals
         // ======
 
-        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + (machine.annotation || {}).costOfRun
+        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + (machine && machine.annotation) ?  machine.annotation.costOfRun : 0
 
         let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
             return {
@@ -75,7 +75,7 @@ export class PlatformService {
                 serviceName: (service || {}).name,
                 serviceDescription: (service || {}).description,
                 machineName: (machine.data || {}).name,
-                machineCost: (machine.annotation || {}).costOfRun,
+                machineCost: (machine && machine.annotation) ?  machine.annotation.costOfRun : 0,
                 productsCost: productsCost,
                 productsExtras: productsExtras,
                 labourCost: labourCost,
