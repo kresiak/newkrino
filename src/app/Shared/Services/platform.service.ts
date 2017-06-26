@@ -48,7 +48,7 @@ export class PlatformService {
 
         let labourReductions = correctionsFactors.filter(cf => cf.data.isOnLabour).map(cf => {
             return {
-                labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                labeltxt: cf.name + ' (' + cf.  perCent + '%)',
                 extraValue: -(100 - cf.perCent) / 100 * labourCost
             }
         })
@@ -57,7 +57,7 @@ export class PlatformService {
         // totals
         // ======
 
-        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + (machine && machine.annotation) ?  machine.annotation.costOfRun : 0
+        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ?  machine.annotation.costOfRun : 0)
 
         let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
             return {
