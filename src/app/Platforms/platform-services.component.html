@@ -11,7 +11,8 @@
                                         <div class="row">
                                             <div class="col-sm-3"><b>Service</b></div>
                                             <div class="col-sm-3"><b>Description</b></div>
-                                            <div class="col-sm-3"><b>Cost of service</b></div>
+                                            <div class="col-sm-2"><b>Category</b></div>
+                                            <div class="col-sm-2"><b>Cost of service</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -21,7 +22,8 @@
                                         <div class="row" id="{{serviceItem.data._id}}">
                                             <div class="col-sm-3" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceItem.data.name}}</div>
                                             <div class="col-sm-3">{{serviceItem.data.description}}</div>
-                                            <div class="col-sm-3 gg-price">{{fnGetCostByService(serviceItem.data._id) | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2">{{serviceItem.annotation.category}}</div>
+                                            <div class="col-sm-2 gg-price">{{fnGetCostByService(serviceItem.data._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
