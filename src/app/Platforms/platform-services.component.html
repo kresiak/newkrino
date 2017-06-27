@@ -47,6 +47,11 @@
                                                                         (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
 
                                                                 </div>
+                                                                <div class="col-sm-3 vcenter"><b>Category</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-autocomplete [selectableData]="categoryIdObservable" [emptyContentText]="'choose category'" [selectedId]="serviceItem.data.categoryId"
+                                                                        (idChanged)="categoryNameChanged($event, serviceItem)"></gg-editor-autocomplete>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -150,6 +155,13 @@
                                         <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="categoryId" class="col-sm-2 col-form-label col-xl-2">category:</label>
+                                    <div class="col-sm-10">
+                                         <gg-editor-autocomplete [selectableData]="categoryIdObservable" [emptyContentText]="'choose a category'"
+                                        (idChanged)="categoryIdChanged($event)"></gg-editor-autocomplete>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-3 col-md-2 col-lg-2">
                                         <button class="btn btn-success" type="submit" [disabled]="!serviceForm.valid">Submit</button>
@@ -169,7 +181,64 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="container-fluid">
-                            <gg-platform-service-categories></gg-platform-service-categories>
+                            <div class="card-block">
+                                <ngb-tabset>
+                                    <ngb-tab title="List of category" id="tabListOfCategory">
+                                        <template ngbTabContent>
+                                            <div class="card">
+                                                <div class="card-block">
+                                                    <div class="row">
+                                                        <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                        <div class="col-sm-7 vcenter"><b>Description</b></div>
+                                                    </div>
+                                                    <div *ngFor="let categoryItem of categoryList">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter">
+                                                                <gg-editor [content]="categoryItem.name" [showControls]="true" (editSaved)="nameServiceCategoryUpdated($event, categoryItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-7 vcenter">
+                                                                <gg-editor [content]="categoryItem.description" [showControls]="true" (editSaved)="descriptionServiceCategoryUpdated($event, categoryItem)"></gg-editor>
+                                                            </div>
+                                                        </div>                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Add category" id="tabAddCategory">
+                                        <template ngbTabContent>
+                                            <div class="card">
+                                                <div class="card-block">
+                                                    <div class="container-fluid">
+                                                        <form [formGroup]="categoryForm" (ngSubmit)="saveCategoryForm(categoryForm.value, categoryForm.valid)">
+                                                            <div class="form-group row">
+                                                                <label for="nameOfCategory" class="col-sm-2 col-form-label col-xl-2">name of category:</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" formControlName="nameOfCategory" id="nameOfCategory" placeholder="name of category">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                    <button class="btn btn-success" type="submit" [disabled]="!categoryForm.valid">Submit</button>
+                                                                </div>
+                                                                <div class="col-sm-3 col-md-2 col-lg-2">
+                                                                    <button class="btn btn-info"  [disabled]="categoryForm.pristine" (click)="resetCategoryForm()">Reset</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </ngb-tab>
+                                </ngb-tabset>
+                            </div>
                         </div>
                     </div>
                 </div>

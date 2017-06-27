@@ -24,6 +24,12 @@ export class PlatformServicesComponent implements OnInit {
 
     private state
     private clientListObservable
+    private categoryIdObservable
+    private categoryId
+    private categoryForm: FormGroup
+    private categoryList = []
+
+
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -59,13 +65,31 @@ export class PlatformServicesComponent implements OnInit {
             }
         }));
 
+        this.categoryForm = this.formBuilder.group({
+            nameOfCategory: ['', [Validators.required, Validators.minLength(3)]],
+            description: ['']
+        })
+
+        this.dataStore.getDataObservable('platform.service.categories').takeWhile(() => this.isPageRunning).subscribe(category => {
+            if (!comparatorsUtils.softCopy(this.categoryList, category))
+                this.categoryList= comparatorsUtils.clone(category)            
+        })
+
+        this.categoryIdObservable = this.dataStore.getDataObservable('platform.service.categories').takeWhile(() => this.isPageRunning).map(categories => categories.map(categoryId => {
+            return {
+                id: categoryId._id,
+                name: categoryId.name
+            }
+        }))
+
     }
 
     addService(formValue, isValid) {
         if (!isValid) return
         this.dataStore.addData('platform.services', {
             name: formValue.nameOfService,
-            description: formValue.description
+            description: formValue.description,
+            categoryId: this.categoryId
         }).subscribe(res => {
             this.reset()
         })
@@ -93,6 +117,21 @@ export class PlatformServicesComponent implements OnInit {
         this.serviceForm.reset()
     }
 
+    saveCategoryForm(formValue, isValid) {
+        this.dataStore.addData('platform.service.categories', {
+            name: formValue.nameOfCategory,
+            description: formValue.description
+        }).subscribe(res =>
+        {
+            this.resetCategoryForm()
+        })
+    }
+
+    resetCategoryForm()
+    {
+        this.categoryForm.reset()
+    }
+
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
@@ -111,4 +150,25 @@ export class PlatformServicesComponent implements OnInit {
         serviceItem.data.clientTypeId = typeid
         this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)        
     }
+
+    categoryNameChanged(catId, categoryItem) {
+        categoryItem.categoryId = catId
+        this.dataStore.updateData('platform.services', categoryItem._id, categoryItem)
+    }
+
+    categoryIdChanged(categoryId) {
+        this.categoryId = categoryId
+    }
+
+    nameServiceCategoryUpdated(name, categoryItem) {
+        categoryItem.name = name
+        this.dataStore.updateData('platform.service.categories', categoryItem._id, categoryItem)
+    }
+
+    descriptionServiceCategoryUpdated(description, categoryItem) {
+        categoryItem.description = description
+        this.dataStore.updateData('platform.service.categories', categoryItem._id, categoryItem)
+    }
+
+    
 }
