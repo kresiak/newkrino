@@ -143,7 +143,7 @@ export class PlatformService {
                 return services.map(service => {
                     let correctionsFactors= this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
                     let clientType= clients.filter(ct => ct._id===service.clientTypeId)[0]
-                    let category= categories.filter(ct => ct._id===service.serviceId)[0]
+                    let category= categories.filter(ct => ct._id===service.categoryId)[0]
                     return {
                         data: service,
                         annotation: {
