@@ -50,7 +50,7 @@
                                                                 <div class="col-sm-3 vcenter"><b>Category</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-autocomplete [selectableData]="categoryIdObservable" [emptyContentText]="'choose category'" [selectedId]="serviceItem.data.categoryId"
-                                                                        (idChanged)="categoryNameChanged($event, serviceItem)"></gg-editor-autocomplete>
+                                                                        (idChanged)="categoryIdInInfoChanged($event, serviceItem)"></gg-editor-autocomplete>
                                                                 </div>
                                                             </div>
                                                         </div>

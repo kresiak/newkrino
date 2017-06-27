@@ -151,9 +151,9 @@ export class PlatformServicesComponent implements OnInit {
         this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)        
     }
 
-    categoryNameChanged(catId, categoryItem) {
-        categoryItem.categoryId = catId
-        this.dataStore.updateData('platform.services', categoryItem._id, categoryItem)
+    categoryIdInInfoChanged(catId, serviceItem) {
+        serviceItem.data.categoryId = catId
+        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)
     }
 
     categoryIdChanged(categoryId) {
