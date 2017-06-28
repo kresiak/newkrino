@@ -131,7 +131,7 @@ export class PlatformService {
 
 
     getAnnotatedServiceStepsByService(serviceId: string): Observable<any> {
-        return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId === serviceId)))
+        return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId === serviceId && !step.isDisabled)))
     }
 
     getAnnotatedServiceStep(serviceStepId: string): Observable<any> {
