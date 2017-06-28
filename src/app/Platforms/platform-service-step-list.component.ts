@@ -36,7 +36,8 @@ export class PlatformServiceStepListComponent implements OnInit {
         this.stateInit()
         this.serviceStepForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(3)]],
-            description: ['']
+            description: [''],
+            runtime: ['', Validators.required]            
         })
 
         if (!this.isSnapshot) {
@@ -79,7 +80,8 @@ export class PlatformServiceStepListComponent implements OnInit {
             name: formValue.name,
             description: formValue.description,
             serviceId: this.serviceId,
-            machineId: this.machineId
+            machineId: this.machineId,
+            runtime: formValue.runtime            
         }).subscribe(res => {
             this.reset()
         })

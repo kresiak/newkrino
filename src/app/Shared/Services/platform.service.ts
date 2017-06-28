@@ -57,7 +57,7 @@ export class PlatformService {
         // totals
         // ======
 
-        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ?  machine.annotation.costOfRun : 0)
+        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ?  machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
 
         let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
             return {
@@ -75,7 +75,7 @@ export class PlatformService {
                 serviceName: (service || {}).name,
                 serviceDescription: (service || {}).description,
                 machineName: (machine.data || {}).name,
-                machineCost: (machine && machine.annotation) ?  machine.annotation.costOfRun : 0,
+                machineCost: (machine && machine.annotation) ?  machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0,
                 productsCost: productsCost,
                 productsExtras: productsExtras,
                 labourCost: labourCost,
@@ -221,15 +221,13 @@ export class PlatformService {
                 var annualAmortisation = +machine.price / +machine.lifetime
                 var nbHoursPerYear = +machine.hoursPerDay * 365 * +machine.occupancy / 100
                 var annualCost = annualAmortisation + +machine.maintenancePrice
-                var nbRunsPerYear = nbHoursPerYear / +machine.runtime
                 return {
                     data: machine,
                     annotation: {
                         annualAmortisation: annualAmortisation,
                         annualCost: annualCost,
                         nbHoursPerYear: nbHoursPerYear,
-                        nbRunsPerYear: nbRunsPerYear,
-                        costOfRun: annualCost / nbRunsPerYear
+                        costOfHour: annualCost / nbHoursPerYear
                     }
                 }
             })

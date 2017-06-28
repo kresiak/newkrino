@@ -74,6 +74,11 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 
+    runtimeMachineUpdated(runtime) {
+        this.serviceStep.data.runtime = +runtime
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
+    }
+
     productsChanged(productIds: string[]) {
         if (!this.serviceStep.data.products) this.serviceStep.data.products = []
         var products = this.serviceStep.data.products

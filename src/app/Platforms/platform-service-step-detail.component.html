@@ -17,6 +17,12 @@
                             <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
                                 [readOnly]="isSnapshot" (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                         </div>
+
+                        <div class="col-sm-3 vcenter"><b>Runtime (in hours)</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor-number [content]="serviceStep.data.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -44,10 +50,10 @@
                         <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
                         <div class="col-sm-8 vcenter">
                             {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>                        
+                        </div>
                     </div>
 
-                    <div class="row">                    
+                    <div class="row">
                         <div class="col-sm-3 vcenter"><b>Cost of labour</b></div>
                         <div class="col-sm-8 vcenter">
                             {{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}
@@ -58,9 +64,9 @@
                         <div class="col-sm-3 vcenter">reduction on {{prodExtra.labeltxt}}</div>
                         <div class="col-sm-8 vcenter">
                             {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>                        
+                        </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
                         <div class="col-sm-8 vcenter gg-price">
@@ -72,7 +78,7 @@
                         <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
                         <div class="col-sm-8 vcenter">
                             {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>                        
+                        </div>
                     </div>
 
                     <div class="row">
@@ -108,7 +114,7 @@
                                                     {{product.annotation.product}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
-                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
@@ -123,7 +129,7 @@
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </template>
@@ -133,7 +139,7 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <gg-product-list [isForSelection]="true" [productsObservable]="productsObservable" [selectedProductIds]="getProductIdsSelected()"
-                                                    (productsSelected)="productsChanged($event)"></gg-product-list>
+                                            (productsSelected)="productsChanged($event)"></gg-product-list>
                                     </div>
                                 </div>
                             </template>
@@ -165,7 +171,7 @@
                                                     {{labourType.data.name}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
-                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="labourType.annotation.nbHours" (editSaved)="labourQuantityUpdated(pos, $event)" ></gg-editor-number>
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="labourType.annotation.nbHours" (editSaved)="labourQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     {{labourType.data.hourlyRate | currency:'EUR':true:'1.2-2'}}
@@ -180,10 +186,10 @@
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}</div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
-                                
+
                             </template>
                         </ngb-tab>
                         <ngb-tab title="Add labour type" id="tabAddLabourType" *ngIf="false && !isSnapshot">
@@ -194,5 +200,5 @@
                 </div>
             </div>
         </template>
-    </ngb-tab>    
+    </ngb-tab>
 </ngb-tabset>

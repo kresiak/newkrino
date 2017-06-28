@@ -27,7 +27,6 @@ private isPageRunning: boolean = true
             lifetime: ['', Validators.required],
             maintenancePrice: ['', Validators.required],
             occupancy: ['', Validators.required],
-            runtime: ['', Validators.required],
             hoursPerDay: ['', Validators.required]
         })
 
@@ -46,7 +45,6 @@ private isPageRunning: boolean = true
             lifetime: formValue.lifetime,
             maintenancePrice: formValue.maintenancePrice,
             occupancy: formValue.occupancy,
-            runtime: formValue.runtime,
             hoursPerDay: formValue.hoursPerDay
         }).subscribe(res =>
         {
@@ -90,11 +88,6 @@ private isPageRunning: boolean = true
 
     occupancyMachineUpdated(occupancy, machineItem) {
         machineItem.data.occupancy = +occupancy
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
-    }
-
-    runtimeMachineUpdated(runtime, machineItem) {
-        machineItem.data.runtime = +runtime
         this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
     }
 
