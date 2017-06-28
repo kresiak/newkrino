@@ -6,6 +6,7 @@ import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
 import * as utilsComparator from './../Utils/comparators'
+import * as utilsKrino from './../Utils/krino'
 
 
 Injectable()
@@ -25,7 +26,8 @@ export class PlatformService {
         // ========
 
         let productsCost = (serviceStep.products || []).reduce((acc, p) => {
-            let unitPrice = productMap.has(p.id) ? productMap.get(p.id).price : 0
+            let nbUnitsInProduct= productMap.has(p.id) ?  (utilsKrino.getNumberInString(productMap.get(p.id).package) || 1) : 1            
+            let unitPrice = productMap.has(p.id) ? productMap.get(p.id).price/nbUnitsInProduct : 0
             return acc + unitPrice * p.quantity
         }, 0)
 
@@ -84,11 +86,14 @@ export class PlatformService {
                 totalExtras: totalExtras,  
                 grandTotalCost: total + sumOfTotalExtras,           
                 products: (serviceStep.products || []).map(prod => {
-                    let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price : -1
+                    let nbUnitsInProduct= productMap.has(prod.id) ?  (utilsKrino.getNumberInString(productMap.get(prod.id).package) || 1) : 1
+                    let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price / nbUnitsInProduct : -1
                     return {
                         data: prod,
                         annotation: {
                             product: productMap.has(prod.id) ? productMap.get(prod.id).name : 'unknown product',
+                            package: productMap.has(prod.id) ? productMap.get(prod.id).package : 'unknown package',
+                            nbUnitsInProduct: nbUnitsInProduct,
                             productPrice: unitPrice,
                             productTotal: prod.quantity * unitPrice
                         }
