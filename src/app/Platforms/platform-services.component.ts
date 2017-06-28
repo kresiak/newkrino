@@ -118,5 +118,8 @@ export class PlatformServicesComponent implements OnInit {
         this.dataStore.updateData('platform.service.categories', categoryItem._id, categoryItem)
     }
 
+    getServiceObservableByCategory(catId: string) {
+        return this.platformService.getAnnotatedServices().map(services => services.filter(service => service.data.categoryId === catId))
+    }
     
 }

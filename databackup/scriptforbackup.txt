@@ -14,3 +14,6 @@ mongoexport -d giga -c prestations --out C:\Users\akvasz\Documents\Giga\Angular2
 mongoexport -d giga -c users.eurisko --out C:\Tmp\aaa\users.eurisko.json
 mongoexport -d giga -c job.request --out C:\Tmp\aaa\job.request.json
 mongoexport -d giga -c job.response --out C:\Tmp\aaa\job.response.json
+
+
+mongoexport -d giga3 -c platform.client.types --out C:\Users\akvasz\Documents\Giga\Angular2\databackup\platform.client.types.json
