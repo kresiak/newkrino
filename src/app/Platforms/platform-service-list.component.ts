@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
-import { Observable } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
@@ -13,10 +13,21 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceListComponent implements OnInit {
+    searchForm: FormGroup;
+    searchControl = new FormControl();
+
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
-    }
+            this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });        
+}
 
     @Input() servicesObservable: Observable<any>
+
+    private nbHitsShown: number= 10
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)    
 
     private isPageRunning: boolean = true
 
@@ -39,7 +50,20 @@ export class PlatformServiceListComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit()
 
-        this.servicesObservable.takeWhile(() => this.isPageRunning).subscribe(services => {
+        Observable.combineLatest(this.servicesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (services, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '' ) return services
+            return services.filter(s => {
+                return (s.data.description || '').toUpperCase().includes(txt) || (s.data.name || '').toUpperCase().includes(txt) || (s.annotation.category || '').toUpperCase().includes(txt)
+            })
+        }).do(services => {
+            this.nbHits= services.length
+        })
+        .switchMap(services => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return services.slice(0, nbItems)
+            })
+        }).takeWhile(() => this.isPageRunning).subscribe(services => {
             if (!comparatorsUtils.softCopy(this.servicesList, services))
                 this.servicesList = comparatorsUtils.clone(services)
             this.state.selectedTabId = 'tabListOfServices'
@@ -111,5 +135,13 @@ export class PlatformServiceListComponent implements OnInit {
         this.cloneForm.reset()
     }
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    };
+   
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
 
 }

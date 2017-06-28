@@ -81,6 +81,11 @@ export class PlatformServicesComponent implements OnInit {
         }
     };
 
+    public beforeTabChange() {        
+        this.state.openPanelId= ''
+    };
+
+
     reset() {
         this.serviceForm.reset()
     }

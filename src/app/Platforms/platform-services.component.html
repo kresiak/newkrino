@@ -4,7 +4,7 @@
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
-                        <ngb-tabset>
+                        <ngb-tabset (tabChange)="beforeTabChange($event)">
                             <ngb-tab title="All services" id="tabListAllServices">
                                 <template ngbTabContent>
                                     <gg-platform-service-list [servicesObservable]="servicesObservable"></gg-platform-service-list>
