@@ -244,7 +244,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Categories" id="tabCategories"> <!-- *ngIf="servicesList && servicesList.length > 0">-->
+        <ngb-tab title="Categories" id="tabCategories" *ngIf="categoryList && categoryList.length > 0">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -253,15 +253,17 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div> Categories </div>
+                                            <div class="col-sm-3"><b>Name</b></div>
+                                            <div class="col-sm-3"><b>Description</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
-                                <ngb-panel> <!-- *ngFor="let serviceItem of servicesList" [id]="serviceItem.data._id">-->
+                                <ngb-panel *ngFor="let categoryItem of categoryList" [id]="categoryItem._id">
                                     <!--FOR-->
                                     <template ngbPanelTitle>
                                         <div class="row">
-
+                                            <div class="col-sm-3" [style.font-weight]="categoryItem._id === state.openPanelId ? 'bold' : 'lighter'">{{categoryItem.name}}</div>
+                                            <div class="col-sm-3">{{categoryItem.description}}</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
