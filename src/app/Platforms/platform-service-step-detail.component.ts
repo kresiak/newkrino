@@ -23,7 +23,6 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     private serviceStep: any
 
     private isPageRunning: boolean = true
-    private isDisabled: boolean = false
 
     private productsObservable: Observable<any>;
 
@@ -35,7 +34,7 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         if (!this.isSnapshot) {
             this.platformService.getAnnotatedServiceStep(this.serviceStepId).takeWhile(() => this.isPageRunning).subscribe(serviceStep => {
                 if (!comparatorsUtils.softCopy(this.serviceStep, serviceStep))
-                    this.serviceStep = serviceStep
+                    this.serviceStep = serviceStep                    
             })
 
             this.productsObservable = this.productService.getAnnotatedProductsAll();
@@ -113,8 +112,11 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         return (this.serviceStep.data.products || []).map(p => p.id)
     }
 
-    disableStep() {
-        this.serviceStep.data.isDisabled = true;
+    disableIndisableStep(isDisabled: boolean) {
+        if (!this.serviceStep.data.isDisabled)
+            this.serviceStep.data.isDisabled = true
+        else if (this.serviceStep.data.isDisabled) 
+            this.serviceStep.data.isDisabled = false
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 

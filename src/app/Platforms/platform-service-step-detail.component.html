@@ -206,7 +206,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Disable step" id="tabDisableStep">
+    <ngb-tab title="Disable step" id="tabDisableStep" *ngIf="!serviceStep.data.isDisabled">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -218,7 +218,23 @@
                             <button class="btn btn-warning" (click)="confirmation = true">Disable the step</button>
                         </div>
                         <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
-                            <button class="btn btn-danger" (click)="disableStep()" >Now I will disable the step</button>
+                            <button class="btn btn-danger" (click)="disableIndisableStep(isDebabled)" >Now I will disable the step</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Reactivate step" id="tabReactivateStep" *ngIf="serviceStep.data.isDisabled">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p>If you want to reactivate the step, click the button below.</p>
+                        </div>
+                        <div class="col-sm-3 col-md-2 col-lg-2">
+                            <button class="btn btn-warning" (click)="disableIndisableStep(isDebabled)" >Now I will reactivate the step</button>
                         </div>
                     </div>
                 </div>
