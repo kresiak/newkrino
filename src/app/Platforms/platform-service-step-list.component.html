@@ -24,7 +24,7 @@
                                             <div class="col-sm-3">{{serviceStep.data.description}}</div>
                                             <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
                                             <div class="col-sm-2">{{serviceStep.data.runtime}}</div>
-                                            <div class="col-sm-2 gg-price">{{serviceStep.annotation.totalCost | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost) | currency:'EUR':true:'1.2-2'}}</div>
                                             <div class="col-sm-1" *ngIf="isSnapshot">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
                                         </div>
                                     </template>
