@@ -23,6 +23,7 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     private serviceStep: any
 
     private isPageRunning: boolean = true
+    private isDisabled: boolean = false
 
     private productsObservable: Observable<any>;
 
@@ -110,5 +111,10 @@ export class PlatformServiceStepDetailComponent implements OnInit {
 
     getProductIdsSelected() {
         return (this.serviceStep.data.products || []).map(p => p.id)
+    }
+
+    disableStep() {
+        this.serviceStep.data.isDisabled = true;
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 }
