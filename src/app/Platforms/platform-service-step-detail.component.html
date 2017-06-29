@@ -214,8 +214,11 @@
                         <div class="col-sm-11">
                             <p>This action will disable the step. Are you sure you want to do that? If yes, click the button below.</p>
                         </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2">
-                            <button class="btn btn-warning" (click)="disableStep()" >Disable the step</button>
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation" >
+                            <button class="btn btn-warning" (click)="isConfirmed()">Disable the step</button>
+                        </div>
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
+                            <button class="btn btn-danger" (click)="disableStep()" >Now I will disable the step</button>
                         </div>
                     </div>
                 </div>
