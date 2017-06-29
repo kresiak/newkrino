@@ -23,6 +23,7 @@ export class PlatformServiceListComponent implements OnInit {
 }
 
     @Input() servicesObservable: Observable<any>
+    @Input() serviceToCompareToId: string= undefined
 
     private nbHitsShown: number= 10
     private nbHitsIncrement: number= 10

@@ -1,0 +1,35 @@
+<div class="card" *ngIf="service1 && service2 && service1Steps && service2Steps">
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-12 col-sm-push-0">
+                        <b>Service</b>
+                    </div>
+                </div>                                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-12 col-sm-push-2">
+                        Name
+                    </div>
+                </div>                
+            </div>
+            <div class="col-sm-4">{{service1.data.name}}</div>
+            <div class="col-sm-4">{{service2.data.name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-12 col-sm-push-2">
+                        Description
+                    </div>
+                </div>                
+            </div>
+            <div class="col-sm-4">{{service1.data.description}}</div>
+            <div class="col-sm-4">{{service2.data.description}}</div>
+        </div>
+    </div>
+</div>

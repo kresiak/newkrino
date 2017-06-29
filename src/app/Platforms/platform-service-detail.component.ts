@@ -13,13 +13,14 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceDetailComponent implements OnInit {
-    
+
     servicesIdenticalObservable: Observable<any>;
 
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
     @Input() serviceItem
+    @Input() serviceToCompareToId: string= undefined
 
     private isPageRunning: boolean = true
 

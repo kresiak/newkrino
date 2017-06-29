@@ -99,11 +99,20 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Identical services" id="tabIdenticalServices">
+    <ngb-tab title="Identical services" id="tabIdenticalServices" *ngIf="!serviceToCompareToId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <gg-platform-service-list [servicesObservable]="servicesIdenticalObservable"></gg-platform-service-list>
+                    <gg-platform-service-list [servicesObservable]="servicesIdenticalObservable" [serviceToCompareToId]="serviceItem.data._id" ></gg-platform-service-list>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Compare services" id="tabCompareServices" *ngIf="serviceToCompareToId">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <gg-platform-service-compare [service1Id]="serviceItem.data._id" [service2Id]="serviceToCompareToId" ></gg-platform-service-compare>
                 </div>
             </div>
         </template>
