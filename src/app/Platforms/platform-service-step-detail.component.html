@@ -218,7 +218,7 @@
                             <button class="btn btn-warning" (click)="confirmation = true">Disable the step</button>
                         </div>
                         <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
-                            <button class="btn btn-danger" (click)="disableIndisableStep(isDebabled)" >Now I will disable the step</button>
+                            <button class="btn btn-danger" (click)="enableDisableStep(true)" >Now I will disable the step</button>
                         </div>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
                             <p>If you want to reactivate the step, click the button below.</p>
                         </div>
                         <div class="col-sm-3 col-md-2 col-lg-2">
-                            <button class="btn btn-warning" (click)="disableIndisableStep(isDebabled)" >Now I will reactivate the step</button>
+                            <button class="btn btn-warning" (click)="enableDisableStep(false)" >Now I will reactivate the step</button>
                         </div>
                     </div>
                 </div>

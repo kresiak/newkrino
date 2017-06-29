@@ -112,11 +112,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         return (this.serviceStep.data.products || []).map(p => p.id)
     }
 
-    disableIndisableStep(isDisabled: boolean) {
-        if (!this.serviceStep.data.isDisabled)
-            this.serviceStep.data.isDisabled = true
-        else if (this.serviceStep.data.isDisabled) 
-            this.serviceStep.data.isDisabled = false
+    enableDisableStep(isDisabled: boolean) {
+        this.serviceStep.data.isDisabled = isDisabled
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 
