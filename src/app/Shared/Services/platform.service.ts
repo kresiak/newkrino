@@ -169,8 +169,11 @@ export class PlatformService {
         return this.getAnnotatedServicesHelper(this.dataStore.getDataObservable('platform.services'))
     }
 
+    // Identical or similar services
+    // ==============================
+
     getAnnotatedServicesIdenticalTo(serviceId) {
-        return this.getAnnotatedServicesHelper(this.getIdenticalServices(serviceId))
+        return this.getAnnotatedServicesHelper(this.getIdenticalServices(serviceId, this.areServiceIdenticals))
     }
 
     private areServiceIdenticals(service1, service2, stepMap: Map<string, any[]>): boolean {
@@ -184,7 +187,7 @@ export class PlatformService {
         return utilsComparator.compare(steps1, steps2)
     }
 
-    private getIdenticalServices(serviceId): Observable<any> {
+    private getIdenticalServices(serviceId, fnComparator): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('platform.services'),
             this.dataStore.getDataObservable('platform.service.steps').map(steps =>steps.filter(s => !s.isDisabled)),
@@ -200,10 +203,13 @@ export class PlatformService {
                     return map
                 }, new Map())
 
-                var x = services.filter(s => s._id !== serviceId).filter(s => this.areServiceIdenticals(s, service, stepMap))
+                var x = services.filter(s => s._id !== serviceId).filter(s => fnComparator(s, service, stepMap))
                 return x
             })
     }
+
+    // Cost calculation
+    // =================
 
     getServicesCostInfo(): Observable<any> {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps')).map(steps => {
@@ -224,6 +230,10 @@ export class PlatformService {
             }, new Map())
         })
     }
+
+
+    // Copy services...
+    // =================
 
     cloneService(serviceId: string, newName: string, newDescription: string): Observable<any> {
         return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id === serviceId)[0]).first()
