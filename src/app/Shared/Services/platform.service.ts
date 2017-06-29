@@ -18,7 +18,7 @@ export class PlatformService {
         if (!serviceStep) return null;
 
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
-        let correctionsFactors= this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
+        let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
 
         let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0] || {}
 
@@ -26,8 +26,8 @@ export class PlatformService {
         // ========
 
         let productsCost = (serviceStep.products || []).reduce((acc, p) => {
-            let nbUnitsInProduct= productMap.has(p.id) ?  (utilsKrino.getNumberInString(productMap.get(p.id).package) || 1) : 1            
-            let unitPrice = productMap.has(p.id) ? productMap.get(p.id).price/nbUnitsInProduct : 0
+            let nbUnitsInProduct = productMap.has(p.id) ? (utilsKrino.getNumberInString(productMap.get(p.id).package) || 1) : 1
+            let unitPrice = productMap.has(p.id) ? productMap.get(p.id).price / nbUnitsInProduct : 0
             return acc + unitPrice * p.quantity
         }, 0)
 
@@ -50,7 +50,7 @@ export class PlatformService {
 
         let labourReductions = correctionsFactors.filter(cf => cf.data.isOnLabour).map(cf => {
             return {
-                labeltxt: cf.name + ' (' + cf.  perCent + '%)',
+                labeltxt: cf.name + ' (' + cf.perCent + '%)',
                 extraValue: -(100 - cf.perCent) / 100 * labourCost
             }
         })
@@ -59,7 +59,7 @@ export class PlatformService {
         // totals
         // ======
 
-        let total= labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ?  machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
+        let total = labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
 
         let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
             return {
@@ -77,16 +77,16 @@ export class PlatformService {
                 serviceName: (service || {}).name,
                 serviceDescription: (service || {}).description,
                 machineName: (machine.data || {}).name,
-                machineCost: (machine && machine.annotation) ?  machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0,
+                machineCost: (machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0,
                 productsCost: productsCost,
                 productsExtras: productsExtras,
                 labourCost: labourCost,
                 labourReductions: labourReductions,
-                totalCost: total,   
-                totalExtras: totalExtras,  
-                grandTotalCost: total + sumOfTotalExtras,           
+                totalCost: total,
+                totalExtras: totalExtras,
+                grandTotalCost: total + sumOfTotalExtras,
                 products: (serviceStep.products || []).map(prod => {
-                    let nbUnitsInProduct= productMap.has(prod.id) ?  (utilsKrino.getNumberInString(productMap.get(prod.id).package) || 1) : 1
+                    let nbUnitsInProduct = productMap.has(prod.id) ? (utilsKrino.getNumberInString(productMap.get(prod.id).package) || 1) : 1
                     let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price / nbUnitsInProduct : -1
                     return {
                         data: prod,
@@ -122,7 +122,7 @@ export class PlatformService {
             this.getAnnotatedMachines(),
             this.dataStore.getDataObservable('products').map(utils.hashMapFactory),
             this.dataStore.getDataObservable('platform.labour.types'),
-            this.dataStore.getDataObservable('platform.client.types'), 
+            this.dataStore.getDataObservable('platform.client.types'),
             this.dataStore.getDataObservable('platform.correction.types'),
             (serviceSteps, services, machines, productMap, labourTypes, clients, corrections) => {
                 return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap, labourTypes, clients, corrections))
@@ -138,17 +138,17 @@ export class PlatformService {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step._id === serviceStepId))).map(steps => steps[0])
     }
 
-    getAnnotatedServices(): Observable<any> {
+    private getAnnotatedServicesHelper(servicesObservable : Observable<any>): Observable<any> {
         return Observable.combineLatest(
-            this.dataStore.getDataObservable('platform.services'),
-            this.dataStore.getDataObservable('platform.client.types'), 
+            servicesObservable,
+            this.dataStore.getDataObservable('platform.client.types'),
             this.dataStore.getDataObservable('platform.correction.types'),
             this.dataStore.getDataObservable('platform.service.categories'),
-            (services, clients, corrections, categories) => {                
+            (services, clients, corrections, categories) => {
                 return services.map(service => {
-                    let correctionsFactors= this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
-                    let clientType= clients.filter(ct => ct._id===service.clientTypeId)[0]
-                    let category= categories.filter(ct => ct._id===service.categoryId)[0]
+                    let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
+                    let clientType = clients.filter(ct => ct._id === service.clientTypeId)[0]
+                    let category = categories.filter(ct => ct._id === service.categoryId)[0]
                     return {
                         data: service,
                         annotation: {
@@ -159,6 +159,46 @@ export class PlatformService {
                     }
                 })
             });
+    }
+
+    getAnnotatedServices(): Observable<any> {
+        return this.getAnnotatedServicesHelper(this.dataStore.getDataObservable('platform.services'))
+    }
+
+    getAnnotatedServicesIdenticalTo(serviceId) {
+        return this.getAnnotatedServicesHelper(this.getIdenticalServices(serviceId))
+    }
+
+    private areServiceIdenticals(service1, service2, stepMap: Map<string, any[]>): boolean {
+        if (service1.categoryId !== service2.categoryId) return false
+
+        var irrelevantFields= ['serviceId', 'name', 'description']
+
+        var steps1= (stepMap.get(service1._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
+        var steps2= (stepMap.get(service2._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
+
+        return utilsComparator.compare(steps1, steps2)
+    }
+
+    private getIdenticalServices(serviceId): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('platform.services'),
+            this.dataStore.getDataObservable('platform.service.steps').map(steps =>steps.filter(s => !s.isDisabled)),
+            (services, steps) => {
+                var service = services.filter(s => s._id === serviceId)[0]
+                if (!service) return []
+
+                var stepMap = steps.reduce((map: Map<string, any[]>, s: any) => {
+                    if (!map.has(s.serviceId)) map.set(s.serviceId, [])
+                    var arr = map.get(s.serviceId)
+                    arr.push(s)
+                    map.set(s.serviceId, arr)
+                    return map
+                }, new Map())
+
+                var x = services.filter(s => s._id !== serviceId).filter(s => this.areServiceIdenticals(s, service, stepMap))
+                return x
+            })
     }
 
     getServicesCostInfo(): Observable<any> {
@@ -184,7 +224,7 @@ export class PlatformService {
     cloneService(serviceId: string, newName: string, newDescription: string): Observable<any> {
         return this.dataStore.getDataObservable('platform.services').map(services => services.filter(s => s._id === serviceId)[0]).first()
             .switchMap(service => {
-                var service2= utilsComparator.clone(service)
+                var service2 = utilsComparator.clone(service)
                 service2.name = newName
                 service2.description = newDescription
                 delete service2._id
@@ -204,10 +244,10 @@ export class PlatformService {
     snapshotService(serviceId: string, version: string, description: string): Observable<any> {
         return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
             .switchMap(service => {
-                var service2= utilsComparator.clone(service)
+                var service2 = utilsComparator.clone(service)
                 service2.version = version
                 service2.serviceId = serviceId
-                service2.description= description
+                service2.description = description
                 return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2), this.getAnnotatedServiceStepsByService(serviceId).first())
             }).switchMap(res => {
                 var newServiceId = res[0]._id

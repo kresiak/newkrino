@@ -52,3 +52,15 @@ export function clone(source) {
     return JSON.parse(JSON.stringify(source))
 }
 
+export function stripDbInfo(source, otherProperties=[]) : any {
+    var x= clone(source)
+    delete x._id
+    delete x.createDate
+    otherProperties.forEach(prop => delete x[prop])
+    return x
+}
+
+export function compare(source, target) {
+    return JSON.stringify(target) === JSON.stringify(source)    
+}
+
