@@ -117,8 +117,5 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         this.serviceStep.data.isDisabled = true;
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
-private confirmation: boolean = false
-    isConfirmed() {
-        this.confirmation = true
-    }
+
 }
