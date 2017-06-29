@@ -13,6 +13,8 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceStepListComponent implements OnInit {
+    serviceDisabledStepsList: any;
+    
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
@@ -45,6 +47,12 @@ export class PlatformServiceStepListComponent implements OnInit {
                 if (!comparatorsUtils.softCopy(this.serviceStepsList, serviceSteps))
                     this.serviceStepsList = comparatorsUtils.clone(serviceSteps)
             })
+
+            this.platformService.getAnnotatedDisabledServiceStepsByService(this.serviceId).takeWhile(() => this.isPageRunning).subscribe(serviceSteps => {
+                if (!comparatorsUtils.softCopy(this.serviceDisabledStepsList, serviceSteps))
+                    this.serviceDisabledStepsList = comparatorsUtils.clone(serviceSteps)
+            })
+
 
             this.machineListObservable = this.dataStore.getDataObservable('platform.machines').takeWhile(() => this.isPageRunning).map(machines => machines.map(machine => {
                 return {

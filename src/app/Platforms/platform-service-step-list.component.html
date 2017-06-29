@@ -38,7 +38,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add step" id="tabAddService" *ngIf="!isSnapshot">
+        <ngb-tab title="Add step" id="tabAddStep" *ngIf="!isSnapshot">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -79,6 +79,44 @@
                                 </div>                                
                             </form>
                         </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Disabled steps" id="tabDisabled steps" *ngIf="!isSnapshot && serviceDisabledStepsList && serviceDisabledStepsList.length > 0">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion"  (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+                                <ngb-panel [disabled]="true">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-2"><b>Step</b></div>
+                                            <div class="col-sm-3"><b>Description</b></div>
+                                            <div class="col-sm-2"><b>Machine</b></div>
+                                            <div class="col-sm-2"><b>Runtime (in h)</b></div>
+                                            <div class="col-sm-2"><b>Cost of step</b></div>
+                                        </div>
+                                    </template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let serviceStep of serviceDisabledStepsList" [id]="serviceStep.data._id">
+                                    <template ngbPanelTitle>
+                                        <div class="row" id="{{serviceStep.data._id}}">
+                                            <div class="col-sm-2" [style.font-weight]="serviceStep.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceStep.data.name}}</div>
+                                            <div class="col-sm-3">{{serviceStep.data.description}}</div>
+                                            <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
+                                            <div class="col-sm-2">{{serviceStep.data.runtime}}</div>
+                                            <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost) | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-1" *ngIf="isSnapshot">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
+                                        </div>
+                                    </template>
+                                    <template ngbPanelContent>
+                                        <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot" ></gg-platform-service-step-detail>
+		                            </template>
+				                </ngb-panel>
+			                </ngb-accordion>
+		                </div>
                     </div>
                 </div>
             </template>
