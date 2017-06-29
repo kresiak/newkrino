@@ -103,15 +103,16 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm-3 vcenter"><b>Product</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Quantity</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Price</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Price per unit</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Nb of units in product</b></div>
                                             <div class="col-sm-2 vcenter"><b>Total</b></div>
                                         </div>
                                         <div *ngFor="let product of (serviceStep.annotation.products || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
                                                 <div class="col-sm-3 vcenter">
-                                                    {{product.annotation.product}}
+                                                    {{product.annotation.product}} {{product.annotation.package ? ' (' + product.annotation.package + ')' : ''}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)"></gg-editor-number>
@@ -120,12 +121,16 @@
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
+                                                    {{product.annotation.nbUnitsInProduct}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gg-price">
                                             <div class="col-sm-3 vcenter"><b></b></div>
+                                            <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
