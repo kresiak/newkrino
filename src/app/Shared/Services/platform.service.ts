@@ -13,6 +13,8 @@ Injectable()
 export class PlatformService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
+    // Service step annotation....
+    // ============================
 
     private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>, labourTypes, clients, corrections) {
         if (!serviceStep) return null;
@@ -138,6 +140,9 @@ export class PlatformService {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId === serviceId && step.isDisabled)))
     }
 
+    // Services annotation....
+    // =======================
+
     getAnnotatedServiceStep(serviceStepId: string): Observable<any> {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step._id === serviceStepId))).map(steps => steps[0])
     }
@@ -179,7 +184,7 @@ export class PlatformService {
     private areServiceIdenticals(service1, service2, stepMap: Map<string, any[]>): boolean {
         if (service1.categoryId !== service2.categoryId) return false
 
-        var irrelevantFields= ['serviceId', 'name', 'description']
+        var irrelevantFields= ['serviceId', 'name', 'description', 'isDisabled']
 
         var steps1= (stepMap.get(service1._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
         var steps2= (stepMap.get(service2._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
@@ -273,6 +278,8 @@ export class PlatformService {
             })
     }
 
+    // Other misc annotation
+    // =======================
 
     getAnnotatedMachines() {
         return Observable.combineLatest(this.dataStore.getDataObservable('platform.machines'), (machines) => {
