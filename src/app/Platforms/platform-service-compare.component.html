@@ -3,5 +3,31 @@
         <gg-platform-service-compare-base [col1]="'Service'" [bold1]="true"></gg-platform-service-compare-base>
         <gg-platform-service-compare-base [col1]="'Name'" [col2]="service1.data.name" [col3]="service2.data.name"></gg-platform-service-compare-base>
         <gg-platform-service-compare-base [col1]="'Description'" [col2]="service1.data.description" [col3]="service2.data.description"></gg-platform-service-compare-base>
+        <gg-platform-service-compare-base [col1]="'Client type'" [col2]="service1.annotation.clientType" [col3]="service2.annotation.clientType"></gg-platform-service-compare-base>
+        <gg-platform-service-compare-base [col1]="'Category'" [col2]="service1.annotation.category" [col3]="service2.annotation.category"></gg-platform-service-compare-base>
+        <div *ngFor="let pos of getIndexes(service2Steps)">
+            <gg-platform-service-compare-base [col1]="'Step'" [bold1]="true"></gg-platform-service-compare-base>
+            <gg-platform-service-compare-base [col1]="'Name'" [col2]="service1Steps[pos].data.name" [col3]="service2Steps[pos].data.name"></gg-platform-service-compare-base>
+            <gg-platform-service-compare-base [col1]="'Description'" [col2]="service1Steps[pos].data.description" [col3]="service2Steps[pos].data.description"></gg-platform-service-compare-base>
+            <gg-platform-service-compare-base [col1]="'Machine used'" [col2]="service1Steps[pos].annotation.machineName" [col3]="service2Steps[pos].annotation.machineName"></gg-platform-service-compare-base>
+            <gg-platform-service-compare-base [col1]="'Runtime (in h)'" [col2]="service1Steps[pos].data.runtime" [col3]="service2Steps[pos].data.runtime"></gg-platform-service-compare-base>        
+            <div *ngFor="let posProd of getIndexes(service1Steps[pos].annotation.products)">
+                <gg-platform-service-compare-base [col1]="'Product'"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'name'" [indent]="true"  [col2]="service1Steps[pos].annotation.products[posProd].annotation.product" 
+                                    [col3]="service2Steps[pos].annotation.products[posProd].annotation.product"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'  package'" [indent]="true" [col2]="service1Steps[pos].annotation.products[posProd].annotation.package || '<no packaging info>'" 
+                                    [col3]="service2Steps[pos].annotation.products[posProd].annotation.package  || '<no packagin info>'"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'  quantity'"  [indent]="true" [col2]="service1Steps[pos].annotation.products[posProd].data.quantity || '<no packaging info>'" 
+                                    [col3]="service2Steps[pos].annotation.products[posProd].data.quantity  || '<no packagin info>'"></gg-platform-service-compare-base>
+            </div>    
+            <div *ngFor="let posLabour of getIndexes(service1Steps[pos].annotation.labourTypes)">
+                <gg-platform-service-compare-base [col1]="'Labour type'"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'name'" [indent]="true"  [col2]="service1Steps[pos].annotation.labourTypes[posLabour].data.name" 
+                                    [col3]="service2Steps[pos].annotation.labourTypes[posLabour].data.name"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'time (in hours)'" [indent]="true"  [col2]="service1Steps[pos].annotation.labourTypes[posLabour].annotation.nbHours" 
+                                    [col3]="service2Steps[pos].annotation.labourTypes[posLabour].annotation.nbHours"></gg-platform-service-compare-base>
+
+            </div>
+        </div>
     </div>
 </div>

@@ -15,5 +15,6 @@ export class PlatformServiceCompareBaseComponent  {
     @Input() col2: string=''
     @Input() col3: string=''
     @Input() bold1: boolean=false
+    @Input() indent: boolean=false
 
 }

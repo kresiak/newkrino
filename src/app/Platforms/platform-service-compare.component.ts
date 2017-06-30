@@ -44,4 +44,8 @@ export class PlatformServiceCompareComponent implements OnInit {
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
+
+    getIndexes(arr) {
+        return Array.from(arr.keys())
+    }
 }
