@@ -181,6 +181,10 @@ export class PlatformService {
         return this.getAnnotatedServicesHelper(this.getIdenticalServices(serviceId, this.areServiceIdenticals))
     }
 
+    getAnnotatedServicesSimilarTo(serviceId) {
+        return this.getAnnotatedServicesHelper(this.getIdenticalServices(serviceId, this.areServiceSimilars))
+    }
+
     private areServiceIdenticals(service1, service2, stepMap: Map<string, any[]>): boolean {
         if (service1.categoryId !== service2.categoryId) return false
 
@@ -191,6 +195,16 @@ export class PlatformService {
 
         return utilsComparator.compare(steps1, steps2)
     }
+
+    private areServiceSimilars(service1, service2, stepMap: Map<string, any[]>, self): boolean {
+        if (self.areServiceIdenticals(service1, service2, stepMap)) return false
+
+        var steps1= (stepMap.get(service1._id) || [])
+        var steps2= (stepMap.get(service2._id) || [])
+
+        return steps1.length === steps2.length
+    }
+
 
     private getIdenticalServices(serviceId, fnComparator): Observable<any> {
         return Observable.combineLatest(
@@ -208,7 +222,7 @@ export class PlatformService {
                     return map
                 }, new Map())
 
-                var x = services.filter(s => s._id !== serviceId).filter(s => fnComparator(s, service, stepMap))
+                var x = services.filter(s => s._id !== serviceId).filter(s => fnComparator(s, service, stepMap, this))
                 return x
             })
     }

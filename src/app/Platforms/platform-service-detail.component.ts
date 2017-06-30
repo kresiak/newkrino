@@ -13,6 +13,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceDetailComponent implements OnInit {
+    servicesSimilarObservable: Observable<any>;
 
     servicesIdenticalObservable: Observable<any>;
 
@@ -39,6 +40,7 @@ export class PlatformServiceDetailComponent implements OnInit {
         this.stateInit()
         
         this.servicesIdenticalObservable= this.platformService.getAnnotatedServicesIdenticalTo(this.serviceItem.data._id)
+        this.servicesSimilarObservable= this.platformService.getAnnotatedServicesSimilarTo(this.serviceItem.data._id)
 
         this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(machines => machines.map(machine => {
             return {
