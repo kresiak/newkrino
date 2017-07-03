@@ -104,7 +104,7 @@
                                         <div class="row">
                                             <div class="col-sm-3 vcenter"><b>Product</b></div>
                                             <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Price per unit</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Price per unit</b></div>
                                             <div class="col-sm-2 vcenter"><b>Nb of units in product</b></div>
                                             <div class="col-sm-2 vcenter"><b>Total</b></div>
                                         </div>
@@ -117,7 +117,7 @@
                                                 <div class="col-sm-2 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-1 vcenter">
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
@@ -126,12 +126,15 @@
                                                 <div class="col-sm-2 vcenter">
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
+                                                <div class="col-sm-1 vcenter">
+                                                    <button type="button" class="btn btn-link" (click)="deleteProduct(pos)">Delete</button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row gg-price">
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter"><b></b></div>
+                                            <div class="col-sm-1 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
