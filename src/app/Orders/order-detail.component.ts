@@ -47,6 +47,7 @@ export class OrderDetailComponent implements OnInit {
     private otpListObservable: any
     private equipeListObservable
 
+    private processDeliverySaveButton: boolean= false
 
 
     ngOnInit(): void {
@@ -83,6 +84,8 @@ export class OrderDetailComponent implements OnInit {
     }
 
     private SaveDeliveryItems(deliveryItems) {
+        if (!this.processDeliverySaveButton) return
+        this.processDeliverySaveButton= false
         var self = this
 
         this.dataStore.getDataObservable('products.stock').first().subscribe(stockItems => {
@@ -146,6 +149,7 @@ export class OrderDetailComponent implements OnInit {
 
 
     openModal(template) {
+        this.processDeliverySaveButton=true
         this.tmpDeliveryItems = this.order.annotation.items.map(item => {
 
             var obj: any = {
@@ -291,6 +295,8 @@ export class OrderDetailComponent implements OnInit {
     };
 
     deteteDeliveryItem(orderItem, deliveryItem) {
+        if (!deliveryItem.data.isDueToDelete) return
+        deliveryItem.data.isDueToDelete= false
         var stockId = deliveryItem.data.stockId
         var qty = +deliveryItem.data.quantity
 
