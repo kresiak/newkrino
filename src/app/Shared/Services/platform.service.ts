@@ -202,7 +202,7 @@ export class PlatformService {
         var steps1= (stepMap.get(service1._id) || [])
         var steps2= (stepMap.get(service2._id) || [])
 
-        return steps1.length === steps2.length
+        return Math.abs(steps1.length - steps2.length) <= 1
     }
 
 
