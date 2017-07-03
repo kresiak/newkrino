@@ -16,9 +16,9 @@
                 <gg-platform-service-compare-base [col1]="'name'" [indent]="true"  [col2]="service1Steps[pos].annotation.products[posProd].annotation.product" 
                                     [col3]="service2Steps[pos].annotation.products[posProd].annotation.product"></gg-platform-service-compare-base>
                 <gg-platform-service-compare-base [col1]="'  package'" [indent]="true" [col2]="service1Steps[pos].annotation.products[posProd].annotation.package || '<no packaging info>'" 
-                                    [col3]="service2Steps[pos].annotation.products[posProd].annotation.package  || '<no packagin info>'"></gg-platform-service-compare-base>
-                <gg-platform-service-compare-base [col1]="'  quantity'"  [indent]="true" [col2]="service1Steps[pos].annotation.products[posProd].data.quantity || '<no packaging info>'" 
-                                    [col3]="service2Steps[pos].annotation.products[posProd].data.quantity  || '<no packagin info>'"></gg-platform-service-compare-base>
+                                    [col3]="service2Steps[pos].annotation.products[posProd].annotation.package  || '<no packaging info>'"></gg-platform-service-compare-base>
+                <gg-platform-service-compare-base [col1]="'  quantity'"  [indent]="true" [col2]="service1Steps[pos].annotation.products[posProd].data.quantity" 
+                                    [col3]="service2Steps[pos].annotation.products[posProd].data.quantity"></gg-platform-service-compare-base>
             </div>    
             <div *ngFor="let posLabour of getIndexes(service1Steps[pos].annotation.labourTypes)">
                 <gg-platform-service-compare-base [col1]="'Labour type'"></gg-platform-service-compare-base>
