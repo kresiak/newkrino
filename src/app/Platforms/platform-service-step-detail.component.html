@@ -127,11 +127,11 @@
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
-                                                    <input type="checkbox" [ngbTooltip]="'click here to select the product for deletion'" *ngIf="!product.products"
-														 (click)="product.products = !product.products" />
+                                                    <input type="checkbox" [ngbTooltip]="'click here to select the product for deletion'" *ngIf="!product.isDueToDelete"
+														 (click)="product.isDueToDelete = !product.isDueToDelete" />
 														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected product item and can't be undone. Click here if you are sure you want to delete it."
-														 *ngIf="product.products" (click)="deleteProduct(pos)">Delete</div>
-														<div class="btn btn-success btn-sm" *ngIf="product.products" (click)="product.products = !product.products">Cancel</div>
+														 *ngIf="product.isDueToDelete" (click)="deleteProduct(pos)">Delete</div>
+														<div class="btn btn-success btn-sm" *ngIf="product.isDueToDelete" (click)="product.isDueToDelete = !product.isDueToDelete">Cancel</div>
                                                 </div>
                                             </div>
                                         </div>
