@@ -29,10 +29,11 @@
                             <ngb-panel [disabled]="true">
                                 <template ngbPanelTitle>
                                     <div class="row">
+                                        <div class="col-sm-3"><b>Date</b></div>
                                         <div class="col-sm-2"><b>Version</b></div>
-                                        <div class="col-sm-3"><b>Description</b></div>
-                                        <div class="col-sm-3"><b>Service</b></div>
-                                        <div class="col-sm-3"><b>Cost of service</b></div>
+                                        <div class="col-sm-2"><b>Description</b></div>
+                                        <div class="col-sm-2"><b>Service</b></div>
+                                        <div class="col-sm-2"><b>Cost of service</b></div>
                                     </div>
                                 </template>
                             </ngb-panel>
@@ -40,10 +41,11 @@
                                 <!--FOR-->
                                 <template ngbPanelTitle>
                                     <div class="row" id="{{snapshot._id}}">
+                                        <div class="col-sm-3">{{snapshot.createDate | fullDate}}</div>
                                         <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
-                                        <div class="col-sm-3">{{snapshot.description}}</div>
-                                        <div class="col-sm-3">{{snapshot.data.name}}</div>
-                                        <div class="col-sm-3 gg-price">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
+                                        <div class="col-sm-2">{{snapshot.description}}</div>
+                                        <div class="col-sm-2">{{snapshot.data.name}}</div>
+                                        <div class="col-sm-2 gg-price">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
                                         <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
 
                                     </div>
