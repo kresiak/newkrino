@@ -31,62 +31,74 @@
     <ngb-tab title="Cost detail" id="tabCost">
         <template ngbTabContent>
             <div class="card">
-                <div class="card-block gg-line-height">
-                    <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Machine cost of run</b></div>
-                        <div class="col-sm-8 vcenter">
-                            {{serviceStep.annotation.machineCost | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                <div class="card-block">
+                    <ngb-tabset *ngIf="serviceStep.annotation.costsByClientType">
+                        <ngb-tab *ngFor="let clientType of serviceStep.annotation.costsByClientType" title="{{clientType.clientType}}">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block gg-line-height">
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Machine cost of run</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{serviceStep.annotation.machineCost | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Cost of products</b></div>
-                        <div class="col-sm-8 vcenter">
-                            {{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Cost of products</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row" *ngFor="let prodExtra of serviceStep.annotation.productsExtras">
-                        <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
-                        <div class="col-sm-8 vcenter">
-                            {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row" *ngFor="let prodExtra of clientType.productsExtras">
+                                            <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Cost of labour</b></div>
-                        <div class="col-sm-8 vcenter">
-                            {{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Cost of labour</b></div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row" *ngFor="let prodExtra of serviceStep.annotation.labourReductions">
-                        <div class="col-sm-3 vcenter">reduction on {{prodExtra.labeltxt}}</div>
-                        <div class="col-sm-8 vcenter">
-                            {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row" *ngFor="let prodExtra of clientType.labourReductions">
+                                            <div class="col-sm-3 vcenter">reduction on {{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
-                        <div class="col-sm-8 vcenter gg-price">
-                            {{serviceStep.annotation.totalCost | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
+                                            <div class="col-sm-8 vcenter gg-price">
+                                                {{clientType.totalCost | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row" *ngFor="let prodExtra of serviceStep.annotation.totalExtras">
-                        <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
-                        <div class="col-sm-8 vcenter">
-                            {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row" *ngFor="let prodExtra of clientType.totalExtras">
+                                            <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-8 vcenter">
+                                                {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
 
-                    <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Price of step</b></div>
-                        <div class="col-sm-8 vcenter gg-price">
-                            {{serviceStep.annotation.grandTotalCost | currency:'EUR':true:'1.2-2'}}
-                        </div>
-                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Price of step</b></div>
+                                            <div class="col-sm-8 vcenter gg-price">
+                                                {{clientType.grandTotalCost | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
 
                 </div>
             </div>
@@ -215,13 +227,15 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-11">
-                            <p>This action will disable the step. Are you sure you want to do that? If yes, click the button below.</p>
+                            <p>This action will disable the step. Are you sure you want to do that? If yes, click the button
+                                below.
+                            </p>
                         </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation" >
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation">
                             <button class="btn btn-warning" (click)="confirmation = true">Disable the step</button>
                         </div>
                         <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
-                            <button class="btn btn-danger" (click)="enableDisableStep(true)" >Now I will disable the step</button>
+                            <button class="btn btn-danger" (click)="enableDisableStep(true)">Now I will disable the step</button>
                         </div>
                     </div>
                 </div>
@@ -237,7 +251,7 @@
                             <p>If you want to reactivate the step, click the button below.</p>
                         </div>
                         <div class="col-sm-3 col-md-2 col-lg-2">
-                            <button class="btn btn-warning" (click)="enableDisableStep(false)" >Now I will reactivate the step</button>
+                            <button class="btn btn-warning" (click)="enableDisableStep(false)">Now I will reactivate the step</button>
                         </div>
                     </div>
                 </div>

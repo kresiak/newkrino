@@ -17,10 +17,54 @@ export class PlatformService {
     // ============================
 
     private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>, labourTypes, clients, corrections) {
+        var self= this
+
+        function getTotals(clientTypeId) {
+            let correctionsFactors = self.getCorrectionsOfClientType(clientTypeId, clients, corrections)
+            let productsExtras = correctionsFactors.filter(cf => cf.data.isOnProduct).map(cf => {
+                return {
+                    labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                    extraValue: cf.perCent / 100 * productsCost
+                }
+            })
+            let sumProductsExtras = productsExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
+
+            let labourReductions = correctionsFactors.filter(cf => cf.data.isOnLabour).map(cf => {
+                return {
+                    labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                    extraValue: -(100 - cf.perCent) / 100 * labourCost
+                }
+            })
+            let sumLabourReduction = labourReductions.reduce((acc, pe) => acc + +pe.extraValue, 0)
+
+            // totals
+            // ======
+
+            let total = labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
+
+            let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
+                return {
+                    labeltxt: cf.name + ' (' + cf.perCent + '%)',
+                    extraValue: cf.perCent / 100 * total
+                }
+            })
+
+            let sumOfTotalExtras = totalExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
+
+            return {
+                clientTypeId: clientTypeId,
+                clientType: (clients.filter(c => c._id===clientTypeId)[0] || {name:'standard'}).name,
+                productsExtras: productsExtras,
+                labourReductions: labourReductions,
+                totalCost: total,
+                totalExtras: totalExtras,
+                grandTotalCost: total + sumOfTotalExtras               
+            }
+        }
+
         if (!serviceStep) return null;
 
         let service = services.filter(service => serviceStep.serviceId === service._id)[0]
-        let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
 
         let machine = machines.filter(machine => serviceStep.machineId === machine.data._id)[0] || {}
 
@@ -33,13 +77,6 @@ export class PlatformService {
             return acc + unitPrice * p.quantity
         }, 0)
 
-        let productsExtras = correctionsFactors.filter(cf => cf.data.isOnProduct).map(cf => {
-            return {
-                labeltxt: cf.name + ' (' + cf.perCent + '%)',
-                extraValue: cf.perCent / 100 * productsCost
-            }
-        })
-        let sumProductsExtras = productsExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
 
         // labour
         // ======
@@ -50,27 +87,9 @@ export class PlatformService {
             return acc + unitPrice * ltInDb.nbHours
         }, 0)
 
-        let labourReductions = correctionsFactors.filter(cf => cf.data.isOnLabour).map(cf => {
-            return {
-                labeltxt: cf.name + ' (' + cf.perCent + '%)',
-                extraValue: -(100 - cf.perCent) / 100 * labourCost
-            }
-        })
-        let sumLabourReduction = labourReductions.reduce((acc, pe) => acc + +pe.extraValue, 0)
 
-        // totals
-        // ======
-
-        let total = labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
-
-        let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
-            return {
-                labeltxt: cf.name + ' (' + cf.perCent + '%)',
-                extraValue: cf.perCent / 100 * total
-            }
-        })
-
-        let sumOfTotalExtras = totalExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
+        var costsByClientType= clients.map(ct => getTotals(ct._id))
+        costsByClientType.push(getTotals(undefined))
 
         return {
             data: serviceStep,
@@ -81,12 +100,8 @@ export class PlatformService {
                 machineName: (machine.data || {}).name,
                 machineCost: (machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0,
                 productsCost: productsCost,
-                productsExtras: productsExtras,
                 labourCost: labourCost,
-                labourReductions: labourReductions,
-                totalCost: total,
-                totalExtras: totalExtras,
-                grandTotalCost: total + sumOfTotalExtras,
+                costsByClientType: costsByClientType,
                 products: (serviceStep.products || []).map(prod => {
                     let nbUnitsInProduct = productMap.has(prod.id) ? (utilsKrino.getNumberInString(productMap.get(prod.id).package) || 1) : 1
                     let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price / nbUnitsInProduct : -1
@@ -148,7 +163,7 @@ export class PlatformService {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step._id === serviceStepId))).map(steps => steps[0])
     }
 
-    private getAnnotatedServicesHelper(servicesObservable : Observable<any>): Observable<any> {
+    private getAnnotatedServicesHelper(servicesObservable: Observable<any>): Observable<any> {
         return Observable.combineLatest(
             servicesObservable,
             this.dataStore.getDataObservable('platform.client.types'),
@@ -158,8 +173,8 @@ export class PlatformService {
                 return services.map(service => {
                     let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
                     let clientType = clients.filter(ct => ct._id === service.clientTypeId)[0]
-                    let category = categories.filter(ct => (service.categoryIds || []).includes(ct._id)).map(ct => ct.name).sort((a,b) => a > b ? 1 : -1)
-                            .reduce((acc, c) => acc ? (acc + ', ' + c) : c, '')
+                    let category = categories.filter(ct => (service.categoryIds || []).includes(ct._id)).map(ct => ct.name).sort((a, b) => a > b ? 1 : -1)
+                        .reduce((acc, c) => acc ? (acc + ', ' + c) : c, '')
                     return {
                         data: service,
                         annotation: {
@@ -188,7 +203,7 @@ export class PlatformService {
         this.dataStore.addData('platform.service.categories', { 'name': newCategory });
     }
 
-    
+
 
 
     // Identical or similar services
@@ -205,10 +220,10 @@ export class PlatformService {
     private areServiceIdenticals(service1, service2, stepMap: Map<string, any[]>): boolean {
         if (service1.categoryId !== service2.categoryId) return false
 
-        var irrelevantFields= ['serviceId', 'name', 'description', 'isDisabled']
+        var irrelevantFields = ['serviceId', 'name', 'description', 'isDisabled']
 
-        var steps1= (stepMap.get(service1._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
-        var steps2= (stepMap.get(service2._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
+        var steps1 = (stepMap.get(service1._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
+        var steps2 = (stepMap.get(service2._id) || []).map(s => utilsComparator.stripDbInfo(s, irrelevantFields))
 
         return utilsComparator.compare(steps1, steps2)
     }
@@ -216,8 +231,8 @@ export class PlatformService {
     private areServiceSimilars(service1, service2, stepMap: Map<string, any[]>, self): boolean {
         if (self.areServiceIdenticals(service1, service2, stepMap)) return false
 
-        var steps1= (stepMap.get(service1._id) || [])
-        var steps2= (stepMap.get(service2._id) || [])
+        var steps1 = (stepMap.get(service1._id) || [])
+        var steps2 = (stepMap.get(service2._id) || [])
 
         return Math.abs(steps1.length - steps2.length) <= 1
     }
@@ -226,7 +241,7 @@ export class PlatformService {
     private getIdenticalServices(serviceId, fnComparator): Observable<any> {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('platform.services'),
-            this.dataStore.getDataObservable('platform.service.steps').map(steps =>steps.filter(s => !s.isDisabled)),
+            this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(s => !s.isDisabled)),
             (services, steps) => {
                 var service = services.filter(s => s._id === serviceId)[0]
                 if (!service) return []
