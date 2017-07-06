@@ -106,7 +106,7 @@
                                             <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
                                             <div class="col-sm-1 vcenter"><b>Price per unit</b></div>
                                             <div class="col-sm-2 vcenter"><b>Nb of units in product</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Total</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Total</b></div>
                                         </div>
                                         <div *ngFor="let product of (serviceStep.annotation.products || []); let pos = index">
                                             <!--FOR  -->
@@ -123,11 +123,15 @@
                                                 <div class="col-sm-2 vcenter">
                                                     {{product.annotation.nbUnitsInProduct}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-1 vcenter">
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
-                                                    <button type="button" class="btn btn-link" (click)="deleteProduct(pos)">Delete</button>
+                                                <div class="col-sm-2 vcenter">
+                                                    <input type="checkbox" [ngbTooltip]="'click here to select the product for deletion'" *ngIf="!product.isDueToDelete"
+														 (click)="product.isDueToDelete = !product.isDueToDelete" />
+														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected product item and can't be undone. Click here if you are sure you want to delete it."
+														 *ngIf="product.isDueToDelete" (click)="deleteProduct(pos)">Delete</div>
+														<div class="btn btn-success btn-sm" *ngIf="product.isDueToDelete" (click)="product.isDueToDelete = !product.isDueToDelete">Cancel</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +140,7 @@
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-1 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter">Total:</div>
-                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-1 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
                                 </div>
