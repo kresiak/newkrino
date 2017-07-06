@@ -124,7 +124,7 @@ export class PlatformServicesComponent implements OnInit {
     }
 
     getServiceObservableByCategory(catId: string) {
-        return this.platformService.getAnnotatedServices().map(services => services.filter(service => service.data.categoryId === catId))
+        return this.platformService.getAnnotatedServices().map(services => services.filter(service => (service.data.categoryIds || []).includes(catId)))
     }
     
 }

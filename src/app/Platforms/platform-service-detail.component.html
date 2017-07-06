@@ -20,8 +20,9 @@
                         </div>
                         <div class="col-sm-3 vcenter"><b>Category</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [selectableData]="categoryIdObservable" [emptyContentText]="'choose category'" [selectedId]="serviceItem.data.categoryId"
-                                (idChanged)="categoryIdInInfoChanged($event, serviceItem)"></gg-editor-autocomplete>
+                            <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
+                                (selectionOptionAdded)="categoryHasBeenAdded($event)">
+                            </gg-selector>
                         </div>
                     </div>
                 </div>
@@ -103,7 +104,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <gg-platform-service-list [servicesObservable]="servicesIdenticalObservable" [serviceToCompareToId]="serviceItem.data._id" ></gg-platform-service-list>
+                    <gg-platform-service-list [servicesObservable]="servicesIdenticalObservable" [serviceToCompareToId]="serviceItem.data._id"></gg-platform-service-list>
                 </div>
             </div>
         </template>
@@ -112,7 +113,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <gg-platform-service-list [servicesObservable]="servicesSimilarObservable" [serviceToCompareToId]="serviceItem.data._id" ></gg-platform-service-list>
+                    <gg-platform-service-list [servicesObservable]="servicesSimilarObservable" [serviceToCompareToId]="serviceItem.data._id"></gg-platform-service-list>
                 </div>
             </div>
         </template>
@@ -121,7 +122,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <gg-platform-service-compare [service1Id]="serviceItem.data._id" [service2Id]="serviceToCompareToId" ></gg-platform-service-compare>
+                    <gg-platform-service-compare [service1Id]="serviceItem.data._id" [service2Id]="serviceToCompareToId"></gg-platform-service-compare>
                 </div>
             </div>
         </template>

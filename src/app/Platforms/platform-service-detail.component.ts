@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
+import { SelectableData } from './../Shared/Classes/selectable-data'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
@@ -28,7 +29,6 @@ export class PlatformServiceDetailComponent implements OnInit {
     private state
 
     private clientListObservable
-    private categoryIdObservable
 
     private cloneForm: FormGroup    
 
@@ -36,8 +36,15 @@ export class PlatformServiceDetailComponent implements OnInit {
         if (!this.state) this.state = {};
     }
 
+    private selectableCategoriesObservable: Observable<SelectableData[]>;
+    private selectedCategoryIdsObservable: Observable<any>;
+
     ngOnInit(): void {
         this.stateInit()
+
+        this.selectableCategoriesObservable = this.platformService.getSelectableCategories();
+        this.selectedCategoryIdsObservable = Observable.from([this.serviceItem.data.categoryIds || []])
+        
         
         this.servicesIdenticalObservable= this.platformService.getAnnotatedServicesIdenticalTo(this.serviceItem.data._id)
         this.servicesSimilarObservable= this.platformService.getAnnotatedServicesSimilarTo(this.serviceItem.data._id)
@@ -49,13 +56,6 @@ export class PlatformServiceDetailComponent implements OnInit {
             }
         }));
         
-        this.categoryIdObservable = this.dataStore.getDataObservable('platform.service.categories').takeWhile(() => this.isPageRunning).map(categories => categories.map(categoryId => {
-            return {
-                id: categoryId._id,
-                name: categoryId.name
-            }
-        }))   
-
         this.cloneForm = this.formBuilder.group({
             nameOfService: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
@@ -81,11 +81,6 @@ export class PlatformServiceDetailComponent implements OnInit {
         this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)        
     }
 
-    categoryIdInInfoChanged(catId, serviceItem) {
-        serviceItem.data.categoryId = catId
-        this.dataStore.updateData('platform.services', serviceItem.data._id, serviceItem.data)
-    }
-
     cloneService(service, formValue, isValid) {
         if (!isValid) return
         this.platformService.cloneService(service.data._id, formValue.nameOfService, formValue.description).subscribe(res => {
@@ -96,4 +91,14 @@ export class PlatformServiceDetailComponent implements OnInit {
     resetCloneForm() {
         this.cloneForm.reset()
     }
+
+     categorySelectionChanged(selectedIds: string[]) {
+        this.serviceItem.data.categoryIds = selectedIds;
+        this.dataStore.updateData('platform.services', this.serviceItem.data._id, this.serviceItem.data);
+    }
+
+    categoryHasBeenAdded(newCategory: string) {
+        this.platformService.createCategory(newCategory);
+    }
+   
 }

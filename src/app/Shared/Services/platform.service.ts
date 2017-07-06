@@ -140,6 +140,7 @@ export class PlatformService {
         return this.getAnnotatedServiceSteps(this.dataStore.getDataObservable('platform.service.steps').map(steps => steps.filter(step => step.serviceId === serviceId && step.isDisabled)))
     }
 
+
     // Services annotation....
     // =======================
 
@@ -157,13 +158,14 @@ export class PlatformService {
                 return services.map(service => {
                     let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
                     let clientType = clients.filter(ct => ct._id === service.clientTypeId)[0]
-                    let category = categories.filter(ct => ct._id === service.categoryId)[0]
+                    let category = categories.filter(ct => (service.categoryIds || []).includes(ct._id)).map(ct => ct.name).sort((a,b) => a > b ? 1 : -1)
+                            .reduce((acc, c) => acc ? (acc + ', ' + c) : c, '')
                     return {
                         data: service,
                         annotation: {
                             correctionsFactors: correctionsFactors,
                             clientType: clientType ? clientType.name : 'no client type selected, default corrections',
-                            category: category ? category.name : 'no category'
+                            category: category || 'no category'
                         }
                     }
                 })
@@ -173,6 +175,21 @@ export class PlatformService {
     getAnnotatedServices(): Observable<any> {
         return this.getAnnotatedServicesHelper(this.dataStore.getDataObservable('platform.services'))
     }
+
+    getSelectableCategories(): Observable<SelectableData[]> {
+        return this.dataStore.getDataObservable('platform.service.categories').map(categories => {
+            return categories.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(category =>
+                new SelectableData(category._id, category.name)
+            )
+        });
+    }
+
+    createCategory(newCategory): void {
+        this.dataStore.addData('platform.service.categories', { 'name': newCategory });
+    }
+
+    
+
 
     // Identical or similar services
     // ==============================
