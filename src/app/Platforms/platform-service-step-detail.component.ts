@@ -118,7 +118,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     deleteProduct(pos) {
-        
+        this.serviceStep.data.products.splice(pos, 1)
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 
 }
