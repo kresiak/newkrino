@@ -12,12 +12,6 @@
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceItem.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Client type used</b></div>
-                        <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
-                                (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
-
-                        </div>
                         <div class="col-sm-3 vcenter"><b>Category</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
@@ -33,6 +27,13 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
+                    <div class="col-sm-3 vcenter"><b>Client type used</b></div>
+                    <div class="col-sm-8 vcenter">
+                        <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
+                            (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
+
+                    </div>
+
                     <div *ngFor="let correctionItem of serviceItem.annotation.correctionsFactors">
                         <div class="row">
                             <div class="col-sm-3 vcenter">
@@ -54,7 +55,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <gg-platform-service-step-list [serviceId]="serviceItem.data._id"></gg-platform-service-step-list>
+                    <gg-platform-service-step-list [serviceId]="serviceItem.data._id" [clientType]="serviceItem.annotation.clientType"></gg-platform-service-step-list>
                 </div>
             </div>
         </template>

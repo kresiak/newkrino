@@ -102,6 +102,8 @@ export class PlatformService {
                 productsCost: productsCost,
                 labourCost: labourCost,
                 costsByClientType: costsByClientType,
+                grandTotalCost: getTotals((service || {}).clientTypeId).grandTotalCost,
+                grandTotalCostOnStandard: getTotals(undefined).grandTotalCost,
                 products: (serviceStep.products || []).map(prod => {
                     let nbUnitsInProduct = productMap.has(prod.id) ? (utilsKrino.getNumberInString(productMap.get(prod.id).package) || 1) : 1
                     let unitPrice = productMap.has(prod.id) ? productMap.get(prod.id).price / nbUnitsInProduct : -1
@@ -179,7 +181,7 @@ export class PlatformService {
                         data: service,
                         annotation: {
                             correctionsFactors: correctionsFactors,
-                            clientType: clientType ? clientType.name : 'no client type selected, default corrections',
+                            clientType: clientType ? clientType.name : 'standard corrections',
                             category: category || 'no category'
                         }
                     }
@@ -276,7 +278,7 @@ export class PlatformService {
         return this.dataStore.getDataObservable('platform.service.step.snapshots').map(steps => {
             return steps.filter(step => !step.data.isDisabled).reduce((map: Map<string, number>, step) => {
                 if (!map.has(step.serviceId)) map.set(step.serviceId, 0)
-                map.set(step.serviceId, map.get(step.serviceId) + (step.annotation.grandTotalCost || step.annotation.totalCost))
+                map.set(step.serviceId, map.get(step.serviceId) + (step.annotation.grandTotalCostOnStandard || step.annotation.grandTotalCost || step.annotation.totalCost))
                 return map
             }, new Map())
         })

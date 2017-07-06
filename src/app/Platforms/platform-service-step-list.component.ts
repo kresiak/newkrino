@@ -19,6 +19,7 @@ export class PlatformServiceStepListComponent implements OnInit {
     }
 
     @Input() serviceId: string = ''
+    @Input() clientType: string = ''
     @Input() isSnapshot: boolean = false
 
     private serviceStepForm: FormGroup
