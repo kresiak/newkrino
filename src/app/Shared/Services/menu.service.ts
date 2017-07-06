@@ -144,7 +144,7 @@ export class MenuService {
                 route: '/platform',
                 title: 'Platform',
                 active: false,
-                hide: !isLoggedIn 
+                hide: !isLoggedIn || !statusInfo.isPlatformAdminstrator()
             }
         ];
         this.menu = this.menu.filter(item => !item.hide)

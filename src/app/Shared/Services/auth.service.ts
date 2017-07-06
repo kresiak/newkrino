@@ -67,6 +67,10 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isProgrammer
     }
 
+    isPlatformAdminstrator() {
+        return this.annotatedUser && this.annotatedUser.data.isPlatformAdmin
+    }
+
     isGroupOrdersUser() {
         return this.annotatedUser && this.annotatedUser.annotation.isGroupOrdersUser
     }

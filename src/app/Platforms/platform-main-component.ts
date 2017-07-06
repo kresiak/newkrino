@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
     {
@@ -9,9 +10,20 @@ import { DataStore } from './../Shared/Services/data.service'
     }
 )
 export class PlatformMainComponent implements OnInit {
-    constructor() {
+    isPageRunning: boolean= true;
+
+    constructor(private authService: AuthService) {
     }
     ngOnInit(): void {
+
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
     }
 
+    ngOnDestroy(): void {
+        this.isPageRunning = false
+    }
+
+    private authorizationStatusInfo: AuthenticationStatusInfo;
 }

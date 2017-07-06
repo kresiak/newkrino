@@ -134,4 +134,9 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     }
 
+    isPlatformAdminUpdated(isPlatformAdmin) {
+        this.user.data.isPlatformAdmin = isPlatformAdmin;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
+
 }

@@ -50,6 +50,12 @@
 							<gg-editor-boolean [content]="user.data.isProgrammer" (editSaved)="isProgrammerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-3 vcenter">is platform administrator:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isPlatformAdmin" (editSaved)="isPlatformAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
 
 					<div class="row" *ngIf="!configService.isProduction()">
 						<div class="col-sm-3">_id:</div>
