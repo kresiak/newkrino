@@ -114,4 +114,9 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
+    enableDisableSnapshot(isDisabled: boolean, snapshot) {
+        snapshot.isDisabled = isDisabled
+        this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
+    }
+
 }
