@@ -96,6 +96,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     }
 
     enableDisableSnapshot(isDisabled: boolean, snapshot) {
+        delete snapshot.confirmation
         snapshot.isDisabled = isDisabled
         this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
     }

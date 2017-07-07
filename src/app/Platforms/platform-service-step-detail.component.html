@@ -235,10 +235,10 @@
                                 below.
                             </p>
                         </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation">
-                            <button class="btn btn-warning" (click)="confirmation = true">Disable the step</button>
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!serviceStep.confirmation">
+                            <button class="btn btn-warning" (click)="serviceStep.confirmation = true">Disable the step</button>
                         </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="serviceStep.confirmation">
                             <button class="btn btn-danger" (click)="enableDisableStep(true)">Now I will disable the step</button>
                         </div>
                     </div>

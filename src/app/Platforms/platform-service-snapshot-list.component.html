@@ -71,10 +71,10 @@
                                                 click the button below.
                                             </p>
                                         </div>
-                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation">
-                                            <button class="btn btn-warning" (click)="confirmation = true">Disable the snapshot</button>
+                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!snapshot.confirmation">
+                                            <button class="btn btn-warning" (click)="snapshot.confirmation = true">Disable the snapshot</button>
                                         </div>
-                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
+                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="snapshot.confirmation">
                                             <button class="btn btn-danger" (click)="enableDisableSnapshot(true, snapshot)">Now I will disable the snapshot</button>
                                         </div>
                                     </div>
