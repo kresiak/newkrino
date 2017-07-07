@@ -238,8 +238,9 @@
                         <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!serviceStep.confirmation">
                             <button class="btn btn-warning" (click)="serviceStep.confirmation = true">Disable the step</button>
                         </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="serviceStep.confirmation">
+                        <div class="col-sm-11 col-md-10 col-lg-10" *ngIf="serviceStep.confirmation">
                             <button class="btn btn-danger" (click)="enableDisableStep(true)">Now I will disable the step</button>
+                            <button class="btn btn-success" (click)="serviceStep.confirmation = false">Cancel</button>
                         </div>
                     </div>
                 </div>

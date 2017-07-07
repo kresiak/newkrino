@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-sm-11 col-md-10 col-lg-10" *ngIf="snapshot.confirmation">
                                             <button class="btn btn-danger" (click)="enableDisableSnapshot(true, snapshot)">Now I will disable the snapshot</button>
-                                            <button class="btn btn-warning" (click)="enableDisableSnapshot(false, snapshot)">Cancel</button>
+                                            <button class="btn btn-success" (click)="snapshot.confirmation = false">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
