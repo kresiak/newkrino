@@ -66,6 +66,7 @@ import {PlatformLabourComponent} from './Platforms/platform-labour.component'
 import {PlatformClientComponent} from './Platforms/platform-client.component'
 import {PlatformCorrectionComponent} from './Platforms/platform-correction.component'
 import {PlatformServiceSnapshotsComponent} from './Platforms/platform-service-snapshots.component'
+import {PlatformServiceSnapshotListComponent} from './Platforms/platform-service-snapshot-list.component'
 import {PlatformServiceCompareComponent} from './Platforms/platform-service-compare.component'
 import {PlatformServiceCompareBaseComponent} from './Platforms/platform-service-compare-base.component'
 
@@ -228,7 +229,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent,
-                  PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent,
+                  PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
                   PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,

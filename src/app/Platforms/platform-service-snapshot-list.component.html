@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="row">
+        <div [formGroup]="searchForm">
+            <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+            />
+            <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+                placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
+                src="../../images/close.png" (click)="resetSerachControl()" />
+        </div>
+    </div>
+
+    <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+        <ngb-panel [disabled]="true">
+            <template ngbPanelTitle>
+                <div class="row">
+                    <div class="col-sm-3"><b>Date</b></div>
+                    <div class="col-sm-2"><b>Version</b></div>
+                    <div class="col-sm-2"><b>Description</b></div>
+                    <div class="col-sm-2"><b>Service</b></div>
+                    <div class="col-sm-2"><b>Cost (standard)</b></div>
+                </div>
+            </template>
+        </ngb-panel>
+        <ngb-panel *ngFor="let snapshot of snapshotsList" [id]="snapshot._id">
+            <!--FOR-->
+            <template ngbPanelTitle>
+                <div class="row" id="{{snapshot._id}}">
+                    <div class="col-sm-3">{{snapshot.createDate | fullDate}}</div>
+                    <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.version}}</div>
+                    <div class="col-sm-2">{{snapshot.description}}</div>
+                    <div class="col-sm-2">{{snapshot.data.name}}</div>
+                    <div class="col-sm-2 gg-price">{{fnGetCostByService(snapshot._id) | currency:'EUR':true:'1.2-2'}}</div>
+                    <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
+
+                </div>
+            </template>
+            <template ngbPanelContent>
+                <ngb-tabset>
+                    <ngb-tab title="Info" id="tabInfo">
+                        <template ngbTabContent>
+                            <div class="card">
+                                <div class="card-block gg-line-height">
+                                    <div class="row">
+                                        <div class="col-sm-3 vcenter"><b>Service name</b></div>
+                                        <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
+                                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                        <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
+                                        <div class="col-sm-3 vcenter"><b>Version</b></div>
+                                        <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </ngb-tab>
+                    <ngb-tab title="Service steps" id="tabSteps">
+                        <template ngbTabContent>
+                            <div class="card">
+                                <div class="card-block">
+                                    <gg-platform-service-step-list [clientType]="'standard'" [serviceId]="snapshot._id" [isSnapshot]="true"></gg-platform-service-step-list>
+                                </div>
+                            </div>
+                        </template>
+                    </ngb-tab>
+                    <ngb-tab title="Disable snapshot" id="tabDisableSnapshot" *ngIf="!snapshot.isDisabled">
+                        <template ngbTabContent>
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-sm-11">
+                                            <p>This action will disable the snapshot. Are you sure you want to do that? If yes,
+                                                click the button below.
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!confirmation">
+                                            <button class="btn btn-warning" (click)="confirmation = true">Disable the snapshot</button>
+                                        </div>
+                                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="confirmation">
+                                            <button class="btn btn-danger" (click)="enableDisableSnapshot(true, snapshot)">Now I will disable the snapshot</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </ngb-tab>
+                    <ngb-tab title="Reactivate step" id="tabReactivateStep" *ngIf="snapshot.isDisabled">
+                        <template ngbTabContent>
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-sm-11">
+                                            <p>If you want to reactivate the snapshot, click the button below.</p>
+                                        </div>
+                                        <div class="col-sm-3 col-md-2 col-lg-2">
+                                            <button class="btn btn-warning" (click)="enableDisableSnapshot(false, snapshot)">Now I will reactivate the snapshot</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
+<div class="row" *ngIf="nbHitsShown < nbHits">
+    <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+</div>
+<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+    {{nbHits}} hits shown
+</div>
