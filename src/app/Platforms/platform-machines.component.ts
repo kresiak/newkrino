@@ -63,37 +63,37 @@ private isPageRunning: boolean = true
 
     nameMachineUpdated(name, machineItem) {
         machineItem.data.name = name
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     descriptionMachineUpdated(description, machineItem) {
         machineItem.data.description = description
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     priceMachineUpdated(price, machineItem) {
         machineItem.data.price = +price
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     lifetimeMachineUpdated(lifetime, machineItem) {
         machineItem.data.lifetime = +lifetime
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     maintenancePriceMachineUpdated(maintenancePrice, machineItem) {
         machineItem.data.maintenancePrice = +maintenancePrice
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     occupancyMachineUpdated(occupancy, machineItem) {
         machineItem.data.occupancy = +occupancy
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
 
     hoursPerDayMachineUpdated(hoursPerDay, machineItem) {
         machineItem.data.hoursPerDay = +hoursPerDay
-        this.dataStore.updateData('platform.machines', machineItem._id, machineItem)
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
     
    
