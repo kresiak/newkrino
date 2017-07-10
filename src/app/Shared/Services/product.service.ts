@@ -153,9 +153,9 @@ export class ProductService {
 
 
     private getAnnotatedProducts(productsObservable: Observable<any>): Observable<any> {
-        return Observable.combineLatest(productsObservable, this.dataStore.getDataObservable("suppliers"),
+        return Observable.combineLatest(productsObservable, this.dataStore.getDataObservable("suppliers"), this.authService.getAnnotatedUsers(),
             this.getProductFrequenceMapObservable(), this.authService.getUserIdObservable(), this.getProductDoubleObservable(),
-            (products, suppliers, productFrequenceMap, currentUserId, setProductsInDouble) => {
+            (products, suppliers, annotatedUsers, productFrequenceMap, currentUserId, setProductsInDouble) => {
                 let mapSuppliers = suppliers.reduce((map, supplier) => {
                     map.set(supplier._id, supplier)
                     return map
@@ -171,7 +171,16 @@ export class ProductService {
                             //quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,
                             supplierName: supplier ? supplier.name : "unknown",
                             productFrequence: productFrequenceMap.get(product._id) || 0,
-                            multipleOccurences: setProductsInDouble.has(product.catalogNr)
+                            multipleOccurences: setProductsInDouble.has(product.catalogNr),
+                            priceUpdates: (product.priceUpdates || []).map(pu => {
+                                let user= annotatedUsers.filter(user => user.data._id === pu.userId)[0]
+                                return {
+                                    data: pu,
+                                    annotation: {
+                                        user: user ?  user.annotation.fullName : 'unknown user'
+                                    }
+                                }
+                            })
                         }
                     };
                 });
