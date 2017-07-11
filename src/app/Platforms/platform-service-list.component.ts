@@ -24,6 +24,12 @@ export class PlatformServiceListComponent implements OnInit {
 
     @Input() servicesObservable: Observable<any>
     @Input() serviceToCompareToId: string= undefined
+    @Input() isForSelection: boolean = false
+    @Input() selectedServiceIds: string[]= []
+
+    @Output() servicesSelected = new EventEmitter();
+
+
 
     private nbHitsShown: number= 10
     private nbHitsIncrement: number= 10
@@ -50,6 +56,7 @@ export class PlatformServiceListComponent implements OnInit {
 
     ngOnInit(): void {
         this.stateInit()
+        this.selectedServiceIdsMap= new Set(this.selectedServiceIds)        
 
         Observable.combineLatest(this.servicesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (services, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
@@ -93,6 +100,21 @@ export class PlatformServiceListComponent implements OnInit {
     private moreHits() {
         this.nbHitsShown+= this.nbHitsIncrement
         this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
+    private selectedServiceIdsMap: Set<string>
+
+    serviceSelectedInList(event, service, isSelected: boolean) {
+        event.preventDefault()
+        event.stopPropagation()
+        var id=(service.data || {})._id
+        if (isSelected && this.selectedServiceIdsMap.has(id)) this.selectedServiceIdsMap.delete(id)
+        if (!isSelected && !this.selectedServiceIdsMap.has(id)) this.selectedServiceIdsMap.add(id)
+        this.servicesSelected.next(Array.from(this.selectedServiceIdsMap.values()))
+    }
+
+    isServiceSelected(service) {
+        return this.selectedServiceIdsMap.has(service.data._id)
     }
 
 }

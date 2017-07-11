@@ -28,7 +28,9 @@ export class PlatformServiceStepDetailComponent implements OnInit {
 
 
     private machineListObservable
+    private servicesObservable: Observable<any>
 
+  
     ngOnInit(): void {
 
         if (!this.isSnapshot) {
@@ -38,6 +40,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
             })
 
             this.productsObservable = this.productService.getAnnotatedProductsAll();
+            this.servicesObservable = this.platformService.getAnnotatedServices()            
+            
         }
         else {
             this.dataStore.getDataObservable('platform.service.step.snapshots').map(snapshots => snapshots.filter(s => s._id === this.serviceStepId)[0])
@@ -92,8 +96,26 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 
+    servicesChanged(servicesIds: string[]) {
+        if (!this.serviceStep.data.services) this.serviceStep.data.services = []
+        var services = this.serviceStep.data.services
+
+        services = services.filter(prod => servicesIds.includes(prod.id))
+
+        servicesIds.filter(id => !services.map(p => p.id).includes(id)).forEach(id => services.push({ id: id, quantity: 1 }))
+
+        this.serviceStep.data.services = services
+
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
+    }
+
     productQuantityUpdated(pos, quantity) {
         this.serviceStep.data.products[pos].quantity = quantity
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
+    }
+
+    serviceQuantityUpdated(pos, quantity) {
+        this.serviceStep.data.services[pos].quantity = quantity
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data)
     }
 
@@ -112,6 +134,10 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         return (this.serviceStep.data.products || []).map(p => p.id)
     }
 
+    getServicesIdsSelected() {
+        return (this.serviceStep.data.services || []).map(p => p.id)
+    }
+
     enableDisableStep(isDisabled: boolean) {
         this.serviceStep.data.isDisabled = isDisabled
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
@@ -119,6 +145,11 @@ export class PlatformServiceStepDetailComponent implements OnInit {
 
     deleteProduct(pos) {
         this.serviceStep.data.products.splice(pos, 1)
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
+    }
+
+    deleteService(pos) {
+        this.serviceStep.data.services.splice(pos, 1)
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 

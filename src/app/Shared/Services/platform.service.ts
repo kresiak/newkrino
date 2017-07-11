@@ -128,6 +128,15 @@ export class PlatformService {
                             totalCost: nbHours * lt.hourlyRate
                         }
                     }
+                }),
+                services: (serviceStep.services || []).map(s => { 
+                    let theService = services.filter(service => s.id === service._id)[0]
+                    return {
+                        data: s,
+                        annotation: {
+                            service: theService ? theService.name : 'unknown service'
+                        }
+                    }
                 })
             }
         };

@@ -26,7 +26,8 @@
                 <ngb-panel [disabled]="true">
                     <template ngbPanelTitle>
                         <div class="row">
-                            <div class="col-sm-4"><b>Service</b></div>
+							<div class="col-sm-1" *ngIf="isForSelection"></div>
+							<div [class.col-sm-4]="!isForSelection" [class.col-sm-3]="isForSelection"><b>Service</b></div>                            
                             <div class="col-sm-2"><b>Client Type</b></div>
                             <div class="col-sm-4"><b>Categories</b></div>
                             <div class="col-sm-2"><b>Cost</b></div>
@@ -37,7 +38,15 @@
                     <!--FOR-->
                     <template ngbPanelTitle>
                         <div class="row" id="{{serviceItem.data._id}}">
-                            <div class="col-sm-4" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">
+							<div class="col-sm-1" *ngIf="isForSelection">
+								<img ngbTooltip="select service" *ngIf="!isServiceSelected(serviceItem)" height="25" width="25" src="../../images/add.png" 
+																	(click)="serviceSelectedInList($event, serviceItem, false)" />
+
+								<img ngbTooltip="unselect service" *ngIf="isServiceSelected(serviceItem)" height="25" width="25" src="../../images/remove.png" 
+																	(click)="serviceSelectedInList($event, serviceItem, true)" />
+							</div>
+                            
+                            <div  [class.col-sm-4]="!isForSelection" [class.col-sm-3]="isForSelection" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">
                                 <gg-text-compact [numberOfChar]="30" [extraTooltipText]="serviceItem.data.description"
 											 [text]="serviceItem.data.name"></gg-text-compact>
                             </div>

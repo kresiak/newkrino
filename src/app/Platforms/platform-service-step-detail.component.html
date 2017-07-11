@@ -104,6 +104,56 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="Services" id="tabServices">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="Used services" id="tabUsedServices" *ngIf="serviceStep.annotation.services && serviceStep.annotation.services.length > 0">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm-3 vcenter"><b>Service</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
+                                        </div>
+                                        <div *ngFor="let service of (serviceStep.annotation.services || []); let pos = index">
+                                            <!--FOR  -->
+                                            <div class="row">
+                                                <div class="col-sm-3 vcenter">
+                                                    {{service.annotation.service}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete"
+														 (click)="service.isDueToDelete = !service.isDueToDelete" />
+														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected service item and can't be undone. Click here if you are sure you want to delete it."
+														 *ngIf="service.isDueToDelete" (click)="deleteService(pos)">Delete</div>
+														<div class="btn btn-success btn-sm" *ngIf="service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete">Cancel</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Select services" id="tabSelectServices" *ngIf="!isSnapshot">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <gg-platform-service-list [isForSelection]="true" [servicesObservable]="servicesObservable" [selectedServiceIds]="getServicesIdsSelected()"
+                                            (servicesSelected)="servicesChanged($event)"></gg-platform-service-list>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
     <ngb-tab title="Products" id="tabProducts">
         <template ngbTabContent>
             <div class="card">
