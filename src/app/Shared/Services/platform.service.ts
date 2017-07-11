@@ -13,14 +13,62 @@ Injectable()
 export class PlatformService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
 
+    // Service snapshots....
+    // =====================
+
+    private getCurrentSnapshotIdOfService(serviceId, snapshots) {
+        var theSnapshot = snapshots.filter(s => !s.isDisabled && s.serviceId === serviceId).sort((a, b) => {
+            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            return d1 > d2 ? -1 : 1
+        })[0]
+        return theSnapshot ? { id: theSnapshot._id, version: theSnapshot.version } : undefined
+    }
+
+    private getCostsOfSnapshotMap(snapshotId, snapshotSteps): Map<string, number> {
+        var map = new Map()
+        snapshotSteps.filter(ss => ss.serviceId === snapshotId && !ss.data.isDisabled).forEach(step => {
+            (step.annotation.costsByClientType || []).forEach(costObj => {
+                if (!map.has(costObj.clientTypeId)) map.set(costObj.clientTypeId, 0)
+                map.set(costObj.clientTypeId, map.get(costObj.clientTypeId) + costObj.grandTotalCost)
+            })
+        })
+
+        return map
+    }
+
     // Service step annotation....
     // ============================
 
-    private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>, labourTypes, clients, corrections) {
-        var self= this
+    private createAnnotatedServiceStep(serviceStep, services: any[], machines, productMap: Map<string, any>, labourTypes, clients, corrections, snapshots, snapshotSteps) {
+        var self = this
+
+        var stepServicesInfos = (serviceStep.services || []).map(s => {
+            let theService = services.filter(service => s.id === service._id)[0]
+            var theSnapshot = this.getCurrentSnapshotIdOfService(s.id, snapshots)
+            if (!theSnapshot) return undefined
+            var costMap = this.getCostsOfSnapshotMap(theSnapshot.id, snapshotSteps)
+            return {
+                service: theService.name,
+                snapshot: theSnapshot.version,
+                quantity: s.quantity,
+                costMap: costMap
+            }
+        }).filter(x => x)
 
         function getTotals(clientTypeId) {
             let correctionsFactors = self.getCorrectionsOfClientType(clientTypeId, clients, corrections)
+
+            let servicesCosts = stepServicesInfos.map(s => {
+                var costUnit = s.costMap.has(clientTypeId) ? +s.costMap.get(clientTypeId) : 0
+                return {
+                    labeltxt: s.service + ' ' + s.snapshot + ' (' + s.quantity + ' u.)',
+                    extraValue: costUnit * s.quantity
+                }
+            })
+
+            let sumServicesCosts = servicesCosts.reduce((acc, pe) => acc + +pe.extraValue, 0) || 0
+
             let productsExtras = correctionsFactors.filter(cf => cf.data.isOnProduct).map(cf => {
                 return {
                     labeltxt: cf.name + ' (' + cf.perCent + '%)',
@@ -40,7 +88,7 @@ export class PlatformService {
             // totals
             // ======
 
-            let total = labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
+            let total = sumServicesCosts + labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
 
             let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
                 return {
@@ -53,12 +101,13 @@ export class PlatformService {
 
             return {
                 clientTypeId: clientTypeId,
-                clientType: (clients.filter(c => c._id===clientTypeId)[0] || {name:'standard'}).name,
+                clientType: (clients.filter(c => c._id === clientTypeId)[0] || { name: 'standard' }).name,
                 productsExtras: productsExtras,
                 labourReductions: labourReductions,
                 totalCost: total,
                 totalExtras: totalExtras,
-                grandTotalCost: total + sumOfTotalExtras               
+                grandTotalCost: total + sumOfTotalExtras,
+                servicesCosts: servicesCosts
             }
         }
 
@@ -88,7 +137,7 @@ export class PlatformService {
         }, 0)
 
 
-        var costsByClientType= clients.map(ct => getTotals(ct._id))
+        var costsByClientType = clients.map(ct => getTotals(ct._id))
         costsByClientType.push(getTotals(undefined))
 
         return {
@@ -129,7 +178,7 @@ export class PlatformService {
                         }
                     }
                 }),
-                services: (serviceStep.services || []).map(s => { 
+                services: (serviceStep.services || []).map(s => {
                     let theService = services.filter(service => s.id === service._id)[0]
                     return {
                         data: s,
@@ -152,8 +201,10 @@ export class PlatformService {
             this.dataStore.getDataObservable('platform.labour.types'),
             this.dataStore.getDataObservable('platform.client.types'),
             this.dataStore.getDataObservable('platform.correction.types'),
-            (serviceSteps, services, machines, productMap, labourTypes, clients, corrections) => {
-                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap, labourTypes, clients, corrections))
+            this.dataStore.getDataObservable('platform.service.snapshots'),
+            this.dataStore.getDataObservable('platform.service.step.snapshots'),
+            (serviceSteps, services, machines, productMap, labourTypes, clients, corrections, snapshots, snapshotSteps) => {
+                return serviceSteps.map(serviceStep => this.createAnnotatedServiceStep(serviceStep, services, machines, productMap, labourTypes, clients, corrections, snapshots, snapshotSteps))
             });
     }
 

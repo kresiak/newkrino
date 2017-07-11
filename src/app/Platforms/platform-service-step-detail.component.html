@@ -37,58 +37,65 @@
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block gg-line-height">
+                                        <div class="row" *ngFor="let prodExtra of clientType.servicesCosts">
+                                            <div class="col-sm-5 vcenter"><b>{{prodExtra.labeltxt}}</b></div>
+                                            <div class="col-sm-6 vcenter">
+                                                {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
+                                            </div>
+                                        </div>
+
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Machine cost of run</b></div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter"><b>Machine cost of run</b></div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{serviceStep.annotation.machineCost | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Cost of products</b></div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter"><b>Cost of products</b></div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row" *ngFor="let prodExtra of clientType.productsExtras">
-                                            <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter">{{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Cost of labour</b></div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter"><b>Cost of labour</b></div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row" *ngFor="let prodExtra of clientType.labourReductions">
-                                            <div class="col-sm-3 vcenter">reduction on {{prodExtra.labeltxt}}</div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter">reduction on {{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Total cost of step</b></div>
-                                            <div class="col-sm-8 vcenter gg-price">
+                                            <div class="col-sm-5 vcenter"><b>Total cost of step</b></div>
+                                            <div class="col-sm-6 vcenter gg-price">
                                                 {{clientType.totalCost | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row" *ngFor="let prodExtra of clientType.totalExtras">
-                                            <div class="col-sm-3 vcenter">{{prodExtra.labeltxt}}</div>
-                                            <div class="col-sm-8 vcenter">
+                                            <div class="col-sm-5 vcenter">{{prodExtra.labeltxt}}</div>
+                                            <div class="col-sm-6 vcenter">
                                                 {{prodExtra.extraValue | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Price of step</b></div>
-                                            <div class="col-sm-8 vcenter gg-price">
+                                            <div class="col-sm-5 vcenter"><b>Price of step</b></div>
+                                            <div class="col-sm-6 vcenter gg-price">
                                                 {{clientType.grandTotalCost | currency:'EUR':true:'1.2-2'}}
                                             </div>
                                         </div>
