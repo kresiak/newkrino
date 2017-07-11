@@ -17,7 +17,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     searchForm: FormGroup;
     searchControl = new FormControl();
 
-    constructor(private dataStore: DataStore, private platformService: PlatformService) {
+    constructor(private dataStore: DataStore, private platformService: PlatformService, private formBuilder: FormBuilder) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
         });        
@@ -35,6 +35,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     private isPageRunning: boolean = true
 
     private state
+    private linkToProductForm: FormGroup
 
 
     private stateInit() {
@@ -73,6 +74,24 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
             this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
         })
 
+        this.linkToProductForm = this.formBuilder.group({
+            nameOfLink: ['', [Validators.required, Validators.minLength(3)]],
+            description: ['']
+        })
+
+    }
+
+    saveLinkToProductForm(formValue, isValid) {
+        this.dataStore.addData('', {
+            name: formValue.nameOfLink,
+            description: formValue.description
+        }).subscribe(res => {
+            this.resetLinkToProductForm()
+        })
+    }
+
+    resetLinkToProductForm() {
+        this.linkToProductForm.reset()
     }
 
 
