@@ -6,6 +6,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 import * as moment from "moment"
+import * as utilsdate from './../Shared/Utils/dates'
+
 
 @Component(
     {
@@ -45,8 +47,8 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
 
 
         this.snapshotForm = this.formBuilder.group({
-            version: ['', [Validators.required, Validators.minLength(3)]],
-            description: ['', [Validators.required, Validators.minLength(3)]]
+            version: [utilsdate.nowFormated(), [Validators.required, Validators.minLength(3)]],
+            description: ['']
         })
 
     }

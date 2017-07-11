@@ -10,3 +10,4 @@ export function isDateIntervalCompatibleWithNow(datStart: string, datEnd: string
 export function nowFormated() {
     return moment().format('DD/MM/YYYY HH:mm:ss')
 }
+

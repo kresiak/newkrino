@@ -122,6 +122,7 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm-3 vcenter"><b>Service</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Current</b></div>
                                             <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
                                         </div>
                                         <div *ngFor="let service of (serviceStep.annotation.services || []); let pos = index">
@@ -129,6 +130,9 @@
                                             <div class="row">
                                                 <div class="col-sm-3 vcenter">
                                                     {{service.annotation.service}}
+                                                </div>
+                                                <div class="col-sm-2 vcenter">
+                                                    {{service.annotation.currentSnapshot}}
                                                 </div>
                                                 <div class="col-sm-2 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>

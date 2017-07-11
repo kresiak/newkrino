@@ -6,6 +6,8 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as moment from "moment"
+
 
 @Component(
     {

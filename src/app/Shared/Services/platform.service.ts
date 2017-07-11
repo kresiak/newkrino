@@ -49,6 +49,7 @@ export class PlatformService {
             if (!theSnapshot) return undefined
             var costMap = this.getCostsOfSnapshotMap(theSnapshot.id, snapshotSteps)
             return {
+                id: theService._id,
                 service: theService.name,
                 snapshot: theSnapshot.version,
                 quantity: s.quantity,
@@ -180,10 +181,12 @@ export class PlatformService {
                 }),
                 services: (serviceStep.services || []).map(s => {
                     let theService = services.filter(service => s.id === service._id)[0]
+                    let snapshotInfo= stepServicesInfos.filter(si => si.id === s.id)[0]
                     return {
                         data: s,
                         annotation: {
-                            service: theService ? theService.name : 'unknown service'
+                            service: theService ? theService.name : 'unknown service',
+                            currentSnapshot: snapshotInfo ? snapshotInfo.snapshot : ''
                         }
                     }
                 })
