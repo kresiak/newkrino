@@ -182,8 +182,8 @@
 						<div class="row">
 							<div class="col-sm-3 vcenter">{{priceHistory.data.date}}</div>
 							<div class="col-sm-3 vcenter">{{priceHistory.annotation.user}}</div>
-							<div class="col-sm-2 vcenter">{{priceHistory.data.oldPrice}}</div>
-							<div class="col-sm-3 vcenter">{{priceHistory.data.newPrice}}</div>
+							<div class="col-sm-2 vcenter">{{priceHistory.data.oldPrice | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-3 vcenter">{{priceHistory.data.newPrice | currency:'EUR':true:'1.2-2'}}</div>
 						</div>
 					</div>
 				</div>
