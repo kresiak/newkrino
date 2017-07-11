@@ -287,7 +287,7 @@ export class PlatformService {
         return this.dataStore.getDataObservable('platform.service.step.snapshots').map(steps => {
             return steps.filter(step => !step.data.isDisabled).reduce((map: Map<string, number>, step) => {
                 if (!map.has(step.serviceId)) map.set(step.serviceId, 0)
-                map.set(step.serviceId, map.get(step.serviceId) + (step.annotation.grandTotalCostOnStandard || step.annotation.grandTotalCost || step.annotation.totalCost))
+                map.set(step.serviceId, map.get(step.serviceId) + (step.annotation.grandTotalCostOnStandard || step.annotation.grandTotalCost || step.annotation.totalCost || 0))
                 return map
             }, new Map())
         })
