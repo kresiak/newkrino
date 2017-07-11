@@ -27,10 +27,11 @@
                     <template ngbPanelTitle>
                         <div class="row">
 							<div class="col-sm-1" *ngIf="isForSelection"></div>
-							<div [class.col-sm-4]="!isForSelection" [class.col-sm-3]="isForSelection"><b>Service</b></div>                            
+							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>Service</b></div>                            
                             <div class="col-sm-2"><b>Client Type</b></div>
-                            <div class="col-sm-4"><b>Categories</b></div>
+                            <div class="col-sm-3"><b>Categories</b></div>
                             <div class="col-sm-2"><b>Cost</b></div>
+                            <div class="col-sm-2"><b>Current</b></div>
                         </div>
                     </template>
                 </ngb-panel>
@@ -46,13 +47,14 @@
 																	(click)="serviceSelectedInList($event, serviceItem, true)" />
 							</div>
                             
-                            <div  [class.col-sm-4]="!isForSelection" [class.col-sm-3]="isForSelection" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">
+                            <div  [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection" [style.font-weight]="serviceItem.data._id === state.openPanelId ? 'bold' : 'lighter'">
                                 <gg-text-compact [numberOfChar]="30" [extraTooltipText]="serviceItem.data.description"
 											 [text]="serviceItem.data.name"></gg-text-compact>
                             </div>
                             <div class="col-sm-2">{{serviceItem.annotation.clientType}}</div>
-                            <div class="col-sm-4">{{serviceItem.annotation.category}}</div>
+                            <div class="col-sm-3">{{serviceItem.annotation.category}}</div>
                             <div class="col-sm-2 gg-price">{{fnGetCostByService(serviceItem.data._id) | currency:'EUR':true:'1.2-2'}}</div>
+                            <div class="col-sm-2">{{serviceItem.annotation.currentSnapshot}}</div>
                         </div>
                     </template>
                     <template ngbPanelContent>

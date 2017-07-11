@@ -231,8 +231,10 @@ export class PlatformService {
             this.dataStore.getDataObservable('platform.client.types'),
             this.dataStore.getDataObservable('platform.correction.types'),
             this.dataStore.getDataObservable('platform.service.categories'),
-            (services, clients, corrections, categories) => {
+            this.dataStore.getDataObservable('platform.service.snapshots'),
+            (services, clients, corrections, categories, snapshots) => {
                 return services.map(service => {
+                    let currentSnapshot= this.getCurrentSnapshotIdOfService(service._id, snapshots)
                     let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
                     let clientType = clients.filter(ct => ct._id === service.clientTypeId)[0]
                     let category = categories.filter(ct => (service.categoryIds || []).includes(ct._id)).map(ct => ct.name).sort((a, b) => a > b ? 1 : -1)
@@ -242,7 +244,8 @@ export class PlatformService {
                         annotation: {
                             correctionsFactors: correctionsFactors,
                             clientType: clientType ? clientType.name : 'standard corrections',
-                            category: category || 'no category'
+                            category: category || 'no category',
+                            currentSnapshot: currentSnapshot ? currentSnapshot.version : ''
                         }
                     }
                 })

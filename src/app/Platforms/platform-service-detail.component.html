@@ -12,6 +12,10 @@
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceItem.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
+                        <div class="col-sm-3 vcenter"><b>Current version</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceItem.annotation.currentSnapshot}}
+                        </div>
                         <div class="col-sm-3 vcenter"><b>Category</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
