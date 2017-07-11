@@ -168,6 +168,28 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Price history" id="tabPriceHistory" *ngIf="product.annotation.priceUpdates.length > 0">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-3 vcenter"><b>When?</b></div>
+						<div class="col-sm-3 vcenter"><b>Who?</b></div>
+						<div class="col-sm-2 vcenter"><b>From</b></div>
+						<div class="col-sm-1 vcenter"><b>To</b></div>
+					</div>
+					<div *ngFor="let priceHistory of product.annotation.priceUpdates">
+						<div class="row">
+							<div class="col-sm-3 vcenter">{{priceHistory.data.date}}</div>
+							<div class="col-sm-3 vcenter">{{priceHistory.annotation.user}}</div>
+							<div class="col-sm-2 vcenter">{{priceHistory.data.oldPrice | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-3 vcenter">{{priceHistory.data.newPrice | currency:'EUR':true:'1.2-2'}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
