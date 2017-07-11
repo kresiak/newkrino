@@ -5,6 +5,7 @@ import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as moment from "moment"
 
 @Component(
     {
@@ -34,7 +35,11 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit()
 
-        this.observableSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && !s.isDisabled))
+        this.observableSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && !s.isDisabled).sort((a, b) => {
+            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            return d1 > d2 ? -1 : 1            
+        }))
         this.observableDisabledSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && s.isDisabled))
         
 
