@@ -126,7 +126,7 @@
                                                 <div class="col-sm-2 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 vcenter" *ngIf="!isSnapshot">
                                                     <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete"
 														 (click)="service.isDueToDelete = !service.isDueToDelete" />
 														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected service item and can't be undone. Click here if you are sure you want to delete it."
@@ -188,7 +188,7 @@
                                                 <div class="col-sm-1 vcenter">
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 vcenter" *ngIf="!isSnapshot">
                                                     <input type="checkbox" [ngbTooltip]="'click here to select the product for deletion'" *ngIf="!product.isDueToDelete"
 														 (click)="product.isDueToDelete = !product.isDueToDelete" />
 														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected product item and can't be undone. Click here if you are sure you want to delete it."
