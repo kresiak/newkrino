@@ -168,7 +168,7 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Price history" id="tabPriceHistory" *ngIf="product.annotation.priceUpdates.length > 0">
+	<ngb-tab title="Price history" id="tabPriceHistory" *ngIf="product.annotation.priceUpdates && product.annotation.priceUpdates.length > 0">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
