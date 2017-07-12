@@ -395,6 +395,33 @@ export class PlatformService {
     // Other misc annotation
     // =======================
 
+    getAnnotatedEnterprises() {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.enterprises'), (enterprises) => {
+            return enterprises.map(enterprise => {
+                return {
+                    data: enterprise,
+                    annotation: {
+                    }
+                }
+            })
+        })
+    }
+
+
+    getAnnotatedClients() {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), (clients) => {
+            return clients.map(client => {
+                return {
+                    data: client,
+                    annotation: {
+                    }
+                }
+            })
+        })
+    }
+
+
+
     getAnnotatedMachines() {
         return Observable.combineLatest(this.dataStore.getDataObservable('platform.machines'), (machines) => {
             return machines.map(machine => {
