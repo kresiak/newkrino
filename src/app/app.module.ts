@@ -67,6 +67,7 @@ import {PlatformClientComponent} from './Platforms/platform-clientTypes.componen
 import {PlatformCorrectionComponent} from './Platforms/platform-correction.component'
 import {PlatformServiceSnapshotsComponent} from './Platforms/platform-service-snapshots.component'
 import {PlatformServiceSnapshotListComponent} from './Platforms/platform-service-snapshot-list.component'
+import {PlatformServiceSnapshotDetailComponent} from './Platforms/platform-service-snapshot-detail.component'
 import {PlatformServiceCompareComponent} from './Platforms/platform-service-compare.component'
 import {PlatformServiceCompareBaseComponent} from './Platforms/platform-service-compare-base.component'
 import {PlatformClientsComponent} from './Platforms/platform-clients.component'
@@ -231,7 +232,8 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
                   SupplierSapDetailComponent, SupplierSapListComponent,
                   PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
-                  PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent
+                  PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
+                  PlatformServiceSnapshotDetailComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService ],

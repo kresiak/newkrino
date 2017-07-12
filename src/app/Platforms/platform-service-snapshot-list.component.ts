@@ -35,7 +35,6 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     private isPageRunning: boolean = true
 
     private state
-    private linkToProductForm: FormGroup
 
     private clientListObservable
 
@@ -63,7 +62,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
             return this.nbHitsShownObservable.map(nbItems => {
                 return snapshots.slice(0, nbItems)
             })
-        });
+        });        
 
         this.snapshotObservable.takeWhile(() => this.isPageRunning).subscribe(snapshots => {
             if (!comparatorsUtils.softCopy(this.snapshotsList, snapshots))                
@@ -75,33 +74,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
             this.fnGetCostByService= (serviceId) => serviceCostMap.has(serviceId) ? serviceCostMap.get(serviceId) : 0
         })
 
-        this.linkToProductForm = this.formBuilder.group({
-            nameOfLink: ['', [Validators.required, Validators.minLength(3)]],
-            description: ['']
-        })
-
-        this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(ct => {
-            return {
-                id: ct._id,
-                name: ct.name
-            }
-        }));        
-
     }
-
-    saveLinkToProductForm(formValue, isValid) {
-        this.dataStore.addData('', {
-            name: formValue.nameOfLink,
-            description: formValue.description
-        }).subscribe(res => {
-            this.resetLinkToProductForm()
-        })
-    }
-
-    resetLinkToProductForm() {
-        this.linkToProductForm.reset()
-    }
-
 
     private beforeAccordionChange($event: NgbPanelChangeEvent) {
         if ($event.nextState) {
@@ -120,12 +93,6 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     private moreHits() {
         this.nbHitsShown+= this.nbHitsIncrement
         this.nbHitsShownObservable.next(this.nbHitsShown)
-    }
-
-    enableDisableSnapshot(isDisabled: boolean, snapshot) {
-        delete snapshot.confirmation
-        snapshot.isDisabled = isDisabled
-        this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
     }
 
 }
