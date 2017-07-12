@@ -62,6 +62,7 @@ import {PlatformServiceStepListComponent} from './Platforms/platform-service-ste
 import {PlatformServiceListComponent} from './Platforms/platform-service-list.component'
 import {PlatformServiceDetailComponent} from './Platforms/platform-service-detail.component'
 import {PlatformServiceStepDetailComponent} from './Platforms/platform-service-step-detail.component'
+import {PlatformServiceStepClientTypeCostComponent} from './Platforms/platform-service-step-clientType-cost.component'
 import {PlatformLabourComponent} from './Platforms/platform-labour.component'
 import {PlatformClientComponent} from './Platforms/platform-clientTypes.component'
 import {PlatformCorrectionComponent} from './Platforms/platform-correction.component'
@@ -233,7 +234,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierSapDetailComponent, SupplierSapListComponent,
                   PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
                   PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
-                  PlatformServiceSnapshotDetailComponent
+                  PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService ],

@@ -13,6 +13,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceSnapshotDetailComponent implements OnInit {
+    snapshotSteps: any[];
 
     constructor(private dataStore: DataStore, private platformService: PlatformService, private formBuilder: FormBuilder) {
     }
@@ -47,6 +48,10 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
             }
         }));        
 
+        this.dataStore.getDataObservable('platform.service.step.snapshots').map(steps => steps.filter(step => step.serviceId === this.snapshot._id && !step.data.isDisabled)).takeWhile(() => this.isPageRunning).subscribe(res => {
+            this.snapshotSteps= res
+        })
+
     }
 
     saveLinkToProductForm(formValue, isValid) {
@@ -73,4 +78,21 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
         this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
     }
 
+    getTotalForClientTypeId(clientTypeId) {
+        return this.snapshotSteps.reduce((acc, step) => {
+            var x = (step.annotation.costsByClientType || []).filter(c => c.clientTypeId===clientTypeId)[0]
+            return acc + (x ? x.grandTotalCost : 0)
+        }, 0 )
+    }
+
+    getTotalForStepAndClientTypeId(step, clientTypeId) {
+        var x = (step.annotation.costsByClientType || []).filter(c => c.clientTypeId===clientTypeId)[0]
+        return x ? x.grandTotalCost : 0
+    }
+
+    getInfoForStepAndClientTypeId(step, clientTypeId) {
+        var x = (step.annotation.costsByClientType || []).filter(c => c.clientTypeId===clientTypeId)[0]
+        return x 
+    }
+    
 }
