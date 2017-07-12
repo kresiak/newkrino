@@ -1,0 +1,111 @@
+<div class="card-block">
+    <ngb-tabset>
+        <ngb-tab *ngIf="clientsList && clientsList.length > 0" title="List of clients" id="tabListOfClients">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                <ngb-panel [disabled]="true">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-3"><b>Name</b></div>
+                                            <div class="col-sm-3"><b>First name</b></div>
+                                            <div class="col-sm-3"><b>Email</b></div>
+                                            <div class="col-sm-2"><b>Telephone</b></div>
+                                        </div>
+                                    </template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let clientItem of clientsList">
+                                    <template ngbPanelTitle>
+                                        <div class="row" id="{{clientItem._id}}">
+                                            <div class="col-sm-3">{{clientItem.data.name}}</div>
+                                            <div class="col-sm-3">{{clientItem.data.firstName}}</div>
+                                            <div class="col-sm-3">{{clientItem.data.email}}</div>
+                                            <div class="col-sm-2">{{clientItem.data.telephone}}</div>
+                                        </div>
+                                    </template>
+                                    <template ngbPanelContent>
+                                    <ngb-tabset>
+                                        <ngb-tab title="Info" id="tabInfo">
+                                            <template ngbTabContent>
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.data.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>First name</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.data.firstName" [showControls]="true" (editSaved)="firstNameClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Email</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.data.email" [showControls]="true" (editSaved)="emailClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Telephone</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor [content]="clientItem.data.telephone" [showControls]="true" (editSaved)="telephoneClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ngb-tab>
+                                        
+                                    </ngb-tabset>
+		                            </template>
+				                </ngb-panel>
+			                </ngb-accordion>
+		                </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Add a client" id="tabAddClient">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
+                        <div class="container-fluid">
+                            <form [formGroup]="clientsForm" (ngSubmit)="save(clientsForm.value, clientsForm.valid)">
+                                <div class="form-group row">
+                                    <label for="nameOfClient" class="col-sm-2 col-form-label col-xl-2">name:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="nameOfClient" id="nameOfClient" placeholder="name of client">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="firstName" class="col-sm-2 col-form-label col-xl-2">first name:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="first name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="email" class="col-sm-2 col-form-label col-xl-2">email:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="email" id="email" placeholder="email">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="telephone" class="col-sm-2 col-form-label col-xl-2">telephone:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="telephone" id="telephone" placeholder="telephone">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-success" type="submit" [disabled]="!clientsForm.valid">Submit</button>
+                                    </div>
+                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                        <button class="btn btn-info"  [disabled]="clientsForm.pristine" (click)="reset()">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
