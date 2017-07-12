@@ -55,6 +55,31 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="Current prices" id="tabCurrentPrices" *ngIf="serviceItem.annotation.currentSnapshot">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter">Based on current snapshot:</div>
+                        <div class="col-sm-8 vcenter">
+                            {{serviceItem.annotation.currentSnapshot}}
+                        </div>
+                    </div>
+
+                    <div *ngFor="let clientType of clientListObservable |async">
+                        <div class="row">
+                            <div class="col-sm-3 vcenter">
+                                {{clientType.name}}
+                            </div>
+                            <div class="col-sm-3 vcenter">
+                                {{getCostByClientTypeId(clientType.id) | currency:'EUR':true:'1.2-2' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
     <ngb-tab title="Service steps" id="tabSteps">
         <template ngbTabContent>
             <div class="card">

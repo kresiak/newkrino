@@ -61,6 +61,37 @@
                             </div>
                         </template>
                     </ngb-tab>
+                    <ngb-tab title="Prices" id="tabPrices">
+                        <template ngbTabContent>
+                            <div class="card">
+                                <div class="card-block">
+                                    <ngb-accordion [closeOthers]="true">
+                                        <ngb-panel [disabled]="true">
+                                            <template ngbPanelTitle>
+                                                <div class="row">
+                                                    <div class="col-sm-3"><b>Client Type</b></div>
+                                                    <div class="col-sm-2"><b>Cost</b></div>
+                                                </div>
+                                            </template>
+                                        </ngb-panel>
+                                        <ngb-panel *ngFor="let clientType of clientListObservable |async">
+                                            <!--FOR-->
+                                            <template ngbPanelTitle>
+                                                <div class="row" >
+                                                    <div class="col-sm-3">{{clientType.name}}</div>
+                                                    <div class="col-sm-2 gg-price">{{15 | currency:'EUR':true:'1.2-2'}}</div>
+                                                </div>
+                                            </template>
+                                            <template ngbPanelContent>
+                                                
+                                            </template>
+                                        </ngb-panel>
+                                    </ngb-accordion>
+
+                                </div>
+                            </div>
+                        </template>
+                    </ngb-tab>
                     <ngb-tab title="Disable snapshot" id="tabDisableSnapshot" *ngIf="!snapshot.isDisabled">
                         <template ngbTabContent>
                             <div class="card">

@@ -37,6 +37,7 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
     private state
     private linkToProductForm: FormGroup
 
+    private clientListObservable
 
     private stateInit() {
         if (!this.state) this.state = {};
@@ -78,6 +79,13 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
             nameOfLink: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
         })
+
+        this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(ct => {
+            return {
+                id: ct._id,
+                name: ct.name
+            }
+        }));        
 
     }
 

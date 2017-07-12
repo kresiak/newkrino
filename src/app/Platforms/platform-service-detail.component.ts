@@ -51,10 +51,10 @@ export class PlatformServiceDetailComponent implements OnInit {
         this.servicesIdenticalObservable= this.platformService.getAnnotatedServicesIdenticalTo(this.serviceItem.data._id)
         this.servicesSimilarObservable= this.platformService.getAnnotatedServicesSimilarTo(this.serviceItem.data._id)
 
-        this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(machines => machines.map(machine => {
+        this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(ct => {
             return {
-                id: machine._id,
-                name: machine.name
+                id: ct._id,
+                name: ct.name
             }
         }));
         
@@ -102,5 +102,12 @@ export class PlatformServiceDetailComponent implements OnInit {
     categoryHasBeenAdded(newCategory: string) {
         this.platformService.createCategory(newCategory);
     }
-   
+
+    getCostByClientTypeId(typeId) {
+        if (!this.serviceItem.annotation.costMapByClientType) return 0
+        var x= this.serviceItem.annotation.costMapByClientType.filter(ct => ct[0]===typeId)[0]
+        if (!x) return 0
+
+        return +x[1]
+    }
 }
