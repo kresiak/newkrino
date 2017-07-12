@@ -8,7 +8,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 @Component(
     {
         selector: 'gg-platform-client',
-        templateUrl: './platform-client.component.html'
+        templateUrl: './platform-clientTypes.component.html'
     }
 )
 export class PlatformClientComponent implements OnInit {

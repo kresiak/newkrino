@@ -63,7 +63,7 @@ import {PlatformServiceListComponent} from './Platforms/platform-service-list.co
 import {PlatformServiceDetailComponent} from './Platforms/platform-service-detail.component'
 import {PlatformServiceStepDetailComponent} from './Platforms/platform-service-step-detail.component'
 import {PlatformLabourComponent} from './Platforms/platform-labour.component'
-import {PlatformClientComponent} from './Platforms/platform-client.component'
+import {PlatformClientComponent} from './Platforms/platform-clientTypes.component'
 import {PlatformCorrectionComponent} from './Platforms/platform-correction.component'
 import {PlatformServiceSnapshotsComponent} from './Platforms/platform-service-snapshots.component'
 import {PlatformServiceSnapshotListComponent} from './Platforms/platform-service-snapshot-list.component'
