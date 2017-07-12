@@ -417,6 +417,7 @@ export class PlatformService {
                 return {
                     data: client,
                     annotation: {
+                        fullName: client.firstName + ' ' + client.name
                     }
                 }
             })
