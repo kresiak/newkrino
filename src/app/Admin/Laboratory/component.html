@@ -198,6 +198,16 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="row">
+                                <div class="col-sm-3 vcenter"><b>selling services as supplier</b></div>
+                                <div class="col-sm-8 vcenter">
+                                    <gg-editor-autocomplete [selectableData]="supplierListObservable" [emptyContentText]="'choose a supplier'"
+                                        (idChanged)="supplierUpdated($event)"></gg-editor-autocomplete>
+                                </div>
+                                <div class="col-sm-3 vcenter"><b>services product category</b></div>
+                                <div class="col-sm-8 vcenter">
+                                    <gg-editor-autocomplete [selectableData]="categoryListObservable" [emptyContentText]="'choose a category'"
+                                        (idChanged)="categoryUpdated($event)"></gg-editor-autocomplete>
+                                </div>
                             </div>
                         </div>
                     </div>
