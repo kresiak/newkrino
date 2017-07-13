@@ -18,6 +18,10 @@ export class PlatformClientsComponent implements OnInit {
 private clientsForm: FormGroup
 private clientsList: any
 private isPageRunning: boolean = true
+private entrepriseListObservable
+private clientTypeListObservable
+private enterpriseId: string
+private clientTypeId: string
 
     ngOnInit(): void {
         this.clientsForm = this.formBuilder.group({
@@ -32,6 +36,28 @@ private isPageRunning: boolean = true
                 this.clientsList= comparatorsUtils.clone(clients)            
         })
         
+        this.entrepriseListObservable = this.dataStore.getDataObservable('platform.enterprises').takeWhile(() => this.isPageRunning).map(enterprises => enterprises.map(enterprise => {
+                return {
+                    id: enterprise._id,
+                    name: enterprise.name
+                }
+            }))
+
+        this.clientTypeListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(clientType => {
+                return {
+                    id: clientType._id,
+                    name: clientType.name
+                }
+            }))
+        
+    }
+
+    enterpriseChanged(enterpriseId) {
+        this.enterpriseId = enterpriseId
+    }
+
+    clientTypeChanged(clientTypeId) {
+        this.clientTypeId = clientTypeId
     }
 
     save(formValue, isValid) {
@@ -39,7 +65,9 @@ private isPageRunning: boolean = true
             name: formValue.nameOfClient,
             firstName: formValue.firstName,
             email: formValue.email,
-            telephone: formValue.telephone
+            telephone: formValue.telephone,
+            enterpriseId: this.enterpriseId,
+            clientTypeId: this.clientTypeId
         }).subscribe(res =>
         {
             this.reset()
@@ -74,5 +102,16 @@ private isPageRunning: boolean = true
         clientItem.data.telephone = telephone
         this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
     }
+
+    enterpriseUpdated(enterpriseId, clientItem) {
+        clientItem.data.enterpriseId = enterpriseId
+        this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
+    }
+
+    clientTypeUpdated(clientTypeId, clientItem) {
+        clientItem.data.clientTypeId = clientTypeId
+        this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
+    }
+   
    
 }
