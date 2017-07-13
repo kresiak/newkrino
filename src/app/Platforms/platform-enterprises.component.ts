@@ -18,6 +18,8 @@ export class PlatformEnterprisesComponent implements OnInit {
 private enterprisesForm: FormGroup
 private enterprisesList: any
 private isPageRunning: boolean = true
+private clientTypeId: string
+private clientTypeListObservable
 
     ngOnInit(): void {
         this.enterprisesForm = this.formBuilder.group({
@@ -32,6 +34,13 @@ private isPageRunning: boolean = true
                 this.enterprisesList = comparatorsUtils.clone(enterprises)            
         })
         
+        this.clientTypeListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(clientType => {
+                return {
+                    id: clientType._id,
+                    name: clientType.name
+                }
+            }))
+        
     }
 
     save(formValue, isValid) {
@@ -39,7 +48,8 @@ private isPageRunning: boolean = true
             name: formValue.nameOfEnterprise,
             telephone: formValue.telephone,
             fax: formValue.fax,
-            web: formValue.web
+            web: formValue.web,
+            clientTypeId: this.clientTypeId
         }).subscribe(res =>
         {
             this.reset()
@@ -53,6 +63,10 @@ private isPageRunning: boolean = true
 
     ngOnDestroy(): void {
         this.isPageRunning = false
+    }
+
+    clientTypeChanged(clientTypeId) {
+        this.clientTypeId = clientTypeId
     }
 
     nameEnterpriseUpdated(name, enterpriseItem) {
@@ -74,5 +88,11 @@ private isPageRunning: boolean = true
         enterpriseItem.data.web = web
         this.dataStore.updateData('platform.enterprises', enterpriseItem.data._id, enterpriseItem.data)
     }
+
+    clientTypeUpdated(clientTypeId, enterpriseItem) {
+        enterpriseItem.data.clientTypeId = clientTypeId
+        this.dataStore.updateData('platform.enterprises', enterpriseItem.data._id, enterpriseItem.data)
+    }
+   
    
 }
