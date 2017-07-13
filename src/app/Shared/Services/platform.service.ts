@@ -410,6 +410,18 @@ export class PlatformService {
         })
     }
 
+    getAnnotatedOffers() {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), (enterprises) => {
+            return enterprises.map(enterprise => {
+                return {
+                    data: enterprise,
+                    annotation: {
+   client: 'Krzysztof'
+                    }
+                }
+            })
+        })
+    }
 
     getAnnotatedClients() {
         return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), (clients) => {
