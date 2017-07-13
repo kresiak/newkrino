@@ -27,6 +27,9 @@ export class AdminLabo {
     private equipeListObservable
     private deliveryAdresses: any[]
     private addAddressForm: FormGroup;
+    private supplierListObservable
+    private categoryListObservable
+    private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.selectableUsers = this.authService.getSelectableUsers(true);
@@ -47,6 +50,20 @@ export class AdminLabo {
                 name: eq.data.name
             }
         }));
+
+        this.supplierListObservable = this.dataStore.getDataObservable('suppliers').takeWhile(() => this.isPageRunning).map(suppliers => suppliers.map(supplier => {
+                return {
+                    id: supplier._id,
+                    name: supplier.name
+                }
+            }))
+
+        this.categoryListObservable = this.dataStore.getDataObservable('categories').takeWhile(() => this.isPageRunning).map(categories => categories.map(category => {
+                return {
+                    id: category._id,
+                    name: category.name
+                }
+            }))
 
         this.addAddressForm = this.formBuilder.group({
             nomAddAddress: ['', [Validators.required]],
@@ -74,6 +91,11 @@ export class AdminLabo {
     resetAddAddressForm() {
         this.addAddressForm.reset();
     }
+
+    ngOnDestroy(): void {
+        this.isPageRunning = false
+    }
+
 
     private saveLabo() {
         if (this.labo.data._id) {
@@ -201,6 +223,16 @@ export class AdminLabo {
 
     sapOtherMaxIdsBeforeKrino(otherMaxId) {
         this.labo.data.sapOtherMaxIdsBeforeKrino = otherMaxId
+        this.saveLabo()
+    }
+
+    supplierUpdated(supplier: string) {
+        this.labo.data.platformSellingSupplierId = supplier
+        this.saveLabo()
+    }
+
+    categoryUpdated(category: string) {
+        this.labo.data.platformSellingCategoryId = category
         this.saveLabo()
     }
 }
