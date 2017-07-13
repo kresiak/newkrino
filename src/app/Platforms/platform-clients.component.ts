@@ -19,7 +19,9 @@ private clientsForm: FormGroup
 private clientsList: any
 private isPageRunning: boolean = true
 private entrepriseListObservable
+private clientTypeListObservable
 private enterpriseId: string
+private clientTypeId: string
 
     ngOnInit(): void {
         this.clientsForm = this.formBuilder.group({
@@ -40,11 +42,22 @@ private enterpriseId: string
                     name: enterprise.name
                 }
             }))
+
+        this.clientTypeListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(clientType => {
+                return {
+                    id: clientType._id,
+                    name: clientType.name
+                }
+            }))
         
     }
 
     enterpriseChanged(enterpriseId) {
         this.enterpriseId = enterpriseId
+    }
+
+    clientTypeChanged(clientTypeId) {
+        this.clientTypeId = clientTypeId
     }
 
     save(formValue, isValid) {
@@ -53,7 +66,8 @@ private enterpriseId: string
             firstName: formValue.firstName,
             email: formValue.email,
             telephone: formValue.telephone,
-            enterpriseId: this.enterpriseId
+            enterpriseId: this.enterpriseId,
+            clientTypeId: this.clientTypeId
         }).subscribe(res =>
         {
             this.reset()
@@ -89,8 +103,13 @@ private enterpriseId: string
         this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
     }
 
-    enterpriseUpdated(enterprise, clientItem) {
-        clientItem.data.enterpriseId = enterprise
+    enterpriseUpdated(enterpriseId, clientItem) {
+        clientItem.data.enterpriseId = enterpriseId
+        this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
+    }
+
+    clientTypeUpdated(clientTypeId, clientItem) {
+        clientItem.data.clientTypeId = clientTypeId
         this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
     }
    
