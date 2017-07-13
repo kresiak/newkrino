@@ -181,7 +181,7 @@ export class PlatformService {
                 }),
                 services: (serviceStep.services || []).map(s => {
                     let theService = services.filter(service => s.id === service._id)[0]
-                    let snapshotInfo= stepServicesInfos.filter(si => si.id === s.id)[0]
+                    let snapshotInfo = stepServicesInfos.filter(si => si.id === s.id)[0]
                     return {
                         data: s,
                         annotation: {
@@ -236,9 +236,10 @@ export class PlatformService {
             this.dataStore.getDataObservable('platform.service.categories'),
             this.dataStore.getDataObservable('platform.service.snapshots'),
             this.dataStore.getDataObservable('platform.service.step.snapshots'),
-            (services, clients, corrections, categories, snapshots, snapshotSteps) => {
+            this.getInternalClientTypeIdObservable(),
+            (services, clients, corrections, categories, snapshots, snapshotSteps, internalClientTypeId) => {
                 return services.map(service => {
-                    let currentSnapshot= this.getCurrentSnapshotIdOfService(service._id, snapshots)
+                    let currentSnapshot = this.getCurrentSnapshotIdOfService(service._id, snapshots)
                     var costMap = currentSnapshot ? this.getCostsOfSnapshotMap(currentSnapshot.id, snapshotSteps) : undefined
                     let correctionsFactors = this.getCorrectionsOfClientType(service.clientTypeId, clients, corrections)
                     let clientType = clients.filter(ct => ct._id === service.clientTypeId)[0]
@@ -251,7 +252,8 @@ export class PlatformService {
                             clientType: clientType ? clientType.name : 'standard corrections',
                             category: category || 'no category',
                             currentSnapshot: currentSnapshot ? currentSnapshot.version : '',
-                            costMapByClientType: costMap ? Array.from(costMap.entries()) : undefined
+                            costMapByClientType: costMap ? Array.from(costMap.entries()) : undefined,
+                            internalClientCost: (costMap && costMap.has(internalClientTypeId)) ? costMap.get(internalClientTypeId) : 0
                         }
                     }
                 })
@@ -353,6 +355,13 @@ export class PlatformService {
         })
     }
 
+    getInternalClientTypeIdObservable(): Observable<any> {
+        return this.dataStore.getDataObservable('platform.client.types').map(types => {
+            var x = types.filter(t => t.isInternalClient)[0]
+            return x ? x._id : undefined
+        })
+    }
+
 
     // Copy services...
     // =================
@@ -380,32 +389,37 @@ export class PlatformService {
     snapshotService(serviceId: string, version: string, description: string): Observable<any> {
         var newServiceId: string
         var newProductId: string
-        var self= this
+        var serviceToBeSnapshoted
+        var self = this
 
-        var getSupplierId= function() {
+        var getSupplierId = function () {
             return '583f5dd108b186683c718dee'
         }
 
-        var getCategoryId= function() {
+        var getCategoryId = function () {
             return '583ea9e5495499592417a3c5'
         }
 
-        var getCategoryObservable= function(catId) {
-            return self.dataStore.getDataObservable('categories').map(categories => categories.filter(c => c._id=== catId)[0])
+        var getCategoryObservable = function (catId) {
+            return self.dataStore.getDataObservable('categories').map(categories => categories.filter(c => c._id === catId)[0])
         }
 
         return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
+            .do(service => {
+                serviceToBeSnapshoted= service
+            })
             .switchMap(service => {
                 var service2 = utilsComparator.clone(service)
                 service2.version = version
                 service2.serviceId = serviceId
                 service2.description = description
-                return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2), this.getAnnotatedServiceStepsByService(serviceId).first())
+                return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2),  
+                                this.getAnnotatedServiceStepsByService(serviceId).first())
             })
             .do(res => {
-                newServiceId= res[0]._id
+                newServiceId = res[0]._id
             })
-            .switchMap(res => {                
+            .switchMap(res => {
                 var steps: any[] = res[1]
                 steps.forEach(step => {
                     step.serviceId = newServiceId
@@ -416,8 +430,9 @@ export class PlatformService {
                 return this.dataStore.getDataObservable('products').map(products => products.filter(p => p.serviceId === serviceId)).first()
             })
             .switchMap(products => {
+                if (!products || products.length ===0) return Observable.from([{}])
                 return Observable.forkJoin(products.map(p => {
-                    p.disabled= true
+                    p.disabled = true
                     return this.dataStore.updateData('products', p._id, p)
                 }))
             })
@@ -425,12 +440,12 @@ export class PlatformService {
                 return getCategoryObservable(getCategoryId())
             })
             .switchMap(category => {
-                var prod= {
-                    name: '',
-                    description: '',
-                    catalogNr: '',
+                var prod = {
+                    name: serviceToBeSnapshoted.data.name,
+                    description: serviceToBeSnapshoted.data.description,
+                    catalogNr: version,
                     supplierId: getSupplierId(),
-                    price: '',
+                    price: serviceToBeSnapshoted.annotation.internalClientCost,
                     categoryIds: [category._id],
                     noArticle: category.noArticle,
                     tva: 21,
@@ -441,13 +456,13 @@ export class PlatformService {
                 return this.dataStore.addData('products', prod)
             })
             .do(res => {
-                newProductId= res._id
+                newProductId = res._id
             })
             .switchMap(res => {
-                return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id === newServiceId)[0])
+                return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id === newServiceId)[0]).first()
             })
             .switchMap(snapshot => {
-                snapshot.productId= newProductId
+                snapshot.productId = newProductId
                 return this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
             })
 
@@ -474,7 +489,7 @@ export class PlatformService {
                 return {
                     data: enterprise,
                     annotation: {
-   client: 'Krzysztof'
+                        client: 'Krzysztof'
                     }
                 }
             })
