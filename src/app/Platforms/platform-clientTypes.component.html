@@ -11,6 +11,7 @@
                                     <div class="row">
                                         <div class="col-sm-3"><b>Name</b></div>
                                         <div class="col-sm-5"><b>Description</b></div>
+                                        <div class="col-sm-2"><b>Is internal client</b></div>
                                     </div>
                                 </template>
                             </ngb-panel>
@@ -19,6 +20,7 @@
                                     <div class="row" id="{{clientItem._id}}">
                                         <div class="col-sm-3">{{clientItem.name}}</div>
                                         <div class="col-sm-5">{{clientItem.description}}</div>
+                                        <div class="col-sm-2">{{clientItem.isInternalClient ? 'yes' : ''}}</div>
                                     </div>
                                 </template>
                                 <template ngbPanelContent>
@@ -35,6 +37,10 @@
                                                             <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
+                                                            </div>
+                                                            <div class="col-sm-3 vcenter"><b>Is internal client</b></div>
+                                                            <div class="col-sm-8 vcenter">
+                                                                <gg-editor-boolean [content]="clientItem.isInternalClient" (editSaved)="updateIsInternalClient($event, clientItem)" ></gg-editor-boolean>
                                                             </div>
                                                         </div>
                                                     </div>

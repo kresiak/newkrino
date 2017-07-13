@@ -130,4 +130,14 @@ export class PlatformClientComponent implements OnInit {
 
         this.dataStore.updateData('platform.client.types', client._id, client)
     }
+
+    updateIsInternalClient(isInternal, clientItem) {
+        Observable.forkJoin(this.clientList.filter(c => c !== clientItem).map(c => {
+            c.isInternalClient= false
+            return this.dataStore.updateData('platform.client.types', c._id, c)
+        })).do(res => {
+            clientItem.isInternalClient = isInternal
+            this.dataStore.updateData('platform.client.types', clientItem._id, clientItem)  
+        }).subscribe()
+    }
 }
