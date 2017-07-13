@@ -378,6 +378,22 @@ export class PlatformService {
 
 
     snapshotService(serviceId: string, version: string, description: string): Observable<any> {
+        var newServiceId: string
+        var newProductId: string
+        var self= this
+
+        var getSupplierId= function() {
+            return '583f5dd108b186683c718dee'
+        }
+
+        var getCategoryId= function() {
+            return '583ea9e5495499592417a3c5'
+        }
+
+        var getCategoryObservable= function(catId) {
+            return self.dataStore.getDataObservable('categories').map(categories => categories.filter(c => c._id=== catId)[0])
+        }
+
         return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
             .switchMap(service => {
                 var service2 = utilsComparator.clone(service)
@@ -385,14 +401,56 @@ export class PlatformService {
                 service2.serviceId = serviceId
                 service2.description = description
                 return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2), this.getAnnotatedServiceStepsByService(serviceId).first())
-            }).switchMap(res => {
-                var newServiceId = res[0]._id
+            })
+            .do(res => {
+                newServiceId= res[0]._id
+            })
+            .switchMap(res => {                
                 var steps: any[] = res[1]
                 steps.forEach(step => {
                     step.serviceId = newServiceId
                 })
                 return Observable.forkJoin(steps.map(step => this.dataStore.addData('platform.service.step.snapshots', step)))
             })
+            .switchMap(res => {
+                return this.dataStore.getDataObservable('products').map(products => products.filter(p => p.serviceId === serviceId)).first()
+            })
+            .switchMap(products => {
+                return Observable.forkJoin(products.map(p => {
+                    p.disabled= true
+                    return this.dataStore.updateData('products', p._id, p)
+                }))
+            })
+            .switchMap(res => {
+                return getCategoryObservable(getCategoryId())
+            })
+            .switchMap(category => {
+                var prod= {
+                    name: '',
+                    description: '',
+                    catalogNr: '',
+                    supplierId: getSupplierId(),
+                    price: '',
+                    categoryIds: [category._id],
+                    noArticle: category.noArticle,
+                    tva: 21,
+                    groupMarch: category.groupMarch,
+                    serviceId: serviceId,
+                    serviceVersionId: newServiceId,
+                }
+                return this.dataStore.addData('products', prod)
+            })
+            .do(res => {
+                newProductId= res._id
+            })
+            .switchMap(res => {
+                return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id === newServiceId)[0])
+            })
+            .switchMap(snapshot => {
+                snapshot.productId= newProductId
+                return this.dataStore.updateData('platform.service.snapshots', snapshot._id, snapshot)
+            })
+
     }
 
     // Other misc annotation
