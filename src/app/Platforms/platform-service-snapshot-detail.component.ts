@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
+import { ProductService } from './../Shared/Services/product.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
@@ -15,7 +16,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 export class PlatformServiceSnapshotDetailComponent implements OnInit {
     snapshotSteps: any[];
 
-    constructor(private dataStore: DataStore, private platformService: PlatformService, private formBuilder: FormBuilder) {
+    constructor(private dataStore: DataStore, private platformService: PlatformService, private formBuilder: FormBuilder, private productService: ProductService) {
     }
 
     @Input() snapshot
@@ -95,4 +96,8 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
         return x 
     }
     
+    getAnnotatedProductsById(id: string): Observable<any> {
+        return this.productService.getAnnotatedProductsById(id)
+    }
+
 }

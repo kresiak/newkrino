@@ -115,11 +115,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Link to product" id="tabLinkToProduct">
+    <ngb-tab title="Product associated" id="tabLinkToProduct" *ngIf="snapshot.productId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <div class="container-fluid">
+                    <gg-product-detail [productObservable]="getAnnotatedProductsById(snapshot.productId)"></gg-product-detail>
+                    <!--                    <div class="container-fluid">
                         <form [formGroup]="linkToProductForm" (ngSubmit)="saveLinkToProductForm(linkToProductForm.value, linkToProductForm.valid)">
                             <div class="form-group row">
                                 <label for="nameOfLink" class="col-sm-2 col-form-label col-xl-2">name:</label>
@@ -143,6 +144,7 @@
                             </div>
                         </form>
                     </div>
+-->
                 </div>
             </div>
         </template>
