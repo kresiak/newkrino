@@ -475,11 +475,13 @@ export class PlatformService {
     // =======================
 
     getAnnotatedEnterprises() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.enterprises'), (enterprises) => {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'),  (enterprises, clientTypes) => { 
             return enterprises.map(enterprise => {
+                var type= clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0]
                 return {
                     data: enterprise,
                     annotation: {
+                        clientType: type ? type.name : 'unknown type'
                     }
                 }
             })
@@ -487,12 +489,17 @@ export class PlatformService {
     }
 
     getAnnotatedOffers() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), (enterprises) => {
-            return enterprises.map(enterprise => {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises')
+            , this.dataStore.getDataObservable('platform.client.types'),  (offers, clients, enterprises, clientTypes) => {
+            return offers.map(offer => {
+                var client= clients.filter(c => c._id === offer.clientId)[0]
+                var enterprise= client ? enterprises.filter(e => e._id === client.enterpriseId)[0] : undefined
+                var type= enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
+                var displayClient= client ? ((client.firstName + ' ' + client.name) + (enterprise ? (' / ' + enterprise.name) : ''))   : 'unknown client'
                 return {
-                    data: enterprise,
+                    data: offer,
                     annotation: {
-                        client: 'Krzysztof'
+                        client: displayClient
                     }
                 }
             })
@@ -500,12 +507,17 @@ export class PlatformService {
     }
 
     getAnnotatedClients() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), (clients) => {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'),  
+            (clients, enterprises, clientTypes) => {
             return clients.map(client => {
+                var enterprise= enterprises.filter(e => e._id === client.enterpriseId)[0]
+                var type= enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
                 return {
                     data: client,
                     annotation: {
-                        fullName: client.firstName + ' ' + client.name
+                        fullName: client.firstName + ' ' + client.name,
+                        enterprise: enterprise ? enterprise.name : 'unknown enterprise',
+                        clientType: type ? type.name : 'unknown type'
                     }
                 }
             })
