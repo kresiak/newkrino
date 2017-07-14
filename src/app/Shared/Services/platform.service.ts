@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
+import { AdminService } from './admin.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
@@ -11,7 +12,7 @@ import * as utilsKrino from './../Utils/krino'
 
 Injectable()
 export class PlatformService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(AdminService) private adminService: AdminService) { }
 
     // Service snapshots....
     // =====================
@@ -389,15 +390,16 @@ export class PlatformService {
     snapshotService(serviceId: string, version: string, description: string): Observable<any> {
         var newServiceId: string
         var newProductId: string
+        var laboConfig
         var serviceToBeSnapshoted
         var self = this
 
         var getSupplierId = function () {
-            return '583f5dd108b186683c718dee'
+            return laboConfig.data.platformSellingSupplierId
         }
 
         var getCategoryId = function () {
-            return '583ea9e5495499592417a3c5'
+            return laboConfig.data.platformSellingCategoryId
         }
 
         var getCategoryObservable = function (catId) {
@@ -414,10 +416,11 @@ export class PlatformService {
                 service2.serviceId = serviceId
                 service2.description = description
                 return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2),  
-                                this.getAnnotatedServiceStepsByService(serviceId).first())
+                                this.getAnnotatedServiceStepsByService(serviceId).first(), this.adminService.getLabo().first())
             })
             .do(res => {
                 newServiceId = res[0]._id
+                laboConfig= res[2]
             })
             .switchMap(res => {
                 var steps: any[] = res[1]
