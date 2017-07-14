@@ -22,8 +22,9 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 )
 
 export class ProductDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, 
-                private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService) {
+        serviceSnapshot: any;
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService,
+        private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -38,11 +39,10 @@ export class ProductDetailComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private subscriptionAuthorization: Subscription     
-    private subscriptionProduct: Subscription
-    private subscriptionDoubleProduct: Subscription
 
     private basketPorductsMap: Map<string, any> = new Map<string, any>()
+
+    private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.stateInit();
@@ -52,40 +52,43 @@ export class ProductDetailComponent implements OnInit {
         this.selectableUsers = this.authService.getSelectableUsers();
         this.selectedUserIdsObservable = this.productObservable.map(product => product.data.userIds);
 
-        this.subscriptionProduct= this.productObservable.subscribe(product => {
-            if (!comparatorsUtils.softCopy(this.product, product))
-                this.product = product;
-            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
-            if (product) {
+        this.productObservable.takeWhile(() => this.isPageRunning)
+            .do(product => {
+                if (!comparatorsUtils.softCopy(this.product, product))
+                    this.product = product;
+                this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
                 this.ordersObservable = this.orderService.getAnnotedOrdersByProduct(product.data._id)
-                this.doubleProductsObservable= this.productService.getAnnotatedProductsByCatalogNr(product.data.catalogNr)
-                this.subscriptionDoubleProduct= this.doubleProductsObservable.subscribe(res => {
-                    this.hasProductDoubles= res && res.length > 1
-                })
-            }
-        });
+                this.doubleProductsObservable = this.productService.getAnnotatedProductsByCatalogNr(product.data.catalogNr)
+            }).switchMap(product => {
+                return this.productService.getAnnotatedProductsByCatalogNr(product.data.catalogNr)
+            }).do(res => {
+                this.hasProductDoubles = res && res.length > 1
+            }).switchMap(res => {
+                if (this.product.data.serviceVersionId) return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id ===this.product.data.serviceVersionId)[0])
+                else return Observable.from([undefined])
+            }).do (snapshot => {
+                this.serviceSnapshot= snapshot
+            }).subscribe(res => {})
 
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
-        })        
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
 
-        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
-            this.basketPorductsMap= basketPorductsMap
+        this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap => {
+            this.basketPorductsMap = basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, [this.product])
         })
-        
+
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionProduct.unsubscribe()
-         this.subscriptionDoubleProduct.unsubscribe()
+        this.isPageRunning = false
     }
-    
+
 
     //private model;
     private product;
-    private hasProductDoubles: boolean= false
+    private hasProductDoubles: boolean = false
     private ordersObservable;
     private doubleProductsObservable
     private selectableUsers: Observable<SelectableData[]>;
@@ -120,8 +123,8 @@ export class ProductDetailComponent implements OnInit {
         this.basketService.doBasketUpdate(this.product, quantity)
     }
 
-    quantityBasketIncremented() {        
-        this.basketService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString() )
+    quantityBasketIncremented() {
+        this.basketService.doBasketUpdate(this.product, (+this.product.annotation.quantity + 1).toString())
         this.product.annotation.quantity++ // to display it more rapidly, even if the observable would bring it anyway
     }
 
@@ -135,8 +138,8 @@ export class ProductDetailComponent implements OnInit {
             $event.preventDefault();
             this.navigationService.jumpToTop()
             return
-        }        
-        
+        }
+
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);
     };
@@ -149,7 +152,7 @@ export class ProductDetailComponent implements OnInit {
     private childDoubleProductsStateChanged($event) {
         this.state.DoubleProducts = $event;
         this.stateChanged.next(this.state);
-    }    
+    }
 
 
     nameUpdated(name: string) {
@@ -198,7 +201,7 @@ export class ProductDetailComponent implements OnInit {
         let link = ['/preorder', this.product.data.supplierId];
         this.router.navigate(link);
     }
-    
+
     isStockUpdated(isStock) {
         this.product.data.isStock = isStock;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
@@ -225,10 +228,10 @@ export class ProductDetailComponent implements OnInit {
         product.data.isFrigo = isFrigo;
         this.dataStore.updateData('products', product.data._id, product.data);
     }
-    
+
     descriptionUpdated(description) {
         this.product.data.description = description;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
-    
+
 }

@@ -24,7 +24,7 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
     private isPageRunning: boolean = true
 
     private state
-    private linkToProductForm: FormGroup
+    //private linkToProductForm: FormGroup
 
     private clientListObservable
 
@@ -37,11 +37,11 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
         this.stateInit()
 
 
-        this.linkToProductForm = this.formBuilder.group({
+/*        this.linkToProductForm = this.formBuilder.group({
             nameOfLink: ['', [Validators.required, Validators.minLength(3)]],
             description: ['']
         })
-
+*/
         this.clientListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(ct => {
             return {
                 id: ct._id,
@@ -55,7 +55,7 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
 
     }
 
-    saveLinkToProductForm(formValue, isValid) {
+/*    saveLinkToProductForm(formValue, isValid) {
         this.dataStore.addData('', {
             name: formValue.nameOfLink,
             description: formValue.description
@@ -68,7 +68,7 @@ export class PlatformServiceSnapshotDetailComponent implements OnInit {
         this.linkToProductForm.reset()
     }
 
-
+*/
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
