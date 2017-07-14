@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                <ngb-panel [disabled]="true">
+                    <template ngbPanelTitle>
+                        <div class="row">
+                            <div class="col-sm-3"><b>Description</b></div>
+                            <div class="col-sm-3"><b>Client</b></div>
+                        </div>
+                    </template>
+                </ngb-panel>
+                <ngb-panel *ngFor="let offerItem of offersList">
+                    <template ngbPanelTitle>
+                        <div class="row" id="{{offerItem._id}}">
+                            <div class="col-sm-3">{{offerItem.data.description}}</div>
+                            <div class="col-sm-3">{{offerItem.annotation.client}}</div>
+                        </div>
+                    </template>
+                    <template ngbPanelContent>
+                        <gg-platform-offer-detail [offerItem]="offerItem" ></gg-platform-offer-detail>
+                    </template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+</div>

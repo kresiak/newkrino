@@ -1,0 +1,21 @@
+<ngb-tabset>
+    <ngb-tab title="Info" id="tabInfo">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Client</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor-autocomplete [selectableData]="clientsListObservable" [emptyContentText]="'choose a client'" [selectedId]="offerItem.data.clientId"
+                                (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+</ngb-tabset>

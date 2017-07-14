@@ -74,6 +74,8 @@ import {PlatformServiceCompareBaseComponent} from './Platforms/platform-service-
 import {PlatformClientsComponent} from './Platforms/platform-clients.component'
 import {PlatformEnterprisesComponent} from './Platforms/platform-enterprises.component'
 import {PlatformOffersComponent} from './Platforms/platform-offers.component'
+import {PlatformOfferDetailComponent} from './Platforms/platform-offer-detail.component'
+import {PlatformOfferListComponent} from './Platforms/platform-offer-list.component'
 
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
@@ -236,7 +238,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierSapDetailComponent, SupplierSapListComponent,
                   PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
                   PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
-                  PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent
+                  PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent, PlatformOfferDetailComponent, PlatformOfferListComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService ],

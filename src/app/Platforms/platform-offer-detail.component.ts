@@ -7,24 +7,21 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
-        selector: 'gg-platform-offers',
-        templateUrl: './platform-offers.component.html'
+        selector: 'gg-platform-offer-detail',
+        templateUrl: './platform-offer-detail.component.html'
     }
 )
-export class PlatformOffersComponent implements OnInit {
+export class PlatformOfferDetailComponent implements OnInit {
     constructor (private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
-
-private offerForm: FormGroup
+    
+@Input() offerItem
 private offersList: any
 private isPageRunning: boolean = true
 private clientsListObservable
 private clientId: string
 
     ngOnInit(): void {
-        this.offerForm = this.formBuilder.group({
-            description: ['', [Validators.required, Validators.minLength(3)]]
-        })
 
         this.platformService.getAnnotatedOffers().takeWhile(() => this.isPageRunning).subscribe(offers => {
             if (!comparatorsUtils.softCopy(this.offersList, offers))
@@ -37,30 +34,20 @@ private clientId: string
                     name: client.name
                 }
             }))
-                   
-    }
-
-    clientIdChanged(clientId) {
-        this.clientId = clientId
-    }
-
-    save(formValue, isValid) {
-        this.dataStore.addData('platform.offers', {
-            description: formValue.description,
-            clientId: this.clientId
-        }).subscribe(res =>
-        {
-            this.reset()
-        })
-    }
-
-    reset()
-    {
-        this.offerForm.reset()
     }
 
     ngOnDestroy(): void {
         this.isPageRunning = false
+    }
+
+    descriptionUpdated(description, offerItem) {
+        offerItem.data.description = description
+        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
+    }
+   
+    clientIdUpdated(clientId, offerItem) {
+        offerItem.data.clientId = clientId
+        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
     }
 
 }
