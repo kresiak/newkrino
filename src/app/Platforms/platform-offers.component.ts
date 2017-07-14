@@ -37,8 +37,7 @@ private clientId: string
                     name: client.name
                 }
             }))
-
-       
+                   
     }
 
     clientIdChanged(clientId) {
@@ -64,13 +63,4 @@ private clientId: string
         this.isPageRunning = false
     }
 
-    descriptionUpdated(description, offerItem) {
-        offerItem.data.description = description
-        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
-    }
-   
-    clientIdUpdated(clientId, offerItem) {
-        offerItem.data.clientId = clientId
-        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
-    }
 }
