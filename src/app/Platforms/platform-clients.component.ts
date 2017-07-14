@@ -22,10 +22,12 @@ private entrepriseListObservable
 private enterpriseId: string
 
     ngOnInit(): void {
+        const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
+
         this.clientsForm = this.formBuilder.group({
             nameOfClient: ['', [Validators.required, Validators.minLength(3)]],
             firstName: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.pattern(emailRegex)]],
             telephone: ['', Validators.required]
         })
 
