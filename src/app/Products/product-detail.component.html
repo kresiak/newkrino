@@ -9,6 +9,9 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
+					<div class="row" *ngIf="product.data.disabled">
+						<div class="col-sm-3 vcenter" [style.color]="'red'" ><b>This product is disabled</b></div>
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">name of product:</div>
 						<div class="col-sm-6 vcenter">
