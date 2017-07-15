@@ -508,7 +508,10 @@ export class PlatformService {
                         data: offer,
                         annotation: {
                             client: displayClient,
+                            clientType: type ? type.name : 'unknown',
                             total: total,
+                            numero: offer.prefix + offer.offerNo + '/' + offer.version,
+                            serviceTxt: (offer.services || []).map(s =>  (annotatedServices.filter(service => s.id === service.data._id)[0] || {data: {}}).data.name).reduce((a, b) => a + (a ? ', ' : '') + b, ''),
                             services: (offer.services || []).map(s => {
                                 let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
                                 let unitPrice = (!theService || !enterprise ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0] === enterprise.clientTypeId)[0])[1] || 0

@@ -4,6 +4,10 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Numero</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{offerItem.annotation.numero}}
+                        </div>
                         <div class="col-sm-3 vcenter"><b>Description</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
@@ -23,7 +27,7 @@
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="Used services" id="tabUsedServices" *ngIf="offerItem.annotation.services && offerItem.annotation.services.length > 0">
+                        <ngb-tab title="Ordered services" id="tabUsedServices" *ngIf="offerItem.annotation.services && offerItem.annotation.services.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">

@@ -4,6 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as moment from "moment"
 
 @Component(
     {
@@ -45,7 +46,13 @@ private clientId: string
     }
 
     save(formValue, isValid) {
+        var datPrefix= moment().format('YYYYMMDD') + '-GEN-'
+        var offerNo= this.offersList.filter(o => o.data.prefix===datPrefix).map(o => +o.data.offerNo).sort((a,b) => b-a)[0] || 0
+
         this.dataStore.addData('platform.offers', {
+            prefix: datPrefix,
+            offerNo: offerNo + 1,
+            version: 0,
             description: formValue.description,
             clientId: this.clientId
         }).subscribe(res =>
