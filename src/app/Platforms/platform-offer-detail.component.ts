@@ -11,22 +11,27 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformOfferDetailComponent implements OnInit {
-    constructor ( private dataStore: DataStore, private platformService: PlatformService) {
+    constructor(private dataStore: DataStore, private platformService: PlatformService) {
     }
-    
-@Input() offerItem
-private isPageRunning: boolean = true
-private clientsListObservable
-private clientId: string
+
+    @Input() offerItem
+    @Input() isSnapshot: boolean = false    
+
+    private isPageRunning: boolean = true
+    private clientsListObservable
+    private clientId: string
+    private servicesObservable: Observable<any>
 
     ngOnInit(): void {
 
         this.clientsListObservable = this.dataStore.getDataObservable('platform.clients').takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
-                return {
-                    id: client._id,
-                    name: client.name
-                }
-            }))
+            return {
+                id: client._id,
+                name: client.name
+            }
+        }))
+
+        this.servicesObservable = this.platformService.getAnnotatedServices().map(services => services.filter(s => s.annotation.currentSnapshot))
     }
 
     ngOnDestroy(): void {
@@ -37,10 +42,42 @@ private clientId: string
         offerItem.data.description = description
         this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
     }
-   
+
     clientIdUpdated(clientId, offerItem) {
         offerItem.data.clientId = clientId
         this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
+    }
+
+    getServicesIdsSelected() {
+        return (this.offerItem.data.services || []).map(p => p.id)
+    }
+
+    servicesChanged(servicesIds: string[]) {
+        if (!this.offerItem.data.services) this.offerItem.data.services = []
+        var services = this.offerItem.data.services
+
+        services = services.filter(s => servicesIds.includes(s.id))
+
+        servicesIds.filter(id => !services.map(p => p.id).includes(id)).forEach(id => services.push({ id: id, quantity: 1, reduction: 0 }))
+
+        this.offerItem.data.services = services
+
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
+    deleteService(pos) {
+        this.offerItem.data.services.splice(pos, 1)
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
+    serviceQuantityUpdated(pos, quantity) {
+        this.offerItem.data.services[pos].quantity = quantity
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
+    serviceReductionUpdated(pos, reduction) {
+        this.offerItem.data.services[pos].reduction = reduction
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
     }
 
 }

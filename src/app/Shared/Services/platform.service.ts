@@ -253,6 +253,7 @@ export class PlatformService {
                             clientType: clientType ? clientType.name : 'standard corrections',
                             category: category || 'no category',
                             currentSnapshot: currentSnapshot ? currentSnapshot.version : '',
+                            currentSnapshotId: currentSnapshot ? currentSnapshot.id : '',
                             costMapByClientType: costMap ? Array.from(costMap.entries()) : undefined,
                             internalClientCost: (costMap && costMap.has(internalClientTypeId)) ? costMap.get(internalClientTypeId) : 0
                         }
@@ -408,19 +409,19 @@ export class PlatformService {
 
         return this.getAnnotatedServices().map(services => services.filter(s => s.data._id === serviceId)[0]).first()
             .do(service => {
-                serviceToBeSnapshoted= service
+                serviceToBeSnapshoted = service
             })
             .switchMap(service => {
                 var service2 = utilsComparator.clone(service)
                 service2.version = version
                 service2.serviceId = serviceId
                 service2.description = description
-                return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2),  
-                                this.getAnnotatedServiceStepsByService(serviceId).first(), this.adminService.getLabo().first())
+                return Observable.forkJoin(this.dataStore.addData('platform.service.snapshots', service2),
+                    this.getAnnotatedServiceStepsByService(serviceId).first(), this.adminService.getLabo().first())
             })
             .do(res => {
                 newServiceId = res[0]._id
-                laboConfig= res[2]
+                laboConfig = res[2]
             })
             .switchMap(res => {
                 var steps: any[] = res[1]
@@ -433,7 +434,7 @@ export class PlatformService {
                 return this.dataStore.getDataObservable('products').map(products => products.filter(p => p.serviceId === serviceId)).first()
             })
             .switchMap(products => {
-                if (!products || products.length ===0) return Observable.from([{}])
+                if (!products || products.length === 0) return Observable.from([{}])
                 return Observable.forkJoin(products.map(p => {
                     p.disabled = true
                     return this.dataStore.updateData('products', p._id, p)
@@ -475,9 +476,9 @@ export class PlatformService {
     // =======================
 
     getAnnotatedEnterprises() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'),  (enterprises, clientTypes) => { 
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'), (enterprises, clientTypes) => {
             return enterprises.map(enterprise => {
-                var type= clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0]
+                var type = clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0]
                 return {
                     data: enterprise,
                     annotation: {
@@ -490,38 +491,60 @@ export class PlatformService {
 
     getAnnotatedOffers() {
         return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises')
-            , this.dataStore.getDataObservable('platform.client.types'),  (offers, clients, enterprises, clientTypes) => {
-            return offers.map(offer => {
-                var client= clients.filter(c => c._id === offer.clientId)[0]
-                var enterprise= client ? enterprises.filter(e => e._id === client.enterpriseId)[0] : undefined
-                var type= enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
-                var displayClient= client ? ((client.firstName + ' ' + client.name) + (enterprise ? (' / ' + enterprise.name) : ''))   : 'unknown client'
-                return {
-                    data: offer,
-                    annotation: {
-                        client: displayClient
+            , this.dataStore.getDataObservable('platform.client.types'), this.getAnnotatedServices(), (offers, clients, enterprises, clientTypes, annotatedServices) => {
+                return offers.map(offer => {
+                    var client = clients.filter(c => c._id === offer.clientId)[0]
+                    var enterprise = client ? enterprises.filter(e => e._id === client.enterpriseId)[0] : undefined
+                    var type = enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
+                    var displayClient = client ? ((client.firstName + ' ' + client.name) + (enterprise ? (' / ' + enterprise.name) : '')) : 'unknown client'
+
+                    var total= (offer.services || []).map(s => {
+                            let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
+                            let unitPrice= (!theService ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0]===enterprise.clientTypeId)[0])[1] || 0
+                            return unitPrice * s.quantity * (1 - +s.reduction/100)
+                    }).reduce((acc, b) => acc + b, 0)
+                    return {
+                        data: offer,
+                        annotation: {
+                            client: displayClient,
+                            total: total,
+                            services: (offer.services || []).map(s => {
+                                let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
+                                let unitPrice= (!theService ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0]===enterprise.clientTypeId)[0])[1] || 0
+                                return {
+                                    data: s,
+                                    annotation: {
+                                        service: theService ? theService.data.name : 'unknown service',
+                                        version: theService ? theService.annotation.currentSnapshot : 'unknown version',
+                                        serviceSnapshotId: theService ? theService.annotation.currentSnapshotId : 'unknown snapshot id',
+                                        unitPrice: unitPrice,
+                                        total:  unitPrice * s.quantity * (1 - +s.reduction/100)
+                                    }
+                                }
+                            })
+
+                        }
                     }
-                }
+                })
             })
-        })
     }
 
     getAnnotatedClients() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'),  
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises'), this.dataStore.getDataObservable('platform.client.types'),
             (clients, enterprises, clientTypes) => {
-            return clients.map(client => {
-                var enterprise= enterprises.filter(e => e._id === client.enterpriseId)[0]
-                var type= enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
-                return {
-                    data: client,
-                    annotation: {
-                        fullName: client.firstName + ' ' + client.name,
-                        enterprise: enterprise ? enterprise.name : 'unknown enterprise',
-                        clientType: type ? type.name : 'unknown type'
+                return clients.map(client => {
+                    var enterprise = enterprises.filter(e => e._id === client.enterpriseId)[0]
+                    var type = enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
+                    return {
+                        data: client,
+                        annotation: {
+                            fullName: client.firstName + ' ' + client.name,
+                            enterprise: enterprise ? enterprise.name : 'unknown enterprise',
+                            clientType: type ? type.name : 'unknown type'
+                        }
                     }
-                }
+                })
             })
-        })
     }
 
 
