@@ -387,6 +387,16 @@ export class PlatformService {
             })
     }
 
+    snapshotOffer(offerItem, description: string): Observable<any> {
+        var offer2 = utilsComparator.clone(offerItem)
+        offer2.offerId = offerItem.data._id
+        offer2.description = description
+
+        return this.dataStore.addData('platform.offer.snapshots', offer2).switchMap(res => {
+            offerItem.data.version= offerItem.data.version + 1
+            return this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
+        })
+    }
 
     snapshotService(serviceId: string, version: string, description: string): Observable<any> {
         var newServiceId: string
@@ -490,8 +500,9 @@ export class PlatformService {
     }
 
     getAnnotatedOffers() {
-        return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises')
-            , this.dataStore.getDataObservable('platform.client.types'), this.getAnnotatedServices(), (offers, clients, enterprises, clientTypes, annotatedServices) => {
+        return Observable.combineLatest(this.dataStore.getDataObservable('platform.offers'), this.dataStore.getDataObservable('platform.clients'), this.dataStore.getDataObservable('platform.enterprises'),
+            this.dataStore.getDataObservable('platform.client.types'), this.getAnnotatedServices(), this.dataStore.getDataObservable('platform.offer.snapshots'),
+            (offers, clients, enterprises, clientTypes, annotatedServices, snapshots) => {
                 return offers.map(offer => {
                     var client = clients.filter(c => c._id === offer.clientId)[0]
                     var enterprise = client ? enterprises.filter(e => e._id === client.enterpriseId)[0] : undefined
@@ -507,11 +518,12 @@ export class PlatformService {
                     return {
                         data: offer,
                         annotation: {
+                            hasSnapshots: snapshots.filter(s => s.offerId === offer._id).length > 0,
                             client: displayClient,
                             clientType: type ? type.name : 'unknown',
                             total: total,
                             numero: offer.prefix + offer.offerNo + '/' + offer.version,
-                            serviceTxt: (offer.services || []).map(s =>  (annotatedServices.filter(service => s.id === service.data._id)[0] || {data: {}}).data.name).reduce((a, b) => a + (a ? ', ' : '') + b, ''),
+                            serviceTxt: (offer.services || []).map(s => (annotatedServices.filter(service => s.id === service.data._id)[0] || { data: {} }).data.name).reduce((a, b) => a + (a ? ', ' : '') + b, ''),
                             services: (offer.services || []).map(s => {
                                 let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
                                 let unitPrice = (!theService || !enterprise ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0] === enterprise.clientTypeId)[0])[1] || 0

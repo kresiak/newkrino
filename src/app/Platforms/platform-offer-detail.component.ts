@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
@@ -11,7 +12,8 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformOfferDetailComponent implements OnInit {
-    constructor(private dataStore: DataStore, private platformService: PlatformService) {
+    snapshotList: any[];
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
     @Input() offerItem
@@ -21,6 +23,8 @@ export class PlatformOfferDetailComponent implements OnInit {
     private clientsListObservable
     private clientId: string
     private servicesObservable: Observable<any>
+
+    private snapshotForm: FormGroup
 
     ngOnInit(): void {
 
@@ -32,6 +36,14 @@ export class PlatformOfferDetailComponent implements OnInit {
             }))
 
         this.servicesObservable = this.platformService.getAnnotatedServices().map(services => services.filter(s => s.annotation.currentSnapshot))
+
+        this.snapshotForm = this.formBuilder.group({
+            description: ['', [Validators.required, Validators.minLength(3)]]
+        })        
+
+        this.dataStore.getDataObservable('platform.offer.snapshots').map(snapshots => snapshots.filter(s => s.offerId === this.offerItem.data._id)).takeWhile(() => this.isPageRunning).subscribe(snapshots => {
+            this.snapshotList= snapshots
+        })
     }
 
     ngOnDestroy(): void {
@@ -78,6 +90,17 @@ export class PlatformOfferDetailComponent implements OnInit {
     serviceReductionUpdated(pos, reduction) {
         this.offerItem.data.services[pos].reduction = reduction
         this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
+    snapshotService(formValue, isValid) {
+        if (!isValid) return
+        this.platformService.snapshotOffer(this.offerItem, formValue.description).subscribe(res => {
+            this.resetSnapshotForm()
+        })
+    }
+
+    resetSnapshotForm() {
+        this.snapshotForm.reset()
     }
 
 }

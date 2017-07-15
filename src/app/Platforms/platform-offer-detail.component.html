@@ -3,19 +3,29 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
+                    <div class="row" *ngIf="isSnapshot">
+                        <div class="col-sm-3 vcenter"><b>Snapshot reason</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{offerItem.description}}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>Numero</b></div>
                         <div class="col-sm-8 vcenter">
                             {{offerItem.annotation.numero}}
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-3 vcenter"><b>Description</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
+                            <gg-editor [readOnly]="isSnapshot" [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-3 vcenter"><b>Client</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [selectableData]="clientsListObservable" [emptyContentText]="'choose a client'" [selectedId]="offerItem.data.clientId"
-                                (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="clientsListObservable" [emptyContentText]="'choose a client'"
+                                [selectedId]="offerItem.data.clientId" (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
                 </div>
@@ -42,7 +52,7 @@
                                             <!--FOR  -->
                                             <div class="row">
                                                 <div class="col-sm-3 vcenter">
-                                                    {{service.annotation.service}} {{service.annotation.version}} 
+                                                    {{service.annotation.service}} {{service.annotation.version}}
                                                 </div>
                                                 <div class="col-sm-1 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
@@ -57,11 +67,11 @@
                                                     {{service.annotation.total | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                                 <div class="col-sm-1 vcenter" *ngIf="!isSnapshot">
-                                                    <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete"
-														 (click)="service.isDueToDelete = !service.isDueToDelete" />
-														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected service item and can't be undone. Click here if you are sure you want to delete it."
-														 *ngIf="service.isDueToDelete" (click)="deleteService(pos)">Delete</div>
-														<div class="btn btn-success btn-sm" *ngIf="service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete">Cancel</div>
+                                                    <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete"
+                                                    />
+                                                    <div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected service item and can't be undone. Click here if you are sure you want to delete it."
+                                                        *ngIf="service.isDueToDelete" (click)="deleteService(pos)">Delete</div>
+                                                    <div class="btn btn-success btn-sm" *ngIf="service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete">Cancel</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -91,5 +101,79 @@
             </div>
         </template>
     </ngb-tab>
-    
+    <ngb-tab title="Versions" id="tabSnapshots" *ngIf="!isSnapshot">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="All versions" id="tabAllVersions" *ngIf="offerItem.annotation.hasSnapshots">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                            <ngb-panel [disabled]="true">
+                                                <template ngbPanelTitle>
+                                                    <div class="row">
+                                                        <div class="col-sm-2"><b>Date</b></div>
+                                                        <div class="col-sm-2"><b>Numero</b></div>
+                                                        <div class="col-sm-2"><b>Client</b></div>
+                                                        <div class="col-sm-2"><b>Price</b></div>
+                                                        <div class="col-sm-3"><b>Products</b></div>
+                                                    </div>
+                                                </template>
+                                            </ngb-panel>
+                                            <ngb-panel *ngFor="let snapshot of snapshotList">
+                                                <template ngbPanelTitle>
+                                                    <div class="row" id="{{offerItem._id}}">
+                                                        <div class="col-sm-2">{{snapshot.createDate | fullDate}}</div>
+                                                        <div class="col-sm-2">{{snapshot.annotation.numero}}</div>
+                                                        <div class="col-sm-2">{{snapshot.annotation.client}}</div>
+                                                        <div class="col-sm-2 gg-price">{{snapshot.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                                                        <div class="col-sm-3">{{snapshot.annotation.serviceTxt}}</div>
+                                                        <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
+                                                    </div>
+                                                </template>
+                                                <template ngbPanelContent>
+                                                    <gg-platform-offer-detail [offerItem]="snapshot" [isSnapshot]="true"></gg-platform-offer-detail>
+                                                </template>
+                                            </ngb-panel>
+                                        </ngb-accordion>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Save current version" id="tabSaveVersion">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="container-fluid">
+                                            <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(snapshotForm.value, snapshotForm.valid)">
+                                                <div class="form-group row">
+                                                    <label for="description" class="col-sm-3 col-form-label col-xl-3">description:</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="description of snapshot">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-success" type="submit" [disabled]="!snapshotForm.valid">Snapshot</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-info" [disabled]="snapshotForm.pristine" (click)="resetSnapshotForm()">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+
+
 </ngb-tabset>
