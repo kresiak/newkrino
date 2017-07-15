@@ -498,10 +498,11 @@ export class PlatformService {
                     var type = enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
                     var displayClient = client ? ((client.firstName + ' ' + client.name) + (enterprise ? (' / ' + enterprise.name) : '')) : 'unknown client'
 
-                    var total= (offer.services || []).map(s => {
-                            let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
-                            let unitPrice= (!theService ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0]===enterprise.clientTypeId)[0])[1] || 0
-                            return unitPrice * s.quantity * (1 - +s.reduction/100)
+                    var total = (offer.services || []).map(s => {
+                        if (!enterprise) return 0
+                        let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
+                        let unitPrice = (!theService ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0] === enterprise.clientTypeId)[0])[1] || 0
+                        return unitPrice * s.quantity * (1 - +s.reduction / 100)
                     }).reduce((acc, b) => acc + b, 0)
                     return {
                         data: offer,
@@ -510,7 +511,7 @@ export class PlatformService {
                             total: total,
                             services: (offer.services || []).map(s => {
                                 let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
-                                let unitPrice= (!theService ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0]===enterprise.clientTypeId)[0])[1] || 0
+                                let unitPrice = (!theService || !enterprise ? 0 : theService.annotation.costMapByClientType.filter(ct => ct[0] === enterprise.clientTypeId)[0])[1] || 0
                                 return {
                                     data: s,
                                     annotation: {
@@ -518,7 +519,7 @@ export class PlatformService {
                                         version: theService ? theService.annotation.currentSnapshot : 'unknown version',
                                         serviceSnapshotId: theService ? theService.annotation.currentSnapshotId : 'unknown snapshot id',
                                         unitPrice: unitPrice,
-                                        total:  unitPrice * s.quantity * (1 - +s.reduction/100)
+                                        total: unitPrice * s.quantity * (1 - +s.reduction / 100)
                                     }
                                 }
                             })
