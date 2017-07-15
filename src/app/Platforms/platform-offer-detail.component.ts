@@ -24,12 +24,12 @@ export class PlatformOfferDetailComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.clientsListObservable = this.dataStore.getDataObservable('platform.clients').takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
-            return {
-                id: client._id,
-                name: client.name
-            }
-        }))
+        this.clientsListObservable = this.platformService.getAnnotatedClients().takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
+                return {
+                    id: client.data._id,
+                    name: client.annotation.fullName + ' (' + client.annotation.enterprise + ')'
+                }
+            }))
 
         this.servicesObservable = this.platformService.getAnnotatedServices().map(services => services.filter(s => s.annotation.currentSnapshot))
     }

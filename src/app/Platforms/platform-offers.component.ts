@@ -31,10 +31,10 @@ private clientId: string
                 this.offersList= comparatorsUtils.clone(offers)            
         })
         
-        this.clientsListObservable = this.dataStore.getDataObservable('platform.clients').takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
+        this.clientsListObservable = this.platformService.getAnnotatedClients().takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
                 return {
-                    id: client._id,
-                    name: client.name
+                    id: client.data._id,
+                    name: client.annotation.fullName + ' (' + client.annotation.enterprise + ')'
                 }
             }))
                    
