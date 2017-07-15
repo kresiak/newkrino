@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-sm-2"><b>Numero</b></div>
                             <div class="col-sm-3"><b>Client</b></div>
-                            <div class="col-sm-2"><b>Client type</b></div>
+                            <div class="col-sm-2"><b>Status</b></div>
                             <div class="col-sm-2"><b>Price</b></div>
                             <div class="col-sm-3"><b>Products</b></div>
                         </div>
@@ -17,8 +17,8 @@
                     <template ngbPanelTitle>
                         <div class="row" id="{{offerItem._id}}">
                             <div class="col-sm-2" [style.font-weight]="offerItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{offerItem.annotation.numero}}</div>
-                            <div class="col-sm-3">{{offerItem.annotation.client}}</div>
-                            <div class="col-sm-2">{{offerItem.annotation.clientType}}</div>
+                            <div class="col-sm-3"><gg-text-compact [text]="offerItem.annotation.client" [numberOfChar]="40" [extraTooltipText]="offerItem.annotation.clientType" ></gg-text-compact></div>
+                            <div class="col-sm-2">{{offerItem.annotation.commercialStatus}}</div>
                             <div class="col-sm-2 gg-price">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                             <div class="col-sm-3">{{offerItem.annotation.serviceTxt}}</div>
                         </div>

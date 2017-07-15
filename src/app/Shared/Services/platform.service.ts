@@ -509,6 +509,8 @@ export class PlatformService {
                     var type = enterprise ? clientTypes.filter(ct => ct._id === enterprise.clientTypeId)[0] : undefined
                     var displayClient = client ? ((client.firstName + ' ' + client.name) + (enterprise ? (' / ' + enterprise.name) : '')) : 'unknown client'
 
+                    var status= (this.getCommercialStatuses().filter(cs => cs.id === offer.commercialStatusId)[0] || {name: 'no status yet'}).name
+
                     var total = (offer.services || []).map(s => {
                         if (!enterprise) return 0
                         let theService = annotatedServices.filter(service => s.id === service.data._id)[0]
@@ -522,6 +524,7 @@ export class PlatformService {
                             client: displayClient,
                             clientType: type ? type.name : 'unknown',
                             total: total,
+                            commercialStatus: status,
                             numero: offer.prefix + offer.offerNo + '/' + offer.version,
                             serviceTxt: (offer.services || []).map(s => (annotatedServices.filter(service => s.id === service.data._id)[0] || { data: {} }).data.name).reduce((a, b) => a + (a ? ', ' : '') + b, ''),
                             services: (offer.services || []).map(s => {
@@ -597,6 +600,34 @@ export class PlatformService {
             }
         })
     }
+
+
+// status 
+// ======
+
+    getCommercialStatuses() {
+        return [
+            { id: 1, name: 'Brouillon'},
+            { id: 2, name: 'Envoyé au client'},
+            { id: 3, name: 'Refusé par client'},
+            { id: 4, name: 'Accepté par client'},
+            { id: 5, name: 'En attente de bon de commande'},
+            { id: 6, name: 'Prêt à réaliser'},
+            { id: 7, name: 'Terminé'},
+            { id: 8, name: 'Facturé'},
+            { id: 9, name: 'Cloturé'}
+        ]
+    }
+
+    getOperativeStatuses() {
+        return [
+            { id: 1, name: 'Undefined'},
+            { id: 2, name: 'Started'},
+            { id: 3, name: 'Finished'}
+        ]
+    }
+
+
 }
 
 

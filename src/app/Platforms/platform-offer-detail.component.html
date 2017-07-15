@@ -28,6 +28,41 @@
                                 [selectedId]="offerItem.data.clientId" (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Client type</b></div>
+                        <div class="col-sm-8 vcenter">
+                            {{offerItem.annotation.clientType}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Commercial status</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="commercialStatusesObservable" [emptyContentText]="'choose a status'"
+                                [selectedId]="offerItem.data.commercialStatusId" (idChanged)="commercialStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Operative status</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="operativeStatusesObservable" [emptyContentText]="'choose a status'"
+                                [selectedId]="offerItem.data.operativeStatusId" (idChanged)="operativeStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Operations" id="tabOperations" *ngIf="!isSnapshot">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        These operation will create a new version of the offer and save the current version
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3 btn btn-warning" (click)="SendToClient()">Send to Client</div>
+                    </div>                    
                 </div>
             </div>
         </template>
@@ -116,7 +151,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-2"><b>Date</b></div>
                                                         <div class="col-sm-2"><b>Numero</b></div>
-                                                        <div class="col-sm-2"><b>Client</b></div>
+                                                        <div class="col-sm-2"><b>Reason</b></div>
                                                         <div class="col-sm-2"><b>Price</b></div>
                                                         <div class="col-sm-3"><b>Products</b></div>
                                                     </div>
@@ -127,7 +162,7 @@
                                                     <div class="row" id="{{offerItem._id}}">
                                                         <div class="col-sm-2">{{snapshot.createDate | fullDate}}</div>
                                                         <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.annotation.numero}}</div>
-                                                        <div class="col-sm-2">{{snapshot.annotation.client}}</div>
+                                                        <div class="col-sm-2">{{snapshot.description}}</div>
                                                         <div class="col-sm-2 gg-price">{{snapshot.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                                                         <div class="col-sm-3">{{snapshot.annotation.serviceTxt}}</div>
                                                         <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>

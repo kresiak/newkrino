@@ -13,12 +13,15 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformOfferDetailComponent implements OnInit {
+    operativeStatusesObservable: Observable<{ id: number; name: string; }[]>;
+    commercialStatusesObservable: Observable<any>;
+
     snapshotList: any[];
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
     @Input() offerItem
-    @Input() isSnapshot: boolean = false    
+    @Input() isSnapshot: boolean = false
 
     private isPageRunning: boolean = true
     private clientsListObservable
@@ -37,22 +40,25 @@ export class PlatformOfferDetailComponent implements OnInit {
         this.stateInit()
 
         this.clientsListObservable = this.platformService.getAnnotatedClients().takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
-                return {
-                    id: client.data._id,
-                    name: client.annotation.fullName + ' (' + client.annotation.enterprise + ')'
-                }
-            }))
+            return {
+                id: client.data._id,
+                name: client.annotation.fullName + ' (' + client.annotation.enterprise + ')'
+            }
+        }))
+
+        this.commercialStatusesObservable = Observable.from([this.platformService.getCommercialStatuses()])
+        this.operativeStatusesObservable = Observable.from([this.platformService.getOperativeStatuses()])
 
         this.servicesObservable = this.platformService.getAnnotatedServices().map(services => services.filter(s => s.annotation.currentSnapshot))
 
         this.snapshotForm = this.formBuilder.group({
             description: ['', [Validators.required, Validators.minLength(3)]]
-        })        
+        })
 
         this.dataStore.getDataObservable('platform.offer.snapshots').map(snapshots => snapshots.filter(s => s.offerId === this.offerItem.data._id).sort((a, b) => b.data.version - a.data.version))
             .takeWhile(() => this.isPageRunning).subscribe(snapshots => {
-                this.snapshotList= snapshots
-        })
+                this.snapshotList = snapshots
+            })
     }
 
     ngOnDestroy(): void {
@@ -61,6 +67,16 @@ export class PlatformOfferDetailComponent implements OnInit {
 
     descriptionUpdated(description, offerItem) {
         offerItem.data.description = description
+        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
+    }
+
+    commercialStatusUpdated(commercialStatusId, offerItem) {
+        offerItem.data.commercialStatusId = commercialStatusId
+        this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
+    }
+
+    operativeStatusUpdated(operativeStatusId, offerItem) {
+        offerItem.data.operativeStatusId = operativeStatusId
         this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
     }
 
@@ -105,6 +121,13 @@ export class PlatformOfferDetailComponent implements OnInit {
         if (!isValid) return
         this.platformService.snapshotOffer(this.offerItem, formValue.description).subscribe(res => {
             this.resetSnapshotForm()
+        })
+    }
+
+    SendToClient() {
+        this.platformService.snapshotOffer(this.offerItem, 'As sent to client').subscribe(res => {
+            this.offerItem.data.commercialStatusId = 2
+            this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
         })
     }
 
