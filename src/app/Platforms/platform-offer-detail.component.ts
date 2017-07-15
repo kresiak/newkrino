@@ -41,8 +41,9 @@ export class PlatformOfferDetailComponent implements OnInit {
             description: ['', [Validators.required, Validators.minLength(3)]]
         })        
 
-        this.dataStore.getDataObservable('platform.offer.snapshots').map(snapshots => snapshots.filter(s => s.offerId === this.offerItem.data._id)).takeWhile(() => this.isPageRunning).subscribe(snapshots => {
-            this.snapshotList= snapshots
+        this.dataStore.getDataObservable('platform.offer.snapshots').map(snapshots => snapshots.filter(s => s.offerId === this.offerItem.data._id).sort((a, b) => b.data.version - a.data.version))
+            .takeWhile(() => this.isPageRunning).subscribe(snapshots => {
+                this.snapshotList= snapshots
         })
     }
 
