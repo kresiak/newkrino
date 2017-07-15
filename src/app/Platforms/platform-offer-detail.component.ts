@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { PlatformService } from './../Shared/Services/platform.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
@@ -25,8 +26,15 @@ export class PlatformOfferDetailComponent implements OnInit {
     private servicesObservable: Observable<any>
 
     private snapshotForm: FormGroup
+    private state
+
+    private stateInit() {
+        if (!this.state) this.state = {};
+        if (!this.state.openPanelId) this.state.openPanelId = '';
+    }
 
     ngOnInit(): void {
+        this.stateInit()
 
         this.clientsListObservable = this.platformService.getAnnotatedClients().takeWhile(() => this.isPageRunning).map(clients => clients.map(client => {
                 return {
@@ -103,5 +111,11 @@ export class PlatformOfferDetailComponent implements OnInit {
     resetSnapshotForm() {
         this.snapshotForm.reset()
     }
+
+    private beforeAccordionChange($event: NgbPanelChangeEvent) {
+        if ($event.nextState) {
+            this.state.openPanelId = $event.panelId;
+        }
+    };
 
 }

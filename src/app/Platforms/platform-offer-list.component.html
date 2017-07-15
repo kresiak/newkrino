@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-block">
         <div class="row">
-            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)" >
                 <ngb-panel [disabled]="true">
                     <template ngbPanelTitle>
                         <div class="row">
@@ -13,10 +13,10 @@
                         </div>
                     </template>
                 </ngb-panel>
-                <ngb-panel *ngFor="let offerItem of offersList">
+                <ngb-panel *ngFor="let offerItem of offersList" [id]="offerItem.data._id">
                     <template ngbPanelTitle>
                         <div class="row" id="{{offerItem._id}}">
-                            <div class="col-sm-2">{{offerItem.annotation.numero}}</div>
+                            <div class="col-sm-2" [style.font-weight]="offerItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{offerItem.annotation.numero}}</div>
                             <div class="col-sm-3">{{offerItem.annotation.client}}</div>
                             <div class="col-sm-2">{{offerItem.annotation.clientType}}</div>
                             <div class="col-sm-2 gg-price">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>

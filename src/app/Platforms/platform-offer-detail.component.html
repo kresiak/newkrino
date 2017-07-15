@@ -110,7 +110,7 @@
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
-                                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion"  [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
                                             <ngb-panel [disabled]="true">
                                                 <template ngbPanelTitle>
                                                     <div class="row">
@@ -122,11 +122,11 @@
                                                     </div>
                                                 </template>
                                             </ngb-panel>
-                                            <ngb-panel *ngFor="let snapshot of snapshotList">
+                                            <ngb-panel *ngFor="let snapshot of snapshotList" [id]="snapshot._id">
                                                 <template ngbPanelTitle>
                                                     <div class="row" id="{{offerItem._id}}">
                                                         <div class="col-sm-2">{{snapshot.createDate | fullDate}}</div>
-                                                        <div class="col-sm-2">{{snapshot.annotation.numero}}</div>
+                                                        <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.annotation.numero}}</div>
                                                         <div class="col-sm-2">{{snapshot.annotation.client}}</div>
                                                         <div class="col-sm-2 gg-price">{{snapshot.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                                                         <div class="col-sm-3">{{snapshot.annotation.serviceTxt}}</div>
