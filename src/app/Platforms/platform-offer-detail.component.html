@@ -61,8 +61,20 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3"></div>
-                        <div class="col-sm-3 btn btn-warning" (click)="SendToClient()">Send to Client</div>
-                    </div>                    
+                        <div class="col-sm-3 ">
+                            <button class="btn btn-warning" [disabled]="blockSendToClient" (click)="SendToClient()">
+                                Send to Client
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-3" >
+                            <button [disabled]="blockInvoiceHasBeenSent" (click)="InvoiceHasBeenSent()" class=" btn btn-warning">
+                                Invoice has been sent
+                            </button>                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </template>
@@ -145,7 +157,7 @@
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
-                                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion"  [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
+                                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
                                             <ngb-panel [disabled]="true">
                                                 <template ngbPanelTitle>
                                                     <div class="row">

@@ -124,9 +124,24 @@ export class PlatformOfferDetailComponent implements OnInit {
         })
     }
 
+    private blockSendToClient: boolean = false
+
     SendToClient() {
-        this.platformService.snapshotOffer(this.offerItem, 'As sent to client', 2).subscribe(res => {
-        })
+        if (!this.blockSendToClient) {
+            this.blockSendToClient = true
+            this.platformService.snapshotOffer(this.offerItem, 'As sent to client', 2).subscribe(res => {
+            })
+        }
+    }
+
+    private blockInvoiceHasBeenSent: boolean = false
+
+    InvoiceHasBeenSent() {
+        if (!this.blockInvoiceHasBeenSent) {
+            this.blockInvoiceHasBeenSent= true
+            this.platformService.snapshotOffer(this.offerItem, 'As when invoice was sent to client', 8).subscribe(res => {
+            })
+        }
     }
 
     resetSnapshotForm() {
