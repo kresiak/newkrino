@@ -387,13 +387,14 @@ export class PlatformService {
             })
     }
 
-    snapshotOffer(offerItem, description: string): Observable<any> {
+    snapshotOffer(offerItem, description: string, newCommercialStatusId = -1): Observable<any> {
         var offer2 = utilsComparator.clone(offerItem)
         offer2.offerId = offerItem.data._id
         offer2.description = description
 
         return this.dataStore.addData('platform.offer.snapshots', offer2).switchMap(res => {
             offerItem.data.version= offerItem.data.version + 1
+            if (newCommercialStatusId !== -1) offerItem.data.commercialStatusId = newCommercialStatusId
             return this.dataStore.updateData('platform.offers', offerItem.data._id, offerItem.data)
         })
     }

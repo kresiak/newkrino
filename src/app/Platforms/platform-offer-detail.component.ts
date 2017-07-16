@@ -125,9 +125,7 @@ export class PlatformOfferDetailComponent implements OnInit {
     }
 
     SendToClient() {
-        this.platformService.snapshotOffer(this.offerItem, 'As sent to client').subscribe(res => {
-            this.offerItem.data.commercialStatusId = 2
-            this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+        this.platformService.snapshotOffer(this.offerItem, 'As sent to client', 2).subscribe(res => {
         })
     }
 
