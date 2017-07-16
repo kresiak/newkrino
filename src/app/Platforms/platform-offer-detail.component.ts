@@ -112,8 +112,18 @@ export class PlatformOfferDetailComponent implements OnInit {
         this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
     }
 
+    servicePrepaidUpdated(pos, isPrepaid) {
+        this.offerItem.data.services[pos].isPrepaid = isPrepaid
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
     serviceReductionUpdated(pos, reduction) {
         this.offerItem.data.services[pos].reduction = reduction
+        this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
+    }
+
+    serviceCommentUpdated(pos, comment) {
+        this.offerItem.data.services[pos].comment = comment
         this.dataStore.updateData('platform.offers', this.offerItem.data._id, this.offerItem.data)
     }
 

@@ -89,30 +89,38 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Service</b></div>
-                                            <div class="col-sm-1 vcenter"><b>Nb ordered</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Price/u.</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Reduction (%)</b></div>
+                                            <div class="col-sm-2 vcenter"><b>Service</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Quantity</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Price/u.</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Reduct. (%)</b></div>
                                             <div class="col-sm-2 vcenter"><b>Total</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Prepaid</b></div>
+                                            <div class="col-sm-1 vcenter"><b>Comment</b></div>
                                         </div>
                                         <div *ngFor="let service of (offerItem.annotation.services || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
-                                                <div class="col-sm-3 vcenter">
-                                                    {{service.annotation.service}} {{service.annotation.version}}
+                                                <div class="col-sm-2 vcenter">
+                                                    <gg-text-compact [text]="service.annotation.service" [numberOfChar]="40" [extraTooltipText]="service.annotation.version" ></gg-text-compact>
                                                 </div>
                                                 <div class="col-sm-1 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-1 vcenter">
                                                     {{service.annotation.unitPrice | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-1 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.reduction" (editSaved)="serviceReductionUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
                                                 <div class="col-sm-2 vcenter gg-price">
                                                     {{service.annotation.total | currency:'EUR':true:'1.2-2'}}
                                                 </div>
+                                                <div class="col-sm-1 vcenter">
+                                                    <gg-editor-boolean [readOnly]="isSnapshot" [content]="service.data.isPrepaid" (editSaved)="servicePrepaidUpdated(pos, $event)"></gg-editor-boolean>
+                                                </div>                                                
+                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart">
+                                                    <gg-text-compact  [text]="service.data.comment || 'No comment yet'" [numberOfChar]="40" [extraTooltipText]="'Click in order to change the comment'" ></gg-text-compact>
+                                                </div>                                                
                                                 <div class="col-sm-1 vcenter" *ngIf="!isSnapshot">
                                                     <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete"
                                                     />
@@ -121,12 +129,17 @@
                                                     <div class="btn btn-success btn-sm" *ngIf="service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete">Cancel</div>
                                                 </div>
                                             </div>
+                                            <div class="row" *ngIf="service.showExtraPart">
+                                                <div class="col-sm-8 vcenter" >
+                                                    <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row" class="gg-price">
-                                            <div class="col-sm-3 vcenter"></div>
-                                            <div class="col-sm-1 vcenter"></div>
                                             <div class="col-sm-2 vcenter"></div>
-                                            <div class="col-sm-2 vcenter">Total:</div>
+                                            <div class="col-sm-1 vcenter"></div>
+                                            <div class="col-sm-1 vcenter"></div>
+                                            <div class="col-sm-1 vcenter">Total:</div>
                                             <div class="col-sm-2 vcenter">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
