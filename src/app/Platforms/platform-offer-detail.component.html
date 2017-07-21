@@ -118,7 +118,7 @@
                                                 <div class="col-sm-1 vcenter">
                                                     <gg-editor-boolean [readOnly]="isSnapshot" [content]="service.data.isPrepaid" (editSaved)="servicePrepaidUpdated(pos, $event)"></gg-editor-boolean>
                                                 </div>                                                
-                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart">
+                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart" style="cursor: pointer;" >
                                                     <gg-text-compact  [text]="service.data.comment || 'No comment yet'" [numberOfChar]="40" [extraTooltipText]="'Click in order to change the comment'" ></gg-text-compact>
                                                 </div>                                                
                                                 <div class="col-sm-1 vcenter" *ngIf="!isSnapshot">
@@ -130,7 +130,7 @@
                                                 </div>
                                             </div>
                                             <div class="row" *ngIf="service.showExtraPart">
-                                                <div class="col-sm-8 vcenter" >
+                                                <div class="col-sm-8 vcenter card" >
                                                     <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
                                                 </div>
                                             </div>
