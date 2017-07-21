@@ -2,7 +2,7 @@
     <ngb-tabset>
         <ngb-tab *ngIf="offersList && offersList.length > 0" title="List of offers" id="tabListOfOffers">
             <template ngbTabContent>
-                <gg-platform-offer-list [offersList]="offersList"></gg-platform-offer-list>
+                <gg-platform-offer-list [offersObservable]="offersObservable"></gg-platform-offer-list>
             </template>
         </ngb-tab>
         <ngb-tab title="Add an offer" id="tabAddAnOffer">

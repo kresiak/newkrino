@@ -1,6 +1,31 @@
+<template #searchPopContent>
+    <ul>
+        <li>pme: search for offers having 'pme' in description or in the offered services</li>
+        <li>20170715-GEN: search for offers having '20170715-GEN' in the offer number </li>
+        <li>Georges: search for offers having 'Georges' in the client or enterprise name </li>
+        <li>envoyé: search for offers having 'envoyé' in the status of the offer </li>
+		<li>$>200: totals higher than 200 euros</li>
+		<li>$<200: totals less than 200 euros</li>
+    </ul>
+</template>
+
+<template #tipSearchLoupe>
+    <div style="font-size: 70%;">Click here to <br/> search specific offers</div>
+</template>
+
 <div class="card">
     <div class="card-block">
         <div class="row">
+            <div class="row">
+                <div [formGroup]="searchForm">
+                    <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+                    />
+                    <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+                        placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img
+                        *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()" />
+                </div>
+            </div>
+
             <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)" >
                 <ngb-panel [disabled]="true">
                     <template ngbPanelTitle>
@@ -29,5 +54,11 @@
                 </ngb-panel>
             </ngb-accordion>
         </div>
+        <div class="row" *ngIf="nbHitsShown < nbHits">
+            <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+        </div>
+        <div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+            {{nbHits}} hits shown
+        </div>        
     </div>
 </div>

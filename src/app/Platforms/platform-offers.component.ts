@@ -18,6 +18,7 @@ export class PlatformOffersComponent implements OnInit {
 
 private offerForm: FormGroup
 private offersList: any
+private offersObservable
 private isPageRunning: boolean = true
 private clientsListObservable
 private clientId: string
@@ -27,7 +28,9 @@ private clientId: string
             description: ['', [Validators.required, Validators.minLength(3)]]
         })
 
-        this.platformService.getAnnotatedOffers().takeWhile(() => this.isPageRunning).subscribe(offers => {
+        this.offersObservable=this.platformService.getAnnotatedOffers()
+
+        this.offersObservable.takeWhile(() => this.isPageRunning).subscribe(offers => {
             if (!comparatorsUtils.softCopy(this.offersList, offers))
                 this.offersList= comparatorsUtils.clone(offers)            
         })
@@ -37,8 +40,7 @@ private clientId: string
                     id: client.data._id,
                     name: client.annotation.fullName + ' (' + client.annotation.enterprise + ')'
                 }
-            }))
-                   
+            }))                   
     }
 
     clientIdChanged(clientId) {
