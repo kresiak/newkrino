@@ -69,10 +69,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3"></div>
-                        <div class="col-sm-3" >
+                        <div class="col-sm-3">
                             <button [disabled]="blockInvoiceHasBeenSent" (click)="InvoiceHasBeenSent()" class=" btn btn-warning">
                                 Invoice has been sent
-                            </button>                            
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                             <!--FOR  -->
                                             <div class="row">
                                                 <div class="col-sm-2 vcenter">
-                                                    <gg-text-compact [text]="service.annotation.service" [numberOfChar]="40" [extraTooltipText]="service.annotation.version" ></gg-text-compact>
+                                                    <gg-text-compact [text]="service.annotation.service" [numberOfChar]="40" [extraTooltipText]="service.annotation.version"></gg-text-compact>
                                                 </div>
                                                 <div class="col-sm-1 vcenter">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
@@ -117,10 +117,11 @@
                                                 </div>
                                                 <div class="col-sm-1 vcenter">
                                                     <gg-editor-boolean [readOnly]="isSnapshot" [content]="service.data.isPrepaid" (editSaved)="servicePrepaidUpdated(pos, $event)"></gg-editor-boolean>
-                                                </div>                                                
-                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart" style="cursor: pointer;" >
-                                                    <gg-text-compact  [text]="service.data.comment || 'No comment yet'" [numberOfChar]="40" [extraTooltipText]="'Click in order to change the comment'" ></gg-text-compact>
-                                                </div>                                                
+                                                </div>
+                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart" style="cursor: pointer;">
+                                                    <gg-text-compact [text]="service.data.comment || 'No comment yet'" [numberOfChar]="40" [extraTooltipText]="'Click in order to change the comment'"></gg-text-compact>
+                                                    <!--<button (click)="service.showExtraPart=!service.showExtraPart" class="editor__icon-edit"></button>-->
+                                                </div>
                                                 <div class="col-sm-1 vcenter" *ngIf="!isSnapshot">
                                                     <input type="checkbox" [ngbTooltip]="'click here to select the service for deletion'" *ngIf="!service.isDueToDelete" (click)="service.isDueToDelete = !service.isDueToDelete"
                                                     />
@@ -130,11 +131,19 @@
                                                 </div>
                                             </div>
                                             <div class="row" *ngIf="service.showExtraPart">
-                                                <div class="col-sm-12 vcenter card" >
-                                                    <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
-                                                    <p class="col-sm-3 col-md-2 col-lg-2">
-                                                        <button class="btn btn-info" (click)="service.showExtraPart=!service.showExtraPart">hide details</button>
-                                                    </p>
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-9">
+                                                    <div class="card">
+                                                        <div class="row">
+                                                            <div class="col-sm-9 vcenter">
+                                                                <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
+                                                            </div>
+
+                                                            <div class="col-sm-2 vcenter">
+                                                                <button class="btn btn-info btn-sm" (click)="service.showExtraPart=!service.showExtraPart">hide details</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
