@@ -133,15 +133,13 @@
                                             <div class="row" *ngIf="service.showExtraPart">
                                                 <div class="col-sm-1"></div>
                                                 <div class="col-sm-9">
-                                                    <div class="card">
-                                                        <div class="row">
-                                                            <div class="col-sm-9 vcenter">
-                                                                <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
-                                                            </div>
+                                                    <div class="row card">
+                                                        <div class="col-sm-9 vcenter">
+                                                            <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
+                                                        </div>
 
-                                                            <div class="col-sm-2 vcenter">
-                                                                <button class="btn btn-info btn-sm" (click)="service.showExtraPart=!service.showExtraPart">hide details</button>
-                                                            </div>
+                                                        <div class="col-sm-2 vcenter">
+                                                            <button class="btn btn-info btn-sm" (click)="service.showExtraPart=!service.showExtraPart">hide details</button>
                                                         </div>
                                                     </div>
                                                 </div>
