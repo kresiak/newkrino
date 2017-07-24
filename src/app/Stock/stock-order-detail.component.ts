@@ -81,8 +81,11 @@ export class StockOrderDetailComponent implements OnInit {
     }
 
     private isProcessFormOK: boolean= true
+    private isBlocked: boolean= false
 
     save(formValue: Object, isValid) {
+        if (this.isBlocked) return
+        this.isBlocked= true
         let nbTotal= Object.keys(formValue).map(key => +formValue[key]).reduce((a, b) => a+b, 0)
         this.isProcessFormOK= nbTotal > 0
         if (!this.isProcessFormOK) return
@@ -122,4 +125,10 @@ export class StockOrderDetailComponent implements OnInit {
         this.navigationService.maximizeOrUnmaximize('/product', this.order.data.productId, this.path, false)
     }
     
+
+    deleteOrder()  {
+        if (this.isBlocked) return
+        this.isBlocked= true        
+        this.dataStore.deleteData('orders.stock', this.order.data._id)
+    }
 }

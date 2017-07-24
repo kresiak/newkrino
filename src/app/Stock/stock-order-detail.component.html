@@ -36,7 +36,30 @@
 			<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>    
-    <ngb-tab title="Process order" id="tabProcessOrder" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed">
+	<ngb-tab title="Delete" id="tabDelete" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed && !isBlocked">
+		<template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p>This action will delete the order. Are you sure you want to do that? If yes, click the button
+                                below.
+                            </p>
+                        </div>
+                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!order.confirmation">
+                            <button class="btn btn-warning" (click)="order.confirmation = true">Delete the order.</button>
+                        </div>
+                        <div class="col-sm-11 col-md-10 col-lg-10" *ngIf="order.confirmation">
+                            <button class="btn btn-danger" (click)="deleteOrder()">Now I will delete the order.</button>
+                            <button class="btn btn-success" (click)="order.confirmation = false">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+		</template>
+	</ngb-tab>    
+    <ngb-tab title="Process order" id="tabProcessOrder" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed && !isBlocked">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
