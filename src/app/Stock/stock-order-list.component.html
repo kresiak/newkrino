@@ -1,3 +1,14 @@
+<template #searchPopContent>
+	<ul>
+		<li>bru: the order should contain the string 'bru'</li>
+	</ul>
+</template>
+
+<template #tipSearchLoupe>
+	<div style="font-size: 70%;">Click here to <br/> search specific order</div>
+</template>
+
+
 <div class="card" *ngIf="!orders || orders.length === 0">
 	<div class="card-block">
 		<div class="centertextbox">No records yet in our database</div>
@@ -6,37 +17,55 @@
 
 <div class="card" *ngIf="orders && orders.length > 0">
 	<div class="card-block">
-		<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-			<ngb-panel [disabled]="true">
-				<template ngbPanelTitle>
-					<div class="row">
-						<div class="col-sm-2"><b>When?</b></div>
-						<div class="col-sm-2"><b>Who?</b></div>
-						<div class="col-sm-3"><b>Product</b></div>
-						<div class="col-sm-2"><b>Catalog Nr</b></div>
-						<div class="col-sm-2"><b>Quantity</b></div>
-						<div class="col-sm-1"><b>Processed?</b></div>
-					</div>
-				</template>
-				<template ngbPanelContent>
-				</template>
-			</ngb-panel>
-			<ngb-panel *ngFor="let order of orders" [id]="order.data._id">
-				<template ngbPanelTitle>
-					<div class="row">
-						<div class="col-sm-2"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer></div>
-						<div class="col-sm-2">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
-						<div class="col-sm-3">{{order.annotation.product}}</div>
-						<div class="col-sm-2">{{order.annotation.catalogNr}}</div>
-						<div class="col-sm-2">{{order.data.quantity}}</div>
-						<div class="col-sm-1" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'no'}}</div>
-					</div>
-				</template>
-				<template ngbPanelContent>
-					<gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id"
-						(stateChanged)="childStateChanged($event, order.data._id)"></gg-stock-order-detail>
-				</template>
-			</ngb-panel>
-		</ngb-accordion>
+		<div class="row">
+			<div [formGroup]="searchForm">
+				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
+				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
+			</div>
+		</div>
+		
+		<div class="row">
+			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+				<ngb-panel [disabled]="true">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-2"><b>When?</b></div>
+							<div class="col-sm-2"><b>Who?</b></div>
+							<div class="col-sm-3"><b>Product</b></div>
+							<div class="col-sm-2"><b>Catalog Nr</b></div>
+							<div class="col-sm-2"><b>Quantity</b></div>
+							<div class="col-sm-1"><b>Processed?</b></div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+					</template>
+				</ngb-panel>
+				<ngb-panel *ngFor="let order of orders" [id]="order.data._id">
+					<template ngbPanelTitle>
+						<div class="row">
+							<div class="col-sm-2">
+								<gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>
+							</div>
+							<div class="col-sm-2">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
+							<div class="col-sm-3">{{order.annotation.product}}</div>
+							<div class="col-sm-2">{{order.annotation.catalogNr}}</div>
+							<div class="col-sm-2">{{order.data.quantity}}</div>
+							<div class="col-sm-1" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'no'}}</div>
+						</div>
+					</template>
+					<template ngbPanelContent>
+						<gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id"
+						 (stateChanged)="childStateChanged($event, order.data._id)"></gg-stock-order-detail>
+					</template>
+				</ngb-panel>
+			</ngb-accordion>
+		</div>
+		<div class="row" *ngIf="nbHitsShown < nbHits">
+			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+		</div>
+		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+			{{nbHits}} hits shown
+		</div>		
 	</div>
 </div>

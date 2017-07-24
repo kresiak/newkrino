@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { ProductService } from './../Shared/Services/product.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from './../Shared/Services/config.service'
+import { FormControl, FormGroup } from '@angular/forms'
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 
 @Component(
@@ -12,9 +15,21 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class StockOrderListComponent implements OnInit {
-    constructor() {
-
+    constructor(private configService: ConfigService) {
+        this.searchForm = new FormGroup({
+            searchControl: new FormControl()
+        });
     }
+
+    searchControl = new FormControl();
+    searchForm;
+
+
+    private nbHitsShown: number= 5
+    private nbHitsIncrement: number= 10
+    private nbHits: number
+    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
+    private isPageRunning: boolean = true
 
     private orders; //: Observable<any>;
     @Input() ordersObservable: Observable<any>;
@@ -22,24 +37,46 @@ export class StockOrderListComponent implements OnInit {
     @Input() path: string
     @Output() stateChanged= new EventEmitter();
 
-    subscriptionOrders: Subscription
-
-
     private stateInit()
     {
         if (!this.state) this.state= {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
+    resetSerachControl() {
+        this.searchControl.setValue('')
+    }
+
     ngOnInit(): void {
         this.stateInit();
-        this.subscriptionOrders= this.ordersObservable.subscribe(orders => {
-            this.orders = orders
+
+        Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (orders, searchTxt: string) => {
+            let txt: string = searchTxt.trim().toUpperCase();
+            if (txt === '' || txt === '$') return orders;
+
+            return orders.filter(order => {
+                return (order.annotation.user && order.annotation.user.toUpperCase().includes(txt)) ||
+                    (order.annotation.product && order.annotation.product.toUpperCase().includes(txt)) ||
+                    (order.annotation.catalogNr && order.annotation.catalogNr.toUpperCase().includes(txt)) 
+            });
+        }).do(orders => {
+            this.nbHits= orders.length
+        })
+        .switchMap(orders => {
+            return this.nbHitsShownObservable.map(nbItems => {
+                return orders.slice(0, nbItems)
+            })
+        }).takeWhile(() => this.isPageRunning).subscribe(orders => {
+            if (!comparatorsUtils.softCopy(this.orders, orders))
+            {
+                this.orders= comparatorsUtils.clone(orders)
+            }
         });
+
     }
 
     ngOnDestroy(): void {
-         this.subscriptionOrders.unsubscribe()
+         this.isPageRunning = false
     }
 
     getOrderObservable(id: string): Observable<any> {
@@ -64,5 +101,12 @@ export class StockOrderListComponent implements OnInit {
     {
             this.state[objectId]= newState;
             this.stateChanged.next(this.state);
-    }}
+    }
+
+    private moreHits() {
+        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+    
+}
 
