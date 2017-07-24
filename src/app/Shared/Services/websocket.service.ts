@@ -9,7 +9,12 @@ export class WebSocketService{
     constructor(@Inject(DataStore) private dataStore: DataStore, @Inject(ConfigService) private configService: ConfigService)
     {
         if (configService.isProduction()) {
-            this.url =    'ws://139.165.56.57:3002'
+            if (configService.isVM2()) { 
+                this.url =    'ws://139.165.57.34:80'
+            }
+            else {
+                this.url =    'ws://139.165.56.57:3002'
+            }
         }
         else {
             this.url =   'ws://localhost:1337';

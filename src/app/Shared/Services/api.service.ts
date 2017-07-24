@@ -11,8 +11,14 @@ export class ApiService {
 
     constructor(private _http: Http, @Inject(ConfigService) private configService: ConfigService) { 
         if (configService.isProduction()) {
-            this.urlBaseForData= 'http://139.165.56.57:3002/data'
-            this.urlBaseForService=  'http://139.165.56.57:3002/service'
+            if (configService.isVM2()) {
+                this.urlBaseForData= 'http://139.165.57.34:80/data'
+                this.urlBaseForService=  'http://139.165.57.34:80/service'
+            }
+            else  {
+                this.urlBaseForData= 'http://139.165.56.57:3002/data'
+                this.urlBaseForService=  'http://139.165.56.57:3002/service'
+            }
         }
         else {
             this.urlBaseForData= 'http://localhost:1337/data'
