@@ -52,6 +52,8 @@ export class StockProductEnterComponent implements OnInit {
     save(formValue, isValid) {
         if (! +formValue.quantity) return
 
+        this.product.values[0].annotation.nbReservedByMe += +formValue.quantity
+
         let data= {
             userId : this.authService.getUserId(),
             equipeId : this.authService.getEquipeId(),
