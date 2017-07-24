@@ -110,8 +110,8 @@ export class StockService {
             this.dataStore.getDataObservable('products.stock'),
             (ordersStock, equipes, annotatedUsers, products, stockItems, annotatedOrders) => {
                 return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems)).sort((v1, v2) => {
-                    var d1 = moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d1 = moment(v1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2 = moment(v2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1
                 });
             });
