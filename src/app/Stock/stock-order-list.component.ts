@@ -25,7 +25,7 @@ export class StockOrderListComponent implements OnInit {
     searchForm;
 
 
-    private nbHitsShown: number= 5
+    private nbHitsShown: number= 10
     private nbHitsIncrement: number= 10
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
@@ -57,6 +57,7 @@ export class StockOrderListComponent implements OnInit {
             return orders.filter(order => {
                 return (order.annotation.user && order.annotation.user.toUpperCase().includes(txt)) ||
                     (order.annotation.product && order.annotation.product.toUpperCase().includes(txt)) ||
+                    (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt)) ||
                     (order.annotation.catalogNr && order.annotation.catalogNr.toUpperCase().includes(txt)) 
             });
         }).do(orders => {
