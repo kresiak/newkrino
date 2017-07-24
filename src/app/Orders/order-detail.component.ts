@@ -255,7 +255,7 @@ export class OrderDetailComponent implements OnInit {
 
     private updateStatus(newStatus) {
         if (!this.order.data.status) this.order.data.status = { history: [] }
-        this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: newStatus })
+        this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: newStatus, by: this.authorizationStatusInfo.getCurrentUserName() })
         this.order.data.status.value = newStatus
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }

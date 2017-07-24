@@ -8,7 +8,7 @@ export class ConfigService {
     }
 
     isProduction(): boolean {
-        return true
+        return false
     }
 
     isVM2(): boolean {

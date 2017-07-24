@@ -75,6 +75,9 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.annotation.isGroupOrdersUser
     }
 
+    getCurrentUserName() {
+        return this.annotatedUser && this.annotatedUser.annotation.fullName
+    }
 }
 
 // Service
