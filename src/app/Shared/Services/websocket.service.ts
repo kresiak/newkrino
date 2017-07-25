@@ -46,9 +46,16 @@ export class WebSocketService{
             this.ws.onmessage = (event) =>
                       observer.next(event.data);
 
-            this.ws.onerror = (event) => observer.error(event);
+            this.ws.onerror = (event) => {
+                console.log('WebSocket error')
+                observer.error(event)
+            };
 
-            this.ws.onclose = (event) => observer.complete();
+            this.ws.onclose = (event) => {
+                console.log('WebSocket closed')
+                observer.complete()
+                this.init()
+            };
 
         }
      );
