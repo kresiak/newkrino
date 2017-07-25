@@ -1,16 +1,16 @@
 import { Injectable, Inject } from '@angular/core'
 import { AuthenticationStatusInfo, AuthService } from './auth.service'
-import { ActivatedRoute, Params, Router, NavigationEnd  } from '@angular/router'
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
 
 
 Injectable()
 export class MenuService {
-    constructor( @Inject(AuthService) private authService: AuthService, private router: Router) { 
+    constructor( @Inject(AuthService) private authService: AuthService, private router: Router) {
 
     }
 
-    private menu: any[] 
+    private menu: any[]
     private menuSubject: ReplaySubject<any[]> = new ReplaySubject(1)
 
     private emitCurrentMenu() {
@@ -20,37 +20,46 @@ export class MenuService {
 
     initializeMenus() {
         Observable.combineLatest(this.router.events.filter(event => event instanceof NavigationEnd), this.authService.getStatusObservable(), (event, statusInfo) => {
-            this.initMenu(statusInfo)
-            return event
-        }).subscribe(event => {
-            var e = <NavigationEnd>event;
-            var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
-            try {
-                this.activateMenu(this.menu.filter(menuitem => menuitem.route === r || r.startsWith(menuitem.route + '?'))[0]);
-                if (this.menu.filter(m=>m.active).length===0){
-                    ['order','otp','equipe','product','user','category','supplier','sap'].filter(objType => r.startsWith('/' + objType + '/')).forEach(objType =>{
-                        this.menu.push({
-                            title: 'Detail ' + objType,
-                            active: true
-                        })
-                    })
-                }
+            return {
+                event: event,
+                statusInfo: statusInfo
             }
-            catch(e) {
-            }
-            finally { 
-
-            }
+        }).do(info => {
+            var event= info.event
+            var statusInfo= info.statusInfo
+            this.initMenuBasedOnLoginUser(statusInfo)
+            this.updateMenuBasedOnUrl(event)
             this.emitCurrentMenu()
-        });        
+        }).subscribe(() => { });
     }
 
     getMenuObservable(): Observable<any[]> {
         return this.menuSubject
     }
 
-    private initMenu(statusInfo: AuthenticationStatusInfo) {
-        var isLoggedIn: boolean = statusInfo && statusInfo.isLoggedIn        
+    private updateMenuBasedOnUrl(event) {
+        var e = <NavigationEnd>event;
+        var r = e.urlAfterRedirects === '/' ? '/home' : e.urlAfterRedirects;
+        try {
+            this.activateMenu(this.menu.filter(menuitem => menuitem.route === r || r.startsWith(menuitem.route + '?'))[0]);
+            if (this.menu.filter(m => m.active).length === 0) {
+                ['order', 'otp', 'equipe', 'product', 'user', 'category', 'supplier', 'sap'].filter(objType => r.startsWith('/' + objType + '/')).forEach(objType => {
+                    this.menu.push({
+                        title: 'Detail ' + objType,
+                        active: true
+                    })
+                })
+            }
+        }
+        catch (e) {
+        }
+        finally {
+
+        }
+    }
+
+    private initMenuBasedOnLoginUser(statusInfo: AuthenticationStatusInfo) {
+        var isLoggedIn: boolean = statusInfo && statusInfo.isLoggedIn
         this.menu = [
             {
                 route: '/home',
@@ -138,7 +147,7 @@ export class MenuService {
                 route: '/communication',
                 title: 'Communication',
                 active: false,
-                hide: !isLoggedIn 
+                hide: !isLoggedIn
             },
             {
                 route: '/platform',
