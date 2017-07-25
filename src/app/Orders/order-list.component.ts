@@ -78,6 +78,9 @@ export class OrderListComponent implements OnInit {
                 if (txt.startsWith('#AD')) {
                     return order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
+                if (txt.startsWith('#CO')) {
+                    return order.data.comments && order.data.comments.length > 0
+                }
                 if (txt.startsWith('#ND')) {
                     return !order.annotation.allDelivered && order.data.status.value!=='deleted'
                 }
