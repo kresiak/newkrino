@@ -26,6 +26,15 @@ export class DataStore { // contains one observable property by database table/c
         return laboNameInRecord === this.laboName
     }
 
+
+    public RetriggerAll() {
+        Object.keys(this).forEach(propName => {
+            if (this[propName] instanceof ReplaySubject) {
+                this.triggerNext(propName)
+            }
+        })
+    }
+
     private triggerNext(table: string) {
         if (!this[table]) {
             this[table] = new ReplaySubject<any[]>(1);

@@ -22,6 +22,10 @@ export class AppComponent implements OnInit {
                 private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
+
+        setTimeout(() => {
+            this.webSocketService.requeryDb()
+        }, 3 * 60 * 60 * 1000)
     }
 
     private subscriptionLmMessages: Subscription

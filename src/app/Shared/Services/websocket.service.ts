@@ -36,6 +36,10 @@ export class WebSocketService{
         })
     }
 
+    requeryDb() {
+        this.dataStore.RetriggerAll()
+    }
+
     private createObservableSocket():Observable<any>{
 
         this.ws = new WebSocket(this.url);
@@ -55,6 +59,7 @@ export class WebSocketService{
                 console.log('WebSocket closed')
                 observer.complete()
                 this.init()
+                this.requeryDb()
             };
 
         }
