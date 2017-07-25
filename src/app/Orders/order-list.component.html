@@ -61,13 +61,13 @@
 							<!--<div class="col-lg-3 hidden-md-down">{{order.data._id}}</div>-->
 							<div class="col-sm-1" [style.font-weight]="order.data._id === state.openPanelId ? 'bold' : 'lighter'">{{order.data.kid}}</div>
 							<div class="col-sm-1">{{order.annotation.sapId}}</div>
-							<div class="col-sm-2">{{formatDate(order.data.date)}}</div>
+							<div class="col-sm-2">{{order.data.date | fullDate}}</div>
 							<div class="col-sm-2" *ngIf="!order.annotation.isGroupedOrder">{{order.annotation.user}}/{{order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup
 								: 'unknown equipe')}}</div>
 							<div class="col-sm-2" *ngIf="order.annotation.isGroupedOrder">Non urgent order</div>
 							<div class="col-sm-2" *ngIf="showColumn('supplier')">{{order.annotation.supplier}}</div>
 							<div class="col-sm-1">{{order.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-2">{{order.annotation.status}}</div>
+							<div class="col-sm-2">{{order.annotation.status + ' '}} <span *ngIf="order.data.comments && order.data.comments.length > 0" [style.color]="'red'">w. comments</span></div>
 							<div class="col-sm-1"><img *ngIf="order.annotation.anyDelivered && !order.annotation.allDelivered" src="../../images/shipping.png" /><img *ngIf="order.annotation.allDelivered" src="../../images/ok.png" /></div>
 						</div>
 					</template>

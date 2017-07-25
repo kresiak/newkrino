@@ -191,7 +191,7 @@
 				</div>
 			</template>
 		</ngb-tab>
-		<ngb-tab title="Comments" id="tabComment">
+		<ngb-tab title="{{'Comments ' + ((order.data.comments && order.data.comments.length > 0) ? '(' + order.data.comments.length + ')' : '')}}" id="tabComment">
 			<template ngbTabContent>
 				<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 			</template>
