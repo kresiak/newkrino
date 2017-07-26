@@ -41,7 +41,7 @@
 		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
 
 		</div>
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo && getCurrentLabo()">
 			<div class="form-group">
 				<input  class="form-control" [(ngModel)]="userValue" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select a user"   [source]="usersShort" placeholder="choose a user in list" [list-formatter]="autocompleListFormatter" (valueChanged)="userSelected($event)">
@@ -59,6 +59,12 @@
 						<div class="col-sm-1" ><img height="25" width="25" src="../images/shopping-basket-info-icon.png" class="imgSearch" (click)="navigateToBasket()" placement="bottom" [ngbTooltip]="tipOpenBasket" /></div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="!getCurrentLabo() && laboList && laboList.length > 0">
+			<div class="form-group">
+				<input  class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
+					ng2-auto-complete blank-option-text="Select a labo"   [source]="laboList" placeholder="choose a labo in list" [list-formatter]="autocompleListFormatter" (valueChanged)="laboSelected($event)">
 			</div>
 		</div>
 	</div>

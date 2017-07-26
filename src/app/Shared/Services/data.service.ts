@@ -13,11 +13,20 @@ export class DataStore { // contains one observable property by database table/c
 
     private laboFieldName: string = 'laboName'
 
-    private universalTables: string[] = ['products', 'suppliers', 'categories']
+    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list']
 
     //public laboName= 'demo' 
     //public laboName = 'michel'
-    public laboName = 'genomics'
+    private laboName: string = 'undefined' // = 'genomics'
+
+    public getLaboName() : string {
+        return this.laboName === 'undefined' ? undefined : this.laboName
+    }
+
+    public setLaboName(labo: string) {
+        this.laboName= labo
+        this.RetriggerAll()
+    }
 
     private isFromRightLabo(table, rec): boolean {
         if (this.universalTables.includes(table)) return true

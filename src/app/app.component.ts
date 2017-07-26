@@ -8,6 +8,7 @@ import { AuthenticationStatusInfo, AuthService } from './Shared/Services/auth.se
 import { NotificationService } from './Shared/Services/notification.service'
 import { BasketService } from './Shared/Services/basket.service'
 import { MenuService } from './Shared/Services/menu.service'
+import { DataStore } from './Shared/Services/data.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 
@@ -18,8 +19,8 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private authService: AuthService, private menuService: MenuService, private notificationService: NotificationService, private basketService: BasketService,
-                private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
+    constructor(private authService: AuthService, private dataStore: DataStore, private menuService: MenuService, private notificationService: NotificationService, private basketService: BasketService,
+        private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
 
@@ -28,11 +29,6 @@ export class AppComponent implements OnInit {
         }, 3 * 60 * 60 * 1000)
     }
 
-    private subscriptionLmMessages: Subscription
-    private subscriptionAuthorization: Subscription
-    private subscriptionBasketItems: Subscription
-    private subscriptionMenu: Subscription
-
     private showScrollText: boolean = true
 
 
@@ -40,6 +36,7 @@ export class AppComponent implements OnInit {
     //private users;
     private usersShort: any[];
     private possibleEquipes: any[];
+    private laboList: any[]
     private authorizationStatusInfo: AuthenticationStatusInfo
 
     private userValue
@@ -47,25 +44,37 @@ export class AppComponent implements OnInit {
     private menu: any[]
     private labManagerMessages
 
+    private isPageRunning: boolean = true
+
     private nbProductsInBasket: number = 0
 
     ngOnInit(): void {
 
         this.menuService.initializeMenus()
 
-        this.subscriptionMenu = this.menuService.getMenuObservable().subscribe(menu => {
+        this.menuService.getMenuObservable().takeWhile(() => this.isPageRunning).subscribe(menu => {
             this.menu = menu
         })
 
-        this.subscriptionLmMessages = this.notificationService.getLmWarningMessages().subscribe(res => {
+        this.notificationService.getLmWarningMessages().takeWhile(() => this.isPageRunning).subscribe(res => {
             this.labManagerMessages = res
         })
 
-        this.subscriptionBasketItems = this.basketService.getBasketItemsForCurrentUser().subscribe(items => {
+        this.basketService.getBasketItemsForCurrentUser().takeWhile(() => this.isPageRunning).subscribe(items => {
             this.nbProductsInBasket = items.length
         })
 
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
+            return {
+                id: labo.shortcut,
+                value: labo.name
+            }
+        })).takeWhile(() => this.isPageRunning).subscribe(res => {
+            this.laboList= res
+        })
+
+
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
             this.usersShort = statusInfo.annotatedUserList.map(user => {
                 return {
@@ -88,10 +97,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionBasketItems.unsubscribe()
-        this.subscriptionMenu.unsubscribe()
-        this.subscriptionLmMessages.unsubscribe()
+        this.isPageRunning = false
     }
 
 
@@ -138,6 +144,11 @@ export class AppComponent implements OnInit {
         }
     }
 
+    laboSelected(value) {
+        if (!value) return
+        this.dataStore.setLaboName(value.id)
+        //this.authService.initFromLocalStorage()
+    }
 
     title = 'Krino';
 
@@ -166,9 +177,13 @@ export class AppComponent implements OnInit {
 
     disableScrolling() {
         this.showScrollText = false
-        this.sleep(30*60*1000).then(() => {
+        this.sleep(30 * 60 * 1000).then(() => {
             this.showScrollText = true
         });
+    }
+
+    getCurrentLabo(): string {
+        return this.dataStore.getLaboName()        
     }
 
 

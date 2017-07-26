@@ -25,6 +25,7 @@ export class AuthenticationStatusInfo {
     }
 
     setAnnotatedUser(user) {
+        var i=550
         this.annotatedUser= user
     }
 
@@ -107,7 +108,7 @@ export class AuthService {
 
     private usersSubscription: Subscription
 
-    private prepareUserId(id: string) {
+    private prepareUserId(id: string) {        
         this.authInfo.currentUserId = id
 
         if (this.usersSubscription) this.usersSubscription.unsubscribe()
@@ -137,6 +138,7 @@ export class AuthService {
         else {
             this.prepareUserId('')
         }
+        console.log("user from LS: " + userFromLS + " equipe: " + equipeFromLS)
     }
 
 
