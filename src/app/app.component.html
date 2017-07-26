@@ -45,7 +45,7 @@
 			<div class="form-group">
 				<input  class="form-control" [(ngModel)]="userValue" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select a user"   [source]="usersShort" placeholder="choose a user in list" [list-formatter]="autocompleListFormatter" (valueChanged)="userSelected($event)">
-			   	<input *ngIf="authorizationStatusInfo.currentUserId && authorizationStatusInfo.needsEquipeSelection" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
+			   	<input *ngIf="authorizationStatusInfo.currentUserId && needsEquipeSelection" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select an equipe"   [source]="possibleEquipes" placeholder="choose an equipe in list" [list-formatter]="autocompleListFormatter" (valueChanged)="equipeSelected($event)">
 
 				<button *ngIf="authorizationStatusInfo.isReadyForPassword()" style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">Enter your password {{authorizationStatusInfo.isLoginError? '(There was an error)' : ''}}</button>

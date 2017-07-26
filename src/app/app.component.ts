@@ -48,6 +48,9 @@ export class AppComponent implements OnInit {
 
     private nbProductsInBasket: number = 0
 
+    private needsEquipeSelection: boolean = true
+
+
     ngOnInit(): void {
 
         this.menuService.initializeMenus()
@@ -73,8 +76,38 @@ export class AppComponent implements OnInit {
             this.laboList= res
         })
 
+        Observable.combineLatest(this.authService.getUserSimpleListObservable(), this.authService.getStatusObservable(), (usersShort, statusInfo) => {
+            return {
+                usersShort: usersShort,
+                statusInfo: statusInfo
+            }
+        }).do(info => {
+            this.authorizationStatusInfo = info.statusInfo
+            this.usersShort= info.usersShort
 
-        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.userValue = this.usersShort.filter(user => user.id === info.statusInfo.currentUserId)[0]
+
+            this.needsEquipeSelection= !this.userValue ? true : !(this.usersShort.filter(u => u.id === info.statusInfo.currentUserId)[0] || {equipeNotNeeded: false}).equipeNotNeeded
+
+/*
+            this.possibleEquipes = !info.statusInfo.equipeList ? [] : info.statusInfo.equipeList.map(eq => {
+                return {
+                    id: eq._id,
+                    value: eq.name
+                }
+            })
+
+            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === info.statusInfo.currentEquipeId)[0]
+*/        }).switchMap(info => {
+            return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo.currentUserId)
+        }).do(possibleEquipes => {
+            this.possibleEquipes = possibleEquipes
+            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === this.authorizationStatusInfo.currentEquipeId)[0]
+        })
+        .takeWhile(() => this.isPageRunning).subscribe(res => {})
+
+        
+/*        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
             this.usersShort = statusInfo.annotatedUserList.map(user => {
                 return {
@@ -93,7 +126,7 @@ export class AppComponent implements OnInit {
             })
 
             this.equipeValue = this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
-        })
+        })*/
     }
 
     ngOnDestroy(): void {
@@ -125,11 +158,11 @@ export class AppComponent implements OnInit {
     userSelected(value) {
         if (!value) value = ''
         if (value.id) {
-            this.authService.setUserId(value.id);
+            this.authService.setUserId(value.id, value.equipeNotNeeded);
         }
         else {
             this.navigateToHome()
-            this.authService.setUserId('');
+            this.authService.setUserId('', false);
         }
     }
 

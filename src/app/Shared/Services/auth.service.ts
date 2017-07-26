@@ -15,8 +15,8 @@ export class AuthenticationStatusInfo {
     public needsEquipeSelection: boolean = true
     private annotatedUser: any = null
 
-    public annotatedUserList: any[]
-    public equipeList: any[] = []
+    //public annotatedUserList: any[]
+    //public equipeList: any[] = []
 
     constructor(currentUserId: string, currentEquipeId, isLoggedIn) {
         this.currentUserId = currentUserId
@@ -25,8 +25,7 @@ export class AuthenticationStatusInfo {
     }
 
     setAnnotatedUser(user) {
-        var i=550
-        this.annotatedUser= user
+        this.annotatedUser = user
     }
 
 
@@ -86,13 +85,13 @@ export class AuthenticationStatusInfo {
 
 @Injectable()
 export class AuthService {
-    constructor( @Inject(DataStore) private dataStore: DataStore,  @Inject(AdminService) private adminService: AdminService) {
-        this.getAnnotatedUsersLight().subscribe(users => {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AdminService) private adminService: AdminService) {
+/*        this.getAnnotatedUsersLight().subscribe(users => {
             if (users && users.length > 0) {
                 this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)   
             }
         })        
-    }
+*/    }
 
     private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
     private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
@@ -108,23 +107,35 @@ export class AuthService {
 
     private usersSubscription: Subscription
 
-    private prepareUserId(id: string) {        
+    private prepareUserId(id: string, equipeNotNeeded: boolean) {
         this.authInfo.currentUserId = id
+        this.authInfo.needsEquipeSelection= !equipeNotNeeded
+        this.emitCurrentAuthenticationStatus()
 
-        if (this.usersSubscription) this.usersSubscription.unsubscribe()
+/*        if (this.usersSubscription) this.usersSubscription.unsubscribe()
 
         this.usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
             if (users && users.length > 0) {
-                let user = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]   
-                this.authInfo.needsEquipeSelection= user ? !user.annotation.equipeNotNeeded : true
-                this.authInfo.equipeList = !user ? [] : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
+                //let user = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]
+                //this.authInfo.needsEquipeSelection = user ? !user.annotation.equipeNotNeeded : true
+                //this.authInfo.equipeList = !user ? [] : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
                 this.emitCurrentAuthenticationStatus()
             }
         })
-    }
-    
+*/    }
+
     private LSUserKey: string = 'krinoUser'
     private LSEquipeKey: string = 'krinoEquipe'
+
+    getPossibleEquipeSimpleListObservable(userId): Observable<any> {
+        return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId).map(user => user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))[0])
+            .map(equipes => (equipes || []).map(eq => {
+                return {
+                    id: eq._id,
+                    value: eq.name
+                }
+            }))
+    }
 
     initFromLocalStorage(): void {
         var equipeFromLS = localStorage.getItem(this.LSEquipeKey)
@@ -133,21 +144,21 @@ export class AuthService {
         }
         var userFromLS = localStorage.getItem(this.LSUserKey)
         if (userFromLS) {
-            this.prepareUserId(userFromLS)
+            this.prepareUserId(userFromLS, false)
         }
         else {
-            this.prepareUserId('')
+            this.prepareUserId('', false)
         }
         console.log("user from LS: " + userFromLS + " equipe: " + equipeFromLS)
     }
 
 
-    setUserId(id: string): void {
+    setUserId(id: string, equipeNotNeeded: boolean): void {
         if (this.authInfo.currentUserId !== id) {
             this.authInfo.currentEquipeId = ''
             this.authInfo.logout()
-            localStorage.setItem(this.LSUserKey, id)
-            this.prepareUserId(id)
+            if (!equipeNotNeeded) localStorage.setItem(this.LSUserKey, id)
+            this.prepareUserId(id, equipeNotNeeded)
             //this.currentUserIdObservable.next(id);
         }
     }
@@ -190,12 +201,12 @@ export class AuthService {
     // helper functions for general public services
     // ============================================
 
-    public readonly systemGroupUserId: string= 'SystemGroupUser'
+    public readonly systemGroupUserId: string = 'SystemGroupUser'
 
 
     private createGroupingUser(password: string) {
         return {
-            data: { 
+            data: {
                 _id: this.systemGroupUserId,
                 password: password
             },
@@ -231,10 +242,20 @@ export class AuthService {
             this.dataStore.getDataObservable('equipes'),
             this.adminService.getLabo(),
             (users, equipes, labo) => {
-                var list: any[]= users.map(user => this.createAnnotatedUser(user, equipes, labo)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
+                var list: any[] = users.map(user => this.createAnnotatedUser(user, equipes, labo)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
                 list.push(this.createGroupingUser(labo.data.passwordGroupOrdersUser))
                 return list
             });
+    }
+
+    public getUserSimpleListObservable() {
+        return this.getAnnotatedUsersLight().map(users => users.filter(user => !user.data.isBlocked).map(user => {
+            return {
+                id: user.data._id,
+                value: user.annotation.fullName,
+                equipeNotNeeded: user.annotation.equipeNotNeeded
+            }
+        }))
     }
 
     // General services: about users, equipes, current user
@@ -243,7 +264,7 @@ export class AuthService {
     getAnnotatedUsers(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedUsersLight(), this.getUserIdObservable(), (annotatedUsers: any[], currentUserId) => {
             annotatedUsers.forEach(user => {
-                user.annotation.isCurrentUser= user.data._id===currentUserId
+                user.annotation.isCurrentUser = user.data._id === currentUserId
             })
             return annotatedUsers
         })
@@ -277,7 +298,7 @@ export class AuthService {
     }
 
 
-    getSelectableUsers(keepBlocked: boolean=false): Observable<SelectableData[]> {
+    getSelectableUsers(keepBlocked: boolean = false): Observable<SelectableData[]> {
         return this.getAnnotatedUsers().map(annotatedUsers => {
             return annotatedUsers.sort((user1, user2) => { return user1.annotation.fullName < user2.annotation.fullName ? -1 : 1; }).
                 filter(user => keepBlocked || !user.data.isBlocked).
