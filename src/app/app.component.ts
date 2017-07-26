@@ -70,12 +70,12 @@ export class AppComponent implements OnInit {
             this.nbProductsInBasket = items.length
         })
 
-        Observable.combineLatest(this.dataStore.getLaboNameObservable(), this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
+        Observable.combineLatest(this.dataStore.getLaboNameObservable().takeWhile(() => this.isPageRunning), this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
             return {
                 id: labo.shortcut,
                 value: labo.name
             }
-        })), (laboName, laboList) => {
+        })).takeWhile(() => this.isPageRunning), (laboName, laboList) => {
             return {
                 laboName: laboName,
                 laboList: laboList
@@ -88,16 +88,7 @@ export class AppComponent implements OnInit {
 
         })
 
-/*        this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
-            return {
-                id: labo.shortcut,
-                value: labo.name
-            }
-        })).takeWhile(() => this.isPageRunning).subscribe(res => {
-            this.laboList= res
-        })
-*/
-        Observable.combineLatest(this.authService.getUserSimpleListObservable(), this.authService.getStatusObservable(), (usersShort, statusInfo) => {
+        Observable.combineLatest(this.authService.getUserSimpleListObservable().takeWhile(() => this.isPageRunning), this.authService.getStatusObservable().takeWhile(() => this.isPageRunning), (usersShort, statusInfo) => {
             return {
                 usersShort: usersShort,
                 statusInfo: statusInfo
@@ -111,7 +102,7 @@ export class AppComponent implements OnInit {
             this.needsEquipeSelection= !this.userValue ? true : !(this.usersShort.filter(u => u.id === info.statusInfo.currentUserId)[0] || {equipeNotNeeded: false}).equipeNotNeeded
 
         }).switchMap(info => {
-            return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo.currentUserId)
+            return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo.currentUserId).takeWhile(() => this.isPageRunning)
         }).do(possibleEquipes => {
             this.possibleEquipes = possibleEquipes
             this.equipeValue = this.possibleEquipes.filter(eq => eq.id === this.authorizationStatusInfo.currentEquipeId)[0]
