@@ -6,13 +6,25 @@ import { ApiService } from './api.service';
 
 
 @Injectable()
+
 export class DataStore { // contains one observable property by database table/collection
 
     constructor(private apiService: ApiService) {
         var laboFromLS = localStorage.getItem(this.LSLaboKey)
         if (laboFromLS) {
-            this.laboName= laboFromLS
+            this.laboName= laboFromLS            
         }        
+        this.emitLaboName()
+    }
+
+    private laboNameSubject: ReplaySubject<string> = new ReplaySubject(1)
+
+    public getLaboNameObservable() : Observable<any> {
+        return this.laboNameSubject
+    }
+
+    private emitLaboName() {
+        this.laboNameSubject.next(this.laboName)
     }
 
     private laboFieldName: string = 'laboName'
@@ -21,18 +33,19 @@ export class DataStore { // contains one observable property by database table/c
 
     //public laboName= 'demo' 
     //public laboName = 'michel'
-    private laboName: string = 'undefined' // = 'genomics'
+    private laboName: string = undefined // = 'genomics'
     private LSLaboKey: string = 'krinoLabo'
     
 
     public getLaboName() : string {
-        return this.laboName === 'undefined' ? undefined : this.laboName
+        return this.laboName
     }
 
     public setLaboName(labo: string) {
         this.laboName= labo
         localStorage.setItem(this.LSLaboKey, labo)
         this.RetriggerAll()
+        this.emitLaboName()
     }
 
     private isFromRightLabo(table, rec): boolean {
@@ -45,7 +58,7 @@ export class DataStore { // contains one observable property by database table/c
 
     public RetriggerAll() {
         Object.keys(this).forEach(propName => {
-            if (this[propName] instanceof ReplaySubject) {
+            if (this[propName] instanceof ReplaySubject && propName != 'laboNameSubject') {
                 this.triggerNext(propName)
             }
         })

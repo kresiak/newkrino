@@ -51,6 +51,8 @@ export class AppComponent implements OnInit {
 
 
     private inDbInitialisationProcess: boolean = true
+    private laboName: string= ''
+
 
     ngOnInit(): void {
 
@@ -68,7 +70,25 @@ export class AppComponent implements OnInit {
             this.nbProductsInBasket = items.length
         })
 
-        this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
+        Observable.combineLatest(this.dataStore.getLaboNameObservable(), this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
+            return {
+                id: labo.shortcut,
+                value: labo.name
+            }
+        })), (laboName, laboList) => {
+            return {
+                laboName: laboName,
+                laboList: laboList
+            }
+        }).do(info => {
+            this.laboList= info.laboList
+            var labo= info.laboList.filter(l => l.id === info.laboName)[0]
+            this.laboName= labo ? labo.value : undefined
+        }).subscribe(res => {
+
+        })
+
+/*        this.dataStore.getDataObservable('labos.list').map(labos => labos.map(labo => {
             return {
                 id: labo.shortcut,
                 value: labo.name
@@ -76,7 +96,7 @@ export class AppComponent implements OnInit {
         })).takeWhile(() => this.isPageRunning).subscribe(res => {
             this.laboList= res
         })
-
+*/
         Observable.combineLatest(this.authService.getUserSimpleListObservable(), this.authService.getStatusObservable(), (usersShort, statusInfo) => {
             return {
                 usersShort: usersShort,
@@ -154,12 +174,16 @@ export class AppComponent implements OnInit {
     laboSelected(value) {
         if (!value) return
         this.inDbInitialisationProcess= true
+        this.authService.setUserId('', false)
         this.dataStore.setLaboName(value.id)
     }
 
     title = 'Krino';
 
-
+    changeLabo() {
+        this.authorizationStatusInfo.logout()        
+        this.dataStore.setLaboName(undefined)
+    }
 
     autocompleListFormatter = (data: any): SafeHtml => {
         let html = `<span>${data.value}</span>`;
@@ -187,10 +211,6 @@ export class AppComponent implements OnInit {
         this.sleep(30 * 60 * 1000).then(() => {
             this.showScrollText = true
         });
-    }
-
-    getCurrentLabo(): string {
-        return this.dataStore.getLaboName()        
     }
 
 

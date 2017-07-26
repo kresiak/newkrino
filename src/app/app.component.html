@@ -2,6 +2,8 @@
 
 <template #tipOpenBasket><div style="font-size: 70%;">Click here to <br/> open your basket</div></template>
 
+<template #tipLaboName><div style="font-size: 70%;">You are in labo {{laboName + '.'}} <br/> (Click to change the labo)</div></template>
+
 <template #passwordModal let-c="close" let-d="dismiss">
   <div class="modal-header" style="padding:2px;background-color:lightblue">
 	  <div class="row">
@@ -41,19 +43,27 @@
 		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
 
 		</div>
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo && getCurrentLabo()">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo && laboName">
 			<div class="form-group">
 				<input  class="form-control" [(ngModel)]="userValue" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select a user"   [source]="usersShort" placeholder="choose a user in list" [list-formatter]="autocompleListFormatter" (valueChanged)="userSelected($event)">
 			   	<input *ngIf="authorizationStatusInfo.currentUserId && needsEquipeSelection" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select an equipe"   [source]="possibleEquipes" placeholder="choose an equipe in list" [list-formatter]="autocompleListFormatter" (valueChanged)="equipeSelected($event)">
 
-				<button *ngIf="authorizationStatusInfo.isReadyForPassword()" style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">Enter your password {{authorizationStatusInfo.isLoginError? '(There was an error)' : ''}}</button>
+				<div class="row" >
+					<div class="col-sm-6 vcenter" *ngIf="authorizationStatusInfo.isReadyForPassword()">
+						<button style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">Enter your password {{authorizationStatusInfo.isLoginError? '(There was an error)' : ''}}</button>
+					</div>
+					<div class="col-sm-5 vcenter" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
+						<button [ngbTooltip]="tipLaboName" placement="bottom"  style="font-size:12px;" type="button" (click)="changeLabo()" class="form-control btn btn-link">Another labo</button>
+					</div>
+				</div>				
 
 
 				<div class="row" *ngIf="authorizationStatusInfo.isLoggedIn">
 					<div class="col-sm-7 vcenter">
-						<label *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" style="font-size:12px;color:green;border-style:none">authenticated</label>
+						<label [ngbTooltip]="tipLaboName" placement="bottom" *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" 
+								style="font-size:12px;color:green;border-style:none" (click)="changeLabo()" >authenticated</label>
 					</div>
 					<div class="col-sm-4 vcenter" *ngIf="nbProductsInBasket > 0">
 						<div class="col-sm-1" ><img height="25" width="25" src="../images/shopping-basket-info-icon.png" class="imgSearch" (click)="navigateToBasket()" placement="bottom" [ngbTooltip]="tipOpenBasket" /></div>
@@ -61,7 +71,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="!getCurrentLabo() && laboList && laboList.length > 0">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="!laboName && laboList && laboList.length > 0">
 			<div class="form-group">
 				<input  class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;" 
 					ng2-auto-complete blank-option-text="Select a labo"   [source]="laboList" placeholder="choose a labo in list" [list-formatter]="autocompleListFormatter" (valueChanged)="laboSelected($event)">
