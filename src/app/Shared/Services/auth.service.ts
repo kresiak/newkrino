@@ -107,16 +107,6 @@ export class AuthService {
     private LSUserKey: string = 'krinoUser'
     private LSEquipeKey: string = 'krinoEquipe'
 
-    getPossibleEquipeSimpleListObservable(userId): Observable<any> {
-        return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId).map(user => user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))[0])
-            .map(equipes => (equipes || []).map(eq => {
-                return {
-                    id: eq._id,
-                    value: eq.name
-                }
-            }))
-    }
-
     initFromLocalStorage(): void {
         var equipeFromLS = localStorage.getItem(this.LSEquipeKey)
         if (equipeFromLS) {
@@ -236,6 +226,17 @@ export class AuthService {
             }
         }))
     }
+
+    public getPossibleEquipeSimpleListObservable(userId): Observable<any> {
+        return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId).map(user => user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))[0])
+            .map(equipes => (equipes || []).map(eq => {
+                return {
+                    id: eq._id,
+                    value: eq.name
+                }
+            }))
+    }
+
 
     // General services: about users, equipes, current user
     // =====================================================

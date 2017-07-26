@@ -9,6 +9,10 @@ import { ApiService } from './api.service';
 export class DataStore { // contains one observable property by database table/collection
 
     constructor(private apiService: ApiService) {
+        var laboFromLS = localStorage.getItem(this.LSLaboKey)
+        if (laboFromLS) {
+            this.laboName= laboFromLS
+        }        
     }
 
     private laboFieldName: string = 'laboName'
@@ -18,6 +22,8 @@ export class DataStore { // contains one observable property by database table/c
     //public laboName= 'demo' 
     //public laboName = 'michel'
     private laboName: string = 'undefined' // = 'genomics'
+    private LSLaboKey: string = 'krinoLabo'
+    
 
     public getLaboName() : string {
         return this.laboName === 'undefined' ? undefined : this.laboName
@@ -25,6 +31,7 @@ export class DataStore { // contains one observable property by database table/c
 
     public setLaboName(labo: string) {
         this.laboName= labo
+        localStorage.setItem(this.LSLaboKey, labo)
         this.RetriggerAll()
     }
 
