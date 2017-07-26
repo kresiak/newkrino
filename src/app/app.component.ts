@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
 
 
     private password: string = ''
-    //private users;
     private usersShort: any[];
     private possibleEquipes: any[];
     private laboList: any[]
@@ -50,6 +49,8 @@ export class AppComponent implements OnInit {
 
     private needsEquipeSelection: boolean = true
 
+
+    private inDbInitialisationProcess: boolean = true
 
     ngOnInit(): void {
 
@@ -89,44 +90,15 @@ export class AppComponent implements OnInit {
 
             this.needsEquipeSelection= !this.userValue ? true : !(this.usersShort.filter(u => u.id === info.statusInfo.currentUserId)[0] || {equipeNotNeeded: false}).equipeNotNeeded
 
-/*
-            this.possibleEquipes = !info.statusInfo.equipeList ? [] : info.statusInfo.equipeList.map(eq => {
-                return {
-                    id: eq._id,
-                    value: eq.name
-                }
-            })
-
-            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === info.statusInfo.currentEquipeId)[0]
-*/        }).switchMap(info => {
+        }).switchMap(info => {
             return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo.currentUserId)
         }).do(possibleEquipes => {
             this.possibleEquipes = possibleEquipes
             this.equipeValue = this.possibleEquipes.filter(eq => eq.id === this.authorizationStatusInfo.currentEquipeId)[0]
         })
-        .takeWhile(() => this.isPageRunning).subscribe(res => {})
-
-        
-/*        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
-            this.authorizationStatusInfo = statusInfo
-            this.usersShort = statusInfo.annotatedUserList.map(user => {
-                return {
-                    id: user.data._id,
-                    value: user.annotation.fullName
-                }
-            })
-
-            this.userValue = this.usersShort.filter(user => user.id === statusInfo.currentUserId)[0]
-
-            this.possibleEquipes = !statusInfo.equipeList ? [] : statusInfo.equipeList.map(eq => {
-                return {
-                    id: eq._id,
-                    value: eq.name
-                }
-            })
-
-            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === statusInfo.currentEquipeId)[0]
-        })*/
+        .takeWhile(() => this.isPageRunning).subscribe(res => {
+            this.inDbInitialisationProcess= false
+        })       
     }
 
     ngOnDestroy(): void {
@@ -156,6 +128,7 @@ export class AppComponent implements OnInit {
     }
 
     userSelected(value) {
+        if (this.inDbInitialisationProcess) return
         if (!value) value = ''
         if (value.id) {
             this.authService.setUserId(value.id, value.equipeNotNeeded);
@@ -167,6 +140,7 @@ export class AppComponent implements OnInit {
     }
 
     equipeSelected(value) {
+        if (this.inDbInitialisationProcess) return
         if (!value) value = ''
         if (value.id) {
             this.authService.setEquipeId(value.id);
@@ -179,8 +153,8 @@ export class AppComponent implements OnInit {
 
     laboSelected(value) {
         if (!value) return
+        this.inDbInitialisationProcess= true
         this.dataStore.setLaboName(value.id)
-        //this.authService.initFromLocalStorage()
     }
 
     title = 'Krino';

@@ -15,9 +15,6 @@ export class AuthenticationStatusInfo {
     public needsEquipeSelection: boolean = true
     private annotatedUser: any = null
 
-    //public annotatedUserList: any[]
-    //public equipeList: any[] = []
-
     constructor(currentUserId: string, currentEquipeId, isLoggedIn) {
         this.currentUserId = currentUserId
         this.currentEquipeId = currentEquipeId
@@ -44,7 +41,6 @@ export class AuthenticationStatusInfo {
     logout() {
         this.isLoggedIn = false
         this.annotatedUser = null
-        //this.currentEquipeId = ''
     }
 
     isAdministrator() {
@@ -86,12 +82,7 @@ export class AuthenticationStatusInfo {
 @Injectable()
 export class AuthService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AdminService) private adminService: AdminService) {
-/*        this.getAnnotatedUsersLight().subscribe(users => {
-            if (users && users.length > 0) {
-                this.authInfo.annotatedUserList = users.filter(user => !user.data.isBlocked)   
-            }
-        })        
-*/    }
+    }
 
     private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
     private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
@@ -111,18 +102,7 @@ export class AuthService {
         this.authInfo.currentUserId = id
         this.authInfo.needsEquipeSelection= !equipeNotNeeded
         this.emitCurrentAuthenticationStatus()
-
-/*        if (this.usersSubscription) this.usersSubscription.unsubscribe()
-
-        this.usersSubscription = this.getAnnotatedUsersLight().subscribe(users => {
-            if (users && users.length > 0) {
-                //let user = users.filter(user => user.data._id === this.authInfo.currentUserId)[0]
-                //this.authInfo.needsEquipeSelection = user ? !user.annotation.equipeNotNeeded : true
-                //this.authInfo.equipeList = !user ? [] : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; })
-                this.emitCurrentAuthenticationStatus()
-            }
-        })
-*/    }
+    }
 
     private LSUserKey: string = 'krinoUser'
     private LSEquipeKey: string = 'krinoEquipe'
@@ -159,7 +139,6 @@ export class AuthService {
             this.authInfo.logout()
             if (!equipeNotNeeded) localStorage.setItem(this.LSUserKey, id)
             this.prepareUserId(id, equipeNotNeeded)
-            //this.currentUserIdObservable.next(id);
         }
     }
 
