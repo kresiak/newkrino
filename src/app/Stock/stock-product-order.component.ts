@@ -52,8 +52,6 @@ export class StockProductEnterComponent implements OnInit {
     save(formValue, isValid) {
         if (! +formValue.quantity) return
 
-        this.product.values[0].annotation.nbReservedByMe += +formValue.quantity
-
         let data= {
             userId : this.authService.getUserId(),
             equipeId : this.authService.getEquipeId(),
@@ -61,7 +59,9 @@ export class StockProductEnterComponent implements OnInit {
             date: moment().format('DD/MM/YYYY HH:mm:ss'),
             quantity: +formValue.quantity > this.getNbOrderable() ? this.getNbOrderable() : +formValue.quantity
         }
-        this.dataStore.addData('orders.stock', data);
+        this.product.values[0].annotation.nbReservedByMe += +formValue.quantity
+
+        if (data.quantity >= 1) this.dataStore.addData('orders.stock', data);
     }
 
     getNbAvailable() {

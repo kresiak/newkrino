@@ -42,8 +42,10 @@ export class StockListComponent implements OnInit {
 
         this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
             if (searchTxt.trim() === '') return products;
-            return products.filter(product => product.values[0].annotation.product && (product.values[0].annotation.product.toUpperCase().includes(searchTxt.toUpperCase()) || 
-                                            product.values[0].annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase())));
+            return products.filter(product => product.values[0].annotation.product && (product.values[0].annotation.product.toUpperCase().includes(searchTxt.toUpperCase()) 
+                                                || product.values[0].annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase())
+                                                || product.values[0].annotation.catalogNr.toUpperCase().includes(searchTxt.toUpperCase())
+                                            ));
         }).subscribe(products => this.products = products);
     }
 
