@@ -10,6 +10,7 @@ import { ApiService } from './api.service';
 export class DataStore { // contains one observable property by database table/collection
 
     constructor(private apiService: ApiService) {
+        this.laboName= 'undefined'
         var laboFromLS = localStorage.getItem(this.LSLaboKey)
         if (laboFromLS) {
             this.laboName= laboFromLS            
@@ -24,7 +25,7 @@ export class DataStore { // contains one observable property by database table/c
     }
 
     private emitLaboName() {
-        this.laboNameSubject.next(this.laboName)
+        this.laboNameSubject.next(this.laboName === 'undefined' ? '' : this.laboName)
     }
 
     private laboFieldName: string = 'laboName'
@@ -33,7 +34,7 @@ export class DataStore { // contains one observable property by database table/c
 
     //public laboName= 'demo' 
     //public laboName = 'michel'
-    private laboName: string = undefined // = 'genomics'
+    private laboName: string = 'undefined' // = 'genomics'
     private LSLaboKey: string = 'krinoLabo'
     
 
@@ -42,7 +43,7 @@ export class DataStore { // contains one observable property by database table/c
     }
 
     public setLaboName(labo: string) {
-        this.laboName= labo
+        this.laboName= labo ? labo : 'undefined'
         localStorage.setItem(this.LSLaboKey, labo)
         this.RetriggerAll()
         this.emitLaboName()

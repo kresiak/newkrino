@@ -1,12 +1,13 @@
 import { Injectable, Inject } from '@angular/core'
 import { AuthenticationStatusInfo, AuthService } from './auth.service'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
+import { DataStore } from './data.service'
 import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
 
 
 Injectable()
 export class MenuService {
-    constructor( @Inject(AuthService) private authService: AuthService, private router: Router) {
+    constructor(@Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router) {
 
     }
 
@@ -19,15 +20,16 @@ export class MenuService {
 
 
     initializeMenus() {
-        Observable.combineLatest(this.router.events.filter(event => event instanceof NavigationEnd), this.authService.getStatusObservable(), (event, statusInfo) => {
+        Observable.combineLatest(this.router.events.filter(event => event instanceof NavigationEnd), this.authService.getStatusObservable(), this.dataStore.getLaboNameObservable(), (event, statusInfo, laboName) => {
             return {
                 event: event,
-                statusInfo: statusInfo
+                statusInfo: statusInfo,
+                laboName: laboName
             }
         }).do(info => {
             var event= info.event
             var statusInfo= info.statusInfo
-            this.initMenuBasedOnLoginUser(statusInfo)
+            this.initMenuBasedOnLoginUser(statusInfo, info.laboName)
             this.updateMenuBasedOnUrl(event)
             this.emitCurrentMenu()
         }).subscribe(() => { });
@@ -58,7 +60,7 @@ export class MenuService {
         }
     }
 
-    private initMenuBasedOnLoginUser(statusInfo: AuthenticationStatusInfo) {
+    private initMenuBasedOnLoginUser(statusInfo: AuthenticationStatusInfo, laboName: string) {
         var isLoggedIn: boolean = statusInfo && statusInfo.isLoggedIn
         this.menu = [
             {
@@ -81,7 +83,8 @@ export class MenuService {
             {
                 route: '/orders',
                 title: 'Orders',
-                active: false
+                active: false,
+                hide: !laboName
             },
             {
                 route: '/products',
