@@ -82,5 +82,11 @@ export class StockListComponent implements OnInit {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
     }
+
+    hasManualChanges(id: string) : boolean {
+        let product = this.products.filter(s => s.key === id)[0]
+        return (product ? product.values : []).filter(sp => (sp.data.manualChanges || []).length > 0).length > 0
+    }
+    
 }
 

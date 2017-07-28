@@ -9,7 +9,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Details" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+    <ngb-tab title="Details {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -41,7 +41,7 @@
                                 {{stockProduct.annotation.nbSold}}
                             </div>
                             <div class="col-sm-2 vcenter">
-                                <button type="button" class="btn btn-link" (click)="stockProduct.annotation.isClosed=!stockProduct.annotation.isClosed">Show/hide quantity history</button>
+                                <button type="button" class="btn btn-link" (click)="stockProduct.annotation.isClosed=!stockProduct.annotation.isClosed">Show/hide quantity history {{(stockProduct.data.manualChanges || []).length < 1 ? '' : (' (' + stockProduct.data.manualChanges.length + ' manual changes)') }}</button>
                             </div>
                         </div>
 
@@ -105,7 +105,13 @@
                                                             <div class="col-sm-2 col-md-2 vcenter">Who bought them?</div>
                                                             <div class="col-sm-2 col-md-2 vcenter">How many bought</div>
                                                         </div>
-                                                        <div class="card">
+                                                                            <div class="card" *ngIf="(stockProduct.data.sales || []).length === 0">
+                                                                                <div class="card-block">
+                                                                                    <div class="centertextbox">No sale yet</div>
+                                                                                </div>
+                                                                            </div>
+                                                        
+                                                        <div class="card" *ngIf="(stockProduct.data.sales || []).length !== 0">
                                                             <div class="row" *ngFor="let historyItem of stockProduct.data.sales">
                                                                 <!--FOR in Sale items (we are in a particular StockProduct) -->
                                                                 <div class="col-sm-2 col-md-2 vcenter">
@@ -124,7 +130,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Manual corrections of quantities">
+                                <ngb-tab title="Manual corrections of quantities {{(stockProduct.data.manualChanges || []).length < 1 ? '' : (' (' + stockProduct.data.manualChanges.length + ')') }}">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -143,7 +149,13 @@
                                                                                 <div class="col-sm-3 col-md-3 vcenter">How many where manually added?</div>
                                                                                 <div class="col-sm-4 vcenter">Why?</div>
                                                                             </div>
-                                                                            <div class="card">
+                                                                            <div class="card" *ngIf="(stockProduct.data.manualChanges || []).length === 0">
+                                                                                <div class="card-block">
+                                                                                    <div class="centertextbox">No manual change yet</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="card" *ngIf="(stockProduct.data.manualChanges || []).length !== 0">
                                                                                 <div class="row" *ngFor="let historyItem of stockProduct.data.manualChanges">
                                                                                     <!--FOR in Manual Changes items (we are in a particular StockProduct) -->
                                                                                     <div class="col-sm-2 col-md-2 vcenter">

@@ -114,4 +114,7 @@ export class StockDetailComponent implements OnInit {
         this.manualQuantityForm.reset();
     }
 
+    hasManualChanges() : boolean {
+        return this.stockProducts.filter(sp => (sp.data.manualChanges || []).length > 0).length > 0
+    }
 }

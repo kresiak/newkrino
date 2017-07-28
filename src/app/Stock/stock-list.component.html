@@ -36,7 +36,7 @@
 				<ngb-panel *ngFor="let product of products" [id]="product.key">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3">{{product.values[0].annotation.product}}</div>
+							<div class="col-sm-3">{{product.values[0].annotation.product}} <span [style.color]="'red'">{{hasManualChanges(product.key) ? '(with manual changes!!)' : ''}}</span></div>
 							<div class="col-sm-2">{{product.values[0].annotation.catalogNr}}</div>
 							<div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
 							<div class="col-sm-2">{{nbAvailable(product)}}</div>
