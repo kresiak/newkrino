@@ -81,9 +81,36 @@ export class OtpListComponent implements OnInit {
             this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
             (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
                 this.configService.listSaveSearchText(this.listName, searchTxt)
-                if (searchTxt.trim() === '') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
-                return otps.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase())
-                    || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
+                let txt: string = searchTxt.trim().toUpperCase();
+                if (txt === '' || txt === '#') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
+                return otps.filter(otp => {
+                    if (txt.startsWith('#LI')) {
+                        return otp.data.isLimitedToOwner && !otp.data.isDeleted
+                    }
+                    if (txt.startsWith('#NL')) {
+                        return !otp.data.isLimitedToOwner && !otp.data.isDeleted
+                    }
+                    if (txt.startsWith('#DE')) {
+                        return otp.data.isDeleted
+                    }
+                    if (txt.startsWith('#BL')) {
+                        return otp.data.isBlocked && !otp.data.isDeleted
+                    }
+                    if (txt.startsWith('#CL')) {
+                        return otp.data.isClosed && !otp.data.isDeleted
+                    }
+                    if (txt.startsWith('#P0')) {
+                        return !otp.data.priority && !otp.data.isDeleted 
+                    }
+                    if (txt.startsWith('#OK')) {
+                        return otp.data.priority && !otp.data.isDeleted && !otp.data.isClosed && !otp.data.isBlocked
+                    }
+                    if (txt.startsWith('#NO')) {
+                        return (!otp.data.priority || otp.data.isClosed || otp.data.isBlocked) && !otp.data.isDeleted
+                    }
+
+                    return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
+                }).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
             }).do(otps => {
                 this.nbHits = otps.length
                 this.total = otps.filter(otp => !otp.data.isDeleted).reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
@@ -106,7 +133,7 @@ export class OtpListComponent implements OnInit {
 
     createReport() {
 
-        var fnFormat= otp => {
+        var fnFormat = otp => {
             return {
                 Otp: otp.data.name,
                 Budget: otp.annotation.budget,
@@ -119,15 +146,15 @@ export class OtpListComponent implements OnInit {
                 Blocked: otp.data.isBlocked ? 'Blocked ' : '',
                 Closed: otp.data.isClosed ? 'Closed ' : '',
                 Priority: !otp.data.priority ? 'No priority ' : otp.data.priority,
-                'Limited to equipe':otp.data.isLimitedToOwner ? 'Limited ' : '',
+                'Limited to equipe': otp.data.isLimitedToOwner ? 'Limited ' : '',
                 Equipe: otp.annotation.equipe,
                 'Nb times in Sap': otp.annotation.nbSapItems,
             }
         }
 
-        var listNonDeleted=this.otps.filter(otp => !otp.data.isDeleted && !otp.data.isBlocked).map(fnFormat)
-        var listDeleted= this.otps.filter(otp => otp.data.isDeleted).map(fnFormat)
-        var listBlocked= this.otps.filter(otp => otp.data.isBlocked).map(fnFormat)
+        var listNonDeleted = this.otps.filter(otp => !otp.data.isDeleted && !otp.data.isBlocked).map(fnFormat)
+        var listDeleted = this.otps.filter(otp => otp.data.isDeleted).map(fnFormat)
+        var listBlocked = this.otps.filter(otp => otp.data.isBlocked).map(fnFormat)
 
         reportsUtils.generateReport(listNonDeleted.concat(listBlocked).concat(listDeleted))
     }

@@ -1,6 +1,14 @@
 <template #searchPopContent>
 	<ul>
 		<li>RWAL: si l'OTP ou l'équipe associée contient 'RWAL'</li>
+		<li>#DE: si l'OTP est deleted/supprimé</li>
+		<li>#BL: si l'OTP est blocked</li>
+		<li>#CL: si l'OTP est closed</li>
+		<li>#LI: si l'OTP est limité à l'équipe</li>
+		<li>#NL: si l'OTP est non limité (pas limité à l'équipe)</li>
+		<li>#P0: si l'OTP n'a pas de priorité (et ne sera donc jamais choisi)</li>
+		<li>#OK: si l'OTP est OK et peut donc en principe, si les dates et le budget restant collent, être choisi (ni deleted, ni blocked, ni closed, ni priority 0)</li>
+		<li>#NO: si l'OTP, à cause de son statut, ne peut être choisi (blocked ou closed ou priority 0)</li>
 	</ul>
 </template>
 
