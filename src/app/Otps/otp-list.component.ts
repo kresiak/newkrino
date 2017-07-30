@@ -86,7 +86,7 @@ export class OtpListComponent implements OnInit {
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
             }).do(otps => {
                 this.nbHits = otps.length
-                this.total = otps.reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
+                this.total = otps.filter(otp => !otp.data.isDeleted).reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
                 this.allOtps = otps
             })
             .switchMap(otps => {
