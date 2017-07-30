@@ -6,6 +6,8 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as reportsUtils from './../Shared/Utils/reports'
+import * as dateUtils from './../Shared/Utils/dates'
 
 
 @Component(
@@ -16,6 +18,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class OrderListComponent implements OnInit {
+    allOrders: any;
     constructor(private configService: ConfigService, private authService: AuthService) {
         this.searchForm = new FormGroup({
             searchControl: new FormControl()
@@ -24,23 +27,23 @@ export class OrderListComponent implements OnInit {
 
     private isPageRunning: boolean = true
 
-    private listName= 'orderList'
-    private showSearch: boolean= false
+    private listName = 'orderList'
+    private showSearch: boolean = false
 
     searchControl = new FormControl();
     searchForm;
 
     private orders
 
-    private nbHitsShown: number= 10
-    private nbHitsIncrement: number= 10
+    private nbHitsShown: number = 10
+    private nbHitsIncrement: number = 10
     private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
-    
+    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
+
 
     @Input() ordersObservable: Observable<any>;
     @Input() state;
-    @Input() path: string= 'orders'
+    @Input() path: string = 'orders'
     @Output() stateChanged = new EventEmitter();
 
     private stateInit() {
@@ -55,40 +58,40 @@ export class OrderListComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     resetSerachControl() {
-    this.searchControl.setValue('')
+        this.searchControl.setValue('')
     };
 
-    private total: number= 0
+    private total: number = 0
 
-    ngOnInit(): void {        
+    ngOnInit(): void {
         this.stateInit();
-        var initialSearch= this.configService.listGetSearchText(this.listName)
-        if (initialSearch){ 
-            this.showSearch= true
+        var initialSearch = this.configService.listGetSearchText(this.listName)
+        if (initialSearch) {
+            this.showSearch = true
             this.searchControl.setValue(initialSearch)
         }
-        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
 
         this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (orders, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)            
+            this.configService.listSaveSearchText(this.listName, searchTxt)
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value!=='deleted');
+            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value !== 'deleted');
             return orders.filter(order => {
                 if (txt.startsWith('#AD')) {
-                    return order.annotation.allDelivered && order.data.status.value!=='deleted'
+                    return order.annotation.allDelivered && order.data.status.value !== 'deleted'
                 }
                 if (txt.startsWith('#CO')) {
                     return order.data.comments && order.data.comments.length > 0
                 }
                 if (txt.startsWith('#ND')) {
-                    return !order.annotation.allDelivered && order.data.status.value!=='deleted'
+                    return !order.annotation.allDelivered && order.data.status.value !== 'deleted'
                 }
                 if (txt.startsWith('#ZD')) {
-                    return !order.annotation.allDelivered && !order.annotation.anyDelivered && order.data.status.value!=='deleted'
+                    return !order.annotation.allDelivered && !order.annotation.anyDelivered && order.data.status.value !== 'deleted'
                 }
                 if (txt.startsWith('#PD')) {
-                    return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value!=='deleted'
+                    return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value !== 'deleted'
                 }
                 if (txt.startsWith('#NU')) {
                     return order.annotation.isGroupedOrder
@@ -100,7 +103,7 @@ export class OrderListComponent implements OnInit {
                 if (txt.startsWith('#')) {
                     let txt2 = txt.slice(1);
                     return order.annotation.items.filter(item =>
-                        item.annotation.description.toUpperCase().includes(txt2) ||  item.annotation.catalogNr.toUpperCase().includes(txt2)).length > 0;
+                        item.annotation.description.toUpperCase().includes(txt2) || item.annotation.catalogNr.toUpperCase().includes(txt2)).length > 0;
                 }
                 if (txt.startsWith('$>') && +txt.slice(2)) {
                     let montant = +txt.slice(2);
@@ -112,37 +115,60 @@ export class OrderListComponent implements OnInit {
                 }
                 return order.annotation.user.toUpperCase().includes(txt)
                     || order.annotation.supplier.toUpperCase().includes(txt)
-                    || (this.authorizationStatusInfo && this.authorizationStatusInfo.isProgrammer() &&  order.data._id.toUpperCase().includes(txt))
+                    || (this.authorizationStatusInfo && this.authorizationStatusInfo.isProgrammer() && order.data._id.toUpperCase().includes(txt))
                     || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
                     || order.annotation.status.toUpperCase().includes(txt)
-                    || (order.data.kid || '').toString().includes(txt) || (order.annotation.sapId ||'').toString().includes(txt);
+                    || (order.data.kid || '').toString().includes(txt) || (order.annotation.sapId || '').toString().includes(txt);
 
             })
         }).do(orders => {
-            this.nbHits= orders.length
-            this.total= orders.filter(order =>  !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
+            this.nbHits = orders.length
+            this.total = orders.filter(order => !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
+            this.allOrders = orders
         })
         .switchMap(orders => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return orders.slice(0, nbItems)
-            })
+                return this.nbHitsShownObservable.map(nbItems => {
+                    return orders.slice(0, nbItems)
+                })
         });
 
         this.orders2Observable.takeWhile(() => this.isPageRunning).subscribe(o => {
             if (!comparatorsUtils.softCopy(this.orders, o))
-                this.orders= comparatorsUtils.clone(o)
+                this.orders = comparatorsUtils.clone(o)
         })
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
-        
+
     }
 
     ngOnDestroy(): void {
-         this.isPageRunning = false
+        this.isPageRunning = false
     }
 
+    createReport() {
+
+        var fnFormat= order => {
+            return {
+                'Krino id': order.data.kid,
+                'Sap id': order.annotation.sapId,
+                Date: dateUtils.formatLongDate(order.data.date),
+                User: order.annotation.user,
+                Equipe: order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup : 'unknown equipe'),
+                Supplier: order.annotation.supplier,
+                'With VAT': order.annotation.total,
+                Status: order.annotation.status
+            }
+        }
+
+        var listNonDeleted=this.allOrders.filter(order => order.data.status.value !== 'deleted').map(fnFormat)
+        var listDeleted= this.allOrders.filter(order => order.data.status.value === 'deleted').map(fnFormat)
+
+
+
+        reportsUtils.generateReport(listNonDeleted.concat(listDeleted))
+    }
 
     getOrderObservable(id: string): Observable<any> {
         return this.ordersObservable.map(orders => orders.filter(s => s.data._id === id)[0]);
@@ -176,11 +202,11 @@ export class OrderListComponent implements OnInit {
     }
 
     private moreHits() {
-        this.nbHitsShown+= this.nbHitsIncrement
+        this.nbHitsShown += this.nbHitsIncrement
         this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
-    
+
 }
 

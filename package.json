@@ -22,22 +22,21 @@
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
-
-    "core-js": "^2.4.1",
-    "rxjs": "5.0.1",
-    "zone.js": "^0.7.4",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.8",
+    "angular2-chartist": "^0.10.1",
+    "angular2-csv": "^0.2.3",
     "bootstrap": "^3.3.7",
+    "chartist": "^0.10.1",
+    "core-js": "^2.4.1",
     "moment": "^2.17.1",
+    "ng2-auto-complete": "^0.8.9",
     "ng2-page-scroll": "^4.0.0-beta.2",
     "ng2-simple-page-scroll": "^2.0.0",
     "reflect-metadata": "^0.1.8",
-     "angular2-chartist": "^0.10.1",
-    "chartist": "^0.10.1",
-    "ng2-auto-complete": "^0.8.9"
+    "rxjs": "5.0.1",
+    "zone.js": "^0.7.4"
   },
   "devDependencies": {
-
     "@types/jasmine": "^2.5.35",
     "@types/moment": "^2.13.0",
     "@types/node": "^6.0.45",
@@ -59,9 +58,7 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^1.16.2",
     "webpack-merge": "^2.5.0",
-    
     "@types/chartist": "^0.9.33",
-
     "typings": "^1.4.0"
   }
 }

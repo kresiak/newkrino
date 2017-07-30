@@ -11,3 +11,8 @@ export function nowFormated() {
     return moment().format('DD/MM/YYYY HH:mm:ss')
 }
 
+export function formatLongDate(date) {
+    if (!moment(date, 'DD/MM/YYYY HH:mm:ss').isValid()) return date
+    return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LLLL');        
+}
+
