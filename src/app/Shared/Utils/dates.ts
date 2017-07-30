@@ -16,3 +16,7 @@ export function formatLongDate(date) {
     return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LLLL');        
 }
 
+export function formatShortDate(date) {
+    if (!moment(date, 'DD/MM/YYYY HH:mm:ss').isValid()) return date
+    return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LL');        
+}

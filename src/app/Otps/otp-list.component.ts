@@ -6,6 +6,8 @@ import { ConfigService } from './../Shared/Services/config.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as reportsUtils from './../Shared/Utils/reports'
+import * as dateUtils from './../Shared/Utils/dates'
 
 
 @Component(
@@ -16,6 +18,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class OtpListComponent implements OnInit {
+    allOtps: any;
     @Input() otpsObservable: Observable<any>;
     @Input() config;
     @Input() state;
@@ -40,7 +43,7 @@ export class OtpListComponent implements OnInit {
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
-    private total: number= 0
+    private total: number = 0
 
     constructor(private sapService: SapService, private otpService: OtpService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
@@ -59,7 +62,7 @@ export class OtpListComponent implements OnInit {
             this.showSearch = true
             this.searchControl.setValue(initialSearch)
         }
-        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
+        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
         var otpAddInfo = function (otp, otpSapMap, otpForBudgetMap) {
             otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
@@ -83,7 +86,8 @@ export class OtpListComponent implements OnInit {
                     || otp.annotation.equipe.toUpperCase().includes(searchTxt.toUpperCase())).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
             }).do(otps => {
                 this.nbHits = otps.length
-                this.total= otps.reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
+                this.total = otps.reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
+                this.allOtps = otps
             })
             .switchMap(otps => {
                 return this.nbHitsShownObservable.map(nbItems => {
@@ -99,6 +103,35 @@ export class OtpListComponent implements OnInit {
     ngOnDestroy(): void {
         this.subscriptionOtps.unsubscribe()
     }
+
+    createReport() {
+
+        var fnFormat= otp => {
+            return {
+                Otp: otp.data.name,
+                Budget: otp.annotation.budget,
+                Engaged: otp.annotation.amountEngaged,
+                'Engaged in Krino': otp.annotation.amountSpentNotYetInSap,
+                Invoiced: otp.annotation.amountBilled,
+                Available: otp.annotation.amountAvailable,
+                Until: dateUtils.formatShortDate(otp.data.datEnd),
+                Deleted: otp.data.isDeleted ? 'Deleted ' : '',
+                Blocked: otp.data.isBlocked ? 'Blocked ' : '',
+                Closed: otp.data.isClosed ? 'Closed ' : '',
+                Priority: !otp.data.priority ? 'No priority ' : otp.data.priority,
+                'Limited to equipe':otp.data.isLimitedToOwner ? 'Limited ' : '',
+                Equipe: otp.annotation.equipe,
+                'Nb times in Sap': otp.annotation.nbSapItems,
+            }
+        }
+
+        var listNonDeleted=this.otps.filter(otp => !otp.data.isDeleted && !otp.data.isBlocked).map(fnFormat)
+        var listDeleted= this.otps.filter(otp => otp.data.isDeleted).map(fnFormat)
+        var listBlocked= this.otps.filter(otp => otp.data.isBlocked).map(fnFormat)
+
+        reportsUtils.generateReport(listNonDeleted.concat(listBlocked).concat(listDeleted))
+    }
+
 
     getOtpObservable(id: string) {
         return this.otpsObservable.map(otps => otps.filter(otp => otp.data._id === id)[0]);
@@ -124,7 +157,7 @@ export class OtpListComponent implements OnInit {
 
     private moreHits() {
         this.nbHitsShown += this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
