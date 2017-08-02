@@ -35,6 +35,7 @@
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
 				 src="../../images/close.png" (click)="resetSerachControl()" />
+				 <span *ngIf="nbHits" class="gg-price"> {{nbHits}} items	</span>
 			</div>
 		</div>
 		<div class="row">
@@ -70,7 +71,7 @@
 							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured
 								? 'invoiced' : 'engaged')))}}</div>
 							<div class="col-sm-1">
-								<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="1"></gg-text-compact>
+								<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="10"></gg-text-compact>
 							</div>
 							<div class="col-sm-2">
 								<gg-text-compact [text]="sap.mainData.annotation.otpTxt"></gg-text-compact>

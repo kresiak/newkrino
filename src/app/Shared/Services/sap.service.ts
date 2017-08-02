@@ -41,32 +41,32 @@ export class SapService {
     }
 
     getAmountEngagedByOtpInSapItems(otpName: string, sapItems: any[]) {
-        var res=sapItems.reduce((acc, sapItem) => {
-                return acc + sapItem.postList.filter(poste => poste.otp === otpName).reduce((acc2, poste) => {
-                    return acc2 + poste.amountResiduel
-                }, 0)
+        var res = sapItems.reduce((acc, sapItem) => {
+            return acc + sapItem.postList.filter(poste => poste.otp === otpName).reduce((acc2, poste) => {
+                return acc2 + poste.amountResiduel
             }, 0)
+        }, 0)
         return res
     }
 
     filterFactureItemsBasedOnOtp(items, otpName: string, otpStartingDate: string) {
-        return items.filter(item => item.otp===otpName && !item.isBlocked && !item.isSuppr)
-                .filter(item => {
-                    var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
-                    return dInvoice >= dOtpStart
-                })
+        return items.filter(item => item.otp === otpName && !item.isBlocked && !item.isSuppr)
+            .filter(item => {
+                var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
+                return dInvoice >= dOtpStart
+            })
     }
 
     getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
-        var res=sapItems.reduce((acc, sapItem) => {
-                var sumInThis= !sapItem.factured ? 0 : 
+        var res = sapItems.reduce((acc, sapItem) => {
+            var sumInThis = !sapItem.factured ? 0 :
                 this.filterFactureItemsBasedOnOtp(sapItem.factured.data.items, otpName, otpStartingDate).reduce((acc2, item) => {
                     return acc2 + item.tvac
                 }, 0)
 
-                return acc + sumInThis
-            }, 0)
+            return acc + sumInThis
+        }, 0)
         return res
     }
 
@@ -81,6 +81,34 @@ export class SapService {
     getSapItemsObservable(): Observable<any> {
         this.connectAll()
         return this.sapItemsObservable
+    }
+
+    getSapPieceTypesInfoObservable(): Observable<any> {
+        return this.getSapItemsObservable().map(sapItems => {
+            return sapItems
+                .reduce((map: Map<string, any>, item) => {
+                    var typesPiece = item.typesPiece + '/' + (item.sapId || '').toString().length + '/' + (item.sapId || 'x').toString().substring(0, 1)
+                    if (!map.has(typesPiece)) map.set(typesPiece, {minSapId: +item.sapId, maxSapId: +item.sapId, nb: 0})
+                    var obj= map.get(typesPiece)
+                    obj.nb+=1
+                    if (+item.sapId < obj.minSapId) obj.minSapId= +item.sapId
+                    if (+item.sapId > obj.maxSapId) obj.maxSapId= +item.sapId
+                    map.set(typesPiece, obj)
+                    return map
+                }, new Map())
+        })
+            .map(map => Array.from(map))
+            .map(arr => arr.map(elem => {    
+                var a= elem[0].split('/')          
+                return {
+                    pieceType: a[0],
+                    length: a[1],
+                    firstChar: a[2],
+                    info: elem[1]
+                }
+            }).sort((a,b) => {
+                return a.pieceType < b.pieceType ? -1 : 1
+            }))
     }
 
     public getSapOtpMapObservable(): Observable<Map<string, any>> {
@@ -160,7 +188,7 @@ export class SapService {
     // P2
     private initSapOtpMapObservable(): void {
         this.sapOtpMapObservable = this.sapIdMapObservable.map(idMap => {
-            console.log('In initSapOtpMapObservable: entering' )
+            console.log('In initSapOtpMapObservable: entering')
             let otpMap = new Map<string, any>()
 
             Array.from(idMap.values()).forEach(value => {
@@ -187,7 +215,7 @@ export class SapService {
 
     // P3
     initSapItemsObservable() {
-        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').map(saps => saps.sort((a,b)=>a.counter-b.counter)).publishReplay(1)   // forst this publishReplay is not really needed...
+        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').map(saps => saps.sort((a, b) => a.counter - b.counter)).publishReplay(1)   // forst this publishReplay is not really needed...
     }
 
     // P4

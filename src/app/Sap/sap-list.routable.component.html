@@ -9,6 +9,49 @@
 
                 </template>
             </ngb-tab>
+            <ngb-tab title="View Piece Types" id="tabPiecesInfo">
+                <template ngbTabContent>
+                    <div class="card" id>
+                        <div class="card-block">
+
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                <ngb-panel [disabled]="true">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-3 "><b>Piece Type</b></div>
+                                            <div class="col-sm-3 "><b>First piece Id</b></div>
+                                            <div class="col-sm-3 "><b>Last piece Id</b></div>
+                                            <div class="col-sm-3 "><b>Nb</b></div>
+                                        </div>
+                                    </template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let info of sapPieceTypesInfo">
+                                    <template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-3 ">
+                                                {{info.pieceType}}
+                                            </div>
+                                            <div class="col-sm-3 ">
+                                                {{info.info.minSapId}}
+                                            </div>
+                                            <div class="col-sm-3 ">
+                                                {{info.info.maxSapId}}
+                                            </div>
+                                            <div class="col-sm-3 ">
+                                                {{info.info.nb}}
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template ngbPanelContent>
+                                        <gg-sap-list [state]="state" [sapsObservable]="getSapBytypeObservable(info.pieceType, info.length, info.firstChar)"></gg-sap-list>
+                                    </template>
+                                </ngb-panel>
+                            </ngb-accordion>
+
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
     </div>
