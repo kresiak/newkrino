@@ -5,6 +5,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { ConfigService } from './../Shared/Services/config.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SapService } from './../Shared/Services/sap.service'
+import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -31,6 +32,10 @@ export class SapListComponent implements OnInit {
     private nbHitsIncrement: number = 10
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
+
+    private isReverse: boolean= false
+    private isReverseObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isReverse)
+
 
     private saps;
 
@@ -124,6 +129,12 @@ export class SapListComponent implements OnInit {
                 this.nbHits = saps.length
             })
             .switchMap(saps => {
+                var sapsCopy= comparatorsUtils.clone(saps)
+                return this.isReverseObservable.map(isReverse => {
+                    return isReverse ? sapsCopy.reverse() : saps
+                })
+            })
+            .switchMap(saps => {
                 return this.nbHitsShownObservable.map(nbItems => {
                     return saps.slice(0, nbItems)
                 })
@@ -172,6 +183,11 @@ export class SapListComponent implements OnInit {
         this.nbHitsShown += this.nbHitsIncrement
         this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
+    private reverseHits() {
+        this.isReverse = ! this.isReverse
+        this.isReverseObservable.next(this.isReverse)
     }
 
 

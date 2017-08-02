@@ -35,7 +35,7 @@
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
 				 src="../../images/close.png" (click)="resetSerachControl()" />
-				 <span *ngIf="nbHits" class="gg-price"> {{nbHits}} items	</span>
+				 <span *ngIf="nbHits" class="gg-price"> {{' ' + nbHits}} items	</span>
 			</div>
 		</div>
 		<div class="row">
@@ -89,11 +89,16 @@
 			</ngb-accordion>
 		</div>
 
-		<div class="row" *ngIf="nbHitsShown < nbHits">
-			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
-		</div>
-		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-			{{nbHits}} hits shown
+		<div class="row">
+			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
+				<div  class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+			</div>
+			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+				{{nbHits}} hits shown
+			</div>
+			<div class="col-sm-2" *ngIf="nbHits > 0">
+				<div  class="btn btn-sm btn-info" (click)="reverseHits()" [ngbTooltip]="'Reverse the sort order of the list.'">reverse</div>
+			</div>
 		</div>
 
 	</div>
