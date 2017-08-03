@@ -43,8 +43,8 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-1"><b>Sap Id</b></div>
-							<div class="col-sm-1"><b>Our Ref</b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>Sap Id<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>Our Ref<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
 							<div class="col-sm-1"><b>Eng. date</b></div>
 							<div class="col-sm-1"><b>Last activity</b></div>
 							<div class="col-sm-1"><b>Already invoiced</b></div>
