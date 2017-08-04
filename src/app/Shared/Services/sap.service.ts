@@ -49,13 +49,15 @@ export class SapService {
         return res
     }
 
+    private isFactureItemInOtpCurrentBudget(item, otpStartingDate) {
+        var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+        var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
+        return dInvoice >= dOtpStart
+    }
+
     filterFactureItemsBasedOnOtp(items, otpName: string, otpStartingDate: string) {
         return items.filter(item => item.otp === otpName && !item.isBlocked && !item.isSuppr)
-            .filter(item => {
-                var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
-                return dInvoice >= dOtpStart
-            })
+            .filter(item => this.isFactureItemInOtpCurrentBudget(item, otpStartingDate))
     }
 
     getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
@@ -88,25 +90,25 @@ export class SapService {
             return sapItems
                 .reduce((map: Map<string, any>, item) => {
                     var typesPiece = item.typesPiece + '/' + (item.sapId || '').toString().length + '/' + (item.sapId || 'x').toString().substring(0, 1)
-                    if (!map.has(typesPiece)) map.set(typesPiece, {minSapId: +item.sapId, maxSapId: +item.sapId, nb: 0})
-                    var obj= map.get(typesPiece)
-                    obj.nb+=1
-                    if (+item.sapId < obj.minSapId) obj.minSapId= +item.sapId
-                    if (+item.sapId > obj.maxSapId) obj.maxSapId= +item.sapId
+                    if (!map.has(typesPiece)) map.set(typesPiece, { minSapId: +item.sapId, maxSapId: +item.sapId, nb: 0 })
+                    var obj = map.get(typesPiece)
+                    obj.nb += 1
+                    if (+item.sapId < obj.minSapId) obj.minSapId = +item.sapId
+                    if (+item.sapId > obj.maxSapId) obj.maxSapId = +item.sapId
                     map.set(typesPiece, obj)
                     return map
                 }, new Map())
         })
             .map(map => Array.from(map))
-            .map(arr => arr.map(elem => {    
-                var a= elem[0].split('/')          
+            .map(arr => arr.map(elem => {
+                var a = elem[0].split('/')
                 return {
                     pieceType: a[0],
                     length: a[1],
                     firstChar: a[2],
                     info: elem[1]
                 }
-            }).sort((a,b) => {
+            }).sort((a, b) => {
                 return a.pieceType < b.pieceType ? -1 : 1
             }))
     }
