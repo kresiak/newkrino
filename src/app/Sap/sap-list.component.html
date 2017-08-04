@@ -45,8 +45,8 @@
 						<div class="row">
 							<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>Sap Id<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
 							<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>Our Ref<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
-							<div class="col-sm-1"><b>Eng. date</b></div>
-							<div class="col-sm-1"><b>Last activity</b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.EngagDate)"><b>Eng. date<span *ngIf="isSortKeySet(SortKey.EngagDate)">!</span></b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.LastDate)"><b>Last activity<span *ngIf="isSortKeySet(SortKey.LastDate)">!</span></b></div>
 							<div class="col-sm-1"><b>Already invoiced</b></div>
 							<div class="col-sm-1"><b>Remaining engaged</b></div>
 							<div class="col-sm-1"><b>Type</b></div>

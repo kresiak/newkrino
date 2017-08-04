@@ -6,11 +6,15 @@ import { ConfigService } from './../Shared/Services/config.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SapService } from './../Shared/Services/sap.service'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as moment from "moment"
 
 enum SortKey {
     No = 0,
     SapId = 1,
-    OurRef = 2
+    OurRef = 2,
+    EngagDate = 3,
+    LastDate = 4,
+
 }
 
 @Component(
@@ -154,6 +158,22 @@ export class SapListComponent implements OnInit {
                             return sapsCopy.sort((a, b) => {                                
                                 return a.mainData.data.ourRef < b.mainData.data.ourRef ? 1 : 
                                         (a.mainData.data.ourRef > b.mainData.data.ourRef ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
+                            })
+                        }
+                        case SortKey.EngagDate: {
+                            return sapsCopy.sort((a, b) => {                                
+                                var d1 = moment(a.engaged ? a.engaged.data.maxDate : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
+                                var d2 = moment(b.engaged ? b.engaged.data.maxDate : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()                                
+
+                                return d1 < d2 ? 1 : (d1 > d2 ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
+                            })
+                        }
+                        case SortKey.LastDate: {
+                            return sapsCopy.sort((a, b) => {                                
+                                var d1 = moment(a.dateLastActivity ? a.dateLastActivity : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
+                                var d2 = moment(b.dateLastActivity ? b.dateLastActivity : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()                                
+
+                                return d1 < d2 ? 1 : (d1 > d2 ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
                             })
                         }
                     }
