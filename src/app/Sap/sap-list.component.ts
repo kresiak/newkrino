@@ -7,6 +7,12 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SapService } from './../Shared/Services/sap.service'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
+enum SortKey {
+    No = 0,
+    SapId = 1,
+    OurRef = 2
+}
+
 @Component(
     {
         selector: 'gg-sap-list',
@@ -14,6 +20,8 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SapListComponent implements OnInit {
+    SortKey: typeof SortKey = SortKey;        // Necessary: see https://stackoverflow.com/questions/35923744/pass-enums-in-angular2-view-templates  
+
     @Input() sapsObservable: Observable<any>;
     @Input() state;
     @Input() path: string = 'saps'
@@ -36,6 +44,8 @@ export class SapListComponent implements OnInit {
     private isReverse: boolean= false
     private isReverseObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isReverse)
 
+    private sortKey: SortKey= SortKey.No
+    private sortKeyObservable: BehaviorSubject<SortKey> = new BehaviorSubject<SortKey>(this.sortKey)
 
     private saps;
 
@@ -130,6 +140,27 @@ export class SapListComponent implements OnInit {
             })
             .switchMap(saps => {
                 var sapsCopy= comparatorsUtils.clone(saps)
+                return this.sortKeyObservable.map(sortKey => {
+                    switch(sortKey){
+                        case SortKey.No: {
+                            return saps
+                        }
+                        case SortKey.SapId: {
+                            return sapsCopy.sort((a, b) => {
+                                return a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1
+                            })
+                        }
+                        case SortKey.OurRef: {
+                            return sapsCopy.sort((a, b) => {                                
+                                return a.mainData.data.ourRef < b.mainData.data.ourRef ? 1 : 
+                                        (a.mainData.data.ourRef > b.mainData.data.ourRef ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
+                            })
+                        }
+                    }
+                })
+            })
+            .switchMap(saps => {
+                var sapsCopy= comparatorsUtils.clone(saps)
                 return this.isReverseObservable.map(isReverse => {
                     return isReverse ? sapsCopy.reverse() : saps
                 })
@@ -190,5 +221,12 @@ export class SapListComponent implements OnInit {
         this.isReverseObservable.next(this.isReverse)
     }
 
+    private setSortKey(sortKey: SortKey) {        
+        this.sortKey= sortKey === this.sortKey ? SortKey.No : sortKey
+        this.sortKeyObservable.next(this.sortKey)
+    }
 
+    private isSortKeySet(sortKey: SortKey) {
+        return this.sortKey === sortKey
+    }
 }

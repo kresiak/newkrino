@@ -7,7 +7,7 @@
 <template #passwordModal let-c="close" let-d="dismiss">
   <div class="modal-header" style="padding:2px;background-color:lightblue">
 	  <div class="row">
-			<h6 class="modal-title col-sm-10">Identification</h6>
+			<h6 class="modal-title col-sm-10">{{laboName}}</h6>
 			<button type="button" class="close col-sm-2" aria-label="Close" (click)="d('Cross click')">
 			<span aria-hidden="true">&times;</span>
 			</button>
@@ -61,11 +61,11 @@
 
 
 				<div class="row" *ngIf="authorizationStatusInfo.isLoggedIn">
-					<div class="col-sm-7 vcenter">
-						<label [ngbTooltip]="tipLaboName" placement="bottom" *ngIf="authorizationStatusInfo.isLoggedIn" class="form-control" 
-								style="font-size:12px;color:green;border-style:none" (click)="changeLabo()" >authenticated</label>
+					<div class="col-sm-9 vcenter">
+						<label [ngbTooltip]="tipLaboName" placement="bottom" *ngIf="authorizationStatusInfo.isLoggedIn"  
+								style="font-size:12px;color:green;border-style:none" (click)="changeLabo()" >{{laboName}}</label>
 					</div>
-					<div class="col-sm-4 vcenter" *ngIf="nbProductsInBasket > 0">
+					<div class="col-sm-2 vcenter" *ngIf="nbProductsInBasket > 0">
 						<div class="col-sm-1" ><img height="25" width="25" src="../images/shopping-basket-info-icon.png" class="imgSearch" (click)="navigateToBasket()" placement="bottom" [ngbTooltip]="tipOpenBasket" /></div>
 					</div>
 				</div>
