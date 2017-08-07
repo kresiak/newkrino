@@ -30,13 +30,8 @@ export class EquipeGiftEnterComponent implements OnInit {
             this.currentUserId = id
         })
 
-        this.equipeService.getAnnotatedEquipes().subscribe(equipes => {
-            this.equipesList = equipes.map(supplier => {
-                return {
-                    id: supplier.data._id,
-                    value: supplier.data.name
-                }
-            })
+        this.equipeService.getEquipesForAutocomplete().subscribe(eq => {
+            this.equipesList = eq
         });
 
 
@@ -65,7 +60,7 @@ export class EquipeGiftEnterComponent implements OnInit {
     }
 
     autocompleListFormatter = (data: any): SafeHtml => {
-        let html = `<span>${data.value}</span>`;
+        let html = `<span>${data.name}</span>`;
         return this._sanitizer.bypassSecurityTrustHtml(html);
     };
 

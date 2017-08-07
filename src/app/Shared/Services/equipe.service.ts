@@ -136,6 +136,16 @@ export class EquipeService {
         });
     }
 
+    getEquipesForAutocomplete() {
+        return this.dataStore.getDataObservable('equipes').map(equipes => equipes.map(eq => {
+            return {
+                id: eq._id,
+                name: eq.name
+            }
+        }));
+    }
+
+
     // equipes groups
     // ==============
 

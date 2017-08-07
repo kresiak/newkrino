@@ -47,12 +47,7 @@ export class AdminLabo {
             this.deliveryAdresses= deliveryAdresses
         })
 
-        this.equipeListObservable = this.EquipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
-            return {
-                id: eq.data._id,
-                name: eq.data.name
-            }
-        }));
+        this.equipeListObservable = this.EquipeService.getEquipesForAutocomplete()
 
         this.supplierListObservable = this.dataStore.getDataObservable('suppliers').takeWhile(() => this.isPageRunning).map(suppliers => suppliers.map(supplier => {
                 return {

@@ -59,12 +59,7 @@ export class SapDetailComponent implements OnInit {
             this.sapFacture= res.factured
         })
 
-        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
-            return {
-                id: eq.data._id,
-                name: eq.data.name
-            }
-        }));
+        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
 
         this.groupsForSelectionObservable = this.equipeService.getAnnotatedEquipesGroups().map(groups => groups.map(group => {
             return {

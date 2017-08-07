@@ -61,12 +61,7 @@ export class OrderDetailComponent implements OnInit {
             }
         }));
 
-        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
-            return {
-                id: eq.data._id,
-                name: eq.data.name
-            }
-        }));
+        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
 
         this.subscriptionOrder = this.orderObservable.subscribe(order => {
             if (!comparatorsUtils.softCopy(this.order, order))

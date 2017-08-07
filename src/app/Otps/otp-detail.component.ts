@@ -92,12 +92,7 @@ export class OtpDetailComponent implements OnInit {
             this.authorizationStatusInfo = statusInfo
         });
 
-        this.equipeListObservable = this.equipeService.getAnnotatedEquipes().map(equipes => equipes.map(eq => {
-            return {
-                id: eq.data._id,
-                name: eq.data.name
-            }
-        }));
+        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
 
         this.annualForm = this.formBuilder.group({
             budgetAnnual: ['', [Validators.required]]
