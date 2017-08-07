@@ -7,6 +7,7 @@ import { AuthenticationStatusInfo, AuthService } from '../../Shared/Services/aut
 import { AdminService } from '../../Shared/Services/admin.service'
 import { EquipeService } from '../../Shared/Services/equipe.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import * as comparatorsUtils from '../../Shared/Utils/comparators'
 
 @Component(
     {
@@ -26,7 +27,9 @@ export class AdminLabo {
     private selectedSecrExecIdsObservable: Observable<any>;
     private equipeListObservable
     private deliveryAdresses: any[]
-    private addAddressForm: FormGroup;
+    private sapFirstIdList
+    private addAddressForm: FormGroup
+    private addFirstIdsForm: FormGroup
     private supplierListObservable
     private categoryListObservable
     private isPageRunning: boolean = true
@@ -73,6 +76,27 @@ export class AdminLabo {
             descriptionAddAddress4: ['']
         });
 
+        this.addFirstIdsForm = this.formBuilder.group({
+            nbOfCharacters: ['', [Validators.required]],
+            startingWith: ['', [Validators.required]],
+            firstId: ['', [Validators.required]]
+        });
+
+    }
+
+    saveFirstIds(formValue, isValid) {
+        if (!this.labo.data.sapFirstIdList) this.labo.data.sapFirstIdList = []
+        this.labo.data.sapFirstIdList.push({
+            nbOfCharacters: formValue.nbOfCharacters,
+            startingWith: formValue.startingWith,
+            firstId: formValue.firstId
+        })
+        this.saveLabo();
+        this.resetAddFirstIdsForm();
+    }
+
+    resetAddFirstIdsForm() {
+        this.addFirstIdsForm.reset();
     }
 
     save(formValue, isValid) {
@@ -233,6 +257,21 @@ export class AdminLabo {
 
     categoryUpdated(category: string) {
         this.labo.data.platformSellingCategoryId = category
+        this.saveLabo()
+    }
+
+    nbOfCharactersUpdated(nbOfCharacters, firstIdItem) {
+        firstIdItem.nbOfCharacters = +nbOfCharacters
+        this.saveLabo()
+    }
+
+    startingWithUpdated(startingWith, firstIdItem) {
+        firstIdItem.startingWith = +startingWith
+        this.saveLabo()
+    }
+
+    firstIdUpdated(firstId, firstIdItem) {
+        firstIdItem.firstId = +firstId
         this.saveLabo()
     }
 }
