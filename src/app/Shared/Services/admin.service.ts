@@ -28,12 +28,74 @@ export class AdminService {
                     }
                 }
                 else {
-                    return{
+                    var x= {
                         data: labos[0],
                         annotation: {
                             validationSteps: this.getSteps(labos[0].validationSteps || [])
                         }
                     }
+
+                    if (! x.data.sapFirstIdList) {
+                        x.data.sapFirstIdList= [
+                            {
+                                nbOfCharacters: 7,
+                                startingWith: 1,
+                                firstId: 1760511
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },
+                            {
+                                nbOfCharacters: 8,
+                                startingWith: 1,
+                                firstId: 554555
+                            },                            
+                        ]
+                    }
+
+                    return x
                 }
             });
     }
