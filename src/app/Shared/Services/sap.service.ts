@@ -49,15 +49,15 @@ export class SapService {
         return res
     }
 
-    private isFactureItemInOtpCurrentBudget(item, otpStartingDate) {
-        var dOtpStart = moment(otpStartingDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+    private isFactureItemAfterDate(item, date) {
+        var dOtpStart = moment(date, 'DD/MM/YYYY HH:mm:ss').toDate()
         var dInvoice = moment(item.dateCreation, 'DD/MM/YYYY').toDate()
         return dInvoice >= dOtpStart
     }
 
     filterFactureItemsBasedOnOtp(items, otpName: string, otpStartingDate: string) {
         return items.filter(item => item.otp === otpName && !item.isBlocked && !item.isSuppr)
-            .filter(item => this.isFactureItemInOtpCurrentBudget(item, otpStartingDate))
+            .filter(item => this.isFactureItemAfterDate(item, otpStartingDate))
     }
 
     getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
