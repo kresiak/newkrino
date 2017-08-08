@@ -25,9 +25,8 @@ import * as moment from "moment"
     }
 )
 export class EquipeDetailComponent implements OnInit {
-    private budgetForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
+    constructor(private dataStore: DataStore, private orderService: OrderService, private userService: UserService, private chartService: ChartService,
         private voucherService: VoucherService, private navigationService: NavigationService, private authService: AuthService, private otpService: OtpService, 
         private equipeService: EquipeService, private stockService: StockService, private configService: ConfigService) {
     }
@@ -85,37 +84,11 @@ export class EquipeDetailComponent implements OnInit {
             }
         }));
 
-        const montantRegEx = `^\\d+(.\\d*)?$`;
-        this.budgetForm = this.formBuilder.group({
-            montant: ['', [Validators.required, Validators.pattern(montantRegEx)]],
-            comment: ['', [Validators.required]]
-        });
     }
 
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
         this.subscriptionEquipe.unsubscribe()
-    }
-
-    resetNewBudget() {
-        this.budgetForm.reset();
-    }
-
-    saveNewBudget(formValue, isValid) {
-        if (!isValid) return
-        if (!+formValue.montant) return
-
-        if (!this.equipe.data.budgets) this.equipe.data.budgets= []
-        let now = moment().format('DD/MM/YYYY HH:mm:ss')
-
-        this.equipe.data.budgets.push({
-            comment: formValue.comment,
-            amount: +formValue.montant,
-            otpId: this.selectedOtpIdForNewBudget,
-            date: now
-        })
-            
-        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     }
 
 
@@ -221,27 +194,5 @@ export class EquipeDetailComponent implements OnInit {
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
     }
 
-    private selectedOtpIdForNewBudget: string = ''
 
-    otpForNewBudgetChanged(otpId) {
-        this.selectedOtpIdForNewBudget = otpId
-    }
-
-    budgetAmountUpdated(budgetObject, amount: number) {
-        if (!+amount) return
-        budgetObject.amount = +amount;
-        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
-    };
-
-    budgetCommentUpdated(budgetObject, comment) {
-        if (!comment) return
-        budgetObject.comment = comment;
-        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
-    };
-
-    budgetOtpUpdated(budgetObject, otpId) {
-        if (!otpId) return
-        budgetObject.otpId = otpId;
-        this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
-    };
 }
