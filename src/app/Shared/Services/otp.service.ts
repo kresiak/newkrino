@@ -70,15 +70,17 @@ export class OtpService {
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
         let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
 
+        let budget= utilsKrino.getOtpBudget(otp)
+
         return {
             data: otp,
             annotation: {
-                budget: utilsKrino.getOtpBudget(otp),
+                budget: budget,
                 amountSpentNotYetInSap: amountSpentNotYetInSap,
                 amountEngaged: amountEngaged,
                 amountBilled: amountBilled,
                 amountSpent: amountSpentNotYetInSap + amountEngaged + amountBilled,
-                amountAvailable: (+(otp.budget)) - amountSpentNotYetInSap - amountEngaged - amountBilled
+                amountAvailable: budget - amountSpentNotYetInSap - amountEngaged - amountBilled
             }
         }
     }
@@ -115,6 +117,11 @@ export class OtpService {
         this.annotatedOtpsForBudgetMapObservable.connect();
 
         return this.annotatedOtpsForBudgetMapObservable
+    }
+
+
+    getAnnotatedOtpsForBudget(): Observable<any> {
+        return this.getAnnotatedOtpsForBudgetMap().map(map => Array.from(map.values()))
     }
 
 

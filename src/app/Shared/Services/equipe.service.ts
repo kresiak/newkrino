@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { UserService } from './user.service'
+import { OtpService } from './otp.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
@@ -11,7 +12,8 @@ import * as utilsKrino from './../Utils/krino'
 
 Injectable()
 export class EquipeService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService) { }
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService,
+                @Inject(OtpService) private otpService: OtpService) { }
 
 
     private getTotalOfOrder(order): number {
@@ -76,9 +78,10 @@ export class EquipeService {
         if (!equipe) return null;
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
-        let otpsFiltered = otps.filter(otp => otp.equipeId === equipe._id);
-        let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => utilsKrino.getOtpBudget(otp)).reduce((a, b) => a + b) : 0;
-        let amountSpent = this.getTotalOfOrders(ordersFiltered);
+        let otpsFiltered = otps.filter(otp => otp.data.equipeId === equipe._id);
+        let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.budget).reduce((a, b) => a + b) : 0;
+        let amountAvailable = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.amountAvailable).reduce((a, b) => a + b) : 0;
+        let amountSpent = budget - amountAvailable
         let dashlet = dashlets.filter(dashlet => dashlet.id === equipe._id);
 
         return {
@@ -87,7 +90,7 @@ export class EquipeService {
             {
                 amountSpent: amountSpent,
                 budget: budget,
-                amountAvailable: budget - amountSpent,
+                amountAvailable: amountAvailable, // budget - amountSpent,
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         };
@@ -97,7 +100,7 @@ export class EquipeService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('orders'),
-            this.dataStore.getDataObservable('otps'),
+            this.otpService.getAnnotatedOtpsForBudget(),
             this.userService.getEquipeDashletsForCurrentUser(),
             (equipes, orders, otps, dashlets) => {
                 return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets))
@@ -116,7 +119,7 @@ export class EquipeService {
     }
 
 
-    getAnnotatedEquipesOfCurrentUser(): Observable<any> {
+    private getAnnotatedEquipesOfCurrentUser(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedEquipes(), this.authService.getUserIdObservable(), (equipes, userId) => {
             return equipes.filter(equipe =>
                 equipe.data.userIds && equipe.data.userIds.includes(userId));
