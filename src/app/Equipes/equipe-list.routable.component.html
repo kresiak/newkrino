@@ -7,11 +7,6 @@
                     <gg-equipe-list [equipesObservable]="equipesObservable" [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View Groups" id="tabViewGroup">
-                <template ngbTabContent>
-                    <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
-                </template>
-            </ngb-tab>
             <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
@@ -21,27 +16,52 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create a Group" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="Groups" id="tabGroups">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
-                            <gg-equipe-group-enter></gg-equipe-group-enter>
+                            <ngb-tabset>
+                                <ngb-tab title="View Groups" id="tabViewGroup">
+                                    <template ngbTabContent>
+                                        <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
+                                    </template>
+                                </ngb-tab>
+                                <ngb-tab title="Create a Group" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                    <template ngbTabContent>
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <gg-equipe-group-enter></gg-equipe-group-enter>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </ngb-tab>
+                            </ngb-tabset>
                         </div>
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Enter a gift" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="Gifts" id="tabGifts">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
-                            <gg-equipe-gift-enter></gg-equipe-gift-enter>
+                            <ngb-tabset>
+                                <ngb-tab title="View Gifts" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                    <template ngbTabContent>
+                                        <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
+                                    </template>
+                                </ngb-tab>
+                                <ngb-tab title="Enter a gift" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                    <template ngbTabContent>
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <gg-equipe-gift-enter></gg-equipe-gift-enter>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </ngb-tab>
+                            </ngb-tabset>
                         </div>
                     </div>
-                </template>
-            </ngb-tab>
-            <ngb-tab title="View Gifts" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
-                <template ngbTabContent>
-                    <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
                 </template>
             </ngb-tab>
             <ngb-tab title="Current equipe" id="tabCurrentEquipe">
