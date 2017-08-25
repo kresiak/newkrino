@@ -33,12 +33,12 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Fix costs" id="tabFixCosts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+	<ngb-tab title="Fix costs ({{(fixCosts && fixCosts.length>0) ? fixCosts.length : 0}})" id="tabFixCosts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset>
-						<ngb-tab title="Fix costs" id="tabFixCosts">
+						<ngb-tab title="Fix costs" id="tabFixCosts" *ngIf="fixCosts && fixCosts.length>0">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
@@ -46,21 +46,24 @@
                                 			<div class="row">
 												<div class="col-sm-3 vcenter"><b>Description</b></div>
 												<div class="col-sm-2 vcenter"><b>Price</b></div>
-												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Trash</b></div>
+												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Disable</b></div>
 											</div>
-											<div *ngFor="let costsObject of supplier.data.fixCosts">
-												<div  *ngIf="!costsObject.deleted">
+											<div *ngFor="let fixCost of fixCosts">
+												<div  *ngIf="true">
 													<div class="row">
 														<div class="col-sm-3 vcenter">
-															<gg-editor [content]="costsObject.description" [showControls]="true" (editSaved)="costsDescriptionUpdated(costsObject, $event)"
-															  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+															<gg-editor [content]="fixCost.data.name" [showControls]="true" (editSaved)="costsDescriptionUpdated(fixCost, $event)"
+															  [readOnly]="fixCost.data.disabled || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 														</div>
 														<div class="col-sm-2 vcenter">
-															<gg-editor [content]="costsObject.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(costsObject, $event)"
-															  [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+															<gg-editor [content]="fixCost.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(fixCost, $event)"
+															  [readOnly]="fixCost.data.disabled || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 														</div>
-														<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
-															<img src="../../images/trash.png" (click)="deleteFixCost(costsObject, deleted)" class="imgTrash" />
+														<div class="col-sm-2 vcenter" *ngIf="!fixCost.data.disabled && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+															<img src="../../images/trash.png" (click)="deleteFixCost(fixCost)" class="imgTrash" />
+														</div>
+														<div class="col-sm-2 vcenter" *ngIf="fixCost.data.disabled">
+															already disabled
 														</div>
 													</div>
 												</div>

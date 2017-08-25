@@ -23,8 +23,9 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SupplierDetailComponent implements OnInit {
+    fixCosts: any;
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
-        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService, 
+        private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService,
         private voucherService: VoucherService, private basketService: BasketService, private configService: ConfigService) {
 
     }
@@ -68,7 +69,7 @@ export class SupplierDetailComponent implements OnInit {
         });
     }
 
-    private isPageRunning: boolean= true
+    private isPageRunning: boolean = true
 
     ngOnInit(): void {
         this.stateInit()
@@ -77,6 +78,10 @@ export class SupplierDetailComponent implements OnInit {
         this.supplierObservable = this.supplierService.getAnnotatedSupplierById(this.supplierId)
 
         this.productsObservable = this.productService.getAnnotatedProductsBySupplier(this.supplierId);
+
+        this.productService.getAnnotatedProductsBySupplier(this.supplierId).map(products => products.filter(p => p.data.isFixCost)).takeWhile(() => this.isPageRunning).subscribe(prods =>
+            this.fixCosts = prods
+        )
 
         this.productsBasketObservable = this.basketService.getAnnotatedProductsInCurrentUserBasketBySupplier(this.supplierId);
         this.productsBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereABasket = products && products.length > 0);
@@ -105,25 +110,7 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.isPageRunning= false
-    }
-
-    resetFixCosts() {
-        this.fixCostsForm.reset();
-    }
-
-    saveFixCosts(formValue, isValid) {
-        if (!isValid) return
-        if (!+formValue.priceFixCosts) return
-
-        if (!this.supplier.data.fixCosts) this.supplier.data.fixCosts = []
-
-        this.supplier.data.fixCosts.push({
-            description: formValue.descriptionFixCosts,
-            price: +formValue.priceFixCosts
-        })
-
-        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
+        this.isPageRunning = false
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
@@ -238,19 +225,55 @@ export class SupplierDetailComponent implements OnInit {
         this.useVoucherForm.reset();
     }
 
-    costsPriceUpdated(costsObject, price) {
-        costsObject.price = +price;
-        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
+    costsPriceUpdated(costObject, price) {
+        this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
+            if (!product || !product.data) return
+            product.data.price= +price
+            this.dataStore.updateData('products', product.data._id, product.data);           
+        })
     }
 
-    costsDescriptionUpdated(costsObject, description) {
-        costsObject.description = description;
-        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
+    costsDescriptionUpdated(costObject, description) {
+        this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
+            if (!product || !product.data) return
+            product.data.name= description
+            this.dataStore.updateData('products', product.data._id, product.data);           
+        })
     }
 
-    deleteFixCost(costsObject, deleted: boolean) {
-        costsObject.deleted = true;
-        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
+    deleteFixCost(costObject) {
+        this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
+            if (!product || !product.data) return
+            product.data.disabled= true
+            this.dataStore.updateData('products', product.data._id, product.data);           
+        })
     }
+
+    resetFixCosts() {
+        this.fixCostsForm.reset();
+    }
+
+    saveFixCosts(formValue, isValid) {
+        if (!isValid) return
+        if (!+formValue.priceFixCosts) return
+
+        this.productService.createProduct({
+            name: formValue.descriptionFixCosts,
+            description: '',
+            supplierId: this.supplierId,
+            price: +formValue.priceFixCosts,
+            package: '',
+            categoryIds: [],
+            catalogNr: '',
+            noArticle: '300068',
+            groupMarch: '613019',
+            tva: 21,
+            disabled: false,
+            isFixCost: true
+        }).subscribe(res => {
+            this.resetFixCosts()
+        });
+    }
+
 
 }
