@@ -42,6 +42,7 @@ export class PreOrderComponent implements OnInit {
         .filter(supplier => supplier)
         .do(supplier => {
             this.supplier= supplier
+            this.basketService.addFixCostToBasket(supplier._id)
         })
         .map(supplier => this.basketService.getAnnotatedProductsInCurrentUserBasketBySupplierWithOtp(supplier._id))
         .do(productObervable => {

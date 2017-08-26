@@ -106,6 +106,11 @@ export class ProductService {
         return this.dataStore.getDataObservable('products').map(produits => produits.filter(produit => produit.supplierId === supplierId));
     }
 
+    getFixCostsBySupplier(supplierId): Observable<any> {
+        return this.dataStore.getDataObservable('products').map(produits => produits.filter(produit => produit.supplierId === supplierId && produit.isFixCost && !produit.disabled));
+    }
+
+
     getProductsByCategory(categoryId): Observable<any> {
         return this.dataStore.getDataObservable('products').map(produits => produits.filter(produit => produit.categoryIds.includes(categoryId)));
     }

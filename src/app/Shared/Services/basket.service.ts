@@ -79,12 +79,13 @@ export class BasketService {
             otpNeeded ? this.otpService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
-            (products, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
-                return basketItems.filter(item => products.has(item.produit)).map(basketItemFiltered => {
-                    let product = products.get(basketItemFiltered.produit)
+            (productsMap, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
+                return basketItems.filter(item => productsMap.has(item.produit)).map(basketItemFiltered => {
+                    let product = productsMap.get(basketItemFiltered.produit)
                     return {
                         data: product,
                         annotation: {
+                            isFixCost: basketItemFiltered.isFixCost,
                             basketId: basketItemFiltered._id,
                             basketData: basketItemFiltered,
                             basketItems: !basketItemFiltered.items ? [] : basketItemFiltered.items.map(item => {
@@ -100,7 +101,7 @@ export class BasketService {
                             }),
                             hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
                             quantity: basketItemFiltered.quantity,
-                            totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),  
+                            totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),
                             totalPriceHTva: product.price * basketItemFiltered.quantity,
                             otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId } :
                                 otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
@@ -138,10 +139,30 @@ export class BasketService {
     //     modify basket
     //     =============
 
+    addFixCostToBasket(supplierId) {
+        Observable.zip(this.getBasketItemsForCurrentUser().take(1), this.productService.getFixCostsBySupplier(supplierId).take(1), this.authService.getUserIdObservable().take(1), (basketItems, fixCosts, userId) => {
+            return fixCosts.filter(c => !basketItems.map(bi => bi.produit).includes(c._id)).map(fc => {
+                return {
+                    user: userId,
+                    produit: fc._id,
+                    quantity: 1,
+                    isFixCost: true
+                }
+            })
+        }).take(1).switchMap(fcList => {
+            if (!fcList || fcList.length === 0) return Observable.from([{}]) 
+            return Observable.forkJoin(fcList.map(fc => {
+                return this.dataStore.addData('basket', fc)
+            }))
+        }).subscribe(res => {
+            
+        })
+    }
+
+
     doBasketOtpUpdate(product, otpId: string) {
         this.dataStore.updateData('basket', product.annotation.basketId, { user: this.authService.getUserId(), produit: product.data._id, quantity: product.annotation.quantity, otpId: otpId });
     }
-
 
     doBasketUpdate(productAnnotated, quantity: string) {
         var q: number = +quantity && (+quantity) >= 0 ? +quantity : 0;
