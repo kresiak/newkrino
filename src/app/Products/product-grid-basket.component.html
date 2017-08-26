@@ -55,7 +55,7 @@
 				</div>
 				<div class="col-sm-1 col-md-1 vcenter">
 					<gg-editor-number *ngIf="product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" [content]="product.annotation.quantity"
-					 (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="isGroupedBasket"></gg-editor-number>
+					 (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="isGroupedBasket && !product.annotation.isFixCost"></gg-editor-number>
 					<div *ngIf="!product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
 					<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="getProductObservable(product.data._id)"></gg-product-fridge-order-button>
 
