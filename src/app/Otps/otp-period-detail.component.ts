@@ -52,7 +52,9 @@ export class OtpPeriodDetailComponent implements OnInit {
             date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
             comment: formValue.commentBudgetChange
         })
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
+            this.resetBudgetChange();
+        });
     }
 
     resetBudgetChange() {

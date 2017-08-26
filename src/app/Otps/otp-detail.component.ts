@@ -103,7 +103,9 @@ export class OtpDetailComponent implements OnInit {
             datStart: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
             datEnd: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
         })
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
+            this.reset();
+        });
     }
 
     reset() {
