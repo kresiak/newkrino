@@ -32,13 +32,9 @@ export class OtpDetailComponent implements OnInit {
     }
     private pieSpentChart;
     private annualForm: FormGroup;
-    private budgetChangeForm: FormGroup
     private datStartAnnual: string
     private datEndAnnual: string
-    private budgetPeriods: any[]
-    private budgetHistory: any[]
-    private dateInBudgetChangeForm: string
-
+    
     @Input() otpObservable: Observable<any>;
     @Input() state;
     @Input() path: string
@@ -61,9 +57,7 @@ export class OtpDetailComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
     private subscriptionOtp: Subscription
-    private subscriptionSapIdList: Subscription
-    
-
+    private subscriptionSapIdList: Subscription    
 
     ngOnInit(): void {
         this.stateInit();
@@ -98,10 +92,6 @@ export class OtpDetailComponent implements OnInit {
             budgetAnnual: ['', [Validators.required]]
         });
 
-        this.budgetChangeForm = this.formBuilder.group({
-            budgetChange: ['', [Validators.required]],
-            commentBudgetChange: ['', [Validators.required]]
-        })
     }
 
     SaveNewBudget(formValue, isValid) {
@@ -120,29 +110,11 @@ export class OtpDetailComponent implements OnInit {
         this.annualForm.reset();
     }
 
-    SaveBudgetChange(formValue, budgetItem, isValid) {
-        if (!isValid) return
-        if (!budgetItem.budgetHistory) budgetItem.budgetHistory = []
-
-        if (budgetItem.hasOwnProperty('isClosed')) delete budgetItem.isClosed
-        budgetItem.budgetHistory.push({
-            budget: formValue.budgetChange,
-            date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
-            comment: formValue.commentBudgetChange
-        })
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
-    }
-
-    resetBudgetChange() {
-        this.budgetChangeForm.reset();
-    }
-
     ngOnDestroy(): void {
         this.subscriptionAuthorization.unsubscribe()
         this.subscriptionOtp.unsubscribe()
         this.subscriptionSapIdList.unsubscribe()
     }
-
 
     categorySelectionChanged(selectedIds: string[]) {
         this.otp.data.categoryIds = selectedIds;
@@ -203,16 +175,6 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    dateUpdated(date) {
-        this.otp.data.datEnd = date;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    dateUpdatedStart(date) {
-        this.otp.data.datStart = date;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
     nameUpdated(name) {
         this.otp.data.name = name;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
@@ -225,12 +187,6 @@ export class OtpDetailComponent implements OnInit {
 
     noteUpdated(note) {
         this.otp.data.note = note;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    budgetUpdated(budget) {
-        if (! +budget) return
-        this.otp.data.budget = +budget;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
@@ -276,40 +232,5 @@ export class OtpDetailComponent implements OnInit {
         if (! +budgetBlocked) return
         this.otp.data.budgetBlocked = +budgetBlocked
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    budgetAnnualUpdated(budgetPeriodsItem, budgetAnnual) {
-        budgetPeriodsItem.budget = +budgetAnnual;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    datStartAnnualUpdated(budgetPeriodsItem, date) {
-        budgetPeriodsItem.datStart = date;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    datEndAnnualUpdated(budgetPeriodsItem, date) {
-        budgetPeriodsItem.datEnd = date;
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    budgetChangeUpdated(budgetHistoryItem, budgetChange) {
-        if (! +budgetChange) return
-        budgetHistoryItem.budget = +budgetChange
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    dateBudgetChangeUpdated(budgetHistoryItem, dateChange) {
-        budgetHistoryItem.date = dateChange
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    commentsBudgetChangeUpdated(budgetHistoryItem, comment) {
-        budgetHistoryItem.comment = comment
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    dateBudgetChangeInForm(dateInForm) {
-        this.dateInBudgetChangeForm = dateInForm
     }
 }

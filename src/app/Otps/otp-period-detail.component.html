@@ -1,0 +1,111 @@
+<ngb-tabset>
+    <ngb-tab title="Info" id="tabInfo">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">budget for period:</div>
+                        <div class="col-sm-6 vcenter">
+                            <gg-editor [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budgetPeriod, $event)"
+                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">start date:</div>
+                        <div class="col-sm-6 vcenter">
+                            <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartAnnualUpdated(budgetPeriod, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">end date:</div>
+                        <div class="col-sm-6 vcenter">
+                            <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndAnnualUpdated(budgetPeriod, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="Budget changes" id="tabChanges">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="History of budget" id="tabHistoryOfBudget">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-2 vcenter"><b>Budget</b></div>
+                                                    <div class="col-sm-4 vcenter"><b>Date</b></div>
+                                                    <div class="col-sm-3 vcenter"><b>Comment</b></div>
+                                                </div>
+                                                <div *ngFor="let budgetHistoryItem of budgetPeriod.budgetHistory">
+                                                    <!--FOR in History items (we are in a praticular history of budget) -->
+                                                    <div class="row">
+                                                        <div class="col-sm-2 vcenter">
+                                                            <gg-editor [content]="budgetHistoryItem.budget" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                        </div>
+                                                        <div class="col-sm-4 vcenter">
+                                                            <gg-editor-date [content]="budgetHistoryItem.date" (editSaved)="dateBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                                                        </div>
+                                                        <div class="col-sm-3 vcenter">
+                                                            <gg-editor [content]="budgetHistoryItem.comment" [showControls]="true" (editSaved)="commentsBudgetChangeUpdated(budgetHistoryItem, $event)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Add budget change" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetPeriod, budgetChangeForm.valid)">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="form-group row">
+                                                    <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">budget change:</label>
+                                                    <div class="col-sm-7">
+                                                        <input type="number" min="0" step="any" class="form-control" formControlName="budgetChange" id="budgetChange" placeholder="Budget change">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 vcenter">date:</div>
+                                                    <div class="col-sm-7 vcenter">
+                                                        <gg-editor-date [content]="" (editSaved)="dateBudgetChangeInForm($event)"></gg-editor-date>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 vcenter">comment:</div>
+                                                    <div class="col-sm-7 vcenter">
+                                                        <input type="text" class="form-control" formControlName="commentBudgetChange" id="commentBudgetChange" placeholder="comment">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-success" type="submit" [disabled]="!budgetChangeForm.valid">Submit</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-info" [disabled]="budgetChangeForm.pristine" (click)="resetBudgetChange()">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+</ngb-tabset>

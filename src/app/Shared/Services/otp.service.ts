@@ -50,6 +50,8 @@ export class OtpService {
         if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
         if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
 
+        otp= this.migrationChangeOtp(otp)
+
         return {
             data: otp,
             annotation: {
@@ -58,6 +60,22 @@ export class OtpService {
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         }
+    }
+
+    private migrationChangeOtp(otp) {
+        if (!otp.budgetPeriods) {    // for migration of old otps
+            otp.budgetPeriods = [
+                {
+                    budget: otp.budget || 0,
+                    datStart: otp.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+                    datEnd: otp.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+                }
+            ]
+            delete otp.budget
+            delete otp.datStart
+            delete otp.datEnd
+        }
+        return otp
     }
 
     private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>) {
@@ -70,7 +88,9 @@ export class OtpService {
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
         let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
 
-        let budget= utilsKrino.getOtpBudget(otp)
+        otp= this.migrationChangeOtp(otp)
+
+        let budget = utilsKrino.getOtpBudget(otp)
 
         return {
             data: otp,

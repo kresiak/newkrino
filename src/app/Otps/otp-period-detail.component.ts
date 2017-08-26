@@ -1,0 +1,100 @@
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
+import { Observable, Subscription } from 'rxjs/Rx'
+import { DataStore } from './../Shared/Services/data.service'
+import { OtpService } from '../Shared/Services/otp.service'
+import { NavigationService } from './../Shared/Services/navigation.service'
+import { SelectableData } from './../Shared/Classes/selectable-data'
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from "moment"
+import * as comparatorsUtils from './../Shared/Utils/comparators'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+
+@Component(
+    {
+        selector: 'gg-otp-period-detail',
+        templateUrl: './otp-period-detail.component.html'
+    }
+)
+export class OtpPeriodDetailComponent implements OnInit {
+    constructor(private dataStore: DataStore, private authService: AuthService, private formBuilder: FormBuilder, private otpService: OtpService) {
+    }
+    private budgetChangeForm: FormGroup
+    private dateInBudgetChangeForm: string
+
+    @Input() budgetPeriod;
+    @Input() otp;
+    
+    private isPageRunning: boolean = true
+    
+    private authorizationStatusInfo: AuthenticationStatusInfo;
+    
+
+
+    ngOnInit(): void {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        });
+
+        this.budgetChangeForm = this.formBuilder.group({
+            budgetChange: ['', [Validators.required]],
+            commentBudgetChange: ['', [Validators.required]]
+        })
+    }
+
+    SaveBudgetChange(formValue, budgetItem, isValid) {
+        if (!isValid) return
+        if (!budgetItem.budgetHistory) budgetItem.budgetHistory = []
+
+        budgetItem.budgetHistory.push({
+            budget: formValue.budgetChange,
+            date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
+            comment: formValue.commentBudgetChange
+        })
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data)
+    }
+
+    resetBudgetChange() {
+        this.budgetChangeForm.reset();
+    }
+
+    ngOnDestroy(): void {
+        this.isPageRunning = false
+    }
+
+    budgetAnnualUpdated(budgetPeriodsItem, budgetAnnual) {
+        budgetPeriodsItem.budget = +budgetAnnual;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    datStartAnnualUpdated(budgetPeriodsItem, date) {
+        budgetPeriodsItem.datStart = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    datEndAnnualUpdated(budgetPeriodsItem, date) {
+        budgetPeriodsItem.datEnd = date;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    budgetChangeUpdated(budgetHistoryItem, budgetChange) {
+        if (! +budgetChange) return
+        budgetHistoryItem.budget = +budgetChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    dateBudgetChangeUpdated(budgetHistoryItem, dateChange) {
+        budgetHistoryItem.date = dateChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    commentsBudgetChangeUpdated(budgetHistoryItem, comment) {
+        budgetHistoryItem.comment = comment
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    dateBudgetChangeInForm(dateInForm) {
+        this.dateInBudgetChangeForm = dateInForm
+    }
+}

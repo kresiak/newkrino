@@ -54,6 +54,7 @@ import {OtpDetailComponent} from './Otps/otp-detail.component';
 import {OtpDetailComponentRoutable} from './Otps/otp-detail.routable.component';
 import {OtpEnterComponent} from './Otps/otp-enter.component';
 import {OtpSapByDateComponent} from './Otps/otp-sap-date.component';
+import {OtpPeriodDetailComponent} from './Otps/otp-period-detail.component';
 
 import {PlatformMainComponent} from './Platforms/platform-main-component'
 import {PlatformMachinesComponent} from './Platforms/platform-machines.component'
@@ -221,7 +222,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
                   ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   ProductFridgeOrderButtonComponent,
-                  OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent,
+                  OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent,
 
                   CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent,  CategoryDetailComponentRoutable,
                   ReceptionDetailComponent, CommunicationEnterComponent,

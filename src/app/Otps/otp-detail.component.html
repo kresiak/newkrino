@@ -20,7 +20,7 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">equipe:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
+							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
 						</div>
 					</div>
 					<div class="row">
@@ -33,11 +33,11 @@
 						<div class="col-sm-4 vcenter">allowed products:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-								(selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
+							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter" >is limited to owner equipe:</div>
+						<div class="col-sm-4 vcenter">is limited to owner equipe:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
@@ -86,198 +86,126 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<div class="row">	
-						<div class="row">
-							<div class="col-sm-3 vcenter">budget blocked:</div>
-							<div class="col-sm-7 vcenter">
-								<gg-editor [content]="otp.data.budgetBlocked" [showControls]="true" [isMonetary]="true" (editSaved)="budgetBlockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-							</div>
-						</div>
-						<div class="row">
-							<label class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
-							<div class="col-md-3 vcenter">
-								<gg-editor-boolean [content]="otp.data.isAnnual" (editSaved)="updatedIsAnnualChecked($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
-							</div>
-						</div>
-						<div class="row" *ngIf="!otp.data.isAnnual">
-							<ngb-tabset>
-								<ngb-tab title="Budget detail" id="tabBudgetDetail">
-									<template ngbTabContent>
-										<div class="card">
-											<div class="card-block">
-												<div class="row">
-													<div class="col-sm-3 vcenter">total budget:</div>
-													<div class="col-sm-7 vcenter">
-														<gg-editor [content]="otp.data.budget" [showControls]="true" [isMonetary]="true" (editSaved)="budgetUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 vcenter">from:</div>
-													<div class="col-sm-7 vcenter">
-														<gg-editor-date [content]="otp.data.datStart" (editSaved)="dateUpdatedStart($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-sm-3 vcenter">to:</div>
-													<div class="col-sm-7 vcenter">
-														<gg-editor-date [content]="otp.data.datEnd" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
-													</div>
+					<div class="row">
+						<ngb-tabset>
+							<ngb-tab title="Current budget" id="tabOtpCurrentBudget">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+										</div>
+									</div>
+								</template>
+							</ngb-tab>
+							<ngb-tab title="Periods" id="tabOtpPeriods">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+
+											<div class="row">
+												<label class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
+												<div class="col-md-3 vcenter">
+													<gg-editor-boolean [content]="otp.data.isAnnual" (editSaved)="updatedIsAnnualChecked($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 												</div>
 											</div>
-										</div>
-									</template>
-								</ngb-tab>
-							</ngb-tabset>
-						</div>
-						<div class="form-group row" *ngIf="otp.data.isAnnual">
-							<ngb-tabset>
-								<ngb-tab title="History of budget periods" id="tabHistoryOfBudgetPeriods">
-									<template ngbTabContent>
-										<div class="card">
-											<div class="card-block">
-												<div class="row">
-													 <div class="container-fluid">
-														<div class="row">
-															<div class="col-sm-2 vcenter"><b>Budget annual</b></div>
-															<div class="col-sm-4 vcenter"><b>Date start</b></div>
-															<div class="col-sm-4 vcenter"><b>Date end</b></div>
-														</div>
-															<div *ngFor="let budgetItem of otp.data.budgetPeriods"> <!--FOR in History items (we are in a praticular history of budget) -->
+
+											<ngb-tabset>
+												<ngb-tab title="History of budget periods" id="tabHistoryOfBudgetPeriods">
+													<template ngbTabContent>
+														<div class="card">
+															<div class="card-block">
 																<div class="row">
-																	<div class="col-sm-2 vcenter">
-																		<gg-editor [content]="budgetItem.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-																	</div>
-																	<div class="col-sm-4 vcenter">
-																		<gg-editor-date [content]="budgetItem.datStart" (editSaved)="datStartAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
-																	</div>
-																	<div class="col-sm-4 vcenter">
-																		<gg-editor-date [content]="budgetItem.datEnd" (editSaved)="datEndAnnualUpdated(budgetItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
-																	</div>
-																	<div class="col-sm-1 vcenter">
-																		<button type="button" class="btn btn-link" (click)="budgetItem.isClosed= !budgetItem.isClosed">View/hide history</button>
-																	</div>
-																</div>
-													
-																<div class="row" [ngbCollapse]="!budgetItem.isClosed">
-																	<ngb-tabset>
-																		<ngb-tab title="History of budget" id="tabHistoryOfBudget">
-																			<template ngbTabContent>
-																				<div class="card">
-																					<div class="card-block">
-																						<div class="row">
-																							<div class="container-fluid">
-																								<div class="row">
-																									<div class="col-sm-2 vcenter"><b>Budget</b></div>
-																									<div class="col-sm-4 vcenter"><b>Date</b></div>
-																									<div class="col-sm-3 vcenter"><b>Comment</b></div>
-																								</div>
-																									<div *ngFor="let budgetHistoryItem of budgetItem.budgetHistory"> <!--FOR in History items (we are in a praticular history of budget) -->
-																									<div class="row">
-																										<div class="col-sm-2 vcenter">
-																											<gg-editor [content]="budgetHistoryItem.budget" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-																										</div>
-																										<div class="col-sm-4 vcenter">
-																											<gg-editor-date [content]="budgetHistoryItem.date"  (editSaved)="dateBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
-																										</div>
-																										<div class="col-sm-3 vcenter">
-																											<gg-editor [content]="budgetHistoryItem.comment" [showControls]="true" (editSaved)="commentsBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
-																										</div>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																					</div>
+
+																	<ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+																		<ngb-panel [disabled]="true">
+																			<template ngbPanelTitle>
+																				<div class="row">
+																					<div class="col-sm-2"><b>Budget annual</b></div>
+																					<div class="col-sm-4"><b>Date start</b></div>
+																					<div class="col-sm-4"><b>Date end</b></div>
 																				</div>
 																			</template>
-																		</ngb-tab>
-																		<ngb-tab title="Add budget change" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
-																			<template ngbTabContent>
-																				<div class="card">
-																					<form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetItem, budgetChangeForm.valid)" >
-																						<div class="card">
-																							<div class="card-block">
-																								<div class="form-group row">
-																									<label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">budget change:</label>
-																									<div class="col-sm-7">
-																										<input type="number" min="0" step="any" class="form-control" formControlName="budgetChange" id="budgetChange" placeholder="Budget change">
-																									</div>
-																								</div>
-																								<div class="form-group row">
-																									<div class="col-sm-3 vcenter">date:</div>
-																									<div class="col-sm-7 vcenter">
-																										<gg-editor-date [content]="" (editSaved)="dateBudgetChangeInForm($event)"></gg-editor-date>
-																									</div>
-																								</div>
-																								<div class="form-group row">
-																									<div class="col-sm-3 vcenter">comment:</div>
-																									<div class="col-sm-7 vcenter">
-																										<input type="text" class="form-control" formControlName="commentBudgetChange" id="commentBudgetChange" placeholder="comment">
-																									</div>
-																								</div>
-																								<div class="form-group row">
-																									<div class="col-sm-3 col-md-2 col-lg-2">
-																										<button class="btn btn-success" type="submit" [disabled]="!budgetChangeForm.valid">Submit</button>
-																									</div>
-																									<div class="col-sm-3 col-md-2 col-lg-2">
-																										<button class="btn btn-info"  [disabled]="budgetChangeForm.pristine" (click)="resetBudgetChange()">Reset</button>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																					</form>
+																			<template ngbPanelContent>
+																			</template>
+																		</ngb-panel>
+																		<ngb-panel *ngFor="let budgetPeriod of otp.data.budgetPeriods">
+																			<template ngbPanelTitle>
+																				<div class="row">
+																					<div class="col-sm-2">{{budgetPeriod.budget}}</div>
+																					<div class="col-sm-4">{{budgetPeriod.datStart}}</div>
+																					<div class="col-sm-4">{{budgetPeriod.datEnd}}</div>
 																				</div>
 																			</template>
-																		</ngb-tab>
-																	</ngb-tabset>
+																			<template ngbPanelContent>
+																				<gg-otp-period-detail [budgetPeriod]="budgetPeriod" [otp]="otp"></gg-otp-period-detail>
+																			</template>
+																		</ngb-panel>
+																	</ngb-accordion>
 																</div>
 															</div>
 														</div>
-                            						
+													</template>
+												</ngb-tab>
+												<ngb-tab title="Add new budget period" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && otp.data.isAnnual">
+													<template ngbTabContent>
+														<div class="card">
+															<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)">
+																<div class="card">
+																	<div class="card-block">
+																		<div class="form-group row">
+																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
+																			<div class="col-sm-7">
+																				<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="Budget annual">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<div class="col-sm-3 vcenter">from:</div>
+																			<div class="col-sm-7 vcenter">
+																				<gg-editor-date [content]="" (editSaved)="dateStartAnnualUpdated($event)"></gg-editor-date>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<div class="col-sm-3 vcenter">to:</div>
+																			<div class="col-sm-7 vcenter">
+																				<gg-editor-date [content]="" (editSaved)="dateEndAnnualUpdated($event)"></gg-editor-date>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<div class="col-sm-3 col-md-2 col-lg-2">
+																				<button class="btn btn-success" type="submit" [disabled]="!annualForm.valid">Submit</button>
+																			</div>
+																			<div class="col-sm-3 col-md-2 col-lg-2">
+																				<button class="btn btn-info" [disabled]="annualForm.pristine" (click)="reset()">Reset</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</form>
+														</div>
+													</template>
+												</ngb-tab>
+											</ngb-tabset>
+										</div>
+									</div>
+								</template>
+							</ngb-tab>
+							<ngb-tab title="Blocked amounts" id="tabOtpBlockedAmounts">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+											<div class="row">
+												<div class="col-sm-3 vcenter">budget blocked:</div>
+												<div class="col-sm-7 vcenter">
+													<gg-editor [content]="otp.data.budgetBlocked" [showControls]="true" [isMonetary]="true" (editSaved)="budgetBlockedUpdated($event)"
+													 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 												</div>
 											</div>
 										</div>
-									</template>
-								</ngb-tab>
-								<ngb-tab title="Add new budget period" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
-									<template ngbTabContent>
-										<div class="card">
-											<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)" >
-												<div class="card">
-													<div class="card-block">
-														<div class="form-group row">
-															<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
-															<div class="col-sm-7">
-																<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="Budget annual">
-															</div>
-														</div>
-														<div class="form-group row">
-															<div class="col-sm-3 vcenter">from:</div>
-															<div class="col-sm-7 vcenter">
-																<gg-editor-date [content]="" (editSaved)="dateStartAnnualUpdated($event)"></gg-editor-date>
-															</div>
-														</div>
-														<div class="form-group row">
-															<div class="col-sm-3 vcenter">to:</div>
-															<div class="col-sm-7 vcenter">
-																<gg-editor-date [content]="" (editSaved)="dateEndAnnualUpdated($event)"></gg-editor-date>
-															</div>
-														</div>
-														<div class="form-group row">
-															<div class="col-sm-3 col-md-2 col-lg-2">
-																<button class="btn btn-success" type="submit" [disabled]="!annualForm.valid">Submit</button>
-															</div>
-															<div class="col-sm-3 col-md-2 col-lg-2">
-																<button class="btn btn-info"  [disabled]="annualForm.pristine" (click)="reset()">Reset</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</form>
-										</div>
-									</template>
-								</ngb-tab>
-							</ngb-tabset>
-						</div>
+									</div>
+								</template>
+							</ngb-tab>
+
+						</ngb-tabset>
+
 					</div>
 				</div>
 			</div>
@@ -359,14 +287,14 @@
 					<ngb-tabset>
 						<ngb-tab title="All items" id="tabSapsAll">
 							<template ngbTabContent>
-								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [otp]="otp" [state]="state.Saps" [path]="path+'|O:Saps'"  (stateChanged)="childSapsStateChanged($event)"></gg-sap-by-sapids-list>
+								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [otp]="otp" [state]="state.Saps" [path]="path+'|O:Saps'" (stateChanged)="childSapsStateChanged($event)"></gg-sap-by-sapids-list>
 							</template>
 						</ngb-tab>
 						<ngb-tab title="By date" id="tabSapsByDate">
 							<template ngbTabContent>
 								<gg-sap-by-date [otp]="otp.data.name"></gg-sap-by-date>
 							</template>
-						</ngb-tab>						
+						</ngb-tab>
 					</ngb-tabset>
 				</div>
 			</div>
@@ -382,5 +310,5 @@
 		<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
-	
+
 </ngb-tabset>

@@ -2,12 +2,12 @@ import * as utilsDate from './dates'
 
 export function getOtpBudget(otp) {
         let currentBudget: number
-        if (otp.isAnnual && otp.budgetHistory) {
-            var x = otp.budgetHistory.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
+        if (otp.budgetPeriods) {
+            var x = otp.budgetPeriods.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
             currentBudget= x ? x.budget : 0
         }
         else {
-            currentBudget= (+(otp.budget))
+            currentBudget= 0
         }
 
         return currentBudget

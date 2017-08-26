@@ -18,8 +18,8 @@ export class OtpEnterComponent implements OnInit {
 
     }
 
-    private datStart: string 
-    private datEnd: string 
+    private datStart: string
+    private datEnd: string
     private selectableCategoriesObservable: Observable<any>;
     private selectedIds;
 
@@ -50,35 +50,28 @@ export class OtpEnterComponent implements OnInit {
     save(formValue, isValid) {
         var newOtpEnter: any = {
             name: formValue.name,
-            isAnnual: formValue.isAnnual!=='' && formValue.isAnnual!== null,
+            isAnnual: formValue.isAnnual !== '' && formValue.isAnnual !== null,
             budgetBlocked: formValue.budgetBlocked,
             description: formValue.description,
-            isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!== null,
-            isClosed: formValue.isClosed!=='' && formValue.isClosed!== null,
-            isLimitedToOwner: formValue.isLimitedToOwner!== '' && formValue.isLimitedToOwner!==null,
+            isBlocked: formValue.isBlocked !== '' && formValue.isBlocked !== null,
+            isClosed: formValue.isClosed !== '' && formValue.isClosed !== null,
+            isLimitedToOwner: formValue.isLimitedToOwner !== '' && formValue.isLimitedToOwner !== null,
             equipeId: this.equipeId,
             note: formValue.note,
             categoryIds: this.selectedIds
         }
-        if (formValue.isAnnual === '') {
-            newOtpEnter.budget = formValue.budget,
-            newOtpEnter.datStart = this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-            newOtpEnter.datEnd = this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
-        }
-        else {
-            let budgetPeriods = []
-            budgetPeriods.push({
-                budget: formValue.budget,
-                datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-                datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
-            })
-            newOtpEnter.budgetPeriods = budgetPeriods
-        }
+        let budgetPeriods = []
+        budgetPeriods.push({
+            budget: formValue.budget,
+            datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
+            datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+        })
+        newOtpEnter.budgetPeriods = budgetPeriods
         this.dataStore.addData('otps', newOtpEnter
         ).first().subscribe(res => {
             var x = res;
             this.reset();
-        }); 
+        });
     }
 
     reset() {
@@ -87,8 +80,8 @@ export class OtpEnterComponent implements OnInit {
         this.datStartChild.emptyContent()
         this.datEndChild.emptyContent()
     }
-   
-    categorySelectionChanged(selectedIds: string[]) {        
+
+    categorySelectionChanged(selectedIds: string[]) {
         this.selectedIds = selectedIds;
     }
 
