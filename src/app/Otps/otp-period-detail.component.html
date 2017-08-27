@@ -108,4 +108,76 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="Blocked amounts" id="tabBlocked">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="List of blocked amount" id="tabListOfBlocked" *ngIf="budgetPeriod.blockedAmounts && budgetPeriod.blockedAmounts.length > 0">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3 "><b>Amount blocked</b></div>
+                                                    <div class="col-sm-6 "><b>Reason/Comment</b></div>
+                                                </div>
+                                                <div *ngFor="let blockedAmountItem of budgetPeriod.blockedAmounts">
+                                                    <!--FOR in History items (we are in a praticular history of budget) -->
+                                                    <div class="row">
+                                                        <div class="col-sm-3 vcenter">
+                                                            <gg-editor [content]="blockedAmountItem.amount" [showControls]="true" (editSaved)="blockedAmountUpdated(blockedAmountItem, $event)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                        </div>
+                                                        <div class="col-sm-6 vcenter">
+                                                            <gg-editor [content]="blockedAmountItem.comment" [showControls]="true" (editSaved)="blockedAmountCommentUpdated(blockedAmountItem, $event)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                        <ngb-tab title="Add a blocked amount" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, budgetPeriod, blockedAmountForm.valid)">
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 vcenter">blocked amount:</div>
+                                                    <div class="col-sm-7 vcenter">
+                                                        <input type="number" min="0" step="any" class="form-control" formControlName="blockedAmount" id="blockedAmount" placeholder="blocked amount">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 vcenter">reason / comment:</div>
+                                                    <div class="col-sm-7 vcenter">
+                                                        <input type="text" class="form-control" formControlName="comment" id="comment" placeholder="comment">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-success" type="submit" [disabled]="!blockedAmountForm.valid">Submit</button>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                                        <button class="btn btn-info" [disabled]="blockedAmountForm.pristine" (click)="resetBlockedAmount()">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </template>
+                        </ngb-tab>
+                    </ngb-tabset>
+
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
 </ngb-tabset>

@@ -38,7 +38,6 @@ export class OtpEnterComponent implements OnInit {
             name: ['', [Validators.required, Validators.minLength(5)]],
             isAnnual: [''],
             budget: ['', Validators.required],
-            budgetBlocked: ['', Validators.required],
             description: ['', Validators.required],
             isBlocked: [''],
             isClosed: [''],
@@ -51,7 +50,6 @@ export class OtpEnterComponent implements OnInit {
         var newOtpEnter: any = {
             name: formValue.name,
             isAnnual: formValue.isAnnual !== '' && formValue.isAnnual !== null,
-            budgetBlocked: formValue.budgetBlocked,
             description: formValue.description,
             isBlocked: formValue.isBlocked !== '' && formValue.isBlocked !== null,
             isClosed: formValue.isClosed !== '' && formValue.isClosed !== null,

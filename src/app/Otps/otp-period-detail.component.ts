@@ -23,13 +23,15 @@ export class OtpPeriodDetailComponent implements OnInit {
     private budgetChangeForm: FormGroup
     private dateInBudgetChangeForm: string
 
+    private blockedAmountForm: FormGroup
+
     @Input() budgetPeriod;
     @Input() otp;
-    
+
     private isPageRunning: boolean = true
-    
+
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    
+
 
 
     ngOnInit(): void {
@@ -40,6 +42,11 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.budgetChangeForm = this.formBuilder.group({
             budgetChange: ['', [Validators.required]],
             commentBudgetChange: ['', [Validators.required]]
+        })
+
+        this.blockedAmountForm = this.formBuilder.group({
+            blockedAmount: ['', [Validators.required]],
+            comment: ['', [Validators.required]]
         })
     }
 
@@ -60,6 +67,24 @@ export class OtpPeriodDetailComponent implements OnInit {
     resetBudgetChange() {
         this.budgetChangeForm.reset();
     }
+
+    saveBlockedAmount(formValue, budgetItem, isValid) {
+        if (!isValid) return
+        if (!budgetItem.blockedAmounts) budgetItem.blockedAmounts = []
+
+        budgetItem.blockedAmounts.push({
+            amount: formValue.blockedAmount,
+            comment: formValue.comment
+        })
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
+            this.resetBlockedAmount();
+        });
+    }
+
+    resetBlockedAmount() {
+        this.blockedAmountForm.reset();
+    }
+
 
     ngOnDestroy(): void {
         this.isPageRunning = false
@@ -99,4 +124,16 @@ export class OtpPeriodDetailComponent implements OnInit {
     dateBudgetChangeInForm(dateInForm) {
         this.dateInBudgetChangeForm = dateInForm
     }
+
+    blockedAmountUpdated(blockedAmountItem, amount) {
+        if (! +amount) return
+        blockedAmountItem.amount = +amount
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    blockedAmountCommentUpdated(blockedAmountItem, comment) {
+        blockedAmountItem.comment = comment
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
 }

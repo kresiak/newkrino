@@ -230,9 +230,4 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    budgetBlockedUpdated(budgetBlocked) {
-        if (! +budgetBlocked) return
-        this.otp.data.budgetBlocked = +budgetBlocked
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
 }
