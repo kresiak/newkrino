@@ -2,24 +2,42 @@
     <ngb-tab title="Info" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-block gg-line-height">
                     <div class="row">
-                        <div class="col-sm-4 vcenter">budget for period:</div>
+                        <div class="col-sm-4 vcenter">initial budget for period:</div>
                         <div class="col-sm-6 vcenter">
-                            <gg-editor [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetAnnualUpdated(budgetPeriod, $event)"
+                            <gg-editor [isMonetary]="true" [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetPeriodUpdated($event)"
                                 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 vcenter">start date:</div>
                         <div class="col-sm-6 vcenter">
-                            <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartAnnualUpdated(budgetPeriod, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                            <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 vcenter">end date:</div>
                         <div class="col-sm-6 vcenter">
-                            <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndAnnualUpdated(budgetPeriod, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                            <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">budget added later:</div>
+                        <div class="col-sm-6 vcenter">
+                            {{budgetAnnotation.changesSum | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">budget blocked:</div>
+                        <div class="col-sm-6 vcenter">
+                            {{budgetAnnotation.blockedSum | currency:'EUR':true:'1.2-2'}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 vcenter">budget that can be used:</div>
+                        <div class="col-sm-6 vcenter">
+                            {{budgetAnnotation.budgetAvailable | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                 </div>
@@ -38,7 +56,7 @@
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-2 vcenter"><b>Budget</b></div>
+                                                    <div class="col-sm-2 vcenter"><b>Budget increment</b></div>
                                                     <div class="col-sm-4 vcenter"><b>Date</b></div>
                                                     <div class="col-sm-3 vcenter"><b>Comment</b></div>
                                                 </div>
@@ -46,7 +64,7 @@
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
                                                     <div class="row">
                                                         <div class="col-sm-2 vcenter">
-                                                            <gg-editor [content]="budgetHistoryItem.budget" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)"
+                                                            <gg-editor [isMonetary]="true" [content]="budgetHistoryItem.budgetIncrement" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-4 vcenter">
@@ -71,7 +89,7 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
-                                                    <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">budget change:</label>
+                                                    <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">budget increment:</label>
                                                     <div class="col-sm-7">
                                                         <input type="number" min="0" step="any" class="form-control" formControlName="budgetChange" id="budgetChange" placeholder="Budget change">
                                                     </div>
@@ -127,7 +145,7 @@
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
                                                     <div class="row">
                                                         <div class="col-sm-3 vcenter">
-                                                            <gg-editor [content]="blockedAmountItem.amount" [showControls]="true" (editSaved)="blockedAmountUpdated(blockedAmountItem, $event)"
+                                                            <gg-editor [isMonetary]="true" [content]="blockedAmountItem.amount" [showControls]="true" (editSaved)="blockedAmountUpdated(blockedAmountItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-6 vcenter">

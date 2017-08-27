@@ -127,16 +127,16 @@
 																			<template ngbPanelContent>
 																			</template>
 																		</ngb-panel>
-																		<ngb-panel *ngFor="let budgetPeriod of otp.data.budgetPeriods">
+																		<ngb-panel *ngFor="let budgetPeriod of otp.data.budgetPeriods; let index=index">
 																			<template ngbPanelTitle>
 																				<div class="row">
-																					<div class="col-sm-2">{{budgetPeriod.budget}}</div>
-																					<div class="col-sm-4">{{budgetPeriod.datStart}}</div>
-																					<div class="col-sm-4">{{budgetPeriod.datEnd}}</div>
+																					<div class="col-sm-2">{{otp.annotation.budgetPeriods[index].budgetAvailable | currency:'EUR':true:'1.2-2'}}</div>
+																					<div class="col-sm-4">{{budgetPeriod.datStart | shortDate}}</div>
+																					<div class="col-sm-4">{{budgetPeriod.datEnd | shortDate}}</div>
 																				</div>
 																			</template>
 																			<template ngbPanelContent>
-																				<gg-otp-period-detail [budgetPeriod]="budgetPeriod" [otp]="otp"></gg-otp-period-detail>
+																				<gg-otp-period-detail [budgetPeriod]="budgetPeriod" [otp]="otp" [budgetAnnotation]="otp.annotation.budgetPeriods[index]"></gg-otp-period-detail>
 																			</template>
 																		</ngb-panel>
 																	</ngb-accordion>

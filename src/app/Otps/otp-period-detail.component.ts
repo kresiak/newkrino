@@ -25,8 +25,9 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     private blockedAmountForm: FormGroup
 
-    @Input() budgetPeriod;
-    @Input() otp;
+    @Input() budgetPeriod
+    @Input() otp
+    @Input() budgetAnnotation
 
     private isPageRunning: boolean = true
 
@@ -55,7 +56,7 @@ export class OtpPeriodDetailComponent implements OnInit {
         if (!budgetItem.budgetHistory) budgetItem.budgetHistory = []
 
         budgetItem.budgetHistory.push({
-            budget: formValue.budgetChange,
+            budgetIncrement: formValue.budgetChange,
             date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
             comment: formValue.commentBudgetChange
         })
@@ -90,24 +91,24 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.isPageRunning = false
     }
 
-    budgetAnnualUpdated(budgetPeriodsItem, budgetAnnual) {
-        budgetPeriodsItem.budget = +budgetAnnual;
+    budgetPeriodUpdated(budgetPeriod) {
+        this.budgetPeriod.budget = +budgetPeriod;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datStartAnnualUpdated(budgetPeriodsItem, date) {
-        budgetPeriodsItem.datStart = date;
+    datStartPeriodUpdated(date) {
+        this.budgetPeriod.datStart = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    datEndAnnualUpdated(budgetPeriodsItem, date) {
-        budgetPeriodsItem.datEnd = date;
+    datEndPeriodUpdated(date) {
+        this.budgetPeriod.datEnd = date;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
     budgetChangeUpdated(budgetHistoryItem, budgetChange) {
         if (! +budgetChange) return
-        budgetHistoryItem.budget = +budgetChange
+        budgetHistoryItem.budgetIncrement = +budgetChange
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

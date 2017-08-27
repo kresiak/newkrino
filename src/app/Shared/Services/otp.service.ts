@@ -41,27 +41,6 @@ export class OtpService {
             })
     }
 
-    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
-        if (!otp) return null;
-        if (!otp.priority) otp.priority = 0
-        otp.priority = +otp.priority || 0
-        let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
-        let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
-        if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
-        if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
-
-        otp= this.migrationChangeOtp(otp)
-
-        return {
-            data: otp,
-            annotation: {
-                budget: utilsKrino.getOtpBudget(otp),
-                equipe: equipe ? equipe.name : 'no equipe',
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
-            }
-        }
-    }
-
     private migrationChangeOtp(otp) {
         if (!otp.budgetPeriods) {    // for migration of old otps
             otp.budgetPeriods = [
@@ -76,6 +55,38 @@ export class OtpService {
             delete otp.datEnd
         }
         return otp
+    }
+
+
+
+    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
+        if (!otp) return null;
+        if (!otp.priority) otp.priority = 0
+        otp.priority = +otp.priority || 0
+        let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
+        let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
+        if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
+        if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
+
+        otp= this.migrationChangeOtp(otp)
+
+        return {
+            data: otp,
+            annotation: {
+                budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => {
+                    var changesSum= !p.budgetHistory ? 0 : p.budgetHistory.reduce((acc, item) => acc + item.budgetIncrement, 0)
+                    var blockedSum= !p.blockedAmounts ? 0 : p.blockedAmounts.reduce((acc, item) => acc + item.amount, 0)
+                    return  {
+                        changesSum: changesSum,
+                        blockedSum: blockedSum,
+                        budgetAvailable: p.budget + changesSum - blockedSum
+                    }
+                }),
+                budget: utilsKrino.getOtpBudget(otp),
+                equipe: equipe ? equipe.name : 'no equipe',
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
+            }
+        }
     }
 
     private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>) {
