@@ -92,6 +92,10 @@
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
+											<div *ngIf="otp.annotation.currentPeriod">
+												<gg-otp-period-detail [budgetPeriod]="otp.annotation.currentPeriod" [otp]="otp" [budgetAnnotation]="otp.annotation.currentPeriodAnnotation"></gg-otp-period-detail>
+											</div>
+											<div *ngIf="!otp.annotation.currentPeriod"><p>There is no otp budget defined for the present period.</p></div>
 										</div>
 									</div>
 								</template>

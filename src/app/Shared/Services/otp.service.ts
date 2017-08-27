@@ -57,7 +57,15 @@ export class OtpService {
         return otp
     }
 
-
+    private getAnnotationsOfBudgetPeriod(p) {
+        var changesSum = !p.budgetHistory ? 0 : p.budgetHistory.reduce((acc, item) => acc + item.budgetIncrement, 0)
+        var blockedSum = !p.blockedAmounts ? 0 : p.blockedAmounts.reduce((acc, item) => acc + item.amount, 0)
+        return {
+            changesSum: changesSum,
+            blockedSum: blockedSum,
+            budgetAvailable: p.budget + changesSum - blockedSum
+        }
+    }
 
     private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
         if (!otp) return null;
@@ -68,20 +76,15 @@ export class OtpService {
         if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
         if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
 
-        otp= this.migrationChangeOtp(otp)
+        otp = this.migrationChangeOtp(otp)
+        var currentPeriod= utilsKrino.getCurrentPeriodOfOtp(otp)
 
         return {
             data: otp,
             annotation: {
-                budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => {
-                    var changesSum= !p.budgetHistory ? 0 : p.budgetHistory.reduce((acc, item) => acc + item.budgetIncrement, 0)
-                    var blockedSum= !p.blockedAmounts ? 0 : p.blockedAmounts.reduce((acc, item) => acc + item.amount, 0)
-                    return  {
-                        changesSum: changesSum,
-                        blockedSum: blockedSum,
-                        budgetAvailable: p.budget + changesSum - blockedSum
-                    }
-                }),
+                budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => this.getAnnotationsOfBudgetPeriod(p)),
+                currentPeriod: currentPeriod,
+                currentPeriodAnnotation: !currentPeriod ? undefined : this.getAnnotationsOfBudgetPeriod(currentPeriod),
                 budget: utilsKrino.getOtpBudget(otp),
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
@@ -99,7 +102,7 @@ export class OtpService {
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
         let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
 
-        otp= this.migrationChangeOtp(otp)
+        otp = this.migrationChangeOtp(otp)
 
         let budget = utilsKrino.getOtpBudget(otp)
 
