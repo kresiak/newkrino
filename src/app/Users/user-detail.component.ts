@@ -139,4 +139,9 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     }
 
+    isPassiveUserUpdated(isPassiveUser) {
+        this.user.data.isPassiveUser = isPassiveUser;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
+
 }

@@ -31,7 +31,8 @@ export class UserEnterComponent implements OnInit {
             password: [''],
             isReceptionist: [''],
             isLabManager: [''],
-            isProgrammer: ['']
+            isProgrammer: [''],
+            isPassiveUser: ['']
         });
     };
     
@@ -47,7 +48,8 @@ export class UserEnterComponent implements OnInit {
             password: formValue.password,
             isReceptionist: formValue.isReceptionist!=='' && formValue.isReceptionist!==null,
             isLabManager: formValue.isLabManager!=='' && formValue.isLabManager!==null,
-            isProgrammer: formValue.isProgrammer!=='' && formValue.isProgrammer!==null
+            isProgrammer: formValue.isProgrammer!=='' && formValue.isProgrammer!==null,
+            isPassiveUser: formValue.isPassiveUser!=='' && formValue.isPassiveUser!==null
         }).first().subscribe(res =>
         {
             var x=res;
