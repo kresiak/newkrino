@@ -7,6 +7,7 @@ import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
 import * as utilsKrino from './../Utils/krino'
+import * as utilsDate from './../Utils/dates'
 
 
 Injectable()
@@ -63,77 +64,97 @@ export class OtpService {
         return {
             changesSum: changesSum,
             blockedSum: blockedSum,
-            budgetAvailable: p.budget + changesSum - blockedSum
+            budgetAvailable: p.budget + changesSum - blockedSum,
+            datStart: p.datStart,
+            datEnd: p.datEnd
         }
     }
 
-    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
+/*    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
-        if (!otp.datStart) otp.datStart = moment().format('DD/MM/YYYY HH:mm:ss')
-        if (!otp.datEnd) otp.datEnd = moment().format('DD/MM/YYYY HH:mm:ss')
 
         otp = this.migrationChangeOtp(otp)
-        var currentPeriod= utilsKrino.getCurrentPeriodOfOtp(otp)
+        var posOfCurrentPeriod= !otp.budgetPeriods ? -1 : otp.budgetPeriods.findIndex(period => utilsDate.isDateIntervalCompatibleWithNow(period.datStart, period.datEnd))
 
         return {
             data: otp,
             annotation: {
                 budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => this.getAnnotationsOfBudgetPeriod(p)),
-                currentPeriod: currentPeriod,
-                currentPeriodAnnotation: !currentPeriod ? undefined : this.getAnnotationsOfBudgetPeriod(currentPeriod),
+                currentPeriodIndex: posOfCurrentPeriod,
+                currentPeriodAnnotation: posOfCurrentPeriod === -1 ? undefined : this.getAnnotationsOfBudgetPeriod(otp.budgetPeriods[posOfCurrentPeriod]),
                 budget: utilsKrino.getOtpBudget(otp),
                 equipe: equipe ? equipe.name : 'no equipe',
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
         }
     }
+*/
 
-    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>) {
+    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[]) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
+        otp = this.migrationChangeOtp(otp)
+
+        if (otp.name==='O.VTPAGFM01-01-F'){
+            var x=555
+        }
+
+        var posOfCurrentPeriod= !otp.budgetPeriods ? -1 : otp.budgetPeriods.findIndex(period => utilsDate.isDateIntervalCompatibleWithNow(period.datStart, period.datEnd))
+        var currentPeriodAnnotation= posOfCurrentPeriod === -1 ? undefined : this.getAnnotationsOfBudgetPeriod(otp.budgetPeriods[posOfCurrentPeriod])
+
+        let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
+        let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
+
+        let budget = !currentPeriodAnnotation ? 0 : currentPeriodAnnotation.budgetAvailable
+
         let amountSpentNotYetInSap = otpSpentMap.has(otp._id) ? otpSpentMap.get(otp._id) : 0
         let sapIds = sapOtpMap.has(otp.name) ? Array.from(sapOtpMap.get(otp.name).sapIdSet).map(id => +id) : []
         let sapItems = this.sapService.getSapItemsBySapIdList(sapIdMap, sapIds)
         let amountEngaged = this.sapService.getAmountEngagedByOtpInSapItems(otp.name, sapItems)
-        let amountBilled = this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, otp.datStart, sapItems)
+        let amountBilled = !currentPeriodAnnotation ? 0 : this.sapService.getAmountInvoicedByOtpInSapItems(otp.name, currentPeriodAnnotation.datStart, sapItems)
 
-        otp = this.migrationChangeOtp(otp)
-
-        let budget = utilsKrino.getOtpBudget(otp)
 
         return {
             data: otp,
             annotation: {
                 budget: budget,
+                budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => this.getAnnotationsOfBudgetPeriod(p)),
+                currentPeriodIndex: posOfCurrentPeriod,
+                currentPeriodAnnotation: currentPeriodAnnotation,
                 amountSpentNotYetInSap: amountSpentNotYetInSap,
                 amountEngaged: amountEngaged,
                 amountBilled: amountBilled,
                 amountSpent: amountSpentNotYetInSap + amountEngaged + amountBilled,
-                amountAvailable: budget - amountSpentNotYetInSap - amountEngaged - amountBilled
+                amountAvailable: !currentPeriodAnnotation ? 0 : (budget - amountSpentNotYetInSap - amountEngaged - amountBilled),
+                equipe: equipe ? equipe.name : 'no equipe',
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined                
             }
         }
     }
 
     getAnnotatedOtps(): Observable<any> {
-        return Observable.combineLatest(
+/*        return Observable.combineLatest(
             this.dataStore.getDataObservable('otps'),
             this.dataStore.getDataObservable('equipes'),
             this.userService.getOtpDashletsForCurrentUser(),
             (otps, equipes, dashlets) => {
                 return otps.map(otp => this.createAnnotatedOtp(otp, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
             });
+
+*/    
+        return this.getAnnotatedOtpsMap().map(map => Array.from(map.values()))
     }
 
 
     private annotatedOtpsForBudgetMapObservable: ConnectableObservable<any>;
 
 
-    getAnnotatedOtpsForBudgetMap(): Observable<any> {
+    getAnnotatedOtpsMap(): Observable<any> {
 
         if (this.annotatedOtpsForBudgetMapObservable) return this.annotatedOtpsForBudgetMapObservable
 
@@ -142,8 +163,10 @@ export class OtpService {
             this.getOtpMoneySpentMapObservable(),
             this.sapService.getSapIdMapObservable(),
             this.sapService.getSapOtpMapObservable(),
-            (otps, otpSpentMap, sapIdMap, sapOtpMap) => {
-                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap))
+            this.dataStore.getDataObservable('equipes'),
+            this.userService.getOtpDashletsForCurrentUser(),
+            (otps, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets) => {
+                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets))
                 var b = a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
                 return utils.hashMapFactoryForAnnotated(b)
             }).publishReplay(1);
@@ -152,12 +175,6 @@ export class OtpService {
 
         return this.annotatedOtpsForBudgetMapObservable
     }
-
-
-    getAnnotatedOtpsForBudget(): Observable<any> {
-        return this.getAnnotatedOtpsForBudgetMap().map(map => Array.from(map.values()))
-    }
-
 
     getAnnotatedOtpsByEquipe(equipeId): Observable<any> {
         return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.equipeId === equipeId));

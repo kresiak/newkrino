@@ -25,8 +25,7 @@ export class OtpChoiceService {
                 //.filter(otp => otp.data.name==='P.VTPAGFM.02-01-F')
                 .filter(otp => 
                     !otp.data.isLimitedToOwner || otp.data.equipeId === currentEquipeId)  
-                .filter(otp => !otp.data.isBlocked && !otp.data.isClosed && !otp.data.isDeleted)
-                .filter(otp => utilsDate.isDateIntervalCompatibleWithNow(otp.data.datStart, otp.data.datEnd))
+                .filter(otp => !otp.data.isBlocked && !otp.data.isClosed && !otp.data.isDeleted && otp.annotation.currentPeriodAnnotation)
                 .filter(otp => otp.annotation.amountAvailable > totalPrice)                
                 .filter(otp => {
                     let productCategories: string[] = product.categoryIds ? product.categoryIds : [];

@@ -100,7 +100,7 @@ export class EquipeService {
         return Observable.combineLatest(
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('orders'),
-            this.otpService.getAnnotatedOtpsForBudget(),
+            this.otpService.getAnnotatedOtps(),
             this.userService.getEquipeDashletsForCurrentUser(),
             (equipes, orders, otps, dashlets) => {
                 return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets))

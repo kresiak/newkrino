@@ -1,6 +1,6 @@
 import * as utilsDate from './dates'
 
-export function getOtpBudget(otp) {
+/*export function getOtpBudget(otp) {
     let currentBudget: number
     if (otp.budgetPeriods) {
         var x = otp.budgetPeriods.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
@@ -11,11 +11,7 @@ export function getOtpBudget(otp) {
     }
 
     return currentBudget
-}
-
-export function getCurrentPeriodOfOtp(otp) {
-    return !otp.budgetPeriods ? undefined : otp.budgetPeriods.filter(budget => utilsDate.isDateIntervalCompatibleWithNow(budget.datStart, budget.datEnd))[0]
-}
+}*/
 
 function retnum(str) {
     var num = (str.match(/\d+/) || [])[0];

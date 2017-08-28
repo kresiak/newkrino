@@ -64,25 +64,17 @@ export class OtpListComponent implements OnInit {
         }
         this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
-        var otpAddInfo = function (otp, otpSapMap, otpForBudgetMap) {
+        var otpAddInfo = function (otp, otpSapMap) {
             otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
-            if (otpForBudgetMap.has(otp.data._id)) {
-                let budgetInfo = otpForBudgetMap.get(otp.data._id)
-                otp.annotation.amountSpentNotYetInSap = budgetInfo.annotation.amountSpentNotYetInSap
-                otp.annotation.amountEngaged = budgetInfo.annotation.amountEngaged
-                otp.annotation.amountBilled = budgetInfo.annotation.amountBilled
-                otp.annotation.amountSpent = budgetInfo.annotation.amountSpent
-                otp.annotation.amountAvailable = budgetInfo.annotation.amountAvailable
-            }
             return otp
         }
 
-        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(), this.otpService.getAnnotatedOtpsForBudgetMap(),
+        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(),
             this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
-            (otps, otpSapMap, otpForBudgetMap, searchTxt: string) => {
+            (otps, otpSapMap, searchTxt: string) => {
                 this.configService.listSaveSearchText(this.listName, searchTxt)
                 let txt: string = searchTxt.trim().toUpperCase();
-                if (txt === '' || txt === '#') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
+                if (txt === '' || txt === '#') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap));
                 return otps.filter(otp => {
                     if (txt.startsWith('#LI')) {
                         return otp.data.isLimitedToOwner && !otp.data.isDeleted
@@ -110,7 +102,7 @@ export class OtpListComponent implements OnInit {
                     }
 
                     return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
-                }).map(otp => otpAddInfo(otp, otpSapMap, otpForBudgetMap));
+                }).map(otp => otpAddInfo(otp, otpSapMap));
             }).do(otps => {
                 this.nbHits = otps.length
                 this.total = otps.filter(otp => !otp.data.isDeleted).reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)

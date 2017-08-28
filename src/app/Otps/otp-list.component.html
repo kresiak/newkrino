@@ -35,7 +35,7 @@
 							<div class="col-sm-2"><b>Budget</b></div>
 							<div class="col-sm-2"><b>Engaged/Invoiced</b></div>
 							<div class="col-sm-2"><b>Available</b></div>
-							<div class="col-sm-1"><b>To</b></div>
+							<div class="col-sm-1"><b>Until</b></div>
 							<div class="col-sm-1"><b></b></div>
 						</div>
 					</template>
@@ -52,7 +52,8 @@
 							<div class="col-sm-2">{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{(otp.annotation.amountEngaged + otp.annotation.amountSpentNotYetInSap) | currency:'EUR':true:'1.2-2'}} / {{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}</div>
 							<div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{ otp.data.datEnd | shortDate }}</div>
+							<div class="col-sm-1" *ngIf="otp.annotation.currentPeriodAnnotation">{{ otp.annotation.currentPeriodAnnotation.datEnd | shortDate }}</div>
+							<div class="col-sm-1" *ngIf="!otp.annotation.currentPeriodAnnotation" [style.color]="'red'">Not for current period</div>
 							<div class="col-sm-1" [style.color]="'red'">
 								{{ otp.data.isDeleted ? 'Deleted ' : '' }}{{ otp.data.isBlocked ? 'Blocked ' : '' }}{{ otp.data.isLimitedToOwner ? 'Limited ' : '' }}{{ otp.data.isClosed ? 'Closed ' : '' }}
 								{{ !otp.data.priority ? 'No priority ' : '' }}

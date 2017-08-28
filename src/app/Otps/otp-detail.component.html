@@ -95,7 +95,9 @@
 											<div *ngIf="otp.annotation.currentPeriodIndex !== -1">
 												<gg-otp-period-detail [budgetPeriod]="otp.data.budgetPeriods[otp.annotation.currentPeriodIndex]" [otp]="otp" [budgetAnnotation]="otp.annotation.currentPeriodAnnotation"></gg-otp-period-detail>
 											</div>
-											<div *ngIf="otp.annotation.currentPeriodIndex === -1"><p>There is no otp budget defined for the present period.</p></div>
+											<div *ngIf="otp.annotation.currentPeriodIndex === -1">
+												<p>There is no otp budget defined for the present period.</p>
+											</div>
 										</div>
 									</div>
 								</template>
@@ -278,12 +280,12 @@
 								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [otp]="otp" [state]="state.Saps" [path]="path+'|O:Saps'" (stateChanged)="childSapsStateChanged($event)"></gg-sap-by-sapids-list>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="By date" id="tabSapsByDate">
+<!--						<ngb-tab title="By date" id="tabSapsByDate">
 							<template ngbTabContent>
 								<gg-sap-by-date [otp]="otp.data.name"></gg-sap-by-date>
 							</template>
 						</ngb-tab>
-					</ngb-tabset>
+-->					</ngb-tabset>
 				</div>
 			</div>
 		</template>

@@ -76,7 +76,7 @@ export class BasketService {
 
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
         return Observable.combineLatest(this.productService.getProductsBySupplier(supplierId).map(utils.hashMapFactory), basketObservable,
-            otpNeeded ? this.otpService.getAnnotatedOtpsForBudgetMap() : this.emptyObservable(),
+            otpNeeded ? this.otpService.getAnnotatedOtpsMap() : this.emptyObservable(),
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
             (productsMap, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
