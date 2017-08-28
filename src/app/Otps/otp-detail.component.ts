@@ -230,4 +230,9 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    excludeFixCostUpdated(excludeCost) {
+        this.otp.data.excludeFixCost = excludeCost
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
 }
