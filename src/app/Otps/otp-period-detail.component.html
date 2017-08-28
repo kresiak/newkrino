@@ -49,7 +49,7 @@
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="History of budget" id="tabHistoryOfBudget">
+                        <ngb-tab title="History of budget" id="tabHistoryOfBudget" *ngIf="budgetPeriod.budgetHistory && budgetPeriod.budgetHistory.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
