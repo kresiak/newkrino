@@ -42,7 +42,8 @@ export class OtpEnterComponent implements OnInit {
             isBlocked: [''],
             isClosed: [''],
             isLimitedToOwner: [''],
-            note: ['']
+            note: [''],
+            excludeFixCost: ['']
         });
     }
 
@@ -53,6 +54,7 @@ export class OtpEnterComponent implements OnInit {
             description: formValue.description,
             isBlocked: formValue.isBlocked !== '' && formValue.isBlocked !== null,
             isClosed: formValue.isClosed !== '' && formValue.isClosed !== null,
+            excludeFixCost: formValue.excludeFixCost !== '' && formValue.excludeFixCost !== null,
             isLimitedToOwner: formValue.isLimitedToOwner !== '' && formValue.isLimitedToOwner !== null,
             equipeId: this.equipeId,
             note: formValue.note,
