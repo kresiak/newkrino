@@ -67,6 +67,10 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isPlatformAdmin
     }
 
+    isPassiveUser() {
+        return this.annotatedUser && this.annotatedUser.data.isPassiveUser
+    }
+
     isGroupOrdersUser() {
         return this.annotatedUser && this.annotatedUser.annotation.isGroupOrdersUser
     }

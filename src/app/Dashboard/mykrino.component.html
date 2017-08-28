@@ -15,7 +15,7 @@
 					<gg-comments [comments]="currentUser.data.notes" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="My basket(s)" id="tabMainBaskets" *ngIf="((suppliersWithBasketObservable |async) || []).length>0 || ((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
+			<ngb-tab title="My basket(s)" id="tabMainBaskets" *ngIf="!authorizationStatusInfo.isPassiveUser() && ((suppliersWithBasketObservable |async) || []).length>0 || ((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">

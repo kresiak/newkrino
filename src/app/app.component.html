@@ -65,7 +65,7 @@
 						<label [ngbTooltip]="tipLaboName" placement="bottom" *ngIf="authorizationStatusInfo.isLoggedIn"  
 								style="font-size:12px;color:green;border-style:none" (click)="changeLabo()" >{{laboName}}</label>
 					</div>
-					<div class="col-sm-2 vcenter" *ngIf="nbProductsInBasket > 0">
+					<div class="col-sm-2 vcenter" *ngIf="nbProductsInBasket > 0 && !authorizationStatusInfo.isPassiveUser()">
 						<div class="col-sm-1" ><img height="25" width="25" src="../images/shopping-basket-info-icon.png" class="imgSearch" (click)="navigateToBasket()" placement="bottom" [ngbTooltip]="tipOpenBasket" /></div>
 					</div>
 				</div>
