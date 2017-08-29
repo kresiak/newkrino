@@ -70,30 +70,6 @@ export class OtpService {
         }
     }
 
-/*    private createAnnotatedOtp(otp, equipes, dashlets: any[]) {
-        if (!otp) return null;
-        if (!otp.priority) otp.priority = 0
-        otp.priority = +otp.priority || 0
-        let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
-        let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
-
-        otp = this.migrationChangeOtp(otp)
-        var posOfCurrentPeriod= !otp.budgetPeriods ? -1 : otp.budgetPeriods.findIndex(period => utilsDate.isDateIntervalCompatibleWithNow(period.datStart, period.datEnd))
-
-        return {
-            data: otp,
-            annotation: {
-                budgetPeriods: !otp.budgetPeriods ? [] : otp.budgetPeriods.map(p => this.getAnnotationsOfBudgetPeriod(p)),
-                currentPeriodIndex: posOfCurrentPeriod,
-                currentPeriodAnnotation: posOfCurrentPeriod === -1 ? undefined : this.getAnnotationsOfBudgetPeriod(otp.budgetPeriods[posOfCurrentPeriod]),
-                budget: utilsKrino.getOtpBudget(otp),
-                equipe: equipe ? equipe.name : 'no equipe',
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
-            }
-        }
-    }
-*/
-
     private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[]) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
@@ -138,15 +114,6 @@ export class OtpService {
     }
 
     getAnnotatedOtps(): Observable<any> {
-/*        return Observable.combineLatest(
-            this.dataStore.getDataObservable('otps'),
-            this.dataStore.getDataObservable('equipes'),
-            this.userService.getOtpDashletsForCurrentUser(),
-            (otps, equipes, dashlets) => {
-                return otps.map(otp => this.createAnnotatedOtp(otp, equipes, dashlets)).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
-            });
-
-*/    
         return this.getAnnotatedOtpsMap().map(map => Array.from(map.values()))
     }
 
