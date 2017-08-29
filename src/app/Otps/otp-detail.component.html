@@ -200,6 +200,32 @@
 									</div>
 								</template>
 							</ngb-tab>
+							<ngb-tab title="Warnings" id="tabWarnings">
+								<template ngbTabContent>
+									<div class="card">
+										<div class="card-block">
+											<div class="row">
+												<div class="col-sm-4 vcenter">number of months before end:</div>
+												<div class="col-sm-6 vcenter">
+													<gg-editor-number [content]="otp.data.warningNbMonthsToEnd" (editSaved)="warningNbMonthsToEndUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-4 vcenter">number of repeats after first warning:</div>
+												<div class="col-sm-6 vcenter">
+													<gg-editor-number [content]="otp.data.warningNbRepeats" (editSaved)="warningNbRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-4 vcenter">number of days to wait before repeat:</div>
+												<div class="col-sm-6 vcenter">
+													<gg-editor-number [content]="otp.data.warningNbDaysBetweenRepeats" (editSaved)="warningNbDaysBetweenRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+												</div>
+											</div>
+										</div>
+									</div>
+								</template>
+							</ngb-tab>
 						</ngb-tabset>
 
 					</div>

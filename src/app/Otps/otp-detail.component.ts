@@ -235,4 +235,19 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
+    warningNbMonthsToEndUpdated(monthsToEnd) {
+        this.otp.data.warningNbMonthsToEnd = monthsToEnd
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    warningNbRepeatsUpdated(numberOfRepeats) {
+        this.otp.data.warningNbRepeats = numberOfRepeats
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    warningNbDaysBetweenRepeatsUpdated(numberOfDays) {
+        this.otp.data.warningNbDaysBetweenRepeats = numberOfDays
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
 }
