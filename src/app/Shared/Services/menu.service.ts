@@ -7,7 +7,7 @@ import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
 
 Injectable()
 export class MenuService {
-    constructor(@Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router) {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router) {
 
     }
 
@@ -18,21 +18,26 @@ export class MenuService {
         this.menuSubject.next(this.menu)
     }
 
-
-    initializeMenus() {
-        Observable.combineLatest(this.router.events.filter(event => event instanceof NavigationEnd), this.authService.getStatusObservable(), this.dataStore.getLaboNameObservable(), (event, statusInfo, laboName) => {
+    loginSideEffectObservable(): Observable<any> {
+        return Observable.combineLatest(this.authService.getStatusObservable(), this.dataStore.getLaboNameObservable(), (statusInfo, laboName) => {
             return {
-                event: event,
                 statusInfo: statusInfo,
                 laboName: laboName
             }
         }).do(info => {
-            var event= info.event
-            var statusInfo= info.statusInfo
+            var statusInfo = info.statusInfo
             this.initMenuBasedOnLoginUser(statusInfo, info.laboName)
-            this.updateMenuBasedOnUrl(event)
             this.emitCurrentMenu()
-        }).subscribe(() => { });
+        })
+    }
+
+    initializeMenus() {
+        Observable.combineLatest(this.router.events.filter(event => event instanceof NavigationEnd), this.loginSideEffectObservable(),
+            ((event, nothing) => {
+                this.updateMenuBasedOnUrl(event)
+                this.emitCurrentMenu()
+            }))
+            .subscribe(() => { });
     }
 
     getMenuObservable(): Observable<any[]> {
@@ -48,7 +53,8 @@ export class MenuService {
                 ['order', 'otp', 'equipe', 'product', 'user', 'category', 'supplier', 'sap'].filter(objType => r.startsWith('/' + objType + '/')).forEach(objType => {
                     this.menu.push({
                         title: 'Detail ' + objType,
-                        active: true
+                        active: true,
+                        temporary: true
                     })
                 })
             }
@@ -163,6 +169,12 @@ export class MenuService {
     }
 
     private activateMenu(menuItem) {
+        this.menu = this.menu.filter(item => !item.temporary)
+
+        if (menuItem && menuItem.isAttractAttentionMode) {
+            delete menuItem.isAttractAttentionMode
+            delete menuItem.attractAttentionModeText
+        }
         this.menu.forEach(element => {
             element.active = false;
         });
