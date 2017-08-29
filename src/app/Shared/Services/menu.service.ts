@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 import { AuthenticationStatusInfo, AuthService } from './auth.service'
+import { NotificationService } from './notification.service'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import { DataStore } from './data.service'
 import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
@@ -7,7 +8,8 @@ import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
 
 Injectable()
 export class MenuService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router) {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router
+                                        , @Inject(NotificationService) private notificationService: NotificationService) {
 
     }
 
@@ -28,6 +30,15 @@ export class MenuService {
             var statusInfo = info.statusInfo
             this.initMenuBasedOnLoginUser(statusInfo, info.laboName)
             this.emitCurrentMenu()
+        }).switchMap(notImportant => {
+            return this.notificationService.getLmWarningMessages().map(messagesObj => messagesObj.finishingOtps.length).distinctUntilChanged()
+        }).do(nbFinishingOtp => {
+            var item= this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
+            if (item) {
+                item.isAttractAttentionMode= true
+                item.attractAttentionModeText= 'There are expiring otps'
+                this.emitCurrentMenu()
+            }
         })
     }
 
