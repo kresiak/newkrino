@@ -9,11 +9,12 @@ import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
 Injectable()
 export class MenuService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router
-                                        , @Inject(NotificationService) private notificationService: NotificationService) {
+        , @Inject(NotificationService) private notificationService: NotificationService) {
 
     }
 
     private menu: any[]
+    private statusInfo: AuthenticationStatusInfo
     private menuSubject: ReplaySubject<any[]> = new ReplaySubject(1)
 
     private emitCurrentMenu() {
@@ -27,17 +28,19 @@ export class MenuService {
                 laboName: laboName
             }
         }).do(info => {
-            var statusInfo = info.statusInfo
-            this.initMenuBasedOnLoginUser(statusInfo, info.laboName)
+            this.statusInfo = info.statusInfo
+            this.initMenuBasedOnLoginUser(this.statusInfo, info.laboName)
             this.emitCurrentMenu()
         }).switchMap(notImportant => {
             return this.notificationService.getLmWarningMessages().map(messagesObj => messagesObj.finishingOtps.length).distinctUntilChanged()
         }).do(nbFinishingOtp => {
-            var item= this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
-            if (item) {
-                item.isAttractAttentionMode= true
-                item.attractAttentionModeText= 'There are expiring otps'
-                this.emitCurrentMenu()
+            if (this.statusInfo && this.statusInfo.isAdministrator()) {
+                var item = this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
+                if (item) {
+                    item.isAttractAttentionMode = true
+                    item.attractAttentionModeText = 'There are expiring otps'
+                    this.emitCurrentMenu()
+                }
             }
         })
     }
