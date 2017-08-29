@@ -272,6 +272,32 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
+                                <ngb-tab title="Otp warning" id="tabOtpWarning">
+                                    <template ngbTabContent>
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm-3 vcenter">number of months before end:</div>
+                                                    <div class="col-sm-6 vcenter">
+                                                        <gg-editor-number [content]="labo.data.warningNbMonthsToEnd" (editSaved)="warningNbMonthsToEndUpdated($event)"></gg-editor-number>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 vcenter">number of repeats after first warning:</div>
+                                                    <div class="col-sm-6 vcenter">
+                                                        <gg-editor-number [content]="labo.data.warningNbRepeats" (editSaved)="warningNbRepeatsUpdated($event)"></gg-editor-number>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 vcenter">number of days to wait before repeat:</div>
+                                                    <div class="col-sm-6 vcenter">
+                                                        <gg-editor-number [content]="labo.data.warningNbDaysBetweenRepeats" (editSaved)="warningNbDaysBetweenRepeatsUpdated($event)"></gg-editor-number>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </ngb-tab>
                             </ngb-tabset>
                         </div>
                     </div>

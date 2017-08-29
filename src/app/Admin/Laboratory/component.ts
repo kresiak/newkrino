@@ -269,4 +269,19 @@ export class AdminLabo {
         firstIdItem.firstId = +firstId
         this.saveLabo()
     }
+
+    warningNbMonthsToEndUpdated(nbMonths) {
+        this.labo.data.warningNbMonthsToEnd = +nbMonths
+        this.saveLabo()
+    }
+
+    warningNbRepeatsUpdated(nbRepeats) {
+        this.labo.data.warningNbRepeats = +nbRepeats
+        this.saveLabo()
+    }
+
+    warningNbDaysBetweenRepeatsUpdated(nbDays) {
+        this.labo.data.warningNbDaysBetweenRepeats = +nbDays
+        this.saveLabo()
+    }
 }
