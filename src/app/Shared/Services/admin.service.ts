@@ -20,7 +20,10 @@ export class AdminService {
                             adminIds: [],
                             secrExecIds: [],
                             validationSteps: [],
-                            passwordGroupOrdersUser: 'go'
+                            passwordGroupOrdersUser: 'go',
+                            warningNbMonthsToEnd: 2,
+                            warningNbRepeats: 1,
+                            warningNbDaysBetweenRepeats: 5
                         },
                         annotation: {
                             validationSteps: this.getPossibleSteps()
@@ -34,6 +37,11 @@ export class AdminService {
                             validationSteps: this.getSteps(labos[0].validationSteps || [])
                         }
                     }
+
+                    if (!x.data.warningNbMonthsToEnd) x.data.warningNbMonthsToEnd=2
+                    if (!x.data.warningNbRepeats) x.data.warningNbRepeats=1
+                    if (!x.data.warningNbDaysBetweenRepeats) x.data.warningNbDaysBetweenRepeats=5
+
 
                     if (! x.data.sapFirstIdList) {
                         x.data.sapFirstIdList= [

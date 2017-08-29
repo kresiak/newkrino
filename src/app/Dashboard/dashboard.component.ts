@@ -49,4 +49,10 @@ export class DashboardComponent implements OnInit {
         this.navigationService.maximizeOrUnmaximize('/order', id, 'dashboard', false)
     }
 
+    navigateToOtp(id) {
+        this.navigationService.maximizeOrUnmaximize('/otp', id, 'dashboard', false)
+    }
+
+    
+
 }

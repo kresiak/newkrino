@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { UserService } from './user.service'
 import { SapService } from './sap.service'
+import { AdminService } from './admin.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
@@ -13,7 +14,7 @@ import * as utilsDate from './../Utils/dates'
 Injectable()
 export class OtpService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(UserService) private userService: UserService,
-        @Inject(SapService) private sapService: SapService) { }
+        @Inject(SapService) private sapService: SapService, @Inject(AdminService) private adminService: AdminService) { }
 
     // otps
     // ======
@@ -70,11 +71,15 @@ export class OtpService {
         }
     }
 
-    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[]) {
+    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[], labo) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
         otp = this.migrationChangeOtp(otp)
+        if(!otp.warningNbMonthsToEnd) otp.warningNbMonthsToEnd= labo.data.warningNbMonthsToEnd
+        if(!otp.warningNbRepeats) otp.warningNbRepeats= labo.data.warningNbRepeats
+        if(!otp.warningNbDaysBetweenRepeats) otp.warningNbDaysBetweenRepeats= labo.data.warningNbDaysBetweenRepeats
+
 
         if (otp.name==='O.VTPAGFM01-01-F'){
             var x=555
@@ -132,8 +137,9 @@ export class OtpService {
             this.sapService.getSapOtpMapObservable(),
             this.dataStore.getDataObservable('equipes'),
             this.userService.getOtpDashletsForCurrentUser(),
-            (otps, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets) => {
-                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets))
+            this.adminService.getLabo(),
+            (otps, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo) => {
+                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo))
                 var b = a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
                 return utils.hashMapFactoryForAnnotated(b)
             }).publishReplay(1);
@@ -141,6 +147,16 @@ export class OtpService {
         this.annotatedOtpsForBudgetMapObservable.connect();
 
         return this.annotatedOtpsForBudgetMapObservable
+    }
+
+    getAnnotatedFinishingOtps(): Observable<any> {
+        return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.annotation.currentPeriodAnnotation).filter(otp => otp.annotation.amountAvailable > 1).filter(otp => {
+            var warningNbMonthsToEnd= +otp.data.warningNbMonthsToEnd
+            if (!warningNbMonthsToEnd) return false
+            var dat= moment(otp.annotation.currentPeriodAnnotation.datEnd, 'DD/MM/YYYY HH:mm:ss').add(-warningNbMonthsToEnd, 'month').add(1, 'day').startOf('day') 
+            var now = moment()
+            return now.isAfter(dat)
+        }));
     }
 
     getAnnotatedOtpsByEquipe(equipeId): Observable<any> {

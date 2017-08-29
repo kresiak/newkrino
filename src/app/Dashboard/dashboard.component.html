@@ -86,6 +86,22 @@
 			</div>
 		</div>
 
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.finishingOtps.length>0">
+			<div class="card text-xs-center card-outline-warning">
+				<div class="card-header">
+					OTP
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">Soon expiring</h6>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let otp of labManagerMessages.finishingOtps">
+							<gg-date-pointer [date]="otp.annotation.currentPeriodAnnotation.datEnd"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOtp(otp.data._id)">{{otp.data.name}}</a> still has {{otp.annotation.amountAvailable  | currency:'EUR':true:'1.2-2'}}
+							</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.userMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">

@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { OrderService } from './order.service'
+import { OtpService } from './otp.service'
 import { StockService } from './stock.service'
 import { VoucherService } from './voucher.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
@@ -11,7 +12,7 @@ Injectable()
 export class NotificationService {
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
-        @Inject(OrderService) private orderService: OrderService, 
+        @Inject(OrderService) private orderService: OrderService,  @Inject(OtpService) private otpService: OtpService, 
         @Inject(StockService) private stockService: StockService, @Inject(VoucherService) private voucherService: VoucherService) {
 
     }
@@ -23,7 +24,8 @@ export class NotificationService {
         return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.stockService.getAnnotatedStockOrdersAll(), 
             this.voucherService.getOpenRequestedVouchers(), this.voucherService.getAnnotatedUsedVouchersReadyForSap(),
             this.getAnnotatedRecentLogs(24), this.getAdminMonitorForCurrentUser(), this.orderService.getAnnotedOrdersByStatus('Received by SAP'), this.orderService.getAnnotedOrdersValidable(),
-            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig, classicOrders, validableOrders) => {
+            this.otpService.getAnnotatedFinishingOtps(),
+            (annotatedFridgeOrders, annotatedStockOrders, openRequestVouchers, usedVouchers, logs, adminConfig, classicOrders, validableOrders, finishingOtps) => {
                 let annotatedFridgeOrdersOk = annotatedFridgeOrders.filter(o => !o.data.isDelivered)
                 let annotatedStockOrdersOk = annotatedStockOrders.filter(o => !o.data.isProcessed)
 
@@ -35,6 +37,7 @@ export class NotificationService {
                     usedVouchers: usedVouchers,
                     classicOrders: classicOrders,
                     validableOrders: validableOrders,
+                    finishingOtps: finishingOtps,
                     equipeMonitors: logs.filter(log => log.data.type === 'equipe' && adminConfig.equipe.ids.includes(log.data.id) && log.data.amount > adminConfig.equipe.amount),
                     otpMonitors: logs.filter(log => log.data.type === 'otp' && adminConfig.otp.ids.includes(log.data.id) && log.data.amount > adminConfig.otp.amount),
                     userMonitors: logs.filter(log => log.data.type === 'user' && adminConfig.user.ids.includes(log.data.id) && log.data.amount > adminConfig.user.amount),
