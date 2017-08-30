@@ -37,8 +37,8 @@ export class MenuService {
             if (this.statusInfo && this.statusInfo.isAdministrator()) {
                 var item = this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
                 if (item) {
-                    item.isAttractAttentionMode = true
-                    item.attractAttentionModeText = 'There are expiring otps'
+                    item.isAttractAttentionMode = nbFinishingOtp 
+                    item.attractAttentionModeText = nbFinishingOtp ? 'There are expiring otps' : ''
                     this.emitCurrentMenu()
                 }
             }
