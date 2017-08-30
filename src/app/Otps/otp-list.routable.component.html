@@ -9,7 +9,7 @@
 
                 </template>
             </ngb-tab>
-            <ngb-tab title="Soon expiring" id="tabViewExpiring" *ngIf="((otpsObservableExpiring | async) || []).length > 0">
+            <ngb-tab title="Soon expiring ({{nbExpiringOtps}})" id="tabViewExpiring" *ngIf="nbExpiringOtps">
                 <template ngbTabContent>
 
                     <gg-otp-list [state]="state" [otpsObservable]="otpsObservableExpiring"></gg-otp-list>

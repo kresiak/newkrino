@@ -13,6 +13,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class OtpListComponentRoutable implements OnInit {
+    nbExpiringOtps: number= 0;
     constructor(private equipeService: EquipeService, private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private otpService: OtpService) { }
 
     private isPageRunning: boolean = true
@@ -30,10 +31,15 @@ export class OtpListComponentRoutable implements OnInit {
             this.state = state
         })
         this.otpsObservable = this.otpService.getAnnotatedOtps();
+
         this.otpsObservableExpiring = this.otpService.getAnnotatedFinishingOtps();
         this.equipesObservable = this.equipeService.getAnnotatedEquipes();
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
+        })
+
+        this.otpsObservableExpiring.takeWhile(() => this.isPageRunning).subscribe(otps => {
+            this.nbExpiringOtps= otps ? otps.length : 0
         })
     }
 
