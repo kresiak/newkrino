@@ -4,7 +4,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
 import { VoucherService } from '../Shared/Services/voucher.service';
 import { StockService } from '../Shared/Services/stock.service';
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable} from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { DataStore } from '../Shared/Services/data.service'
@@ -17,6 +17,9 @@ import { DataStore } from '../Shared/Services/data.service'
 )
 export class OrderListComponentRoutable implements OnInit {
     laboName: string;
+
+    private isPageRunning: boolean = true
+
     constructor(private voucherService: VoucherService, private orderService: OrderService, private route: ActivatedRoute, private supplierService: SupplierService,
         private navigationService: NavigationService, private authService: AuthService, private stockService: StockService, private dataStore: DataStore) { }
 
@@ -40,10 +43,10 @@ export class OrderListComponentRoutable implements OnInit {
         this.stockOrdersObservable = this.stockService.getAnnotatedStockOrdersAll()
         this.webVouchersObservable = this.voucherService.getAnnotatedUsedVouchersByDate()
 
-        this.subscriptionState = this.navigationService.getStateObservable().subscribe(state => {
+        this.navigationService.getStateObservable().takeWhile(() => this.isPageRunning).subscribe(state => {
             this.state = state
         })
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         })
 
@@ -60,8 +63,7 @@ export class OrderListComponentRoutable implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionState.unsubscribe()
+        this.isPageRunning = false
     }
 
     private fridgeOrdersObservable: Observable<any>;
@@ -71,6 +73,4 @@ export class OrderListComponentRoutable implements OnInit {
 
     private stockOrdersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private subscriptionState: Subscription
 }
