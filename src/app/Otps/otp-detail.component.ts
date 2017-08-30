@@ -47,8 +47,7 @@ export class OtpDetailComponent implements OnInit {
     }
 
     private equipeListObservable
-    private otp;
-    private otpBudget;
+    private otp;    
     private sapIdList: any[]
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
@@ -59,11 +58,12 @@ export class OtpDetailComponent implements OnInit {
     private subscriptionOtp: Subscription
     private subscriptionSapIdList: Subscription    
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
-        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => otp.data.categoryIds);
+        this.selectedCategoryIdsObservable = this.otpObservable.map(otp => (otp && otp.data) ? otp.data.categoryIds : []);
         this.subscriptionOtp = this.otpObservable.subscribe(otp => {
+            if (!otp) return
 
             if (!comparatorsUtils.softCopy(this.otp, otp))
                 this.otp = otp;
@@ -76,10 +76,7 @@ export class OtpDetailComponent implements OnInit {
                     this.sapIdList = lst
                 })
 
-                this.otpService.getAnnotatedOtpsMap().first().subscribe(map => {
-                    this.otpBudget = map.get(otp.data._id)
-                    this.pieSpentChart = this.chartService.getSpentPieData(this.otpBudget.annotation.amountSpent / this.otpBudget.annotation.budget * 100);
-                })
+                this.pieSpentChart = this.chartService.getSpentPieData(this.otp.annotation.amountSpent / this.otp.annotation.budget * 100);
             }
         });
         this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
