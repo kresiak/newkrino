@@ -1,5 +1,5 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { OtpService } from '../Shared/Services/otp.service'
 import { SapService } from './../Shared/Services/sap.service'
@@ -15,34 +15,34 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 export class OtpListComponentRoutable implements OnInit {
     constructor(private equipeService: EquipeService, private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private otpService: OtpService) { }
 
+    private isPageRunning: boolean = true
+
     state: {}
     equipesObservable: Observable<any>;
+    otpsObservableExpiring: Observable<any>;
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
 
     ngOnInit(): void {
-        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
-            this.state= state
-        })        
-        this.otpsObservable = this.otpService.getAnnotatedOtps();
-        this.equipesObservable = this.equipeService.getAnnotatedEquipes();
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
-            this.authorizationStatusInfo= statusInfo
+        this.navigationService.getStateObservable().takeWhile(() => this.isPageRunning).subscribe(state => {
+            this.state = state
         })
-
+        this.otpsObservable = this.otpService.getAnnotatedOtps();
+        this.otpsObservableExpiring = this.otpService.getAnnotatedFinishingOtps();
+        this.equipesObservable = this.equipeService.getAnnotatedEquipes();
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-         this.subscriptionState.unsubscribe()
-   }
-    
+        this.isPageRunning = false
+    }
+
 
     private otpsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription    
-    private subscriptionState: Subscription 
 }
 
