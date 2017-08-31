@@ -9,6 +9,52 @@
 
                 </template>
             </ngb-tab>
+            <ngb-tab title="Attribute to equipe" id="tabAttributeToEquipe">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <img src="../../images/refresh.png" (click)="refreshAttributionList()" class="imgSearch" placement="right" [ngbTooltip]="'Refresh: hide the sap items already attributed to an equipe'"/>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1 vcenter"><b>Sap Id</b></div>
+                                <div class="col-sm-1 vcenter"><b>Last activity</b></div>
+                                <div class="col-sm-1 vcenter"><b>Already invoiced</b></div>
+                                <div class="col-sm-1 vcenter"><b>Remaining engaged</b></div>
+                                <div class="col-sm-1 vcenter"><b>Supplier</b></div>
+                                <div class="col-sm-2 vcenter"><b>Otp</b></div>
+                                <div class="col-sm-2 vcenter"><b>Equipe</b></div>
+                            </div>
+                            <div *ngFor="let sapItem of sapItemsToAttribute">
+                                <div class="row">
+                                    <div class="col-sm-1 vcenter">
+                                        {{sapItem.sapId}}
+                                    </div>
+                                    <div class="col-sm-1 vcenter">
+                                        {{sapItem.dateLastActivity}}
+                                    </div>
+                                    <div class="col-sm-1 vcenter">
+                                        {{sapItem.alreadyBilled | currency:'EUR':true:'1.2-2'}}
+                                    </div>
+                                    <div class="col-sm-1 vcenter">
+                                        {{ sapItem.residuEngaged | currency:'EUR':true:'1.2-2'}}
+                                    </div>
+                                    <div class="col-sm-1 vcenter">
+                                        <gg-text-compact [text]="!sapItem.mainData.data.isNoEngag ?  sapItem.mainData.data.supplier : sapItem.typesPiece" [numberOfChar]="10"></gg-text-compact>
+                                    </div>
+                                    <div class="col-sm-2 vcenter">
+                                        <gg-text-compact [text]="sapItem.mainData.annotation.otpTxt"></gg-text-compact>
+                                    </div>
+                                    <div class="col-sm-2 vcenter">
+                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'choose an equipe'" [selectedId]="sapItem.equipeId" [editMode]="!sapItem.equipeId"
+                                            (idChanged)="equipeChanged($event, sapItem)"></gg-editor-autocomplete>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
             <ngb-tab title="View Piece Types" id="tabPiecesInfo">
                 <template ngbTabContent>
                     <div class="card" id>

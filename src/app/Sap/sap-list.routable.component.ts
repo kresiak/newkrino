@@ -4,6 +4,7 @@ import { OrderService } from './../Shared/Services/order.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { EquipeService } from '../Shared/Services/equipe.service';
 
 @Component(
     {
@@ -12,10 +13,12 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 )
 export class SapListComponentRoutable implements OnInit {
     sapPieceTypesInfo: any[];
-    constructor(private navigationService: NavigationService, private authService: AuthService, private sapService: SapService) { }
+    constructor(private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private equipeService: EquipeService) { }
 
     state: {}
 
+    private sapItemsToAttribute: any[]
+    private equipeListObservable: Observable<any>     
 
     private isPageRunning: boolean = true
 
@@ -36,6 +39,12 @@ export class SapListComponentRoutable implements OnInit {
         this.sapService.getSapPieceTypesInfoObservable().takeWhile(() => this.isPageRunning).subscribe(infos => {
             this.sapPieceTypesInfo = infos
         })
+
+        this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
+            this.sapItemsToAttribute= items
+        })
+
+        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
     }
 
     ngOnDestroy(): void {
@@ -48,5 +57,16 @@ export class SapListComponentRoutable implements OnInit {
 
     private sapsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
+
+    equipeChanged(equipeId, sapItem) {
+        sapItem.equipeId= equipeId
+        this.sapService.updateSapEquipeAttribution(sapItem.sapId, equipeId)    
+    }
+    
+    refreshAttributionList() {
+        this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
+            this.sapItemsToAttribute= items
+        })        
+    }
 }
 

@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core'
 import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { ApiService } from './api.service'
+import { AdminService } from './admin.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utilsObservable from './../Utils/observables'
@@ -9,7 +10,7 @@ import * as utilsObservable from './../Utils/observables'
 
 Injectable()
 export class SapService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService) {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(AdminService) private adminService: AdminService) {
         this.initSapIdMapObservable()
         this.initSapOtpMapObservable()
         this.initSapItemsObservable()
@@ -256,6 +257,38 @@ export class SapService {
             this.sapTvaCodesObservable.connect()
         }*/
 
+    getSapItemsToAttributeToEquipe(): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('sap.fusion'), this.dataStore.getDataObservable('sap.krino.annotations'), this.adminService.getLabo(), 
+            (sapItems, sapAnnotations, labo) => { 
+                var krinoStartDate= moment(labo.data.krinoStartDate,'DD/MM/YYYY HH:mm:ss')
+                var fnIsDateOk= (date) => {
+                    return krinoStartDate.isBefore(moment(date,'DD/MM/YYYY'))
+                }
+                var sapAnnotationsMap: Map<number, any>= utilsObservable.hashMapFactoryHelper(sapAnnotations, a => a.sapId)
+                var a= sapItems.filter(item => item.mainData && !(+item.mainData.ourRef))
+                a= a.filter(item => !sapAnnotationsMap.has(item.sapId))
+                a= a.filter(item => fnIsDateOk(item.dateLastActivity))
+                return a.sort((a, b) => a.counter - b.counter)
+            })
+    }
 
+    updateSapEquipeAttribution(sapId, equipeId) {
+        this.dataStore.getDataObservable('sap.krino.annotations').first().subscribe(annots => {
+            var theAnnot= annots.filter(a => a.sapId===sapId)[0]
+            if (theAnnot && equipeId) {
+                theAnnot.equipeId=equipeId
+                this.dataStore.updateData('sap.krino.annotations', theAnnot._id, theAnnot)
+            }
+            else if (theAnnot && !equipeId) {
+                this.dataStore.deleteData('sap.krino.annotations', theAnnot._id)
+            }
+            else if (equipeId){
+                this.dataStore.addData('sap.krino.annotations', {
+                    sapId: sapId,
+                    equipeId: equipeId
+                })
+            }
+        })
+    }
 }
 
