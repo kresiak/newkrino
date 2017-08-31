@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, OnChanges, ViewEncapsulation, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, Output, OnInit, OnChanges, ViewEncapsulation, EventEmitter, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { SelectableData } from '../../Shared/Classes/selectable-data'
@@ -10,7 +10,8 @@ import { SelectableData } from '../../Shared/Classes/selectable-data'
         'class': 'editor'
     },
     templateUrl: './editor-autocomplete.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorAutocomplete implements OnInit {
     constructor(private _sanitizer: DomSanitizer) {
@@ -45,8 +46,8 @@ export class EditorAutocomplete implements OnInit {
     }
 
     save() {
-        this.idChanged.next(this.selectedItem.id)
-        this.initContent( Observable.from([this.selectedItem.id]) )
+        this.idChanged.next(this.selectedItem ? this.selectedItem.id : undefined)
+        this.initContent( Observable.from([this.selectedItem ? this.selectedItem.id : undefined]) )
         this.editMode = false
     }
 
