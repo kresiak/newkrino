@@ -46,10 +46,19 @@
                                         <gg-text-compact [text]="sapItem.mainData.annotation.otpTxt"></gg-text-compact>
                                     </div>
                                     <div class="col-sm-2 vcenter">
-                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'choose an equipe'" [selectedId]="sapItem.equipeId" [editMode]="!sapItem.equipeId"
-                                            (idChanged)="equipeChanged($event, sapItem)"></gg-editor-autocomplete>
+                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="sapItem.equipeId" [editMode]="!sapItem.equipeId"
+                                            (idChanged)="equipeChanged($event, sapItem)" [emptyContentText]="'ignore for now'" (hasBeenCanceled)="equipeChangeCancelled(sapItem)"></gg-editor-autocomplete>
+                                    </div>
+                                    <div class="col-sm-2 vcenter">
+                                        <button type="button" class="btn btn-link" (click)="sapItem.isClosed=!sapItem.isClosed">Show/hide otp</button>
                                     </div>
                                 </div>
+                                <div class="row" [ngbCollapse]="!sapItem.isClosed"> 
+                                    <gg-sap-detail [sapObservable]="getSapObservable(sapItem.sapId)"></gg-sap-detail>
+                                </div>
+                            </div>
+                            <div class="row">
+                                There are {{sapItemsToAttributeAll.length}} items in total to process. Process the first ones (or set them to 'ignore for now') and then press the refresh button above.
                             </div>
                         </div>
                     </div>

@@ -18,12 +18,21 @@ export class SapListComponentRoutable implements OnInit {
     state: {}
 
     private sapItemsToAttribute: any[]
+    private sapItemsToAttributeAll: any[]
+
     private equipeListObservable: Observable<any>     
 
     private isPageRunning: boolean = true
 
     ngAfterViewInit() {
         this.navigationService.jumpToOpenRootAccordionElement()
+    }
+
+    private prepareSapItemsToAttributeToEquipe() {
+        this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
+            this.sapItemsToAttributeAll= items.filter(item => !this.sapItemtsToIgnore.has(item.sapId))
+            this.sapItemsToAttribute= this.sapItemsToAttributeAll.slice(0, 10)
+        })
     }
 
     ngOnInit(): void {
@@ -40,9 +49,7 @@ export class SapListComponentRoutable implements OnInit {
             this.sapPieceTypesInfo = infos
         })
 
-        this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
-            this.sapItemsToAttribute= items
-        })
+        this.prepareSapItemsToAttributeToEquipe()
 
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
     }
@@ -58,15 +65,31 @@ export class SapListComponentRoutable implements OnInit {
     private sapsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
+    private sapItemtsToIgnore= new Set<number>()
+
+    private doIgnoreWork(sapId) {
+        if (!this.sapItemtsToIgnore.has(sapId)) this.sapItemtsToIgnore.add(sapId)
+    }
+
     equipeChanged(equipeId, sapItem) {
+        if (this.sapItemtsToIgnore.has(sapItem.sapId)) this.sapItemtsToIgnore.delete(sapItem.sapId)       
+        if (!equipeId) this.doIgnoreWork(sapItem.sapId)
+
         sapItem.equipeId= equipeId
         this.sapService.updateSapEquipeAttribution(sapItem.sapId, equipeId)    
     }
     
-    refreshAttributionList() {
-        this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
-            this.sapItemsToAttribute= items
-        })        
+    equipeChangeCancelled(sapItem) {
+        if (!sapItem.equipeId) this.doIgnoreWork(sapItem.sapId)
     }
+
+    refreshAttributionList() {
+        this.prepareSapItemsToAttributeToEquipe()
+    }
+
+    getSapObservable(sapId: number) {
+        return this.sapService.getSapItemObservable(sapId)
+    }
+    
 }
 

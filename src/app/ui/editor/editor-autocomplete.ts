@@ -26,6 +26,7 @@ export class EditorAutocomplete implements OnInit {
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() idChanged = new EventEmitter();
     @Output() hasBeenClicked = new EventEmitter();
+    @Output() hasBeenCanceled = new EventEmitter();
 
     private content;    
     private selectedItem;
@@ -53,6 +54,7 @@ export class EditorAutocomplete implements OnInit {
 
     cancel() {
         this.editMode = false;
+        this.hasBeenCanceled.next()
     }
 
     edit() {
