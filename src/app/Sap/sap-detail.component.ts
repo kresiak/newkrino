@@ -1,12 +1,13 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { SapService } from '../Shared/Services/sap.service'
-import { Observable, BehaviorSubject, Subscription } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { UserService } from './../Shared/Services/user.service'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { NgbTabChangeEvent, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+
 import * as moment from "moment"
 
 
@@ -17,7 +18,7 @@ import * as moment from "moment"
     }
 )
 export class SapDetailComponent implements OnInit {
-    constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, 
+    constructor(private sapService: SapService, private route: ActivatedRoute, private userService: UserService, private authService: AuthService, 
                 private navigationService: NavigationService, private equipeService: EquipeService) {
     }
 
@@ -34,8 +35,8 @@ export class SapDetailComponent implements OnInit {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private subscriptionSap: Subscription
+
+    private isPageRunning: boolean = true    
 
     private sapObj;
     private sapItem;
@@ -44,20 +45,30 @@ export class SapDetailComponent implements OnInit {
 
     private equipeListObservable: Observable<any>  
     private groupsForSelectionObservable: Observable<any>
+    private equipeId: string
 
     ngOnInit(): void {
         this.stateInit();
 
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
 
-        this.subscriptionSap = this.sapObservable.subscribe(res => {
+        this.sapObservable.takeWhile(() => this.isPageRunning).do(res => {
             this.sapObj= res
             this.sapItem= res.mainData
             this.sapEngage= res.engaged
             this.sapFacture= res.factured
+        }).switchMap(res => {
+            var sapId= res.mainData.data.sapId
+            return this.sapService.getSapKrinoAnnotationMap().map(sapKrinoAnnotationMap => {
+                if (!sapKrinoAnnotationMap || !sapKrinoAnnotationMap.has(sapId)) return undefined
+                return sapKrinoAnnotationMap.get(sapId).equipeId
+            }).takeWhile(() => this.isPageRunning)
+        }).do(equipeId => {
+            this.equipeId= equipeId
         })
+        .subscribe()
 
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
 
@@ -67,12 +78,11 @@ export class SapDetailComponent implements OnInit {
                 name: group.data.name
             }
         }))
-        
+       
     }
 
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionSap.unsubscribe()
+        this.isPageRunning= false
     }
 
     public beforeTabChange($event: NgbTabChangeEvent) {
@@ -99,8 +109,8 @@ export class SapDetailComponent implements OnInit {
         
     }
 
-    equipeChanged(newid) {
-        if (!newid) return
+    equipeChanged(equipeId) {
+        this.sapService.updateSapEquipeAttribution(this.sapItem.data.sapId, equipeId)
     }
 
     equipeGroupChanged(newid) {

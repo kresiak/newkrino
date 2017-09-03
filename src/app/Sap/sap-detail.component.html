@@ -87,17 +87,17 @@
                         <div class="row">
                             <div class="col-sm-2 vcenter">Equipe:</div>
                             <div class="col-sm-6 vcenter">
-                                <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'choose an equipe'" [selectedId]="undefined"
+                                <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'choose an equipe'" [selectedId]="equipeId"
                                     (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
                             </div>
                         </div>
-                        <div class="row">
+<!--                        <div class="row">
                             <div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
                             <div class="col-sm-6 vcenter">
                                 <gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"
                                     (idChanged)="equipeGroupChanged($event)"></gg-editor-autocomplete>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </template>

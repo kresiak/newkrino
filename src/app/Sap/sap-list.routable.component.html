@@ -9,7 +9,7 @@
 
                 </template>
             </ngb-tab>
-            <ngb-tab title="Attribute to equipe ({{sapItemsToAttributeAll.length}})" id="tabAttributeToEquipe">
+            <ngb-tab title="Attribute to equipe ({{sapItemsToAttributeAll.length}})" *ngIf="sapItemsToAttribute" id="tabAttributeToEquipe">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

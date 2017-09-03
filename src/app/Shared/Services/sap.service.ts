@@ -272,6 +272,10 @@ export class SapService {
             })
     }
 
+    getSapKrinoAnnotationMap(): Observable<any> {
+        return this.dataStore.getDataObservable('sap.krino.annotations').map(utilsObservable.hashMapFactoryCurry(a => a.sapId))
+    }
+
     updateSapEquipeAttribution(sapId, equipeId) {
         this.dataStore.getDataObservable('sap.krino.annotations').first().subscribe(annots => {
             var theAnnot= annots.filter(a => a.sapId===sapId)[0]
