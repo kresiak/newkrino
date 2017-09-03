@@ -45,17 +45,17 @@ export class SapListComponent implements OnInit {
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
 
-    private isReverse: boolean= false
+    private isReverse: boolean = false
     private isReverseObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isReverse)
 
-    private sortKey: SortKey= SortKey.No
+    private sortKey: SortKey = SortKey.No
     private sortKeyObservable: BehaviorSubject<SortKey> = new BehaviorSubject<SortKey>(this.sortKey)
 
     private saps;
 
     private listName = 'sapList'
     private showSearch: boolean = false
-
+    private isPageRunning: boolean = true
 
     constructor(private sapService: SapService, private orderService: OrderService, private configService: ConfigService) {
         this.searchForm = new FormGroup({
@@ -143,9 +143,9 @@ export class SapListComponent implements OnInit {
                 this.nbHits = saps.length
             })
             .switchMap(saps => {
-                var sapsCopy= comparatorsUtils.clone(saps)
+                var sapsCopy = comparatorsUtils.clone(saps)
                 return this.sortKeyObservable.map(sortKey => {
-                    switch(sortKey){
+                    switch (sortKey) {
                         case SortKey.No: {
                             return saps
                         }
@@ -155,23 +155,23 @@ export class SapListComponent implements OnInit {
                             })
                         }
                         case SortKey.OurRef: {
-                            return sapsCopy.sort((a, b) => {                                
-                                return a.mainData.data.ourRef < b.mainData.data.ourRef ? 1 : 
-                                        (a.mainData.data.ourRef > b.mainData.data.ourRef ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
+                            return sapsCopy.sort((a, b) => {
+                                return a.mainData.data.ourRef < b.mainData.data.ourRef ? 1 :
+                                    (a.mainData.data.ourRef > b.mainData.data.ourRef ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
                             })
                         }
                         case SortKey.EngagDate: {
-                            return sapsCopy.sort((a, b) => {                                
+                            return sapsCopy.sort((a, b) => {
                                 var d1 = moment(a.engaged ? a.engaged.data.maxDate : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
-                                var d2 = moment(b.engaged ? b.engaged.data.maxDate : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()                                
+                                var d2 = moment(b.engaged ? b.engaged.data.maxDate : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
 
                                 return d1 < d2 ? 1 : (d1 > d2 ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
                             })
                         }
                         case SortKey.LastDate: {
-                            return sapsCopy.sort((a, b) => {                                
+                            return sapsCopy.sort((a, b) => {
                                 var d1 = moment(a.dateLastActivity ? a.dateLastActivity : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
-                                var d2 = moment(b.dateLastActivity ? b.dateLastActivity : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()                                
+                                var d2 = moment(b.dateLastActivity ? b.dateLastActivity : '01/01/1970', 'DD/MM/YYYY HH:mm:ss').toDate()
 
                                 return d1 < d2 ? 1 : (d1 > d2 ? -1 : (a.mainData.data.sapId <= b.mainData.data.sapId ? 1 : -1))
                             })
@@ -180,7 +180,7 @@ export class SapListComponent implements OnInit {
                 })
             })
             .switchMap(saps => {
-                var sapsCopy= comparatorsUtils.clone(saps)
+                var sapsCopy = comparatorsUtils.clone(saps)
                 return this.isReverseObservable.map(isReverse => {
                     return isReverse ? sapsCopy.reverse() : saps
                 })
@@ -200,10 +200,23 @@ export class SapListComponent implements OnInit {
                         return sap
                     })
                 })
-            }).subscribe(saps => this.saps = saps);
+            }).switchMap(saps => {
+                return this.sapService.getSapKrinoAnnotationAnnotatedMap().takeWhile(() => this.isPageRunning).map(krinoAnnotationMap => {
+                    return saps.map(sap => {
+                        if (!(sap.mainData && sap.mainData.data.ourRef && +sap.mainData.data.ourRef)) {
+                            if (krinoAnnotationMap && krinoAnnotationMap.has(sap.mainData.data.sapId)) {
+                                sap.equipeInfo = krinoAnnotationMap.get(sap.mainData.data.sapId).annotation.equipe
+                            }
+                        }
+                        return sap
+                    })
+                })
+            })
+            .subscribe(saps => this.saps = saps);
     }
 
     ngOnDestroy(): void {
+        this.isPageRunning = false
         this.subscriptionSaps.unsubscribe()
     }
 
@@ -237,12 +250,12 @@ export class SapListComponent implements OnInit {
     }
 
     private reverseHits() {
-        this.isReverse = ! this.isReverse
+        this.isReverse = !this.isReverse
         this.isReverseObservable.next(this.isReverse)
     }
 
-    private setSortKey(sortKey: SortKey) {        
-        this.sortKey= sortKey === this.sortKey ? SortKey.No : sortKey
+    private setSortKey(sortKey: SortKey) {
+        this.sortKey = sortKey === this.sortKey ? SortKey.No : sortKey
         this.sortKeyObservable.next(this.sortKey)
     }
 
