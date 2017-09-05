@@ -47,7 +47,7 @@ export class OtpService {
         if (!otp.budgetPeriods) {    // for migration of old otps
             otp.budgetPeriods = [
                 {
-                    budget: otp.budget || 0,
+                    budget: +otp.budget || 0,
                     datStart: otp.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
                     datEnd: otp.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
                 }
@@ -65,7 +65,7 @@ export class OtpService {
         return {
             changesSum: changesSum,
             blockedSum: blockedSum,
-            budgetAvailable: p.budget + changesSum - blockedSum,
+            budgetAvailable: +p.budget + changesSum - blockedSum,
             datStart: p.datStart,
             datEnd: p.datEnd
         }
