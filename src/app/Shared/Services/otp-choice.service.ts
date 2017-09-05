@@ -4,6 +4,7 @@ import { AuthService } from './auth.service'
 import { OrderService } from './order.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import * as utilsDate from './../Utils/dates'
+import * as moment from "moment"
 
 
 Injectable()
@@ -34,7 +35,10 @@ export class OtpChoiceService {
                 })
                 .filter(otp => otp.data.priority > 0)
                 .sort((o1, o2) => {
-                    return +o1.data.priority - +o2.data.priority
+                                var d1 = moment(o1.annotation.currentPeriodAnnotation.datEnd, 'DD/MM/YYYY').toDate()
+                                var d2 = moment(o2.annotation.currentPeriodAnnotation.datEnd, 'DD/MM/YYYY').toDate()
+
+                                return d1 < d2 ? -1 : (d1 > d2 ? 1 : +o1.data.priority - +o2.data.priority)
                 });
 
         var pos = 0;// Math.floor(Math.random() * possibleOtps.length)
