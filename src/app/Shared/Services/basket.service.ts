@@ -80,7 +80,8 @@ export class BasketService {
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(),
             (productsMap, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, annotatedUsers) => {
-                return basketItems.filter(item => productsMap.has(item.produit)).map(basketItemFiltered => {
+                var items = basketItems.filter(item => productsMap.has(item.produit)).map(basketItemFiltered => {
+                    var otpNeededForThisProduct: boolean = otpNeeded && !basketItemFiltered.isFixCost
                     let product = productsMap.get(basketItemFiltered.produit)
                     return {
                         data: product,
@@ -104,10 +105,19 @@ export class BasketService {
                             totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),
                             totalPriceHTva: product.price * basketItemFiltered.quantity,
                             otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId } :
-                                otpNeeded ? this.otpChoiceService.determineOtp(product, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
+                                otpNeededForThisProduct ? this.otpChoiceService.determineOtp(product, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
                         }
                     }
                 })
+
+                var itemWithHighestPrice = items.filter(i => !i.annotation.isFixCost && i.annotation.otp).sort((a, b) => b.annotation.totalPrice - a.annotation.totalPrice)[0]
+                if (itemWithHighestPrice) {
+                    items.filter(i => i.annotation.isFixCost).forEach(i => {
+                        i.annotation.otp = itemWithHighestPrice.annotation.otp
+                    })
+                }
+
+                return items
             }
         );
     }
@@ -140,23 +150,24 @@ export class BasketService {
     //     =============
 
     addFixCostToBasket(supplierId) {
-        Observable.zip(this.getBasketItemsForCurrentUser().take(1), this.productService.getFixCostsBySupplier(supplierId).take(1), this.authService.getUserIdObservable().take(1), (basketItems, fixCosts, userId) => {
-            return fixCosts.filter(c => !basketItems.map(bi => bi.produit).includes(c._id)).map(fc => {
-                return {
-                    user: userId,
-                    produit: fc._id,
-                    quantity: 1,
-                    isFixCost: true
-                }
+        Observable.zip(this.getBasketItemsForCurrentUser().take(1), this.productService.getFixCostsBySupplier(supplierId).take(1),
+            this.authService.getUserIdObservable().take(1), (basketItems, fixCosts, userId) => {
+                return fixCosts.filter(c => !basketItems.map(bi => bi.produit).includes(c._id)).map(fc => {
+                    return {
+                        user: userId,
+                        produit: fc._id,
+                        quantity: 1,
+                        isFixCost: true
+                    }
+                })
+            }).take(1).switchMap(fcList => {
+                if (!fcList || fcList.length === 0) return Observable.from([{}])
+                return Observable.forkJoin(fcList.map(fc => {
+                    return this.dataStore.addData('basket', fc)
+                }))
+            }).subscribe(res => {
+
             })
-        }).take(1).switchMap(fcList => {
-            if (!fcList || fcList.length === 0) return Observable.from([{}]) 
-            return Observable.forkJoin(fcList.map(fc => {
-                return this.dataStore.addData('basket', fc)
-            }))
-        }).subscribe(res => {
-            
-        })
     }
 
 
