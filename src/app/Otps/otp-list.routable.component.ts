@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx'
 import { EquipeService } from '../Shared/Services/equipe.service';
 import { OtpService } from '../Shared/Services/otp.service'
+import { ProductService } from '../Shared/Services/product.service'
 import { SapService } from './../Shared/Services/sap.service'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -18,12 +19,13 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 export class OtpListComponentRoutable implements OnInit {
     nbExpiringOtps: number= 0;
     constructor(private equipeService: EquipeService, private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private otpService: OtpService,
-        private dataStore: DataStore, private formBuilder: FormBuilder) { }
+        private dataStore: DataStore, private formBuilder: FormBuilder, private productService: ProductService) { }
 
     private isPageRunning: boolean = true
     private classificationForm: FormGroup
     private classificationsList = []
     
+    private selectableCategoriesObservable: Observable<any>;
 
     state: {}
     equipesObservable: Observable<any>;
@@ -34,6 +36,8 @@ export class OtpListComponentRoutable implements OnInit {
     }
 
     ngOnInit(): void {
+        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+
         this.navigationService.getStateObservable().takeWhile(() => this.isPageRunning).subscribe(state => {
             this.state = state
         })
@@ -93,5 +97,22 @@ export class OtpListComponentRoutable implements OnInit {
         classificationsItem.description = classificationDescription
         this.dataStore.updateData('otp.product.classifications', classificationsItem._id, classificationsItem)
     }
+
+    categorySelectionChanged(selectedIds: string[], classificationsItem) {
+        classificationsItem.categoryIds = selectedIds;
+        this.dataStore.updateData('otp.product.classifications', classificationsItem._id, classificationsItem)
+    }
+
+    categoryHasBeenAdded(newCategory: string) {
+        this.productService.createCategory(newCategory);
+    }
+
+    getCategoriesObservable(classificationId): Observable<any> {
+        return this.dataStore.getDataObservable('otp.product.classifications').map(classificationList => classificationList.filter(c => c._id===classificationId)[0])
+                .map(c => c ? c.categoryIds : undefined)
+                .takeWhile(() => this.isPageRunning)
+    }
+
+    
 }
 

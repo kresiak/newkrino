@@ -36,16 +36,30 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter"><b>Name</b></div>
-                                                    <div class="col-sm-5 vcenter"><b>Description</b></div>
+                                                    <div class="col-sm-2 vcenter"><b>Name</b></div>
+                                                    <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                    <div class="col-sm-6 vcenter"><b>Product categories</b></div>
                                                 </div>
                                                 <div *ngFor="let classificationsItem of classificationsList">
                                                     <div class="row">
-                                                        <div class="col-sm-3 vcenter">
-                                                            <gg-editor [content]="classificationsItem.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"></gg-editor>
+                                                        <div class="col-sm-2 vcenter">
+                                                            <gg-editor [content]="classificationsItem.name" [showControls]="true" 
+                                                                (editSaved)="classificationsNameUpdated($event, classificationsItem)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                            </gg-editor>
                                                         </div>
-                                                        <div class="col-sm-5 vcenter">
-                                                            <gg-editor [content]="classificationsItem.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"></gg-editor>
+                                                        <div class="col-sm-3 vcenter">
+                                                            <gg-editor [content]="classificationsItem.description" [showControls]="true" 
+                                                                (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                            </gg-editor>
+                                                        </div>
+                                                        <div class="col-sm-6 vcenter">
+                                                            <gg-selector 
+                                                                [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem._id)" 
+                                                                (selectionChanged)="categorySelectionChanged($event, classificationsItem)" (selectionOptionAdded)="categoryHasBeenAdded($event)" 
+                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                            </gg-selector>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -53,7 +67,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Create classification" id="tabCreateClassification">
+                                <ngb-tab title="Create classification" id="tabCreateClassification" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
