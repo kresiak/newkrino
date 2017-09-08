@@ -47,6 +47,7 @@ export class OtpDetailComponent implements OnInit {
     }
 
     private equipeListObservable
+    private classificationListObservable
     private otp;    
     private sapIdList: any[]
     private ordersObservable;
@@ -84,6 +85,9 @@ export class OtpDetailComponent implements OnInit {
         });
 
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
+
+        this.classificationListObservable = this.otpService.getClassificationsForAutocomplete()
+        
 
         this.annualForm = this.formBuilder.group({
             budgetAnnual: ['', [Validators.required]]
@@ -171,6 +175,12 @@ export class OtpDetailComponent implements OnInit {
     equipeChanged(newid) {
         if (!newid) return
         this.otp.data.equipeId = newid;
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    classificationChanged(newid) {
+        if (!newid) return
+        this.otp.data.classificationId = newid;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

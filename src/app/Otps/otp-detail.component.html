@@ -18,9 +18,15 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4 vcenter">classification:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-autocomplete [selectableData]="classificationListObservable" [selectedId]="otp.data.classificationId" (idChanged)="classificationChanged($event)" [emptyContentText]="'Choose a classification'"></gg-editor-autocomplete>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-sm-4 vcenter">equipe:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
+							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
 						</div>
 					</div>
 					<div class="row">

@@ -71,7 +71,7 @@ export class OtpService {
         }
     }
 
-    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[], labo) {
+    private createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap: Map<string, any>, equipes, dashlets: any[], labo, classifcations) {
         if (!otp) return null;
         if (!otp.priority) otp.priority = 0
         otp.priority = +otp.priority || 0
@@ -89,6 +89,8 @@ export class OtpService {
         var currentPeriodAnnotation= posOfCurrentPeriod === -1 ? undefined : this.getAnnotationsOfBudgetPeriod(otp.budgetPeriods[posOfCurrentPeriod])
 
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
+        let classification = classifcations.filter(c => c._id === otp.classificationId)[0];
+
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
 
         let budget = !currentPeriodAnnotation ? 0 : currentPeriodAnnotation.budgetAvailable
@@ -113,6 +115,7 @@ export class OtpService {
                 amountSpent: amountSpentNotYetInSap + amountEngaged + amountBilled,
                 amountAvailable: !currentPeriodAnnotation ? 0 : (budget - amountSpentNotYetInSap - amountEngaged - amountBilled),
                 equipe: equipe ? equipe.name : 'no equipe',
+                classification: classification ? classification.name : undefined,
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined                
             }
         }
@@ -138,8 +141,9 @@ export class OtpService {
             this.dataStore.getDataObservable('equipes'),
             this.userService.getOtpDashletsForCurrentUser(),
             this.adminService.getLabo(),
-            (otps, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo) => {
-                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo))
+            this.dataStore.getDataObservable('otp.product.classifications'),
+            (otps, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo, classifcations) => {
+                var a = otps.map(otp => this.createAnnotatedOtpForBudget(otp, otpSpentMap, sapIdMap, sapOtpMap, equipes, dashlets, labo, classifcations))
                 var b = a.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
                 return utils.hashMapFactoryForAnnotated(b)
             }).publishReplay(1);
@@ -174,4 +178,16 @@ export class OtpService {
             return otpFiltered.length === 0 ? null : otpFiltered[0];
         });
     }
+
+    getClassificationsForAutocomplete() {
+        return this.dataStore.getDataObservable('otp.product.classifications').map(classifications => classifications.map(eq => {
+            return {
+                id: eq._id,
+                name: eq.name
+            }
+        }));
+    }
+
+
+
 }
