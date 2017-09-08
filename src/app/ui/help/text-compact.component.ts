@@ -23,7 +23,7 @@ export class TextCompactComponent implements OnInit {
 
 
     shortText() {
-        if (this.text.length > (this.numberOfChar + 3)) {
+        if (this.text && this.text.length > (this.numberOfChar + 3)) {
             var lengthText = this.text.substring(this.numberOfChar)
             var addNumberOfChar = lengthText.indexOf(' ')
             var firstSpace = this.numberOfChar + addNumberOfChar
