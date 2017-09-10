@@ -266,6 +266,7 @@ export class SapService {
                 }
                 var sapAnnotationsMap: Map<number, any>= utilsObservable.hashMapFactoryHelper(sapAnnotations, a => a.sapId)
                 var a= sapItems.filter(item => item.mainData && !(+item.mainData.data.ourRef))
+                a= a.filter(item => !item.isSuppr)
                 a= a.filter(item => !sapAnnotationsMap.has(item.sapId))
                 a= a.filter(item => fnIsDateOk(item.dateLastActivity))
                 return a.sort((a, b) => a.counter - b.counter)
