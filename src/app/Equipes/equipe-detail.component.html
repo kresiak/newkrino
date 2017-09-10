@@ -56,6 +56,14 @@
 						<div class="col-sm-6">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
+						<div class="col-sm-4">money owed to other equipes:</div>
+						<div class="col-sm-6" [style.color]="'red'">{{equipe.annotation.owing | currency:'EUR':true:'1.2-2'}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4">money owed by other equipes:</div>
+						<div class="col-sm-6" [style.color]="'green'">{{equipe.annotation.owed | currency:'EUR':true:'1.2-2'}}</div>
+					</div>					
+					<div class="row">
 						<div class="col-sm-2">
 							<img *ngIf="!equipe.annotation.dashletId" src="../../images/pin.png" (click)="setDashlet()" />
 							<img *ngIf="equipe.annotation.dashletId" src="../../images/unpin.png" (click)="removeDashlet(equipe.annotation.dashletId)"

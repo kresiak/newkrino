@@ -13,7 +13,7 @@ import * as utilsKrino from './../Utils/krino'
 Injectable()
 export class EquipeService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService,
-                @Inject(OtpService) private otpService: OtpService) { }
+        @Inject(OtpService) private otpService: OtpService) { }
 
 
     private getTotalOfOrder(order): number {
@@ -74,13 +74,15 @@ export class EquipeService {
             });
     }
 
-    private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[]) {
+    private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[], equipeMutualDebtMap: Map<string, any>) {
         if (!equipe) return null;
+
+        var debts= equipeMutualDebtMap.get(equipe._id) 
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
         let otpsFiltered = otps.filter(otp => otp.data.equipeId === equipe._id);
         let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.budget).reduce((a, b) => a + b) : 0;
-        let amountAvailable = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.amountAvailable).reduce((a, b) => a + b) : 0;
+        let amountAvailable = (otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.amountAvailable).reduce((a, b) => a + b) : 0) + debts.owed - debts.owing;
         let amountSpent = budget - amountAvailable
         let dashlet = dashlets.filter(dashlet => dashlet.id === equipe._id);
 
@@ -90,6 +92,8 @@ export class EquipeService {
             {
                 amountSpent: amountSpent,
                 budget: budget,
+                owed: debts.owed,
+                owing: debts.owing,
                 amountAvailable: amountAvailable, // budget - amountSpent,
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
             }
@@ -102,8 +106,10 @@ export class EquipeService {
             this.dataStore.getDataObservable('orders'),
             this.otpService.getAnnotatedOtps(),
             this.userService.getEquipeDashletsForCurrentUser(),
-            (equipes, orders, otps, dashlets) => {
-                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets))
+            this.getEquipeMutualDebtMap(),
+
+            (equipes, orders, otps, dashlets, equipeMutualDebtMap) => {
+                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets, equipeMutualDebtMap))
             });
     }
 
@@ -223,7 +229,11 @@ export class EquipeService {
     // equipes budget
     // ==============
 
-    xx(): Observable<any> {        
+    private annotatedEquipesMutualDebts: ConnectableObservable<any>;
+
+    private getEquipeMutualDebtMap(): Observable<any> {
+        if (this.annotatedEquipesMutualDebts) return this.annotatedEquipesMutualDebts
+
         function fnProcessSapItem(sapItem, equipeId, porCent, equipesMap: Map<string, any>, otpsMapByName: Map<string, any>) {
             function createEmptyRecord(equipeId) {
                 equipesMap.set(equipeId, {
@@ -235,16 +245,16 @@ export class EquipeService {
             }
 
             function isOtpRelevant(otpName) {
-                var otp= otpsMapByName.get(otpName)
+                var otp = otpsMapByName.get(otpName)
                 return otp && otp.equipeId && otp.equipeId !== equipeId
             }
 
             function processPoste(poste, otpName, amount, comment, date) {
-                var sapId= sapItem.sapId
-                var otp= otpsMapByName.get(otpName)
-                var otherEquipeId= otp.equipeId
-                var amountCorrected= amount * porCent / 100
-                if (!equipesMap.has(equipeId)) createEmptyRecord(otherEquipeId)
+                var sapId = sapItem.sapId
+                var otp = otpsMapByName.get(otpName)
+                var otherEquipeId = otp.equipeId
+                var amountCorrected = amount * porCent / 100
+                if (!equipesMap.has(otherEquipeId)) createEmptyRecord(otherEquipeId)
 
                 function addDetail(detailsArray, otherEquipeId) {
                     detailsArray.push({
@@ -252,17 +262,17 @@ export class EquipeService {
                         poste: poste,
                         equipeId: otherEquipeId,
                         amount: amountCorrected,
-                        comment: comment, 
+                        comment: comment,
                         date: date
                     })
                 }
 
-                var equipeRecord= equipesMap.get(equipeId)
+                var equipeRecord = equipesMap.get(equipeId)
                 equipeRecord.owing += amountCorrected
                 addDetail(equipeRecord.owingDetails, otherEquipeId)
 
-                var otherEquipeRecord=  equipesMap.get(otherEquipeId)
-                otherEquipeRecord.owed += amountCorrected                
+                var otherEquipeRecord = equipesMap.get(otherEquipeId)
+                otherEquipeRecord.owed += amountCorrected
                 addDetail(otherEquipeRecord.owedDetails, equipeId)
             }
 
@@ -273,15 +283,17 @@ export class EquipeService {
                     processPoste(poste.poste, poste.otp, poste.amountResiduel, 'engaged', undefined)
                 }
             })
-            
+
             if (sapItem.factured && sapItem.factured.data) {
                 (sapItem.factured.data.items || []).filter(poste => !poste.isBlocked && !poste.isSuppr).forEach(poste => {
-                    processPoste(poste.poste, poste.otp, poste.tvac, 'invoiced', poste.dateComptable)
+                    if (isOtpRelevant(poste.otp)) {
+                        processPoste(poste.poste, poste.otp, poste.tvac, 'invoiced', poste.dateComptable)
+                    }
                 })
             }
         }
 
-        return Observable.combineLatest(
+        this.annotatedEquipesMutualDebts = Observable.combineLatest(
             this.dataStore.getDataObservable('sap.fusion'),
             this.dataStore.getDataObservable('sap.krino.annotations').map(utils.hashMapFactoryCurry(a => a.sapId)),
             this.dataStore.getDataObservable('orders'),
@@ -290,23 +302,27 @@ export class EquipeService {
             this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp._id)),
             this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp.name)),
             (sapItems, sapAnnotationsMap: Map<number, any>, orders, ordersMap: Map<number, any>, equipes, otpsMap: Map<string, any>, otpsMapByName: Map<string, any>) => {
-                var equipesMap: Map<string, any>= new Map<string, any>()
+                var equipesMap: Map<string, any> = new Map<string, any>()
                 sapItems.filter(item => sapAnnotationsMap.has(item.sapId)).forEach(item => {
-                    var equipeId= sapAnnotationsMap.get(item.sapId).equipeId 
+                    var equipeId = sapAnnotationsMap.get(item.sapId).equipeId
                     fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
                 })
                 sapItems.filter(item => item.mainData && item.mainData.data && +item.mainData.data.ourRef && ordersMap.has(+item.mainData.data.ourRef)).forEach(item => {
-                    var equipeId= ordersMap.get(+item.mainData.data.ourRef).equipeId 
-                    var equipeRepartition= ordersMap.get(+item.mainData.data.ourRef).equipeRepartition 
+                    var equipeId = ordersMap.get(+item.mainData.data.ourRef).equipeId
+                    var equipeRepartition = ordersMap.get(+item.mainData.data.ourRef).equipeRepartition
                     if (equipeId) {
                         fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
-                    }                        
+                    }
                     else if (equipeRepartition) {
                         equipeRepartition.repartition.forEach(repartitionItem => fnProcessSapItem(item, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMapByName))
                     }
                 })
                 return equipesMap
-            })
+            }).publishReplay(1)
+
+        this.annotatedEquipesMutualDebts.connect()
+
+        return this.annotatedEquipesMutualDebts
     }
 
 
