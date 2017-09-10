@@ -44,7 +44,7 @@
                             <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Fact. Finale?</b></div>
                             <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag"><b>Qty not factured</b></div>
                         </div>
-                        <div class="row" *ngFor="let poste of sapObj.postList">
+                        <div class="row" *ngFor="let poste of sapObj.postList">   <!--FOR loop-->
                             <div class="col-sm-1">{{poste.poste}}</div>
                             <div class="col-sm-2">{{poste.otp}}</div>
                             <div class="col-sm-2">

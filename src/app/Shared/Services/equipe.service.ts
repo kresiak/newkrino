@@ -220,6 +220,95 @@ export class EquipeService {
             });
     }
 
+    // equipes budget
+    // ==============
+
+    xx(): Observable<any> {        
+        function fnProcessSapItem(sapItem, equipeId, porCent, equipesMap: Map<string, any>, otpsMapByName: Map<string, any>) {
+            function createEmptyRecord(equipeId) {
+                equipesMap.set(equipeId, {
+                    owing: 0,
+                    owed: 0,
+                    owingDetails: [],
+                    owedDetails: []
+                })
+            }
+
+            function isOtpRelevant(otpName) {
+                var otp= otpsMapByName.get(otpName)
+                return otp && otp.equipeId && otp.equipeId !== equipeId
+            }
+
+            function processPoste(poste, otpName, amount, comment, date) {
+                var sapId= sapItem.sapId
+                var otp= otpsMapByName.get(otpName)
+                var otherEquipeId= otp.equipeId
+                var amountCorrected= amount * porCent / 100
+                if (!equipesMap.has(equipeId)) createEmptyRecord(otherEquipeId)
+
+                function addDetail(detailsArray, otherEquipeId) {
+                    detailsArray.push({
+                        sapId: sapId,
+                        poste: poste,
+                        equipeId: otherEquipeId,
+                        amount: amountCorrected,
+                        comment: comment, 
+                        date: date
+                    })
+                }
+
+                var equipeRecord= equipesMap.get(equipeId)
+                equipeRecord.owing += amountCorrected
+                addDetail(equipeRecord.owingDetails, otherEquipeId)
+
+                var otherEquipeRecord=  equipesMap.get(otherEquipeId)
+                otherEquipeRecord.owed += amountCorrected                
+                addDetail(otherEquipeRecord.owedDetails, equipeId)
+            }
+
+            if (!equipesMap.has(equipeId)) createEmptyRecord(equipeId);
+
+            (sapItem.postList || []).filter(poste => poste.residuEngaged > 0).forEach(poste => {
+                if (isOtpRelevant(poste.otp)) {
+                    processPoste(poste.poste, poste.otp, poste.amountResiduel, 'engaged', undefined)
+                }
+            })
+            
+            if (sapItem.factured && sapItem.factured.data) {
+                (sapItem.factured.data.items || []).filter(poste => !poste.isBlocked && !poste.isSuppr).forEach(poste => {
+                    processPoste(poste.poste, poste.otp, poste.tvac, 'invoiced', poste.dateComptable)
+                })
+            }
+        }
+
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('sap.fusion'),
+            this.dataStore.getDataObservable('sap.krino.annotations').map(utils.hashMapFactoryCurry(a => a.sapId)),
+            this.dataStore.getDataObservable('orders'),
+            this.dataStore.getDataObservable('orders').map(utils.hashMapFactoryCurry(a => a.kid)),
+            this.dataStore.getDataObservable('equipes'),
+            this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp._id)),
+            this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp.name)),
+            (sapItems, sapAnnotationsMap: Map<number, any>, orders, ordersMap: Map<number, any>, equipes, otpsMap: Map<string, any>, otpsMapByName: Map<string, any>) => {
+                var equipesMap: Map<string, any>= new Map<string, any>()
+                sapItems.filter(item => sapAnnotationsMap.has(item.sapId)).forEach(item => {
+                    var equipeId= sapAnnotationsMap.get(item.sapId).equipeId 
+                    fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
+                })
+                sapItems.filter(item => item.mainData && item.mainData.data && +item.mainData.data.ourRef && ordersMap.has(+item.mainData.data.ourRef)).forEach(item => {
+                    var equipeId= ordersMap.get(+item.mainData.data.ourRef).equipeId 
+                    var equipeRepartition= ordersMap.get(+item.mainData.data.ourRef).equipeRepartition 
+                    if (equipeId) {
+                        fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
+                    }                        
+                    else if (equipeRepartition) {
+                        equipeRepartition.repartition.forEach(repartitionItem => fnProcessSapItem(item, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMapByName))
+                    }
+                })
+                return equipesMap
+            })
+    }
+
 
 
 }
