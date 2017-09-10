@@ -249,14 +249,15 @@ export class EquipeService {
             return otp && otp.equipeId && otp.equipeId !== equipeId
         }
 
-        function addDetail(detailsArray, id: number, poste: number, otherEquipeId: string, amount, comment, date) {
+        function addDetail(detailsArray, id: number, poste: number, otherEquipeId: string, amount, comment, date, otpId) {
             detailsArray.push({
                 id: id,
                 poste: poste,
                 equipeId: otherEquipeId,
                 amount: amount,
                 comment: comment,
-                date: date
+                date: date,
+                otpId: otpId
             })
         }
 
@@ -267,11 +268,11 @@ export class EquipeService {
 
             var equipeRecord = equipesMap.get(equipeId)
             equipeRecord.owing += amountCorrected
-            addDetail(equipeRecord.owingDetails, id, poste, otherEquipeId, amountCorrected, comment, date)
+            addDetail(equipeRecord.owingDetails, id, poste, otherEquipeId, amountCorrected, comment, date, otp._id)
 
             var otherEquipeRecord = equipesMap.get(otherEquipeId)
             otherEquipeRecord.owed += amountCorrected
-            addDetail(otherEquipeRecord.owedDetails, id, poste, equipeId, amountCorrected, comment, date)
+            addDetail(otherEquipeRecord.owedDetails, id, poste, equipeId, amountCorrected, comment, date, otp._id)
         }
 
 
