@@ -77,7 +77,7 @@ export class EquipeService {
     private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[], equipeMutualDebtMap: Map<string, any>) {
         if (!equipe) return null;
 
-        var debts= equipeMutualDebtMap.get(equipe._id) 
+        var debts = equipeMutualDebtMap.get(equipe._id)
 
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
         let otpsFiltered = otps.filter(otp => otp.data.equipeId === equipe._id);
@@ -234,60 +234,64 @@ export class EquipeService {
     private getEquipeMutualDebtMap(): Observable<any> {
         if (this.annotatedEquipesMutualDebts) return this.annotatedEquipesMutualDebts
 
-        function fnProcessSapItem(sapItem, equipeId, porCent, equipesMap: Map<string, any>, otpsMapByName: Map<string, any>) {
-            function createEmptyRecord(equipeId) {
-                equipesMap.set(equipeId, {
-                    owing: 0,
-                    owed: 0,
-                    owingDetails: [],
-                    owedDetails: []
-                })
+        function createEmptyRecord(equipesMap, equipeId) {
+            equipesMap.set(equipeId, {
+                owing: 0,
+                owed: 0,
+                owingDetails: [],
+                owedDetails: []
+            })
+        }
+
+        function isOtpFromDifferentEquipe(otpsMapByName, otpName, equipeId) {
+            var otp = otpsMapByName.get(otpName)
+            return otp && otp.equipeId && otp.equipeId !== equipeId
+        }
+
+        function addDetail(detailsArray, id: number, poste: number, otherEquipeId: string, amount, comment, date) {
+            detailsArray.push({
+                id: id,
+                poste: poste,
+                equipeId: otherEquipeId,
+                amount: amount,
+                comment: comment,
+                date: date
+            })
+        }
+
+        function processPoste(equipeId, id, poste, otp, amount, porCent, comment, date, equipesMap) {
+            var otherEquipeId = otp.equipeId
+            var amountCorrected = amount * porCent / 100
+            if (!equipesMap.has(otherEquipeId)) createEmptyRecord(equipesMap, otherEquipeId)
+
+            var equipeRecord = equipesMap.get(equipeId)
+            equipeRecord.owing += amountCorrected
+            addDetail(equipeRecord.owingDetails, id, poste, otherEquipeId, amountCorrected, comment, date)
+
+            var otherEquipeRecord = equipesMap.get(otherEquipeId)
+            otherEquipeRecord.owed += amountCorrected
+            addDetail(otherEquipeRecord.owedDetails, id, poste, equipeId, amountCorrected, comment, date)
+        }
+
+
+        function processSapItem(sapItem, equipeId, porCent, equipesMap: Map<string, any>, otpsMapByName: Map<string, any>) {
+
+            function getOtp(otpName) {
+                return otpsMapByName.get(otpName)
             }
 
-            function isOtpRelevant(otpName) {
-                var otp = otpsMapByName.get(otpName)
-                return otp && otp.equipeId && otp.equipeId !== equipeId
-            }
-
-            function processPoste(poste, otpName, amount, comment, date) {
-                var sapId = sapItem.sapId
-                var otp = otpsMapByName.get(otpName)
-                var otherEquipeId = otp.equipeId
-                var amountCorrected = amount * porCent / 100
-                if (!equipesMap.has(otherEquipeId)) createEmptyRecord(otherEquipeId)
-
-                function addDetail(detailsArray, otherEquipeId) {
-                    detailsArray.push({
-                        sapId: sapId,
-                        poste: poste,
-                        equipeId: otherEquipeId,
-                        amount: amountCorrected,
-                        comment: comment,
-                        date: date
-                    })
-                }
-
-                var equipeRecord = equipesMap.get(equipeId)
-                equipeRecord.owing += amountCorrected
-                addDetail(equipeRecord.owingDetails, otherEquipeId)
-
-                var otherEquipeRecord = equipesMap.get(otherEquipeId)
-                otherEquipeRecord.owed += amountCorrected
-                addDetail(otherEquipeRecord.owedDetails, equipeId)
-            }
-
-            if (!equipesMap.has(equipeId)) createEmptyRecord(equipeId);
+            if (!equipesMap.has(equipeId)) createEmptyRecord(equipesMap, equipeId);
 
             (sapItem.postList || []).filter(poste => poste.residuEngaged > 0).forEach(poste => {
-                if (isOtpRelevant(poste.otp)) {
-                    processPoste(poste.poste, poste.otp, poste.amountResiduel, 'engaged', undefined)
+                if (isOtpFromDifferentEquipe(otpsMapByName, poste.otp, equipeId)) {
+                    processPoste(equipeId, sapItem.sapId, poste.poste, getOtp(poste.otp), poste.amountResiduel, porCent, 'engaged', undefined, equipesMap)
                 }
             })
 
             if (sapItem.factured && sapItem.factured.data) {
                 (sapItem.factured.data.items || []).filter(poste => !poste.isBlocked && !poste.isSuppr).forEach(poste => {
-                    if (isOtpRelevant(poste.otp)) {
-                        processPoste(poste.poste, poste.otp, poste.tvac, 'invoiced', poste.dateComptable)
+                    if (isOtpFromDifferentEquipe(otpsMapByName, poste.otp, equipeId)) {
+                        processPoste(equipeId, sapItem.sapId, poste.poste, getOtp(poste.otp), poste.tvac, porCent, 'invoiced', poste.dateComptable, equipesMap)
                     }
                 })
             }
@@ -305,17 +309,20 @@ export class EquipeService {
                 var equipesMap: Map<string, any> = new Map<string, any>()
                 sapItems.filter(item => sapAnnotationsMap.has(item.sapId)).forEach(item => {
                     var equipeId = sapAnnotationsMap.get(item.sapId).equipeId
-                    fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
+                    processSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
                 })
                 sapItems.filter(item => item.mainData && item.mainData.data && +item.mainData.data.ourRef && ordersMap.has(+item.mainData.data.ourRef)).forEach(item => {
                     var equipeId = ordersMap.get(+item.mainData.data.ourRef).equipeId
                     var equipeRepartition = ordersMap.get(+item.mainData.data.ourRef).equipeRepartition
                     if (equipeId) {
-                        fnProcessSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
+                        processSapItem(item, equipeId, 100, equipesMap, otpsMapByName)
                     }
                     else if (equipeRepartition) {
-                        equipeRepartition.repartition.forEach(repartitionItem => fnProcessSapItem(item, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMapByName))
+                        equipeRepartition.repartition.forEach(repartitionItem => processSapItem(item, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMapByName))
                     }
+                })
+                orders.filter(order => !order.sapId && order.status.value !== 'deleted').forEach(order => {
+
                 })
                 return equipesMap
             }).publishReplay(1)
