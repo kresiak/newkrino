@@ -96,6 +96,7 @@ import {EquipeGroupDetailComponent} from './Equipes/equipe-group-detail.componen
 import {EquipeGiftEnterComponent} from './Equipes/equipe-gift-enter.component'
 import {EquipeGiftGridComponent} from './Equipes/equipe-gift-grid.component'
 import {EquipeBilanComponent} from './Equipes/equipe-bilan.component'
+import {EquipeDebtDetailsComponent} from './Equipes/equipe-debt-details.component'
 
 
 import {BasketRoutableComponent} from './Orders/basket.routable.component'
@@ -230,7 +231,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   DashboardComponent, DashletComponent, MyKrinoComponent, UnMaximizeComponent,
                   UserEnterComponent, UserListComponentRoutable,UserListComponent, UserDetailComponent, UserDetailComponentRoutable, UserInfoComponent,
                   EquipeDetailComponent, EquipeListComponent, EquipeListComponentRoutable, EquipeEnterComponent, EquipeDetailComponentRoutable, EquipeGroupEnterComponent, EquipeGroupListComponent, EquipeGroupDetailComponent, EquipeGiftEnterComponent,
-                  EquipeGiftGridComponent, EquipeBilanComponent,
+                  EquipeGiftGridComponent, EquipeBilanComponent, EquipeDebtDetailsComponent,
                   PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
                   OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
                   SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,

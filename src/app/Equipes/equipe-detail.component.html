@@ -38,7 +38,7 @@
 						</div>
 					</div>
 					<div class="row" [style.color]="equipe.data.isBlocked ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter" >is blocked:</div>
+						<div class="col-sm-4 vcenter">is blocked:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
@@ -62,7 +62,7 @@
 					<div class="row">
 						<div class="col-sm-4">money owed by other equipes:</div>
 						<div class="col-sm-6" [style.color]="'green'">{{equipe.annotation.owed | currency:'EUR':true:'1.2-2'}}</div>
-					</div>					
+					</div>
 					<div class="row">
 						<div class="col-sm-2">
 							<img *ngIf="!equipe.annotation.dashletId" src="../../images/pin.png" (click)="setDashlet()" />
@@ -83,6 +83,26 @@
 	<ngb-tab title="Spending" id="tabSpending">
 		<template ngbTabContent>
 			<gg-equipe-bilan [bilanObservable]="bilanObservable"></gg-equipe-bilan>
+		</template>
+	</ngb-tab>
+	<ngb-tab title="Debts" id="tabDebts">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<ngb-tabset>
+						<ngb-tab title="Owing">
+							<template ngbTabContent>
+								<gg-equipe-debt-details [list]="equipe.annotation.owingDetails"></gg-equipe-debt-details>
+							</template>
+						</ngb-tab>
+						<ngb-tab title="Owed">
+							<template ngbTabContent>
+								<gg-equipe-debt-details [list]="equipe.annotation.owedDetails"></gg-equipe-debt-details>
+							</template>
+						</ngb-tab>
+					</ngb-tabset>
+				</div>
+			</div>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="Charts" id="tabCharts">
