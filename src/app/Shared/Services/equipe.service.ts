@@ -3,6 +3,7 @@ import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { UserService } from './user.service'
 import { OtpService } from './otp.service'
+import { SapService } from './sap.service'
 import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
@@ -13,7 +14,7 @@ import * as utilsKrino from './../Utils/krino'
 Injectable()
 export class EquipeService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, @Inject(UserService) private userService: UserService,
-        @Inject(OtpService) private otpService: OtpService) { }
+        @Inject(SapService) private sapService: SapService, @Inject(OtpService) private otpService: OtpService) { }
 
 
     private getTotalOfOrder(order): number {
@@ -243,8 +244,8 @@ export class EquipeService {
             })
         }
 
-        function isOtpFromDifferentEquipe(otpsMapByName, otpName, equipeId) {
-            var otp = otpsMapByName.get(otpName)
+        function isOtpFromDifferentEquipe(otpsMap, otpId, equipeId) {
+            var otp = otpsMap.get(otpId)
             return otp && otp.equipeId && otp.equipeId !== equipeId
         }
 
@@ -275,7 +276,6 @@ export class EquipeService {
 
 
         function processSapItem(sapItem, equipeId, porCent, equipesMap: Map<string, any>, otpsMapByName: Map<string, any>) {
-
             function getOtp(otpName) {
                 return otpsMapByName.get(otpName)
             }
@@ -297,6 +297,21 @@ export class EquipeService {
             }
         }
 
+        function processOrder(order, equipeId, porCent, equipesMap: Map<string, any>, otpsMap: Map<string, any>) {
+            function getOtp(otpId) {
+                return otpsMap.get(otpId)
+            }
+
+            if (!equipesMap.has(equipeId)) createEmptyRecord(equipesMap, equipeId);
+
+            (order.items || []).filter(poste => true).forEach((poste, index) => {
+                if (isOtpFromDifferentEquipe(otpsMap, poste.otpId, equipeId)) {
+                    processPoste(equipeId, order.kid, index, getOtp(poste.otpId), poste.total, porCent, 'ordered', order.date, equipesMap)
+                }
+            })
+        }
+
+
         this.annotatedEquipesMutualDebts = Observable.combineLatest(
             this.dataStore.getDataObservable('sap.fusion'),
             this.dataStore.getDataObservable('sap.krino.annotations').map(utils.hashMapFactoryCurry(a => a.sapId)),
@@ -305,7 +320,8 @@ export class EquipeService {
             this.dataStore.getDataObservable('equipes'),
             this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp._id)),
             this.dataStore.getDataObservable('otps').map(utils.hashMapFactoryCurry(otp => otp.name)),
-            (sapItems, sapAnnotationsMap: Map<number, any>, orders, ordersMap: Map<number, any>, equipes, otpsMap: Map<string, any>, otpsMapByName: Map<string, any>) => {
+            this.sapService.getKrinoIdMapObservable(),
+            (sapItems, sapAnnotationsMap: Map<number, any>, orders, ordersMap: Map<number, any>, equipes, otpsMap: Map<string, any>, otpsMapByName: Map<string, any>, krinoSapMap) => {
                 var equipesMap: Map<string, any> = new Map<string, any>()
                 sapItems.filter(item => sapAnnotationsMap.has(item.sapId)).forEach(item => {
                     var equipeId = sapAnnotationsMap.get(item.sapId).equipeId
@@ -321,8 +337,15 @@ export class EquipeService {
                         equipeRepartition.repartition.forEach(repartitionItem => processSapItem(item, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMapByName))
                     }
                 })
-                orders.filter(order => !order.sapId && order.status.value !== 'deleted').forEach(order => {
-
+                orders.filter(order => !krinoSapMap.has(order.kid) && order.status.value !== 'deleted').forEach(order => {
+                    var equipeId = order.equipeId
+                    var equipeRepartition = order.equipeRepartition
+                    if (equipeId) {
+                        processOrder(order, order.equipeId, 100, equipesMap, otpsMap)
+                    }
+                    else if (equipeRepartition) {
+                        equipeRepartition.repartition.forEach(repartitionItem => processOrder(order, repartitionItem.equipeId, repartitionItem.weight, equipesMap, otpsMap))
+                    }                    
                 })
                 return equipesMap
             }).publishReplay(1)
