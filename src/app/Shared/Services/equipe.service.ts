@@ -75,7 +75,7 @@ export class EquipeService {
             });
     }
 
-    private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[], equipeMutualDebtMap: Map<string, any>) {
+    private createAnnotatedEquipe(equipe, orders: any[], otps: any[], dashlets: any[], equipeMutualDebtMap: Map<string, any>, equipeMap: Map<string, any>, otpAnnotatedMap: Map<string, any>) {
         if (!equipe) return null;
 
         var debts = equipeMutualDebtMap.get(equipe._id)
@@ -87,6 +87,18 @@ export class EquipeService {
         let amountSpent = budget - amountAvailable
         let dashlet = dashlets.filter(dashlet => dashlet.id === equipe._id);
 
+        function annotateDetails(details: any[]) {
+            return details.map(item => {
+                return {
+                    data: item,
+                    annotation: {
+                        otp: otpAnnotatedMap.get(item.otpId).data.name,
+                        equipe: equipeMap.get(item.equipeId).name
+                    }
+                }
+            })
+        }
+
         return {
             data: equipe,
             annotation:
@@ -96,7 +108,9 @@ export class EquipeService {
                 owed: debts.owed,
                 owing: debts.owing,
                 amountAvailable: amountAvailable, // budget - amountSpent,
-                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined
+                dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
+                owedDetails: annotateDetails(debts.owedDetails),
+                owingDetails: annotateDetails(debts.owingDetails)                
             }
         };
     }
@@ -110,7 +124,9 @@ export class EquipeService {
             this.getEquipeMutualDebtMap(),
 
             (equipes, orders, otps, dashlets, equipeMutualDebtMap) => {
-                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets, equipeMutualDebtMap))
+                var equipeMap= utils.hashMapFactory(equipes)
+                var otpAnnotatedMap= utils.hashMapFactoryForAnnotated(otps)
+                return equipes.map(equipe => this.createAnnotatedEquipe(equipe, orders, otps, dashlets, equipeMutualDebtMap, equipeMap, otpAnnotatedMap))
             });
     }
 
