@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { NavigationService } from '../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { ProductService } from './../Shared/Services/product.service'
 
 @Component(
     {
@@ -10,7 +11,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class CategoryListComponentRoutable implements OnInit {
-    constructor(private navigationService: NavigationService, private authService: AuthService) { }
+    constructor(private navigationService: NavigationService, private authService: AuthService, private productService: ProductService) { }
 
     state: {}
 
@@ -18,6 +19,7 @@ export class CategoryListComponentRoutable implements OnInit {
         this.navigationService.jumpToOpenRootAccordionElement()
     }
 
+    categoryObservable: Observable<any>
 
     ngOnInit(): void {
         this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
@@ -26,6 +28,9 @@ export class CategoryListComponentRoutable implements OnInit {
         this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo= statusInfo
         })
+
+        this.categoryObservable = this.productService.getAnnotatedCategories();
+
     }
 
     ngOnDestroy(): void {
