@@ -52,13 +52,14 @@
                                                             <div class="row" id="{{classificationsItem._id}}">
                                                                 <div class="col-sm-2">{{classificationsItem.data.name}}</div>
                                                                 <div class="col-sm-4">
-                                                                    <gg-text-compact [text]="classificationsItem.annotation.categoriesTxt"
-                                                                        [numberOfChar]="40"></gg-text-compact>
+                                                                    <gg-text-compact [text]="classificationsItem.annotation.categoriesTxt" [numberOfChar]="40"></gg-text-compact>
                                                                 </div>
                                                                 <div class="col-sm-2">{{classificationsItem.annotation.availableUnRestricted |
-                                                                    currency:'EUR':true:'1.2-2'}}</div>
+                                                                    currency:'EUR':true:'1.2-2'}}
+                                                                </div>
                                                                 <div class="col-sm-2">{{classificationsItem.annotation.availableRestricted | currency:'EUR':true:'1.2-2'}}</div>
-                                                                <div class="col-sm-1">{{((getOtpsObservableByClassification(classificationsItem.data._id) | async) || []).length}}</div>
+                                                                <div class="col-sm-1">{{((getOtpsObservableByClassification(classificationsItem.data._id)
+                                                                    | async) || []).length}}</div>
                                                             </div>
                                                         </template>
                                                         <template ngbPanelContent>
@@ -141,6 +142,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </template>
+                                </ngb-tab>
+                                <ngb-tab title="Categories without classification ({{((categoryNoClassificationObservable | async) || []).length}})" id="tabViewCatNoClass">
+                                    <template ngbTabContent>
+                                        <gg-category-list [categoryObservable]="categoryNoClassificationObservable"></gg-category-list>
                                     </template>
                                 </ngb-tab>
                             </ngb-tabset>

@@ -17,6 +17,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class OtpListComponentRoutable implements OnInit {
+    categoryNoClassificationObservable: Observable<any>;
     nbExpiringOtps: number= 0;
     constructor(private equipeService: EquipeService, private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private otpService: OtpService,
         private dataStore: DataStore, private formBuilder: FormBuilder, private productService: ProductService) { }
@@ -37,6 +38,8 @@ export class OtpListComponentRoutable implements OnInit {
 
     ngOnInit(): void {
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+
+        this.categoryNoClassificationObservable= this.productService.getAnnotatedCategoriesWithNoClassifcation()
 
         this.navigationService.getStateObservable().takeWhile(() => this.isPageRunning).subscribe(state => {
             this.state = state

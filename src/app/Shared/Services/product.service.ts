@@ -72,7 +72,7 @@ export class ProductService {
                             return a;
                         }, []).slice(0, 2);
                     let classificationsInCategory = classifications.filter(c => c.categoryIds && c.categoryIds.includes(category._id)).map(c => c.name)
-                        .sort((a, b) => a < b ? -1 : 1).reduce((a,b) => a + (a === '' ? '' : ', ') +  b, '')
+                        .sort((a, b) => a < b ? -1 : 1)
 
 
                     return {
@@ -80,7 +80,8 @@ export class ProductService {
                         annotation: {
                             supplierNames: suppliersInCategory,
                             otpNames: otpInCategory,
-                            classificationsTxt: classificationsInCategory
+                            classificationsTxt: classificationsInCategory.reduce((a,b) => a + (a === '' ? '' : ', ') +  b, ''),
+                            nbClassifications: classificationsInCategory.length
                         }
                     };
                 })
@@ -93,6 +94,10 @@ export class ProductService {
         }
 
         )[0]);
+    }
+
+    getAnnotatedCategoriesWithNoClassifcation(): Observable<any> {
+        return this.getAnnotatedCategories().map(categories => categories.filter(s => !s.annotation.nbClassifications));
     }
 
 
