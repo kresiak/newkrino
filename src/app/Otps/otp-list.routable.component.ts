@@ -113,6 +113,9 @@ export class OtpListComponentRoutable implements OnInit {
                 .takeWhile(() => this.isPageRunning)
     }
 
+    getOtpsObservableByClassification(classificationId) {
+        return this.otpService.getAnnotatedOtpsByClassification(classificationId)
+    }
     
 }
 

@@ -174,6 +174,10 @@ export class OtpService {
         return this.getAnnotatedOtps().map(otps => otps.filter(otp => !otp.data.isBlocked && !otp.data.isClosed && otp.data.categoryIds && otp.data.categoryIds.includes(categoryId)));
     }
 
+    getAnnotatedOtpsByClassification(classificationId): Observable<any> {
+        return this.getAnnotatedOtps().map(otps => otps.filter(otp => otp.data.classificationIds && otp.data.classificationIds.includes(classificationId)));
+    }
+
 
     getAnnotatedOtpById(otpId): Observable<any> {
         return this.getAnnotatedOtps().map(otps => {
@@ -203,13 +207,20 @@ export class OtpService {
         return Observable.combineLatest(this.dataStore.getDataObservable('otp.product.classifications'), this.getAnnotatedOtps(), this.dataStore.getDataObservable('categories'),
             (classifications, otps, categories) => {
                 return classifications.map(classification => {
+                    var otpsAcceptable= otps
+                        .filter(otp => !otp.data.isBlocked && !otp.data.isClosed && !otp.data.isDeleted && otp.annotation.currentPeriodAnnotation && otp.data.classificationIds)
+                        .filter(otp => otp.data.classificationIds.includes(classification._id))
+                    
+                    var otpsAcceptableUnRestricted= otpsAcceptable.filter(otp => !otp.data.isLimitedToOwner)
+                    var otpsAcceptableRestricted= otpsAcceptable.filter(otp => otp.data.isLimitedToOwner)
 
                     return {
                         data: classification,
                         annotation: {
                             categoriesTxt: categories.filter(c => classification.categoryIds && classification.categoryIds.includes(c._id)).map(c => c.name)
-                                                .sort((a, b) => a < b ? -1 : 1).reduce((a, b) => a + (a==='' ? '' : ', ') + b, '')
-                            
+                                                .sort((a, b) => a < b ? -1 : 1).reduce((a, b) => a + (a==='' ? '' : ', ') + b, ''),
+                            availableUnRestricted: otpsAcceptableUnRestricted.reduce((acc, otp) => acc + otp.annotation.amountAvailable, 0),
+                            availableRestricted: otpsAcceptableRestricted.reduce((acc, otp) => acc + otp.annotation.amountAvailable, 0),                            
                         }
                     }
                 })
