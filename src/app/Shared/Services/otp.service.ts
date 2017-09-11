@@ -199,5 +199,22 @@ export class OtpService {
         });
     }
 
+    getAnnotatedClassifications(): Observable<any> {
+        return Observable.combineLatest(this.dataStore.getDataObservable('otp.product.classifications'), this.getAnnotatedOtps(), this.dataStore.getDataObservable('categories'),
+            (classifications, otps, categories) => {
+                return classifications.map(classification => {
+
+                    return {
+                        data: classification,
+                        annotation: {
+                            categoriesTxt: categories.filter(c => classification.categoryIds && classification.categoryIds.includes(c._id)).map(c => c.name)
+                                                .sort((a, b) => a < b ? -1 : 1).reduce((a, b) => a + (a==='' ? '' : ', ') + b, '')
+                            
+                        }
+                    }
+                })
+            }
+        )       
+    }
 
 }

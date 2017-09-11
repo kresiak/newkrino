@@ -40,13 +40,15 @@
                                                         <template ngbPanelTitle>
                                                             <div class="row">
                                                                 <div class="col-sm-2"><b>Name</b></div>
+                                                                <div class="col-sm-4"><b>Categories</b></div>
                                                             </div>
                                                         </template>
                                                     </ngb-panel>
                                                     <ngb-panel *ngFor="let classificationsItem of classificationsList">
                                                         <template ngbPanelTitle>
                                                             <div class="row" id="{{classificationsItem._id}}">
-                                                                <div class="col-sm-3">{{classificationsItem.name}}</div>
+                                                                <div class="col-sm-2">{{classificationsItem.data.name}}</div>
+                                                                <div class="col-sm-4"><gg-text-compact [text]="classificationsItem.annotation.categoriesTxt" [numberOfChar]="40"></gg-text-compact></div>
                                                             </div>
                                                         </template>
                                                         <template ngbPanelContent>
@@ -58,7 +60,7 @@
                                                                                 <div class="row">
                                                                                     <div class="col-sm-3 vcenter"><b>Name</b></div>
                                                                                     <div class="col-sm-8 vcenter">
-                                                                                        <gg-editor [content]="classificationsItem.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
+                                                                                        <gg-editor [content]="classificationsItem.data.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
@@ -66,7 +68,7 @@
                                                                                 <div class="row">
                                                                                     <div class="col-sm-3 vcenter"><b>Description</b></div>
                                                                                     <div class="col-sm-8 vcenter">
-                                                                                        <gg-editor [content]="classificationsItem.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
+                                                                                        <gg-editor [content]="classificationsItem.data.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
@@ -74,7 +76,7 @@
                                                                                 <div class="row">
                                                                                     <div class="col-sm-3 vcenter"><b>Product categories</b></div>
                                                                                     <div class="col-sm-8 vcenter">
-                                                                                        <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem._id)"
+                                                                                        <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem.data._id)"
                                                                                             (selectionChanged)="categorySelectionChanged($event, classificationsItem)"
                                                                                             (selectionOptionAdded)="categoryHasBeenAdded($event)"
                                                                                             [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">

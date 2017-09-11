@@ -53,7 +53,7 @@ export class OtpListComponentRoutable implements OnInit {
             this.nbExpiringOtps= otps ? otps.length : 0
         })
 
-        this.dataStore.getDataObservable('otp.product.classifications').takeWhile(() => this.isPageRunning).subscribe(classification => {
+        this.otpService.getAnnotatedClassifications().takeWhile(() => this.isPageRunning).subscribe(classification => {
             if (!comparatorsUtils.softCopy(this.classificationsList, classification))
                 this.classificationsList= comparatorsUtils.clone(classification)            
         })
@@ -89,18 +89,18 @@ export class OtpListComponentRoutable implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
     classificationsNameUpdated(classificationName, classificationsItem) {
-        classificationsItem.name = classificationName
-        this.dataStore.updateData('otp.product.classifications', classificationsItem._id, classificationsItem)
+        classificationsItem.data.name = classificationName
+        this.dataStore.updateData('otp.product.classifications', classificationsItem.data._id, classificationsItem.data)
     }
     
     classificationsDescriptionUpdated(classificationDescription, classificationsItem) {
-        classificationsItem.description = classificationDescription
-        this.dataStore.updateData('otp.product.classifications', classificationsItem._id, classificationsItem)
+        classificationsItem.data.description = classificationDescription
+        this.dataStore.updateData('otp.product.classifications', classificationsItem.data._id, classificationsItem.data)
     }
 
     categorySelectionChanged(selectedIds: string[], classificationsItem) {
-        classificationsItem.categoryIds = selectedIds;
-        this.dataStore.updateData('otp.product.classifications', classificationsItem._id, classificationsItem)
+        classificationsItem.data.categoryIds = selectedIds;
+        this.dataStore.updateData('otp.product.classifications', classificationsItem.data._id, classificationsItem.data)
     }
 
     categoryHasBeenAdded(newCategory: string) {
