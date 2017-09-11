@@ -20,7 +20,8 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">classification:</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-autocomplete [selectableData]="classificationListObservable" [selectedId]="otp.data.classificationId" (idChanged)="classificationChanged($event)" [emptyContentText]="'Choose a classification'"></gg-editor-autocomplete>
+							<gg-selector [selectableData]="selectableClassificationsObservable" [selectedIds]="selectedClassificationIdsObservable" (selectionChanged)="classificationChanged($event)"
+							 (selectionOptionAdded)="classificationHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>							
 						</div>
 					</div>
 					<div class="row">

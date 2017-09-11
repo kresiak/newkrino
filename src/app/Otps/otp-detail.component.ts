@@ -47,12 +47,14 @@ export class OtpDetailComponent implements OnInit {
     }
 
     private equipeListObservable
-    private classificationListObservable
     private otp;    
     private sapIdList: any[]
     private ordersObservable;
     private selectableCategoriesObservable: Observable<any>;
+    private selectableClassificationsObservable: Observable<any>;
+
     private selectedCategoryIdsObservable: Observable<any>;
+    private selectedClassificationIdsObservable: Observable<any>;
     private anyOrder: boolean;
     private authorizationStatusInfo: AuthenticationStatusInfo;
     private subscriptionAuthorization: Subscription
@@ -62,7 +64,12 @@ export class OtpDetailComponent implements OnInit {
     ngOnInit(): void {        
         this.stateInit();
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+        this.selectableClassificationsObservable = this.otpService.getSelectableClassifications();
+
+
         this.selectedCategoryIdsObservable = this.otpObservable.map(otp => (otp && otp.data) ? otp.data.categoryIds : []);
+        this.selectedClassificationIdsObservable = this.otpObservable.map(otp => (otp && otp.data) ? otp.data.classificationIds : []);
+
         this.subscriptionOtp = this.otpObservable.subscribe(otp => {
             if (!otp) return
 
@@ -84,10 +91,7 @@ export class OtpDetailComponent implements OnInit {
             this.authorizationStatusInfo = statusInfo
         });
 
-        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
-
-        this.classificationListObservable = this.otpService.getClassificationsForAutocomplete()
-        
+        this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()       
 
         this.annualForm = this.formBuilder.group({
             budgetAnnual: ['', [Validators.required]]
@@ -178,10 +182,13 @@ export class OtpDetailComponent implements OnInit {
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
-    classificationChanged(newid) {
-        if (!newid) return
-        this.otp.data.classificationId = newid;
+    classificationChanged(selectedIds) {
+        this.otp.data.classificationIds = selectedIds;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    classificationHasBeenAdded(newCategory) {
+        this.dataStore.addData('otp.product.classifications', { 'name': newCategory });
     }
 
     nameUpdated(name) {

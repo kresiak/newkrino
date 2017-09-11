@@ -89,7 +89,10 @@ export class OtpService {
         var currentPeriodAnnotation= posOfCurrentPeriod === -1 ? undefined : this.getAnnotationsOfBudgetPeriod(otp.budgetPeriods[posOfCurrentPeriod])
 
         let equipe = equipes.filter(equipe => equipe._id === otp.equipeId)[0];
-        let classification = classifcations.filter(c => c._id === otp.classificationId)[0];
+        let classification = classifcations.filter(c => otp.classificationIds && otp.classificationIds.includes(c._id))
+        
+        classification = classification.map(c => c.name).sort((a, b) => a < b ? -1 : 1)
+                                .reduce((acc, c) => acc + (acc !== '' ? ', ' : '') + c, '');
 
         let dashlet = dashlets.filter(dashlet => dashlet.id === otp._id);
 
@@ -115,7 +118,7 @@ export class OtpService {
                 amountSpent: amountSpentNotYetInSap + amountEngaged + amountBilled,
                 amountAvailable: !currentPeriodAnnotation ? 0 : (budget - amountSpentNotYetInSap - amountEngaged - amountBilled),
                 equipe: equipe ? equipe.name : 'no equipe',
-                classification: classification ? classification.name : undefined,
+                classification: classification,
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined                
             }
         }
@@ -188,6 +191,13 @@ export class OtpService {
         }));
     }
 
+    getSelectableClassifications(): Observable<SelectableData[]> {
+        return this.dataStore.getDataObservable('otp.product.classifications').map(categories => {
+            return categories.sort((cat1, cat2) => { return cat1.name < cat2.name ? -1 : 1; }).map(category =>
+                new SelectableData(category._id, category.name)
+            )
+        });
+    }
 
 
 }

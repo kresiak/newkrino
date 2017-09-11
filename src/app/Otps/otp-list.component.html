@@ -30,7 +30,7 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-2"><b>Otp</b></div>
-							<div class="col-sm-1"><b>Classification</b></div>
+							<div class="col-sm-2"><b>Classification</b></div>
 							<div class="col-sm-1" *ngIf="showColumn('equipe')"><b>Equipe</b></div>
 							<div class="col-sm-1"><b>Initial</b></div>
 							<div class="col-sm-1"><b>Available</b></div>
@@ -47,7 +47,7 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{otp.data._id}}">							
 							<div class="col-sm-2" [style.font-weight]="otp.data._id === state.openPanelId ? 'bold' : 'lighter'">{{otp.data.name}} </div>
-							<div class="col-sm-1"><gg-text-compact [text]="otp.annotation.classification" [numberOfChar]="8"></gg-text-compact></div>
+							<div class="col-sm-2"><gg-text-compact [text]="otp.annotation.classification" [numberOfChar]="16"></gg-text-compact></div>
 							<div class="col-sm-1" *ngIf="showColumn('equipe')"><gg-text-compact [text]="otp.annotation.equipe" [numberOfChar]="8"></gg-text-compact></div>
 							<div class="col-sm-1" ngbTooltip="engaged: {{(otp.annotation.amountEngaged + otp.annotation.amountSpentNotYetInSap) | currency:'EUR':true:'1.2-2'}} / invoiced: {{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}">
 								{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}
