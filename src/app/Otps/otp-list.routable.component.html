@@ -35,34 +35,60 @@
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
-                                                <div class="row">
-                                                    <div class="col-sm-2 vcenter"><b>Name</b></div>
-                                                    <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                    <div class="col-sm-6 vcenter"><b>Product categories</b></div>
-                                                </div>
-                                                <div *ngFor="let classificationsItem of classificationsList">
-                                                    <div class="row">
-                                                        <div class="col-sm-2 vcenter">
-                                                            <gg-editor [content]="classificationsItem.name" [showControls]="true" 
-                                                                (editSaved)="classificationsNameUpdated($event, classificationsItem)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
-                                                            </gg-editor>
-                                                        </div>
-                                                        <div class="col-sm-3 vcenter">
-                                                            <gg-editor [content]="classificationsItem.description" [showControls]="true" 
-                                                                (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
-                                                            </gg-editor>
-                                                        </div>
-                                                        <div class="col-sm-6 vcenter">
-                                                            <gg-selector 
-                                                                [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem._id)" 
-                                                                (selectionChanged)="categorySelectionChanged($event, classificationsItem)" (selectionOptionAdded)="categoryHasBeenAdded($event)" 
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
-                                                            </gg-selector>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
+                                                    <ngb-panel [disabled]="true">
+                                                        <template ngbPanelTitle>
+                                                            <div class="row">
+                                                                <div class="col-sm-2"><b>Name</b></div>
+                                                            </div>
+                                                        </template>
+                                                    </ngb-panel>
+                                                    <ngb-panel *ngFor="let classificationsItem of classificationsList">
+                                                        <template ngbPanelTitle>
+                                                            <div class="row" id="{{classificationsItem._id}}">
+                                                                <div class="col-sm-3">{{classificationsItem.name}}</div>
+                                                            </div>
+                                                        </template>
+                                                        <template ngbPanelContent>
+                                                            <ngb-tabset>
+                                                                <ngb-tab title="Info" id="tabInfo">
+                                                                    <template ngbTabContent>
+                                                                        <div class="card">
+                                                                            <div class="card-block">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                                    <div class="col-sm-8 vcenter">
+                                                                                        <gg-editor [content]="classificationsItem.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
+                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                        </gg-editor>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                                                    <div class="col-sm-8 vcenter">
+                                                                                        <gg-editor [content]="classificationsItem.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
+                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                        </gg-editor>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-3 vcenter"><b>Product categories</b></div>
+                                                                                    <div class="col-sm-8 vcenter">
+                                                                                        <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem._id)"
+                                                                                            (selectionChanged)="categorySelectionChanged($event, classificationsItem)"
+                                                                                            (selectionOptionAdded)="categoryHasBeenAdded($event)"
+                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                        </gg-selector>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </template>
+                                                                </ngb-tab>
+                                                            </ngb-tabset>
+                                                        </template>
+                                                    </ngb-panel>
+                                                </ngb-accordion>
                                             </div>
                                         </div>
                                     </template>
@@ -90,7 +116,7 @@
                                                                 <button class="btn btn-success" type="submit" [disabled]="!classificationForm.valid">Submit</button>
                                                             </div>
                                                             <div class="col-sm-3 col-md-2 col-lg-2">
-                                                                <button class="btn btn-info"  [disabled]="classificationForm.pristine" (click)="reset()">Reset</button>
+                                                                <button class="btn btn-info" [disabled]="classificationForm.pristine" (click)="reset()">Reset</button>
                                                             </div>
                                                         </div>
                                                     </form>
