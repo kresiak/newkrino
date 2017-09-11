@@ -20,9 +20,10 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3"><b>Category</b></div>
-							<div class="col-sm-4"><b>Supplier example</b></div>
-							<div class="col-sm-4"><b>Otp example</b></div>
+							<div class="col-sm-2"><b>Category</b></div>
+							<div class="col-sm-3"><b>Supplier example</b></div>
+							<div class="col-sm-3"><b>Otp example</b></div>
+							<div class="col-sm-3"><b>Classifications</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -31,9 +32,10 @@
 				<ngb-panel *ngFor="let category of categories" [id]="category.data._id">
 					<template ngbPanelTitle>
 						<div class="row" id="{{category.data._id}}">
-							<div class="col-sm-3" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
-							<div class="col-sm-4">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
-							<div class="col-sm-4">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
+							<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
+							<div class="col-sm-3">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
+							<div class="col-sm-3">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
+							<div class="col-sm-3"><gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30" ></gg-text-compact></div>
 						</div>
 					</template>
 					<template ngbPanelContent>

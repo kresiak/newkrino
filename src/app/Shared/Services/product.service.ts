@@ -58,7 +58,8 @@ export class ProductService {
 
     getAnnotatedCategories(): Observable<any> {
         return Observable.combineLatest(this.getAnnotatedProductsWithSupplierInfo(), this.dataStore.getDataObservable('categories'), this.dataStore.getDataObservable('otps'),
-            (productsAnnotated: any[], categories, otps: any[]) => {
+             this.dataStore.getDataObservable('otp.product.classifications'),
+            (productsAnnotated: any[], categories, otps: any[], classifications: any[]) => {
                 return categories.map(category => {
                     let suppliersInCategory = productsAnnotated.filter(product => product.data.categoryIds && product.data.categoryIds.includes(category._id)).map(product => product.annotation.supplierName)
                         .reduce((a: any[], b: string) => {   //take distincs
@@ -70,12 +71,16 @@ export class ProductService {
                             if (a.indexOf(b) < 0) a.push(b);
                             return a;
                         }, []).slice(0, 2);
+                    let classificationsInCategory = classifications.filter(c => c.categoryIds && c.categoryIds.includes(category._id)).map(c => c.name)
+                        .sort((a, b) => a < b ? -1 : 1).reduce((a,b) => a + (a === '' ? '' : ', ') +  b, '')
+
 
                     return {
                         data: category,
                         annotation: {
                             supplierNames: suppliersInCategory,
-                            otpNames: otpInCategory
+                            otpNames: otpInCategory,
+                            classificationsTxt: classificationsInCategory
                         }
                     };
                 })
