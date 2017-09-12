@@ -68,12 +68,12 @@
 			<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="path+'|O:Products'"  (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Open otps" id="tabOtps">
+<!--	<ngb-tab title="Open otps" id="tabOtps">
 		<template ngbTabContent>
             <gg-otp-list [otpsObservable]="otpsObservable" [state]="state.Otps" [path]="path+'|O:Otps'" (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab id="tabMax">
+-->	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>

@@ -15,7 +15,7 @@ export class OtpChoiceService {
 
     }
 
-    determineOtp(product, quantity: number, otpsBudgetMap, currentEquipeId: string): any {
+    determineOtp(product, classifications: any[], quantity: number, otpsBudgetMap, currentEquipeId: string): any {
         //var equipeId = this.authService.getEquipeId();
         var totalPrice = +product.price * quantity * 1.21;
 
@@ -29,9 +29,10 @@ export class OtpChoiceService {
                 .filter(otp => !otp.data.isBlocked && !otp.data.isClosed && !otp.data.isDeleted && otp.annotation.currentPeriodAnnotation)
                 .filter(otp => otp.annotation.amountAvailable > totalPrice)                
                 .filter(otp => {
-                    let productCategories: string[] = product.categoryIds ? product.categoryIds : [];
-                    let allowedCategories: string[] = otp.data.categoryIds ? otp.data.categoryIds : [];
-                    return allowedCategories.filter(otpCategory => productCategories.includes(otpCategory)).length > 0 || (product.isFixCost && !otp.data.excludeFixCost) ;
+                    let productCategories: string[] = product.categoryIds ? product.categoryIds : []
+                    let productClassifications: string[]= classifications.filter(c => c.categoryIds.filter(catId => productCategories.includes(catId)).length > 0).map(c => c._id)
+                    let allowedClassifications: string[] = otp.data.classificationIds ? otp.data.classificationIds : []
+                    return allowedClassifications.filter(otpClassification => productClassifications.includes(otpClassification)).length > 0 || (product.isFixCost && !otp.data.excludeFixCost) ;
                 })
                 .filter(otp => otp.data.priority > 0)
                 .sort((o1, o2) => {

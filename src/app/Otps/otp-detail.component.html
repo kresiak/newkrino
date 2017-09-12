@@ -37,10 +37,10 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">allowed products:</div>
+						<div class="col-sm-4 vcenter">allowed products (will disappear soon/use classification):</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
-							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
+							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="true"></gg-selector>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
