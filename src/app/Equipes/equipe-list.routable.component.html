@@ -64,7 +64,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Current equipe" id="tabCurrentEquipe">
+            <ngb-tab title="Current equipe" id="tabCurrentEquipe" *ngIf="authorizationStatusInfo.hasEquipeId()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
