@@ -231,7 +231,10 @@ export class AuthService {
         }))
     }
 
-    public getPossibleEquipeSimpleListObservable(userId): Observable<any> {
+
+
+    public getPossibleEquipeSimpleListObservable(authorizationStatusInfo: AuthenticationStatusInfo): Observable<any> {
+        var userId = authorizationStatusInfo.currentUserId
         return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId).map(user => user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))[0])
             .map(equipes => (equipes || []).map(eq => {
                 return {

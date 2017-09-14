@@ -102,7 +102,7 @@ export class AppComponent implements OnInit {
             this.needsEquipeSelection= !this.userValue ? true : !(this.usersShort.filter(u => u.id === info.statusInfo.currentUserId)[0] || {equipeNotNeeded: false}).equipeNotNeeded
 
         }).switchMap(info => {
-            return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo.currentUserId).takeWhile(() => this.isPageRunning)
+            return  this.authService.getPossibleEquipeSimpleListObservable(this.authorizationStatusInfo).takeWhile(() => this.isPageRunning)
         }).do(possibleEquipes => {
             this.possibleEquipes = possibleEquipes
             this.equipeValue = this.possibleEquipes.filter(eq => eq.id === this.authorizationStatusInfo.currentEquipeId)[0]
