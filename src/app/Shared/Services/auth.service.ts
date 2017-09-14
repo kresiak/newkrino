@@ -7,6 +7,8 @@ import { SelectableData } from './../Classes/selectable-data'
 // helper class
 // ============
 
+
+
 export class AuthenticationStatusInfo {
     public currentUserId: string = ''
     public currentEquipeId: string = ''
@@ -35,7 +37,7 @@ export class AuthenticationStatusInfo {
     }
 
     hasEquipeId() {
-        return this.currentEquipeId != ''
+        return this.currentEquipeId != '' && this.currentEquipeId != AuthService.noEquipeId
     }
 
     logout() {
@@ -231,17 +233,30 @@ export class AuthService {
         }))
     }
 
-
+    public static readonly noEquipeId: string = 'NoEquipeEntry'
 
     public getPossibleEquipeSimpleListObservable(authorizationStatusInfo: AuthenticationStatusInfo): Observable<any> {
         var userId = authorizationStatusInfo.currentUserId
-        return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId).map(user => user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))[0])
-            .map(equipes => (equipes || []).map(eq => {
-                return {
-                    id: eq._id,
-                    value: eq.name
+        var isAdmin:boolean= false
+        return this.getAnnotatedUsersLight().map(users => users.filter(user => user.data._id === userId)[0]).do(user => {isAdmin= (user && user.data && user.data.isAdmin)})
+            .map(user => !user ? undefined : user.annotation.equipes.sort((a, b) => { return a.name < b.name ? -1 : 1; }))
+            .map(equipes => {
+                var list = (equipes || []).map(eq => {
+                    return {
+                        id: eq._id,
+                        value: eq.name
+                    }
+                })
+
+                if (isAdmin) {
+                    list.push({
+                        id: AuthService.noEquipeId,
+                        value: 'Enter without service'
+                    })
                 }
-            }))
+
+                return list
+            })
     }
 
 
