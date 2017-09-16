@@ -105,6 +105,14 @@ export class DataStore { // contains one observable property by database table/c
         return obs;
     };
 
+    addDataWithoutLabo(table: string, newRecord: any): Observable<any> {
+        let obs = this.apiService.crudCreateRecord(table, newRecord);
+        obs.subscribe(res => {
+            //this.triggerNext(table)
+        });
+        return obs;
+    };
+
     deleteData(table: string, id: string): Observable<any> {
         let obs = this.apiService.crudDeleteRecord(table, id);
         obs.subscribe(res => {

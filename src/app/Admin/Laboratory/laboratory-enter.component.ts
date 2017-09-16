@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DataStore } from '../../Shared/Services/data.service'
+import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 
 @Component(
     {
@@ -10,32 +11,42 @@ import { DataStore } from '../../Shared/Services/data.service'
 )
 
 export class LaboratoryEnterComponent {
-    constructor( private dataStore: DataStore, private formBuilder: FormBuilder) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
     }
 
     private labEnterForm: FormGroup
     private isPageRunning: boolean = true
 
     ngOnInit(): void {
+        const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
 
         this.labEnterForm = this.formBuilder.group({
             laboName: ['', [Validators.required, Validators.minLength(2)]],
             laboShortName: ['', [Validators.required, Validators.minLength(2)]],
             userFirstName: ['', [Validators.required, Validators.minLength(2)]],
             userLastName: ['', [Validators.required, Validators.minLength(2)]],
+            email: ['', [Validators.required, Validators.pattern(emailRegex)]],            
             userPassword: ['', [Validators.required, Validators.minLength(2)]]
         });
 
     }
 
     save(formValue, isValid) {
-       this.dataStore.addData('', {
-           laboName: formValue.laboName,
-           laboShortName: formValue.laboShortName,
-           userFirstName: formValue.userFirstName,
-           userLastName: formValue.userLastName,
-           userPassword: formValue.userPassword
-        }).first().subscribe(res => {
+
+        Observable.forkJoin(
+            this.dataStore.addDataWithoutLabo('labos.list', {
+                name: formValue.laboName,
+                shortcut: formValue.laboShortName,
+            }),
+            this.dataStore.addDataWithoutLabo('users.krino', {
+                name: formValue.userLastName,
+                firstName: formValue.userFirstName,
+                laboName: formValue.laboShortName,
+                password: formValue.userPassword,
+                isAdmin: true,
+                email: formValue.email
+            }),            
+        ).first().subscribe(res => {
             var x = res;
             this.resetLabEnterForm();
         });
@@ -49,5 +60,5 @@ export class LaboratoryEnterComponent {
         this.isPageRunning = false
     }
 
- 
+
 }
