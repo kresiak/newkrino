@@ -16,6 +16,7 @@ import {AdminMainComponent} from './Admin/admin-main.component'
 import {AdminWebShoppingComponent} from './Admin/Webshopping/component'
 import {AdminAK} from './Admin/AK/component'
 import {AdminLabo} from './Admin/Laboratory/component'
+import {LaboratoryEnterComponent} from './Admin/Laboratory/laboratory-enter.component'
 import {AdminWebShoppingVoucherRequestListComponent} from './Admin/Webshopping/voucher-request-list.component'
 import {AdminWebShoppingVoucherRequestComponent} from './Admin/Webshopping/voucher-request.component'
 import {MonitoringDetailComponent}  from './Admin/Monitoring/monitoring-detail.component'
@@ -219,7 +220,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
   declarations: [ AppComponent, HomeComponent, 
                   VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
                   AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
-                  CommentComponent, CommentsComponent,
+                  CommentComponent, CommentsComponent, LaboratoryEnterComponent,
                   SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
                   ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
                   ProductFridgeOrderButtonComponent,
