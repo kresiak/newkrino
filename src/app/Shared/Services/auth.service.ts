@@ -251,7 +251,7 @@ export class AuthService {
                 if (isAdmin) {
                     list.push({
                         id: AuthService.noEquipeId,
-                        value: 'Enter without service'
+                        value: 'Enter without équipe'
                     })
                 }
 

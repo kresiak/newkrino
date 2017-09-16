@@ -80,10 +80,13 @@ export class EquipeService {
 
         var debts = equipeMutualDebtMap.get(equipe._id)
 
+        var owed= debts ? debts.owed : 0
+        var owing= debts ? debts.owing : 0
+
         let ordersFiltered = orders.filter(order => order.equipeId === equipe._id);
         let otpsFiltered = otps.filter(otp => otp.data.equipeId === equipe._id);
         let budget = otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.budget).reduce((a, b) => a + b) : 0;
-        let amountAvailable = (otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.amountAvailable).reduce((a, b) => a + b) : 0) + debts.owed - debts.owing;
+        let amountAvailable = (otpsFiltered && otpsFiltered.length > 0 ? otpsFiltered.map(otp => otp.annotation.amountAvailable).reduce((a, b) => a + b) : 0) + owed - owing;
         let amountSpent = budget - amountAvailable
         let dashlet = dashlets.filter(dashlet => dashlet.id === equipe._id);
 
@@ -105,12 +108,12 @@ export class EquipeService {
             {
                 amountSpent: amountSpent,
                 budget: budget,
-                owed: debts.owed,
-                owing: debts.owing,
+                owed: owed,
+                owing: owing,
                 amountAvailable: amountAvailable, // budget - amountSpent,
                 dashletId: dashlet.length > 0 ? dashlet[0]._id : undefined,
-                owedDetails: annotateDetails(debts.owedDetails),
-                owingDetails: annotateDetails(debts.owingDetails)                
+                owedDetails: debts ? annotateDetails(debts.owedDetails) : [],
+                owingDetails: debts ? annotateDetails(debts.owingDetails) : []
             }
         };
     }
