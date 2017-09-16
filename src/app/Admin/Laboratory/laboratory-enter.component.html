@@ -1,0 +1,46 @@
+<div class="card">
+    <div class="card-block">
+        <div class="container-fluid">
+            <form [formGroup]="labEnterForm" (ngSubmit)="save(labEnterForm.value, labEnterForm.valid)">
+                <div class="form-group row">
+                    <label for="laboName" class="col-sm-2 col-form-label col-xl-2">labo name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="laboName" id="laboName" placeholder="labo name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="laboShortName" class="col-sm-2 col-form-label col-xl-2">labo short name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="laboShortName" id="laboShortName" placeholder="labo short name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="userFirstName" class="col-sm-2 col-form-label col-xl-2">user first name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="userFirstName" id="userFirstName" placeholder="user first name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="userLastName" class="col-sm-2 col-form-label col-xl-2">user last name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="userLastName" id="userLastName" placeholder="user last name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="userPassword" class="col-sm-2 col-form-label col-xl-2">user password:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="0" class="form-control" formControlName="userPassword" id="userPassword" placeholder="user password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <button class="btn btn-success" type="submit" [disabled]="!labEnterForm.valid">Submit</button>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <button class="btn btn-info" [disabled]="labEnterForm.pristine" (click)="resetLabEnterForm()">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
