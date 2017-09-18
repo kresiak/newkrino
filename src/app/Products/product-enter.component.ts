@@ -56,6 +56,7 @@ export class ProductEnterComponent implements OnInit {
             tva: ['', Validators.required],
             disabled: [''],
             isStock: [''],
+            isLabo: [''],            
             needsLotNumber: [''],
             divisionFactor: ['1'],
             stockPackage: ['']
@@ -96,6 +97,7 @@ export class ProductEnterComponent implements OnInit {
             disabled: formValue.disabled !== '' && formValue.disabled !== null,
             needsLotNumber: formValue.needsLotNumber !== '' && formValue.needsLotNumber !== null,
             isStock: formValue.isStock !== '' && formValue.isStock !== null,
+            isLabo: formValue.isLabo!=='' && formValue.isLabo!== null,
             divisionFactor: +formValue.divisionFactor,
             stockPackage: formValue.stockPackage
         }).subscribe(res => {

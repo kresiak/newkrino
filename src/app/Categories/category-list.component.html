@@ -21,9 +21,12 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-2"><b>Category</b></div>
-							<div class="col-sm-3"><b>Supplier example</b></div>
+							<div class="col-sm-2"><b>Supplier example</b></div>
 <!--							<div class="col-sm-3"><b>Otp example</b></div>
--->							<div class="col-sm-3"><b>Classifications</b></div>
+-->							<div class="col-sm-2"><b>Classifications</b></div>
+							<div class="col-sm-2"><b>Article Nb</b></div>
+							<div class="col-sm-2"><b>Group Marchandise</b></div>
+							<div class="col-sm-2"><b>Labo specific</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -33,9 +36,12 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{category.data._id}}">
 							<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
-							<div class="col-sm-3">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
+							<div class="col-sm-2">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
 <!--							<div class="col-sm-3">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
--->							<div class="col-sm-3"><gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30" ></gg-text-compact></div>
+-->							<div class="col-sm-2"><gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30" ></gg-text-compact></div>
+							<div class="col-sm-2">{{category.data.noArticle }}</div>
+							<div class="col-sm-2">{{category.data.groupMarch }}</div>
+							<div class="col-sm-2">{{category.data.isLabo ? 'yes' : '' }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

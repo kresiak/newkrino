@@ -84,7 +84,7 @@ export class ProductService {
                             nbClassifications: classificationsInCategory.length
                         }
                     };
-                })
+                }).sort((a, b) => a.data.name.toUpperCase() < b.data.name.toUpperCase() ? -1 : 1)
             });
     }
 

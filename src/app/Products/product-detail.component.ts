@@ -234,4 +234,10 @@ export class ProductDetailComponent implements OnInit {
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
+    isLabUpdated(isLabos) {
+        this.product.data.isLabo = isLabos;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+
 }

@@ -85,6 +85,12 @@
 						<div class="col-sm-3">frequence:</div>
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
+                    <div class="row">
+						<div class="col-sm-3 vcenter">laboratory specific:</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="product.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>					
 					<div class="row">
 						<div class="col-sm-3 vcenter">is disabled:</div>
 						<div class="col-sm-6 vcenter">
