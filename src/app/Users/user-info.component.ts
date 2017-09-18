@@ -40,7 +40,7 @@ export class UserInfoComponent implements OnInit {
         var userId= this.user.data._id
 
         toAddIds.forEach(equipeId => {
-            this.dataStore.getDataObservable('equipes').map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
+            this.dataStore.getDataObservable('equipes').first().map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
                 .do(equipe => {
                     if (!equipe.userIds) equipe.userIds=[]
                     if (!equipe.userIds.includes(userId)) {
@@ -50,7 +50,7 @@ export class UserInfoComponent implements OnInit {
                 }).subscribe()
         })
         toDeleteIds.forEach(equipeId => {
-            this.dataStore.getDataObservable('equipes').map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
+            this.dataStore.getDataObservable('equipes').first().map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
                 .do(equipe => {
                     if (!equipe.userIds) equipe.userIds=[]
                     if (equipe.userIds.includes(userId)) {
