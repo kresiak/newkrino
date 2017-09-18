@@ -42,6 +42,7 @@ export class UserInfoComponent implements OnInit {
         toAddIds.forEach(equipeId => {
             this.dataStore.getDataObservable('equipes').map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
                 .do(equipe => {
+                    if (!equipe.userIds) equipe.userIds=[]
                     if (!equipe.userIds.includes(userId)) {
                         equipe.userIds.push(userId)
                         this.dataStore.updateData('equipes', equipe._id, equipe)
@@ -51,6 +52,7 @@ export class UserInfoComponent implements OnInit {
         toDeleteIds.forEach(equipeId => {
             this.dataStore.getDataObservable('equipes').map(equipes => equipes.filter(eq => eq._id === equipeId)[0])
                 .do(equipe => {
+                    if (!equipe.userIds) equipe.userIds=[]
                     if (equipe.userIds.includes(userId)) {
                         var pos = equipe.userIds.findIndex(id => id === userId);
                         equipe.userIds.splice(pos, 1);
