@@ -1,1 +1,24 @@
-Hello, yes
+
+    <div class="card-block">
+        <ngb-tabset> <!-- (tabChange)="beforeTabChange($event)" [activeId]="initTabId"-->
+            <ngb-tab title="List of products" id="tabListOfProducts">
+                <template ngbTabContent>
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row" *ngFor="let prodList of productsList">
+                        
+                                <div class="col-sm-3">{{prodList.name}}</div>
+                                <div class="col-sm-3">{{prodList.package}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Enter new product" id="tabEnterNewProduct">
+                <template ngbTabContent>
+                    <gg-enter-market-product></gg-enter-market-product>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+

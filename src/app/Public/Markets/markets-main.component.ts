@@ -10,11 +10,16 @@ import { DataStore } from './../../Shared/Services/data.service'
 )
 export class MarketsMainComponent implements OnInit {
     isPageRunning: boolean= true;
+    private productsList: any[]
 
-    constructor() {
+    constructor( private dataStore: DataStore) {
     }
 
     ngOnInit(): void {
+
+        this.dataStore.getDataObservable('products.market').subscribe(productsList => {
+            this.productsList= productsList
+        })
 
     }
 
