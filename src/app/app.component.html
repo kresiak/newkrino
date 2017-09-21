@@ -42,13 +42,12 @@
 		</div>
 		<div class="col-xs-12 col-sm-12 col-md-3 vcenter">
 			<h1 style="text-align:center">Krino 2017</h1>
-			<select #langSelect (change)="translate.use(langSelect.value)">
-		          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
-        	</select>
 		</div>
 		<div class="col-lg-2 col-md-1 hidden-sm-down vcenter">
-
-		</div>
+<!--			<select class="form-control" #langSelect (change)="translate.use(langSelect.value)">
+		          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+        	</select>
+-->		</div>
 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 vcenter" *ngIf="authorizationStatusInfo && laboName">
 			<div class="form-group">
 				<input class="form-control" [(ngModel)]="userValue" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;"
@@ -106,6 +105,9 @@
 			<a class="nav-link" [ngbTooltip]="menuItem.attractAttentionModeText" *ngIf="menuItem.isAttractAttentionMode" (click)="menuService.activateMenu(menuItem)"
 			 routerLink="{{menuItem.route}}"><span style="color: lightcoral">{{menuItem.title}} !!</span> </a>
 			<a class="nav-link" *ngIf="!menuItem.isAttractAttentionMode" (click)="menuService.activateMenu(menuItem)" routerLink="{{menuItem.route}}">{{menuItem.title}}</a>
+		</li>
+		<li class="nav-item">
+			<img src="../images/international.png" class="imgSearch" (click)="translate.use(translate.currentLang==='en' ? 'fr' : 'en')" [ngbTooltip]="translate.currentLang==='en' ? 'Clicker ici pour Krino en français' : 'Click here to get Krino in English'"/>
 		</li>
 	</ul>
 </nav>
