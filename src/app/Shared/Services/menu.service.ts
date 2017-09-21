@@ -4,12 +4,12 @@ import { NotificationService } from './notification.service'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import { DataStore } from './data.service'
 import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
-
+import {TranslateService} from 'ng2-translate'
 
 Injectable()
 export class MenuService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router
-        , @Inject(NotificationService) private notificationService: NotificationService) {
+        , @Inject(NotificationService) private notificationService: NotificationService,  @Inject(TranslateService) private translate: TranslateService) {
 
     }
 
@@ -85,7 +85,8 @@ export class MenuService {
         this.menu = [
             {
                 route: '/home',
-                title: 'Home',
+                title: 'Homex',
+                titleKey: 'MENU.HOME',
                 active: false
             },
             {

@@ -11,5 +11,8 @@
     "LABO": {
       "TIP":"You are in labo {{param}}. <br/> (Click to change the labo)"
     }
+  },
+  "MENU": {
+    "HOME": "Home"
   }
 }

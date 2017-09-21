@@ -11,5 +11,8 @@
     "LABO": {
       "TIP":"Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)"
     }    
+  },
+  "MENU": {
+    "HOME": "Acceuil"
   }
 }
