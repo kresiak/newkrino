@@ -79,6 +79,9 @@ import {PlatformOffersComponent} from './Platforms/platform-offers.component'
 import {PlatformOfferDetailComponent} from './Platforms/platform-offer-detail.component'
 import {PlatformOfferListComponent} from './Platforms/platform-offer-list.component'
 
+import {PublicMainComponent} from './Public/public-main-component'
+import {MarketsMainComponent} from './Public/Markets/markets-main.component'
+
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
 import {UserEnterComponent} from './Users/user-enter.component'
@@ -167,6 +170,8 @@ import {UserService} from './Shared/Services/user.service'
 import {SapService} from './Shared/Services/sap.service'
 import {MenuService} from './Shared/Services/menu.service'
 import {ChartService} from './Shared/Services/chart.service'
+import {AuthAnoynmousService} from './Shared/Services/auth-anonymous.service'
+
 import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
 import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
 import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
@@ -213,7 +218,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
             { path: 'reception', component: ReceptionDetailComponent },
             { path: 'communication', component: CommunicationEnterComponent },
             { path: 'platform', component: PlatformMainComponent },
-            
+            { path: 'public', component: PublicMainComponent },
             { path: '**', redirectTo: '/home'}
           ])
    ],
@@ -241,10 +246,11 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
                   SupplierSapDetailComponent, SupplierSapListComponent,
                   PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
                   PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
-                  PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent, PlatformOfferDetailComponent, PlatformOfferListComponent
+                  PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent, PlatformOfferDetailComponent, PlatformOfferListComponent,
+                  PublicMainComponent, MarketsMainComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
-                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService ],
+                  AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService, AuthAnoynmousService ],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

@@ -102,8 +102,6 @@ export class AuthService {
     }
 
 
-    private usersSubscription: Subscription
-
     private prepareUserId(id: string, equipeNotNeeded: boolean) {
         this.authInfo.currentUserId = id
         this.authInfo.needsEquipeSelection= !equipeNotNeeded

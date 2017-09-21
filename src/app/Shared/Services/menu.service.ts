@@ -177,6 +177,11 @@ export class MenuService {
                 title: 'Platform',
                 active: false,
                 hide: !isLoggedIn || !statusInfo.isPlatformAdminstrator()
+            },
+            {
+                route: '/public',
+                title: 'Participate',
+                active: false
             }
         ];
         this.menu = this.menu.filter(item => !item.hide)
