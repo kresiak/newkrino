@@ -74,7 +74,7 @@
 								<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="10"></gg-text-compact>
 							</div>
 							<div class="col-sm-2">
-								<gg-text-compact [text]="sap.mainData.annotation.otpTxt"></gg-text-compact>
+								<gg-text-compact [text]="sap.mainData.annotation.otpTxt" [extraTooltipText]="sap.mainData.data.resp"></gg-text-compact>
 							</div>
 							<div class="col-sm-2">
 								<gg-text-compact [text]="sap.equipeInfo || ''" [extraTooltipText]="sap.extraEquipeInfo" ></gg-text-compact>

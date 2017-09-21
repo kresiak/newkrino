@@ -68,6 +68,7 @@ export class SapListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.stateInit();
         var initialSearch = this.configService.listGetSearchText(this.listName)
         if (initialSearch) {
@@ -137,7 +138,7 @@ export class SapListComponent implements OnInit {
                     }
 
                     return sap.mainData.data.ourRef.toString().toUpperCase().includes(txt) || sap.mainData.data.sapId.toString().toUpperCase().includes(txt) || sap.mainData.data.supplier.toUpperCase().includes(txt)
-                        || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt)
+                        || sap.mainData.annotation.otpTxt.toUpperCase().includes(txt) || sap.mainData.data.resp.toString().toUpperCase().includes(txt) 
                 })
             }).do(saps => {
                 this.nbHits = saps.length

@@ -12,7 +12,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2">Reference:</div>
-                            <div class="col-sm-8">{{sapItem.data.sapId}} / <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}}</a>                                </div>
+                            <div class="col-sm-8">{{sapItem.data.sapId}} / <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}} / {{sapItem.data.resp}}</a>                                </div>
                         </div>
                         <div class="row" *ngIf="!sapItem.data.isNoEngag">
                             <div class="col-sm-2">Supplier:</div>

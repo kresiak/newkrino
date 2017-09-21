@@ -64,6 +64,17 @@
                     </div>
                 </template>
             </ngb-tab>
+            <ngb-tab title="Responsables" id="tabResponsables">
+                <template ngbTabContent>
+                    <div class="card" id>
+                        <div class="card-block">
+                            <ul>
+                                <li *ngFor="let resp of listResponsales">{{resp}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
             <ngb-tab title="View Piece Types" id="tabPiecesInfo">
                 <template ngbTabContent>
                     <div class="card" id>

@@ -24,13 +24,20 @@ export class DataStore { // contains one observable property by database table/c
         return this.laboNameSubject
     }
 
+    public getLaboResponsablesObservable(): Observable<any> {
+        return this.getLaboNameObservable().switchMap(laboName => {
+            return this.getDataObservable('labos.list').map(labos => labos.filter(labo => labo.shortcut === laboName)[0])
+                        .map(theLabo => theLabo ? (theLabo.responsables || []) : [])
+        })
+    }
+
     private emitLaboName() {
         this.laboNameSubject.next(this.laboName === 'undefined' ? '' : this.laboName)
     }
 
     private laboFieldName: string = 'laboName'
 
-    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications']
+    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications', 'sap.fusion']
 
     //public laboName= 'demo' 
     //public laboName = 'michel'

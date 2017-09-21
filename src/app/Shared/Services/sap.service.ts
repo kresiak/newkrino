@@ -181,10 +181,30 @@ export class SapService {
     private krinoIdMapObservable: ConnectableObservable<Map<number, number>> = null
 
 
+    private getSapItemsFilteredByResponsablesObservable() : Observable<any> {
+        return this.dataStore.getDataObservable('sap.fusion')
+            .switchMap(sapList => this.dataStore.getLaboResponsablesObservable().map(resps => {
+                return sapList.filter(s => s.mainData && s.mainData.data && resps.includes(s.mainData.data.resp))
+            }))
+            .map(sapList => {
+                return sapList
+            })
+    }
+
+    public allResponsables() {
+        return this.dataStore.getDataObservable('sap.fusion').map(items => {
+            return items.reduce((acc, i) => {
+                var set: Set<any>= acc
+                if (!set.has(i.mainData.data.resp)) set.add(i.mainData.data.resp)
+                return set
+            }, new Set<string>())
+        })
+    }
 
     // P1
     private initSapIdMapObservable(): void {
-        this.sapIdMapObservable = this.dataStore.getDataObservable('sap.fusion').map(utilsObservable.hashMapFactoryCurry(elem => elem.sapId)).publishReplay(1)
+        this.sapIdMapObservable = this.getSapItemsFilteredByResponsablesObservable()
+            .map(utilsObservable.hashMapFactoryCurry(elem => elem.sapId)).publishReplay(1)
     }
 
 
@@ -218,7 +238,7 @@ export class SapService {
 
     // P3
     initSapItemsObservable() {
-        this.sapItemsObservable = this.dataStore.getDataObservable('sap.fusion').map(saps => saps.sort((a, b) => a.counter - b.counter)).publishReplay(1)   // forst this publishReplay is not really needed...
+        this.sapItemsObservable = this.getSapItemsFilteredByResponsablesObservable().map(saps => saps.sort((a, b) => a.counter - b.counter)).publishReplay(1)   // forst this publishReplay is not really needed...
     }
 
     // P4
@@ -258,17 +278,17 @@ export class SapService {
         }*/
 
     getSapItemsToAttributeToEquipe(): Observable<any> {
-        return Observable.combineLatest(this.dataStore.getDataObservable('sap.fusion'), this.dataStore.getDataObservable('sap.krino.annotations'), this.adminService.getLabo(), 
-            (sapItems, sapAnnotations, labo) => { 
-                var krinoStartDate= moment(labo.data.krinoStartDate,'DD/MM/YYYY HH:mm:ss')
-                var fnIsDateOk= (date) => {
-                    return krinoStartDate.isBefore(moment(date,'DD/MM/YYYY'))
+        return Observable.combineLatest(this.getSapItemsFilteredByResponsablesObservable(), this.dataStore.getDataObservable('sap.krino.annotations'), this.adminService.getLabo(),
+            (sapItems, sapAnnotations, labo) => {
+                var krinoStartDate = moment(labo.data.krinoStartDate, 'DD/MM/YYYY HH:mm:ss')
+                var fnIsDateOk = (date) => {
+                    return krinoStartDate.isBefore(moment(date, 'DD/MM/YYYY'))
                 }
-                var sapAnnotationsMap: Map<number, any>= utilsObservable.hashMapFactoryHelper(sapAnnotations, a => a.sapId)
-                var a= sapItems.filter(item => item.mainData && !(+item.mainData.data.ourRef))
-                a= a.filter(item => !item.isSuppr)
-                a= a.filter(item => !sapAnnotationsMap.has(item.sapId))
-                a= a.filter(item => fnIsDateOk(item.dateLastActivity))
+                var sapAnnotationsMap: Map<number, any> = utilsObservable.hashMapFactoryHelper(sapAnnotations, a => a.sapId)
+                var a = sapItems.filter(item => item.mainData && !(+item.mainData.data.ourRef))
+                a = a.filter(item => !item.isSuppr)
+                a = a.filter(item => !sapAnnotationsMap.has(item.sapId))
+                a = a.filter(item => fnIsDateOk(item.dateLastActivity))
                 return a.sort((a, b) => a.counter - b.counter)
             })
     }
@@ -280,7 +300,7 @@ export class SapService {
     getSapKrinoAnnotationAnnotatedMap(): Observable<any> {
         return Observable.combineLatest(this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('sap.krino.annotations'), (equipes, krinoAnnots) => {
             return krinoAnnots.map(a => {
-                var eq= equipes.filter(e => e._id === a.equipeId)[0]
+                var eq = equipes.filter(e => e._id === a.equipeId)[0]
                 return {
                     data: a,
                     annotation: {
@@ -293,15 +313,15 @@ export class SapService {
 
     updateSapEquipeAttribution(sapId, equipeId) {
         this.dataStore.getDataObservable('sap.krino.annotations').first().subscribe(annots => {
-            var theAnnot= annots.filter(a => a.sapId===sapId)[0]
+            var theAnnot = annots.filter(a => a.sapId === sapId)[0]
             if (theAnnot && equipeId) {
-                theAnnot.equipeId=equipeId
+                theAnnot.equipeId = equipeId
                 this.dataStore.updateData('sap.krino.annotations', theAnnot._id, theAnnot)
             }
             else if (theAnnot && !equipeId) {
                 this.dataStore.deleteData('sap.krino.annotations', theAnnot._id)
             }
-            else if (equipeId){
+            else if (equipeId) {
                 this.dataStore.addData('sap.krino.annotations', {
                     sapId: sapId,
                     equipeId: equipeId

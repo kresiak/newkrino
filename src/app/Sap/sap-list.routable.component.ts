@@ -12,6 +12,7 @@ import { EquipeService } from '../Shared/Services/equipe.service';
     }
 )
 export class SapListComponentRoutable implements OnInit {
+    listResponsales: any;
     sapPieceTypesInfo: any[];
     constructor(private navigationService: NavigationService, private authService: AuthService, private sapService: SapService, private equipeService: EquipeService) { }
 
@@ -20,7 +21,7 @@ export class SapListComponentRoutable implements OnInit {
     private sapItemsToAttribute: any[]
     private sapItemsToAttributeAll: any[]
 
-    private equipeListObservable: Observable<any>     
+    private equipeListObservable: Observable<any>
 
     private isPageRunning: boolean = true
 
@@ -30,12 +31,16 @@ export class SapListComponentRoutable implements OnInit {
 
     private prepareSapItemsToAttributeToEquipe() {
         this.sapService.getSapItemsToAttributeToEquipe().first().subscribe(items => {
-            this.sapItemsToAttributeAll= items.filter(item => !this.sapItemtsToIgnore.has(item.sapId))
-            this.sapItemsToAttribute= this.sapItemsToAttributeAll.slice(0, 10)
+            this.sapItemsToAttributeAll = items.filter(item => !this.sapItemtsToIgnore.has(item.sapId))
+            this.sapItemsToAttribute = this.sapItemsToAttributeAll.slice(0, 10)
         })
     }
 
     ngOnInit(): void {
+        this.sapService.allResponsables().subscribe(res => {
+            this.listResponsales = res
+        })
+
         this.navigationService.getStateObservable().takeWhile(() => this.isPageRunning).subscribe(state => {
             this.state = state
         })
@@ -59,26 +64,26 @@ export class SapListComponentRoutable implements OnInit {
     }
 
     getSapBytypeObservable(pieceType, idLength, idFirstChar) {
-        return this.sapsObservable.map(items => items.filter(item => item.typesPiece===pieceType && +item.sapId.toString().length === +idLength && item.sapId.toString().startsWith(idFirstChar)))
+        return this.sapsObservable.map(items => items.filter(item => item.typesPiece === pieceType && +item.sapId.toString().length === +idLength && item.sapId.toString().startsWith(idFirstChar)))
     }
 
     private sapsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
-    private sapItemtsToIgnore= new Set<number>()
+    private sapItemtsToIgnore = new Set<number>()
 
     private doIgnoreWork(sapId) {
         if (!this.sapItemtsToIgnore.has(sapId)) this.sapItemtsToIgnore.add(sapId)
     }
 
     equipeChanged(equipeId, sapItem) {
-        if (this.sapItemtsToIgnore.has(sapItem.sapId)) this.sapItemtsToIgnore.delete(sapItem.sapId)       
+        if (this.sapItemtsToIgnore.has(sapItem.sapId)) this.sapItemtsToIgnore.delete(sapItem.sapId)
         if (!equipeId) this.doIgnoreWork(sapItem.sapId)
 
-        sapItem.equipeId= equipeId
-        this.sapService.updateSapEquipeAttribution(sapItem.sapId, equipeId)    
+        sapItem.equipeId = equipeId
+        this.sapService.updateSapEquipeAttribution(sapItem.sapId, equipeId)
     }
-    
+
     equipeChangeCancelled(sapItem) {
         if (!sapItem.equipeId) this.doIgnoreWork(sapItem.sapId)
     }
@@ -90,6 +95,6 @@ export class SapListComponentRoutable implements OnInit {
     getSapObservable(sapId: number) {
         return this.sapService.getSapItemObservable(sapId)
     }
-    
+
 }
 
