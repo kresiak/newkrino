@@ -11,7 +11,7 @@ import { MenuService } from './Shared/Services/menu.service'
 import { DataStore } from './Shared/Services/data.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-
+import {TranslateService} from 'ng2-translate'
 
 @Component({
     //moduleId: module.id,
@@ -20,9 +20,13 @@ import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 })
 export class AppComponent implements OnInit {
     constructor(private authService: AuthService, private dataStore: DataStore, private menuService: MenuService, private notificationService: NotificationService, private basketService: BasketService,
-        private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer) {
+        private route: ActivatedRoute, private router: Router, private modalService: NgbModal, private webSocketService: WebSocketService, private _sanitizer: DomSanitizer, private translate: TranslateService) {
         this.webSocketService.init()
         this.authService.initFromLocalStorage()
+
+        translate.addLangs(["en", "fr"])
+        translate.setDefaultLang('en')
+        translate.use('en')        
 
         setTimeout(() => {
             this.webSocketService.requeryDb()
@@ -52,7 +56,6 @@ export class AppComponent implements OnInit {
 
     private inDbInitialisationProcess: boolean = true
     private laboName: string= ''
-
 
     ngOnInit(): void {
 

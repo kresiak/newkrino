@@ -32,6 +32,7 @@
     "ng2-auto-complete": "^0.8.9",
     "ng2-page-scroll": "^4.0.0-beta.2",
     "ng2-simple-page-scroll": "^2.0.0",
+    "ng2-translate": "^5.0.0",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
     "zone.js": "^0.7.4"

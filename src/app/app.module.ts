@@ -176,6 +176,7 @@ import {FullDatePipe} from './Shared/Pipes/fulldate.pipe'
 import {ShortDatePipe} from './Shared/Pipes/shortdate.pipe'
 import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
 
+import {TranslateModule} from 'ng2-translate'
 
 //import {MomentModule} from 'angular2-moment';
 
@@ -189,6 +190,7 @@ import {FromNowPipe} from './Shared/Pipes/fromnow.pipe'
           Ng2AutoCompleteModule ,
           NgbModule.forRoot(),
           Ng2SimplePageScrollModule.forRoot(),
+          TranslateModule.forRoot(),
           RouterModule.forRoot([
             { path: "admin", component: AdminMainComponent},
             { path: "basket", component: BasketRoutableComponent},

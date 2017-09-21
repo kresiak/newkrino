@@ -1,0 +1,15 @@
+{
+  "HOME": {
+    "TITLE": "Hello Angular 2 with ng2-translate!",
+    "SELECT": "Change language",
+    "KRINO": {
+       "GREEK": "I judge, I decide, I think good"
+    }
+  },
+  "LOGIN": {
+    "CHOOSE USER": "choose a user in list",
+    "LABO": {
+      "TIP":"You are in labo {{param}}. <br/> (Click to change the labo)"
+    }
+  }
+}
