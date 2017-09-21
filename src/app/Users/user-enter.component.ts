@@ -19,7 +19,7 @@ export class UserEnterComponent implements OnInit {
         // todo: ne marche pas encore
         //  const emailRegex = '^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$';
 
-            const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
+            const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}\s*$/i;
 
         this.newUserForm = this.formBuilder.group({                      
             name: ['', [Validators.required, Validators.minLength(3)]],
@@ -41,7 +41,7 @@ export class UserEnterComponent implements OnInit {
         this.dataStore.addData('users.krino', {
             name: formValue.name,
             firstName: formValue.firstName,
-            email: formValue.email,
+            email: formValue.email.trim(),
             isBlocked: formValue.isBlocked!=='' && formValue.isBlocked!==null,
             isLaboUser: formValue.isLaboUser!=='' && formValue.isLaboUser!==null,
             isAdmin: formValue.isAdmin!=='' && formValue.isAdmin!==null,
