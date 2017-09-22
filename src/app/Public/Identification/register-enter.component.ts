@@ -29,14 +29,13 @@ export class RegisterEnterComponent implements OnInit {
         });
     }
 
-    saveUser(formValue, isValid) {
+    departmentName(formValue, isValid) {
         this.dataStore.addData('users.public', {
             firstName: formValue.firstName,
             name: formValue.lastName,
             email: formValue.email,
-            laboName: formValue.laboName,
-            password: formValue.password,
-            pas: formValue.repeatPassword
+            departmentName: formValue.laboName,
+            password: formValue.password
         }).first().subscribe(res => {
         var x = res;
         this.resetRegisterEnterForm();

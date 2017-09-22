@@ -18,14 +18,14 @@ export class SigninEnterComponent implements OnInit {
     
     ngOnInit(): void {
         const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
-        
+
         this.signinEnterForm = this.formBuilder.group({
             emailAddress: ['', [Validators.required, Validators.pattern(emailRegex)]],
             password: ['', [Validators.required, Validators.minLength(2)]]
         });
     }
 
-    save(formValue, isValid) {
+    login(formValue, isValid) {
         this.dataStore.addData('', {
             email: formValue.emailAddress,
             password: formValue.password
