@@ -47,11 +47,13 @@ export class OtpChoiceService {
         return possibleOtps.length > 0 ?
             {
                 _id: possibleOtps[pos].data._id,
-                name: possibleOtps[pos].data.name
+                name: possibleOtps[pos].data.name,
+                description: possibleOtps[pos].data.description
             } :
             {
                 _id: undefined,
-                Name: 'no available Otp'
+                name: 'no available Otp',
+                description: ''
             };
     }
 }

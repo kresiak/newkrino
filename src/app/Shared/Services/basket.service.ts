@@ -76,7 +76,7 @@ export class BasketService {
 
     private getAnnotatedProductsInUserBasketBySupplier(supplierId, basketObservable: Observable<any>, otpNeeded: boolean): Observable<any> {
         return Observable.combineLatest(this.productService.getProductsBySupplier(supplierId).map(utils.hashMapFactory), basketObservable,
-            otpNeeded ? this.otpService.getAnnotatedOtpsMap() : this.emptyObservable(),
+            this.otpService.getAnnotatedOtpsMap(),
             this.authService.getUserIdObservable(), this.authService.getEquipeIdObservable(),
             this.dataStore.getDataObservable('equipes'), this.dataStore.getDataObservable('otp.product.classifications'), this.authService.getAnnotatedUsers(),
             (productsMap, basketItems, otpsBudgetMap, currentUserId, currentEquipeId, equipes, classifications, annotatedUsers) => {
@@ -104,7 +104,7 @@ export class BasketService {
                             quantity: basketItemFiltered.quantity,
                             totalPrice: product.price * basketItemFiltered.quantity * (1 + (product.tva == 0 ? 0 : product.tva || 21) / 100),
                             totalPriceHTva: product.price * basketItemFiltered.quantity,
-                            otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId } :
+                            otp: basketItemFiltered.otpId ? { name: 'will never be used, or?', _id: basketItemFiltered.otpId, description: otpsBudgetMap.has(basketItemFiltered.otpId) ? otpsBudgetMap.get(basketItemFiltered.otpId).data.description :  ''  } :
                                 otpNeededForThisProduct ? this.otpChoiceService.determineOtp(product, classifications, basketItemFiltered.quantity, otpsBudgetMap, currentEquipeId) : null
                         }
                     }
