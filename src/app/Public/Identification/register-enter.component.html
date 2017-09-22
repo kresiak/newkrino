@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-block">
+        <div class="container-fluid">
+            <form [formGroup]="registerEnterForm" (ngSubmit)="departmentName(registerEnterForm.value, registerEnterForm.valid)">
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-2 col-form-label col-xl-2">first name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="firstName" id="firstName" placeholder="first name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label col-xl-2">last name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="lastName" id="lastName" placeholder="last name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2 col-form-label col-xl-2">e-mail address:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="email" id="email" placeholder="e-mail address">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="laboName" class="col-sm-2 col-form-label col-xl-2">labo:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="laboName" id="laboName" placeholder="labo name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-2 col-form-label col-xl-2">password:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="password" id="password" placeholder="password">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="repeatPassword" class="col-sm-2 col-form-label col-xl-2">repeat password:</label>
+                    <div class="col-sm-10">
+                        <input type="text" min="2" class="form-control" formControlName="repeatPassword" id="repeatPassword" placeholder="repeat password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <button class="btn btn-success" type="submit" [disabled]="!registerEnterForm.valid">Submit</button>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <button class="btn btn-info" [disabled]="registerEnterForm.pristine" (click)="resetRegisterEnterForm()">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
