@@ -29,7 +29,7 @@ export class RegisterEnterComponent implements OnInit {
         });
     }
 
-    departmentName(formValue, isValid) {
+    saveUser(formValue, isValid) {
         this.dataStore.addData('users.public', {
             firstName: formValue.firstName,
             name: formValue.lastName,
