@@ -66,5 +66,7 @@ module.exports = {
       { from: 'src/assets', to: 'assets' }
     ])*/
 
+    ,
+    new CopyWebpackPlugin([ { from: 'krino/i18n', to: 'i18n' } ])
   ]
 };

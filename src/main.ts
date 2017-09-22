@@ -6,7 +6,7 @@ import './css/bootstrap.css';
 import './css/styles.css';
 import './css/chartist.min.css';
 
-
+import 'ng2-translate'
 
 if (process.env.ENV === 'production') {
   enableProdMode();
