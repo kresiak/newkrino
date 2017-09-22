@@ -93,6 +93,7 @@ export class AuthService {
     private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
     private authInfoSubject: ReplaySubject<AuthenticationStatusInfo> = new ReplaySubject(1)
 
+    private currentUserSubscription: Subscription
 
     // Login/Logout services + helper
     // ==============================
@@ -130,6 +131,7 @@ export class AuthService {
     setUserId(id: string, equipeNotNeeded: boolean): void {
         if (this.authInfo.currentUserId !== id) {
             this.authInfo.currentEquipeId = ''
+            this.unsubscribeCurrentUser()
             this.authInfo.logout()
             if (!equipeNotNeeded) localStorage.setItem(this.LSUserKey, id)
             this.prepareUserId(id, equipeNotNeeded)
@@ -150,21 +152,27 @@ export class AuthService {
         this.emitCurrentAuthenticationStatus()
     }
 
+    private unsubscribeCurrentUser() {
+        if (this.currentUserSubscription && !this.currentUserSubscription.closed) this.currentUserSubscription.unsubscribe()
+    }
+
     setLoggedOut() {
+        this.unsubscribeCurrentUser()
         this.authInfo.isLoggedIn = false
-        this.emitCurrentAuthenticationStatus()
+        this.emitCurrentAuthenticationStatus()        
     }
 
     tryLogin(password: string) {
         this.authInfo.isLoginError = false
-        this.getAnnotatedCurrentUser().first().subscribe(user => {
+        this.unsubscribeCurrentUser()
+        this.currentUserSubscription= this.getAnnotatedCurrentUserDisturbLess().subscribe(user => {
             if ((!user.data.password && user.data.password != '') || user.data.password === password) {
                 this.authInfo.setAnnotatedUser(user)
                 this.setLoggedIn()
             }
             else {
                 this.authInfo.isLoginError = true
-                this.emitCurrentAuthenticationStatus()
+                this.setLoggedOut()
             }
         })
     }
@@ -307,11 +315,18 @@ export class AuthService {
     }
 
     getAnnotatedCurrentUser(): Observable<any> {
-        return Observable.combineLatest(this.getAnnotatedUsers(), this.getUserIdObservable(), (users, userId) => {
-            let usersFiltered = users.filter(user => user.data._id === userId);
-            return (!usersFiltered || usersFiltered.length === 0) ? null : usersFiltered[0];
-        });
+        return this.getAnnotatedUsers().map(users => users.filter(u => u.annotation.isCurrentUser)[0])
     }
+
+    private getAnnotatedCurrentUserDisturbLess(): Observable<any> {     // use first in this.getUserIdObservable().first() to avoid infinite circle and to avoid to be siturbed for nothing
+        return Observable.combineLatest(this.getAnnotatedUsersLight(), this.getUserIdObservable().first(), (annotatedUsers: any[], currentUserId) => {
+            annotatedUsers.forEach(user => {
+                user.annotation.isCurrentUser = user.data._id === currentUserId
+            })
+            return annotatedUsers
+        }).map(users => users.filter(u => u.annotation.isCurrentUser)[0])
+    }
+
 
     getUserId(): string {
         return this.authInfo.currentUserId;
