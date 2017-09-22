@@ -21,9 +21,45 @@
                     <gg-admin-labo></gg-admin-labo>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create new laboratory" id="tabCreateNewLaboratory">
+            <ngb-tab title="All laboratories" id="tabLaboratories">
                 <template ngbTabContent>
-                    <gg-enter-labo></gg-enter-labo>
+                    <div class="card">
+                        <div class="card-block">
+                            <ngb-tabset>
+                                <ngb-tab title="List of laboratories" id="tabListLaboratories">
+                                    <template ngbTabContent>
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm-3 vcenter"><b>Labo name</b></div>
+                                                    <div class="col-sm-2 vcenter"><b>Labo shortcut</b></div>
+                                                    <div class="col-sm-6 vcenter"><b>Responsables</b></div>
+                                                </div>
+                                                <div *ngFor="let labo of laboList">
+                                                    <div class="row">
+                                                        <div class="col-sm-3 vcenter">
+                                                            <gg-editor [content]="labo.name" [showControls]="true" (editSaved)="nameLaboUpdated($event, labo)"></gg-editor>
+                                                        </div>
+                                                        <div class="col-sm-2 vcenter">
+                                                            <gg-editor [content]="labo.shortcut" [showControls]="true" (editSaved)="shortcutLaboUpdated($event, labo)" [readOnly]="!authorizationStatusInfo.isProgrammer()"></gg-editor>
+                                                        </div>
+                                                        <div class="col-sm-6 vcenter">
+                                                            <gg-selector [selectableData]="responsablesSelectable" [selectedIds]="selectedRespIdsObservable(labo._id)" (selectionChanged)="responsablesSelectionChanged($event, labo)"></gg-selector>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </ngb-tab>
+                                <ngb-tab title="Create new laboratory" id="tabCreateNewLaboratory">
+                                    <template ngbTabContent>
+                                        <gg-enter-labo></gg-enter-labo>
+                                    </template>
+                                </ngb-tab>
+                            </ngb-tabset>
+                        </div>
+                    </div>
                 </template>
             </ngb-tab>
 

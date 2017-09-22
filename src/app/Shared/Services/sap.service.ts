@@ -6,6 +6,7 @@ import { AdminService } from './admin.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utilsObservable from './../Utils/observables'
+import { SelectableData } from './../Classes/selectable-data'
 
 
 Injectable()
@@ -191,7 +192,7 @@ export class SapService {
             })
     }
 
-    public allResponsables() {
+    public allResponsables(): Observable<Set<string>> {
         return this.dataStore.getDataObservable('sap.fusion').map(items => {
             return items.reduce((acc, i) => {
                 var set: Set<any>= acc
@@ -200,6 +201,13 @@ export class SapService {
             }, new Set<string>())
         })
     }
+
+    public allResponsablesSelectable() {
+        return this.allResponsables().map(responsables => Array.from(responsables.values()).map(r => {
+            return new SelectableData(r, r)
+        })) 
+    }
+
 
     // P1
     private initSapIdMapObservable(): void {
