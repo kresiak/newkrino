@@ -109,6 +109,13 @@ export class ProductListComponent implements OnInit {
                     return product.data.disabled;
                 }
 
+                if (txt.startsWith('$PR')) {
+                    return product.data.isLabo;
+                }
+                if (txt.startsWith('$PU')) {
+                    return !product.data.isLabo;
+                }
+
                 return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).do(products => {
