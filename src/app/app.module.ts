@@ -82,6 +82,8 @@ import {PlatformOfferListComponent} from './Platforms/platform-offer-list.compon
 import {PublicMainComponent} from './Public/public-main-component'
 import {MarketsMainComponent} from './Public/Markets/markets-main.component'
 import {MarketsEnterComponent} from './Public/Markets/markets-enter.component'
+import {SigninEnterComponent} from './Public/Identification/signin-enter.component'
+import {RegisterEnterComponent} from './Public/Identification/register-enter.component'
 
 import {UserListComponentRoutable} from './Users/user-list.routable.component'
 import {UserListComponent} from './Users/user-list.component'
@@ -250,7 +252,7 @@ import {TranslateModule} from 'ng2-translate'
                   PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
                   PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
                   PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent, PlatformOfferDetailComponent, PlatformOfferListComponent,
-                  PublicMainComponent, MarketsMainComponent, MarketsEnterComponent
+                  PublicMainComponent, MarketsMainComponent, MarketsEnterComponent, SigninEnterComponent, RegisterEnterComponent
                  ],
   providers:    [ NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
                   AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService, AuthAnoynmousService ],
