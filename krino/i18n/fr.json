@@ -7,10 +7,23 @@
     }    
   },
   "LOGIN": {
-    "CHOOSE USER": "choisir un utilisateur",
+    "CHOOSE USER": "choisir un utilisateur dans la liste",
+    "SELECT USER": "choisir un utilisateur",
+    "CHOOSE EQUIPE": "choisir une équipe dans la liste",
+    "SELECT EQUIPE": "choisir une équipe",
+    "ENTER PWD":"Entrer le mot de passe",
+    "PWD ERR": "Erreur!!",    
     "LABO": {
-      "TIP":"Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)"
-    }    
+      "TIP":"Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)",
+      "CHANGE":"Autre labo"
+    },
+    "BASKET": {
+      "TIP":"Clicker ici pour<br/> ouvrir votre panier"
+    },
+    "PWDWIN": {
+      "LABEL":"entrez votre mot de passe",
+      "BUTTON": "connection"
+    }
   },
   "MENU": {
     "HOME": "Acceuil",

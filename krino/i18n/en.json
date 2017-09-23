@@ -8,8 +8,21 @@
   },
   "LOGIN": {
     "CHOOSE USER": "choose a user in list",
+    "SELECT USER": "Select a user",
+    "CHOOSE EQUIPE": "choose a project in list",
+    "SELECT EQUIPE": "Select a project",    
+    "ENTER PWD":"Enter your password",
+    "PWD ERR": "There was an error",
     "LABO": {
-      "TIP":"You are in labo {{param}}. <br/> (Click to change the labo)"
+      "TIP":"You are in labo {{param}}. <br/> (Click to change the labo)",
+      "CHANGE":"Another labo"
+    },
+    "BASKET": {
+      "TIP":"Click here to <br/> open your basket"
+    },
+    "PWDWIN": {
+      "LABEL":"enter your password",
+      "BUTTON": "sign in"
     }
   },
   "MENU": {
