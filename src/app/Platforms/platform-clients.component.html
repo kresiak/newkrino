@@ -109,10 +109,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-success" type="submit" [disabled]="!clientsForm.valid">Submit</button>
+                                        <button class="btn btn-success" type="submit" [disabled]="!clientsForm.valid">{{'FORM.SUBMIT' | translate}}</button>
                                     </div>
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-info"  [disabled]="clientsForm.pristine" (click)="reset()">Reset</button>
+                                        <button class="btn btn-info"  [disabled]="clientsForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
                                     </div>
                                 </div>
                             </form>

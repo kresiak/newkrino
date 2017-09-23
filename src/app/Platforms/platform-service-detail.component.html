@@ -121,7 +121,7 @@
                                     <button class="btn btn-success" type="submit" [disabled]="!cloneForm.valid">Clone</button>
                                 </div>
                                 <div class="col-sm-3 col-md-2 col-lg-2">
-                                    <button class="btn btn-info" [disabled]="cloneForm.pristine" (click)="resetCloneForm()">Reset</button>
+                                    <button class="btn btn-info" [disabled]="cloneForm.pristine" (click)="resetCloneForm()">{{'FORM.RESET' | translate}}</button>
                                 </div>
                             </div>
                         </form>

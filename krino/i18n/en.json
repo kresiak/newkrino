@@ -14,5 +14,9 @@
   },
   "MENU": {
     "HOME": "Home"
+  },
+  "FORM": {
+    "SUBMIT": "Submit",
+    "RESET": "Reset"
   }
 }

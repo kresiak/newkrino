@@ -34,10 +34,10 @@
                                     
                                     <div class="row">
                                         <div class="col-sm-3 col-md-2 col-lg-2">
-                                            <button class="btn btn-success" type="submit" [disabled]="!receptionForm.valid">Submit</button>
+                                            <button class="btn btn-success" type="submit" [disabled]="!receptionForm.valid">{{'FORM.SUBMIT' | translate}}</button>
                                         </div>
                                         <div class="col-sm-3 col-md-2 col-lg-2">
-                                            <button class="btn btn-info"  [disabled]="receptionForm.pristine" (click)="reset()">Reset</button>
+                                            <button class="btn btn-info"  [disabled]="receptionForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
                                         </div>
                                     </div>
                                 </form>

@@ -19,7 +19,7 @@
                         <button class="btn btn-success" type="submit" [disabled]="!signinEnterForm.valid">Login</button>
                     </div>
                     <div class="col-sm-3 col-md-2 col-lg-2">
-                        <button class="btn btn-info" [disabled]="signinEnterForm.pristine" (click)="resetSigninEnterForm()">Reset</button>
+                        <button class="btn btn-info" [disabled]="signinEnterForm.pristine" (click)="resetSigninEnterForm()">{{'FORM.RESET' | translate}}</button>
                     </div>
                 </div>
             </form>

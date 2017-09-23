@@ -40,7 +40,7 @@
                                     <button class="btn btn-success" type="submit" [disabled]="!snapshotForm.valid">Snapshot</button>
                                 </div>
                                 <div class="col-sm-3 col-md-2 col-lg-2">
-                                    <button class="btn btn-info" [disabled]="snapshotForm.pristine" (click)="resetSnapshotForm()">Reset</button>
+                                    <button class="btn btn-info" [disabled]="snapshotForm.pristine" (click)="resetSnapshotForm()">{{'FORM.RESET' | translate}}</button>
                                 </div>
                             </div>
                         </form>
