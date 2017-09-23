@@ -13,7 +13,23 @@
     }    
   },
   "MENU": {
-    "HOME": "Acceuil"
+    "HOME": "Acceuil",
+    "DASHBOARD": "Tableau de bord",
+    "MYKRINO": "Mon Krino",
+    "ORDERS": "Commandes",
+    "PRODUCTS": "Produits",
+    "SUPPLIERS": "Fournisseurs",
+    "STOCK": "Stock",
+    "CATEGORIES": "Catégories",
+    "EQUIPES": "Equipes",
+    "USERS": "Utilisateurs",
+    "OTPS": "Otps",
+    "SAP": "Sap",
+    "ADMIN": "Administration",
+    "RECEPTION": "Réception",
+    "COMMUNICATION": "Communication",
+    "PLATFORM": "Platforme",
+    "PARTICIPATE": "Participer"
   },
   "FORM": {
     "SUBMIT": "Envoyer",

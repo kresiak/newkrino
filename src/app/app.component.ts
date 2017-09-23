@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
         translate.addLangs(["en", "fr"])
         translate.setDefaultLang('en')
-        translate.use('en')        
+        translate.use('fr')        
 
         setTimeout(() => {
             this.webSocketService.requeryDb()

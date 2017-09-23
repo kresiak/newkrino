@@ -92,96 +92,112 @@ export class MenuService {
             {
                 route: '/dashboard',
                 title: 'Dashboard',
+                titleKey: 'MENU.DASHBOARD',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/mykrino',
                 title: 'My Krino',
+                titleKey: 'MENU.MYKRINO',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/orders',
                 title: 'Orders',
+                titleKey: 'MENU.ORDERS',
                 active: false,
                 hide: !laboName
             },
             {
                 route: '/products',
                 title: 'Products',
+                titleKey: 'MENU.PRODUCTS',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/suppliers',
                 title: 'Suppliers',
+                titleKey: 'MENU.SUPPLIERS',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/stock',
                 title: 'Stock',
+                titleKey: 'MENU.STOCK',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/categories',
                 title: 'Categories',
+                titleKey: 'MENU.CATEGORIES',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/equipes',
                 title: 'Equipes',
+                titleKey: 'MENU.EQUIPES',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/users',
                 title: 'Users',
+                titleKey: 'MENU.USERS',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/otps',
                 title: 'Otps',
+                titleKey: 'MENU.OTPS',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/saps',
                 title: 'Sap',
+                titleKey: 'MENU.SAP',
                 active: false,
                 hide: !isLoggedIn || statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/admin',
                 title: 'Administration',
+                titleKey: 'MENU.ADMIN',
                 active: false,
                 hide: !isLoggedIn || !statusInfo.isAdministrator()
             },
             {
                 route: '/reception',
                 title: 'Reception',
+                titleKey: 'MENU.RECEPTION',
                 active: false,
                 hide: statusInfo.isGroupOrdersUser()
             },
             {
                 route: '/communication',
                 title: 'Communication',
+                titleKey: 'MENU.COMMUNICATION',
                 active: false,
                 hide: !isLoggedIn
             },
             {
                 route: '/platform',
                 title: 'Platform',
+                titleKey: 'MENU.PLATFORM',
                 active: false,
                 hide: !isLoggedIn || !statusInfo.isPlatformAdminstrator()
             },
             {
                 route: '/public',
                 title: 'Participate',
+                titleKey: 'MENU.PARTICIPATE',
                 active: false
             }
         ];
