@@ -18,5 +18,8 @@
   "FORM": {
     "SUBMIT": "Envoyer",
     "RESET": "Réinitialiser"
+  },
+  "ERROR": {
+    "NO LOGIN": "désolé: vous n'êtes pas connecté"
   }
 }

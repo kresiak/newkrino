@@ -18,5 +18,8 @@
   "FORM": {
     "SUBMIT": "Submit",
     "RESET": "Reset"
+  },
+  "ERROR": {
+    "NO LOGIN": "sorry: you are not logged in"
   }
 }

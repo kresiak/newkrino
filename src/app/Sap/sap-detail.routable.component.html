@@ -3,7 +3,7 @@
     <div class="card-block">
         <h6>Sap item {{sapItem.data.sapId}}</h6>
         <gg-sap-detail *ngIf="true || authorizationStatusInfo.isLoggedIn" [sapObservable]="sapObservable" [path]="'sap|'+sapItem.data._id" [state]="state" [isRoot]="true"></gg-sap-detail>
-        <h4 *ngIf="false && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
+        <h4 *ngIf="false && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>
     </div>
 </div>
 <div class="card" *ngIf="!sapItem">

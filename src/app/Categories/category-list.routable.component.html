@@ -21,6 +21,6 @@
                 </template>
             </ngb-tab>
         </ngb-tabset>
-        <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">sorry: you are not logged in</h4>
+        <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>
     </div>
 </div>
