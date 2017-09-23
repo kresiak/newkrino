@@ -5,13 +5,14 @@
             <div class="col-sm-6 vcenter">
                 <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="authorizationStatusInfo.currentEquipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
             </div>
-        </div> IULK
+        </div> 
 
         <div class="row">
             <div class="row">
                 <div class="col-sm-2 vcenter"><b>Classification</b></div>
                 <div class="col-sm-2 vcenter"><b>Amount to spend</b></div>
                 <div class="col-sm-2 vcenter"><b>Prefered Otp</b></div>
+                <div class="col-sm-2 vcenter"><b>Maximum available</b></div>
             </div>
         </div>
         <div class="row" *ngFor="let classificationsItem of classificationsList">
@@ -21,8 +22,10 @@
                     <input type="number" min="0" step="any" class="form-control" (input)="changePrice(classificationsItem, $event)" placeholder="price to spend">
                 </div>
                 <div class="col-sm-2 vcenter">
-                    {{(getFirstOtpCompatible(classificationsItem, equipeId) | async) ? (getFirstOtpCompatible(classificationsItem, equipeId)
-                    | async).data.name: ''}}
+                    {{(getFirstOtpCompatibleOrEmpty(classificationsItem, equipeId) | async).data.name}}
+                </div>
+                <div class="col-sm-2 vcenter">
+                    {{(getFirstOtpCompatibleOrEmpty(classificationsItem, equipeId) | async).annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}
                 </div>
                 <div class="col-sm-2 vcenter">
                     <button *ngIf="(getFirstOtpCompatible(classificationsItem, equipeId) | async)" type="button" class="btn btn-link"
@@ -33,12 +36,14 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
+                            <div class="col-sm-1"><b>Preference</b></div>
                             <div class="col-sm-2"><b>Otp</b></div>
                             <div class="col-sm-2"><b>Equipe</b></div>
                             <div class="col-sm-2"><b>Expires</b></div>
                             <div class="col-sm-2"><b>Available</b></div>
                         </div>
-                        <div class="row" *ngFor="let otp of (getOtpsCompatible(classificationsItem, equipeId) | async)">
+                        <div class="row" *ngFor="let otp of (getOtpsCompatible(classificationsItem, equipeId) | async); let i = index">
+                            <div class="col-sm-1">{{i+1}}</div>
                             <div class="col-sm-2">{{otp.data.name}}</div>
                             <div class="col-sm-2">{{otp.annotation.equipe}} {{otp.data.isLimitedToOwner ? '(exclusive)' : ''}}</div>
                             <div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{otp.annotation.currentPeriodAnnotation.datEnd | shortDate }} ({{otp.data.priority}})</div>

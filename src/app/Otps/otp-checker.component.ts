@@ -57,6 +57,16 @@ export class OtpCheckerComponent implements OnInit {
         return this.otpChoiceService.getCompatibleOtpsObservable(equipeId, classificationsItem.valueToSpend || 1, classificationId).map(otps => otps.length > 0 ? otps[0] : undefined)
     }
 
+    getFirstOtpCompatibleOrEmpty(classificationsItem, equipeId): Observable<any> {
+        var classificationId= classificationsItem.data._id
+        return this.otpChoiceService.getCompatibleOtpsObservable(equipeId, classificationsItem.valueToSpend || 1, classificationId).map(otps => otps.length > 0 ? otps[0] : 
+            {
+                data: {},
+                annotation: {}
+            }
+        )
+    }
+
 
     changePrice(classificationsItem, data) {
          classificationsItem.valueToSpend=+data.target.value
