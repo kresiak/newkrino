@@ -6,7 +6,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">otp:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.OTP' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>

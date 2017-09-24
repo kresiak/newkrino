@@ -50,5 +50,13 @@
   },
   "ERROR": {
     "NO LOGIN": "désolé: vous n'êtes pas connecté"
+  }, 
+  "OTP": {
+    "LABEL": {
+      "OTP": "otp:"
+    },
+    "COLUMN": {
+      "OTP": "Otp"
+    }
   }
 }

@@ -50,5 +50,13 @@
   },
   "ERROR": {
     "NO LOGIN": "sorry: you are not logged in"
+  }, 
+  "OTP": {
+    "LABEL": {
+      "OTP": "otp:"
+    },
+    "COLUMN": {
+      "OTP": "OTP"
+    }
   }
 }
