@@ -56,7 +56,8 @@
       "OTP": "otp:"
     },
     "COLUMN": {
-      "OTP": "Otp"
+      "OTP": "Otp",
+      "EQUIPE": "Equipe"
     }
   }
 }
