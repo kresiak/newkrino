@@ -4,7 +4,7 @@ import { DataStore } from './../Shared/Services/data.service'
 import { EquipeService } from '../Shared/Services/equipe.service'
 import { OtpService } from '../Shared/Services/otp.service'
 import { OtpChoiceService } from '../Shared/Services/otp-choice.service'
-
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component(
@@ -16,20 +16,34 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 export class OtpCheckerComponent implements OnInit {
     isPageRunning: boolean= true;
 
-    constructor(private equipeService: EquipeService, private authService: AuthService, private otpService: OtpService, private otpChoiceService: OtpChoiceService) {
+    constructor(private equipeService: EquipeService, private authService: AuthService, private otpService: OtpService, private otpChoiceService: OtpChoiceService, 
+                    private _sanitizer: DomSanitizer) {
     }
 
     private equipeListObservable
     private authorizationStatusInfo: AuthenticationStatusInfo    
     private classificationsList = []  
+    private possibleEquipes: any[];
+    private equipeValue
+
     private equipeId: string  
 
     ngOnInit(): void {
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete() 
 
-        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
-            this.authorizationStatusInfo = statusInfo
-            this.equipeId= statusInfo.currentEquipeId
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning)
+        .do(statusInfo => {
+            this.authorizationStatusInfo = statusInfo            
+        })
+        .switchMap(statusInfo => {
+            return  this.equipeService.getEquipesForAutocomplete().takeWhile(() => this.isPageRunning)
+        })
+        .do(possibleEquipes => {
+            this.possibleEquipes = possibleEquipes.map(eq => {return {id:eq.id, value: eq.name}})
+            this.equipeValue = this.possibleEquipes.filter(eq => eq.id === this.authorizationStatusInfo.currentEquipeId || !this.authorizationStatusInfo.hasEquipeId())[0]
+        })
+        .subscribe(possibleEquipes => {
+            this.equipeId= this.equipeValue ? this.equipeValue.id : undefined
         })
 
         this.otpService.getAnnotatedClassifications().takeWhile(() => this.isPageRunning).subscribe(classification => {
@@ -43,8 +57,8 @@ export class OtpCheckerComponent implements OnInit {
         this.isPageRunning = false
     }
 
-    equipeChanged(equipeId) {
-        this.equipeId= equipeId
+    equipeChanged(equipe) {
+        this.equipeId= equipe ? equipe.id : undefined
     }
 
     getOtpsCompatible(classificationsItem, equipeId): Observable<any> {
@@ -71,4 +85,10 @@ export class OtpCheckerComponent implements OnInit {
     changePrice(classificationsItem, data) {
          classificationsItem.valueToSpend=+data.target.value
     }
+
+    autocompleListFormatter = (data: any): SafeHtml => {
+        let html = `<span>${data.value}</span>`;
+        return this._sanitizer.bypassSecurityTrustHtml(html);
+    };
+    
 }
