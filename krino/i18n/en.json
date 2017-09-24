@@ -15,7 +15,9 @@
     "PWD ERR": "There was an error",
     "LABO": {
       "TIP":"You are in labo {{param}}. <br/> (Click to change the labo)",
-      "CHANGE":"Another labo"
+      "CHANGE":"Another labo",
+      "CHOOSE LABO": "choose a labo in list",
+      "SELECT LABO": "Select a labo"
     },
     "BASKET": {
       "TIP":"Click here to <br/> open your basket"

@@ -15,7 +15,9 @@
     "PWD ERR": "Erreur!!",    
     "LABO": {
       "TIP":"Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)",
-      "CHANGE":"Autre labo"
+      "CHANGE":"Autre labo",
+      "CHOOSE LABO": "choisir un labo dans la lists",
+      "SELECT LABO": "choisir un labo"
     },
     "BASKET": {
       "TIP":"Clicker ici pour<br/> ouvrir votre panier"
