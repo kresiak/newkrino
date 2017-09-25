@@ -87,13 +87,13 @@
     }
   },
   "USER": {
-    "LABEL": {
+    "COLUMN": {
       "FULL NAME": "Full namE",
       "EQUIPE(S)": "EquipE(s)",
       "BLOCKED?": "BlockeD?",
       "ADMINISTRATOR?":"AdministratoR?"
     },
-    "COLUMN": {
+    "LABEL": {
       "FULL NAME": "full namE:",
       "EMAIL": "emaiL:",
       "NAME": "namE:",

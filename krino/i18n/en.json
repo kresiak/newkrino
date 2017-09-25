@@ -87,13 +87,13 @@
     }
   },
   "USER": {
-    "LABEL": {
+    "COLUMN": {
       "FULL NAME": "Full name",
       "EQUIPE(S)": "Equipe(s)",
       "BLOCKED?": "Blocked?",
       "ADMINISTRATOR?":"Administrator?"
     },
-    "COLUMN": {
+    "LABEL": {
       "FULL NAME": "full name:",
       "EMAIL": "email:",
       "NAME": "name:",
@@ -107,7 +107,8 @@
       "IS LAB MANAGER": "is lab manager:",
       "IS KRINO PROGRAMMER": "is krino programmer:",
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
-      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:"
+      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
+      "SUPER ADMINISTRATOR?":"Super Administrator?"      
     }
   }
 }

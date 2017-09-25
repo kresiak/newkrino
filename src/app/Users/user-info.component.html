@@ -6,36 +6,36 @@
 </div>
 <div class="row col-sm-8">
 	<div class="row">
-		<div class="col-sm-2 col-lg-2">{{'USER.COLUMN.FULL NAME' | translate}}</div>
+		<div class="col-sm-2 col-lg-2">{{'USER.LABEL.FULL NAME' | translate}}</div>
 		<div class="col-sm-6">{{user.annotation.fullName}}</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.COLUMN.EMAIL' | translate}}</div>
+		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.LABEL.EMAIL' | translate}}</div>
 		<div class="col-sm-6 vcenter">
 			<gg-editor [content]="user.data.email" [showControls]="true" [regexp]="'^[0-9a-z_.-]+@[0-9a-z.-]+\\.[a-z]{2,3}$'" (editSaved)="emailUserUpdated($event)"
 			 [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.COLUMN.NAME' | translate}}</div>
+		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.LABEL.NAME' | translate}}</div>
 		<div class="col-sm-6 vcenter">
 			<gg-editor [content]="user.data.name" [showControls]="true" (editSaved)="nameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.COLUMN.FIRST NAME' | translate}}</div>
+		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.LABEL.FIRST NAME' | translate}}</div>
 		<div class="col-sm-6 vcenter">
 			<gg-editor [content]="user.data.firstName" [showControls]="true" (editSaved)="firstNameUserUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row" *ngIf="isAdminOrCurrentUser()">
-		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.COLUMN.PASSWORD' | translate}}</div>
+		<div class="col-sm-2 col-lg-2 vcenter">{{'USER.LABEL.PASSWORD' | translate}}</div>
 		<div class="col-sm-6 vcenter">
 			<gg-editor [content]="user.data.password" [showControls]="true" (editSaved)="passwordUpdated($event)" [readOnly]="!isAdminOrCurrentUser()"></gg-editor>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-2 vcenter">{{'USER.COLUMN.EQUIPE(S)' | translate}}</div>
+		<div class="col-sm-2 vcenter">{{'USER.LABEL.EQUIPE(S)' | translate}}</div>
 		<div class="col-sm-6 vcenter">
 			<gg-selector [selectableData]="selectableEquipes" [selectedIds]="selectedEquipeIdsObservable" (selectionChanged)="equipeSelectionChanged($event)"
 			 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
