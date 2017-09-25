@@ -49,6 +49,14 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isAdmin
     }
 
+    isSuperAdministrator() {
+        return this.annotatedUser && this.annotatedUser.data.isSuperAdmin
+    }
+
+    isRightAdministrator(accessingPublicRessource: boolean= false) {
+        return this.annotatedUser && ((accessingPublicRessource && this.annotatedUser.data.isSuperAdmin) || (!accessingPublicRessource && this.annotatedUser.data.isAdmin)) 
+    }
+
     isThisUser(userId) {
         return this.isLoggedIn && this.currentUserId === userId
     }

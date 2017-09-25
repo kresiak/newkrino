@@ -24,6 +24,7 @@
 							<div class="col-sm-3"><b>{{'USER.COLUMN.EQUIPE(S)' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'USER.COLUMN.BLOCKED?' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'USER.COLUMN.ADMINISTRATOR?' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'USER.COLUMN.SUPER ADMINISTRATOR?' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
@@ -36,6 +37,7 @@
 							<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
 							<div class="col-sm-2">{{user.data.isBlocked}}</div>
 							<div class="col-sm-2">{{user.data.isAdmin}}</div>
+							<div class="col-sm-2">{{user.data.isSuperAdmin}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

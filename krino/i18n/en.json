@@ -91,7 +91,11 @@
       "FULL NAME": "Full name",
       "EQUIPE(S)": "Equipe(s)",
       "BLOCKED?": "Blocked?",
-      "ADMINISTRATOR?":"Administrator?"
+      "ADMINISTRATOR?":"Administrator?",
+      "SUPER ADMINISTRATOR?": "Super Administrator?"
+    },
+    "HELP": {
+      "SUPER ADMINISTRATOR": "A super administrator has the right to change public data (products, ...) and to create a new labo. Use this with caution please!!"
     },
     "LABEL": {
       "FULL NAME": "full name:",
@@ -108,7 +112,7 @@
       "IS KRINO PROGRAMMER": "is krino programmer:",
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
-      "SUPER ADMINISTRATOR?":"Super Administrator?"      
+      "SUPER ADMINISTRATOR":"is super administrator:"      
     }
   }
 }

@@ -32,6 +32,12 @@
 							<gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
+					<div class="row" ngbTooltip="{{'USER.HELP.SUPER ADMINISTRATOR' | translate}}">
+						<div class="col-sm-3 vcenter">{{'USER.LABEL.SUPER ADMINISTRATOR' | translate}}</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isSuperAdmin" (editSaved)="isSuperAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isSuperAdministrator() && ! authorizationStatusInfo.isProgrammer())"></gg-editor-boolean>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'USER.LABEL.IS RECEPTIONIST' | translate}}</div>
 						<div class="col-sm-6 vcenter">

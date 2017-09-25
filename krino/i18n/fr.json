@@ -88,10 +88,14 @@
   },
   "USER": {
     "COLUMN": {
-      "FULL NAME": "Full namE",
-      "EQUIPE(S)": "EquipE(s)",
-      "BLOCKED?": "BlockeD?",
-      "ADMINISTRATOR?":"AdministratoR?"
+      "FULL NAME": "Nom complet",
+      "EQUIPE(S)": "Equipe(s)",
+      "BLOCKED?": "Bloqué?",
+      "ADMINISTRATOR?":"Administrateur?",
+      "SUPER ADMINISTRATOR?": "Super administrateur?"
+    },
+    "HELP": {
+      "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
     "LABEL": {
       "FULL NAME": "full namE:",
@@ -107,7 +111,8 @@
       "IS LAB MANAGER": "is lab manageR:",
       "IS KRINO PROGRAMMER": "is krino programmeR:",
       "IS PLATFORM ADMINISTRATOR": "is platform administratoR:",
-      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order productS:"
+      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order productS:",
+      "SUPER ADMINISTRATOR":"super administrateur:" 
     }
   }
 }

@@ -78,6 +78,7 @@ export class ProductService {
                     return {
                         data: category,
                         annotation: {
+                            isPublic: !category.isLabo,
                             supplierNames: suppliersInCategory,
                             otpNames: otpInCategory,
                             classificationsTxt: classificationsInCategory.reduce((a,b) => a + (a === '' ? '' : ', ') +  b, ''),
@@ -181,6 +182,7 @@ export class ProductService {
                     return {
                         data: product,
                         annotation: {
+                            isPublic: !product.isLabo,
                             //basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                             hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
                             //quantity: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0].quantity : 0,

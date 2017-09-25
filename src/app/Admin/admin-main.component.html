@@ -21,7 +21,7 @@
                     <gg-admin-labo></gg-admin-labo>
                 </template>
             </ngb-tab>
-            <ngb-tab title="All laboratories" id="tabLaboratories">
+            <ngb-tab title="All laboratories" id="tabLaboratories" *ngIf="authorizationStatusInfo.isSuperAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

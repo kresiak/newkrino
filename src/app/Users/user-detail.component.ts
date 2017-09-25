@@ -112,6 +112,11 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     };
 
+    isSuperAdminUpdated(isAdmin) {
+        this.user.data.isSuperAdmin = isAdmin;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);        
+    }
+
     commentsUpdated(comments) {
         if (this.user && comments) {
             this.user.data.comments = comments;
