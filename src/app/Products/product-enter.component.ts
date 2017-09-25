@@ -2,7 +2,8 @@ import { Component, Input, Output, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProductService } from '../Shared/Services/product.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
+import { Observable } from 'rxjs/Rx'
 
 @Component({
     //moduleId: module.id,
@@ -12,7 +13,7 @@ import { Observable, Subscription } from 'rxjs/Rx'
 export class ProductEnterComponent implements OnInit {
     private productForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private productService: ProductService) {
+    constructor(private formBuilder: FormBuilder, private productService: ProductService, private authService: AuthService) {
 
     }
 
@@ -20,14 +21,12 @@ export class ProductEnterComponent implements OnInit {
 
 
     private categoryData: SelectableData[]
-    private subscriptioncategories: Subscription
-    private subscriptioncategories2: Subscription
-    private subscriptionCheckCatNr: Subscription
     private categories
     private alreadyCatNrInDb: boolean= false
     private savingNewProduct: boolean= false
     private lastProductSaved: string= ''
 
+    private authorizationStatusInfo: AuthenticationStatusInfo
 
     private isCategoryIdSelected(control: FormControl) {   // custom validator implementing ValidatorFn 
         if (control.value === '-1') {
@@ -37,10 +36,17 @@ export class ProductEnterComponent implements OnInit {
         return null;
     }
 
-    ngOnInit(): void {
-        this.subscriptioncategories = this.productService.getSelectableCategories().subscribe(cd => this.categoryData = cd);
+    private isPageRunning: boolean = true
 
-        this.subscriptioncategories2 = this.productService.getAnnotatedCategories().subscribe(categories => this.categories = categories)
+    ngOnInit(): void {
+        this.productService.getSelectableCategories().takeWhile(() => this.isPageRunning).subscribe(cd => this.categoryData = cd);
+
+        this.productService.getAnnotatedCategories().takeWhile(() => this.isPageRunning).subscribe(categories => this.categories = categories)
+
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
+
 
         const priceRegEx = `^\\d+(.\\d*)?$`;
 
@@ -56,13 +62,13 @@ export class ProductEnterComponent implements OnInit {
             tva: ['', Validators.required],
             disabled: [''],
             isStock: [''],
-            isLabo: [''],            
             needsLotNumber: [''],
             divisionFactor: ['1'],
             stockPackage: ['']
         });
 
-        this.subscriptionCheckCatNr= this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').subscribe(catNr => {
+        this.productForm.controls['catalogNr'].valueChanges.debounceTime(400).distinctUntilChanged().startWith('').takeWhile(() => this.isPageRunning)
+            .subscribe(catNr => {
             this.alreadyCatNrInDb=false
             if (catNr && catNr.length > 3) {   // Testing catNr because on KR computer it crashed with catNr === null - don't understand how it could happen
                 this.productService.getAnnotatedProductsByCatalogNr(catNr).first().subscribe(prodList => {
@@ -73,9 +79,7 @@ export class ProductEnterComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
-        this.subscriptioncategories.unsubscribe()
-        this.subscriptioncategories2.unsubscribe()
-        this.subscriptionCheckCatNr.unsubscribe()
+        this.isPageRunning = false
     }
 
     save(formValue, isValid) {
@@ -97,7 +101,7 @@ export class ProductEnterComponent implements OnInit {
             disabled: formValue.disabled !== '' && formValue.disabled !== null,
             needsLotNumber: formValue.needsLotNumber !== '' && formValue.needsLotNumber !== null,
             isStock: formValue.isStock !== '' && formValue.isStock !== null,
-            isLabo: formValue.isLabo!=='' && formValue.isLabo!== null,
+            isLabo: !this.authorizationStatusInfo.isSuperAdministrator(),
             divisionFactor: +formValue.divisionFactor,
             stockPackage: formValue.stockPackage
         }).subscribe(res => {

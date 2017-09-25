@@ -7,7 +7,7 @@
                     <gg-product-list [state]="state" [productsObservable]="productsObservable"></gg-product-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create a Product" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="Create a Product" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator() || authorizationStatusInfo.isSuperAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
