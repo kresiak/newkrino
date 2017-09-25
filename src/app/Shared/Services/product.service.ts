@@ -221,6 +221,10 @@ export class ProductService {
         return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data.catalogNr === catalogNr));
     }
 
+    getAnnotatedProductsOnValidationWait(): Observable<any> {  // for double products in   product detail and enter
+        return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data.onCreateValidation));
+    }
+
     getAnnotatedProductsBySupplier(supplierId): Observable<any> {   // supplier detai for main product grid
         return this.getAnnotatedProducts(this.getProductsBySupplier(supplierId)).map(prods => prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence)).publishReplay(1).refCount();
     }

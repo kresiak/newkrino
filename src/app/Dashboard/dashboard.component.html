@@ -86,6 +86,21 @@
 			</div>
 		</div>
 
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.productsOnValidationWait.length>0">
+			<div class="card text-xs-center card-outline-success">
+				<div class="card-header">
+					New products 
+				</div>
+				<div class="card-block">
+					<h6 class="card-title">In wait for validation</h6>
+					<ul class="card-text text-xs-left mail">
+						<li *ngFor="let product of labManagerMessages.productsOnValidationWait">
+							<gg-date-pointer [date]="product.data.history[0].date"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToProduct(product.data._id)">{{product.data.name}}</a>  for {{product.data.price  | currency:'EUR':true:'1.2-2'}} by {{product.data.history[0].userId}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.finishingOtps.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">

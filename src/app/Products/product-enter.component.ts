@@ -111,10 +111,10 @@ export class ProductEnterComponent implements OnInit {
             history: [
                 {
                     date: utilsdate.nowFormated(),
-                    userId: this.authorizationStatusInfo.currentUserId,
+                    userId: this.authorizationStatusInfo.getCurrentUserName(),
                     event: 'Product creation'
                 }
-            ]
+            ],
         }).subscribe(res => {
             this.lastProductSaved= res.name
             var x = res;

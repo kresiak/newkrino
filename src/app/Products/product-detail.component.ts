@@ -109,7 +109,7 @@ export class ProductDetailComponent implements OnInit {
         if (!this.product.data.history) this.product.data.history = []
         this.product.data.history.push({
             date: utilsdate.nowFormated(),
-            userId: this.authorizationStatusInfo.currentUserId,
+            userId: this.authorizationStatusInfo.getCurrentUserName(),
             event: event,
             oldValue: oldValue,
             newValue: newValue

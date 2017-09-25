@@ -130,7 +130,7 @@ export class ProductGridComponent implements OnInit
         if (!product.data.history) product.data.history = []
         product.data.history.push({
             date: utilsdate.nowFormated(),
-            userId: this.authorizationStatusInfo.currentUserId,
+            userId: this.authorizationStatusInfo.getCurrentUserName(),
             event: event,
             oldValue: oldValue,
             newValue: newValue
