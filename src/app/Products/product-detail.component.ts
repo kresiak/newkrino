@@ -89,6 +89,10 @@ export class ProductDetailComponent implements OnInit {
         return !this.authorizationStatusInfo || !this.authorizationStatusInfo.isRightAdministrator(this.product.annotation.isPublic)
     }
 
+    isLaboSpecificChangePossible() {
+        return this.authorizationStatusInfo && (this.authorizationStatusInfo.isProgrammer() || (!this.product.annotation.isPublic && this.authorizationStatusInfo.isSuperAdministrator()))
+    }
+
     //private model;
     private product;
     private hasProductDoubles: boolean = false
