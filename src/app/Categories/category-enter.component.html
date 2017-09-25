@@ -1,38 +1,38 @@
 <div class="container-fluid">
 	<form [formGroup]="categoryForm" (ngSubmit)="save(categoryForm.value, categoryForm.valid)" >
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label col-xl-2">name:</label>
+            <label for="name" class="col-sm-2 col-form-label col-xl-2">{{'CATEGORY.LABEL.NAME' | translate}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the category">
             </div>
         </div>
 		<div class="form-group row">
-			<label for="noArticle" class="col-sm-2 col-form-label col-xl-2">No of article:</label>
+			<label for="noArticle" class="col-sm-2 col-form-label col-xl-2">{{'CATEGORY.LABEL.NO OF ARTICLE ENTER' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" step="any" class="form-control" formControlName="noArticle" id="noArticle" placeholder="number of article">
 			</div>
 		</div>    
         <div class="form-group row">
-			<label for="groupMarch" class="col-sm-2 col-form-label col-xl-2">Group marchandise:</label>
+			<label for="groupMarch" class="col-sm-2 col-form-label col-xl-2">{{'CATEGORY.LABEL.GROUP MARCHANDISE ENTER' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" step="any" class="form-control" formControlName="groupMarch" id="groupMarch" placeholder="group marchandise">
 			</div>
 		</div>
 		<div class="form-group row">
-		    <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
+		    <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'CATEGORY.LABEL.IS BLOCKED ENTER' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" class="isCheckbox" value="">
 			</div>
 		</div>
         
         <div class="form-group row">
-			<label for="isLabo" class="col-sm-2 col-form-label col-xl-2 vcenter">laboratory specific:</label>
+			<label for="isLabo" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'CATEGORY.LABEL.LABORATORY SPECIFIC ENTER' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isLabo" id="isLabo" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="isOffice" class="col-sm-2 col-form-label col-xl-2 vcenter">office specific:</label>
+			<label for="isOffice" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'CATEGORY.LABEL.OFFICE SPECIFIC ENTER' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isOffice" id="isOffice" class="isCheckbox" value="">
 			</div>

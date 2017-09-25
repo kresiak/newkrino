@@ -61,5 +61,41 @@
       "OTP": "OTP",
       "EQUIPE": "Project"      
     }
+  },
+  "CATEGORY": {
+    "LABEL": {
+      "CATEGORY": "category:",
+      "NO OF ARTICLE": "no of article:",
+      "GROUP MARCHANDISE": "group marchandise:",
+      "IS BLOCKED": "is blocked:",
+      "LABORATORY SPECIFIC": "laboratory specific:",
+      "OFFICE SPECIFIC": "office specific:",
+      "NAME": "name:",
+      "NO OF ARTICLE ENTER": "No of article:",
+      "GROUP MARCHANDISE ENTER" :"Group marchandise:",
+      "IS BLOCKED ENTER": "is blocked:",
+      "LABORATORY SPECIFIC ENTER": "laboratory specific:",
+      "OFFICE SPECIFIC ENTER": "office specific:"
+    },
+    "COLUMN": {
+      "CATEGORY": "Category",
+      "SUPPLIER EXAMPLE": "Supplier example",
+      "CLASSIFICATIONS": "Classifications",
+      "ARTICLE NB": "Article Nb",
+      "GROUP MARCHANDISE": "Group Marchandise",
+      "LABO SPECIFIC": "Labo specific"
+    }
+  },
+  "USER": {
+    "LABEL": {
+      "FULL NAME": "Full name",
+      "EQUIPE(S)": "Equipe(s)",
+      "BLOCKED?": "Blocked?",
+      "ADMINISTRATOR?":"Administrator?"
+    },
+    "COLUMN": {
+      "OTP": "OTP",
+      "EQUIPE": "Project"      
+    }
   }
 }
