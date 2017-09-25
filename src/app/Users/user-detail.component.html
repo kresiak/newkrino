@@ -15,49 +15,49 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter">is blocked:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS BLOCKED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div> 
 					<div class="row">
-						<div class="col-sm-3 vcenter">is labo user:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS LABO USER' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isLaboUser" (editSaved)="isLaboUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div> 
 					<div class="row">
-						<div class="col-sm-3 vcenter">is administrator:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS ADMINISTRATOR' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isAdmin" (editSaved)="isAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is receptionist:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS RECEPTIONIST' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isReceptionist" (editSaved)="isReceptionistUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is lab manager:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS LAB MANAGER' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isLabManager" (editSaved)="isLabManagerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is krino programmer:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS KRINO PROGRAMMER' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isProgrammer" (editSaved)="isProgrammerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">is platform administrator:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.IS PLATFORM ADMINISTRATOR' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isPlatformAdmin" (editSaved)="isPlatformAdminUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">user is not allowed to order products:</div>
+						<div class="col-sm-3 vcenter">{{'USER.COLUMN.USER IS NOT ALLOWED TO ORDER PRODUCTS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isPassiveUser" (editSaved)="isPassiveUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
