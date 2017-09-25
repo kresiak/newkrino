@@ -116,6 +116,10 @@ export class ProductListComponent implements OnInit {
                     return !product.data.isLabo;
                 }
 
+                if (txt.startsWith('$V')) {
+                    return product.data.onCreateValidation;
+                }
+
                 return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });
         }).do(products => {

@@ -100,9 +100,9 @@ export class ProductEnterComponent implements OnInit {
             noArticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
             tva: formValue.tva,
-            disabled: (!this.authorizationStatusInfo.isAdministrator && !this.authorizationStatusInfo.isSuperAdministrator)  ||  
+            disabled: (!this.authorizationStatusInfo.isAdministrator() && !this.authorizationStatusInfo.isSuperAdministrator())  ||  
                                     (formValue.disabled !== '' && formValue.disabled !== null) ,
-            onCreateValidation: (!this.authorizationStatusInfo.isAdministrator && !this.authorizationStatusInfo.isSuperAdministrator),
+            onCreateValidation: (!this.authorizationStatusInfo.isAdministrator() && !this.authorizationStatusInfo.isSuperAdministrator()),
             needsLotNumber: formValue.needsLotNumber !== '' && formValue.needsLotNumber !== null,
             isStock: formValue.isStock !== '' && formValue.isStock !== null,
             isLabo: !this.authorizationStatusInfo.isSuperAdministrator(),

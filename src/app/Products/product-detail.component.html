@@ -245,8 +245,8 @@
 							<div class="col-sm-2 vcenter">{{change.date}}</div>
 							<div class="col-sm-2 vcenter">{{change.userId}}</div>
 							<div class="col-sm-2 vcenter">{{change.event}}</div>
-							<div class="col-sm-2 vcenter">{{change.oldValue.toString()}}</div>
-							<div class="col-sm-2 vcenter">{{change.newValue.toString()}}</div>
+							<div class="col-sm-2 vcenter">{{(change.oldValue || '').toString()}}</div>
+							<div class="col-sm-2 vcenter">{{(change.newValue || '').toString()}}</div>
 						</div>
 					</div>
 				</div>
