@@ -14,6 +14,12 @@
 					<div class="row" *ngIf="product.data.disabled">
 						<div class="col-sm-3 vcenter" [style.color]="'red'"><b>This product is disabled</b></div>
 					</div>
+					<div class="row" [style.color]="'red'" *ngIf="product.data.onCreateValidation && !isProductReadOnly()">
+						<div class="col-sm-3 vcenter">en attente de validation:</div>
+						<div class="col-sm-6 vcenter">
+							<button class="link" (click)="validationDone()">done</button>
+						</div>
+					</div>					
 					<div class="row">
 						<div class="col-sm-3 vcenter">name of product:</div>
 						<div class="col-sm-6 vcenter">

@@ -183,6 +183,12 @@ export class ProductDetailComponent implements OnInit {
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
+    validationDone() {
+        this.logHistory('validation done', '', '')
+        this.product.data.onCreateValidation = false;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
     packageUpdated(packName: string) {
         this.logHistory('package change', this.product.data.package, packName)
         this.product.data.package = packName;
