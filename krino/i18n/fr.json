@@ -94,8 +94,20 @@
       "ADMINISTRATOR?":"AdministratoR?"
     },
     "COLUMN": {
-      "OTP": "OTP",
-      "EQUIPE": "Project"      
+      "FULL NAME": "full namE:",
+      "EMAIL": "emaiL:",
+      "NAME": "namE:",
+      "FIRST NAME": "first namE:",
+      "PASSWORD": "passworD:",
+      "EQUIPE(S)": "equipE(s):",
+      "IS BLOCKED": "is blockeD:",
+      "IS LABO USER": "is labo useR:",
+      "IS ADMINISTRATOR": "is administratoR:",
+      "IS RECEPTIONIST": "is receptionisT:",
+      "IS LAB MANAGER": "is lab manageR:",
+      "IS KRINO PROGRAMMER": "is krino programmeR:",
+      "IS PLATFORM ADMINISTRATOR": "is platform administratoR:",
+      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order productS:"
     }
   }
 }
