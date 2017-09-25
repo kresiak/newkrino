@@ -229,6 +229,30 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="Change history" id="tabChangeHistory" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer() && product.data.history && product.data.history.length > 0">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-2 vcenter"><b>When?</b></div>
+						<div class="col-sm-2 vcenter"><b>Who?</b></div>
+						<div class="col-sm-2 vcenter"><b>What?</b></div>
+						<div class="col-sm-2 vcenter"><b>From</b></div>
+						<div class="col-sm-2 vcenter"><b>To</b></div>
+					</div>
+					<div *ngFor="let change of product.data.history">
+						<div class="row">
+							<div class="col-sm-2 vcenter">{{change.date}}</div>
+							<div class="col-sm-2 vcenter">{{change.userId}}</div>
+							<div class="col-sm-2 vcenter">{{change.event}}</div>
+							<div class="col-sm-2 vcenter">{{change.oldValue.toString()}}</div>
+							<div class="col-sm-2 vcenter">{{change.newValue.toString()}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>

@@ -12,6 +12,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Router } from '@angular/router'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as utilsdate from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -22,7 +23,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 )
 
 export class ProductDetailComponent implements OnInit {
-        serviceSnapshot: any;
+    serviceSnapshot: any;
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService,
         private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService) {
     }
@@ -64,11 +65,11 @@ export class ProductDetailComponent implements OnInit {
             }).do(res => {
                 this.hasProductDoubles = res && res.length > 1
             }).switchMap(res => {
-                if (this.product.data.serviceVersionId) return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id ===this.product.data.serviceVersionId)[0])
+                if (this.product.data.serviceVersionId) return this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s._id === this.product.data.serviceVersionId)[0])
                 else return Observable.from([undefined])
-            }).do (snapshot => {
-                this.serviceSnapshot= snapshot
-            }).subscribe(res => {})
+            }).do(snapshot => {
+                this.serviceSnapshot = snapshot
+            }).subscribe(res => { })
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
@@ -104,12 +105,25 @@ export class ProductDetailComponent implements OnInit {
     private selectedCategoryIdsObservable: Observable<any>;
     private anyOrder: boolean;
 
-    categorySelectionChanged(selectedIds: string[]) {
+    private logHistory(event: string, oldValue, newValue) {
+        if (!this.product.data.history) this.product.data.history = []
+        this.product.data.history.push({
+            date: utilsdate.nowFormated(),
+            userId: this.authorizationStatusInfo.currentUserId,
+            event: event,
+            oldValue: oldValue,
+            newValue: newValue
+        })
+    }
+
+    categorySelectionChanged(selectedIds: string[]) {        
+        this.logHistory('category change', this.product.data.categoryIds, selectedIds)
         this.product.data.categoryIds = selectedIds;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     userSelectionChanged(selectedIds: string[]) {
+        this.logHistory('user change', this.product.data.userIds, selectedIds)
         this.product.data.userIds = selectedIds;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
@@ -120,6 +134,7 @@ export class ProductDetailComponent implements OnInit {
 
     commentsUpdated(comments) {
         if (this.product && comments) {
+            this.logHistory('comment change', this.product.data.comments, comments)
             this.product.data.comments = comments;
             this.dataStore.updateData('products', this.product.data._id, this.product.data);
         }
@@ -163,16 +178,19 @@ export class ProductDetailComponent implements OnInit {
 
 
     nameUpdated(name: string) {
+        this.logHistory('name change', this.product.data.name, name)
         this.product.data.name = name;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     packageUpdated(packName: string) {
+        this.logHistory('package change', this.product.data.package, packName)
         this.product.data.package = packName;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     catalogNrUpdated(catNr: string) {
+        this.logHistory('catalogNr change', this.product.data.catalogNr, catNr)
         this.product.data.catalogNr = catNr;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
@@ -195,11 +213,13 @@ export class ProductDetailComponent implements OnInit {
     }
 
     tvaUpdated(tvaProd: number) {
+        this.logHistory('tva change', this.product.data.tva, tvaProd)
         this.product.data.tva = tvaProd;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     disablUpdated(isDisable) {
+        this.logHistory('disable/enable', this.product.data.disabled, isDisable)
         this.product.data.disabled = isDisable;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
@@ -210,21 +230,25 @@ export class ProductDetailComponent implements OnInit {
     }
 
     isStockUpdated(isStock) {
+        this.logHistory('isStock change', this.product.data.isStock, isStock)
         this.product.data.isStock = isStock;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     needsLotNumberUpdated(lotNumber) {
+        this.logHistory('needsLotNumber change', this.product.data.needsLotNumber, lotNumber)
         this.product.data.needsLotNumber = lotNumber;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     divisionFactorUpdated(divisionFactor) {
+        this.logHistory('divisionFactor change', this.product.data.divisionFactor, divisionFactor)
         this.product.data.divisionFactor = divisionFactor;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     stockPackageUpdated(stockPackage) {
+        this.logHistory('stockPackage change', this.product.data.stockPackage, stockPackage)
         this.product.data.stockPackage = stockPackage;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
@@ -232,16 +256,19 @@ export class ProductDetailComponent implements OnInit {
     private saveFrigoProperty(event, product, isFrigo: boolean) {
         event.preventDefault()
         event.stopPropagation()
+        this.logHistory('is Frigo change', this.product.data.isFrigo, isFrigo)
         product.data.isFrigo = isFrigo;
         this.dataStore.updateData('products', product.data._id, product.data);
     }
 
     descriptionUpdated(description) {
+        this.logHistory('description change', this.product.data.description, description)
         this.product.data.description = description;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     isLabUpdated(isLabos) {
+        this.logHistory('private product flag change', this.product.data.isLabo, isLabos)
         this.product.data.isLabo = isLabos;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }

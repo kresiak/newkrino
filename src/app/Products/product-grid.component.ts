@@ -10,6 +10,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { Editor} from './../ui/editor/editor'
 import { DataStore } from './../Shared/Services/data.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
+import * as utilsdate from './../Shared/Utils/dates'
 
 
 @Component(
@@ -125,6 +126,18 @@ export class ProductGridComponent implements OnInit
         this.subscriptionAuthorization.unsubscribe()                 
     }
 
+    private logHistory(product, event: string, oldValue, newValue) {
+        if (!product.data.history) product.data.history = []
+        product.data.history.push({
+            date: utilsdate.nowFormated(),
+            userId: this.authorizationStatusInfo.currentUserId,
+            event: event,
+            oldValue: oldValue,
+            newValue: newValue
+        })
+    }
+
+
     getProductObservable(id: string) : Observable<any>
     {
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
@@ -138,6 +151,7 @@ export class ProductGridComponent implements OnInit
 
     descriptionUpdated(desc: string, product) {
         if (product.data.name !== desc) {
+            this.logHistory(product, 'name change', product.data.name, desc)
             product.data.name = desc;
             this.productService.updateProduct(product.data);
         }
@@ -147,6 +161,9 @@ export class ProductGridComponent implements OnInit
         var p: number = +prix && (+prix) >= 0 ? +prix : -1;
         if (p !== -1) {
             if (product.price !== p) {
+                if (!product.data.priceUpdates) product.data.priceUpdates = []
+                product.data.priceUpdates.unshift({ date: utilsdate.nowFormated(), newPrice: +p, oldPrice: +product.data.price, userId: this.authorizationStatusInfo.currentUserId })
+                
                 product.data.price = p;
                 this.productService.updateProduct(product.data);
             }
@@ -159,6 +176,7 @@ export class ProductGridComponent implements OnInit
     }
 
     categorySelectionChanged(selectedIds: string[], product) {
+        this.logHistory(product, 'category change', product.data.categoryIds, selectedIds)
         product.data.categoryIds = selectedIds;
         this.productService.updateProduct(product.data);
     }

@@ -4,6 +4,7 @@ import { ProductService } from '../Shared/Services/product.service'
 import { SelectableData } from '../Shared/Classes/selectable-data'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { Observable } from 'rxjs/Rx'
+import * as utilsdate from './../Shared/Utils/dates'
 
 @Component({
     //moduleId: module.id,
@@ -85,6 +86,7 @@ export class ProductEnterComponent implements OnInit {
     save(formValue, isValid) {
         if (!isValid) return
         if (!formValue.nameOfProduct) return
+        if (!this.authorizationStatusInfo || !this.authorizationStatusInfo.isLoggedIn) return
         this.savingNewProduct= true
         this.lastProductSaved= ''
         this.productService.createProduct({
@@ -98,12 +100,21 @@ export class ProductEnterComponent implements OnInit {
             noArticle: formValue.noarticle,
             groupMarch: formValue.groupMarch,
             tva: formValue.tva,
-            disabled: formValue.disabled !== '' && formValue.disabled !== null,
+            disabled: (!this.authorizationStatusInfo.isAdministrator && !this.authorizationStatusInfo.isSuperAdministrator)  ||  
+                                    (formValue.disabled !== '' && formValue.disabled !== null) ,
+            onCreateValidation: (!this.authorizationStatusInfo.isAdministrator && !this.authorizationStatusInfo.isSuperAdministrator),
             needsLotNumber: formValue.needsLotNumber !== '' && formValue.needsLotNumber !== null,
             isStock: formValue.isStock !== '' && formValue.isStock !== null,
             isLabo: !this.authorizationStatusInfo.isSuperAdministrator(),
             divisionFactor: +formValue.divisionFactor,
-            stockPackage: formValue.stockPackage
+            stockPackage: formValue.stockPackage,
+            history: [
+                {
+                    date: utilsdate.nowFormated(),
+                    userId: this.authorizationStatusInfo.currentUserId,
+                    event: 'Product creation'
+                }
+            ]
         }).subscribe(res => {
             this.lastProductSaved= res.name
             var x = res;
