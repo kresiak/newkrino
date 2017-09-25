@@ -85,6 +85,9 @@ export class ProductDetailComponent implements OnInit {
         this.isPageRunning = false
     }
 
+    isProductReadOnly() {
+        return !this.authorizationStatusInfo || !this.authorizationStatusInfo.isRightAdministrator(this.product.annotation.isPublic)
+    }
 
     //private model;
     private product;
