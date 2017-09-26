@@ -12,69 +12,69 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.DESCRIPTION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">classification:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CLASSIFICATION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableClassificationsObservable" [selectedIds]="selectedClassificationIdsObservable" (selectionChanged)="classificationChanged($event)"
 							 (selectionOptionAdded)="classificationHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>							
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">equipe:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">note:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.NOTE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.note" [showControls]="true" (editSaved)="noteUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">allowed products (will disappear soon/use classification):</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.ALLOWED PRODUCTS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="true"></gg-selector>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">is limited to owner equipe:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.LIMITED OWNER EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isBlocked ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">is blocked:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS BLOCKED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isClosed ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">is closed:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS CLOSED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isDeleted ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">is deleted:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS DELETED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isDeleted" (editSaved)="deletedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="!otp.data.priority ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">priority:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.PRIORITY' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="otp.data.priority" (editSaved)="priorityUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.excludeFixCost ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">otp cannot be used for transport costs:</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.OTP CANNOT USED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.excludeFixCost" (editSaved)="excludeFixCostUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>

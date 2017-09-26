@@ -55,7 +55,18 @@
   }, 
   "OTP": {
     "LABEL": {
-      "OTP": "otp:"
+      "OTP": "otp:",
+      "DESCRIPTION": "description:",
+      "CLASSIFICATION": "classification:",
+      "EQUIPE": "equipe:",
+      "NOTE": "note:",
+      "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classification):",
+      "LIMITED OWNER EQUIPE": "is limited to owner equipe:",
+      "IS BLOCKED": "is blocked:",
+      "IS CLOSED": "is closed:",
+      "IS DELETED": "is deleted:",
+      "PRIORITY": "priority:",
+      "OTP CANNOT USED": "otp cannot be used for transport costs:"
     },
     "COLUMN": {
       "OTP": "OTP",
