@@ -79,7 +79,10 @@
       "SPENT INVOICES": "amount spent in invoiceS:",
       "BUDGET": "budgeT:",
       "FROM": "froM:",
-      "TO": "tO:"
+      "TO": "tO:",
+      "LIMITED OWNER": "is limited to owneR:",
+      "CANNOT TRANSPORT COSTS": "otp cannot be used for transport costS:",
+      "CATEGORY": "CategorY:"
     },
     "COLUMN": {
       "OTP": "Otp",

@@ -1,73 +1,73 @@
 <div class="container-fluid">
 	<form [formGroup]="otpForm" (ngSubmit)="save(otpForm.value, otpForm.valid)" >
 		<div class="form-group row">
-			<label for="name" class="col-sm-2 col-form-label col-xl-2">otp:</label>
+			<label for="name" class="col-sm-2 col-form-label col-xl-2">{{'OTP.LABEL.OTP' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the otp">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="isAnnual" class="col-sm-2 col-form-label col-xl-2 vcenter">is annual:</label>
+			<label for="isAnnual" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.IS ANNUAL' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isAnnual" id="isAnnual" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="budget" class="col-sm-2 col-form-label col-xl-2">budget:</label>
+			<label for="budget" class="col-sm-2 col-form-label col-xl-2">{{'OTP.LABEL.BUDGET' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="number" min="1" class="form-control" formControlName="budget" id="budget" placeholder="budget">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+			<label for="description" class="col-sm-2 col-form-label col-xl-2">{{'OTP.LABEL.DESCRIPTION' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" class="form-control" formControlName="description" id="description" placeholder="description">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label col-xl-2 vcenter">from:</label>
+			<label class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.FROM' | translate}}</label>
 			<div class="col-sm-9 vcenter">
 				<gg-editor-date #datStart [content]="" (editSaved)="dateUpdatedStart($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label class="col-sm-2 col-form-label col-xl-2 vcenter">to:</label>
+			<label class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.TO' | translate}}</label>
 			<div class="col-sm-9 vcenter">
 				<gg-editor-date #datEnd [content]="" (editSaved)="dateUpdatedEnd($event)"></gg-editor-date>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="note" class="col-sm-2 col-form-label col-xl-2">note:</label>
+			<label for="note" class="col-sm-2 col-form-label col-xl-2">{{'OTP.LABEL.NOTE' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" formControlName="note" id="note" placeholder="note">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
+			<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.IS BLOCKED' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is limited to owner:</label>
+			<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.LIMITED OWNER' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isLimitedToOwner" id="isLimitedToOwner" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="isClosed" class="col-sm-2 col-form-label col-xl-2 vcenter">is closed:</label>
+			<label for="isClosed" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.IS CLOSED' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="isClosed" id="isClosed" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="excludeFixCost" class="col-sm-2 col-form-label col-xl-2 vcenter">otp cannot be used for transport costs:</label>
+			<label for="excludeFixCost" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.CANNOT TRANSPORT COSTS' | translate}}</label>
 			<div class="col-md-1 vcenter">
 				<input type="checkbox" class="form-control" formControlName="excludeFixCost" id="excludeFixCost" class="isCheckbox" value="">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="category" class="col-sm-2 col-form-label col-xl-2 vcenter">Category:</label>
+			<label for="category" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.CATEGORY' | translate}}</label>
 			<div class="col-sm-9 vcenter">
 				<gg-selector #categoriesSelector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
 			</div>
