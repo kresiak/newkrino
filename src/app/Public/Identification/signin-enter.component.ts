@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../../Shared/Services/data.service'
+import { AuthAnoynmousService, SignedInStatusInfo } from './../../Shared/Services/auth-anonymous.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component(
@@ -12,8 +13,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class SigninEnterComponent implements OnInit {
     isPageRunning: boolean= true;
     private signinEnterForm: FormGroup
+    authorizationStatusInfo: SignedInStatusInfo;
 
-    constructor( private dataStore: DataStore, private formBuilder: FormBuilder ) {
+
+    constructor( private dataStore: DataStore, private formBuilder: FormBuilder, private authAnoynmousService: AuthAnoynmousService ) {
     }
     
     ngOnInit(): void {
@@ -23,16 +26,15 @@ export class SigninEnterComponent implements OnInit {
             emailAddress: ['', [Validators.required, Validators.pattern(emailRegex)]],
             password: ['', [Validators.required, Validators.minLength(2)]]
         });
+
+        this.authAnoynmousService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
+        
     }
 
     login(formValue, isValid) {
-        this.dataStore.addData('', {
-            email: formValue.emailAddress,
-            password: formValue.password
-        }).first().subscribe(res => {
-        var x = res;
-        this.resetSigninEnterForm();
-        });
+        this.authAnoynmousService.tryLogin(formValue.emailAddress, formValue.password)
     }
         
     resetSigninEnterForm() {

@@ -1,38 +1,36 @@
-<div class="card" >
+<div class="card">
     <div class="card-block">
-        En construction/Under construction (don't use yet)
+        
         <ngb-tabset>
-            <ngb-tab title="Identification" id="tabIdentification">
+            <ngb-tab [title]="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn ? ('Signed in as ' + authorizationStatusInfo.getCurrentUserName()) : 'Identification'" id="tabIdentification">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="Signin" id="tabSignin">
+                                <ngb-tab [title]="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn ? 'Sign out' : 'Sign in'" id="tabSignin">
                                     <template ngbTabContent>
-                                      
-                                                <gg-signin-enter></gg-signin-enter>
-                                      
+                                        <gg-signin-enter></gg-signin-enter>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Register" id="tabRegister">
+                                <ngb-tab title="Register as a user" id="tabRegister">
                                     <template ngbTabContent>
                                         <gg-register-enter></gg-register-enter>
                                     </template>
                                 </ngb-tab>
                             </ngb-tabset>
-				        </div>
-			        </div>
-		        </template>
-	        </ngb-tab>  
-            <ngb-tab title="Marchés Ulg" id="tabMarchés">
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+            <ngb-tab title="Marchés Ulg" id="tabMarchés" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <gg-markets-main></gg-markets-main>
-				        </div>
-			        </div>
-		        </template>
-	        </ngb-tab>  
-        </ngb-tabset> 
+                        </div>
+                    </div>
+                </template>
+            </ngb-tab>
+        </ngb-tabset>
     </div>
 </div>

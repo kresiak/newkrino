@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-block">
-        <div class="container-fluid">
+        <div class="container-fluid" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
             <form [formGroup]="signinEnterForm" (ngSubmit)="login(signinEnterForm.value, signinEnterForm.valid)">
                 <div class="form-group row">
                     <label for="emailAddress" class="col-sm-2 col-form-label col-xl-2">e-mail address:</label>
@@ -11,7 +11,7 @@
                 <div class="form-group row">
                     <label for="password" class="col-sm-2 col-form-label col-xl-2">password:</label>
                     <div class="col-sm-10">
-                        <input type="text" min="2" class="form-control" formControlName="password" id="password" placeholder="password">
+                        <input type="password" min="2" class="form-control" formControlName="password" id="password" placeholder="password">
                     </div>
                 </div>
                 <div class="row">
@@ -23,6 +23,17 @@
                     </div>
                 </div>
             </form>
+            <div class="row" *ngIf="authorizationStatusInfo.isLoginError" [style.color]="'red'">
+                There is an error. Try again.
+            </div>            
+        </div>
+        <div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+            <div class="row">
+                You are signed in as {{authorizationStatusInfo.getCurrentUserName()}}
+            </div>
+            <div class="row">
+                <button class="btn btn-info" (click)="authAnoynmousService.setLoggedOut()">Sign out</button>
+            </div>
         </div>
     </div>
 </div>

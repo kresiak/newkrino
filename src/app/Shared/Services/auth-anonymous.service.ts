@@ -112,7 +112,7 @@ export class AuthAnoynmousService {
 
     private getAnnotatedUsersLight(): Observable<any> {
         return Observable.combineLatest(
-            this.dataStore.getDataObservable('users.krino.anonymous'),
+            this.dataStore.getDataObservable('users.public'),
             (users) => {
                 var list: any[] = users.map(user => this.createAnnotatedUser(user)).sort((a, b) => { return a.annotation.fullName.toUpperCase() < b.annotation.fullName.toUpperCase() ? -1 : 1; });
                 return list

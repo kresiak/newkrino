@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
+import { AuthAnoynmousService, SignedInStatusInfo } from './../Shared/Services/auth-anonymous.service'
 
 @Component(
     {
@@ -9,13 +10,16 @@ import { DataStore } from './../Shared/Services/data.service'
     }
 )
 export class PublicMainComponent implements OnInit {
+    authorizationStatusInfo: SignedInStatusInfo;
     isPageRunning: boolean= true;
 
-    constructor() {
+    constructor(private authAnoynmousService: AuthAnoynmousService) {
     }
 
     ngOnInit(): void {
-
+        this.authAnoynmousService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+            this.authorizationStatusInfo = statusInfo
+        })
     }
 
     ngOnDestroy(): void {
