@@ -21,11 +21,9 @@ export class OtpEnterComponent implements OnInit {
     private datStart: string
     private datEnd: string
     private selectableCategoriesObservable: Observable<any>;
-    private selectedIds;
 
     @Input() equipeId: string;
 
-    @ViewChild('categoriesSelector') categoriesChild;
     @ViewChild('datStart') datStartChild;
     @ViewChild('datEnd') datEndChild;
 
@@ -57,8 +55,7 @@ export class OtpEnterComponent implements OnInit {
             excludeFixCost: formValue.excludeFixCost !== '' && formValue.excludeFixCost !== null,
             isLimitedToOwner: formValue.isLimitedToOwner !== '' && formValue.isLimitedToOwner !== null,
             equipeId: this.equipeId,
-            note: formValue.note,
-            categoryIds: this.selectedIds
+            note: formValue.note
         }
         let budgetPeriods = []
         budgetPeriods.push({
@@ -76,13 +73,8 @@ export class OtpEnterComponent implements OnInit {
 
     reset() {
         this.otpForm.reset();
-        this.categoriesChild.emptyContent()
         this.datStartChild.emptyContent()
         this.datEndChild.emptyContent()
-    }
-
-    categorySelectionChanged(selectedIds: string[]) {
-        this.selectedIds = selectedIds;
     }
 
     dateUpdatedStart(date) {

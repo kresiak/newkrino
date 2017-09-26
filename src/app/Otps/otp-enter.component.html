@@ -67,12 +67,6 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="category" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'OTP.LABEL.CATEGORY' | translate}}</label>
-			<div class="col-sm-9 vcenter">
-				<gg-selector #categoriesSelector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
-			</div>
-		</div>
-		<div class="form-group row">
 			<div class="col-sm-3 col-md-2 col-lg-2">
 				<button class="btn btn-success" type="submit" [disabled]="!otpForm.valid">{{'FORM.SUBMIT' | translate}}</button>
 			</div>

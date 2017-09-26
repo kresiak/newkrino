@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.LIMITED OWNER EQUIPE' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.LIMITED OWNER' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
@@ -74,7 +74,7 @@
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.excludeFixCost ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.OTP CANNOT USED' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CANNOT TRANSPORT COSTS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.excludeFixCost" (editSaved)="excludeFixCostUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>

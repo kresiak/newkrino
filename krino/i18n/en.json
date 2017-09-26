@@ -61,12 +61,12 @@
       "EQUIPE": "equipe:",
       "NOTE": "note:",
       "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classification):",
-      "LIMITED OWNER EQUIPE": "is limited to owner equipe:",
+      "LIMITED OWNER": "is limited to owner equipe:",
       "IS BLOCKED": "is blocked:",
       "IS CLOSED": "is closed:",
       "IS DELETED": "is deleted:",
       "PRIORITY": "priority:",
-      "OTP CANNOT USED": "otp cannot be used for transport costs:",
+      "CANNOT TRANSPORT COSTS": "otp cannot be used for transport costs:",
       "IS ANNUAL": "is annual:",
       "MONTHS BEFORE END": "number of months before end:",
       "REPEATS AFTER WARNING": "number of repeats after first warning:",
@@ -79,10 +79,7 @@
       "SPENT INVOICES": "amount spent in invoices:",
       "BUDGET": "budget:",
       "FROM": "from:",
-      "TO": "to:",
-      "LIMITED OWNER": "is limited to owner:",
-      "CANNOT TRANSPORT COSTS": "otp cannot be used for transport costs:",
-      "CATEGORY": "Category:"
+      "TO": "to:"
     },
     "COLUMN": {
       "OTP": "OTP",
