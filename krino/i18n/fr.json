@@ -66,11 +66,27 @@
       "IS CLOSED": "is closeD:",
       "IS DELETED": "is deleteD:",
       "PRIORITY": "prioritY:",
-      "OTP CANNOT USED": "otp cannot be used for transport costS:"
+      "OTP CANNOT USED": "otp cannot be used for transport costS:",
+      "IS ANNUAL": "is annuaL:",
+      "MONTHS BEFORE END": "number of months before enD:",
+      "REPEATS AFTER WARNING": "number of repeats after first warninG:",
+      "DAYS WAIT REPEAT": "number of days to wait before repeaT:",
+      "TOTAL BUDGET": "total budgeT:",
+      "SPENT OR BLOCKED": "amount spent or blockeD:",
+      "AMOUNT AVAILABLE": "amount availablE:",
+      "BLOCKED PURCHASE ORDERS": "amount blocked in purchase orderS:",
+      "BLOCKED STILL ENGAGED": "amount blocked still engageD:",
+      "SPENT INVOICES": "amount spent in invoiceS:",
+      "BUDGET": "budgeT:",
+      "FROM": "froM:",
+      "TO": "tO:"
     },
     "COLUMN": {
       "OTP": "Otp",
-      "EQUIPE": "Equipe"
+      "EQUIPE": "Equipe",
+      "BUDGET OF THE PERIOD": "Budget of the perioD",
+      "DATE START": "Date starT",
+      "DATE END": "Date enD"
     }
   },
   "CATEGORY": {

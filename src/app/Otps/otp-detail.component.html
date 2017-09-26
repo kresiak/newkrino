@@ -121,7 +121,7 @@
 										<div class="card-block">
 
 											<div class="row">
-												<label class="col-sm-3 col-form-label col-xl-3 vcenter">is annual:</label>
+												<label class="col-sm-3 col-form-label col-xl-3 vcenter">{{'OTP.LABEL.IS ANNUAL' | translate}}</label>
 												<div class="col-md-3 vcenter">
 													<gg-editor-boolean [content]="otp.data.isAnnual" (editSaved)="updatedIsAnnualChecked($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 												</div>
@@ -138,9 +138,9 @@
 																		<ngb-panel [disabled]="true">
 																			<template ngbPanelTitle>
 																				<div class="row">
-																					<div class="col-sm-2"><b>Budget of the period</b></div>
-																					<div class="col-sm-4"><b>Date start</b></div>
-																					<div class="col-sm-4"><b>Date end</b></div>
+																					<div class="col-sm-2"><b>{{'OTP.COLUMN.BUDGET OF THE PERIOD' | translate}}</b></div>
+																					<div class="col-sm-4"><b>{{'OTP.COLUMN.DATE START' | translate}}</b></div>
+																					<div class="col-sm-4"><b>{{'OTP.COLUMN.DATE END' | translate}}</b></div>
 																				</div>
 																			</template>
 																			<template ngbPanelContent>
@@ -171,19 +171,19 @@
 																<div class="card">
 																	<div class="card-block">
 																		<div class="form-group row">
-																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">budget:</label>
+																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">{{'OTP.LABEL.BUDGET' | translate}}</label>
 																			<div class="col-sm-7">
 																				<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="Budget annual">
 																			</div>
 																		</div>
 																		<div class="form-group row">
-																			<div class="col-sm-3 vcenter">from:</div>
+																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.FROM' | translate}}</div>
 																			<div class="col-sm-7 vcenter">
 																				<gg-editor-date [content]="" (editSaved)="dateStartAnnualUpdated($event)"></gg-editor-date>
 																			</div>
 																		</div>
 																		<div class="form-group row">
-																			<div class="col-sm-3 vcenter">to:</div>
+																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.TO' | translate}}</div>
 																			<div class="col-sm-7 vcenter">
 																				<gg-editor-date [content]="" (editSaved)="dateEndAnnualUpdated($event)"></gg-editor-date>
 																			</div>
@@ -212,19 +212,19 @@
 									<div class="card">
 										<div class="card-block">
 											<div class="row">
-												<div class="col-sm-4 vcenter">number of months before end:</div>
+												<div class="col-sm-4 vcenter">{{'OTP.LABEL.MONTHS BEFORE END' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbMonthsToEnd" (editSaved)="warningNbMonthsToEndUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">number of repeats after first warning:</div>
+												<div class="col-sm-4 vcenter">{{'OTP.LABEL.REPEATS AFTER WARNING' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbRepeats" (editSaved)="warningNbRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">number of days to wait before repeat:</div>
+												<div class="col-sm-4 vcenter">{{'OTP.LABEL.DAYS WAIT REPEAT' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbDaysBetweenRepeats" (editSaved)="warningNbDaysBetweenRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
@@ -245,11 +245,11 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4">total budget:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.TOTAL BUDGET' | translate}}</div>
 						<div class="col-sm-6">+ {{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">amount spent or blocked:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.SPENT OR BLOCKED' | translate}}</div>
 						<div class="col-sm-6">- {{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
@@ -257,7 +257,7 @@
 						<div class="col-sm-6">================</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">amount available:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.AMOUNT AVAILABLE' | translate}}</div>
 						<div class="col-sm-6">= {{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
@@ -265,15 +265,15 @@
 						<div class="col-sm-6"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">amount blocked in purchase orders:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED PURCHASE ORDERS' | translate}}</div>
 						<div class="col-sm-6">{{otp.annotation.amountSpentNotYetInSap | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">amount blocked still engaged:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED STILL ENGAGED' | translate}}</div>
 						<div class="col-sm-6">{{otp.annotation.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">amount spent in invoices:</div>
+						<div class="col-sm-4">{{'OTP.LABEL.SPENT INVOICES' | translate}}</div>
 						<div class="col-sm-6">{{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 				</div>
