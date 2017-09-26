@@ -55,11 +55,41 @@
   }, 
   "OTP": {
     "LABEL": {
-      "OTP": "otp:"
+      "OTP": "otp:",
+      "DESCRIPTION": "descriptioN:",
+      "CLASSIFICATION": "classificatioN:",
+      "EQUIPE": "equipE:",
+      "NOTE": "notE:",
+      "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classificatioN):",
+      "LIMITED OWNER EQUIPE": "is limited to owner equipE:",
+      "IS BLOCKED": "is blockeD:",
+      "IS CLOSED": "is closeD:",
+      "IS DELETED": "is deleteD:",
+      "PRIORITY": "prioritY:",
+      "OTP CANNOT USED": "otp cannot be used for transport costS:",
+      "IS ANNUAL": "is annuaL:",
+      "MONTHS BEFORE END": "number of months before enD:",
+      "REPEATS AFTER WARNING": "number of repeats after first warninG:",
+      "DAYS WAIT REPEAT": "number of days to wait before repeaT:",
+      "TOTAL BUDGET": "total budgeT:",
+      "SPENT OR BLOCKED": "amount spent or blockeD:",
+      "AMOUNT AVAILABLE": "amount availablE:",
+      "BLOCKED PURCHASE ORDERS": "amount blocked in purchase orderS:",
+      "BLOCKED STILL ENGAGED": "amount blocked still engageD:",
+      "SPENT INVOICES": "amount spent in invoiceS:",
+      "BUDGET": "budgeT:",
+      "FROM": "froM:",
+      "TO": "tO:",
+      "LIMITED OWNER": "is limited to owneR:",
+      "CANNOT TRANSPORT COSTS": "otp cannot be used for transport costS:",
+      "CATEGORY": "CategorY:"
     },
     "COLUMN": {
       "OTP": "Otp",
-      "EQUIPE": "Equipe"
+      "EQUIPE": "Equipe",
+      "BUDGET OF THE PERIOD": "Budget of the perioD",
+      "DATE START": "Date starT",
+      "DATE END": "Date enD"
     }
   },
   "CATEGORY": {
