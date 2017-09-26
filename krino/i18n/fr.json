@@ -64,26 +64,26 @@
   },
   "CATEGORY": {
     "LABEL": {
-      "CATEGORY": "categorY",
-      "NO OF ARTICLE": "no of articlE:",
-      "GROUP MARCHANDISE": "group marchandisE:",
-      "IS BLOCKED": "is blockeD:",
-      "LABORATORY SPECIFIC": "laboratory specifiC:",
-      "OFFICE SPECIFIC": "office specifiC:",
-      "NAME": "namE:",
-      "NO OF ARTICLE ENTER": "No of articlE:",
-      "GROUP MARCHANDISE ENTER" :"Group marchandisE:",
-      "IS BLOCKED ENTER": "is blockeD:",
-      "LABORATORY SPECIFIC ENTER": "laboratory specifiC:",
-      "OFFICE SPECIFIC ENTER": "office specifiC:"
+      "CATEGORY": "catégorie",
+      "NO OF ARTICLE": "numéro d'article:",
+      "GROUP MARCHANDISE": "groupe marchandise:",
+      "IS BLOCKED": "bloqué:",
+      "LABORATORY SPECIFIC": "spécifique au laboratoire:",
+      "OFFICE SPECIFIC": "office spécifique:",
+      "NAME": "nom:",
+      "NO OF ARTICLE ENTER": "numéro d'article:",
+      "GROUP MARCHANDISE ENTER" :"groupe marchandise:",
+      "IS BLOCKED ENTER": "bloqué:",
+      "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire:",
+      "OFFICE SPECIFIC ENTER": "office spécifique:"
     },
     "COLUMN": {
-      "CATEGORY": "categoRY",
-      "SUPPLIER EXAMPLE": "Supplier exampLE",
-      "CLASSIFICATIONS": "ClassificationS",
-      "ARTICLE NB": "Article NB",
-      "GROUP MARCHANDISE": "Group MarchandiseE",
-      "LABO SPECIFIC": "Labo specifiC"
+      "CATEGORY": "catégorie",
+      "SUPPLIER EXAMPLE": "exemple de fournisseur",
+      "CLASSIFICATIONS": "classifications",
+      "ARTICLE NB": "numéro d'article",
+      "GROUP MARCHANDISE": "groupe marchandise",
+      "LABO SPECIFIC": "spécifique au labo"
     }
   },
   "USER": {
@@ -98,20 +98,20 @@
       "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
     "LABEL": {
-      "FULL NAME": "full namE:",
-      "EMAIL": "emaiL:",
-      "NAME": "namE:",
-      "FIRST NAME": "first namE:",
-      "PASSWORD": "passworD:",
-      "EQUIPE(S)": "equipE(s):",
+      "FULL NAME": "nom complet:",
+      "EMAIL": "adresse e-mail:",
+      "NAME": "nom:",
+      "FIRST NAME": "prénom:",
+      "PASSWORD": "mot de passe:",
+      "EQUIPE(S)": "équipe(s):",
       "IS BLOCKED": "is blockeD:",
-      "IS LABO USER": "is labo useR:",
-      "IS ADMINISTRATOR": "is administratoR:",
-      "IS RECEPTIONIST": "is receptionisT:",
-      "IS LAB MANAGER": "is lab manageR:",
-      "IS KRINO PROGRAMMER": "is krino programmeR:",
-      "IS PLATFORM ADMINISTRATOR": "is platform administratoR:",
-      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order productS:",
+      "IS LABO USER": "travaille au labo:",
+      "IS ADMINISTRATOR": "administrateur:",
+      "IS RECEPTIONIST": "réceptioniste:",
+      "IS LAB MANAGER": "lab manager:",
+      "IS KRINO PROGRAMMER": "programmeur:",
+      "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
+      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
       "SUPER ADMINISTRATOR":"super administrateur:" 
     }
   }
