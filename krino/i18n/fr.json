@@ -3,27 +3,27 @@
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
     "SELECT": "Changer la langue",
     "KRINO": {
-       "GREEK": "Je juge, je décide, j'apprécie"
-    }    
+      "GREEK": "Je juge, je décide, j'apprécie"
+    }
   },
   "LOGIN": {
     "CHOOSE USER": "choisir un utilisateur dans la liste",
     "SELECT USER": "choisir un utilisateur",
     "CHOOSE EQUIPE": "choisir une équipe dans la liste",
     "SELECT EQUIPE": "choisir une équipe",
-    "ENTER PWD":"Entrer le mot de passe",
-    "PWD ERR": "Erreur!!",    
+    "ENTER PWD": "Entrer le mot de passe",
+    "PWD ERR": "Erreur!!",
     "LABO": {
-      "TIP":"Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)",
-      "CHANGE":"Autre labo",
+      "TIP": "Votre labo: {{param}}. <br/> (Clickez ici pour changer de labo)",
+      "CHANGE": "Autre labo",
       "CHOOSE LABO": "choisir un labo dans la lists",
       "SELECT LABO": "choisir un labo"
     },
     "BASKET": {
-      "TIP":"Clicker ici pour<br/> ouvrir votre panier"
+      "TIP": "Clicker ici pour<br/> ouvrir votre panier"
     },
     "PWDWIN": {
-      "LABEL":"entrez votre mot de passe",
+      "LABEL": "entrez votre mot de passe",
       "BUTTON": "connection"
     }
   },
@@ -52,8 +52,23 @@
   },
   "ERROR": {
     "NO LOGIN": "désolé: vous n'êtes pas connecté"
-  }, 
+  },
   "OTP": {
+    "WARNING": {
+      "MONTHS BEFORE END": "nombre de mois avant la fin:",
+      "REPEATS AFTER WARNING": "number de répétitions après le permier avertissement:",
+      "DAYS WAIT REPEAT": "nombre de jours avant de répéter l'alarme:"
+    },
+    "PERIOD": {
+      "LABEL": {
+        
+      },
+      "COLUMN": {
+        "BUDGET OF THE PERIOD": "Budget pour la période",
+        "DATE START": "Début",
+        "DATE END": "Fin"
+      }
+    },
     "LABEL": {
       "OTP": "otp:",
       "DESCRIPTION": "description:",
@@ -68,9 +83,6 @@
       "PRIORITY": "priorité:",
       "CANNOT TRANSPORT COSTS": "otp ne peut être pris pour payer frais de transports:",
       "IS ANNUAL": "otp annuel:",
-      "MONTHS BEFORE END": "nombre de mois avant la fin:",
-      "REPEATS AFTER WARNING": "number de répétitions après le permier avertissement:",
-      "DAYS WAIT REPEAT": "nombre de jours avant de répéter l'alarme:",
       "TOTAL BUDGET": "budget total:",
       "SPENT OR BLOCKED": "montant dépensé ou bloqué:",
       "AMOUNT AVAILABLE": "montant disponible:",
@@ -83,10 +95,7 @@
     },
     "COLUMN": {
       "OTP": "Otp",
-      "EQUIPE": "Equipe",
-      "BUDGET OF THE PERIOD": "Budget pour la période",
-      "DATE START": "Début",
-      "DATE END": "Fin"
+      "EQUIPE": "Equipe"
     }
   },
   "CATEGORY": {
@@ -99,7 +108,7 @@
       "OFFICE SPECIFIC": "office spécifique:",
       "NAME": "nom:",
       "NO OF ARTICLE ENTER": "numéro d'article:",
-      "GROUP MARCHANDISE ENTER" :"groupe marchandise:",
+      "GROUP MARCHANDISE ENTER": "groupe marchandise:",
       "IS BLOCKED ENTER": "bloqué:",
       "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire:",
       "OFFICE SPECIFIC ENTER": "office spécifique:"
@@ -118,7 +127,7 @@
       "FULL NAME": "Nom complet",
       "EQUIPE(S)": "Equipe(s)",
       "BLOCKED?": "Bloqué?",
-      "ADMINISTRATOR?":"Administrateur?",
+      "ADMINISTRATOR?": "Administrateur?",
       "SUPER ADMINISTRATOR?": "Super administrateur?"
     },
     "HELP": {
@@ -139,7 +148,7 @@
       "IS KRINO PROGRAMMER": "programmeur:",
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
-      "SUPER ADMINISTRATOR":"super administrateur:" 
+      "SUPER ADMINISTRATOR": "super administrateur:"
     }
   }
 }

@@ -138,9 +138,9 @@
 																		<ngb-panel [disabled]="true">
 																			<template ngbPanelTitle>
 																				<div class="row">
-																					<div class="col-sm-2"><b>{{'OTP.COLUMN.BUDGET OF THE PERIOD' | translate}}</b></div>
-																					<div class="col-sm-4"><b>{{'OTP.COLUMN.DATE START' | translate}}</b></div>
-																					<div class="col-sm-4"><b>{{'OTP.COLUMN.DATE END' | translate}}</b></div>
+																					<div class="col-sm-2"><b>{{'OTP.PERIOD.COLUMN.BUDGET OF THE PERIOD' | translate}}</b></div>
+																					<div class="col-sm-4"><b>{{'OTP.PERIOD.COLUMN.DATE START' | translate}}</b></div>
+																					<div class="col-sm-4"><b>{{'OTP.PERIOD.COLUMN.DATE END' | translate}}</b></div>
 																				</div>
 																			</template>
 																			<template ngbPanelContent>
@@ -212,19 +212,19 @@
 									<div class="card">
 										<div class="card-block">
 											<div class="row">
-												<div class="col-sm-4 vcenter">{{'OTP.LABEL.MONTHS BEFORE END' | translate}}</div>
+												<div class="col-sm-4 vcenter">{{'OTP.WARNING.MONTHS BEFORE END' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbMonthsToEnd" (editSaved)="warningNbMonthsToEndUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">{{'OTP.LABEL.REPEATS AFTER WARNING' | translate}}</div>
+												<div class="col-sm-4 vcenter">{{'OTP.WARNING.REPEATS AFTER WARNING' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbRepeats" (editSaved)="warningNbRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">{{'OTP.LABEL.DAYS WAIT REPEAT' | translate}}</div>
+												<div class="col-sm-4 vcenter">{{'OTP.WARNING.DAYS WAIT REPEAT' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="otp.data.warningNbDaysBetweenRepeats" (editSaved)="warningNbDaysBetweenRepeatsUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 												</div>
