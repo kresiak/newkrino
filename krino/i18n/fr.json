@@ -79,18 +79,18 @@
     },  
     "CLASSIFICATION": {
       "LABEL": {
-        "NAME": "NamE",
-        "DESCRIPTION": "DescriptioN",
-        "PRODUCT CATEGORIES": "Product categorieS",
-        "NAME CREATE": "namE:",
-        "DESCRIPTION CREATE": "descriptioN:"
+        "NAME": "nom",
+        "DESCRIPTION": "description",
+        "PRODUCT CATEGORIES": "types de produits",
+        "NAME CREATE": "nom:",
+        "DESCRIPTION CREATE": "description:"
       },
       "COLUMN": {
-        "NAME": "NamE",
-        "CATEGORIES": "CategorieS",
-        "AVAILABLE UNRESTRICTED": "Available in Unrestricted OtpS",
-        "AVAILABLE RESTRICTED": "Available in restricted OtpS",
-        "NUMBER OTPS": "Number of OtpS"
+        "NAME": "Nom",
+        "CATEGORIES": "Catégories",
+        "AVAILABLE UNRESTRICTED": "Disponible dans otps libres",
+        "AVAILABLE RESTRICTED": "Disponible dans otps réservés",
+        "NUMBER OTPS": "Nombre d'otps"
       }
     },
     "MENU": {
@@ -147,12 +147,12 @@
     "COLUMN": {
       "OTP": "Otp",
       "EQUIPE": "Equipe",
-      "CLASSIFICATION": "ClassificatiON",
-      "INITIAL": "InitiaL",
-      "AVAILABLE": "AvailablE",
-      "UNTIL": "Until (prioritY)",
-      "IN SAP": "IN SAP",
-      "STATUS": "StatuS"
+      "CLASSIFICATION": "Classification",
+      "INITIAL": "Initial",
+      "AVAILABLE": "Disponible",
+      "UNTIL": "Jusque (priorité)",
+      "IN SAP": "Dans SAP",
+      "STATUS": "Statut"
     }
   },
   "CATEGORY": {
