@@ -98,6 +98,7 @@ export class OtpCheckerComponent implements OnInit {
     private checkIfFormOk() {
         if (this.isLoading) return
         if (this.isProblemInTotal || !this.totalToSpend) this.spendingChanged.emit(false)
+        else if (this.totalToSpend !== this.classificationsList.filter(c => c.valueToSpend).map(c => c.valueToSpend).reduce((a, b) => a + b, 0)) this.spendingChanged.emit(false)
         else {
             if (this.classificationsList.filter(c => c.valueToSpend).length === 0) this.spendingChanged.emit(false)
             else {
@@ -115,6 +116,8 @@ export class OtpCheckerComponent implements OnInit {
 
     changePrice(classificationsItem, data) {
         classificationsItem.valueToSpend = +data.target.value
+        this.totalToSpend= this.classificationsList.filter(c => c.valueToSpend).map(c => c.valueToSpend).reduce((a, b) => a + b, 0)
+        this.isProblemInTotal = this.totalToSpend > this.currentEquipe.annotation.amountAvailable
         this.checkIfFormOk()
     }
 

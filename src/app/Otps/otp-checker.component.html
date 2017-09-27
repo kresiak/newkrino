@@ -14,7 +14,7 @@
         <div class="row" *ngIf="currentEquipe">
             <div class="col-sm-3 vcenter">{{'OTP.CHECKER.LABEL.HOW MUCH WISH SPEND' | translate}}</div>
             <div class="col-sm-5 vcenter">
-                <input type="number" min="0" step="any" class="form-control" (input)="changeTotalToSpend($event)" placeholder="amount to spend" value="0">                
+                <input type="number" min="0" step="any" class="form-control" (input)="changeTotalToSpend($event)" placeholder="amount to spend" [value]="totalToSpend">                
             </div>
             <div class="col-sm-2 vcenter" [style.color]="isProblemInTotal ? 'red' : 'green'">
                 {{isProblemInTotal? 'Impossible' : 'OK'}}
