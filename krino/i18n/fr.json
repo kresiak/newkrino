@@ -79,10 +79,18 @@
     },  
     "CLASSIFICATION": {
       "LABEL": {
-
+        "NAME": "NamE",
+        "DESCRIPTION": "DescriptioN",
+        "PRODUCT CATEGORIES": "Product categorieS",
+        "NAME CREATE": "namE:",
+        "DESCRIPTION CREATE": "descriptioN:"
       },
       "COLUMN": {
-        
+        "NAME": "NamE",
+        "CATEGORIES": "CategorieS",
+        "AVAILABLE UNRESTRICTED": "Available in Unrestricted OtpS",
+        "AVAILABLE RESTRICTED": "Available in restricted OtpS",
+        "NUMBER OTPS": "Number of OtpS"
       }
     },
     "MENU": {
