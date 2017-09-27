@@ -61,20 +61,20 @@
     },
     "CHECKER": {
       "LABEL": {
-        "WANTS ORDER": "équipe that wants to ordeR:",
-        "HOW MUCH WISH SPEND": "how much money you wish to spenD:",
-        "AVAILABLE BUDGET": "available budgeT:"
+        "WANTS ORDER": "équipe qui passe la commande:",
+        "HOW MUCH WISH SPEND": "combien veut-elle dépenser:",
+        "AVAILABLE BUDGET": "budget disponible:"
       },
       "COLUMN": {
-        "PRODUCT TYPE": "Product typE",
-        "AMOUNT TO SPEND": "Amount to spenD",
-        "PREFERED OTP": "Prefered OtP",
-        "MAXIMUM AVAILABLE": "Maximum available on OtP",
-        "PREFERENCE": "PreferencE",
-        "OTP": "OtP",
-        "EQUIPE": "EquipE",
-        "EXPIRES": "ExpireS",
-        "AVAILABLE": "AvailablE"
+        "PRODUCT TYPE": "Type de produit",
+        "AMOUNT TO SPEND": "Montant de la dépense",
+        "PREFERED OTP": "Otp recommandé",
+        "MAXIMUM AVAILABLE": "Montant maximal sur cet otp",
+        "PREFERENCE": "Préférence",
+        "OTP": "Otp",
+        "EQUIPE": "Equipe",
+        "EXPIRES": "Expire le",
+        "AVAILABLE": "Disponible"
       }
     },  
     "CLASSIFICATION": {
@@ -89,27 +89,27 @@
     },          
     "PERIOD": {
       "LABEL": {
-        "INITIAL BUDGET": "initial budget for perioD:",
-        "START DATE": "start datE:",
-        "END DATE": "end datE:",
-        "ADDED LATER": "budget added lateR:",
-        "BUDGET BLOCKED": "budget blockeD:",
-        "THAT CAN USED": "budget that can be useD:",
-        "BUDGET INCREMENT": "Budget incremenT",
-        "DATE": "DatE",
-        "COMMENT": "CommenT",
-        "AMOUNT BLOCKED": "blocked amounT:",
-        "REASON/COMMENT": "reason / commenT:"
+        "INITIAL BUDGET": "budget initial pour la période:",
+        "START DATE": "date de début:",
+        "END DATE": "date de fin:",
+        "ADDED LATER": "budget ajouté ultérieurement:",
+        "BUDGET BLOCKED": "budget bloqué:",
+        "THAT CAN USED": "budget utilisable:",
+        "BUDGET INCREMENT": "incrément de budget",
+        "DATE": "date",
+        "COMMENT": "commentaire",
+        "AMOUNT BLOCKED": "montant bloqué:",
+        "REASON/COMMENT": "raison / commentaire:"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
         "DATE START": "Début",
         "DATE END": "Fin",
-        "BUDGET INCREMENT": "Budget incremeNT",
-        "DATE": "DaTE",
-        "COMMENT": "CommenT",
-        "AMOUNT BLOCKED": "Amount blockED",
-        "REASON/COMMENT": "Reason/CommenT"
+        "BUDGET INCREMENT": "Incrément de budget",
+        "DATE": "Date",
+        "COMMENT": "Commentaire",
+        "AMOUNT BLOCKED": "Montant bloqué",
+        "REASON/COMMENT": "Raison / commentaire"
       }
     },
     "LABEL": {
@@ -183,7 +183,7 @@
       "FIRST NAME": "prénom:",
       "PASSWORD": "mot de passe:",
       "EQUIPE(S)": "équipe(s):",
-      "IS BLOCKED": "is blockeD:",
+      "IS BLOCKED": "bloqué:",
       "IS LABO USER": "travaille au labo:",
       "IS ADMINISTRATOR": "administrateur:",
       "IS RECEPTIONIST": "réceptioniste:",

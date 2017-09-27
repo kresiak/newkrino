@@ -61,7 +61,7 @@
     },
     "CHECKER": {
       "LABEL": {
-        "WANTS ORDER": "équipe that wants to order:",
+        "WANTS ORDER": "project that wants to order:",
         "HOW MUCH WISH SPEND": "how much money you wish to spend:",
         "AVAILABLE BUDGET": "available budget:"
       },
@@ -72,7 +72,7 @@
         "MAXIMUM AVAILABLE": "Maximum available on Otp",
         "PREFERENCE": "Preference",
         "OTP": "Otp",
-        "EQUIPE": "Equipe",
+        "EQUIPE": "Project",
         "EXPIRES": "Expires",
         "AVAILABLE": "Available"
       }
