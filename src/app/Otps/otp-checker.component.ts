@@ -21,6 +21,7 @@ export class OtpCheckerComponent implements OnInit {
         private _sanitizer: DomSanitizer) {
     }
 
+    @Input() canChangeEquipe: boolean= false
     @Output() spendingChanged = new EventEmitter();
 
 
@@ -100,7 +101,10 @@ export class OtpCheckerComponent implements OnInit {
                 var xx = this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first())
                 Observable.forkJoin(this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first()))
                     .subscribe(arrRes => {
-                        this.spendingChanged.emit(arrRes.filter(res => !res).length === 0)
+                        this.spendingChanged.emit({
+                            totalSpent: this.totalToSpend,
+                            equipeId: this.equipeId
+                        })
                     })
             }
         }
