@@ -102,7 +102,7 @@
 <nav class="navbar  navbar-dark bg-inverse">
 	<ul class="nav navbar-nav">
 		<li class="nav-item">
-			<img src="../images/international.png" class="imgSearch" (click)="translate.use(translate.currentLang==='en' ? 'fr' : 'en')" [ngbTooltip]="translate.currentLang==='en' ? 'Clicker ici pour Krino en français' : 'Click here to get Krino in English'"/>
+			<img src="../images/international.png" class="imgSearch" (click)="translate.use(translate.currentLang==='en' ? 'fr' : 'en')" placement="right" [ngbTooltip]="translate.currentLang==='en' ? 'Clicker ici pour Krino en français' : 'Click here to get Krino in English'"/>
 		</li>
 		<li *ngFor="let menuItem of menu" [class.active]="menuItem.active" class="nav-item">
 			<a class="nav-link" [ngbTooltip]="menuItem.attractAttentionModeText" *ngIf="menuItem.isAttractAttentionMode" (click)="menuService.activateMenu(menuItem)"
