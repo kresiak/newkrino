@@ -166,6 +166,11 @@ export class SupplierDetailComponent implements OnInit {
         this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
     }
 
+    webShoppingEprocUpdated(isEnabled) {
+        this.supplier.data.isEproc = isEnabled
+        this.dataStore.updateData('suppliers', this.supplierId, this.supplier.data);
+    }
+
     categorySelectionChanged(selectedIds: string[]) {
         if (!this.supplier.data.webShopping) this.supplier.data.webShopping = {}
         this.supplier.data.webShopping.categoryIds = selectedIds;

@@ -75,6 +75,7 @@ export class SupplierListComponent implements OnInit {
 
             if (txt.toUpperCase().startsWith('$W')) return suppliers.filter(supplier => supplier.data.webShopping && supplier.data.webShopping.isEnabled)
             if (txt.toUpperCase().startsWith('$C')) return suppliers.filter(supplier => supplier.annotation.nbFixCosts > 0)
+            if (txt.toUpperCase().startsWith('$E')) return suppliers.filter(supplier => supplier.data.isEproc)
 
             return suppliers.filter(supplier => {
                 return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) ||

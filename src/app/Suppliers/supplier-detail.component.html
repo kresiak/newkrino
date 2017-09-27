@@ -168,6 +168,12 @@
 								<div class="card">
 									<div class="card-block">
 										<div class="row">
+											<div class="col-sm-4 vcenter">e-procurement enabled:</div>
+											<div class="col-sm-6 vcenter">
+												<gg-editor-boolean [content]="supplier.data.isEproc" (editSaved)="webShoppingEprocUpdated($event)"></gg-editor-boolean>
+											</div>
+										</div>										
+										<div class="row">
 											<div class="col-sm-4 vcenter">web shopping enabled:</div>
 											<div class="col-sm-6 vcenter">
 												<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
