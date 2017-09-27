@@ -138,7 +138,13 @@
     },
     "COLUMN": {
       "OTP": "OTP",
-      "EQUIPE": "Project"
+      "EQUIPE": "Project",
+      "CLASSIFICATION": "Classification",
+      "INITIAL": "Initial",
+      "AVAILABLE": "Available",
+      "UNTIL": "Until (priority)",
+      "IN SAP": "In SAP",
+      "STATUS": "Status"
     }
   },
   "CATEGORY": {
