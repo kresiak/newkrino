@@ -4,38 +4,38 @@
             <div class="card">
                 <div class="card-block gg-line-height">
                     <div class="row">
-                        <div class="col-sm-4 vcenter">initial budget for period:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.INITIAL BUDGET' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             <gg-editor [isMonetary]="true" [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetPeriodUpdated($event)"
                                 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">start date:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.START DATE' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">end date:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.END DATE' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">budget added later:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.ADDED LATER' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             {{budgetAnnotation.changesSum | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">budget blocked:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.BUDGET BLOCKED' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             {{budgetAnnotation.blockedSum | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">budget that can be used:</div>
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.THAT CAN USED' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             {{budgetAnnotation.budgetAvailable | currency:'EUR':true:'1.2-2'}}
                         </div>
@@ -56,9 +56,9 @@
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-2 vcenter"><b>Budget increment</b></div>
-                                                    <div class="col-sm-4 vcenter"><b>Date</b></div>
-                                                    <div class="col-sm-3 vcenter"><b>Comment</b></div>
+                                                    <div class="col-sm-2 vcenter"><b>{{'OTP.PERIOD.COLUMN.BUDGET INCREMENT' | translate}}</b></div>
+                                                    <div class="col-sm-4 vcenter"><b>{{'OTP.PERIOD.COLUMN.DATE' | translate}}</b></div>
+                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.COMMENT' | translate}}</b></div>
                                                 </div>
                                                 <div *ngFor="let budgetHistoryItem of budgetPeriod.budgetHistory">
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
@@ -89,19 +89,19 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
-                                                    <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">budget increment:</label>
+                                                    <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">{{'OTP.PERIOD.LABEL.BUDGET INCREMENT' | translate}}</label>
                                                     <div class="col-sm-7">
                                                         <input type="number" min="0" step="any" class="form-control" formControlName="budgetChange" id="budgetChange" placeholder="Budget change">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">date:</div>
+                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.DATE' | translate}}</div>
                                                     <div class="col-sm-7 vcenter">
                                                         <gg-editor-date [content]="" (editSaved)="dateBudgetChangeInForm($event)"></gg-editor-date>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">comment:</div>
+                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.COMMENT' | translate}}</div>
                                                     <div class="col-sm-7 vcenter">
                                                         <input type="text" class="form-control" formControlName="commentBudgetChange" id="commentBudgetChange" placeholder="comment">
                                                     </div>
@@ -138,8 +138,8 @@
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-3 "><b>Amount blocked</b></div>
-                                                    <div class="col-sm-6 "><b>Reason/Comment</b></div>
+                                                    <div class="col-sm-3 "><b>{{'OTP.PERIOD.COLUMN.AMOUNT BLOCKED' | translate}}</b></div>
+                                                    <div class="col-sm-6 "><b>{{'OTP.PERIOD.COLUMN.REASON/COMMENT' | translate}}</b></div>
                                                 </div>
                                                 <div *ngFor="let blockedAmountItem of budgetPeriod.blockedAmounts">
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
@@ -167,13 +167,13 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">blocked amount:</div>
+                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.AMOUNT BLOCKED' | translate}}</div>
                                                     <div class="col-sm-7 vcenter">
                                                         <input type="number" min="0" step="any" class="form-control" formControlName="blockedAmount" id="blockedAmount" placeholder="blocked amount">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">reason / comment:</div>
+                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.REASON/COMMENT' | translate}}</div>
                                                     <div class="col-sm-7 vcenter">
                                                         <input type="text" class="form-control" formControlName="comment" id="comment" placeholder="comment">
                                                     </div>

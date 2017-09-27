@@ -79,12 +79,27 @@
     },          
     "PERIOD": {
       "LABEL": {
-
+        "INITIAL BUDGET": "initial budget for perioD:",
+        "START DATE": "start datE:",
+        "END DATE": "end datE:",
+        "ADDED LATER": "budget added lateR:",
+        "BUDGET BLOCKED": "budget blockeD:",
+        "THAT CAN USED": "budget that can be useD:",
+        "BUDGET INCREMENT": "Budget incremenT",
+        "DATE": "DatE",
+        "COMMENT": "CommenT",
+        "AMOUNT BLOCKED": "blocked amounT:",
+        "REASON/COMMENT": "reason / commenT:"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
         "DATE START": "Début",
-        "DATE END": "Fin"
+        "DATE END": "Fin",
+        "BUDGET INCREMENT": "Budget incremeNT",
+        "DATE": "DaTE",
+        "COMMENT": "CommenT",
+        "AMOUNT BLOCKED": "Amount blockED",
+        "REASON/COMMENT": "Reason/CommenT"
       }
     },
     "LABEL": {

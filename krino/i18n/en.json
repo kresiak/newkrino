@@ -78,11 +78,28 @@
     "MENU": {
     },    
     "PERIOD": {
-      "LABEL": {},
+      "LABEL": {
+        "INITIAL BUDGET": "initial budget for period:",
+        "START DATE": "start date:",
+        "END DATE": "end date:",
+        "ADDED LATER": "budget added later:",
+        "BUDGET BLOCKED": "budget blocked:",
+        "THAT CAN USED": "budget that can be used:",
+        "BUDGET INCREMENT": "Budget increment",
+        "DATE": "Date",
+        "COMMENT": "Comment",
+        "AMOUNT BLOCKED": "blocked amount:",
+        "REASON/COMMENT": "reason / comment:"
+      },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
         "DATE START": "Date start",
-        "DATE END": "Date end"
+        "DATE END": "Date end",
+        "BUDGET INCREMENT": "Budget increment",
+        "DATE": "Date",
+        "COMMENT": "Comment",
+        "AMOUNT BLOCKED": "Amount blocked",
+        "REASON/COMMENT": "Reason/Comment"
       }
     },
     "LABEL": {
