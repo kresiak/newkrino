@@ -91,9 +91,21 @@
         "AVAILABLE UNRESTRICTED": "Available in Unrestricted Otps",
         "AVAILABLE RESTRICTED": "Available in restricted Otps",
         "NUMBER OTPS": "Number of Otps"
+      },
+      "MENU": {
+        "LIST CLASSIFICATION": "List of classifications",
+        "INFO": "Info",
+        "OTPS":"Otps",
+        "CREATE CLASSIFICATION": "Create classification",
+        "WITHOUT CLASSIFICATION": "Categories without classification"
       }
     },
     "MENU": {
+      "VIEW OTPS": "View Otps",
+      "SOON EXPIRING": "Soon expiring",
+      "CREATE OTP": "Create an Otp",
+      "CHOICE SIMULATOR": "Otp choice simulator",
+      "PRODUCT CLASSIFICATIONS": "Product classifications"
     },    
     "PERIOD": {
       "LABEL": {
@@ -118,6 +130,15 @@
         "COMMENT": "Comment",
         "AMOUNT BLOCKED": "Amount blocked",
         "REASON/COMMENT": "Reason/Comment"
+      },
+      "MENU": {
+        "INFO": "Info",
+        "BUDGET CHANGES": "Budget changes",
+        "HISTORY BUDGET": "History of budget",
+        "ADD BUDGET CHANGE": "Add budget change",
+        "BLOCKED AMOUNTS": "Blocked amounts",
+        "LIST BLOCKED AMOUNT": "List of blocked amount",
+        "ADD BLOCKED AMOUNT": "Add a blocked amount"
       }
     },
     "LABEL": {
