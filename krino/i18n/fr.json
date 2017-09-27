@@ -61,10 +61,20 @@
     },
     "CHECKER": {
       "LABEL": {
-
+        "WANTS ORDER": "équipe that wants to ordeR:",
+        "HOW MUCH WISH SPEND": "how much money you wish to spenD:",
+        "AVAILABLE BUDGET": "available budgeT:"
       },
       "COLUMN": {
-        
+        "PRODUCT TYPE": "Product typE",
+        "AMOUNT TO SPEND": "Amount to spenD",
+        "PREFERED OTP": "Prefered OtP",
+        "MAXIMUM AVAILABLE": "Maximum available on OtP",
+        "PREFERENCE": "PreferencE",
+        "OTP": "OtP",
+        "EQUIPE": "EquipE",
+        "EXPIRES": "ExpireS",
+        "AVAILABLE": "AvailablE"
       }
     },  
     "CLASSIFICATION": {
