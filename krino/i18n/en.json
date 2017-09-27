@@ -79,10 +79,18 @@
     },
     "CLASSIFICATION": {
       "LABEL": {
-
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "PRODUCT CATEGORIES": "Product categories",
+        "NAME CREATE": "name:",
+        "DESCRIPTION CREATE": "description:"
       },
       "COLUMN": {
-        
+        "NAME": "Name",
+        "CATEGORIES": "Categories",
+        "AVAILABLE UNRESTRICTED": "Available in Unrestricted Otps",
+        "AVAILABLE RESTRICTED": "Available in restricted Otps",
+        "NUMBER OTPS": "Number of Otps"
       }
     },
     "MENU": {
@@ -138,7 +146,13 @@
     },
     "COLUMN": {
       "OTP": "OTP",
-      "EQUIPE": "Project"
+      "EQUIPE": "Project",
+      "CLASSIFICATION": "Classification",
+      "INITIAL": "Initial",
+      "AVAILABLE": "Available",
+      "UNTIL": "Until (priority)",
+      "IN SAP": "In SAP",
+      "STATUS": "Status"
     }
   },
   "CATEGORY": {

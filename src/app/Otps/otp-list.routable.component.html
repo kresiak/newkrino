@@ -44,11 +44,11 @@
                                                     <ngb-panel [disabled]="true">
                                                         <template ngbPanelTitle>
                                                             <div class="row">
-                                                                <div class="col-sm-2"><b>Name</b></div>
-                                                                <div class="col-sm-4"><b>Categories</b></div>
-                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are open to all equipes"><b>Available in Unrestricted Otps</b></div>
-                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are limited to the equipe that is owning the otp"><b>Available in restricted Otps</b></div>
-                                                                <div class="col-sm-1" ngbTooltip="Consider all Otps, including deleted, blocked, ..."><b>Number of Otps</b></div>
+                                                                <div class="col-sm-2"><b>{{'OTP.CLASSIFICATION.COLUMN.NAME' | translate}}</b></div>
+                                                                <div class="col-sm-4"><b>{{'OTP.CLASSIFICATION.COLUMN.CATEGORIES' | translate}}</b></div>
+                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are open to all equipes"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE UNRESTRICTED' | translate}}</b></div>
+                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are limited to the equipe that is owning the otp"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE RESTRICTED' | translate}}</b></div>
+                                                                <div class="col-sm-1" ngbTooltip="Consider all Otps, including deleted, blocked, ..."><b>{{'OTP.CLASSIFICATION.COLUMN.NUMBER OTPS' | translate}}</b></div>
                                                             </div>
                                                         </template>
                                                     </ngb-panel>
@@ -74,7 +74,7 @@
                                                                         <div class="card">
                                                                             <div class="card-block">
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.NAME' | translate}}</b></div>
                                                                                     <div class="col-sm-8 vcenter">
                                                                                         <gg-editor [content]="classificationsItem.data.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
@@ -82,7 +82,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.DESCRIPTION' | translate}}</b></div>
                                                                                     <div class="col-sm-8 vcenter">
                                                                                         <gg-editor [content]="classificationsItem.data.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
@@ -90,7 +90,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>Product categories</b></div>
+                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.PRODUCT CATEGORIES' | translate}}</b></div>
                                                                                     <div class="col-sm-8 vcenter">
                                                                                         <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem.data._id)"
                                                                                             (selectionChanged)="categorySelectionChanged($event, classificationsItem)"
@@ -124,13 +124,13 @@
                                                 <div class="container-fluid">
                                                     <form [formGroup]="classificationForm" (ngSubmit)="save(classificationForm.value, classificationForm.valid)">
                                                         <div class="form-group row">
-                                                            <label for="classificationName" class="col-sm-2 col-form-label col-xl-2">name:</label>
+                                                            <label for="classificationName" class="col-sm-2 col-form-label col-xl-2">{{'OTP.CLASSIFICATION.LABEL.NAME CREATE' | translate}}</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" formControlName="classificationName" id="classificationName" placeholder="name">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="classificationDescription" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                                                            <label for="classificationDescription" class="col-sm-2 col-form-label col-xl-2">{{'OTP.CLASSIFICATION.LABEL.DESCRIPTION CREATE' | translate}}</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" formControlName="classificationDescription" id="classificationDescription" placeholder="description">
                                                             </div>
