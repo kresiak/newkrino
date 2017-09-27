@@ -4,7 +4,7 @@
             <div class="col-sm-3 vcenter">{{'OTP.CHECKER.LABEL.WANTS ORDER' | translate}}</div>
             <div class="col-sm-5 vcenter">
 
-                <input  [disabled]="!canChangeEquipe && !(authorizationStatusInfo && authorizationStatusInfo.isAdministrator())" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;"
+                <input  [disabled]="!(authorizationStatusInfo && authorizationStatusInfo.isAdministrator())" [(ngModel)]="equipeValue" class="form-control" style="margin-top:8px;height:32px;line-height:32px;font-size:12px;cursor:pointer;"
                     ng2-auto-complete blank-option-text="{{'LOGIN.SELECT EQUIPE' | translate}}" [source]="selectableEquipes" placeholder="{{'LOGIN.CHOOSE EQUIPE' | translate}}"
                     [list-formatter]="autocompleListFormatter" (valueChanged)="equipeChanged($event)">
 

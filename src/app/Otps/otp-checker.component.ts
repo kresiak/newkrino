@@ -21,7 +21,6 @@ export class OtpCheckerComponent implements OnInit {
         private _sanitizer: DomSanitizer) {
     }
 
-    @Input() canChangeEquipe: boolean= false
     @Output() spendingChanged = new EventEmitter();
 
 
@@ -33,6 +32,8 @@ export class OtpCheckerComponent implements OnInit {
     private currentEquipe
 
     private equipeId: string
+
+    private isLoading:boolean= true
 
     ngOnInit(): void {
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
@@ -52,6 +53,7 @@ export class OtpCheckerComponent implements OnInit {
             .subscribe(selectableEquipes => {
                 this.equipeId = this.equipeValue ? this.equipeValue.id : undefined
                 this.currentEquipe = this.allEquipes.filter(eq => eq.data._id === this.equipeId)[0]
+                this.isLoading= false
             })
 
         this.otpService.getAnnotatedClassifications().takeWhile(() => this.isPageRunning).subscribe(classification => {
@@ -68,7 +70,7 @@ export class OtpCheckerComponent implements OnInit {
 
     equipeChanged(equipe) {
         this.equipeId = equipe ? equipe.id : undefined
-        this.currentEquipe = this.allEquipes.filter(eq => eq.data._id === this.equipeId)[0]
+        this.currentEquipe = (this.allEquipes || []).filter(eq => eq.data._id === this.equipeId)[0]
         this.checkIfFormOk()
     }
 
@@ -94,14 +96,15 @@ export class OtpCheckerComponent implements OnInit {
 
 
     private checkIfFormOk() {
+        if (this.isLoading) return
         if (this.isProblemInTotal || !this.totalToSpend) this.spendingChanged.emit(false)
         else {
             if (this.classificationsList.filter(c => c.valueToSpend).length === 0) this.spendingChanged.emit(false)
             else {
-                var xx = this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first())
                 Observable.forkJoin(this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first()))
                     .subscribe(arrRes => {
-                        this.spendingChanged.emit({
+                        if (arrRes.filter(res => !res).length > 0) this.spendingChanged.emit(false)
+                        else this.spendingChanged.emit({
                             totalSpent: this.totalToSpend,
                             equipeId: this.equipeId
                         })

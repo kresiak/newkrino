@@ -280,5 +280,10 @@ export class SupplierDetailComponent implements OnInit {
         });
     }
 
+    private eprocData=false
+
+    eprocDataChanged(data) {
+        if (this.eprocData !==data) this.eprocData= data
+    }
 
 }

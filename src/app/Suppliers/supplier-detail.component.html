@@ -158,6 +158,19 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="E-procurement" id="tabEProc" *ngIf="supplier.data.isEproc">
+		<template ngbTabContent>
+			<br/>
+			<div class="row" [style.color]="'green'">
+				In order to shop at {{supplier.data.name}} with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement.
+				If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form.
+			</div>
+			<div class="row" [style.color]="eprocData !== false ? 'green' : 'red'"> 
+				Permission to shop on e-procurement: {{eprocData !== false ? 'OK' : 'NO'}}
+			</div>
+			<gg-otp-checker (spendingChanged)="eprocDataChanged($event)"></gg-otp-checker>
+		</template>
+	</ngb-tab>
 	<ngb-tab title="Web Shopping" id="tabWebShopping" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
