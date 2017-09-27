@@ -59,10 +59,26 @@
       "REPEATS AFTER WARNING": "number of repeats after first warning:",
       "DAYS WAIT REPEAT": "number of days to wait before repeat:"
     },
-    "PERIOD": {
+    "CHECKER": {
       "LABEL": {
 
       },
+      "COLUMN": {
+
+      }
+    },
+    "CLASSIFICATION": {
+      "LABEL": {
+
+      },
+      "COLUMN": {
+        
+      }
+    },
+    "MENU": {
+    },    
+    "PERIOD": {
+      "LABEL": {},
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
         "DATE START": "Date start",

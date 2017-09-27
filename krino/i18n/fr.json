@@ -59,9 +59,27 @@
       "REPEATS AFTER WARNING": "number de répétitions après le permier avertissement:",
       "DAYS WAIT REPEAT": "nombre de jours avant de répéter l'alarme:"
     },
+    "CHECKER": {
+      "LABEL": {
+
+      },
+      "COLUMN": {
+        
+      }
+    },  
+    "CLASSIFICATION": {
+      "LABEL": {
+
+      },
+      "COLUMN": {
+        
+      }
+    },
+    "MENU": {
+    },          
     "PERIOD": {
       "LABEL": {
-        
+
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
