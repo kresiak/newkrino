@@ -21,6 +21,9 @@ export class OtpCheckerComponent implements OnInit {
         private _sanitizer: DomSanitizer) {
     }
 
+    @Output() spendingChanged = new EventEmitter();
+
+
     private equipeListObservable
     private authorizationStatusInfo: AuthenticationStatusInfo
     private classificationsList = []
@@ -52,6 +55,7 @@ export class OtpCheckerComponent implements OnInit {
 
         this.otpService.getAnnotatedClassifications().takeWhile(() => this.isPageRunning).subscribe(classification => {
             this.classificationsList = classification
+            this.classificationsList.forEach(c => c.valueToSpend = 0)
         })
 
 
@@ -64,6 +68,7 @@ export class OtpCheckerComponent implements OnInit {
     equipeChanged(equipe) {
         this.equipeId = equipe ? equipe.id : undefined
         this.currentEquipe = this.allEquipes.filter(eq => eq.data._id === this.equipeId)[0]
+        this.checkIfFormOk()
     }
 
     getOtpsCompatible(classificationsItem, equipeId): Observable<any> {
@@ -87,8 +92,32 @@ export class OtpCheckerComponent implements OnInit {
     }
 
 
+    private checkIfFormOk() {
+        if (this.isProblemInTotal || !this.totalToSpend) this.spendingChanged.emit(false)
+        else {
+            if (this.classificationsList.filter(c => c.valueToSpend).length === 0) this.spendingChanged.emit(false)
+            else {
+                var xx = this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first())
+                Observable.forkJoin(this.classificationsList.filter(c => c.valueToSpend).map(c => this.getFirstOtpCompatible(c, this.equipeId).first()))
+                    .subscribe(arrRes => {
+                        this.spendingChanged.emit(arrRes.filter(res => !res).length === 0)
+                    })
+            }
+        }
+    }
+
     changePrice(classificationsItem, data) {
         classificationsItem.valueToSpend = +data.target.value
+        this.checkIfFormOk()
+    }
+
+    private isProblemInTotal: boolean = false
+    private totalToSpend: number = 0
+
+    changeTotalToSpend(data) {
+        this.totalToSpend = +data.target.value
+        this.isProblemInTotal = this.totalToSpend > this.currentEquipe.annotation.amountAvailable
+        this.checkIfFormOk()
     }
 
     autocompleListFormatter = (data: any): SafeHtml => {

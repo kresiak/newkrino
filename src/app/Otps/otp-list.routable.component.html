@@ -26,9 +26,9 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Otp choice simulator" id="tabByClassification" >
+            <ngb-tab title="Otp choice simulator {{isXX ? 'OK' : 'No'}}" id="tabByClassification" >
                 <template ngbTabContent>
-                    <gg-otp-checker></gg-otp-checker>
+                    <gg-otp-checker (spendingChanged)="isXX=$event"></gg-otp-checker>
                 </template>
             </ngb-tab>
             <ngb-tab title="Product classifications" id="tabProductClassifications">
