@@ -40,13 +40,13 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<div class="col-sm-1" *ngIf="isForSelection"></div>
-							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>Product</b></div>
-							<div class="col-sm-2"><b>Supplier</b></div>
-							<div class="col-sm-1"><b>Package</b></div>
-							<div class="col-sm-2"><b>Catalog nr.</b></div>
-							<div class="col-sm-2"><b>Price</b></div>
-							<div class="col-sm-1"><b>Frigo</b></div>
-							<div class="col-sm-1"><b>Disabled?</b></div>
+							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'PRODUCT.COLUMN.PACKAGE' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'PRODUCT.COLUMN.PRICE' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'PRODUCT.COLUMN.FRIGO' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'PRODUCT.COLUMN.DISABLED' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
