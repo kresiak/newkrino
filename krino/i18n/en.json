@@ -273,6 +273,18 @@
       "ALLOWED PRODUCTS": "allowed products:",
       "VOUCHERS AVAILABLE": "vouchers available:",
       "VOUCHERS ORDERED": "vouchers ordered:"
+    },
+    "INFO": {
+      "LABEL": {
+        "SUPPLIER": "Supplier:",
+        "LOCATION": "Location:",
+        "ADDRESS": "Address:",
+        "COUNTRY": "Country:",
+        "TELEPHONE": "Telephone:",
+        "FAX": "Fax:",
+        "CLIENT": "Client:",
+        "SAP ID": "Sap id:"
+      }
     }
   }
 }
