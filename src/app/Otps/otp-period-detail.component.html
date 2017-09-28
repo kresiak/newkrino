@@ -1,5 +1,5 @@
 <ngb-tabset>
-    <ngb-tab title="Info" id="tabInfo">
+    <ngb-tab title="{{'OTP.PERIOD.MENU.INFO' | translate}}" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block gg-line-height">
@@ -44,12 +44,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Budget changes" id="tabChanges">
+    <ngb-tab title="{{'OTP.PERIOD.MENU.BUDGET CHANGES' | translate}}" id="tabChanges">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="History of budget" id="tabHistoryOfBudget" *ngIf="budgetPeriod.budgetHistory && budgetPeriod.budgetHistory.length > 0">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.HISTORY BUDGET' | translate}}" id="tabHistoryOfBudget" *ngIf="budgetPeriod.budgetHistory && budgetPeriod.budgetHistory.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -82,7 +82,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Add budget change" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BUDGET CHANGE' | translate}}" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetPeriod, budgetChangeForm.valid)">
@@ -126,12 +126,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Blocked amounts" id="tabBlocked">
+    <ngb-tab title="{{'OTP.PERIOD.MENU.BLOCKED AMOUNTS' | translate}}" id="tabBlocked">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="List of blocked amount" id="tabListOfBlocked" *ngIf="budgetPeriod.blockedAmounts && budgetPeriod.blockedAmounts.length > 0">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.LIST BLOCKED AMOUNT' | translate}}" id="tabListOfBlocked" *ngIf="budgetPeriod.blockedAmounts && budgetPeriod.blockedAmounts.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -160,7 +160,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Add a blocked amount" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BLOCKED AMOUNT' | translate}}" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, budgetPeriod, blockedAmountForm.valid)">
