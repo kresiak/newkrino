@@ -105,7 +105,20 @@
       "SOON EXPIRING": "Soon expirinG",
       "CREATE OTP": "Create an OtP",
       "CHOICE SIMULATOR": "Otp choice simulatoR",
-      "PRODUCT CLASSIFICATIONS": "Product classificationS"
+      "PRODUCT CLASSIFICATIONS": "Product classificationS",
+      "INFO": "InFO",
+      "BUDGET": "BudgeT",
+      "CURRENT BUDGET": "Current budgeT",
+      "PERIODS": "PeriodS",
+      "HISTORY PERIODS": "History of budget periodS",
+      "ADD BUDGET PERIOD": "Add new budget perioD",
+      "WARNINGS": "WarningS",
+      "SPENDING": "SpendinG",
+      "CHARTS": "ChartS",
+      "COMMENTS": "CommentS",
+      "ORDERS": "Orders",
+      "SAP": "SAP",
+      "ALL ITEMS": "All items"
     },          
     "PERIOD": {
       "LABEL": {
@@ -227,6 +240,56 @@
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
       "SUPER ADMINISTRATOR": "super administrateur:"
+    }
+  },
+  "SUPPLIER": {
+    "MENU": {
+      "INFO": "InFO",
+      "FIX COSTS": "Fix costS",
+      "ADD FIX COST": "Add Fix cosT",
+      "PRODUCTS": "ProductS",
+      "ORDERS": "OrderS",
+      "SHOPPING BASKET": "Shopping BaskeT",
+      "SHOPPING NON URGENT": "Shopping non urgent BaskeT",
+      "ADD PRODUCT": "Add a producT",
+      "E-PROCUREMENT": "E-procuremenT",
+      "WEB SHOPPING": "Web ShoppinG",
+      "ADMINISTRATION": "AdministratioN",
+      "VOUCHERS": "VoucherS",
+      "VIEW SUPPLIERS": "View SupplierS",
+      "CREATE SUPPLIER": "Create a SupplieR",
+      "INCLUDE KRINO": "Include into KrinO"
+    },
+    "COLUMN": {
+      "DESCRIPTION": "DescriptioN",
+      "PRICE": "PricE",
+      "DISABLE": "DisablE",
+      "SUPPLIER": "SupplieR",
+      "CITY": "CitY",
+      "COUNTRY": "CountrY",
+      "SAP ID": "Sap ID",
+      "VOUCHERS": "VoucherS"
+    },
+    "LABEL": {
+      "DESCRIPTION": "DescriptioN:",
+      "PRICE": "PricE:",
+      "E-PROCUREMENT ENABLED": "e-procurement enableD:",
+      "SHOPPING ENABLED": "web shopping enableD:",
+      "ALLOWED PRODUCTS": "allowed productS:",
+      "VOUCHERS AVAILABLE": "vouchers availablE:",
+      "VOUCHERS ORDERED": "vouchers ordereD:"
+    },
+    "INFO": {
+      "LABEL": {
+        "SUPPLIER": "SupplieR:",
+        "LOCATION": "LocatioN:",
+        "ADDRESS": "AddresS:",
+        "COUNTRY": "CountrY:",
+        "TELEPHONE": "TelephonE:",
+        "FAX": "FaX:",
+        "CLIENT": "ClienT:",
+        "SAP ID": "Sap iD:"
+      }
     }
   }
 }

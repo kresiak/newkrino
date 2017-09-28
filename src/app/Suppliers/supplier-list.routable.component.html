@@ -2,12 +2,12 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-			<ngb-tab title="View Suppliers" id="tabView">
+			<ngb-tab title="{{'SUPPLIER.MENU.VIEW SUPPLIERS' | translate}}" id="tabView">
 				<template ngbTabContent>
                     <gg-supplier-list [state]="state" [suppliersObservable]= "suppliersObservable"></gg-supplier-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Create a Supplier" id="tabCreate"  *ngIf="authorizationStatusInfo.isAdministrator()">
+			<ngb-tab title="{{'SUPPLIER.MENU.CREATE SUPPLIER' | translate}}" id="tabCreate"  *ngIf="authorizationStatusInfo.isAdministrator()">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">

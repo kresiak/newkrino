@@ -1,7 +1,7 @@
 <template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
 
 <ngb-tabset *ngIf="otp" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-	<ngb-tab title="Info" id="tabInfo">
+	<ngb-tab title="{{'OTP.MENU.INFO' | translate}}" id="tabInfo">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -95,13 +95,13 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Budget" id="tabBudget">
+	<ngb-tab title="{{'OTP.MENU.BUDGET' | translate}}" id="tabBudget">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
 						<ngb-tabset>
-							<ngb-tab title="Current budget" id="tabOtpCurrentBudget">
+							<ngb-tab title="{{'OTP.MENU.CURRENT BUDGET' | translate}}" id="tabOtpCurrentBudget">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
@@ -115,7 +115,7 @@
 									</div>
 								</template>
 							</ngb-tab>
-							<ngb-tab title="Periods" id="tabOtpPeriods">
+							<ngb-tab title="{{'OTP.MENU.PERIODS' | translate}}" id="tabOtpPeriods">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
@@ -128,7 +128,7 @@
 											</div>
 
 											<ngb-tabset>
-												<ngb-tab title="History of budget periods" id="tabHistoryOfBudgetPeriods">
+												<ngb-tab title="{{'OTP.MENU.HISTORY PERIODS' | translate}}" id="tabHistoryOfBudgetPeriods">
 													<template ngbTabContent>
 														<div class="card">
 															<div class="card-block">
@@ -164,7 +164,7 @@
 														</div>
 													</template>
 												</ngb-tab>
-												<ngb-tab title="Add new budget period" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && otp.data.isAnnual">
+												<ngb-tab title="{{'OTP.MENU.ADD BUDGET PERIOD' | translate}}" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && otp.data.isAnnual">
 													<template ngbTabContent>
 														<div class="card">
 															<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)">
@@ -207,7 +207,7 @@
 									</div>
 								</template>
 							</ngb-tab>
-							<ngb-tab title="Warnings" id="tabWarnings">
+							<ngb-tab title="{{'OTP.MENU.WARNINGS' | translate}}" id="tabWarnings">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
@@ -240,7 +240,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Spending" id="tabSpending" *ngIf="otp">
+	<ngb-tab title="{{'OTP.MENU.SPENDING' | translate}}" id="tabSpending" *ngIf="otp">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -280,7 +280,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Charts" id="tabCharts">
+	<ngb-tab title="{{'OTP.MENU.CHARTS' | translate}}" id="tabCharts">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -299,22 +299,22 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Comments" id="tabComments">
+	<ngb-tab title="{{'OTP.MENU.COMMENTS' | translate}}" id="tabComments">
 		<template ngbTabContent>
 			<gg-comments [comments]="otp.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" *ngIf="anyOrder" id="tabOrders">
+	<ngb-tab title="{{'OTP.MENU.ORDERS' | translate}}" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="SAP" *ngIf="sapIdList" id="tabSaps">
+	<ngb-tab title="{{'OTP.MENU.SAP' | translate}}" *ngIf="sapIdList" id="tabSaps">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset>
-						<ngb-tab title="All items" id="tabSapsAll">
+						<ngb-tab title="{{'OTP.MENU.ALL ITEMS' | translate}}" id="tabSapsAll">
 							<template ngbTabContent>
 								<gg-sap-by-sapids-list [sapIdList]="sapIdList" [otp]="otp" [state]="state.Saps" [path]="path+'|O:Saps'" (stateChanged)="childSapsStateChanged($event)"></gg-sap-by-sapids-list>
 							</template>

@@ -17,7 +17,7 @@
 
 
 <ngb-tabset #tabset *ngIf="supplier" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-	<ngb-tab title="Info" id="tabInfo">
+	<ngb-tab title="{{'SUPPLIER.MENU.INFO' | translate}}" id="tabInfo">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -33,20 +33,20 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Fix costs ({{(fixCosts && fixCosts.length>0) ? fixCosts.length : 0}})" id="tabFixCosts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+	<ngb-tab title="{{'SUPPLIER.MENU.FIX COSTS' | translate}} ({{(fixCosts && fixCosts.length>0) ? fixCosts.length : 0}})" id="tabFixCosts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset>
-						<ngb-tab title="Fix costs" id="tabFixCosts" *ngIf="fixCosts && fixCosts.length>0">
+						<ngb-tab title="{{'SUPPLIER.MENU.FIX COSTS' | translate}}" id="tabFixCosts" *ngIf="fixCosts && fixCosts.length>0">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
 										<div class="container-fluid">
                                 			<div class="row">
-												<div class="col-sm-3 vcenter"><b>Description</b></div>
-												<div class="col-sm-2 vcenter"><b>Price</b></div>
-												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>Disable</b></div>
+												<div class="col-sm-3 vcenter"><b>{{'SUPPLIER.COLUMN.DESCRIPTION' | translate}}</b></div>
+												<div class="col-sm-2 vcenter"><b>{{'SUPPLIER.COLUMN.PRICE' | translate}}</b></div>
+												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>{{'SUPPLIER.COLUMN.DISABLE' | translate}}</b></div>
 											</div>
 											<div *ngFor="let fixCost of fixCosts">
 												<div  *ngIf="true">
@@ -73,20 +73,20 @@
 								</div>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="Add Fix cost" id="tabAddFixCost" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+						<ngb-tab title="{{'SUPPLIER.MENU.ADD FIX COST' | translate}}" id="tabAddFixCost" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
 										<div class="container-fluid">
 											<form [formGroup]="fixCostsForm" (ngSubmit)="saveFixCosts(fixCostsForm.value, fixCostsForm.valid)">
 												<div class="form-group row">
-													<label for="descriptionFixCosts" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+													<label for="descriptionFixCosts" class="col-sm-2 col-form-label col-xl-2">{{'SUPPLIER.LABEL.DESCRIPTION' | translate}}</label>
 													<div class="col-sm-10">
 														<input type="text" min="1" class="form-control" formControlName="descriptionFixCosts" id="descriptionFixCosts" placeholder="Description of Fix Costs">
 													</div>
 												</div>
 												<div class="form-group row">
-													<label for="priceFixCosts" class="col-sm-2 col-form-label col-xl-2">Price:</label>
+													<label for="priceFixCosts" class="col-sm-2 col-form-label col-xl-2">{{'SUPPLIER.LABEL.PRICE' | translate}}</label>
 													<div class="col-sm-10">
 														<input type="number" min="0" step="any" class="form-control" formControlName="priceFixCosts" id="priceFixCosts" placeholder="price fix costs">
 													</div>
@@ -111,18 +111,18 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Products" id="tabProducts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+	<ngb-tab title="{{'SUPPLIER.MENU.PRODUCTS' | translate}}" id="tabProducts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable" ></gg-product-grid>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" *ngIf="anyOrder && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()" id="tabOrders" >
+	<ngb-tab title="{{'SUPPLIER.MENU.ORDERS' | translate}}" *ngIf="anyOrder && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()" id="tabOrders" >
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders"
 				(stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Shopping Basket" *ngIf="isThereABasket && authorizationStatusInfo && !authorizationStatusInfo.isPassiveUser()" id="tabBasket" >
+	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING BASKET' | translate}}" *ngIf="isThereABasket && authorizationStatusInfo && !authorizationStatusInfo.isPassiveUser()" id="tabBasket" >
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -136,7 +136,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Shopping non urgent Basket" *ngIf='isThereAGroupedBasket && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser() && !authorizationStatusInfo.isPassiveUser()' id="tabGroupedBasket">
+	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING NON URGENT' | translate}}" *ngIf='isThereAGroupedBasket && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser() && !authorizationStatusInfo.isPassiveUser()' id="tabGroupedBasket">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -147,7 +147,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Add a product" id="tabAddProduct" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+	<ngb-tab title="{{'SUPPLIER.MENU.ADD PRODUCT' | translate}}" id="tabAddProduct" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -158,7 +158,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="E-procurement" id="tabEProc" *ngIf="supplier.data.isEproc">
+	<ngb-tab title="{{'SUPPLIER.MENU.E-PROCUREMENT' | translate}}" id="tabEProc" *ngIf="supplier.data.isEproc">
 		<template ngbTabContent>
 			<br/>
 			<div class="row" [style.color]="'green'">
@@ -171,29 +171,29 @@
 			<gg-otp-checker (spendingChanged)="eprocDataChanged($event)"></gg-otp-checker>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Web Shopping" id="tabWebShopping" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
+	<ngb-tab title="{{'SUPPLIER.MENU.WEB SHOPPING' | translate}}" id="tabWebShopping" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset (tabChange)="beforeWebShoppingTabChange($event)" [activeId]="state.selectedWebShoppingTabId">
-						<ngb-tab title="Administration" id="tabWebShoppingAdmin" *ngIf="showAdminWebShoppingTab">
+						<ngb-tab title="{{'SUPPLIER.MENU.ADMINISTRATION' | translate}}" id="tabWebShoppingAdmin" *ngIf="showAdminWebShoppingTab">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
 										<div class="row">
-											<div class="col-sm-4 vcenter">e-procurement enabled:</div>
+											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.E-PROCUREMENT ENABLED' | translate}}</div>
 											<div class="col-sm-6 vcenter">
 												<gg-editor-boolean [content]="supplier.data.isEproc" (editSaved)="webShoppingEprocUpdated($event)"></gg-editor-boolean>
 											</div>
 										</div>										
 										<div class="row">
-											<div class="col-sm-4 vcenter">web shopping enabled:</div>
+											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.SHOPPING ENABLED' | translate}}</div>
 											<div class="col-sm-6 vcenter">
 												<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4 vcenter">allowed products:</div>
+											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.ALLOWED PRODUCTS' | translate}}</div>
 											<div class="col-sm-6 vcenter">
 												<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 													(selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
@@ -204,16 +204,16 @@
 							</template>
 						</ngb-tab>
 						<div *ngIf="supplier.data.webShopping && supplier.data.webShopping.categoryIds && supplier.data.webShopping.categoryIds.length > 0">
-							<ngb-tab *ngFor="let category of supplier.annotation.webShopping.categories" title="Vouchers {{category.name}}" id="tabWebShoppingVoucher{{category.id}}">
+							<ngb-tab *ngFor="let category of supplier.annotation.webShopping.categories" title="{{'SUPPLIER.MENU.VOUCHERS' | translate}} {{category.name}}" id="tabWebShoppingVoucher{{category.id}}">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
 											<div class="row">
-												<div class="col-sm-4 vcenter">vouchers available:</div>
+												<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.VOUCHERS AVAILABLE' | translate}}</div>
 												<div class="col-sm-6 vcenter">{{nbVouchersAvailable(category.id)}}</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">vouchers ordered:</div>
+												<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.VOUCHERS ORDERED' | translate}}</div>
 												<div class="col-sm-6 vcenter">
 													<gg-editor-number [content]="nbVouchersOrdered(category.id)" [editMode]="true" (editSaved)="nbVouchersOrderedUpdated(category.id, $event)"></gg-editor-number>
 												</div>
@@ -229,13 +229,13 @@
 															<div>Fill this form adequately and you will get the Sap Id that you need in order to place your order on the {{supplier.data.name}} webshopping platform.</div><br/>
 															<form [formGroup]="useVoucherForm" (ngSubmit)="save(useVoucherForm.value, useVoucherForm.valid, supplier.data._id, category.id)">
 																<div class="form-group row">
-																	<label for="description" class="col-sm-2 col-form-label col-xl-2">Description:</label>
+																	<label for="description" class="col-sm-2 col-form-label col-xl-2">{{'SUPPLIER.LABEL.DESCRIPTION' | translate}}</label>
 																	<div class="col-sm-10">
 																		<input type="text" class="form-control" formControlName="description" id="description" placeholder="description of the product">
 																	</div>
 																</div>
 																<div class="form-group row">
-																	<label for="price" class="col-sm-2 col-form-label col-xl-2">Price:</label>
+																	<label for="price" class="col-sm-2 col-form-label col-xl-2">{{'SUPPLIER.LABEL.PRICE' | translate}}</label>
 																	<div class="col-sm-10">
 																		<input type="number" min="1" step="any" class="form-control" formControlName="price" id="price" placeholder="total price of web shopping (with VAT)">
 																	</div>
