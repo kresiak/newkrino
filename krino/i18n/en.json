@@ -263,7 +263,11 @@
     "COLUMN": {
       "DESCRIPTION": "Description",
       "PRICE": "Price",
-      "DISABLE": "Disable"
+      "DISABLE": "Disable",
+      "SUPPLIER": "Supplier",
+      "CITY": "City",
+      "COUNTRY": "Country",
+      "SAP ID": "Sap Id"
     },
     "LABEL": {
       "DESCRIPTION": "Description:",
