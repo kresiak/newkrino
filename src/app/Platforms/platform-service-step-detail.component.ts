@@ -13,6 +13,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformServiceStepDetailComponent implements OnInit {
+    productsPrivateObservable: Observable<any>;
     constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService, private productService: ProductService) {
     }
 
@@ -30,24 +31,25 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     private machineListObservable
     private servicesObservable: Observable<any>
 
-  
+
     ngOnInit(): void {
 
         if (!this.isSnapshot) {
             this.platformService.getAnnotatedServiceStep(this.serviceStepId).takeWhile(() => this.isPageRunning).subscribe(serviceStep => {
                 if (!comparatorsUtils.softCopy(this.serviceStep, serviceStep))
-                    this.serviceStep = serviceStep                    
+                    this.serviceStep = serviceStep
             })
 
             this.productsObservable = this.productService.getAnnotatedProductsAll();
-            this.servicesObservable = this.platformService.getAnnotatedServices()            
-            
+            this.productsPrivateObservable = this.productService.getAnnotatedPrivateProducts()
+            this.servicesObservable = this.platformService.getAnnotatedServices()
+
         }
         else {
             this.dataStore.getDataObservable('platform.service.step.snapshots').map(snapshots => snapshots.filter(s => s._id === this.serviceStepId)[0])
-                            .takeWhile(() => this.isPageRunning).subscribe(step => {
-                                this.serviceStep= step
-                            })            
+                .takeWhile(() => this.isPageRunning).subscribe(step => {
+                    this.serviceStep = step
+                })
         }
 
         this.machineListObservable = this.dataStore.getDataObservable('platform.machines').map(machines => machines.map(machine => {
@@ -120,8 +122,8 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     labourQuantityUpdated(pos, quantity) {
-        this.serviceStep.annotation.labourTypes[pos].annotation.nbHours= quantity
-        this.serviceStep.data.labourTypes= this.serviceStep.annotation.labourTypes.filter(lt => lt.annotation.nbHours > 0).map(lt => {
+        this.serviceStep.annotation.labourTypes[pos].annotation.nbHours = quantity
+        this.serviceStep.data.labourTypes = this.serviceStep.annotation.labourTypes.filter(lt => lt.annotation.nbHours > 0).map(lt => {
             return {
                 id: lt.data._id,
                 nbHours: lt.annotation.nbHours

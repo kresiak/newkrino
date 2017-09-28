@@ -217,6 +217,10 @@ export class ProductService {
         return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data._id === id)[0]);
     }
 
+    getAnnotatedPrivateProducts(): Observable<any> { 
+        return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data.isLabo));
+    }
+
     getAnnotatedProductsByCatalogNr(catalogNr: string): Observable<any> {  // for double products in   product detail and enter
         return this.getAnnotatedProductsAll().map(products => products.filter(product => product.data.catalogNr === catalogNr));
     }

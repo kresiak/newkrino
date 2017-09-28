@@ -297,13 +297,13 @@
 
     },
     "COLUMN": {
-      "PRODUCT": "ProducT",
-      "SUPPLIER": "SupplieR",
-      "PACKAGE": "PackagE",
-      "CATALOG NR": "Catalog nR.",
-      "PRICE": "PricE",
-      "FRIGO": "FrigO",
-      "DISABLED": "DisableD?"
+      "PRODUCT": "Produit",
+      "SUPPLIER": "Fournisseur",
+      "PACKAGE": "Conditionnement",
+      "CATALOG NR": "No catalogue",
+      "PRICE": "Prix",
+      "FRIGO": "Frigo",
+      "DISABLED": "Désactivé?"
     },
     "LABEL": {
 

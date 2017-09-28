@@ -12,10 +12,11 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
     }
 )
 export class ProductListComponentRoutable implements OnInit {
+    productsPrivateObservable: Observable<any>;
     constructor(private productService: ProductService, private supplierService: SupplierService, private navigationService: NavigationService, private authService: AuthService) { }
 
     state: {}
-    private subscriptionAuthorization: Subscription 
+    private subscriptionAuthorization: Subscription
 
 
     ngAfterViewInit() {
@@ -24,25 +25,26 @@ export class ProductListComponentRoutable implements OnInit {
 
     ngOnInit(): void {
         this.productsObservable = this.productService.getAnnotatedProductsAll();
+        this.productsPrivateObservable = this.productService.getAnnotatedPrivateProducts();
         this.suppliersObservable = this.supplierService.getAnnotatedSuppliersByFrequence();
-        this.subscriptionAuthorization= this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         })
-        this.subscriptionState= this.navigationService.getStateObservable().subscribe(state => {
+        this.subscriptionState = this.navigationService.getStateObservable().subscribe(state => {
             this.state = state
         })
     }
 
     ngOnDestroy(): void {
-         this.subscriptionAuthorization.unsubscribe()
-          this.subscriptionState.unsubscribe()
-   }
-    
+        this.subscriptionAuthorization.unsubscribe()
+        this.subscriptionState.unsubscribe()
+    }
+
 
     private productsObservable: Observable<any>;
     private suppliersObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionState: Subscription 
-    
+    private subscriptionState: Subscription
+
 
 }

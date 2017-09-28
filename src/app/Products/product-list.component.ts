@@ -119,6 +119,9 @@ export class ProductListComponent implements OnInit {
                 if (txt.startsWith('$V')) {
                     return product.data.onCreateValidation;
                 }
+                if (this.isForSelection && txt.startsWith('$SE')) {
+                    return this.selectedProductIdsMap && this.selectedProductIdsMap.has(product.data._id);
+                }
 
                 return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
             });

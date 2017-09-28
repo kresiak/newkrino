@@ -162,6 +162,16 @@
                                 </div>
                             </template>
                         </ngb-tab>
+                        <ngb-tab title="Select private products" id="tabSelectPrivateProducts" *ngIf="!isSnapshot">
+                            <template ngbTabContent>
+                                <div class="card">
+                                    <div class="card-block">
+                                        <gg-product-list [isForSelection]="true" [productsObservable]="productsPrivateObservable" [selectedProductIds]="getProductIdsSelected()"
+                                            (productsSelected)="productsChanged($event)"></gg-product-list>
+                                    </div>
+                                </div>
+                            </template>
+                        </ngb-tab>
                     </ngb-tabset>
                 </div>
             </div>
