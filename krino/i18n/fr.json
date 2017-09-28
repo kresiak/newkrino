@@ -93,32 +93,32 @@
         "NUMBER OTPS": "Nombre d'otps"
       },
       "MENU": {
-        "LIST CLASSIFICATION": "List of classificationS",
-        "INFO": "InfO",
-        "OTPS":"OtpS",
-        "CREATE CLASSIFICATION": "Create classificatioN",
-        "WITHOUT CLASSIFICATION": "Categories without classificatioN"
+        "LIST CLASSIFICATION": "Liste de classifications",
+        "INFO": "Info",
+        "OTPS":"Otps",
+        "CREATE CLASSIFICATION": "Créer une classification",
+        "WITHOUT CLASSIFICATION": "Catégories sans classification"
       }
     },
     "MENU": {
-      "VIEW OTPS": "View OtpS",
-      "SOON EXPIRING": "Soon expirinG",
-      "CREATE OTP": "Create an OtP",
-      "CHOICE SIMULATOR": "Otp choice simulatoR",
-      "PRODUCT CLASSIFICATIONS": "Product classificationS",
-      "INFO": "InFO",
-      "BUDGET": "BudgeT",
-      "CURRENT BUDGET": "Current budgeT",
-      "PERIODS": "PeriodS",
-      "HISTORY PERIODS": "History of budget periodS",
-      "ADD BUDGET PERIOD": "Add new budget perioD",
-      "WARNINGS": "WarningS",
-      "SPENDING": "SpendinG",
-      "CHARTS": "ChartS",
-      "COMMENTS": "CommentS",
-      "ORDERS": "Orders",
+      "VIEW OTPS": "Liste d'otp",
+      "SOON EXPIRING": "Bientôt fini",
+      "CREATE OTP": "Créer un otp",
+      "CHOICE SIMULATOR": "Simulation de choix d'otp",
+      "PRODUCT CLASSIFICATIONS": "Classifications de produits",
+      "INFO": "Infos",
+      "BUDGET": "Budget",
+      "CURRENT BUDGET": "Budget actuel",
+      "PERIODS": "Périodes",
+      "HISTORY PERIODS": "Historique",
+      "ADD BUDGET PERIOD": "Ajouter une période",
+      "WARNINGS": "Alertes",
+      "SPENDING": "Dépense",
+      "CHARTS": "Graphes",
+      "COMMENTS": "Commentaires",
+      "ORDERS": "Commandes",
       "SAP": "SAP",
-      "ALL ITEMS": "All items"
+      "ALL ITEMS": "Tout"
     },          
     "PERIOD": {
       "LABEL": {
@@ -146,12 +146,12 @@
       },
       "MENU": {
         "INFO": "InfO",
-        "BUDGET CHANGES": "Budget changeS",
-        "HISTORY BUDGET": "History of budgeT",
-        "ADD BUDGET CHANGE": "Add budget changE",
-        "BLOCKED AMOUNTS": "Blocked amountS",
-        "LIST BLOCKED AMOUNT": "List of blocked amounT",
-        "ADD BLOCKED AMOUNT": "Add a blocked amounT"
+        "BUDGET CHANGES": "Changement dans budget",
+        "HISTORY BUDGET": "Histoire des changements",
+        "ADD BUDGET CHANGE": "Ajouter un changement de budget",
+        "BLOCKED AMOUNTS": "Montants bloqués",
+        "LIST BLOCKED AMOUNT": "Liste de montants bloqués",
+        "ADD BLOCKED AMOUNT": "Ajouter un montant bloqué"
       }
     },
     "LABEL": {
@@ -244,50 +244,50 @@
   },
   "SUPPLIER": {
     "MENU": {
-      "INFO": "InFO",
-      "FIX COSTS": "Fix costS",
-      "ADD FIX COST": "Add Fix cosT",
-      "PRODUCTS": "ProductS",
-      "ORDERS": "OrderS",
-      "SHOPPING BASKET": "Shopping BaskeT",
-      "SHOPPING NON URGENT": "Shopping non urgent BaskeT",
-      "ADD PRODUCT": "Add a producT",
-      "E-PROCUREMENT": "E-procuremenT",
-      "WEB SHOPPING": "Web ShoppinG",
-      "ADMINISTRATION": "AdministratioN",
-      "VOUCHERS": "VoucherS",
-      "VIEW SUPPLIERS": "View SupplierS",
-      "CREATE SUPPLIER": "Create a SupplieR",
-      "INCLUDE KRINO": "Include into KrinO"
+      "INFO": "Infos",
+      "FIX COSTS": "Coûts transport",
+      "ADD FIX COST": "Ajouter un type de coût",
+      "PRODUCTS": "Produits",
+      "ORDERS": "Commandes",
+      "SHOPPING BASKET": "Panier de commandes",
+      "SHOPPING NON URGENT": "Panier commande nor urgente",
+      "ADD PRODUCT": "Ajouter un produit",
+      "E-PROCUREMENT": "E-procurement",
+      "WEB SHOPPING": "Web Shopping",
+      "ADMINISTRATION": "Administration",
+      "VOUCHERS": "Coupons",
+      "VIEW SUPPLIERS": "Liste de fournisseurs",
+      "CREATE SUPPLIER": "Ajouter un fournisseur",
+      "INCLUDE KRINO": "Inclure dans Krino"
     },
     "COLUMN": {
-      "DESCRIPTION": "DescriptioN",
-      "PRICE": "PricE",
-      "DISABLE": "DisablE",
-      "SUPPLIER": "SupplieR",
-      "CITY": "CitY",
-      "COUNTRY": "CountrY",
+      "DESCRIPTION": "Description",
+      "PRICE": "Prix",
+      "DISABLE": "Désactiver",
+      "SUPPLIER": "Fournisseur",
+      "CITY": "Ville",
+      "COUNTRY": "Pays",
       "SAP ID": "Sap ID",
-      "VOUCHERS": "VoucherS"
+      "VOUCHERS": "Coupons"
     },
     "LABEL": {
-      "DESCRIPTION": "DescriptioN:",
-      "PRICE": "PricE:",
-      "E-PROCUREMENT ENABLED": "e-procurement enableD:",
-      "SHOPPING ENABLED": "web shopping enableD:",
-      "ALLOWED PRODUCTS": "allowed productS:",
-      "VOUCHERS AVAILABLE": "vouchers availablE:",
-      "VOUCHERS ORDERED": "vouchers ordereD:"
+      "DESCRIPTION": "description:",
+      "PRICE": "prix:",
+      "E-PROCUREMENT ENABLED": "e-procurement activé:",
+      "SHOPPING ENABLED": "web shopping activé:",
+      "ALLOWED PRODUCTS": "produits autorisés:",
+      "VOUCHERS AVAILABLE": "coupons disponibles:",
+      "VOUCHERS ORDERED": "coupons utilisés:"
     },
     "INFO": {
       "LABEL": {
-        "SUPPLIER": "SupplieR:",
-        "LOCATION": "LocatioN:",
-        "ADDRESS": "AddresS:",
-        "COUNTRY": "CountrY:",
-        "TELEPHONE": "TelephonE:",
-        "FAX": "FaX:",
-        "CLIENT": "ClienT:",
+        "SUPPLIER": "Fournisseur:",
+        "LOCATION": "Ville:",
+        "ADDRESS": "Addresse:",
+        "COUNTRY": "Pays:",
+        "TELEPHONE": "Téléphone:",
+        "FAX": "Fax:",
+        "CLIENT": "Client:",
         "SAP ID": "Sap iD:"
       }
     }
