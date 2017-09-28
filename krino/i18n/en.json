@@ -267,7 +267,8 @@
       "SUPPLIER": "Supplier",
       "CITY": "City",
       "COUNTRY": "Country",
-      "SAP ID": "Sap Id"
+      "SAP ID": "Sap Id",
+      "VOUCHERS": "Vouchers"
     },
     "LABEL": {
       "DESCRIPTION": "Description:",
