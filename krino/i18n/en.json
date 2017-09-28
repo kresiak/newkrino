@@ -291,5 +291,27 @@
         "SAP ID": "Sap id:"
       }
     }
+  },
+  "PRODUCT": {
+    "MENU": {
+
+    },
+    "COLUMN": {
+      "PRODUCT": "Product",
+      "SUPPLIER": "Supplier",
+      "PACKAGE": "Package",
+      "CATALOG NR": "Catalog nr.",
+      "PRICE": "Price",
+      "FRIGO": "Frigo",
+      "DISABLED": "Disabled?"
+    },
+    "LABEL": {
+
+    },
+    "INFO": {
+      "LABEL": {
+
+      }
+    }
   }
 }
