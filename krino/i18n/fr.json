@@ -241,5 +241,30 @@
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
       "SUPER ADMINISTRATOR": "super administrateur:"
     }
+  },
+  "SUPPLIER": {
+    "MENU": {
+      "INFO": "InFO",
+      "FIX COSTS": "Fix costS",
+      "ADD FIX COST": "Add Fix cosT",
+      "PRODUCTS": "ProductS",
+      "ORDERS": "OrderS",
+      "SHOPPING BASKET": "Shopping BaskeT",
+      "SHOPPING NON URGENT": "Shopping non urgent BaskeT",
+      "ADD PRODUCT": "Add a producT",
+      "E-PROCUREMENT": "E-procuremenT",
+      "WEB SHOPPING": "Web ShoppinG",
+      "ADMINISTRATION": "AdministratioN",
+      "VOUCHERS": "VoucherS",
+      "VIEW SUPPLIERS": "View SupplierS",
+      "CREATE SUPPLIER": "Create a SupplieR",
+      "INCLUDE KRINO": "Include into KrinO"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
   }
 }
