@@ -105,7 +105,20 @@
       "SOON EXPIRING": "Soon expirinG",
       "CREATE OTP": "Create an OtP",
       "CHOICE SIMULATOR": "Otp choice simulatoR",
-      "PRODUCT CLASSIFICATIONS": "Product classificationS"
+      "PRODUCT CLASSIFICATIONS": "Product classificationS",
+      "INFO": "InFO",
+      "BUDGET": "BudgeT",
+      "CURRENT BUDGET": "Current budgeT",
+      "PERIODS": "PeriodS",
+      "HISTORY PERIODS": "History of budget periodS",
+      "ADD BUDGET PERIOD": "Add new budget perioD",
+      "WARNINGS": "WarningS",
+      "SPENDING": "SpendinG",
+      "CHARTS": "ChartS",
+      "COMMENTS": "CommentS",
+      "ORDERS": "Orders",
+      "SAP": "SAP",
+      "ALL ITEMS": "All items"
     },          
     "PERIOD": {
       "LABEL": {
