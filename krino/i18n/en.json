@@ -261,10 +261,18 @@
       "INCLUDE KRINO": "Include into Krino"
     },
     "COLUMN": {
-
+      "DESCRIPTION": "Description",
+      "PRICE": "Price",
+      "DISABLE": "Disable"
     },
     "LABEL": {
-
+      "DESCRIPTION": "Description:",
+      "PRICE": "Price:",
+      "E-PROCUREMENT ENABLED": "e-procurement enabled:",
+      "SHOPPING ENABLED": "web shopping enabled:",
+      "ALLOWED PRODUCTS": "allowed products:",
+      "VOUCHERS AVAILABLE": "vouchers available:",
+      "VOUCHERS ORDERED": "vouchers ordered:"
     }
   }
 }
