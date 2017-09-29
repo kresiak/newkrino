@@ -336,7 +336,11 @@
       "WHO": "Who?",
       "FROM": "From",
       "TO": "TO",
-      "WHAT": "What?"
+      "WHAT": "What?",
+      "QTY IN BASKET": "Qty in basket",
+      "TOTAL": "Total",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "How many"
     },
     "LABEL": {
       "NAME OF PRODUCT": "name of product:",
@@ -361,7 +365,8 @@
       "ATTENTE VALIDATION": "en attente de validation:",
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
       "ALREADY BASKET": "already in basket:",
-      "RESTRICTED FOLLOWING USERS": "restricted to following users:"
+      "RESTRICTED FOLLOWING USERS": "restricted to following users:",
+      "TOTAL": "Total:"
     }
   }
 }
