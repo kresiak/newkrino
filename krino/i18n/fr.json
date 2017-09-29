@@ -76,7 +76,7 @@
         "EXPIRES": "Expire le",
         "AVAILABLE": "Disponible"
       }
-    },  
+    },
     "CLASSIFICATION": {
       "LABEL": {
         "NAME": "nom",
@@ -95,7 +95,7 @@
       "MENU": {
         "LIST CLASSIFICATION": "Liste de classifications",
         "INFO": "Info",
-        "OTPS":"Otps",
+        "OTPS": "Otps",
         "CREATE CLASSIFICATION": "Créer une classification",
         "WITHOUT CLASSIFICATION": "Catégories sans classification"
       }
@@ -119,7 +119,7 @@
       "ORDERS": "Commandes",
       "SAP": "SAP",
       "ALL ITEMS": "Tout"
-    },          
+    },
     "PERIOD": {
       "LABEL": {
         "INITIAL BUDGET": "budget initial pour la période:",
@@ -243,6 +243,11 @@
     }
   },
   "SUPPLIER": {
+    "MSG": {
+      "EPROC INTRO": "Pour acheter chez {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form.",
+      "EPROC STATUS": "Permission pour faire l'achat sur e-procurement:",
+      "EPROC BUTTON": "J'ai passé la commande sur e-procurement"
+    },
     "MENU": {
       "INFO": "Infos",
       "FIX COSTS": "Coûts transport",
@@ -258,7 +263,9 @@
       "VOUCHERS": "Coupons",
       "VIEW SUPPLIERS": "Liste de fournisseurs",
       "CREATE SUPPLIER": "Ajouter un fournisseur",
-      "INCLUDE KRINO": "Inclure dans Krino"
+      "INCLUDE KRINO": "Inclure dans Krino",
+      "NEW EPROC": "Nouvelle commande e-procurement",
+      "LIST EPROC": "Toutes les commandes"
     },
     "COLUMN": {
       "DESCRIPTION": "Description",
@@ -293,9 +300,7 @@
     }
   },
   "PRODUCT": {
-    "MENU": {
-
-    },
+    "MENU": {},
     "COLUMN": {
       "PRODUCT": "Produit",
       "SUPPLIER": "Fournisseur",
@@ -305,13 +310,9 @@
       "FRIGO": "Frigo",
       "DISABLED": "Désactivé?"
     },
-    "LABEL": {
-
-    },
+    "LABEL": {},
     "INFO": {
-      "LABEL": {
-
-      }
+      "LABEL": {}
     }
   }
 }

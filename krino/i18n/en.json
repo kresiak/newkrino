@@ -243,6 +243,11 @@
     }
   },
   "SUPPLIER": {
+    "MSG": {
+      "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form.",
+      "EPROC STATUS":"Permission to shop on e-procurement:",
+      "EPROC BUTTON":"I have passed the order on e-procurement"
+    },    
     "MENU": {
       "INFO": "Info",
       "FIX COSTS": "Fix costs",
@@ -258,7 +263,9 @@
       "VOUCHERS": "Vouchers",
       "VIEW SUPPLIERS": "View Suppliers",
       "CREATE SUPPLIER": "Create a Supplier",
-      "INCLUDE KRINO": "Include into Krino"
+      "INCLUDE KRINO": "Include into Krino",
+      "NEW EPROC": "New e-procurement order",
+      "LIST EPROC": "List of orders"
     },
     "COLUMN": {
       "DESCRIPTION": "Description",
