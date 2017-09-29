@@ -330,7 +330,26 @@
       "FRIGO": "Frigo",
       "DISABLED": "Désactivé?"
     },
-    "LABEL": {},
+    "LABEL": {
+      "NAME OF PRODUCT": "name of producT:",
+      "DESCRIPTION": "descriptioN:",
+      "PACKAGE":"packagE:",
+      "CATALOG NR": "catalog nR.",
+      "PRICE": "pricE:",
+      "NO OF ARTICLE": "no of articlE:",
+      "GROUP MARCHANDISE": "group marchandisE:",
+      "VAT": "vaT:",
+      "SUPPLIER": "supplieR:",
+      "CATEGORIES": "categorieS:",
+      "FREQUENCE": "frequencE:",
+      "LABORATORY SPECIFIC": "laboratory specifiC:",
+      "IS DISABLED": "is disableD:",
+      "MAY ENCODING NUMBER": "may need encoding of lot numbeR:",
+      "MAY RESOLD STOCK": "may be resold in stocK:",
+      "DIVISION FACTOR STOCK": "division factor for stocK:",
+      "STOCK PACKAGING": "stock packaginG:",
+      "FRIGO": "frigO:"
+    },
     "INFO": {
       "LABEL": {}
     }

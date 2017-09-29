@@ -331,7 +331,24 @@
       "DISABLED": "Disabled?"
     },
     "LABEL": {
-
+      "NAME OF PRODUCT": "name of product:",
+      "DESCRIPTION": "description:",
+      "PACKAGE":"package:",
+      "CATALOG NR": "catalog nr.",
+      "PRICE": "price:", 
+      "NO OF ARTICLE": "no of article:",
+      "GROUP MARCHANDISE": "group marchandise:",
+      "VAT": "vat:",
+      "SUPPLIER": "supplier:",
+      "CATEGORIES": "categories:",
+      "FREQUENCE": "frequence:",
+      "LABORATORY SPECIFIC": "laboratory specific:",
+      "IS DISABLED": "is disabled:",
+      "MAY ENCODING NUMBER": "may need encoding of lot number:",
+      "MAY RESOLD STOCK": "may be resold in stock:",
+      "DIVISION FACTOR STOCK": "division factor for stock:",
+      "STOCK PACKAGING": "stock packaging:",
+      "FRIGO": "frigo:"
     },
     "INFO": {
       "LABEL": {
