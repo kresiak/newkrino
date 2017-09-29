@@ -12,10 +12,10 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row" *ngIf="product.data.disabled">
-						<div class="col-sm-3 vcenter" [style.color]="'red'"><b>This product is disabled</b></div>
+						<div class="col-sm-3 vcenter" [style.color]="'red'"><b>{{'PRODUCT.LABEL.PRODUCT DISABLED' | translate}}</b></div>
 					</div>
 					<div class="row" [style.color]="'red'" *ngIf="product.data.onCreateValidation && !isProductReadOnly()">
-						<div class="col-sm-3 vcenter">en attente de validation:</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.ATTENTE VALIDATION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<button class="link" (click)="validationDone()">done</button>
 						</div>
@@ -168,7 +168,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter">already in basket:</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.ALREADY BASKET' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number>
 						</div>
@@ -185,7 +185,7 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter">restricted to following users:</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.RESTRICTED FOLLOWING USERS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
 						</div>
@@ -218,10 +218,10 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-3 vcenter"><b>When?</b></div>
-						<div class="col-sm-3 vcenter"><b>Who?</b></div>
-						<div class="col-sm-2 vcenter"><b>From</b></div>
-						<div class="col-sm-1 vcenter"><b>To</b></div>
+						<div class="col-sm-3 vcenter"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
+						<div class="col-sm-3 vcenter"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
+						<div class="col-sm-1 vcenter"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
 					</div>
 					<div *ngFor="let priceHistory of product.annotation.priceUpdates">
 						<div class="row">
@@ -240,11 +240,11 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-2 vcenter"><b>When?</b></div>
-						<div class="col-sm-2 vcenter"><b>Who?</b></div>
-						<div class="col-sm-2 vcenter"><b>What?</b></div>
-						<div class="col-sm-2 vcenter"><b>From</b></div>
-						<div class="col-sm-2 vcenter"><b>To</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHAT' | translate}}</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
+						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
 					</div>
 					<div *ngFor="let change of product.data.history">
 						<div class="row">

@@ -335,7 +335,7 @@
       "DESCRIPTION": "descriptioN:",
       "PACKAGE":"packagE:",
       "CATALOG NR": "catalog nR.",
-      "PRICE": "pricE:",
+      "PRICE": "pricE:", 
       "NO OF ARTICLE": "no of articlE:",
       "GROUP MARCHANDISE": "group marchandisE:",
       "VAT": "vaT:",
@@ -348,10 +348,12 @@
       "MAY RESOLD STOCK": "may be resold in stocK:",
       "DIVISION FACTOR STOCK": "division factor for stocK:",
       "STOCK PACKAGING": "stock packaginG:",
-      "FRIGO": "frigO:"
-    },
-    "INFO": {
-      "LABEL": {}
+      "FRIGO": "frigO:",
+      "PRODUCT DISABLED": "This product is disableD",
+      "ATTENTE VALIDATION": "en attente de validatioN:",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog NR",
+      "ALREADY BASKET": "already in baskeT:",
+      "RESTRICTED FOLLOWING USERS": "restricted to following userS:"
     }
   }
 }
