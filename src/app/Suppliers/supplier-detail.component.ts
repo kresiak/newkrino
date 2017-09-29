@@ -23,6 +23,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SupplierDetailComponent implements OnInit {
+        eprocOrders: Observable<any>;
     fixCosts: any;
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
         private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService,
@@ -78,6 +79,8 @@ export class SupplierDetailComponent implements OnInit {
         this.supplierObservable = this.supplierService.getAnnotatedSupplierById(this.supplierId)
 
         this.productsObservable = this.productService.getAnnotatedProductsBySupplier(this.supplierId);
+
+        this.eprocOrders= this.orderService.getAnnotedEprocOrders()
 
         this.productService.getAnnotatedProductsBySupplier(this.supplierId).map(products => products.filter(p => p.data.isFixCost)).takeWhile(() => this.isPageRunning).subscribe(prods =>
             this.fixCosts = prods

@@ -175,8 +175,6 @@
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
-
-
 										<div class="row" [style.color]="'green'" [innerHTML]="'SUPPLIER.MSG.EPROC INTRO' | translate:{param:supplier.data.name}">
 										</div>
 										<div class="row" [style.color]="eprocData !== false ? 'green' : 'red'">
@@ -193,6 +191,28 @@
 						</ngb-tab>
 						<ngb-tab title="{{'SUPPLIER.MENU.LIST EPROC' | translate}}">
 							<template ngbTabContent>
+								<div class="card">
+									<div class="card-block">
+										<div class="row" *ngFor="let order of (eprocOrders|async)">
+											<div class="col-sm-3">
+												{{order.data.createDate | fullDate}}
+											</div>
+											
+											<div class="col-sm-2">
+												{{order.annotation.supplier}}
+											</div>
+											<div class="col-sm-2">
+												{{order.annotation.user}}
+											</div>
+											<div class="col-sm-2">
+												{{order.data.totalSpent | currency:'EUR':true:'1.2-2'}}
+											</div>
+											<div class="col-sm-2">
+												{{order.annotation.equipe}}
+											</div>
+										</div>
+									</div>
+								</div>
 							</template>
 						</ngb-tab>
 					</ngb-tabset>

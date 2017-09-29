@@ -89,7 +89,7 @@ export class OrderService {
         }
         if (map[id]) return map[id]
         return 'Unknown status'
-    }    
+    }
 
 
 
@@ -301,7 +301,31 @@ export class OrderService {
     // ==============
 
     getKrinoIdLightMap() {
-        return this.dataStore.getDataObservable('orders').map(orders => orders.map(order => {return {_id: order._id, kid: order.kid}})).map(utils.hashMapFactory)
+        return this.dataStore.getDataObservable('orders').map(orders => orders.map(order => { return { _id: order._id, kid: order.kid } })).map(utils.hashMapFactory)
+    }
+
+    // e-proc orders
+    // ==============
+
+    public getAnnotedEprocOrders(): Observable<any> {
+        return Observable.combineLatest(
+            this.dataStore.getDataObservable('orders.eproc'),
+            this.authService.getAnnotatedUsers().map(utils.hashMapFactoryForAnnotated),
+            this.dataStore.getDataObservable('equipes').map(utils.hashMapFactory),
+            this.dataStore.getDataObservable('suppliers').map(utils.hashMapFactory),
+            (orders, users, equipes, suppliers) => {
+                return orders.map(order => {
+                    return {
+                        data: order,
+                        annotation: {
+                            user: users.has(order.userId) ? users.get(order.userId).annotation.fullName : 'unknown user',
+                            equipe: equipes.has(order.equipeId) ? equipes.get(order.equipeId).name : 'unknown equipe',
+                            supplier: suppliers.has(order.supplierId) ? suppliers.get(order.supplierId).name : 'unknown supplier'
+                        }
+                    }
+                }
+                );
+            })
     }
 
 
