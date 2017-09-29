@@ -1,7 +1,7 @@
 <template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
 
 <ngb-tabset *ngIf="user" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-	<ngb-tab title="Info" id="tabInfo">
+	<ngb-tab title="{{'USER.MENU.INFO' | translate}}" id="tabInfo">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -10,7 +10,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Administration" id="tabAdministration">
+	<ngb-tab title="{{'USER.MENU.ADMINISTRATION' | translate}}" id="tabAdministration">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -76,32 +76,32 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Comments" id="tabComments">
+	<ngb-tab title="{{'USER.MENU.COMMENTS' | translate}}" id="tabComments">
 		<template ngbTabContent>
 			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Equipes" *ngIf="true" id="tabEquipes">
+	<ngb-tab title="{{'USER.MENU.EQUIPES' | translate}}" *ngIf="true" id="tabEquipes">
 		<template ngbTabContent>
 			<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
 		</template>
 	</ngb-tab>	
-	<ngb-tab title="Orders" id="tabOrders">
+	<ngb-tab title="{{'USER.MENU.ORDERS' | translate}}" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Fridge Orders" id="tabFridgeOrders" >
+	<ngb-tab title="{{'USER.MENU.FRIDGE ORDERS' | translate}}" id="tabFridgeOrders" >
 		<template ngbTabContent>
 			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="path+'|O:FridgeOrders'" ></gg-order-fridge-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Stock Orders" id="tabStockOrders" >
+	<ngb-tab title="{{'USER.MENU.STOCK ORDERS' | translate}}" id="tabStockOrders" >
 		<template ngbTabContent>
 			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'" (stateChanged)="childStockOrdersStateChanged($event)"></gg-stock-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Voucher Orders" id="tabUsedVouchers" >
+	<ngb-tab title="{{'USER.MENU.VOUCHER ORDERS' | translate}}" id="tabUsedVouchers" >
 		<template ngbTabContent>
 			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
 		</template>
