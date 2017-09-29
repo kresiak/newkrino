@@ -1,67 +1,67 @@
 <div class="container-fluid">
     <form [formGroup]="newUserForm" (ngSubmit)="save(newUserForm.value, newUserForm.valid)">
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label col-xl-2">name:</label>
+            <label for="name" class="col-sm-2 col-form-label col-xl-2">{{'USER.LABEL.NAME' | translate}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" formControlName="name" id="name" placeholder="name of the user">
             </div>
         </div>
         <div class="form-group row">
-            <label for="firstName" class="col-sm-2 col-form-label col-xl-2">first name:</label>
+            <label for="firstName" class="col-sm-2 col-form-label col-xl-2">{{'USER.LABEL.FIRST NAME' | translate}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="first name of the user">
             </div>
         </div>
         <div class="form-group row">
-            <label for="email" class="col-sm-2 col-form-label col-xl-2">email:</label>
+            <label for="email" class="col-sm-2 col-form-label col-xl-2">{{'USER.LABEL.EMAIL' | translate}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" formControlName="email" id="email" placeholder="email">
             </div>
         </div>
         <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label col-xl-2">password:</label>
+            <label for="password" class="col-sm-2 col-form-label col-xl-2">{{'USER.LABEL.PASSWORD' | translate}}</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" formControlName="password" id="password" placeholder="enter password">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is blocked:</label>
+            <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS BLOCKED' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isLaboUser" class="col-sm-2 col-form-label col-xl-2 vcenter">is laboratory user:</label>
+            <label for="isLaboUser" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS LABO USER' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isLaboUser" id="isLaboUser" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isAdmin" class="col-sm-2 col-form-label col-xl-2 vcenter">is admin:</label>
+            <label for="isAdmin" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS ADMINISTRATOR' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isAdmin" id="isAdmin" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isReceptionist" class="col-sm-2 col-form-label col-xl-2 vcenter">is receptionist:</label>
+            <label for="isReceptionist" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS RECEPTIONIST' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isReceptionist" id="isReceptionist" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isLabManager" class="col-sm-2 col-form-label col-xl-2 vcenter">is lab manager:</label>
+            <label for="isLabManager" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS LAB MANAGER' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isLabManager" id="isLabManager" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isProgrammer" class="col-sm-2 col-form-label col-xl-2 vcenter">is krino programmer:</label>
+            <label for="isProgrammer" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.IS KRINO PROGRAMMER' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isProgrammer" id="isProgrammer" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="isPassiveUser" class="col-sm-2 col-form-label col-xl-2 vcenter">user is not allowed to order products:</label>
+            <label for="isPassiveUser" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'USER.LABEL.USER IS NOT ALLOWED TO ORDER PRODUCTS' | translate}}</label>
             <div class="col-md-1 vcenter">
                 <input type="checkbox" class="form-control" formControlName="isPassiveUser" id="isPassiveUser" class="isCheckbox" value="">
             </div>
