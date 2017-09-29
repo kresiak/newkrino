@@ -328,7 +328,12 @@
       "CATALOG NR": "Catalog nr.",
       "PRICE": "Price",
       "FRIGO": "Frigo",
-      "DISABLED": "Disabled?"
+      "DISABLED": "Disabled?",
+      "WHEN": "When?",
+      "WHO": "Who?",
+      "FROM": "From",
+      "TO": "TO",
+      "WHAT": "What?"
     },
     "LABEL": {
       "NAME OF PRODUCT": "name of product:",
@@ -348,12 +353,12 @@
       "MAY RESOLD STOCK": "may be resold in stock:",
       "DIVISION FACTOR STOCK": "division factor for stock:",
       "STOCK PACKAGING": "stock packaging:",
-      "FRIGO": "frigo:"
-    },
-    "INFO": {
-      "LABEL": {
-
-      }
+      "FRIGO": "frigo:",
+      "PRODUCT DISABLED": "This product is disabled",
+      "ATTENTE VALIDATION": "en attente de validation:",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
+      "ALREADY BASKET": "already in basket:",
+      "RESTRICTED FOLLOWING USERS": "restricted to following users:"
     }
   }
 }
