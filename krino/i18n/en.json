@@ -240,6 +240,16 @@
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
       "SUPER ADMINISTRATOR": "is super administrator:"
+    },
+    "MENU": {
+      "INFO": "Info",
+      "ADMINISTRATION": "Administration",
+      "COMMENTS": "Comments",
+      "EQUIPES": "Equipes",
+      "ORDERS": "Orders",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER ORDERS": "Voucher Orders"
     }
   },
   "SUPPLIER": {
