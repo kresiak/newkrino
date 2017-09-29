@@ -36,6 +36,7 @@ export class OtpCheckerComponent implements OnInit {
     private isLoading:boolean= true
 
     ngOnInit(): void {
+        this.isLoading= true
         this.equipeListObservable = this.equipeService.getEquipesForAutocomplete()
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning)
@@ -53,7 +54,7 @@ export class OtpCheckerComponent implements OnInit {
             .subscribe(selectableEquipes => {
                 this.equipeId = this.equipeValue ? this.equipeValue.id : undefined
                 this.currentEquipe = this.allEquipes.filter(eq => eq.data._id === this.equipeId)[0]
-                this.isLoading= false
+                
             })
 
         this.otpService.getAnnotatedClassifications().takeWhile(() => this.isPageRunning).subscribe(classification => {
@@ -62,6 +63,11 @@ export class OtpCheckerComponent implements OnInit {
         })
 
 
+    }
+
+    ngAfterViewInit() {
+        this.isLoading= false
+        //this.checkIfFormOk()
     }
 
     ngOnDestroy(): void {

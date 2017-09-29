@@ -283,16 +283,4 @@ export class SupplierDetailComponent implements OnInit {
         });
     }
 
-    private eprocData=false
-
-    eprocDataChanged(data) {
-        if (this.eprocData !==data) this.eprocData= data
-    }
-
-    eprocHasBeenDone(eprocData) {
-        if (!eprocData) return
-        eprocData.supplierId= this.supplier.data._id
-        eprocData.userId= this.authorizationStatusInfo.currentUserId
-        this.dataStore.addData('orders.eproc', eprocData)
-    }
 }

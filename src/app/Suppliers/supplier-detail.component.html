@@ -169,31 +169,17 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<ngb-tabset #tabset>
-						<ngb-tab title="{{'SUPPLIER.MENU.NEW EPROC' | translate}}">
-
+					<ngb-tabset #tabsetEProc [activeId]="tabEprocSelected">
+						<ngb-tab title="{{'SUPPLIER.MENU.NEW EPROC' | translate}}" id="tabEprocAdd">
 							<template ngbTabContent>
-								<div class="card">
-									<div class="card-block">
-										<div class="row" [style.color]="'green'" [innerHTML]="'SUPPLIER.MSG.EPROC INTRO' | translate:{param:supplier.data.name}">
-										</div>
-										<div class="row" [style.color]="eprocData !== false ? 'green' : 'red'">
-											{{'SUPPLIER.MSG.EPROC STATUS' | translate}} {{eprocData !== false ? 'OK' : 'NO'}}
-										</div>
-										<div class="row" [style.color]="eprocData !== false ? 'green' : 'red'">
-											<button class="btn btn-success" [disabled]="!eprocData" (click)="eprocHasBeenDone(eprocData)">{{'SUPPLIER.MSG.EPROC BUTTON' | translate}}</button>
-										</div>
-										<gg-otp-checker (spendingChanged)="eprocDataChanged($event)"></gg-otp-checker>
-									</div>
-								</div>
-
+								<gg-supplier-eproc-shopping [supplier]="supplier" (isDone)="tabsetEProc.select('tabEprocList')" ></gg-supplier-eproc-shopping>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="{{'SUPPLIER.MENU.LIST EPROC' | translate}}">
+						<ngb-tab title="{{'SUPPLIER.MENU.LIST EPROC' | translate}}" id="tabEprocList">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">
-										<div class="row" *ngFor="let order of (eprocOrders|async)">
+										<div class="row" *ngFor="let order of (eprocOrders|async).slice(0, 50)">
 											<div class="col-sm-3">
 												{{order.data.createDate | fullDate}}
 											</div>

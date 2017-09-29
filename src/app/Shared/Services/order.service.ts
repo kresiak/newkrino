@@ -324,7 +324,11 @@ export class OrderService {
                         }
                     }
                 }
-                );
+                ).sort((a, b) => {
+                    var d1 = moment(a.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    var d2 = moment(b.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+                    return d1 < d2 ? 1 : -1
+                });
             })
     }
 

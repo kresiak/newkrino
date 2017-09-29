@@ -29,6 +29,9 @@ import { SupplierListComponent } from './Suppliers/supplier-list.component';
 import { SupplierListComponentRoutable } from './Suppliers/supplier-list.routable.component'
 import { SupplierDetailComponent } from './Suppliers/supplier-detail.component';
 import { SupplierDetailComponentRoutable } from './Suppliers/supplier-detail.routable.component';
+import { SupplierEprocShoppingComponent } from './Suppliers/supplier-eproc-shopping';
+
+
 import { ProductGridComponent } from './Products/product-grid.component';
 import { ProductGridBasketComponent } from './Products/product-grid-basket.component';
 import { ProductListComponent } from './Products/product-list.component';
@@ -238,7 +241,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
     AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
     CommentComponent, CommentsComponent, LaboratoryEnterComponent,
-    SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent,
+    SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent, SupplierEprocShoppingComponent,
     ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
     ProductFridgeOrderButtonComponent,
     OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent,
