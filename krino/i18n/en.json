@@ -366,7 +366,8 @@
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
       "ALREADY BASKET": "already in basket:",
       "RESTRICTED FOLLOWING USERS": "restricted to following users:",
-      "TOTAL": "Total:"
+      "TOTAL": "Total:",
+      "CATEGORY": "Category:"
     }
   }
 }
