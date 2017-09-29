@@ -311,7 +311,15 @@
   },
   "PRODUCT": {
     "MENU": {
-
+      "INFO": "Info",
+      "PUT INTO BASKET": "Put into basket",
+      "PERMISSIONS": "Permissions",
+      "COMMENTS": "Comments",
+      "ORDERS": "Orders",
+      "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associated",
+      "PRICE HISTORY": "Price history",
+      "CHANGE HISTORY": "Change history",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr"
     },
     "COLUMN": {
       "PRODUCT": "Product",

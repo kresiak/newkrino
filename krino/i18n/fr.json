@@ -310,7 +310,17 @@
     }
   },
   "PRODUCT": {
-    "MENU": {},
+    "MENU": {
+      "INFO": "InfO",
+      "PUT INTO BASKET": "Put into baskeT",
+      "PERMISSIONS": "PermissionS",
+      "COMMENTS": "CommentS",
+      "ORDERS": "OrderS",
+      "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associateD",
+      "PRICE HISTORY": "Price historY",
+      "CHANGE HISTORY": "Change historY",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog NR"
+    },
     "COLUMN": {
       "PRODUCT": "Produit",
       "SUPPLIER": "Fournisseur",
