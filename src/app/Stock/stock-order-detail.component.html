@@ -4,27 +4,27 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-2">Date:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.DATE' | translate}}</div>
                         <div class="col-sm-6">{{order.data.createDate | fullDate}}</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">Ordered by:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.ORDERED BY' | translate}}</div>
                         <div class="col-sm-6">{{order.annotation.user}} / {{order.annotation.equipe}}</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">Ordered product:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.ORDERED PRODUCT' | translate}}</div>
                         <div class="col-sm-6 imgSearch" (click)="navigateToProduct()">{{order.annotation.product}} </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">Catalog number:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.CATALOG NUMBER' | translate}}</div>
                         <div class="col-sm-6 imgSearch" (click)="navigateToProduct()">{{order.annotation.catalogNr}} </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">Quantity:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.QUANTITY' | translate}}</div>
                         <div class="col-sm-6">{{order.data.quantity}}</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">Status:</div>
+                        <div class="col-sm-2">{{'STOCK.LABEL.STATUS' | translate}}</div>
                         <div class="col-sm-6" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'pending'}}</div>
                     </div>
                 </div>
@@ -64,14 +64,14 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-2"><b>Order processed:</b></div>
+                        <div class="col-sm-2"><b>{{'STOCK.LABEL.ORDER PROCESSED' | translate}}</b></div>
                         <div class="col-sm-3">{{order.data.isProcessed ? 'yes' : 'no'}}</div>
                     </div>
 
                     <div *ngIf="((stockItemsObservable |async) || []).length>0" >
                         <div class="row">
-                            <div class="col-sm-3"><b>lot number</b></div>
-                            <div class="col-sm-3"><b>available</b></div>
+                            <div class="col-sm-3"><b>{{'STOCK.COLUMN.LOT NUMBER' | translate}}</b></div>
+                            <div class="col-sm-3"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
                         </div>
                         <form [formGroup]="frmStockOrder" (ngSubmit)="save(frmStockOrder.value, frmStockOrder.valid)">
                             <div *ngFor="let stockItem of stockItemsObservable | async" class="row">
@@ -104,9 +104,9 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3"><b>When?</b></div>
-                        <div class="col-sm-3"><b>From lot Nb</b></div>
-                        <div class="col-sm-3"><b>Quantity</b></div>
+                        <div class="col-sm-3"><b>{{'STOCK.COLUMN.WHEN' | translate}}</b></div>
+                        <div class="col-sm-3"><b>{{'STOCK.COLUMN.FROM LOT NB' | translate}}</b></div>
+                        <div class="col-sm-3"><b>{{'STOCK.COLUMN.QUANTITY' | translate}}</b></div>
                     </div>
 
                     <div *ngFor="let orderProcessItem of order.annotation.orderProcessItems" class="row">

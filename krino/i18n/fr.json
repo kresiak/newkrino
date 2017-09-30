@@ -346,7 +346,8 @@
       "QTY IN BASKET": "Qté dans panier",
       "TOTAL": "Total:",
       "EQUIPE": "Equipe",
-      "HOW MANY": "Combien"
+      "HOW MANY": "Combien",
+      "CATEGORY": "Catégorie"
     },
     "LABEL": {
       "NAME OF PRODUCT": "nom du produit:",
@@ -374,6 +375,65 @@
       "RESTRICTED FOLLOWING USERS": "achat seulement permis aux utilisateurs suivants:",
       "TOTAL": "total:",
       "CATEGORY": "catégorie:"
+    }
+  },
+  "EQUIPE": {
+    "MENU": {
+
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "STOCK": {
+    "MENU": {
+      "ORDER PRODUCTS": "Order productS",
+      "DETAILS": "DetailS",
+      "QUANTITIES RECEIVED DELIVERY": "Quantities received from deliverY",
+      "QUANTITIES LOST SALES": "Quantities lost to saleS",
+      "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantitieS",
+      "HISTORY MANUAL CORRECTIONS": "History of manual correctionS",
+      "ENTER MANUAL CORRECTION": "Enter a manual correctioN"
+    },
+    "COLUMN": {
+      "PRODUCT": "ProducT",
+      "CATALOG NR": "Catalog NR",
+      "SUPPLIER": "SupplieR",
+      "AVAILABLE": "AvailablE",
+      "RESERVED BY MYSELF": "Reserved by myselF",
+      "PACKAGE": "PackagE",
+      "DIVISION FACTOR": "Division factoR",
+      "LOT": "LoT",
+      "QTY RECEIVED": "Qty receiveD",
+      "QTY SOLD": "Qty solD",
+      "WHEN": "WheN?",
+      "WHO ADDED THEM": "Who added theM?",
+      "FROM WHICH ORDER": "From which OrdeR",
+      "HOW MANY ADDED": "How many addeD",
+      "WHO BOUGHT THEM": "Who bought theM?",
+      "HOW MANY BOUGHT": "How many boughT",
+      "WHO ENTERED CHANGE": "Who entered the changE?",
+      "HOW MANY MANUALLY ADDED": "How many where manually addeD?",
+      "WHY": "WhY?",
+      "LOT NUMBER": "lot numbeR",
+      "FROM LOT NB": "From lot NB",
+      "QUANTITY": "QuantitY"
+    },
+    "LABEL": {
+      "NO MANUAL CHANGE YET": "No manual change yeT",
+      "WHY WE CHANGE QUANTITY": "why do we change the quantitY:",
+      "QUANTITY CHANGE": "quantity changE (ex: -5 or 3):",
+      "NO SALE YET": "No sale yeT",
+      "DATE": "DatE:",
+      "ORDERED BY": "Ordered bY:",
+      "ORDERED PRODUCT": "Ordered producT:",
+      "CATALOG NUMBER": "Catalog numbeR:",
+      "QUANTITY": "QuantitY:",
+      "STATUS": "StatuS:",
+      "ORDER PROCESSED": "Order processeD:"
     }
   }
 }
