@@ -1,4 +1,10 @@
 {
+  "GENERAL": {
+    "YES":"yes",
+    "NO": "no",
+    "EMPTY": "",
+    "TOGGLE DETAILS": "Show/hide details"
+  },
   "HOME": {
     "TITLE": "Hello Angular 2 with ng2-translate!",
     "SELECT": "Change language",
@@ -254,7 +260,7 @@
   },
   "SUPPLIER": {
     "MSG": {
-      "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form.",
+      "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form by pushing the button below.",
       "EPROC STATUS":"Permission to shop on e-procurement:",
       "EPROC BUTTON":"I have passed the order on e-procurement"
     },    

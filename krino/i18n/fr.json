@@ -1,4 +1,10 @@
 {
+  "GENERAL": {
+    "YES":"oui",
+    "NO": "non",
+    "EMPTY": "",
+    "TOGGLE DETAILS": "Voir/cacher détails"
+  },
   "HOME": {
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
     "SELECT": "Changer la langue",
@@ -243,18 +249,18 @@
     },
     "MENU": {
       "INFO": "InfO",
-      "ADMINISTRATION": "AdministratioN",
-      "COMMENTS": "CommentS",
-      "EQUIPES": "EquipeS",
-      "ORDERS": "OrderS",
-      "FRIDGE ORDERS": "Fridge OrderS",
-      "STOCK ORDERS": "Stock OrderS",
-      "VOUCHER ORDERS": "Voucher OrderS"
+      "ADMINISTRATION": "Administration",
+      "COMMENTS": "Commentaire",
+      "EQUIPES": "Equipes",
+      "ORDERS": "Commandes",
+      "FRIDGE ORDERS": "Commandes frigos",
+      "STOCK ORDERS": "Commandes au stock",
+      "VOUCHER ORDERS": "Commandes coupons"
     }
   },
   "SUPPLIER": {
     "MSG": {
-      "EPROC INTRO": "Pour acheter chez {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form.",
+      "EPROC INTRO": "Pour acheter chez {{param}}  via e-procurement, veuillez remplir ce formulaire de manière aussi exacte que possible et vérifiez que vous recevez un OK de Krino avant de passer la commande dans e-procurement. Si vous recevez un OK, alors (et alors seulement) passez votre commande via e-procurement. Quand c'est fait appuyez sur le bouton ci-dessous.",
       "EPROC STATUS": "Permission pour faire l'achat sur e-procurement:",
       "EPROC BUTTON": "J'ai passé la commande sur e-procurement"
     },
@@ -311,18 +317,18 @@
   },
   "PRODUCT": {
     "MENU": {
-      "INFO": "InfO",
-      "PUT INTO BASKET": "Put into baskeT",
-      "PERMISSIONS": "PermissionS",
-      "COMMENTS": "CommentS",
-      "ORDERS": "OrderS",
-      "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associateD",
-      "PRICE HISTORY": "Price historY",
-      "CHANGE HISTORY": "Change historY",
-      "DUPLICATE CATALOG NR": "Duplicate Catalog NR",
-      "VIEW PRODUCTS": "View productS",
-      "VIEW PRIVATE PRODUCTS": "View private productS",
-      "CREATE A PRODUCT": "Create a ProducT"
+      "INFO": "Infos",
+      "PUT INTO BASKET": "Mettre dans panier",
+      "PERMISSIONS": "Permissions",
+      "COMMENTS": "Commentaires",
+      "ORDERS": "Commandes",
+      "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associé",
+      "PRICE HISTORY": "Historique",
+      "CHANGE HISTORY": "Changee historique",
+      "DUPLICATE CATALOG NR": "Dupliquer le no catalogue",
+      "VIEW PRODUCTS": "Voir produits",
+      "VIEW PRIVATE PRODUCTS": "Voir produits provés",
+      "CREATE A PRODUCT": "Créer un produit"
     },
     "COLUMN": {
       "PRODUCT": "Produit",
@@ -334,40 +340,40 @@
       "DISABLED": "Désactivé?",
       "WHEN": "WheN?",
       "WHO": "WhO?",
-      "FROM": "FroM",
-      "TO": "TO",
-      "WHAT": "WhaT?",
-      "QTY IN BASKET": "Qty in baskeT",
-      "TOTAL": "TotaL:",
-      "EQUIPE": "EquipE",
-      "HOW MANY": "How manY"
+      "FROM": "Depuis",
+      "TO": "Jusque",
+      "WHAT": "Quoi?",
+      "QTY IN BASKET": "Qté dans panier",
+      "TOTAL": "Total:",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "Combien"
     },
     "LABEL": {
-      "NAME OF PRODUCT": "name of producT:",
-      "DESCRIPTION": "descriptioN:",
-      "PACKAGE":"packagE:",
-      "CATALOG NR": "catalog nR.",
-      "PRICE": "pricE:", 
-      "NO OF ARTICLE": "no of articlE:",
-      "GROUP MARCHANDISE": "group marchandisE:",
-      "VAT": "vaT:",
-      "SUPPLIER": "supplieR:",
-      "CATEGORIES": "categorieS:",
-      "FREQUENCE": "frequencE:",
-      "LABORATORY SPECIFIC": "laboratory specifiC:",
-      "IS DISABLED": "is disableD:",
-      "MAY ENCODING NUMBER": "may need encoding of lot numbeR:",
-      "MAY RESOLD STOCK": "may be resold in stocK:",
-      "DIVISION FACTOR STOCK": "division factor for stocK:",
-      "STOCK PACKAGING": "stock packaginG:",
-      "FRIGO": "frigO:",
-      "PRODUCT DISABLED": "This product is disableD",
-      "ATTENTE VALIDATION": "en attente de validatioN:",
-      "DUPLICATE CATALOG NR": "Duplicate Catalog NR",
-      "ALREADY BASKET": "already in baskeT:",
-      "RESTRICTED FOLLOWING USERS": "restricted to following userS:",
-      "TOTAL": "TotaL:",
-      "CATEGORY": "CategorY:"
+      "NAME OF PRODUCT": "nom du produit:",
+      "DESCRIPTION": "description:",
+      "PACKAGE":"conditionnement:",
+      "CATALOG NR": "no catalogue:",
+      "PRICE": "prix:", 
+      "NO OF ARTICLE": "no d'article:",
+      "GROUP MARCHANDISE": "groupe marchandise:",
+      "VAT": "tva:",
+      "SUPPLIER": "fournisseur:",
+      "CATEGORIES": "catégories:",
+      "FREQUENCE": "fréquence:",
+      "LABORATORY SPECIFIC": "spécifique au laboratoire:",
+      "IS DISABLED": "désactivé:",
+      "MAY ENCODING NUMBER": "nécessite numéro de lot:",
+      "MAY RESOLD STOCK": "peut être revendu via stock:",
+      "DIVISION FACTOR STOCK": "facteur de division si stocK:",
+      "STOCK PACKAGING": "conditionnement si stock:",
+      "FRIGO": "frigo:",
+      "PRODUCT DISABLED": "Ce produit est désactivé",
+      "ATTENTE VALIDATION": "en attente de validation:",
+      "DUPLICATE CATALOG NR": "numéroo catalogue en double",
+      "ALREADY BASKET": "déjà dans panier:",
+      "RESTRICTED FOLLOWING USERS": "achat seulement permis aux utilisateurs suivants:",
+      "TOTAL": "total:",
+      "CATEGORY": "catégorie:"
     }
   }
 }

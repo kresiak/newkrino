@@ -86,7 +86,9 @@ export class CategoryListComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-
+    private getIsLaboText(category) {
+        return category.data.isLabo ? 'GENERAL.YES' : 'GENERAL.EMPTY'
+    }
 
 }
 

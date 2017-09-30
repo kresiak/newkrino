@@ -41,7 +41,7 @@
 -->							<div class="col-sm-2"><gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30" ></gg-text-compact></div>
 							<div class="col-sm-2">{{category.data.noArticle }}</div>
 							<div class="col-sm-2">{{category.data.groupMarch }}</div>
-							<div class="col-sm-2">{{category.data.isLabo ? 'yes' : '' }}</div>
+							<div class="col-sm-2">{{getIsLaboText(category) | translate }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

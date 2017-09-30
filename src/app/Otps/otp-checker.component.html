@@ -56,7 +56,7 @@
                             {{(getFirstOtpCompatibleOrEmpty(classificationsItem, equipeId) | async).annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}
                         </div>
                         <div class="col-sm-2 vcenter">
-                            <button *ngIf="(getFirstOtpCompatible(classificationsItem, equipeId) | async)" type="button" class="btn btn-link" (click)="classificationsItem.isOpened=!classificationsItem.isOpened">Show/hide details</button>
+                            <button *ngIf="(getFirstOtpCompatible(classificationsItem, equipeId) | async)" type="button" class="btn btn-link" (click)="classificationsItem.isOpened=!classificationsItem.isOpened">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
                         </div>
                     </div>
                     <div class="row" [ngbCollapse]="!classificationsItem.isOpened || !(getFirstOtpCompatible(classificationsItem, equipeId) | async)">

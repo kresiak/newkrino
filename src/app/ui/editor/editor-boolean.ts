@@ -46,4 +46,8 @@ export class EditorBoolean implements OnInit, OnChanges {
     setSelection(newValue) {
         this.contentEdited= newValue 
     }
+
+    getTextBoolean() {
+        return this.content ? 'GENERAL.YES' : 'GENERAL.NO'
+    }
 }

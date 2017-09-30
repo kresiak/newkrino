@@ -140,7 +140,7 @@
 											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 										</div>
 										<div class="col-sm-1 vcenter" *ngIf="order.annotation.isGroupedOrder">
-											<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">Show/hide details</button>
+											<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
 										</div>
 									</div>
 
