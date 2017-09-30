@@ -417,13 +417,23 @@
       "HOW MANY BOUGHT": "How many bought",
       "WHO ENTERED CHANGE": "Who entered the change?",
       "HOW MANY MANUALLY ADDED": "How many where manually added?",
-      "WHY": "Why?"
+      "WHY": "Why?",
+      "LOT NUMBER": "lot number",
+      "FROM LOT NB": "From lot Nb",
+      "QUANTITY": "Quantity"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "No manual change yet",
       "WHY WE CHANGE QUANTITY": "why do we change the quantity:",
       "QUANTITY CHANGE": "quantity change (ex: -5 or 3):",
-      "NO SALE YET": "No sale yet"
+      "NO SALE YET": "No sale yet",
+      "DATE": "Date:",
+      "ORDERED BY": "Ordered by:",
+      "ORDERED PRODUCT": "Ordered product:",
+      "CATALOG NUMBER": "Catalog number:",
+      "QUANTITY": "Quantity:",
+      "STATUS": "Status:",
+      "ORDER PROCESSED": "Order processed:"
     }
   }
 }
