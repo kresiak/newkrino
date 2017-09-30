@@ -35,9 +35,9 @@
 						<div class="row" id="{{user.data._id}}">
 							<div class="col-sm-3" [style.font-weight]="user.data._id === state.openPanelId ? 'bold' : 'lighter'">{{user.annotation.fullName}}</div>
 							<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
-							<div class="col-sm-2">{{user.data.isBlocked}}</div>
-							<div class="col-sm-2">{{user.data.isAdmin}}</div>
-							<div class="col-sm-2">{{user.data.isSuperAdmin}}</div>
+							<div class="col-sm-2">{{getBooleanText(user.data.isBlocked) | translate}}</div>
+							<div class="col-sm-2">{{getBooleanText(user.data.isAdmin) | translate}}</div>
+							<div class="col-sm-2">{{getBooleanText(user.data.isSuperAdmin) | translate}}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>

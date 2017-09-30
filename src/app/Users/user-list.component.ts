@@ -93,6 +93,10 @@ export class UserListComponent implements OnInit{
     }
 
 
-    
+    private getBooleanText(flg) {
+        if (flg === true) return 'GENERAL.YES'
+        //if (flg === false) return 'GENERAL.NO'
+        return 'GENERAL.EMPTY'
+    }
 }
 

@@ -3,6 +3,7 @@ import { DataStore } from './data.service'
 import { AdminService } from './admin.service'
 import { Observable, BehaviorSubject, ReplaySubject, Subscription } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
+import {TranslateService} from 'ng2-translate'
 
 // helper class
 // ============
@@ -95,7 +96,7 @@ export class AuthenticationStatusInfo {
 
 @Injectable()
 export class AuthService {
-    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AdminService) private adminService: AdminService) {
+    constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AdminService) private adminService: AdminService,  @Inject(TranslateService) private translate: TranslateService) {
     }
 
     private authInfo: AuthenticationStatusInfo = new AuthenticationStatusInfo('', '', false)
@@ -265,7 +266,8 @@ export class AuthService {
                 if (isAdmin) {
                     list.push({
                         id: AuthService.noEquipeId,
-                        value: 'Enter without équipe'
+                        value: 'Sans équipe'
+
                     })
                 }
 
