@@ -346,7 +346,8 @@
       "QTY IN BASKET": "Qté dans panier",
       "TOTAL": "Total:",
       "EQUIPE": "Equipe",
-      "HOW MANY": "Combien"
+      "HOW MANY": "Combien",
+      "CATEGORY": "Catégorie"
     },
     "LABEL": {
       "NAME OF PRODUCT": "nom du produit:",

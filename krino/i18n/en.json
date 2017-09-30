@@ -346,7 +346,8 @@
       "QTY IN BASKET": "Qty in basket",
       "TOTAL": "Total",
       "EQUIPE": "Project",
-      "HOW MANY": "How many"
+      "HOW MANY": "How many",
+      "CATEGORY": "Category"
     },
     "LABEL": {
       "NAME OF PRODUCT": "name of product:",
