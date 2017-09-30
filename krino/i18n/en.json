@@ -390,17 +390,40 @@
   },
   "STOCK": {
     "MENU": {
-
+      "ORDER PRODUCTS": "Order products",
+      "DETAILS": "Details",
+      "QUANTITIES RECEIVED DELIVERY": "Quantities received from delivery",
+      "QUANTITIES LOST SALES": "Quantities lost to sales",
+      "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantities",
+      "HISTORY MANUAL CORRECTIONS": "History of manual corrections",
+      "ENTER MANUAL CORRECTION": "Enter a manual correction"
     },
     "COLUMN": {
       "PRODUCT": "Product",
       "CATALOG NR": "Catalog Nr",
       "SUPPLIER": "Supplier",
       "AVAILABLE": "Available",
-      "RESERVED BY MYSELF": "Reserved by myself"
+      "RESERVED BY MYSELF": "Reserved by myself",
+      "PACKAGE": "Package",
+      "DIVISION FACTOR": "Division factor",
+      "LOT": "Lot",
+      "QTY RECEIVED": "Qty received",
+      "QTY SOLD": "Qty sold",
+      "WHEN": "When?",
+      "WHO ADDED THEM": "Who added them?",
+      "FROM WHICH ORDER": "From which Order",
+      "HOW MANY ADDED": "How many added",
+      "WHO BOUGHT THEM": "Who bought them?",
+      "HOW MANY BOUGHT": "How many bought",
+      "WHO ENTERED CHANGE": "Who entered the change?",
+      "HOW MANY MANUALLY ADDED": "How many where manually added?",
+      "WHY": "Why?"
     },
     "LABEL": {
-
+      "NO MANUAL CHANGE YET": "No manual change yet",
+      "WHY WE CHANGE QUANTITY": "why do we change the quantity:",
+      "QUANTITY CHANGE": "quantity change (ex: -5 or 3):",
+      "NO SALE YET": "No sale yet"
     }
   }
 }

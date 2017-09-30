@@ -1,6 +1,6 @@
 <ngb-tabset #tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
     <!--TABSET-->
-    <ngb-tab title="Order products" id="tabOrder">
+    <ngb-tab title="{{'STOCK.MENU.ORDER PRODUCTS' | translate}}" id="tabOrder">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -9,16 +9,16 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Details {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+    <ngb-tab title="{{'STOCK.MENU.DETAILS' | translate}} {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-2 vcenter"><b>Package</b></div>
-                        <div class="col-sm-1 vcenter"><b>Division factor</b></div>
-                        <div class="col-sm-2 vcenter"><b>Lot</b></div>
-                        <div class="col-sm-2 vcenter"><b>Qty received</b></div>
-                        <div class="col-sm-2 vcenter"><b>Qty sold</b></div>
+                        <div class="col-sm-2 vcenter"><b>{{'STOCK.COLUMN.PACKAGE' | translate}}</b></div>
+                        <div class="col-sm-1 vcenter"><b>{{'STOCK.COLUMN.DIVISION FACTOR' | translate}}</b></div>
+                        <div class="col-sm-2 vcenter"><b>{{'STOCK.COLUMN.LOT' | translate}}</b></div>
+                        <div class="col-sm-2 vcenter"><b>{{'STOCK.COLUMN.QTY RECEIVED' | translate}}</b></div>
+                        <div class="col-sm-2 vcenter"><b>{{'STOCK.COLUMN.QTY SOLD' | translate}}</b></div>
                     </div>
                     <div *ngFor="let stockProduct of stockProducts">
                         <!--FOR in StockProducts-->
@@ -49,7 +49,7 @@
 
                             <ngb-tabset>
                                 <!--TABSET-->
-                                <ngb-tab title="Quantities received from delivery">
+                                <ngb-tab title="{{'STOCK.MENU.QUANTITIES RECEIVED DELIVERY' | translate}}">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -57,10 +57,10 @@
                                                 <div class="col-sm-12 col-md-12">
                                                     <div class="card">
                                                         <div class="row">
-                                                            <div class="col-sm-2 col-md-2 vcenter">When?</div>
-                                                            <div class="col-sm-2 col-md-2 vcenter">Who added them?</div>
-                                                            <div class="col-sm-2 col-md-2 vcenter">From which Order</div>
-                                                            <div class="col-sm-2 col-md-2 vcenter">How many added</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHEN' | translate}}</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHO ADDED THEM' | translate}}</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.FROM WHICH ORDER' | translate}}</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.HOW MANY ADDED' | translate}}</div>
                                                         </div>
                                                         <div class="card">
                                                             <div class="row" *ngFor="let historyItem of stockProduct.data.history">
@@ -93,7 +93,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Quantities lost to sales">
+                                <ngb-tab title="{{'STOCK.MENU.QUANTITIES LOST SALES' | translate}}">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -101,13 +101,13 @@
                                                 <div class="col-sm-12 col-md-12">
                                                     <div class="card">
                                                         <div class="row">
-                                                            <div class="col-sm-2 col-md-2 vcenter">When?</div>
-                                                            <div class="col-sm-2 col-md-2 vcenter">Who bought them?</div>
-                                                            <div class="col-sm-2 col-md-2 vcenter">How many bought</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHEN' | translate}}</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHO BOUGHT THEM' | translate}}</div>
+                                                            <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.HOW MANY BOUGHT' | translate}}</div>
                                                         </div>
                                                                             <div class="card" *ngIf="(stockProduct.data.sales || []).length === 0">
                                                                                 <div class="card-block">
-                                                                                    <div class="centertextbox">No sale yet</div>
+                                                                                    <div class="centertextbox">{{'STOCK.LABEL.NO SALE YET' | translate}}</div>
                                                                                 </div>
                                                                             </div>
                                                         
@@ -130,28 +130,28 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Manual corrections of quantities {{(stockProduct.data.manualChanges || []).length < 1 ? '' : (' (' + stockProduct.data.manualChanges.length + ')') }}">
+                                <ngb-tab title="{{'STOCK.MENU.MANUAL CORRECTIONS QUANTITIES' | translate}} {{(stockProduct.data.manualChanges || []).length < 1 ? '' : (' (' + stockProduct.data.manualChanges.length + ')') }}">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
 
                                                 <ngb-tabset>
                                                     <!--TABSET-->
-                                                    <ngb-tab title="History of manual corrections">
+                                                    <ngb-tab title="{{'STOCK.MENU.HISTORY MANUAL CORRECTIONS' | translate}}">
                                                         <template ngbTabContent>
                                                             <div class="card">
                                                                 <div class="card-block">
                                                                     <div class="col-sm-12 col-md-12">
                                                                         <div class="card">
                                                                             <div class="row">
-                                                                                <div class="col-sm-2 col-md-2 vcenter">When?</div>
-                                                                                <div class="col-sm-2 col-md-2 vcenter">Who entered the change?</div>
-                                                                                <div class="col-sm-3 col-md-3 vcenter">How many where manually added?</div>
-                                                                                <div class="col-sm-4 vcenter">Why?</div>
+                                                                                <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHEN' | translate}}</div>
+                                                                                <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.WHO ENTERED CHANGE' | translate}}</div>
+                                                                                <div class="col-sm-3 col-md-3 vcenter">{{'STOCK.COLUMN.HOW MANY MANUALLY ADDED' | translate}}</div>
+                                                                                <div class="col-sm-4 vcenter">{{'STOCK.COLUMN.WHY' | translate}}</div>
                                                                             </div>
                                                                             <div class="card" *ngIf="(stockProduct.data.manualChanges || []).length === 0">
                                                                                 <div class="card-block">
-                                                                                    <div class="centertextbox">No manual change yet</div>
+                                                                                    <div class="centertextbox">{{'STOCK.LABEL.NO MANUAL CHANGE YET' | translate}}</div>
                                                                                 </div>
                                                                             </div>
                                                                             
@@ -176,7 +176,7 @@
                                                             </div>
                                                         </template>
                                                     </ngb-tab>
-                                                    <ngb-tab title="Enter a manual correction">
+                                                    <ngb-tab title="{{'STOCK.MENU.ENTER MANUAL CORRECTION' | translate}}">
                                                         <template ngbTabContent>
                                                             <div class="card">
                                                                 <div class="card-block">
@@ -185,14 +185,14 @@
                                                                     <form [formGroup]="manualQuantityForm" (ngSubmit)="saveQuantityForm(stockProduct, manualQuantityForm.value, manualQuantityForm.valid)">
                                                                         <!--FORM-->
                                                                         <div class="form-group row">
-                                                                            <label for="name" class="col-sm-3">why do we change the quantity:</label>
+                                                                            <label for="name" class="col-sm-3">{{'STOCK.LABEL.WHY WE CHANGE QUANTITY' | translate}}</label>
                                                                             <div class="col-sm-9">
                                                                                 <input type="text" class="form-control" formControlName="comment" placeholder="comment/explication">
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="form-group row">
-                                                                            <label class="col-sm-3">quantity change (ex: -5 or 3):</label>
+                                                                            <label class="col-sm-3">{{'STOCK.LABEL.QUANTITY CHANGE' | translate}}</label>
                                                                             <div class="col-sm-9">
                                                                                 <input type="number" class="form-control" formControlName="quantityIncrement" placeholder="quantity increment. Ex.: -10">
                                                                             </div>
