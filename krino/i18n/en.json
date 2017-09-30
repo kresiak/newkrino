@@ -3,7 +3,12 @@
     "YES": "yes",
     "NO": "no",
     "EMPTY": "",
-    "TOGGLE DETAILS": "Show/hide details"
+    "TOGGLE DETAILS": "Show/hide details",
+    "COMMENTS": {
+      "ADD NEW COMMENT": "Add new comment",
+      "ADD COMMENT": "Add comment",
+      "ALL COMMENTS": "All comments"
+    }
   },
   "HOME": {
     "TITLE": "Hello Angular 2 with ng2-translate!",
@@ -445,6 +450,9 @@
       "NON URGENT BASKET(S)": "Non urgent basket(s)",
       "MY AVAILABLE VOUCHERS": "My available vouchers",
       "MY USED VOUCHERS": "My used vouchers"
+    },
+    "HELP": {
+      "NEW VOUCHERS": "Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform."
     }
   }
 }

@@ -43,7 +43,7 @@
 						<div class="card-block">
 							<ngb-tabset>
 								<ngb-tab id="tabOrderVouchers" >
-									<template ngbTabTitle>{{'MYKRINO.MENU.MY AVAILABLE VOUCHERS' | translate}} <gg-help-pointer [helpText]="'Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform.'"></gg-help-pointer></template>
+									<template ngbTabTitle>{{'MYKRINO.MENU.MY AVAILABLE VOUCHERS' | translate}} <gg-help-pointer [helpText]="'MYKRINO.HELP.NEW VOUCHERS' | translate"></gg-help-pointer></template>
 									<template ngbTabContent>
 										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
 									</template>

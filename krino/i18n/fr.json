@@ -3,7 +3,12 @@
     "YES":"oui",
     "NO": "non",
     "EMPTY": "",
-    "TOGGLE DETAILS": "Voir/cacher détails"
+    "TOGGLE DETAILS": "Voir/cacher détails",
+    "COMMENTS": {
+      "ADD NEW COMMENT": "Ajouter un commentaire",
+      "ADD COMMENT": "Ajouter",
+      "ALL COMMENTS": "Tous les commentaires"
+    }    
   },
   "HOME": {
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
@@ -451,6 +456,9 @@
       "NON URGENT BASKET(S)": "Paniers non urgents",
       "MY AVAILABLE VOUCHERS": "Mes coupons disponibles",
       "MY USED VOUCHERS": "Mes coupons utilisés"
+    },
+    "HELP": {
+      "NEW VOUCHERS": "Ici vous pouvez commander de nouveaux coupons chez votre Lab Manager. Vous pouvez aussi utiliser un de vos coupons pour réaliser une commande sur votre platforme webshopping."
     }
   }  
 }
