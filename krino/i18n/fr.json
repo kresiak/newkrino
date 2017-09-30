@@ -435,5 +435,22 @@
       "STATUS": "Statut:",
       "ORDER PROCESSED": "Commande traitée:"
     }
-  }
+  },
+  "MYKRINO": {
+    "MENU": {
+      "MY NOTES": "Mes notes",
+      "MY ACCOUNT": "Mon compte",
+      "MY BASKET(S)": "Mon panier",
+      "MY WEBSHOPPING VOUCHERS": "Mes coupons webshopping",
+      "MY ORDERED PRODUCTS": "Mes produits commandés",
+      "MY ORDERS": "Mes commandes",
+      "MY STOCK ORDERS": "Mes commandes du stock",
+      "MY FRIDGE ORDERS": "Mes commandes frigo",
+      "MY VOUCHER ORDERS": "Mes commandes coupons",
+      "MY EQUIPES": "Mes équipes",
+      "NON URGENT BASKET(S)": "Paniers non urgents",
+      "MY AVAILABLE VOUCHERS": "Mes coupons disponibles",
+      "MY USED VOUCHERS": "Mes coupons utilisés"
+    }
+  }  
 }
