@@ -319,7 +319,10 @@
       "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associateD",
       "PRICE HISTORY": "Price historY",
       "CHANGE HISTORY": "Change historY",
-      "DUPLICATE CATALOG NR": "Duplicate Catalog NR"
+      "DUPLICATE CATALOG NR": "Duplicate Catalog NR",
+      "VIEW PRODUCTS": "View productS",
+      "VIEW PRIVATE PRODUCTS": "View private productS",
+      "CREATE A PRODUCT": "Create a ProducT"
     },
     "COLUMN": {
       "PRODUCT": "Produit",
@@ -328,7 +331,16 @@
       "CATALOG NR": "No catalogue",
       "PRICE": "Prix",
       "FRIGO": "Frigo",
-      "DISABLED": "Désactivé?"
+      "DISABLED": "Désactivé?",
+      "WHEN": "WheN?",
+      "WHO": "WhO?",
+      "FROM": "FroM",
+      "TO": "TO",
+      "WHAT": "WhaT?",
+      "QTY IN BASKET": "Qty in baskeT",
+      "TOTAL": "TotaL:",
+      "EQUIPE": "EquipE",
+      "HOW MANY": "How manY"
     },
     "LABEL": {
       "NAME OF PRODUCT": "name of producT:",
@@ -353,7 +365,9 @@
       "ATTENTE VALIDATION": "en attente de validatioN:",
       "DUPLICATE CATALOG NR": "Duplicate Catalog NR",
       "ALREADY BASKET": "already in baskeT:",
-      "RESTRICTED FOLLOWING USERS": "restricted to following userS:"
+      "RESTRICTED FOLLOWING USERS": "restricted to following userS:",
+      "TOTAL": "TotaL:",
+      "CATEGORY": "CategorY:"
     }
   }
 }

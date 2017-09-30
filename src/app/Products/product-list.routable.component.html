@@ -2,17 +2,17 @@
 <div class="card">
     <div class="card-block">
         <ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-            <ngb-tab title="View products" id="tabView">
+            <ngb-tab title="{{'PRODUCT.MENU.VIEW PRODUCTS' | translate}}" id="tabView">
                 <template ngbTabContent>
                     <gg-product-list [state]="state" [productsObservable]="productsObservable"></gg-product-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View private products" id="tabViewPrivate" *ngIf="((productsPrivateObservable | async) || []).length > 0">
+            <ngb-tab title="{{'PRODUCT.MENU.VIEW PRIVATE PRODUCTS' | translate}}" id="tabViewPrivate" *ngIf="((productsPrivateObservable | async) || []).length > 0">
                 <template ngbTabContent>
                     <gg-product-list [state]="state" [productsObservable]="productsPrivateObservable"></gg-product-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create a Product" id="tabCreate">
+            <ngb-tab title="{{'PRODUCT.MENU.CREATE A PRODUCT' | translate}}" id="tabCreate">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

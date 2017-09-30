@@ -319,7 +319,10 @@
       "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associated",
       "PRICE HISTORY": "Price history",
       "CHANGE HISTORY": "Change history",
-      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr"
+      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
+      "VIEW PRODUCTS": "View products",
+      "VIEW PRIVATE PRODUCTS": "View private products",
+      "CREATE A PRODUCT": "Create a Product"
     },
     "COLUMN": {
       "PRODUCT": "Product",
@@ -333,7 +336,11 @@
       "WHO": "Who?",
       "FROM": "From",
       "TO": "TO",
-      "WHAT": "What?"
+      "WHAT": "What?",
+      "QTY IN BASKET": "Qty in basket",
+      "TOTAL": "Total",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "How many"
     },
     "LABEL": {
       "NAME OF PRODUCT": "name of product:",
@@ -358,7 +365,9 @@
       "ATTENTE VALIDATION": "en attente de validation:",
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
       "ALREADY BASKET": "already in basket:",
-      "RESTRICTED FOLLOWING USERS": "restricted to following users:"
+      "RESTRICTED FOLLOWING USERS": "restricted to following users:",
+      "TOTAL": "Total:",
+      "CATEGORY": "Category:"
     }
   }
 }

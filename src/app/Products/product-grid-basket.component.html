@@ -29,16 +29,16 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-3 col-md-3 vcenter">
-				<b>Product</b>
+				<b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b>
 			</div>
 			<div class="col-sm-2 col-md-2 vcenter">
-				<b>Price</b>
+				<b>{{'PRODUCT.COLUMN.PRICE' | translate}}</b>
 			</div>
 			
 			<div class="col-sm-1 col-md-1 vcenter">
-				<b>Qty in basket</b>
+				<b>{{'PRODUCT.COLUMN.QTY IN BASKET' | translate}}</b>
 			</div>
-			<div class="col-sm-2 col-md-2 vcenter"><b>Total</b></div>
+			<div class="col-sm-2 col-md-2 vcenter"><b>{{'PRODUCT.COLUMN.TOTAL' | translate}}</b></div>
 			<div class="col-sm-2 col-md-2 vcenter" *ngIf="showColumn('otp')"><b>Otp</b></div>
 
 		</div>
@@ -78,10 +78,10 @@
 				<div class="col-sm-12 col-md-12">
 					<div class="card">
 						<div class="row">
-							<div class="col-sm-2 col-md-2 vcenter">When?</div>
-							<div class="col-sm-2 col-md-3 vcenter">Who?</div>	
-							<div class="col-sm-2 col-md-3 vcenter">Equipe</div>
-							<div class="col-sm-2 col-md-2 vcenter">How many</div>
+							<div class="col-sm-2 col-md-2 vcenter">{{'PRODUCT.COLUMN.WHEN' | translate}}</div>
+							<div class="col-sm-2 col-md-3 vcenter">{{'PRODUCT.COLUMN.WHO' | translate}}</div>	
+							<div class="col-sm-2 col-md-3 vcenter">{{'PRODUCT.COLUMN.EQUIPE' | translate}}</div>
+							<div class="col-sm-2 col-md-2 vcenter">{{'PRODUCT.COLUMN.HOW MANY' | translate}}</div>
 						</div>
 						<div class="card">
 							<div class="row" *ngFor="let item of product.annotation.basketItems">  <!--FOR-->
@@ -106,7 +106,7 @@
 			</div>
 			<div class="col-sm-2 col-md-2 vcenter">
 			</div>			
-			<div class="col-sm-1 col-md-1 vcenter">Total:</div>
+			<div class="col-sm-1 col-md-1 vcenter">{{'PRODUCT.LABEL.TOTAL' | translate}}</div>
 			<div class="col-sm-2 col-md-2 vcenter">{{total | currency:'EUR':true:'1.2-2'}}</div>
 		</div>
 		
