@@ -164,10 +164,10 @@
       "OTP": "otp:",
       "DESCRIPTION": "description:",
       "CLASSIFICATION": "classification:",
-      "EQUIPE": "equipe:",
+      "EQUIPE": "project:",
       "NOTE": "note:",
       "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classification):",
-      "LIMITED OWNER": "is limited to owner equipe:",
+      "LIMITED OWNER": "is limited to owner project:",
       "IS BLOCKED": "is blocked:",
       "IS CLOSED": "is closed:",
       "IS DELETED": "is deleted:",
@@ -222,7 +222,7 @@
   "USER": {
     "COLUMN": {
       "FULL NAME": "Full name",
-      "EQUIPE(S)": "Equipe(s)",
+      "EQUIPE(S)": "Project(s)",
       "BLOCKED?": "Blocked?",
       "ADMINISTRATOR?": "Administrator?",
       "SUPER ADMINISTRATOR?": "Super Administrator?"
@@ -236,7 +236,7 @@
       "NAME": "name:",
       "FIRST NAME": "first name:",
       "PASSWORD": "password:",
-      "EQUIPE(S)": "equipe(s):",
+      "EQUIPE(S)": "project(s):",
       "IS BLOCKED": "is blocked:",
       "IS LABO USER": "is labo user:",
       "IS ADMINISTRATOR": "is administrator:",
@@ -251,7 +251,7 @@
       "INFO": "Info",
       "ADMINISTRATION": "Administration",
       "COMMENTS": "Comments",
-      "EQUIPES": "Equipes",
+      "EQUIPES": "Projects",
       "ORDERS": "Orders",
       "FRIDGE ORDERS": "Fridge Orders",
       "STOCK ORDERS": "Stock Orders",
@@ -345,7 +345,7 @@
       "WHAT": "What?",
       "QTY IN BASKET": "Qty in basket",
       "TOTAL": "Total",
-      "EQUIPE": "Equipe",
+      "EQUIPE": "Project",
       "HOW MANY": "How many"
     },
     "LABEL": {
