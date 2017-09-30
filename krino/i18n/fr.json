@@ -376,5 +376,31 @@
       "TOTAL": "total:",
       "CATEGORY": "catégorie:"
     }
+  },
+  "EQUIPE": {
+    "MENU": {
+
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "STOCK": {
+    "MENU": {
+
+    },
+    "COLUMN": {
+      "PRODUCT": "ProducT",
+      "CATALOG NR": "Catalog NR",
+      "SUPPLIER": "SupplieR",
+      "AVAILABLE": "AvailablE",
+      "RESERVED BY MYSELF": "Reserved by myselF"
+    },
+    "LABEL": {
+
+    }
   }
 }

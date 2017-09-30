@@ -23,11 +23,11 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-3"><b>Product</b></div>
-							<div class="col-sm-2"><b>Catalog Nr</b></div>
-							<div class="col-sm-3"><b>Supplier</b></div>
-							<div class="col-sm-2"><b>Available</b></div>
-							<div *ngIf="accentOnOrdering" class="col-sm-2"><b>Reserved by myself</b></div>
+							<div class="col-sm-3"><b>{{'STOCK.COLUMN.PRODUCT' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'STOCK.COLUMN.CATALOG NR' | translate}}</b></div>
+							<div class="col-sm-3"><b>{{'STOCK.COLUMN.SUPPLIER' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
+							<div *ngIf="accentOnOrdering" class="col-sm-2"><b>{{'STOCK.COLUMN.RESERVED BY MYSELF' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
