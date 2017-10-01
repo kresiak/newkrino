@@ -204,7 +204,9 @@
     "MENU": {
       "INFO": "Info",
       "COMMENTS": "Comments",
-      "PRODUCTS": "Products"
+      "PRODUCTS": "Products",
+      "VIEW CATEGORIES": "View Categories",
+      "CREATE CATEGORY": "Create a Category"
     },
     "LABEL": {
       "CATEGORY": "category:",
@@ -507,6 +509,30 @@
       "SHOPPING BASKET": "Shopping Basket",
       "INFO ABOUT": "Info about",
       "BUDGET CURRENT USER": "Budget of current user"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "RECEPTION": {
+    "MENU": {
+      "NEW PACKET": "New packet",
+      "LIST OF PACKET": "List of packet"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "COMMUNICATION": {
+    "MENU": {
+      "NEW MESSAGE": "New message",
+      "LIST OF MESSAGES": "List of messages"
     },
     "COLUMN": {
 

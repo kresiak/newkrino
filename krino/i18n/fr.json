@@ -204,7 +204,9 @@
     "MENU": {
       "INFO": "InfO",
       "COMMENTS": "CommentS",
-      "PRODUCTS": "Products"
+      "PRODUCTS": "ProductS",
+      "VIEW CATEGORIES": "View CategorieS",
+      "CREATE CATEGORY": "Create a CategorY"
     },
     "LABEL": {
       "CATEGORY": "catégorie",
@@ -514,6 +516,30 @@
       "SHOPPING BASKET": "Shopping BaskeT",
       "INFO ABOUT": "Info abouT",
       "BUDGET CURRENT USER": "Budget of current useR"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "RECEPTION": {
+    "MENU": {
+      "NEW PACKET": "New packeT",
+      "LIST OF PACKET": "List of packeT"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "COMMUNICATION": {
+    "MENU": {
+      "NEW MESSAGE": "New messagE",
+      "LIST OF MESSAGES": "List of messageS"
     },
     "COLUMN": {
 
