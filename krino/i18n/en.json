@@ -374,12 +374,34 @@
       "ALREADY BASKET": "already in basket:",
       "RESTRICTED FOLLOWING USERS": "restricted to following users:",
       "TOTAL": "Total:",
-      "CATEGORY": "Category:"
+      "CATEGORY": "Category:",
     }
   },
   "EQUIPE": {
     "MENU": {
-
+      "VIEW EQUIPES": "View Equipes",
+      "GIFTS": "Gifts",
+      "CREATE AN EQUIPE": "Create an Equipe",
+      "GROUPS": "Groups",
+      "VIEW GROUPS": "View Groups",
+      "CREATE GROUP": "Create a Group",
+      "VIEW GIFTS": "View Gifts",
+      "CURRENT EQUIPE": "Current equipe",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "REPARTITION KEYS": "Repartition keys",
+      "SPENDING": "Spending",
+      "DEBTS": "Debts",
+      "OWING": "Owing",
+      "OWED": "Owed",
+      "CHARTS": "Charts",
+      "USERS": "Users",
+      "OTPS": "Otps",
+      "ORDERS": "Orders",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER ORDERS": "Voucher Orders",
+      "ADD OTP": "Add an Otp"
     },
     "COLUMN": {
 

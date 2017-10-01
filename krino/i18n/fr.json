@@ -379,7 +379,29 @@
   },
   "EQUIPE": {
     "MENU": {
-
+      "VIEW EQUIPES": "View EquipeS",
+      "GIFTS": "GiftS",
+      "CREATE AN EQUIPE": "Create an EquipE",
+      "GROUPS": "GroupS",
+      "VIEW GROUPS": "View GroupS",
+      "CREATE GROUP": "Create a GrouP",
+      "VIEW GIFTS": "View GiftS",
+      "CURRENT EQUIPE": "Current equipE",
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "REPARTITION KEYS": "Repartition keyS",
+      "SPENDING": "SpendinG",
+      "DEBTS": "DebtS",
+      "OWING": "OwinG",
+      "OWED": "OweD",
+      "CHARTS": "ChartS",
+      "USERS": "UserS",
+      "OTPS": "OtpS",
+      "ORDERS": "OrderS",
+      "FRIDGE ORDERS": "Fridge OrderS",
+      "STOCK ORDERS": "Stock OrderS",
+      "VOUCHER ORDERS": "Voucher OrderS",
+      "ADD OTP": "Add an OtP"
     },
     "COLUMN": {
 
