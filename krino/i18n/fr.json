@@ -3,7 +3,12 @@
     "YES":"oui",
     "NO": "non",
     "EMPTY": "",
-    "TOGGLE DETAILS": "Voir/cacher détails"
+    "TOGGLE DETAILS": "Voir/cacher détails",
+    "COMMENTS": {
+      "ADD NEW COMMENT": "Ajouter un commentaire",
+      "ADD COMMENT": "Ajouter",
+      "ALL COMMENTS": "Tous les commentaires"
+    }    
   },
   "HOME": {
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
@@ -412,50 +417,70 @@
   },
   "STOCK": {
     "MENU": {
-      "ORDER PRODUCTS": "Order productS",
-      "DETAILS": "DetailS",
-      "QUANTITIES RECEIVED DELIVERY": "Quantities received from deliverY",
-      "QUANTITIES LOST SALES": "Quantities lost to saleS",
-      "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantitieS",
-      "HISTORY MANUAL CORRECTIONS": "History of manual correctionS",
-      "ENTER MANUAL CORRECTION": "Enter a manual correctioN"
+      "ORDER PRODUCTS": "Commander des produits",
+      "DETAILS": "Détails",
+      "QUANTITIES RECEIVED DELIVERY": "Quantités reçues lors de la livraison",
+      "QUANTITIES LOST SALES": "Quantités revendues",
+      "MANUAL CORRECTIONS QUANTITIES": "Corrections manuelles de quantités",
+      "HISTORY MANUAL CORRECTIONS": "Historique des corrections manuelles",
+      "ENTER MANUAL CORRECTION": "Entrer une correction manuelle"
     },
     "COLUMN": {
-      "PRODUCT": "ProducT",
-      "CATALOG NR": "Catalog NR",
-      "SUPPLIER": "SupplieR",
-      "AVAILABLE": "AvailablE",
-      "RESERVED BY MYSELF": "Reserved by myselF",
-      "PACKAGE": "PackagE",
-      "DIVISION FACTOR": "Division factoR",
-      "LOT": "LoT",
-      "QTY RECEIVED": "Qty receiveD",
-      "QTY SOLD": "Qty solD",
-      "WHEN": "WheN?",
-      "WHO ADDED THEM": "Who added theM?",
-      "FROM WHICH ORDER": "From which OrdeR",
-      "HOW MANY ADDED": "How many addeD",
-      "WHO BOUGHT THEM": "Who bought theM?",
-      "HOW MANY BOUGHT": "How many boughT",
-      "WHO ENTERED CHANGE": "Who entered the changE?",
-      "HOW MANY MANUALLY ADDED": "How many where manually addeD?",
-      "WHY": "WhY?",
-      "LOT NUMBER": "lot numbeR",
-      "FROM LOT NB": "From lot NB",
-      "QUANTITY": "QuantitY"
+      "PRODUCT": "Produit",
+      "CATALOG NR": "Numéro de catalogue",
+      "SUPPLIER": "Fournisseur",
+      "AVAILABLE": "Disponible",
+      "RESERVED BY MYSELF": "Réservé par moi",
+      "PACKAGE": "Conditionnement",
+      "DIVISION FACTOR": "Facteur de division",
+      "LOT": "Lot",
+      "QTY RECEIVED": "Qté reçue",
+      "QTY SOLD": "Qté vendue",
+      "WHEN": "Quand?",
+      "WHO ADDED THEM": "Qui l'a ajouté?",
+      "FROM WHICH ORDER": "De quelle commande",
+      "HOW MANY ADDED": "Quantité ajoutée",
+      "WHO BOUGHT THEM": "Qui l'a acheté?",
+      "HOW MANY BOUGHT": "Qté achetée",
+      "WHO ENTERED CHANGE": "Qui a entré le changement?",
+      "HOW MANY MANUALLY ADDED": "Quantité ajoutée manuellement?",
+      "WHY": "Pourquoi?",
+      "LOT NUMBER": "Numéro de lot",
+      "FROM LOT NB": "De quel lot",
+      "QUANTITY": "Quantité"
     },
     "LABEL": {
-      "NO MANUAL CHANGE YET": "No manual change yeT",
-      "WHY WE CHANGE QUANTITY": "why do we change the quantitY:",
-      "QUANTITY CHANGE": "quantity changE (ex: -5 or 3):",
-      "NO SALE YET": "No sale yeT",
-      "DATE": "DatE:",
-      "ORDERED BY": "Ordered bY:",
-      "ORDERED PRODUCT": "Ordered producT:",
-      "CATALOG NUMBER": "Catalog numbeR:",
-      "QUANTITY": "QuantitY:",
-      "STATUS": "StatuS:",
-      "ORDER PROCESSED": "Order processeD:"
+      "NO MANUAL CHANGE YET": "Pas encore de changement manuel",
+      "WHY WE CHANGE QUANTITY": "raison du changement manuel:",
+      "QUANTITY CHANGE": "quantité changée (ex: -5 or 3):",
+      "NO SALE YET": "Pas encore de vente",
+      "DATE": "Date:",
+      "ORDERED BY": "Commandé par:",
+      "ORDERED PRODUCT": "Produit commandé:",
+      "CATALOG NUMBER": "Numéro de catalogue:",
+      "QUANTITY": "Quantité:",
+      "STATUS": "Statut:",
+      "ORDER PROCESSED": "Commande traitée:"
     }
-  }
+  },
+  "MYKRINO": {
+    "MENU": {
+      "MY NOTES": "Mes notes",
+      "MY ACCOUNT": "Mon compte",
+      "MY BASKET(S)": "Mon panier",
+      "MY WEBSHOPPING VOUCHERS": "Mes coupons webshopping",
+      "MY ORDERED PRODUCTS": "Mes produits commandés",
+      "MY ORDERS": "Mes commandes",
+      "MY STOCK ORDERS": "Mes commandes du stock",
+      "MY FRIDGE ORDERS": "Mes commandes frigo",
+      "MY VOUCHER ORDERS": "Mes commandes coupons",
+      "MY EQUIPES": "Mes équipes",
+      "NON URGENT BASKET(S)": "Paniers non urgents",
+      "MY AVAILABLE VOUCHERS": "Mes coupons disponibles",
+      "MY USED VOUCHERS": "Mes coupons utilisés"
+    },
+    "HELP": {
+      "NEW VOUCHERS": "Ici vous pouvez commander de nouveaux coupons auprès de votre Lab Manager. Vous pouvez aussi utiliser un de vos coupons pour réaliser une commande sur votre platforme webshopping."
+    }
+  }  
 }

@@ -1,9 +1,14 @@
 {
   "GENERAL": {
-    "YES":"yes",
+    "YES": "yes",
     "NO": "no",
     "EMPTY": "",
-    "TOGGLE DETAILS": "Show/hide details"
+    "TOGGLE DETAILS": "Show/hide details",
+    "COMMENTS": {
+      "ADD NEW COMMENT": "Add new comment",
+      "ADD COMMENT": "Add comment",
+      "ALL COMMENTS": "All comments"
+    }
   },
   "HOME": {
     "TITLE": "Hello Angular 2 with ng2-translate!",
@@ -101,7 +106,7 @@
       "MENU": {
         "LIST CLASSIFICATION": "List of classifications",
         "INFO": "Info",
-        "OTPS":"Otps",
+        "OTPS": "Otps",
         "CREATE CLASSIFICATION": "Create classification",
         "WITHOUT CLASSIFICATION": "Categories without classification"
       }
@@ -125,7 +130,7 @@
       "ORDERS": "Orders",
       "SAP": "SAP",
       "ALL ITEMS": "All items"
-    },    
+    },
     "PERIOD": {
       "LABEL": {
         "INITIAL BUDGET": "initial budget for period:",
@@ -261,9 +266,9 @@
   "SUPPLIER": {
     "MSG": {
       "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form by pushing the button below.",
-      "EPROC STATUS":"Permission to shop on e-procurement:",
-      "EPROC BUTTON":"I have passed the order on e-procurement"
-    },    
+      "EPROC STATUS": "Permission to shop on e-procurement:",
+      "EPROC BUTTON": "I have passed the order on e-procurement"
+    },
     "MENU": {
       "INFO": "Info",
       "FIX COSTS": "Fix costs",
@@ -352,9 +357,9 @@
     "LABEL": {
       "NAME OF PRODUCT": "name of product:",
       "DESCRIPTION": "description:",
-      "PACKAGE":"package:",
+      "PACKAGE": "package:",
       "CATALOG NR": "catalog nr.",
-      "PRICE": "price:", 
+      "PRICE": "price:",
       "NO OF ARTICLE": "no of article:",
       "GROUP MARCHANDISE": "group marchandise:",
       "VAT": "vat:",
@@ -378,7 +383,7 @@
     }
   },
   "EQUIPE": {
-    "MENU": {
+    "MENU": {},
       "VIEW EQUIPES": "View Equipes",
       "GIFTS": "Gifts",
       "CREATE AN EQUIPE": "Create an Equipe",
@@ -402,13 +407,6 @@
       "STOCK ORDERS": "Stock Orders",
       "VOUCHER ORDERS": "Voucher Orders",
       "ADD OTP": "Add an Otp"
-    },
-    "COLUMN": {
-
-    },
-    "LABEL": {
-
-    }
   },
   "STOCK": {
     "MENU": {
@@ -456,6 +454,26 @@
       "QUANTITY": "Quantity:",
       "STATUS": "Status:",
       "ORDER PROCESSED": "Order processed:"
+    }
+  },
+  "MYKRINO": {
+    "MENU": {
+      "MY NOTES": "My notes",
+      "MY ACCOUNT": "My account",
+      "MY BASKET(S)": "My basket(s)",
+      "MY WEBSHOPPING VOUCHERS": "My webshopping vouchers",
+      "MY ORDERED PRODUCTS": "My ordered products",
+      "MY ORDERS": "My orders",
+      "MY STOCK ORDERS": "My stock orders",
+      "MY FRIDGE ORDERS": "My fridge orders",
+      "MY VOUCHER ORDERS": "My voucher orders",
+      "MY EQUIPES": "My projects",
+      "NON URGENT BASKET(S)": "Non urgent basket(s)",
+      "MY AVAILABLE VOUCHERS": "My available vouchers",
+      "MY USED VOUCHERS": "My used vouchers"
+    },
+    "HELP": {
+      "NEW VOUCHERS": "Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform."
     }
   }
 }
