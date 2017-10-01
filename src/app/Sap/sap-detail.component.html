@@ -2,7 +2,7 @@
 
 <div>
     <ngb-tabset *ngIf="sapObj" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-        <ngb-tab title="Summary" id="tabDetails">
+        <ngb-tab title="{{'SAP.MENU.SUMMARY' | translate}}" id="tabDetails">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -70,17 +70,17 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Engaged" id="tabEngaged" *ngIf="sapEngage">
+        <ngb-tab title="{{'SAP.MENU.ENGAGED' | translate}}" id="tabEngaged" *ngIf="sapEngage">
             <template ngbTabContent>
                 <gg-sap-sheet [isFacture]="false" [sapItem]="sapEngage.data"></gg-sap-sheet>
             </template>
         </ngb-tab>
-        <ngb-tab title="Invoiced" id="tabInvoiced" *ngIf="sapFacture">
+        <ngb-tab title="{{'SAP.MENU.INVOICED' | translate}}" id="tabInvoiced" *ngIf="sapFacture">
             <template ngbTabContent>
                 <gg-sap-sheet [isFacture]="true" [sapItem]="sapFacture.data"></gg-sap-sheet>
             </template>
         </ngb-tab>
-        <ngb-tab title="Attribution équipes" id="tabEquipes">
+        <ngb-tab title="{{'SAP.MENU.ATTRIBUTION ÉQUIPES' | translate}}" id="tabEquipes">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">

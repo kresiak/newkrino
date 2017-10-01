@@ -8,7 +8,7 @@
         </div>
 -->
         <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-            <ngb-tab title="All" id="tabAll">
+            <ngb-tab title="{{'SAP.MENU.ALL' | translate}}" id="tabAll">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -17,7 +17,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Postes engagement open" id="tabEngagementOpen">
+            <ngb-tab title="{{'SAP.MENU.POSTES ENGAGEMENT OPEN' | translate}}" id="tabEngagementOpen">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -43,7 +43,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Invoiced" id="tabInvoiced">
+            <ngb-tab title="{{'SAP.MENU.INVOICED' | translate}}" id="tabInvoiced">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

@@ -547,5 +547,41 @@
     "LABEL": {
 
     }
+  },
+  "SAP": {
+    "MENU": {
+      "SUMMARY": "Summary",
+      "ENGAGED": "Engaged",
+      "INVOICED": "Invoiced",
+      "ATTRIBUTION ÉQUIPES": "Attribution équipes",
+      "ALL": "All",
+      "POSTES ENGAGEMENT OPEN": "Postes engagement open",
+      "VIEW SAP ITEMS": "View Sap Items",
+      "ATTRIBUTE TO EQUIPE": "Attribute to equipe",
+      "RESPONSABLES": "Responsables",
+      "VIEW PIECE TYPES": "View Piece Types"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "ADMINISTRATION": {
+    "MENU": {
+      "WEB SHOPPING": "Web Shopping",
+      "MONITORING": "Monitoring",
+      "LABORATORY": "Laboratory",
+      "ALL LABORATORIES": "All laboratories",
+      "LIST OF LABORATORIES": "List of laboratories",
+      "CREATE NEW LABORATORY": "Create new laboratory"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
   }
 }
