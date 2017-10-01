@@ -260,7 +260,11 @@
       "ORDERS": "Orders",
       "FRIDGE ORDERS": "Fridge Orders",
       "STOCK ORDERS": "Stock Orders",
-      "VOUCHER ORDERS": "Voucher Orders"
+      "VOUCHER ORDERS": "Voucher Orders",
+      "VIEW USERS": "View Users",
+      "ADMINISTRATORS": "Administrators",
+      "CREATE A USER": "Create a User",
+      "CURRENT USER": "Current User"
     }
   },
   "SUPPLIER": {
@@ -416,7 +420,14 @@
       "QUANTITIES LOST SALES": "Quantities lost to sales",
       "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantities",
       "HISTORY MANUAL CORRECTIONS": "History of manual corrections",
-      "ENTER MANUAL CORRECTION": "Enter a manual correction"
+      "ENTER MANUAL CORRECTION": "Enter a manual correction",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "DELETE": "Delete",
+      "PROCESS ORDER": "Process order",
+      "PROCESS ORDER DETAIL": "Process order detail",
+      "PUT ORDER STOCK": "Put an order from stock",
+      "ORDERS": "Orders"
     },
     "COLUMN": {
       "PRODUCT": "Product",

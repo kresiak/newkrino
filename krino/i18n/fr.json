@@ -260,7 +260,11 @@
       "ORDERS": "Commandes",
       "FRIDGE ORDERS": "Commandes frigos",
       "STOCK ORDERS": "Commandes au stock",
-      "VOUCHER ORDERS": "Commandes coupons"
+      "VOUCHER ORDERS": "Commandes coupons",
+      "VIEW USERS": "View UserS",
+      "ADMINISTRATORS": "AdministratorS",
+      "CREATE A USER": "Create a UseR",
+      "CURRENT USER": "Current UseR"
     }
   },
   "SUPPLIER": {
@@ -423,7 +427,14 @@
       "QUANTITIES LOST SALES": "Quantités revendues",
       "MANUAL CORRECTIONS QUANTITIES": "Corrections manuelles de quantités",
       "HISTORY MANUAL CORRECTIONS": "Historique des corrections manuelles",
-      "ENTER MANUAL CORRECTION": "Entrer une correction manuelle"
+      "ENTER MANUAL CORRECTION": "Entrer une correction manuelle",
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "DELETE": "DeletE",
+      "PROCESS ORDER": "Process ordeR",
+      "PROCESS ORDER DETAIL": "Process order detaiL",
+      "PUT ORDER STOCK": "Put an order from stocK",
+      "ORDERS": "OrderS"
     },
     "COLUMN": {
       "PRODUCT": "Produit",
