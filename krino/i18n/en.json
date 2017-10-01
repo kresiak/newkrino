@@ -498,7 +498,10 @@
       "VIEW FRIDGE ORDERS": "View Fridge Orders",
       "VIEW STOCK ORDERS": "View Stock Orders",
       "VIEW WEB ORDERS": "View Web Orders",
-      "CREATE AN ORDER": "Create an Order"
+      "CREATE AN ORDER": "Create an Order",
+      "SHOPPING BASKET": "Shopping Basket",
+      "INFO ABOUT": "Info about",
+      "BUDGET CURRENT USER": "Budget of current user"
     },
     "COLUMN": {
 
