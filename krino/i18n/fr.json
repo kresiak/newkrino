@@ -201,6 +201,11 @@
     }
   },
   "CATEGORY": {
+    "MENU": {
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "PRODUCTS": "Products"
+    },
     "LABEL": {
       "CATEGORY": "catégorie",
       "NO OF ARTICLE": "numéro d'article:",
