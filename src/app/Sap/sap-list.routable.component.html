@@ -2,14 +2,14 @@
 <div class="card">
     <div class="card-block">
         <ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-            <ngb-tab title="View Sap Items" id="tabView">
+            <ngb-tab title="{{'SAP.MENU.VIEW SAP ITEMS' | translate}}" id="tabView">
                 <template ngbTabContent>
 
                     <gg-sap-list [state]="state" [sapsObservable]="sapsObservable"></gg-sap-list>
 
                 </template>
             </ngb-tab>
-            <ngb-tab title="Attribute to equipe ({{sapItemsToAttributeAll.length}})" *ngIf="sapItemsToAttribute" id="tabAttributeToEquipe">
+            <ngb-tab title="{{'SAP.MENU.ATTRIBUTE TO EQUIPE' | translate}} ({{sapItemsToAttributeAll.length}})" *ngIf="sapItemsToAttribute" id="tabAttributeToEquipe">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -64,7 +64,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Responsables" id="tabResponsables">
+            <ngb-tab title="{{'SAP.MENU.RESPONSABLES' | translate}}" id="tabResponsables">
                 <template ngbTabContent>
                     <div class="card" id>
                         <div class="card-block">
@@ -75,7 +75,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View Piece Types" id="tabPiecesInfo">
+            <ngb-tab title="{{'SAP.MENU.VIEW PIECE TYPES' | translate}}" id="tabPiecesInfo">
                 <template ngbTabContent>
                     <div class="card" id>
                         <div class="card-block">

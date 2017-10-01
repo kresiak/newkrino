@@ -1,7 +1,7 @@
 <div class="card" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
     <div class="card-block">
         <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="initTabId">
-            <ngb-tab title="Web Shopping" id="tabWebShopping">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.WEB SHOPPING' | translate}}" id="tabWebShopping">
                 <template ngbTabContent>
                     <gg-admin-webshopping [initTabId]="initTabId2"></gg-admin-webshopping>
                 </template>
@@ -11,22 +11,22 @@
                     <gg-admin-ak></gg-admin-ak>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Monitoring" id="tabMonitoring">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.MONITORING' | translate}}" id="tabMonitoring">
                 <template ngbTabContent>
                     <gg-monitoring-detail></gg-monitoring-detail>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Laboratory" id="tabLaboratory">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.LABORATORY' | translate}}" id="tabLaboratory">
                 <template ngbTabContent>
                     <gg-admin-labo></gg-admin-labo>
                 </template>
             </ngb-tab>
-            <ngb-tab title="All laboratories" id="tabLaboratories" *ngIf="authorizationStatusInfo.isSuperAdministrator()">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.ALL LABORATORIES' | translate}}" id="tabLaboratories" *ngIf="authorizationStatusInfo.isSuperAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="List of laboratories" id="tabListLaboratories">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.LIST OF LABORATORIES' | translate}}" id="tabListLaboratories">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -52,7 +52,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Create new laboratory" id="tabCreateNewLaboratory">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.CREATE NEW LABORATORY' | translate}}" id="tabCreateNewLaboratory">
                                     <template ngbTabContent>
                                         <gg-enter-labo></gg-enter-labo>
                                     </template>
