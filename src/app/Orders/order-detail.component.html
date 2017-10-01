@@ -53,7 +53,7 @@
 
 <div class="orderDetailClass">
 	<ngb-tabset *ngIf="order" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-		<ngb-tab title="Details" id="tabDetails">
+		<ngb-tab title="{{'ORDER.MENU.DETAILS' | translate}}" id="tabDetails">
 			<template ngbTabContent>
 				<div class="card">
 					<div class="card-block">
@@ -196,7 +196,7 @@
 				<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 			</template>
 		</ngb-tab>
-		<ngb-tab title="Repartition" id="tabRepartition" *ngIf="order.annotation.equipes">
+		<ngb-tab title="{{'ORDER.MENU.REPARTITION' | translate}}" id="tabRepartition" *ngIf="order.annotation.equipes">
 			<template ngbTabContent>
 				<div class="card">
 					<div class="card-block">
@@ -214,12 +214,12 @@
 				</div>
 			</template>
 		</ngb-tab>
-		<ngb-tab title="Deliveries" id="tabDeliveries">
+		<ngb-tab title="{{'ORDER.MENU.DELIVERIES' | translate}}" id="tabDeliveries">
 			<template ngbTabContent>
 				<div class="card">
 					<div class="card-block">
 						<ngb-tabset>
-							<ngb-tab title="Add deliveries" id="tabDeliveriesAdd">
+							<ngb-tab title="{{'ORDER.MENU.ADD DELIVERIES' | translate}}" id="tabDeliveriesAdd">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">
@@ -275,7 +275,7 @@
 									</div>
 								</template>
 							</ngb-tab>
-							<ngb-tab title="All deliveries details" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino">
+							<ngb-tab title="{{'ORDER.MENU.ALL DELIVERIES DETAILS' | translate}}" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino">
 								<template ngbTabContent>
 									<div class="card">
 										<div class="card-block">

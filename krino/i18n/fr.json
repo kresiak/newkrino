@@ -201,6 +201,13 @@
     }
   },
   "CATEGORY": {
+    "MENU": {
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "PRODUCTS": "ProductS",
+      "VIEW CATEGORIES": "View CategorieS",
+      "CREATE CATEGORY": "Create a CategorY"
+    },
     "LABEL": {
       "CATEGORY": "catégorie",
       "NO OF ARTICLE": "numéro d'article:",
@@ -260,7 +267,11 @@
       "ORDERS": "Commandes",
       "FRIDGE ORDERS": "Commandes frigos",
       "STOCK ORDERS": "Commandes au stock",
-      "VOUCHER ORDERS": "Commandes coupons"
+      "VOUCHER ORDERS": "Commandes coupons",
+      "VIEW USERS": "View UserS",
+      "ADMINISTRATORS": "AdministratorS",
+      "CREATE A USER": "Create a UseR",
+      "CURRENT USER": "Current UseR"
     }
   },
   "SUPPLIER": {
@@ -384,7 +395,29 @@
   },
   "EQUIPE": {
     "MENU": {
-
+      "VIEW EQUIPES": "View EquipeS",
+      "GIFTS": "GiftS",
+      "CREATE AN EQUIPE": "Create an EquipE",
+      "GROUPS": "GroupS",
+      "VIEW GROUPS": "View GroupS",
+      "CREATE GROUP": "Create a GrouP",
+      "VIEW GIFTS": "View GiftS",
+      "CURRENT EQUIPE": "Current equipE",
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "REPARTITION KEYS": "Repartition keyS",
+      "SPENDING": "SpendinG",
+      "DEBTS": "DebtS",
+      "OWING": "OwinG",
+      "OWED": "OweD",
+      "CHARTS": "ChartS",
+      "USERS": "UserS",
+      "OTPS": "OtpS",
+      "ORDERS": "OrderS",
+      "FRIDGE ORDERS": "Fridge OrderS",
+      "STOCK ORDERS": "Stock OrderS",
+      "VOUCHER ORDERS": "Voucher OrderS",
+      "ADD OTP": "Add an OtP"
     },
     "COLUMN": {
 
@@ -401,7 +434,14 @@
       "QUANTITIES LOST SALES": "Quantités revendues",
       "MANUAL CORRECTIONS QUANTITIES": "Corrections manuelles de quantités",
       "HISTORY MANUAL CORRECTIONS": "Historique des corrections manuelles",
-      "ENTER MANUAL CORRECTION": "Entrer une correction manuelle"
+      "ENTER MANUAL CORRECTION": "Entrer une correction manuelle",
+      "INFO": "InfO",
+      "COMMENTS": "CommentS",
+      "DELETE": "DeletE",
+      "PROCESS ORDER": "Process ordeR",
+      "PROCESS ORDER DETAIL": "Process order detaiL",
+      "PUT ORDER STOCK": "Put an order from stocK",
+      "ORDERS": "OrderS"
     },
     "COLUMN": {
       "PRODUCT": "Produit",
@@ -460,5 +500,52 @@
     "HELP": {
       "NEW VOUCHERS": "Ici vous pouvez commander de nouveaux coupons auprès de votre Lab Manager. Vous pouvez aussi utiliser un de vos coupons pour réaliser une commande sur votre platforme webshopping."
     }
-  }  
+  },
+  "ORDER": {
+    "MENU": {
+      "DETAILS": "DetailS",
+      "REPARTITION": "RepartitioN",
+      "DELIVERIES": "DeliverieS",
+      "ADD DELIVERIES": "Add deliverieS",
+      "ALL DELIVERIES DETAILS": "All deliveries detailS",
+      "VIEW ORDERS": "View OrderS",
+      "VIEW FRIDGE ORDERS": "View Fridge OrderS",
+      "VIEW STOCK ORDERS": "View Stock OrderS",
+      "VIEW WEB ORDERS": "View Web OrderS",
+      "CREATE AN ORDER": "Create an OrdeR",
+      "SHOPPING BASKET": "Shopping BaskeT",
+      "INFO ABOUT": "Info abouT",
+      "BUDGET CURRENT USER": "Budget of current useR"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "RECEPTION": {
+    "MENU": {
+      "NEW PACKET": "New packeT",
+      "LIST OF PACKET": "List of packeT"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "COMMUNICATION": {
+    "MENU": {
+      "NEW MESSAGE": "New messagE",
+      "LIST OF MESSAGES": "List of messageS"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  }
 }

@@ -2,12 +2,12 @@
 <div class="card">
 	<div class="card-block">
 		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn" [activeId]="state.selectedTabId">
-			<ngb-tab title="Put an order from stock" id="tabAvailable">
+			<ngb-tab title="{{'STOCK.MENU.PUT ORDER STOCK' | translate}}" id="tabAvailable">
 				<template ngbTabContent>
                     <gg-stock-list [productsObservable]= "productsObservable" [path]="'stock|O:Available'" [state]="state.Available"></gg-stock-list>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Orders" id="tabOrders" >
+			<ngb-tab title="{{'STOCK.MENU.ORDERS' | translate}}" id="tabOrders" >
 				<template ngbTabContent>
                     <gg-stock-order-list [path]="'stock|O:Orders'" [state]="state.Orders" [ordersObservable]="ordersObservable" ></gg-stock-order-list>
 				</template>

@@ -1,7 +1,7 @@
 <template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
 
 <ngb-tabset *ngIf="equipe" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
-	<ngb-tab title="Info" id="tabInfo">
+	<ngb-tab title="{{'EQUIPE.MENU.INFO' | translate}}" id="tabInfo">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -80,22 +80,22 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Spending" id="tabSpending">
+	<ngb-tab title="{{'EQUIPE.MENU.SPENDING' | translate}}" id="tabSpending">
 		<template ngbTabContent>
 			<gg-equipe-bilan [bilanObservable]="bilanObservable"></gg-equipe-bilan>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Debts" id="tabDebts">
+	<ngb-tab title="{{'EQUIPE.MENU.DEBTS' | translate}}" id="tabDebts">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
 					<ngb-tabset>
-						<ngb-tab title="Owing">
+						<ngb-tab title="{{'EQUIPE.MENU.OWING' | translate}}">
 							<template ngbTabContent>
 								<gg-equipe-debt-details [list]="equipe.annotation.owingDetails"></gg-equipe-debt-details>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="Owed">
+						<ngb-tab title="{{'EQUIPE.MENU.OWED' | translate}}">
 							<template ngbTabContent>
 								<gg-equipe-debt-details [list]="equipe.annotation.owedDetails"></gg-equipe-debt-details>
 							</template>
@@ -105,7 +105,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Charts" id="tabCharts">
+	<ngb-tab title="{{'EQUIPE.MENU.CHARTS' | translate}}" id="tabCharts">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
@@ -124,45 +124,45 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Comments" id="tabComments">
+	<ngb-tab title="{{'EQUIPE.MENU.COMMENTS' | translate}}" id="tabComments">
 		<template ngbTabContent>
 			<gg-comments [comments]="equipe.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Users" id="tabUsers">
+	<ngb-tab title="{{'EQUIPE.MENU.USERS' | translate}}" id="tabUsers">
 		<template ngbTabContent>
 			<gg-user-list [state]="state.Users" [usersObservable]="usersObservable" [path]="path+'|O:Users'" (stateChanged)="childUsersStateChanged($event)"></gg-user-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Otps" id="tabOtps">
+	<ngb-tab title="{{'EQUIPE.MENU.OTPS' | translate}}" id="tabOtps">
 		<template ngbTabContent>
 			<gg-otp-list [otpsObservable]="otpsObservable" [config]="{skip:['equipe']}" [state]="state.Otps" [path]="path+'|O:Otps'"
 			 (stateChanged)="childOtpsStateChanged($event)"></gg-otp-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Orders" id="tabOrders">
+	<ngb-tab title="{{'EQUIPE.MENU.ORDERS' | translate}}" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Fridge Orders" id="tabFridgeOrders">
+	<ngb-tab title="{{'EQUIPE.MENU.FRIDGE ORDERS' | translate}}" id="tabFridgeOrders">
 		<template ngbTabContent>
 			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="path+'|O:FridgeOrders'"></gg-order-fridge-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Stock Orders" id="tabStockOrders">
+	<ngb-tab title="{{'EQUIPE.MENU.STOCK ORDERS' | translate}}" id="tabStockOrders">
 		<template ngbTabContent>
 			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'"></gg-stock-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="Voucher Orders" id="tabUsedVouchers">
+	<ngb-tab title="{{'EQUIPE.MENU.VOUCHER ORDERS' | translate}}" id="tabUsedVouchers">
 		<template ngbTabContent>
 			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="Add an Otp" id="tabOtp">
+	<ngb-tab title="{{'EQUIPE.MENU.ADD OTP' | translate}}" id="tabOtp">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">

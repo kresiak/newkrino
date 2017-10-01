@@ -2,27 +2,27 @@
 <div class="card">
     <div class="card-block">
         <ngb-tabset [activeId]="state.selectedTabId" *ngIf="laboName">
-            <ngb-tab title="View Orders" id="tabView">
+            <ngb-tab title="{{'ORDER.MENU.VIEW ORDERS' | translate}}" id="tabView">
                 <template ngbTabContent>
                     <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View Fridge Orders" id="tabViewFridge">
+            <ngb-tab title="{{'ORDER.MENU.VIEW FRIDGE ORDERS' | translate}}" id="tabViewFridge">
                 <template ngbTabContent>
                     <gg-order-fridge-list [path]="'orders|O:ViewFridge'" [fridgeOrdersObservable]="fridgeOrdersObservable"></gg-order-fridge-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View Stock Orders" id="tabViewStock">
+            <ngb-tab title="{{'ORDER.MENU.VIEW STOCK ORDERS' | translate}}" id="tabViewStock">
                 <template ngbTabContent>
                     <gg-stock-order-list [path]="'orders|O:ViewStock'" [state]="state.ViewStock" [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="View Web Orders" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
+            <ngb-tab title="{{'ORDER.MENU.VIEW WEB ORDERS' | translate}}" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
                 <template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create an Order" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+            <ngb-tab title="{{'ORDER.MENU.CREATE AN ORDER' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

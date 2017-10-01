@@ -1,0 +1,492 @@
+{
+  "GENERAL": {
+    "YES": "yes",
+    "NO": "no",
+    "EMPTY": "",
+    "TOGGLE DETAILS": "Show/hide details",
+    "COMMENTS": {
+      "ADD NEW COMMENT": "Add new comment",
+      "ADD COMMENT": "Add comment",
+      "ALL COMMENTS": "All comments"
+    }
+  },
+  "HOME": {
+    "TITLE": "Hello Angular 2 with ng2-translate!",
+    "SELECT": "Change language",
+    "KRINO": {
+      "GREEK": "I judge, I decide, I think good"
+    }
+  },
+  "LOGIN": {
+    "CHOOSE USER": "choose a user in list",
+    "SELECT USER": "Select a user",
+    "CHOOSE EQUIPE": "choose a project in list",
+    "SELECT EQUIPE": "Select a project",
+    "ENTER PWD": "Enter your password",
+    "PWD ERR": "There was an error",
+    "LABO": {
+      "TIP": "You are in labo {{param}}. <br/> (Click to change the labo)",
+      "CHANGE": "Another labo",
+      "CHOOSE LABO": "choose a labo in list",
+      "SELECT LABO": "Select a labo"
+    },
+    "BASKET": {
+      "TIP": "Click here to <br/> open your basket"
+    },
+    "PWDWIN": {
+      "LABEL": "enter your password",
+      "BUTTON": "sign in"
+    }
+  },
+  "MENU": {
+    "HOME": "Home",
+    "DASHBOARD": "Dashboard",
+    "MYKRINO": "My Krino",
+    "ORDERS": "Orders",
+    "PRODUCTS": "Products",
+    "SUPPLIERS": "Suppliers",
+    "STOCK": "Stock",
+    "CATEGORIES": "Categories",
+    "EQUIPES": "Projects",
+    "USERS": "Users",
+    "OTPS": "Otps",
+    "SAP": "Sap",
+    "ADMIN": "Administration",
+    "RECEPTION": "Reception",
+    "COMMUNICATION": "Communication",
+    "PLATFORM": "Platform",
+    "PARTICIPATE": "Participate"
+  },
+  "FORM": {
+    "SUBMIT": "Submit",
+    "RESET": "Reset"
+  },
+  "ERROR": {
+    "NO LOGIN": "sorry: you are not logged in"
+  },
+  "OTP": {
+    "WARNING": {
+      "MONTHS BEFORE END": "number of months before end:",
+      "REPEATS AFTER WARNING": "number of repeats after first warning:",
+      "DAYS WAIT REPEAT": "number of days to wait before repeat:"
+    },
+    "CHECKER": {
+      "LABEL": {
+        "WANTS ORDER": "project that wants to order:",
+        "HOW MUCH WISH SPEND": "how much money you wish to spend:",
+        "AVAILABLE BUDGET": "available budget:"
+      },
+      "COLUMN": {
+        "PRODUCT TYPE": "Product type",
+        "AMOUNT TO SPEND": "Amount to spend",
+        "PREFERED OTP": "Prefered Otp",
+        "MAXIMUM AVAILABLE": "Maximum available on Otp",
+        "PREFERENCE": "Preference",
+        "OTP": "Otp",
+        "EQUIPE": "Project",
+        "EXPIRES": "Expires",
+        "AVAILABLE": "Available"
+      }
+    },
+    "CLASSIFICATION": {
+      "LABEL": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "PRODUCT CATEGORIES": "Product categories",
+        "NAME CREATE": "name:",
+        "DESCRIPTION CREATE": "description:"
+      },
+      "COLUMN": {
+        "NAME": "Name",
+        "CATEGORIES": "Categories",
+        "AVAILABLE UNRESTRICTED": "Available in Unrestricted Otps",
+        "AVAILABLE RESTRICTED": "Available in restricted Otps",
+        "NUMBER OTPS": "Number of Otps"
+      },
+      "MENU": {
+        "LIST CLASSIFICATION": "List of classifications",
+        "INFO": "Info",
+        "OTPS": "Otps",
+        "CREATE CLASSIFICATION": "Create classification",
+        "WITHOUT CLASSIFICATION": "Categories without classification"
+      }
+    },
+    "MENU": {
+      "VIEW OTPS": "View Otps",
+      "SOON EXPIRING": "Soon expiring",
+      "CREATE OTP": "Create an Otp",
+      "CHOICE SIMULATOR": "Otp choice simulator",
+      "PRODUCT CLASSIFICATIONS": "Product classifications",
+      "INFO": "Info",
+      "BUDGET": "Budget",
+      "CURRENT BUDGET": "Current budget",
+      "PERIODS": "Periods",
+      "HISTORY PERIODS": "History of budget periods",
+      "ADD BUDGET PERIOD": "Add new budget period",
+      "WARNINGS": "Warnings",
+      "SPENDING": "Spending",
+      "CHARTS": "Charts",
+      "COMMENTS": "Comments",
+      "ORDERS": "Orders",
+      "SAP": "SAP",
+      "ALL ITEMS": "All items"
+    },
+    "PERIOD": {
+      "LABEL": {
+        "INITIAL BUDGET": "initial budget for period:",
+        "START DATE": "start date:",
+        "END DATE": "end date:",
+        "ADDED LATER": "budget added later:",
+        "BUDGET BLOCKED": "budget blocked:",
+        "THAT CAN USED": "budget that can be used:",
+        "BUDGET INCREMENT": "Budget increment",
+        "DATE": "Date",
+        "COMMENT": "Comment",
+        "AMOUNT BLOCKED": "blocked amount:",
+        "REASON/COMMENT": "reason / comment:"
+      },
+      "COLUMN": {
+        "BUDGET OF THE PERIOD": "Budget of the period",
+        "DATE START": "Date start",
+        "DATE END": "Date end",
+        "BUDGET INCREMENT": "Budget increment",
+        "DATE": "Date",
+        "COMMENT": "Comment",
+        "AMOUNT BLOCKED": "Amount blocked",
+        "REASON/COMMENT": "Reason/Comment"
+      },
+      "MENU": {
+        "INFO": "Info",
+        "BUDGET CHANGES": "Budget changes",
+        "HISTORY BUDGET": "History of budget",
+        "ADD BUDGET CHANGE": "Add budget change",
+        "BLOCKED AMOUNTS": "Blocked amounts",
+        "LIST BLOCKED AMOUNT": "List of blocked amount",
+        "ADD BLOCKED AMOUNT": "Add a blocked amount"
+      }
+    },
+    "LABEL": {
+      "OTP": "otp:",
+      "DESCRIPTION": "description:",
+      "CLASSIFICATION": "classification:",
+      "EQUIPE": "project:",
+      "NOTE": "note:",
+      "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classification):",
+      "LIMITED OWNER": "is limited to owner project:",
+      "IS BLOCKED": "is blocked:",
+      "IS CLOSED": "is closed:",
+      "IS DELETED": "is deleted:",
+      "PRIORITY": "priority:",
+      "CANNOT TRANSPORT COSTS": "otp cannot be used for transport costs:",
+      "IS ANNUAL": "is annual:",
+      "TOTAL BUDGET": "total budget:",
+      "SPENT OR BLOCKED": "amount spent or blocked:",
+      "AMOUNT AVAILABLE": "amount available:",
+      "BLOCKED PURCHASE ORDERS": "amount blocked in purchase orders:",
+      "BLOCKED STILL ENGAGED": "amount blocked still engaged:",
+      "SPENT INVOICES": "amount spent in invoices:",
+      "BUDGET": "budget:",
+      "FROM": "from:",
+      "TO": "to:"
+    },
+    "COLUMN": {
+      "OTP": "OTP",
+      "EQUIPE": "Project",
+      "CLASSIFICATION": "Classification",
+      "INITIAL": "Initial",
+      "AVAILABLE": "Available",
+      "UNTIL": "Until (priority)",
+      "IN SAP": "In SAP",
+      "STATUS": "Status"
+    }
+  },
+  "CATEGORY": {
+    "LABEL": {
+      "CATEGORY": "category:",
+      "NO OF ARTICLE": "no of article:",
+      "GROUP MARCHANDISE": "group marchandise:",
+      "IS BLOCKED": "is blocked:",
+      "LABORATORY SPECIFIC": "laboratory specific:",
+      "OFFICE SPECIFIC": "office specific:",
+      "NAME": "name:",
+      "NO OF ARTICLE ENTER": "No of article:",
+      "GROUP MARCHANDISE ENTER": "Group marchandise:",
+      "IS BLOCKED ENTER": "is blocked:",
+      "LABORATORY SPECIFIC ENTER": "laboratory specific:",
+      "OFFICE SPECIFIC ENTER": "office specific:"
+    },
+    "COLUMN": {
+      "CATEGORY": "Category",
+      "SUPPLIER EXAMPLE": "Supplier example",
+      "CLASSIFICATIONS": "Classifications",
+      "ARTICLE NB": "Article Nb",
+      "GROUP MARCHANDISE": "Group Marchandise",
+      "LABO SPECIFIC": "Labo specific"
+    }
+  },
+  "USER": {
+    "COLUMN": {
+      "FULL NAME": "Full name",
+      "EQUIPE(S)": "Project(s)",
+      "BLOCKED?": "Blocked?",
+      "ADMINISTRATOR?": "Administrator?",
+      "SUPER ADMINISTRATOR?": "Super Administrator?"
+    },
+    "HELP": {
+      "SUPER ADMINISTRATOR": "A super administrator has the right to change public data (products, ...) and to create a new labo. Use this with caution please!!"
+    },
+    "LABEL": {
+      "FULL NAME": "full name:",
+      "EMAIL": "email:",
+      "NAME": "name:",
+      "FIRST NAME": "first name:",
+      "PASSWORD": "password:",
+      "EQUIPE(S)": "project(s):",
+      "IS BLOCKED": "is blocked:",
+      "IS LABO USER": "is labo user:",
+      "IS ADMINISTRATOR": "is administrator:",
+      "IS RECEPTIONIST": "is receptionist:",
+      "IS LAB MANAGER": "is lab manager:",
+      "IS KRINO PROGRAMMER": "is krino programmer:",
+      "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
+      "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
+      "SUPER ADMINISTRATOR": "is super administrator:"
+    },
+    "MENU": {
+      "INFO": "Info",
+      "ADMINISTRATION": "Administration",
+      "COMMENTS": "Comments",
+      "EQUIPES": "Projects",
+      "ORDERS": "Orders",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER ORDERS": "Voucher Orders"
+    }
+  },
+  "SUPPLIER": {
+    "MSG": {
+      "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form by pushing the button below.",
+      "EPROC STATUS": "Permission to shop on e-procurement:",
+      "EPROC BUTTON": "I have passed the order on e-procurement"
+    },
+    "MENU": {
+      "INFO": "Info",
+      "FIX COSTS": "Fix costs",
+      "ADD FIX COST": "Add Fix cost",
+      "PRODUCTS": "Products",
+      "ORDERS": "Orders",
+      "SHOPPING BASKET": "Shopping Basket",
+      "SHOPPING NON URGENT": "Shopping non urgent Basket",
+      "ADD PRODUCT": "Add a product",
+      "E-PROCUREMENT": "E-procurement",
+      "WEB SHOPPING": "Web Shopping",
+      "ADMINISTRATION": "Administration",
+      "VOUCHERS": "Vouchers",
+      "VIEW SUPPLIERS": "View Suppliers",
+      "CREATE SUPPLIER": "Create a Supplier",
+      "INCLUDE KRINO": "Include into Krino",
+      "NEW EPROC": "New e-procurement order",
+      "LIST EPROC": "List of orders"
+    },
+    "COLUMN": {
+      "DESCRIPTION": "Description",
+      "PRICE": "Price",
+      "DISABLE": "Disable",
+      "SUPPLIER": "Supplier",
+      "CITY": "City",
+      "COUNTRY": "Country",
+      "SAP ID": "Sap Id",
+      "VOUCHERS": "Vouchers"
+    },
+    "LABEL": {
+      "DESCRIPTION": "Description:",
+      "PRICE": "Price:",
+      "E-PROCUREMENT ENABLED": "e-procurement enabled:",
+      "SHOPPING ENABLED": "web shopping enabled:",
+      "ALLOWED PRODUCTS": "allowed products:",
+      "VOUCHERS AVAILABLE": "vouchers available:",
+      "VOUCHERS ORDERED": "vouchers ordered:"
+    },
+    "INFO": {
+      "LABEL": {
+        "SUPPLIER": "Supplier:",
+        "LOCATION": "Location:",
+        "ADDRESS": "Address:",
+        "COUNTRY": "Country:",
+        "TELEPHONE": "Telephone:",
+        "FAX": "Fax:",
+        "CLIENT": "Client:",
+        "SAP ID": "Sap id:"
+      }
+    }
+  },
+  "PRODUCT": {
+    "MENU": {
+      "INFO": "Info",
+      "PUT INTO BASKET": "Put into basket",
+      "PERMISSIONS": "Permissions",
+      "COMMENTS": "Comments",
+      "ORDERS": "Orders",
+      "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associated",
+      "PRICE HISTORY": "Price history",
+      "CHANGE HISTORY": "Change history",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
+      "VIEW PRODUCTS": "View products",
+      "VIEW PRIVATE PRODUCTS": "View private products",
+      "CREATE A PRODUCT": "Create a Product"
+    },
+    "COLUMN": {
+      "PRODUCT": "Product",
+      "SUPPLIER": "Supplier",
+      "PACKAGE": "Package",
+      "CATALOG NR": "Catalog nr.",
+      "PRICE": "Price",
+      "FRIGO": "Frigo",
+      "DISABLED": "Disabled?",
+      "WHEN": "When?",
+      "WHO": "Who?",
+      "FROM": "From",
+      "TO": "TO",
+      "WHAT": "What?",
+      "QTY IN BASKET": "Qty in basket",
+      "TOTAL": "Total",
+      "EQUIPE": "Project",
+      "HOW MANY": "How many",
+      "CATEGORY": "Category"
+    },
+    "LABEL": {
+      "NAME OF PRODUCT": "name of product:",
+      "DESCRIPTION": "description:",
+      "PACKAGE": "package:",
+      "CATALOG NR": "catalog nr.",
+      "PRICE": "price:",
+      "NO OF ARTICLE": "no of article:",
+      "GROUP MARCHANDISE": "group marchandise:",
+      "VAT": "vat:",
+      "SUPPLIER": "supplier:",
+      "CATEGORIES": "categories:",
+      "FREQUENCE": "frequence:",
+      "LABORATORY SPECIFIC": "laboratory specific:",
+      "IS DISABLED": "is disabled:",
+      "MAY ENCODING NUMBER": "may need encoding of lot number:",
+      "MAY RESOLD STOCK": "may be resold in stock:",
+      "DIVISION FACTOR STOCK": "division factor for stock:",
+      "STOCK PACKAGING": "stock packaging:",
+      "FRIGO": "frigo:",
+      "PRODUCT DISABLED": "This product is disabled",
+      "ATTENTE VALIDATION": "en attente de validation:",
+      "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
+      "ALREADY BASKET": "already in basket:",
+      "RESTRICTED FOLLOWING USERS": "restricted to following users:",
+      "TOTAL": "Total:",
+      "CATEGORY": "Category:",
+    }
+  },
+  "EQUIPE": {
+<<<<<<< HEAD
+    "MENU": {
+      "VIEW EQUIPES": "View Equipes",
+      "GIFTS": "Gifts",
+      "CREATE AN EQUIPE": "Create an Equipe",
+      "GROUPS": "Groups",
+      "VIEW GROUPS": "View Groups",
+      "CREATE GROUP": "Create a Group",
+      "VIEW GIFTS": "View Gifts",
+      "CURRENT EQUIPE": "Current equipe",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "REPARTITION KEYS": "Repartition keys",
+      "SPENDING": "Spending",
+      "DEBTS": "Debts",
+      "OWING": "Owing",
+      "OWED": "Owed",
+      "CHARTS": "Charts",
+      "USERS": "Users",
+      "OTPS": "Otps",
+      "ORDERS": "Orders",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER ORDERS": "Voucher Orders",
+      "ADD OTP": "Add an Otp"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+=======
+    "MENU": {},
+    "COLUMN": {},
+    "LABEL": {}
+>>>>>>> origin/master
+  },
+  "STOCK": {
+    "MENU": {
+      "ORDER PRODUCTS": "Order products",
+      "DETAILS": "Details",
+      "QUANTITIES RECEIVED DELIVERY": "Quantities received from delivery",
+      "QUANTITIES LOST SALES": "Quantities lost to sales",
+      "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantities",
+      "HISTORY MANUAL CORRECTIONS": "History of manual corrections",
+      "ENTER MANUAL CORRECTION": "Enter a manual correction"
+    },
+    "COLUMN": {
+      "PRODUCT": "Product",
+      "CATALOG NR": "Catalog Nr",
+      "SUPPLIER": "Supplier",
+      "AVAILABLE": "Available",
+      "RESERVED BY MYSELF": "Reserved by myself",
+      "PACKAGE": "Package",
+      "DIVISION FACTOR": "Division factor",
+      "LOT": "Lot",
+      "QTY RECEIVED": "Qty received",
+      "QTY SOLD": "Qty sold",
+      "WHEN": "When?",
+      "WHO ADDED THEM": "Who added them?",
+      "FROM WHICH ORDER": "From which Order",
+      "HOW MANY ADDED": "How many added",
+      "WHO BOUGHT THEM": "Who bought them?",
+      "HOW MANY BOUGHT": "How many bought",
+      "WHO ENTERED CHANGE": "Who entered the change?",
+      "HOW MANY MANUALLY ADDED": "How many where manually added?",
+      "WHY": "Why?",
+      "LOT NUMBER": "lot number",
+      "FROM LOT NB": "From lot Nb",
+      "QUANTITY": "Quantity"
+    },
+    "LABEL": {
+      "NO MANUAL CHANGE YET": "No manual change yet",
+      "WHY WE CHANGE QUANTITY": "why do we change the quantity:",
+      "QUANTITY CHANGE": "quantity change (ex: -5 or 3):",
+      "NO SALE YET": "No sale yet",
+      "DATE": "Date:",
+      "ORDERED BY": "Ordered by:",
+      "ORDERED PRODUCT": "Ordered product:",
+      "CATALOG NUMBER": "Catalog number:",
+      "QUANTITY": "Quantity:",
+      "STATUS": "Status:",
+      "ORDER PROCESSED": "Order processed:"
+    }
+  },
+  "MYKRINO": {
+    "MENU": {
+      "MY NOTES": "My notes",
+      "MY ACCOUNT": "My account",
+      "MY BASKET(S)": "My basket(s)",
+      "MY WEBSHOPPING VOUCHERS": "My webshopping vouchers",
+      "MY ORDERED PRODUCTS": "My ordered products",
+      "MY ORDERS": "My orders",
+      "MY STOCK ORDERS": "My stock orders",
+      "MY FRIDGE ORDERS": "My fridge orders",
+      "MY VOUCHER ORDERS": "My voucher orders",
+      "MY EQUIPES": "My projects",
+      "NON URGENT BASKET(S)": "Non urgent basket(s)",
+      "MY AVAILABLE VOUCHERS": "My available vouchers",
+      "MY USED VOUCHERS": "My used vouchers"
+    },
+    "HELP": {
+      "NEW VOUCHERS": "Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform."
+    }
+  }
+}

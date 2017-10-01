@@ -2,7 +2,7 @@
 	<div class="card-block">
 		<h5 class="card-title">Checkout at {{supplier.name}}</h5>
 		<ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-			<ngb-tab title="Shopping Basket">
+			<ngb-tab title="{{'ORDER.MENU.SHOPPING BASKET' | translate}}">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -27,7 +27,7 @@
 					</div>
 				</template>
 			</ngb-tab>
-			<ngb-tab title="Info about {{supplier.name}}">
+			<ngb-tab title="{{'ORDER.MENU.INFO ABOUT' | translate}} {{supplier.name}}">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">
@@ -36,7 +36,7 @@
 					</div>
 				</template>		
 			</ngb-tab>
-			<ngb-tab title="Budget of current user" *ngIf="false">
+			<ngb-tab title="{{'ORDER.MENU.BUDGET CURRENT USER' | translate}}" *ngIf="false">
 				<template ngbTabContent>
 					<div class="card">
 						<div class="card-block">

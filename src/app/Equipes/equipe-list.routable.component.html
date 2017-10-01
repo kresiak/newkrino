@@ -2,12 +2,12 @@
 <div class="card">
     <div class="card-block">
         <ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
-            <ngb-tab title="View Equipes" id="tabView">
+            <ngb-tab title="{{'EQUIPE.MENU.VIEW EQUIPES' | translate}}" id="tabView">
                 <template ngbTabContent>
                     <gg-equipe-list [equipesObservable]="equipesObservable" [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Create an Equipe" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="{{'EQUIPE.MENU.CREATE AN EQUIPE' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -16,17 +16,17 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Groups" id="tabGroups">
+            <ngb-tab title="{{'EQUIPE.MENU.GROUPS' | translate}}" id="tabGroups">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="View Groups" id="tabViewGroup">
+                                <ngb-tab title="{{'EQUIPE.MENU.VIEW GROUPS' | translate}}" id="tabViewGroup">
                                     <template ngbTabContent>
                                         <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Create a Group" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                <ngb-tab title="{{'EQUIPE.MENU.CREATE GROUP' | translate}}" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -40,12 +40,12 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Gifts" id="tabGifts">
+            <ngb-tab title="{{'EQUIPE.MENU.GIFTS'}}" id="tabGifts">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="View Gifts" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                <ngb-tab title="{{'EQUIPE.MENU.VIEW GIFTS' | translate}}" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
                                     <template ngbTabContent>
                                         <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
                                     </template>
@@ -64,7 +64,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Current equipe" id="tabCurrentEquipe" *ngIf="authorizationStatusInfo.hasEquipeId()">
+            <ngb-tab title="{{'EQUIPE.MENU.CURRENT EQUIPE' | translate}}" id="tabCurrentEquipe" *ngIf="authorizationStatusInfo.hasEquipeId()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
