@@ -394,15 +394,15 @@
     }
   },
   "EQUIPE": {
-    "MENU": {},
-      "VIEW EQUIPES": "View Equipes",
+    "MENU": {
+      "VIEW EQUIPES": "View Projetc teams",
       "GIFTS": "Gifts",
-      "CREATE AN EQUIPE": "Create an Equipe",
-      "GROUPS": "Groups",
+      "CREATE AN EQUIPE": "Create a Project Team",
+      "GROUPS": "Groups of projects",
       "VIEW GROUPS": "View Groups",
       "CREATE GROUP": "Create a Group",
       "VIEW GIFTS": "View Gifts",
-      "CURRENT EQUIPE": "Current equipe",
+      "CURRENT EQUIPE": "Current project",
       "INFO": "Info",
       "COMMENTS": "Comments",
       "REPARTITION KEYS": "Repartition keys",
@@ -418,6 +418,13 @@
       "STOCK ORDERS": "Stock Orders",
       "VOUCHER ORDERS": "Voucher Orders",
       "ADD OTP": "Add an Otp"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }    
   },
   "STOCK": {
     "MENU": {

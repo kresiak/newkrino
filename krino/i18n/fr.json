@@ -105,7 +105,7 @@
       },
       "MENU": {
         "LIST CLASSIFICATION": "Liste de classifications",
-        "INFO": "Info",
+        "INFO": "Infos",
         "OTPS": "Otps",
         "CREATE CLASSIFICATION": "Créer une classification",
         "WITHOUT CLASSIFICATION": "Catégories sans classification"
@@ -202,11 +202,11 @@
   },
   "CATEGORY": {
     "MENU": {
-      "INFO": "InfO",
-      "COMMENTS": "CommentS",
-      "PRODUCTS": "ProductS",
-      "VIEW CATEGORIES": "View CategorieS",
-      "CREATE CATEGORY": "Create a CategorY"
+      "INFO": "Infos",
+      "COMMENTS": "Commentaires",
+      "PRODUCTS": "Produits",
+      "VIEW CATEGORIES": "Liste de catégories",
+      "CREATE CATEGORY": "Créer une catégorie"
     },
     "LABEL": {
       "CATEGORY": "catégorie",
@@ -268,10 +268,10 @@
       "FRIDGE ORDERS": "Commandes frigos",
       "STOCK ORDERS": "Commandes au stock",
       "VOUCHER ORDERS": "Commandes coupons",
-      "VIEW USERS": "View UserS",
-      "ADMINISTRATORS": "AdministratorS",
-      "CREATE A USER": "Create a UseR",
-      "CURRENT USER": "Current UseR"
+      "VIEW USERS": "Liste d'utilisateurs",
+      "ADMINISTRATORS": "Administrateurs",
+      "CREATE A USER": "Créer un utilisateur",
+      "CURRENT USER": "Utilisateur actuel"
     }
   },
   "SUPPLIER": {
@@ -395,29 +395,29 @@
   },
   "EQUIPE": {
     "MENU": {
-      "VIEW EQUIPES": "View EquipeS",
-      "GIFTS": "GiftS",
-      "CREATE AN EQUIPE": "Create an EquipE",
-      "GROUPS": "GroupS",
-      "VIEW GROUPS": "View GroupS",
-      "CREATE GROUP": "Create a GrouP",
-      "VIEW GIFTS": "View GiftS",
-      "CURRENT EQUIPE": "Current equipE",
-      "INFO": "InfO",
-      "COMMENTS": "CommentS",
-      "REPARTITION KEYS": "Repartition keyS",
-      "SPENDING": "SpendinG",
-      "DEBTS": "DebtS",
-      "OWING": "OwinG",
-      "OWED": "OweD",
-      "CHARTS": "ChartS",
-      "USERS": "UserS",
-      "OTPS": "OtpS",
-      "ORDERS": "OrderS",
-      "FRIDGE ORDERS": "Fridge OrderS",
-      "STOCK ORDERS": "Stock OrderS",
-      "VOUCHER ORDERS": "Voucher OrderS",
-      "ADD OTP": "Add an OtP"
+      "VIEW EQUIPES": "Liste des équipes",
+      "GIFTS": "Cadeaux",
+      "CREATE AN EQUIPE": "Créer une équipe",
+      "GROUPS": "Groupes",
+      "VIEW GROUPS": "Liste de groupes",
+      "CREATE GROUP": "Créer un groupe",
+      "VIEW GIFTS": "Liste des cadeaux",
+      "CURRENT EQUIPE": "Equipe actuelle",
+      "INFO": "Infos",
+      "COMMENTS": "Commentaires",
+      "REPARTITION KEYS": "Clés de répartition",
+      "SPENDING": "Dépenses",
+      "DEBTS": "Dettes",
+      "OWING": "Je dois",
+      "OWED": "Ce qi m'est dû",
+      "CHARTS": "Graphes",
+      "USERS": "Utilisateurs",
+      "OTPS": "Otps",
+      "ORDERS": "Commandes",
+      "FRIDGE ORDERS": "Commandes frigos",
+      "STOCK ORDERS": "Commandes du stock",
+      "VOUCHER ORDERS": "Commandes coupons",
+      "ADD OTP": "Créer un otp"
     },
     "COLUMN": {
 
@@ -435,13 +435,13 @@
       "MANUAL CORRECTIONS QUANTITIES": "Corrections manuelles de quantités",
       "HISTORY MANUAL CORRECTIONS": "Historique des corrections manuelles",
       "ENTER MANUAL CORRECTION": "Entrer une correction manuelle",
-      "INFO": "InfO",
-      "COMMENTS": "CommentS",
-      "DELETE": "DeletE",
-      "PROCESS ORDER": "Process ordeR",
-      "PROCESS ORDER DETAIL": "Process order detaiL",
-      "PUT ORDER STOCK": "Put an order from stocK",
-      "ORDERS": "OrderS"
+      "INFO": "Infos",
+      "COMMENTS": "Commentaires",
+      "DELETE": "Supprimer",
+      "PROCESS ORDER": "Passer une commande",
+      "PROCESS ORDER DETAIL": "Détail des commandes",
+      "PUT ORDER STOCK": "Placer une commande",
+      "ORDERS": "Commandes"
     },
     "COLUMN": {
       "PRODUCT": "Produit",
@@ -503,19 +503,19 @@
   },
   "ORDER": {
     "MENU": {
-      "DETAILS": "DetailS",
-      "REPARTITION": "RepartitioN",
-      "DELIVERIES": "DeliverieS",
-      "ADD DELIVERIES": "Add deliverieS",
-      "ALL DELIVERIES DETAILS": "All deliveries detailS",
-      "VIEW ORDERS": "View OrderS",
-      "VIEW FRIDGE ORDERS": "View Fridge OrderS",
-      "VIEW STOCK ORDERS": "View Stock OrderS",
-      "VIEW WEB ORDERS": "View Web OrderS",
-      "CREATE AN ORDER": "Create an OrdeR",
-      "SHOPPING BASKET": "Shopping BaskeT",
-      "INFO ABOUT": "Info abouT",
-      "BUDGET CURRENT USER": "Budget of current useR"
+      "DETAILS": "Détails",
+      "REPARTITION": "Répartition",
+      "DELIVERIES": "Livraisons",
+      "ADD DELIVERIES": "Ajouter une livraison",
+      "ALL DELIVERIES DETAILS": "Détails des livraisons",
+      "VIEW ORDERS": "Liste des commandes",
+      "VIEW FRIDGE ORDERS": "Commandes frigos",
+      "VIEW STOCK ORDERS": "Commandes au stock",
+      "VIEW WEB ORDERS": "Commandes web shopping",
+      "CREATE AN ORDER": "Créer une commande",
+      "SHOPPING BASKET": "Panier",
+      "INFO ABOUT": "Infos",
+      "BUDGET CURRENT USER": "Budget de l'utilisateur actuel"
     },
     "COLUMN": {
 
@@ -526,8 +526,8 @@
   },
   "RECEPTION": {
     "MENU": {
-      "NEW PACKET": "New packeT",
-      "LIST OF PACKET": "List of packeT"
+      "NEW PACKET": "Nouveau paquet",
+      "LIST OF PACKET": "Tous les paquets reçus"
     },
     "COLUMN": {
 
@@ -538,8 +538,8 @@
   },
   "COMMUNICATION": {
     "MENU": {
-      "NEW MESSAGE": "New messagE",
-      "LIST OF MESSAGES": "List of messageS"
+      "NEW MESSAGE": "Nouveau message",
+      "LIST OF MESSAGES": "Tous les messages"
     },
     "COLUMN": {
 
