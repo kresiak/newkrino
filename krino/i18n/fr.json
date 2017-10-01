@@ -493,5 +493,25 @@
     "HELP": {
       "NEW VOUCHERS": "Ici vous pouvez commander de nouveaux coupons auprès de votre Lab Manager. Vous pouvez aussi utiliser un de vos coupons pour réaliser une commande sur votre platforme webshopping."
     }
-  }  
+  },
+  "ORDER": {
+    "MENU": {
+      "DETAILS": "DetailS",
+      "REPARTITION": "RepartitioN",
+      "DELIVERIES": "DeliverieS",
+      "ADD DELIVERIES": "Add deliverieS",
+      "ALL DELIVERIES DETAILS": "All deliveries detailS",
+      "VIEW ORDERS": "View OrderS",
+      "VIEW FRIDGE ORDERS": "View Fridge OrderS",
+      "VIEW STOCK ORDERS": "View Stock OrderS",
+      "VIEW WEB ORDERS": "View Web OrderS",
+      "CREATE AN ORDER": "Create an OrdeR"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  }
 }
