@@ -201,6 +201,13 @@
     }
   },
   "CATEGORY": {
+    "MENU": {
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "PRODUCTS": "Products",
+      "VIEW CATEGORIES": "View Categories",
+      "CREATE CATEGORY": "Create a Category"
+    },
     "LABEL": {
       "CATEGORY": "category:",
       "NO OF ARTICLE": "no of article:",
@@ -260,7 +267,11 @@
       "ORDERS": "Orders",
       "FRIDGE ORDERS": "Fridge Orders",
       "STOCK ORDERS": "Stock Orders",
-      "VOUCHER ORDERS": "Voucher Orders"
+      "VOUCHER ORDERS": "Voucher Orders",
+      "VIEW USERS": "View Users",
+      "ADMINISTRATORS": "Administrators",
+      "CREATE A USER": "Create a User",
+      "CURRENT USER": "Current User"
     }
   },
   "SUPPLIER": {
@@ -379,20 +390,19 @@
       "ALREADY BASKET": "already in basket:",
       "RESTRICTED FOLLOWING USERS": "restricted to following users:",
       "TOTAL": "Total:",
-      "CATEGORY": "Category:",
+      "CATEGORY": "Category:"
     }
   },
   "EQUIPE": {
-<<<<<<< HEAD
     "MENU": {
-      "VIEW EQUIPES": "View Equipes",
+      "VIEW EQUIPES": "View Projetc teams",
       "GIFTS": "Gifts",
-      "CREATE AN EQUIPE": "Create an Equipe",
-      "GROUPS": "Groups",
+      "CREATE AN EQUIPE": "Create a Project Team",
+      "GROUPS": "Groups of projects",
       "VIEW GROUPS": "View Groups",
       "CREATE GROUP": "Create a Group",
       "VIEW GIFTS": "View Gifts",
-      "CURRENT EQUIPE": "Current equipe",
+      "CURRENT EQUIPE": "Current project",
       "INFO": "Info",
       "COMMENTS": "Comments",
       "REPARTITION KEYS": "Repartition keys",
@@ -407,19 +417,26 @@
       "FRIDGE ORDERS": "Fridge Orders",
       "STOCK ORDERS": "Stock Orders",
       "VOUCHER ORDERS": "Voucher Orders",
-      "ADD OTP": "Add an Otp"
+      "ADD OTP": "Add an Otp",
+      "ENTER A GIFT": "Enter a gift"
     },
     "COLUMN": {
-
+      "DATE": "Date",
+      "ADMINISTRATOR": "Administrator",
+      "EQUIPE GIVING": "Equipe giving",
+      "EQUIPE TAKING": "Equipe taking",
+      "AMOUNT": "Amount",
+      "GROUP": "Group",
+      "DESCRIPTION": "Description",
+      "EQUIPES": "Equipes",
+      "EQUIPE": "Equipe",
+      "AVAILABLE": "Available",
+      "SPENT": "Spent",
+      "DEBT": "Debt"
     },
     "LABEL": {
 
-    }
-=======
-    "MENU": {},
-    "COLUMN": {},
-    "LABEL": {}
->>>>>>> origin/master
+    }    
   },
   "STOCK": {
     "MENU": {
@@ -429,7 +446,14 @@
       "QUANTITIES LOST SALES": "Quantities lost to sales",
       "MANUAL CORRECTIONS QUANTITIES": "Manual corrections of quantities",
       "HISTORY MANUAL CORRECTIONS": "History of manual corrections",
-      "ENTER MANUAL CORRECTION": "Enter a manual correction"
+      "ENTER MANUAL CORRECTION": "Enter a manual correction",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "DELETE": "Delete",
+      "PROCESS ORDER": "Process order",
+      "PROCESS ORDER DETAIL": "Process order detail",
+      "PUT ORDER STOCK": "Put an order from stock",
+      "ORDERS": "Orders"
     },
     "COLUMN": {
       "PRODUCT": "Product",
@@ -487,6 +511,157 @@
     },
     "HELP": {
       "NEW VOUCHERS": "Here you can order new vouchers from your Lab Manager. You can also use one of your voucher to place an order on your webshopping platform."
+    }
+  },
+  "ORDER": {
+    "MENU": {
+      "DETAILS": "Details",
+      "REPARTITION": "Repartition",
+      "DELIVERIES": "Deliveries",
+      "ADD DELIVERIES": "Add deliveries",
+      "ALL DELIVERIES DETAILS": "All deliveries details",
+      "VIEW ORDERS": "View Orders",
+      "VIEW FRIDGE ORDERS": "View Fridge Orders",
+      "VIEW STOCK ORDERS": "View Stock Orders",
+      "VIEW WEB ORDERS": "View Web Orders",
+      "CREATE AN ORDER": "Create an Order",
+      "SHOPPING BASKET": "Shopping Basket",
+      "INFO ABOUT": "Info about",
+      "BUDGET CURRENT USER": "Budget of current user"
+    },
+    "COLUMN": {
+      "PRODUCT": "Product",
+      "ORDERED": "Ordered",
+      "ALREADY": "Already",
+      "TODAY": "Today",
+      "NO LOT": "No Lot",
+      "RESELL AS": "Resell as",
+      "QTY": "Qty",
+      "PRICE": "Price",
+      "TOTAL": "Total",
+      "OTP": "Otp",
+      "COMMENT": "Comment",
+      "WHEN": "When?",
+      "WHO": "Who?",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "How many",
+      "CATALOG NR": "Catalog Nr",
+      "PRICE/UNITY": "Price/Unity",
+      "QTY DELIVERED": "Qty delivered",
+      "DELETE": "Delete",
+      "LOCATION": "Location",
+      "LOT NUMBER": "Lot Number",
+      "QUANTITY": "Quantity"
+    },
+    "LABEL": {
+
+    }
+  },
+  "RECEPTION": {
+    "MENU": {
+      "NEW PACKET": "New packet",
+      "LIST OF PACKET": "List of packet"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "COMMUNICATION": {
+    "MENU": {
+      "NEW MESSAGE": "New message",
+      "LIST OF MESSAGES": "List of messages"
+    },
+    "COLUMN": {
+      "WHEN": "When?",
+      "ADMINISTRATOR": "Administrator",
+      "MESSAGE": "Message",
+      "DISABLED": "Disabled"
+    },
+    "LABEL": {
+
+    }
+  },
+  "SAP": {
+    "MENU": {
+      "SUMMARY": "Summary",
+      "ENGAGED": "Engaged",
+      "INVOICED": "Invoiced",
+      "ATTRIBUTION ÉQUIPES": "Attribution équipes",
+      "ALL": "All",
+      "POSTES ENGAGEMENT OPEN": "Postes engagement open",
+      "VIEW SAP ITEMS": "View Sap Items",
+      "ATTRIBUTE TO EQUIPE": "Attribute to equipe",
+      "RESPONSABLES": "Responsables",
+      "VIEW PIECE TYPES": "View Piece Types"
+    },
+    "COLUMN": {
+
+    },
+    "LABEL": {
+
+    }
+  },
+  "ADMINISTRATION": {
+    "MENU": {
+      "WEB SHOPPING": "Web Shopping",
+      "MONITORING": "Monitoring",
+      "LABORATORY": "Laboratory",
+      "ALL LABORATORIES": "All laboratories",
+      "LIST OF LABORATORIES": "List of laboratories",
+      "CREATE NEW LABORATORY": "Create new laboratory",
+<<<<<<< HEAD
+      "GENERAL": "general",
+      "ORDER VALIDATION": "Order validation",
+      "DELIVERY": "Delivery",
+      "ADRESSES": "Adresses",
+      "ADD ADDRESS": "Add Address",
+      "SAP": "Sap",
+      "FIRST IDS": "First Ids",
+      "LIST OF FIRST ID SAP": "List of first id Sap",
+      "ADD FIRST ID": "Add first id",
+      "OTP WARNING": "Otp warning",
+      "PLATFORM": "Platform",
+      "REQUESTED VOUCHERS": "Requested Vouchers",
+      "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
+      "USED VOUCHERS BY DATE": "Used Vouchers By Date",
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "PURCHASE": "Purchase",
+      "CREATE A VOUCHER": "Create a voucher"
+=======
+      "REQUESTED VOUCHERS": "Requested Vouchers",
+      "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
+      "USED VOUCHERS BY DATE": "Used Vouchers By Date",
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap"
+>>>>>>> origin/master
+    },
+    "COLUMN": {
+      "NAME OF DELIVERY": "Name of delivery",
+      "DESCRIPTION": "Description",
+      "NUMBER OF CHARACTERS": "Number of characters",
+      "STARTING WITH": "Starting with",
+      "FIRST ID": "First id",
+      "FOCUS ON": "Focus on",
+      "THRESHOLD": "Threshold",
+      "GRANULARITY": "Granularity",
+      "USER": "User",
+      "SUPPLIER": "Supplier",
+      "SAPID": "SAPId",
+      "USED": "Used",
+      "AMOUNT": "Amount",
+      "WEB SUPPLIER": "Web Supplier",
+      "CATEGORY": "Category",
+      "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers",
+      "LABO NAME": "Labo name",
+      "LABO SHORTCUT": "Labo shortcut",
+      "RESPONSABLES": "Responsables"
+    },
+    "LABEL": {
+
     }
   }
 }
