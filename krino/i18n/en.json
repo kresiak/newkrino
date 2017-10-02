@@ -594,7 +594,7 @@
       "POSTES ENGAGEMENT OPEN": "Postes engagement open",
       "VIEW SAP ITEMS": "View Sap Items",
       "ATTRIBUTE TO EQUIPE": "Attribute to project",
-      "RESPONSABLES": "Responsables",
+      "RESPONSABLES": "Supervisors",
       "VIEW PIECE TYPES": "View Piece Types"
     },
     "COLUMN": {
@@ -606,62 +606,38 @@
   },
   "ADMINISTRATION": {
     "MENU": {
+      "ALL LABORATORIES": "All laboratories",
       "WEB SHOPPING": "Web Shopping",
       "MONITORING": "Monitoring",
-      "LABORATORY": "Laboratory",
-      "ALL LABORATORIES": "All laboratories",
-      "LIST OF LABORATORIES": "List of laboratories",
-      "CREATE NEW LABORATORY": "Create new laboratory",
-      "GENERAL": "general",
-      "ORDER VALIDATION": "Order validation",
-      "DELIVERY": "Delivery",
-      "ADRESSES": "Adresses",
-      "REQUESTED VOUCHERS": "Requested Vouchers",
-      "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
-      "USED VOUCHERS BY DATE": "Used Vouchers By Date",
-      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap",
-      "ADD ADDRESS": "Add Address",
-      "SAP": "Sap",
-      "FIRST IDS": "First Ids",
-      "LIST OF FIRST ID SAP": "List of first id Sap",
-      "ADD FIRST ID": "Add first id",
-      "OTP WARNING": "Otp warning",
-      "PLATFORM": "Platform",
-      "INFO": "Info",
-      "COMMENTS": "Comments",
-      "PURCHASE": "Purchase",
-      "CREATE A VOUCHER": "Create a voucher"
+      "LABORATORY": "Laboratory"      
     },
     "COLUMN": {
-      "NAME OF DELIVERY": "Name of delivery",
-      "DESCRIPTION": "Description",
-      "NUMBER OF CHARACTERS": "Number of characters",
-      "STARTING WITH": "Starting with",
-      "FIRST ID": "First id",
-      "FOCUS ON": "Focus on",
-      "THRESHOLD": "Threshold",
-      "GRANULARITY": "Granularity",
-      "USER": "User",
-      "SUPPLIER": "Supplier",
-      "SAPID": "SAPId",
-      "USED": "Used",
-      "AMOUNT": "Amount",
-      "WEB SUPPLIER": "Web Supplier",
-      "CATEGORY": "Category",
-      "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers",
-      "LABO NAME": "Labo name",
-      "LABO SHORTCUT": "Labo shortcut",
-      "RESPONSABLES": "Responsables"
     },
     "LABEL": {
 
     },
     "WEB SHOPPING": {
       "MENU": {
-
+        "REQUESTED VOUCHERS": "Requested Vouchers",
+        "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
+        "USED VOUCHERS BY DATE": "Used Vouchers By Date",
+        "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap",
+        "CREATE A VOUCHER": "Create a voucher",
+        "INFO": "Info",
+        "COMMENTS": "Comments",
+        "PURCHASE": "Purchase",
+        "DELIVERY": "Delivery"
       },
       "COLUMN": {
-
+        "USER": "User",
+        "SUPPLIER": "Supplier",
+        "SAPID": "SAP Id",
+        "USED": "Used",
+        "CREATED": "Created",
+        "AMOUNT": "Amount",
+        "WEB SUPPLIER": "Web Supplier",
+        "CATEGORY": "Category",
+        "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers"
       },
       "LABEL": {
 
@@ -672,7 +648,9 @@
 
       },
       "COLUMN": {
-
+        "FOCUS ON": "Focus on",
+        "THRESHOLD": "Threshold",
+        "GRANULARITY": "Granularity"
       },
       "LABEL": {
 
@@ -680,7 +658,11 @@
     },
     "LABOCONFIG": {
       "MENU": {
-
+          "GENERAL": "General",
+          "ORDER VALIDATION": "Order validation",
+          "DELIVERY": "Delivery",
+          "SAP": "Sap",
+          "PLATFORM": "Platform"
       },
       "COLUMN": {
 
@@ -701,10 +683,12 @@
       },
       "LIVRAISON": {
         "MENU": {
-
+          "ADRESSES": "Adresses",
+          "ADD ADDRESS": "Add Address"
         },
         "COLUMN": {
-
+          "NAME OF DELIVERY": "Name of delivery",
+          "DESCRIPTION": "Description"
         },
         "LABEL": {
 
@@ -712,10 +696,16 @@
       },
       "SAP": {
         "MENU": {
-
+          "FIRST IDS": "First Ids",
+          "LIST OF FIRST ID SAP": "List of first id Sap",
+          "ADD FIRST ID": "Add first id",
+          "OTP WARNING": "Otp warning",
+          "GENERAL": "General"
         },
         "COLUMN": {
-
+          "NUMBER OF CHARACTERS": "Number of characters",
+          "STARTING WITH": "Starting with",
+          "FIRST ID": "First id"
         },
         "LABEL": {
 
@@ -735,10 +725,13 @@
     },
     "LABOS": {
       "MENU": {
-
+        "LIST OF LABORATORIES": "List of laboratories",
+        "CREATE NEW LABORATORY": "Create new laboratory"
       },
       "COLUMN": {
-
+        "LABO NAME": "Labo name",
+        "LABO SHORTCUT": "Labo shortcut",
+        "RESPONSABLES": "Supervisors"
       },
       "LABEL": {
         

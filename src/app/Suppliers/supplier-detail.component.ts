@@ -185,11 +185,11 @@ export class SupplierDetailComponent implements OnInit {
     }
 
     nbVouchersOrdered(categoryId): number {
-        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0
+        return (this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId)) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).nbVouchersOrdered : 0
     }
 
     nbVouchersAvailable(categoryId): number {
-        return this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).vouchers.length : 0
+        return (this.supplier.annotation.voucherCategoryMap && this.supplier.annotation.voucherCategoryMap.has(categoryId)) ? this.supplier.annotation.voucherCategoryMap.get(categoryId).vouchers.length : 0
     }
 
     nbVouchersOrderedUpdated(categoryId, nbOrdered) {

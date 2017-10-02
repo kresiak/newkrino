@@ -595,59 +595,35 @@
       "WEB SHOPPING": "Web Shopping",
       "MONITORING": "Monitoring",
       "LABORATORY": "Laboratoire",
-      "ALL LABORATORIES": "Tous les laboratoires",
-      "LIST OF LABORATORIES": "Liste des laboratoires",
-      "CREATE NEW LABORATORY": "Créer un laboratoire",
-      "GENERAL": "Général",
-      "ORDER VALIDATION": "Validation de commandes",
-      "DELIVERY": "Livraison",
-      "ADRESSES": "Adresses",
-      "REQUESTED VOUCHERS": "Coupons demandés",
-      "VOUCHERS BY CREATION DATE": "Coupons par date de création",
-      "USED VOUCHERS BY DATE": "Coupons utilisés par date",
-      "USED VOUCHERS READY FOR SAP": "Coupons utilisés prêts pour Sap",
-      "ADD ADDRESS": "Ajouter une Adresse",
-      "SAP": "Sap",
-      "FIRST IDS": "Premier Ids",
-      "LIST OF FIRST ID SAP": "Liste des premiers Ids dans Sap",
-      "ADD FIRST ID": "Ajouter un premier Id",
-      "OTP WARNING": "Alerte Otp",
-      "PLATFORM": "Platforme",
-      "INFO": "Info",
-      "COMMENTS": "Commentaire",
-      "PURCHASE": "Achat",
-      "CREATE A VOUCHER": "Créer un coupon"
+      "ALL LABORATORIES": "Tous les laboratoires"
     },
     "COLUMN": {
-      "NAME OF DELIVERY": "Nom de la livraison",
-      "DESCRIPTION": "Description",
-      "NUMBER OF CHARACTERS": "Number de caratcères",
-      "STARTING WITH": "Commence par",
-      "FIRST ID": "Premier id",
-      "FOCUS ON": "Focus sur",
-      "THRESHOLD": "Seuil",
-      "GRANULARITY": "Granularité",
-      "USER": "Utilisateur",
-      "SUPPLIER": "Fournisseur",
-      "SAPID": "SAP id",
-      "USED": "Utilisé",
-      "AMOUNT": "Montant",
-      "WEB SUPPLIER": "Fournisseur Web",
-      "CATEGORY": "Catégorie",
-      "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés",
-      "LABO NAME": "Nom du labo",
-      "LABO SHORTCUT": "Nom court",
-      "RESPONSABLES": "Responsables"
     },
     "LABEL": {
 
     },
     "WEB SHOPPING": {
       "MENU": {
-
+        "REQUESTED VOUCHERS": "Coupons demandés",
+        "VOUCHERS BY CREATION DATE": "Coupons par date de création",
+        "USED VOUCHERS READY FOR SAP": "Coupons utilisés prêts pour Sap",
+        "USED VOUCHERS BY DATE": "Coupons utilisés par date",
+        "CREATE A VOUCHER": "Créer un coupon",
+        "INFO": "Info",
+        "COMMENTS": "Commentaire",
+        "PURCHASE": "Achat",    
+        "DELIVERY": "Livraison"
       },
       "COLUMN": {
-
+        "USER": "Utilisateur",
+        "SUPPLIER": "Fournisseur",
+        "SAPID": "SAP id",
+        "USED": "Utilisé",
+        "CREATED": "Créé",        
+        "AMOUNT": "Montant",
+        "WEB SUPPLIER": "Fournisseur Web",
+        "CATEGORY": "Catégorie",
+        "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés"
       },
       "LABEL": {
 
@@ -658,7 +634,9 @@
 
       },
       "COLUMN": {
-
+        "FOCUS ON": "Focus sur",
+        "THRESHOLD": "Seuil",
+        "GRANULARITY": "Granularité"
       },
       "LABEL": {
 
@@ -666,7 +644,11 @@
     },
     "LABOCONFIG": {
       "MENU": {
-
+        "GENERAL": "Général",
+        "ORDER VALIDATION": "Validation de commandes",
+        "DELIVERY": "Livraison",
+        "SAP": "Sap",
+        "PLATFORM": "Platforme"
       },
       "COLUMN": {
 
@@ -687,10 +669,12 @@
       },
       "LIVRAISON": {
         "MENU": {
-
+          "ADRESSES": "Adresses",
+          "ADD ADDRESS": "Ajouter une Adresse"
         },
         "COLUMN": {
-
+          "NAME OF DELIVERY": "Nom de la livraison",
+          "DESCRIPTION": "Description"
         },
         "LABEL": {
 
@@ -698,10 +682,16 @@
       },
       "SAP": {
         "MENU": {
-
+          "GENERAL": "Général",
+          "FIRST IDS": "Premier Ids",
+          "LIST OF FIRST ID SAP": "Liste des premiers Ids dans Sap",
+          "ADD FIRST ID": "Ajouter un premier Id",
+          "OTP WARNING": "Alerte Otp"
         },
         "COLUMN": {
-
+          "NUMBER OF CHARACTERS": "Number de caratcères",
+          "STARTING WITH": "Commence par",
+          "FIRST ID": "Premier id"
         },
         "LABEL": {
 
@@ -721,13 +711,16 @@
     },
     "LABOS": {
       "MENU": {
-
+        "LIST OF LABORATORIES": "Liste des laboratoires",
+        "CREATE NEW LABORATORY": "Créer un laboratoire"
       },
       "COLUMN": {
-
+        "LABO NAME": "Nom du labo",
+        "LABO SHORTCUT": "Nom court",
+        "RESPONSABLES": "Responsables"
       },
       "LABEL": {
-        
+
       }
     }
   }

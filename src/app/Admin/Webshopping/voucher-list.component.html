@@ -25,16 +25,16 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-2"><b>{{'ADMINISTRATION.COLUMN.USER' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USER' | translate}}</b></div>
 
-							<div class="col-sm-3"><b>{{'ADMINISTRATION.COLUMN.SUPPLIER' | translate}}</b></div>
+							<div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SUPPLIER' | translate}}</b></div>
 
-							<div class="col-sm-3"><b>{{focusOnVoucherUsage ? 'Used ' : 'Created'}} </b></div>
+							<div class="col-sm-3"><b>{{getVoucherUsageText() | translate}} </b></div>
 
-							<div class="col-sm-1"><b>{{'ADMINISTRATION.COLUMN.SAPID' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SAPID' | translate}}</b></div>
 
-							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage"><b>{{'ADMINISTRATION.COLUMN.USED' | translate}}</b></div>
-							<div class="col-sm-2" *ngIf="focusOnVoucherUsage"><b>{{'ADMINISTRATION.COLUMN.AMOUNT' | translate}}</b></div>
+							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USED' | translate}}</b></div>
+							<div class="col-sm-2" *ngIf="focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.AMOUNT' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>

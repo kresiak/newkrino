@@ -80,5 +80,11 @@ export class VoucherListComponent implements OnInit {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
     }
+
+    private getVoucherUsageText() {
+        return this.focusOnVoucherUsage ? 'ADMINISTRATION.WEB SHOPPING.COLUMN.USED' : 'ADMINISTRATION.WEB SHOPPING.COLUMN.CREATED'
+    }
+
+
 }
 
