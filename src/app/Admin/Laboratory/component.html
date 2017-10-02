@@ -1,7 +1,7 @@
 <div class="card" *ngIf="labo && labo.data">
     <div class="card-block">
         <ngb-tabset>
-            <ngb-tab title="General" id="tabGeneral">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.GENERAL' | translate}}" id="tabGeneral">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -40,7 +40,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Order validation" id="tabValidation">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.ORDER VALIDATION' | translate}}" id="tabValidation">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
@@ -71,12 +71,12 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Delivery" id="tabDelivery">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.DELIVERY' | translate}}" id="tabDelivery">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="Adresses" id="tabAdresses">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.ADRESSES' | translate}}" id="tabAdresses">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -112,7 +112,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Add Address" id="tabAddAddress">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.ADD ADDRESS' | translate}}" id="tabAddAddress">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -167,12 +167,12 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Sap" id="tabSap">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.SAP' | translate}}" id="tabSap">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">
                             <ngb-tabset>
-                                <ngb-tab title="General" id="tabGeneral">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.GENERAL' | translate}}" id="tabGeneral">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -198,12 +198,12 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="First Ids" id="tabFirstIds">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.FIRST IDS' | translate}}" id="tabFirstIds">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
                                                 <ngb-tabset>
-                                                    <ngb-tab *ngIf="labo.data.sapFirstIdList && labo.data.sapFirstIdList.length > 0" title="List of first id Sap" id="tabListOfFirstIdSap">
+                                                    <ngb-tab *ngIf="labo.data.sapFirstIdList && labo.data.sapFirstIdList.length > 0" title="{{'ADMINISTRATION.MENU.List of first id Sap' | translate}}" id="tabListOfFirstIdSap">
                                                         <template ngbTabContent>
                                                             <div class="card">
                                                                 <div class="card-block">
@@ -229,7 +229,7 @@
                                                             </div>
                                                         </template>
                                                     </ngb-tab>
-                                                    <ngb-tab title="Add first id" id="tabAddFirstId">
+                                                    <ngb-tab title="{{'ADMINISTRATION.MENU.ADD FIRST ID' | translate}}" id="tabAddFirstId">
                                                         <template ngbTabContent>
                                                             <div class="card">
                                                                 <div class="card-block">
@@ -272,7 +272,7 @@
                                         </div>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Otp warning" id="tabOtpWarning">
+                                <ngb-tab title="{{'ADMINISTRATION.MENU.OTP WARNING' | translate}}" id="tabOtpWarning">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
@@ -303,7 +303,7 @@
                     </div>
                 </template>
             </ngb-tab>        
-            <ngb-tab title="Platform" id="tabPlatform">
+            <ngb-tab title="{{'ADMINISTRATION.MENU.PLATFORM' | translate}}" id="tabPlatform">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

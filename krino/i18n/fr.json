@@ -575,7 +575,18 @@
       "LABORATORY": "LaboratorY",
       "ALL LABORATORIES": "All laboratorieS",
       "LIST OF LABORATORIES": "List of laboratorieS",
-      "CREATE NEW LABORATORY": "Create new laboratorY"
+      "CREATE NEW LABORATORY": "Create new laboratorY",
+      "GENERAL": "generaL",
+      "ORDER VALIDATION": "Order validatioN",
+      "DELIVERY": "DeliverY",
+      "ADRESSES": "AdresseS",
+      "ADD ADDRESS": "Add AddresS",
+      "SAP": "SaP",
+      "FIRST IDS": "First IdS",
+      "LIST OF FIRST ID SAP": "List of first id SaP",
+      "ADD FIRST ID": "Add first iD",
+      "OTP WARNING": "Otp warninG",
+      "PLATFORM": "PlatforM"
     },
     "COLUMN": {
 
