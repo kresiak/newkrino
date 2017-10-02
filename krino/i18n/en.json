@@ -423,13 +423,13 @@
     "COLUMN": {
       "DATE": "Date",
       "ADMINISTRATOR": "Administrator",
-      "EQUIPE GIVING": "Equipe giving",
-      "EQUIPE TAKING": "Equipe taking",
+      "EQUIPE GIVING": "Project giving",
+      "EQUIPE TAKING": "Project taking",
       "AMOUNT": "Amount",
       "GROUP": "Group",
       "DESCRIPTION": "Description",
-      "EQUIPES": "Equipes",
-      "EQUIPE": "Equipe",
+      "EQUIPES": "Projects",
+      "EQUIPE": "Project",
       "AVAILABLE": "Available",
       "SPENT": "Spent",
       "DEBT": "Debt"
@@ -543,7 +543,7 @@
       "COMMENT": "Comment",
       "WHEN": "When?",
       "WHO": "Who?",
-      "EQUIPE": "Equipe",
+      "EQUIPE": "Project",
       "HOW MANY": "How many",
       "CATALOG NR": "Catalog Nr",
       "PRICE/UNITY": "Price/Unity",
@@ -593,7 +593,7 @@
       "ALL": "All",
       "POSTES ENGAGEMENT OPEN": "Postes engagement open",
       "VIEW SAP ITEMS": "View Sap Items",
-      "ATTRIBUTE TO EQUIPE": "Attribute to equipe",
+      "ATTRIBUTE TO EQUIPE": "Attribute to project",
       "RESPONSABLES": "Responsables",
       "VIEW PIECE TYPES": "View Piece Types"
     },
@@ -655,6 +655,94 @@
     },
     "LABEL": {
 
+    },
+    "WEB SHOPPING": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "MONITORING": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "LABOCONFIG": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      },
+      "VALIDATION": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "LIVRAISON": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "SAP": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "PLATFORM": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      }
+    },
+    "LABOS": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+        
+      }
     }
   }
 }

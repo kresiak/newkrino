@@ -1,6 +1,6 @@
 {
   "GENERAL": {
-    "YES":"oui",
+    "YES": "oui",
     "NO": "non",
     "EMPTY": "",
     "TOGGLE DETAILS": "Voir/cacher détails",
@@ -8,7 +8,7 @@
       "ADD NEW COMMENT": "Ajouter un commentaire",
       "ADD COMMENT": "Ajouter",
       "ALL COMMENTS": "Tous les commentaires"
-    }    
+    }
   },
   "HOME": {
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
@@ -368,9 +368,9 @@
     "LABEL": {
       "NAME OF PRODUCT": "nom du produit:",
       "DESCRIPTION": "description:",
-      "PACKAGE":"conditionnement:",
+      "PACKAGE": "conditionnement:",
       "CATALOG NR": "no catalogue:",
-      "PRICE": "prix:", 
+      "PRICE": "prix:",
       "NO OF ARTICLE": "no d'article:",
       "GROUP MARCHANDISE": "groupe marchandise:",
       "VAT": "tva:",
@@ -409,7 +409,7 @@
       "SPENDING": "Dépenses",
       "DEBTS": "Dettes",
       "OWING": "Je dois",
-      "OWED": "Ce qi m'est dû",
+      "OWED": "Ce qui m'est dû",
       "CHARTS": "Graphes",
       "USERS": "Utilisateurs",
       "OTPS": "Otps",
@@ -418,25 +418,23 @@
       "STOCK ORDERS": "Commandes du stock",
       "VOUCHER ORDERS": "Commandes coupons",
       "ADD OTP": "Créer un otp",
-      "ENTER A GIFT": "Enter a gifT"
+      "ENTER A GIFT": "Entrer un cadeau"
     },
     "COLUMN": {
       "DATE": "DatE",
-      "ADMINISTRATOR": "AdministratoR",
-      "EQUIPE GIVING": "Equipe givinG",
-      "EQUIPE TAKING": "Equipe takinG",
-      "AMOUNT": "AmounT",
-      "GROUP": "GrouP",
-      "DESCRIPTION": "DescriptioN",
-      "EQUIPES": "EquipeS",
-      "EQUIPE": "EquipE",
-      "AVAILABLE": "AvailablE",
-      "SPENT": "SpenT",
-      "DEBT": "DebT"
+      "ADMINISTRATOR": "Administrateur",
+      "EQUIPE GIVING": "Equipe qui donne",
+      "EQUIPE TAKING": "Equipe quie reçoit",
+      "AMOUNT": "Montant",
+      "GROUP": "Groupe",
+      "DESCRIPTION": "Description",
+      "EQUIPES": "Equipes",
+      "EQUIPE": "Equipe",
+      "AVAILABLE": "Disponible",
+      "SPENT": "Dépensé",
+      "DEBT": "Dette"
     },
-    "LABEL": {
-
-    }
+    "LABEL": {}
   },
   "STOCK": {
     "MENU": {
@@ -530,44 +528,38 @@
       "BUDGET CURRENT USER": "Budget de l'utilisateur actuel"
     },
     "COLUMN": {
-      "PRODUCT": "ProducT",
-      "ORDERED": "OrdereD",
-      "ALREADY": "AlreadY",
-      "TODAY": "TodaY",
-      "NO LOT": "No LoT",
-      "RESELL AS": "Resell aS",
-      "QTY": "QtY",
-      "PRICE": "PricE",
-      "TOTAL": "TotaL",
-      "OTP": "OtP",
-      "COMMENT": "CommenT",
-      "WHEN": "WheN?",
-      "WHO": "WhO?",
-      "EQUIPE": "EquipE",
-      "HOW MANY": "How manY",
-      "CATALOG NR": "Catalog NR",
-      "PRICE/UNITY": "Price/UnitY",
-      "QTY DELIVERED": "Qty delivereD",
-      "DELETE": "DeletE",
-      "LOCATION": "LocatioN",
-      "LOT NUMBER": "Lot NumbeR",
-      "QUANTITY": "QuantitY"
+      "PRODUCT": "Produit",
+      "ORDERED": "Commandé",
+      "ALREADY": "A ce jour",
+      "TODAY": "Aujourd'hui",
+      "NO LOT": "Numéro de lot",
+      "RESELL AS": "Revendu comme",
+      "QTY": "Qté",
+      "PRICE": "Prix",
+      "TOTAL": "Total",
+      "OTP": "Otp",
+      "COMMENT": "Commentaire",
+      "WHEN": "Quand?",
+      "WHO": "Qui?",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "Quantité",
+      "CATALOG NR": "No catalogue",
+      "PRICE/UNITY": "Prix unitaire",
+      "QTY DELIVERED": "Qté livrée",
+      "DELETE": "Supprimer",
+      "LOCATION": "Endroit",
+      "LOT NUMBER": "No de lot",
+      "QUANTITY": "Quantité"
     },
-    "LABEL": {
-
-    }
+    "LABEL": {}
   },
   "RECEPTION": {
     "MENU": {
       "NEW PACKET": "Nouveau paquet",
       "LIST OF PACKET": "Tous les paquets reçus"
     },
-    "COLUMN": {
-
-    },
-    "LABEL": {
-
-    }
+    "COLUMN": {},
+    "LABEL": {}
   },
   "COMMUNICATION": {
     "MENU": {
@@ -575,86 +567,168 @@
       "LIST OF MESSAGES": "Tous les messages"
     },
     "COLUMN": {
-      "WHEN": "WheN?",
-      "ADMINISTRATOR": "AdministratoR",
-      "MESSAGE": "MessagE",
-      "DISABLED": "DisableD"
+      "WHEN": "Quand?",
+      "ADMINISTRATOR": "Administrateur",
+      "MESSAGE": "Message",
+      "DISABLED": "Désactivé"
     },
-    "LABEL": {
-
-    }
+    "LABEL": {}
   },
   "SAP": {
     "MENU": {
-      "SUMMARY": "SummarY",
-      "ENGAGED": "EngageD",
-      "INVOICED": "InvoiceD",
-      "ATTRIBUTION ÉQUIPES": "Attribution équipeS",
-      "ALL": "AlL",
-      "POSTES ENGAGEMENT OPEN": "Postes engagement opeN",
-      "VIEW SAP ITEMS": "View Sap ItemS",
-      "ATTRIBUTE TO EQUIPE": "Attribute to equipE",
-      "RESPONSABLES": "ResponsableS",
-      "VIEW PIECE TYPES": "View Piece TypeS"
+      "SUMMARY": "Résumé",
+      "ENGAGED": "Engagé",
+      "INVOICED": "Facturé",
+      "ATTRIBUTION ÉQUIPES": "Attribution équipes",
+      "ALL": "Tout",
+      "POSTES ENGAGEMENT OPEN": "Postes engagés ouverts",
+      "VIEW SAP ITEMS": "Voire pièces Sap",
+      "ATTRIBUTE TO EQUIPE": "Attribution aux équipes",
+      "RESPONSABLES": "Responsables",
+      "VIEW PIECE TYPES": "Pièces par type"
     },
-    "COLUMN": {
-
-    },
-    "LABEL": {
-      
-    }
+    "COLUMN": {},
+    "LABEL": {}
   },
   "ADMINISTRATION": {
     "MENU": {
-      "WEB SHOPPING": "Web ShoppinG",
-      "MONITORING": "MonitorinG",
-      "LABORATORY": "LaboratorY",
-      "ALL LABORATORIES": "All laboratorieS",
-      "LIST OF LABORATORIES": "List of laboratorieS",
-      "CREATE NEW LABORATORY": "Create new laboratorY",
-      "GENERAL": "generaL",
-      "ORDER VALIDATION": "Order validatioN",
-      "DELIVERY": "DeliverY",
-      "ADRESSES": "AdresseS",
-      "REQUESTED VOUCHERS": "Requested VoucherS",
-      "VOUCHERS BY CREATION DATE": "Vouchers By Creation DatE",
-      "USED VOUCHERS BY DATE": "Used Vouchers By DatE",
-      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For SaP",
-      "ADD ADDRESS": "Add AddresS",
-      "SAP": "SaP",
-      "FIRST IDS": "First IdS",
-      "LIST OF FIRST ID SAP": "List of first id SaP",
-      "ADD FIRST ID": "Add first iD",
-      "OTP WARNING": "Otp warninG",
-      "PLATFORM": "PlatforM",
-      "INFO": "InfO",
-      "COMMENTS": "CommentS",
-      "PURCHASE": "PurchasE",
-      "CREATE A VOUCHER": "Create a voucheR"
+      "WEB SHOPPING": "Web Shopping",
+      "MONITORING": "Monitoring",
+      "LABORATORY": "Laboratoire",
+      "ALL LABORATORIES": "Tous les laboratoires",
+      "LIST OF LABORATORIES": "Liste des laboratoires",
+      "CREATE NEW LABORATORY": "Créer un laboratoire",
+      "GENERAL": "Général",
+      "ORDER VALIDATION": "Validation de commandes",
+      "DELIVERY": "Livraison",
+      "ADRESSES": "Adresses",
+      "REQUESTED VOUCHERS": "Coupons demandés",
+      "VOUCHERS BY CREATION DATE": "Coupons par date de création",
+      "USED VOUCHERS BY DATE": "Coupons utilisés par date",
+      "USED VOUCHERS READY FOR SAP": "Coupons utilisés prêts pour Sap",
+      "ADD ADDRESS": "Ajouter une Adresse",
+      "SAP": "Sap",
+      "FIRST IDS": "Premier Ids",
+      "LIST OF FIRST ID SAP": "Liste des premiers Ids dans Sap",
+      "ADD FIRST ID": "Ajouter un premier Id",
+      "OTP WARNING": "Alerte Otp",
+      "PLATFORM": "Platforme",
+      "INFO": "Info",
+      "COMMENTS": "Commentaire",
+      "PURCHASE": "Achat",
+      "CREATE A VOUCHER": "Créer un coupon"
     },
     "COLUMN": {
-      "NAME OF DELIVERY": "Name of deliverY",
-      "DESCRIPTION": "DescriptioN",
-      "NUMBER OF CHARACTERS": "Number of characterS",
-      "STARTING WITH": "Starting witH",
-      "FIRST ID": "First iD",
-      "FOCUS ON": "Focus oN",
-      "THRESHOLD": "ThresholD",
-      "GRANULARITY": "GranularitY",
-      "USER": "UseR",
-      "SUPPLIER": "SupplieR",
-      "SAPID": "SAPID",
-      "USED": "UseD",
-      "AMOUNT": "AmounT",
-      "WEB SUPPLIER": "Web SupplieR",
-      "CATEGORY": "CategorY",
-      "NB OF REQUESTED VOUCHERS": "Nb of requested voucherS",
-      "LABO NAME": "Labo namE",
-      "LABO SHORTCUT": "Labo shortcuT",
-      "RESPONSABLES": "ResponsableS"
+      "NAME OF DELIVERY": "Nom de la livraison",
+      "DESCRIPTION": "Description",
+      "NUMBER OF CHARACTERS": "Number de caratcères",
+      "STARTING WITH": "Commence par",
+      "FIRST ID": "Premier id",
+      "FOCUS ON": "Focus sur",
+      "THRESHOLD": "Seuil",
+      "GRANULARITY": "Granularité",
+      "USER": "Utilisateur",
+      "SUPPLIER": "Fournisseur",
+      "SAPID": "SAP id",
+      "USED": "Utilisé",
+      "AMOUNT": "Montant",
+      "WEB SUPPLIER": "Fournisseur Web",
+      "CATEGORY": "Catégorie",
+      "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés",
+      "LABO NAME": "Nom du labo",
+      "LABO SHORTCUT": "Nom court",
+      "RESPONSABLES": "Responsables"
     },
     "LABEL": {
 
+    },
+    "WEB SHOPPING": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "MONITORING": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "LABOCONFIG": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      },
+      "VALIDATION": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "LIVRAISON": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "SAP": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      },
+      "PLATFORM": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      }
+    },
+    "LABOS": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+        
+      }
     }
   }
 }
