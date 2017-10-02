@@ -586,7 +586,11 @@
       "LIST OF FIRST ID SAP": "List of first id Sap",
       "ADD FIRST ID": "Add first id",
       "OTP WARNING": "Otp warning",
-      "PLATFORM": "Platform"
+      "PLATFORM": "Platform",
+      "REQUESTED VOUCHERS": "Requested Vouchers",
+      "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
+      "USED VOUCHERS BY DATE": "Used Vouchers By Date",
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap"
     },
     "COLUMN": {
 
