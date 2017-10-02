@@ -82,11 +82,11 @@
                                             <div class="card-block">
                                                 <div class="container-fluid">
                                                     <div class="row">
-                                                        <div class="col-sm-2 vcenter"><b>Name of delivery</b></div>
-                                                        <div class="col-sm-2 vcenter"><b>Description 1</b></div>
-                                                        <div class="col-sm-2 vcenter"><b>Description 2</b></div>
-                                                        <div class="col-sm-2 vcenter"><b>Description 3</b></div>
-                                                        <div class="col-sm-2 vcenter"><b>Description 4</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.COLUMN.NAME OF DELIVERY' | translate}}</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.COLUMN.DESCRIPTION' | translate}} 1</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.COLUMN.DESCRIPTION' | translate}} 2</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.COLUMN.DESCRIPTION' | translate}} 3</b></div>
+                                                        <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.COLUMN.DESCRIPTION' | translate}} 4</b></div>
                                                     </div>
                                                     <div *ngFor="let delivery of deliveryAdresses">
                                                         <div class="row">
@@ -208,9 +208,9 @@
                                                             <div class="card">
                                                                 <div class="card-block">
                                                                     <div class="row">
-                                                                        <div class="col-sm-3 vcenter"><b>Number of characters</b></div>
-                                                                        <div class="col-sm-3 vcenter"><b>Starting with</b></div>
-                                                                        <div class="col-sm-3 vcenter"><b>First id</b></div>
+                                                                        <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.COLUMN.NUMBER OF CHARACTERS' | translate}}</b></div>
+                                                                        <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.COLUMN.STARTING WITH' | translate}}</b></div>
+                                                                        <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.COLUMN.FIRST ID' | translate}}</b></div>
                                                                     </div>
                                                                     <div *ngFor="let firstIdItem of labo.data.sapFirstIdList">
                                                                         <div class="row">

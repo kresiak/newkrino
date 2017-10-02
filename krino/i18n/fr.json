@@ -597,7 +597,25 @@
       "CREATE A VOUCHER": "Create a voucheR"
     },
     "COLUMN": {
-
+      "NAME OF DELIVERY": "Name of deliverY",
+      "DESCRIPTION": "DescriptioN",
+      "NUMBER OF CHARACTERS": "Number of characterS",
+      "STARTING WITH": "Starting witH",
+      "FIRST ID": "First iD",
+      "FOCUS ON": "Focus oN",
+      "THRESHOLD": "ThresholD",
+      "GRANULARITY": "GranularitY",
+      "USER": "UseR",
+      "SUPPLIER": "SupplieR",
+      "SAPID": "SAPID",
+      "USED": "UseD",
+      "AMOUNT": "AmounT",
+      "WEB SUPPLIER": "Web SupplieR",
+      "CATEGORY": "CategorY",
+      "NB OF REQUESTED VOUCHERS": "Nb of requested voucherS",
+      "LABO NAME": "Labo namE",
+      "LABO SHORTCUT": "Labo shortcuT",
+      "RESPONSABLES": "ResponsableS"
     },
     "LABEL": {
 

@@ -597,7 +597,25 @@
       "CREATE A VOUCHER": "Create a voucher"
     },
     "COLUMN": {
-
+      "NAME OF DELIVERY": "Name of delivery",
+      "DESCRIPTION": "Description",
+      "NUMBER OF CHARACTERS": "Number of characters",
+      "STARTING WITH": "Starting with",
+      "FIRST ID": "First id",
+      "FOCUS ON": "Focus on",
+      "THRESHOLD": "Threshold",
+      "GRANULARITY": "Granularity",
+      "USER": "User",
+      "SUPPLIER": "Supplier",
+      "SAPID": "SAPId",
+      "USED": "Used",
+      "AMOUNT": "Amount",
+      "WEB SUPPLIER": "Web Supplier",
+      "CATEGORY": "Category",
+      "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers",
+      "LABO NAME": "Labo name",
+      "LABO SHORTCUT": "Labo shortcut",
+      "RESPONSABLES": "Responsables"
     },
     "LABEL": {
 
