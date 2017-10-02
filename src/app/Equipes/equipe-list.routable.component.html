@@ -50,7 +50,7 @@
                                         <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Enter a gift" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
+                                <ngb-tab title="{{'EQUIPE.MENU.ENTER A GIFT' | translate}}" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
                                     <template ngbTabContent>
                                         <div class="card">
                                             <div class="card-block">
