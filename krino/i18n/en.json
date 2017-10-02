@@ -417,7 +417,8 @@
       "FRIDGE ORDERS": "Fridge Orders",
       "STOCK ORDERS": "Stock Orders",
       "VOUCHER ORDERS": "Voucher Orders",
-      "ADD OTP": "Add an Otp"
+      "ADD OTP": "Add an Otp",
+      "ENTER A GIFT": "Enter a gift"
     },
     "COLUMN": {
 
@@ -575,7 +576,11 @@
       "LABORATORY": "Laboratory",
       "ALL LABORATORIES": "All laboratories",
       "LIST OF LABORATORIES": "List of laboratories",
-      "CREATE NEW LABORATORY": "Create new laboratory"
+      "CREATE NEW LABORATORY": "Create new laboratory",
+      "REQUESTED VOUCHERS": "Requested Vouchers",
+      "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
+      "USED VOUCHERS BY DATE": "Used Vouchers By Date",
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap"
     },
     "COLUMN": {
 
