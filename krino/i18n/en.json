@@ -590,7 +590,11 @@
       "REQUESTED VOUCHERS": "Requested Vouchers",
       "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
       "USED VOUCHERS BY DATE": "Used Vouchers By Date",
-      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap"
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "PURCHASE": "Purchase",
+      "CREATE A VOUCHER": "Create a voucher"
     },
     "COLUMN": {
 
