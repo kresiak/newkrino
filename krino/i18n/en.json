@@ -420,7 +420,18 @@
       "ADD OTP": "Add an Otp"
     },
     "COLUMN": {
-
+      "DATE": "Date",
+      "ADMINISTRATOR": "Administrator",
+      "EQUIPE GIVING": "Equipe giving",
+      "EQUIPE TAKING": "Equipe taking",
+      "AMOUNT": "Amount",
+      "GROUP": "Group",
+      "DESCRIPTION": "Description",
+      "EQUIPES": "Equipes",
+      "EQUIPE": "Equipe",
+      "AVAILABLE": "Available",
+      "SPENT": "Spent",
+      "DEBT": "Debt"
     },
     "LABEL": {
 
@@ -542,7 +553,10 @@
       "LIST OF MESSAGES": "List of messages"
     },
     "COLUMN": {
-
+      "WHEN": "When?",
+      "ADMINISTRATOR": "Administrator",
+      "MESSAGE": "Message",
+      "DISABLED": "Disabled"
     },
     "LABEL": {
 

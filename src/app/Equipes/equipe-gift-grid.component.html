@@ -3,11 +3,11 @@
 	<div class="card-block">   
 		<div class="row">
 			<div class="row">
-				<div class="col-sm-2 vcenter"><b>Date</b></div>
-				<div class="col-sm-2 vcenter"><b>Administrator</b></div>
-				<div class="col-sm-2 vcenter"><b>Equipe giving</b></div>
-				<div class="col-sm-2 vcenter"><b>Equipe taking</b></div>
-				<div class="col-sm-2 vcenter"><b>Amount</b></div>				
+				<div class="col-sm-2 vcenter"><b>{{'EQUIPE.COLUMN.DATE' | translate}}</b></div>
+				<div class="col-sm-2 vcenter"><b>{{'EQUIPE.COLUMN.ADMINISTRATOR' | translate}}</b></div>
+				<div class="col-sm-2 vcenter"><b>{{'EQUIPE.COLUMN.EQUIPE GIVING' | translate}}</b></div>
+				<div class="col-sm-2 vcenter"><b>{{'EQUIPE.COLUMN.EQUIPE TAKING' | translate}}</b></div>
+				<div class="col-sm-2 vcenter"><b>{{'EQUIPE.COLUMN.AMOUNT' | translate}}</b></div>
 			</div>
 			<div class="row" *ngFor="let gift of equipeGifts">
 				<div class="col-sm-2 vcenter">{{gift.data.createDate | shortDate}}</div>
