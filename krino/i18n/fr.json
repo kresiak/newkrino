@@ -529,7 +529,28 @@
       "BUDGET CURRENT USER": "Budget de l'utilisateur actuel"
     },
     "COLUMN": {
-
+      "PRODUCT": "ProducT",
+      "ORDERED": "OrdereD",
+      "ALREADY": "AlreadY",
+      "TODAY": "TodaY",
+      "NO LOT": "No LoT",
+      "RESELL AS": "Resell aS",
+      "QTY": "QtY",
+      "PRICE": "PricE",
+      "TOTAL": "TotaL",
+      "OTP": "OtP",
+      "COMMENT": "CommenT",
+      "WHEN": "WheN?",
+      "WHO": "WhO?",
+      "EQUIPE": "EquipE",
+      "HOW MANY": "How manY",
+      "CATALOG NR": "Catalog NR",
+      "PRICE/UNITY": "Price/UnitY",
+      "QTY DELIVERED": "Qty delivereD",
+      "DELETE": "DeletE",
+      "LOCATION": "LocatioN",
+      "LOT NUMBER": "Lot NumbeR",
+      "QUANTITY": "QuantitY"
     },
     "LABEL": {
 
