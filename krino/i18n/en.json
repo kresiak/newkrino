@@ -421,7 +421,18 @@
       "ENTER A GIFT": "Enter a gift"
     },
     "COLUMN": {
-
+      "DATE": "Date",
+      "ADMINISTRATOR": "Administrator",
+      "EQUIPE GIVING": "Equipe giving",
+      "EQUIPE TAKING": "Equipe taking",
+      "AMOUNT": "Amount",
+      "GROUP": "Group",
+      "DESCRIPTION": "Description",
+      "EQUIPES": "Equipes",
+      "EQUIPE": "Equipe",
+      "AVAILABLE": "Available",
+      "SPENT": "Spent",
+      "DEBT": "Debt"
     },
     "LABEL": {
 
@@ -519,7 +530,28 @@
       "BUDGET CURRENT USER": "Budget of current user"
     },
     "COLUMN": {
-
+      "PRODUCT": "Product",
+      "ORDERED": "Ordered",
+      "ALREADY": "Already",
+      "TODAY": "Today",
+      "NO LOT": "No Lot",
+      "RESELL AS": "Resell as",
+      "QTY": "Qty",
+      "PRICE": "Price",
+      "TOTAL": "Total",
+      "OTP": "Otp",
+      "COMMENT": "Comment",
+      "WHEN": "When?",
+      "WHO": "Who?",
+      "EQUIPE": "Equipe",
+      "HOW MANY": "How many",
+      "CATALOG NR": "Catalog Nr",
+      "PRICE/UNITY": "Price/Unity",
+      "QTY DELIVERED": "Qty delivered",
+      "DELETE": "Delete",
+      "LOCATION": "Location",
+      "LOT NUMBER": "Lot Number",
+      "QUANTITY": "Quantity"
     },
     "LABEL": {
 
@@ -543,7 +575,10 @@
       "LIST OF MESSAGES": "List of messages"
     },
     "COLUMN": {
-
+      "WHEN": "When?",
+      "ADMINISTRATOR": "Administrator",
+      "MESSAGE": "Message",
+      "DISABLED": "Disabled"
     },
     "LABEL": {
 
@@ -577,13 +612,46 @@
       "ALL LABORATORIES": "All laboratories",
       "LIST OF LABORATORIES": "List of laboratories",
       "CREATE NEW LABORATORY": "Create new laboratory",
+      "GENERAL": "general",
+      "ORDER VALIDATION": "Order validation",
+      "DELIVERY": "Delivery",
+      "ADRESSES": "Adresses",
       "REQUESTED VOUCHERS": "Requested Vouchers",
       "VOUCHERS BY CREATION DATE": "Vouchers By Creation Date",
       "USED VOUCHERS BY DATE": "Used Vouchers By Date",
-      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap"
+      "USED VOUCHERS READY FOR SAP": "Used vouchers ready For Sap",
+      "ADD ADDRESS": "Add Address",
+      "SAP": "Sap",
+      "FIRST IDS": "First Ids",
+      "LIST OF FIRST ID SAP": "List of first id Sap",
+      "ADD FIRST ID": "Add first id",
+      "OTP WARNING": "Otp warning",
+      "PLATFORM": "Platform",
+      "INFO": "Info",
+      "COMMENTS": "Comments",
+      "PURCHASE": "Purchase",
+      "CREATE A VOUCHER": "Create a voucher"
     },
     "COLUMN": {
-
+      "NAME OF DELIVERY": "Name of delivery",
+      "DESCRIPTION": "Description",
+      "NUMBER OF CHARACTERS": "Number of characters",
+      "STARTING WITH": "Starting with",
+      "FIRST ID": "First id",
+      "FOCUS ON": "Focus on",
+      "THRESHOLD": "Threshold",
+      "GRANULARITY": "Granularity",
+      "USER": "User",
+      "SUPPLIER": "Supplier",
+      "SAPID": "SAPId",
+      "USED": "Used",
+      "AMOUNT": "Amount",
+      "WEB SUPPLIER": "Web Supplier",
+      "CATEGORY": "Category",
+      "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers",
+      "LABO NAME": "Labo name",
+      "LABO SHORTCUT": "Labo shortcut",
+      "RESPONSABLES": "Responsables"
     },
     "LABEL": {
 
