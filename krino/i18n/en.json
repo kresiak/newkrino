@@ -589,7 +589,7 @@
       "SUMMARY": "Summary",
       "ENGAGED": "Engaged",
       "INVOICED": "Invoiced",
-      "ATTRIBUTION ÉQUIPES": "Attribution équipes",
+      "ATTRIBUTION ÉQUIPES": "Attribution to projects",
       "ALL": "All",
       "POSTES ENGAGEMENT OPEN": "Postes engagement open",
       "VIEW SAP ITEMS": "View Sap Items",
@@ -649,7 +649,7 @@
         "AMOUNT": "amount:",
         "OTP": "otp:",
         "USING DATE": "using date:",
-        "USED BY EQUIPE": "used by equipe:",
+        "USED BY EQUIPE": "used by project team:",
         "DESCRIPTION": "description:",
         "TOTAL": "total:",
         "NO DELIVERY YET": "no delivery yet",
@@ -672,7 +672,7 @@
       },
       "LABEL": {
         "USERS": "users:",
-        "ÉQUIPES": "équipes:",
+        "ÉQUIPES": "projects:",
         "CATEGORIES": "categories:",
         "OTPS": "otps:"
       }
@@ -703,7 +703,7 @@
 
         },
         "LABEL": {
-          "HEAD OF EQUIPE": "Head of equipe",
+          "HEAD OF EQUIPE": "Head of project team",
           "EXECUTIVE SECRETARY": "Executive secretary",
           "ANY MEMBER OF": "Any member of"
         }

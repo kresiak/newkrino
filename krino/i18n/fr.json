@@ -626,22 +626,22 @@
         "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés"
       },
       "LABEL": {
-        "CREATION DATE VOUCHER": "creation date of the voucheR:",
-        "USAGE": "usagE:",
-        "SAP HAS BEEN UPDATED": "Sap has been updateD:",
-        "FOR THE USE OF USER": "for the use of useR:",
-        "WEB SUPPLIER": "web supplieR:",
-        "SAP ID TO BE USED": "Sap Id to be useD:",
-        "AMOUNT": "amounT:",
-        "OTP": "otP:",
-        "USING DATE": "using datE:",
-        "USED BY EQUIPE": "used by equipE:",
-        "DESCRIPTION": "descriptioN:",
-        "TOTAL": "totaL:",
-        "NO DELIVERY YET": "no delivery yeT",
-        "PARTIALLY DELIVERED": "partially delivereD",
-        "FULLY DELIVERED": "fully delivereD",
-        "SAP ID": "sap ID:"
+        "CREATION DATE VOUCHER": "date de création du coupon:",
+        "USAGE": "usage:",
+        "SAP HAS BEEN UPDATED": "Sap a été mis à jour:",
+        "FOR THE USE OF USER": "pour l'utilisateur:",
+        "WEB SUPPLIER": "fournisseur web:",
+        "SAP ID TO BE USED": "sap id à utiliser:",
+        "AMOUNT": "montant:",
+        "OTP": "otp:",
+        "USING DATE": "date d'utilisation:",
+        "USED BY EQUIPE": "utilisé par l'équipe:",
+        "DESCRIPTION": "description:",
+        "TOTAL": "total:",
+        "NO DELIVERY YET": "pas encore de livraison",
+        "PARTIALLY DELIVERED": "livraison partielle",
+        "FULLY DELIVERED": "livraison complète",
+        "SAP ID": "sap id:"
       }
     },
     "MONITORING": {
@@ -652,15 +652,15 @@
         "FOCUS ON": "Focus sur",
         "THRESHOLD": "Seuil",
         "GRANULARITY": "Granularité",
-        "ONE TIME": "one timE",
-        "ONE DAY": "one daY",
-        "ONE WEEK": "one weeK"
+        "ONE TIME": "une seule fois",
+        "ONE DAY": "un jour",
+        "ONE WEEK": "une semaine"
       },
       "LABEL": {
-        "USERS": "userS:",
-        "ÉQUIPES": "équipeS:",
-        "CATEGORIES": "categorieS:",
-        "OTPS": "otpS:"
+        "USERS": "utilisateurs:",
+        "ÉQUIPES": "équipes:",
+        "CATEGORIES": "catégories:",
+        "OTPS": "otps:"
       }
     },
     "LABOCONFIG": {
@@ -675,11 +675,11 @@
 
       },
       "LABEL": {
-        "NAME OF LABORATORY": "name of laboratorY:",
-        "START OF KRINO": "start of KrinO:",
-        "HEAD OF LABORATORY": "head(s) of laboratorY:",
-        "EXECUTIVE SECRETARY": "Executive secretarY",
-        "GROUPED ORDERS USER PASSWORD": "grouped orders user passworD:"
+        "NAME OF LABORATORY": "nom du laboratoire:",
+        "START OF KRINO": "date de lancement de Krino:",
+        "HEAD OF LABORATORY": "chef du laboratoire:",
+        "EXECUTIVE SECRETARY": "secrétaire exécutive",
+        "GROUPED ORDERS USER PASSWORD": "mot de passe de l'utilisateur qui gère les commandes groupées:"
       },
       "VALIDATION": {
         "MENU": {
@@ -689,9 +689,9 @@
 
         },
         "LABEL": {
-          "HEAD OF EQUIPE": "Head of equipE",
-          "EXECUTIVE SECRETARY": "Executive secretarY",
-          "ANY MEMBER OF": "Any member oF"
+          "HEAD OF EQUIPE": "chef d'équipe",
+          "EXECUTIVE SECRETARY": "secrétaire exécutive",
+          "ANY MEMBER OF": "n'importe quel membre de"
         }
       },
       "LIVRAISON": {
@@ -700,12 +700,12 @@
           "ADD ADDRESS": "Ajouter une Adresse"
         },
         "COLUMN": {
-          "NAME OF DELIVERY": "Nom de la livraison",
+          "NAME OF DELIVERY": "Nom de l'adresse de livraison",
           "DESCRIPTION": "Description"
         },
         "LABEL": {
-          "NAME OF DELIVERY": "Name of deliverY:",
-          "DESCRIPTION": "DescriptioN"
+          "NAME OF DELIVERY": "nom de l'adresse de livraison:",
+          "DESCRIPTION": "description"
         }
       },
       "SAP": {
@@ -722,15 +722,15 @@
           "FIRST ID": "Premier id"
         },
         "LABEL": {
-          "MAXIMAL AMOUNT ORDER": "Maximal amount in one ordeR:",
-          "LAST SAP ID BEFORE KRINO": "Last sap Id before KrinO:",
-          "LIST OTHERS SAP BEFORE KRINO": "List of others Sap Ids before KrinO:",
-          "NUMBER OF CHARACTERS": "Number of characterS:",
-          "STARTING WITH": "Starting witH:",
-          "FIRST ID": "First iD:",
-          "MONTHS BEFORE END": "number of months before enD:",
-          "NUMBER OF REPEATS AFTER FIRST WARNING": "number of repeats after first warninG:",
-          "NUMBER OF DAYS TO WAIT BEFORE REPEAT": "number of days to wait before repeaT:"
+          "MAXIMAL AMOUNT ORDER": "Montant maximal par commande:",
+          "LAST SAP ID BEFORE KRINO": "Dernier sap Id avant lancement de Krino:",
+          "LIST OTHERS SAP BEFORE KRINO": "Liste des autres sap Ids avant Krino:",
+          "NUMBER OF CHARACTERS": "Nombre de caractères:",
+          "STARTING WITH": "Commence avec:",
+          "FIRST ID": "Premier id:",
+          "MONTHS BEFORE END": "nombre de mois avant la fin:",
+          "NUMBER OF REPEATS AFTER FIRST WARNING": "nombre de répétitions après premier avertissement:",
+          "NUMBER OF DAYS TO WAIT BEFORE REPEAT": "nombre de jours avant la répétition:"
         }
       },
       "PLATFORM": {
@@ -741,8 +741,8 @@
 
         },
         "LABEL": {
-          "SELLING SERVICES AS SUPPLIER": "selling services as supplieR",
-          "SERVICES PRODUCT CATEGORY": "services product categorY"
+          "SELLING SERVICES AS SUPPLIER": "services revendus sous le fournisseur suivant",
+          "SERVICES PRODUCT CATEGORY": "catégorie de produit par défaut des service revendus"
         }
       }
     },
@@ -757,12 +757,12 @@
         "RESPONSABLES": "Responsables"
       },
       "LABEL": {
-        "LABO NAME": "labo namE:",
-        "LABO SHORT NAME": "labo short namE:",
-        "USER FIRST NAME": "user first namE:",
-        "USER LAST NAME": "user last namE:",
-        "EMAIL": "emaiL:",
-        "USER PASSWORD": "user passworD:"
+        "LABO NAME": "nom du labo:",
+        "LABO SHORT NAME": "nom court du labo:",
+        "USER FIRST NAME": "prénom de l'utilisateur:",
+        "USER LAST NAME": "nom de famille de l'utilisateur:",
+        "EMAIL": "e-mail:",
+        "USER PASSWORD": "mot de passe:"
       }
     }
   }
