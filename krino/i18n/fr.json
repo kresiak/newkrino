@@ -627,6 +627,9 @@
         "CATEGORY": "Catégorie",
         "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés"
       },
+      "TEXT": {
+        "USER NEEDS VOUCHERS": "{{user}} demande {{quantity}} coupon(s) pour {{supplier}} / {{category}}"
+      },      
       "LABEL": {
         "CREATION DATE VOUCHER": "date de création du coupon:",
         "USAGE": "usage:",

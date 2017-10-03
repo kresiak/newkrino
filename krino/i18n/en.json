@@ -630,6 +630,9 @@
         "PURCHASE": "Purchase",
         "DELIVERY": "Delivery"
       },
+      "TEXT": {
+        "USER NEEDS VOUCHERS": "{{user}} needs {{quantity}} voucher(s) for {{supplier}} / {{category}}"
+      },
       "COLUMN": {
         "USER": "User",
         "SUPPLIER": "Supplier",
