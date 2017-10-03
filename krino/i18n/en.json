@@ -479,7 +479,9 @@
       "WHY": "Why?",
       "LOT NUMBER": "lot number",
       "FROM LOT NB": "From lot Nb",
-      "QUANTITY": "Quantity"
+      "QUANTITY": "Quantity",
+      "WHO": "Who?",
+      "PROCESSED": "Processed?"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "No manual change yet",
@@ -553,7 +555,15 @@
       "DELETE": "Delete",
       "LOCATION": "Location",
       "LOT NUMBER": "Lot Number",
-      "QUANTITY": "Quantity"
+      "QUANTITY": "Quantity",
+      "REF": "Ref",
+      "SAP": "Sap",
+      "DATE": "Date",
+      "SUPPLIER": "Supplier",
+      "WITH VAT": "With VAT",
+      "STATUS": "Status",
+      "DELIVERY": "Delivery",
+      "HAS BEEN DELIVERED": "has been delivered"
     },
     "LABEL": {
 

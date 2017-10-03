@@ -477,7 +477,9 @@
       "WHY": "Pourquoi?",
       "LOT NUMBER": "Numéro de lot",
       "FROM LOT NB": "De quel lot",
-      "QUANTITY": "Quantité"
+      "QUANTITY": "Quantité",
+      "WHO": "WhO?",
+      "PROCESSED": "ProcesseD?"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "Pas encore de changement manuel",
@@ -551,7 +553,15 @@
       "DELETE": "Supprimer",
       "LOCATION": "Endroit",
       "LOT NUMBER": "No de lot",
-      "QUANTITY": "Quantité"
+      "QUANTITY": "Quantité",
+      "REF": "ReF",
+      "SAP": "SaP",
+      "DATE": "DatE",
+      "SUPPLIER": "SupplieR",
+      "WITH VAT": "WitH VAT",
+      "STATUS": "StatuS",
+      "DELIVERY": "DeliverY",
+      "HAS BEEN DELIVERED": "has been delivereD"
     },
     "LABEL": {}
   },

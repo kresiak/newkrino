@@ -47,14 +47,14 @@
 					<template ngbPanelTitle>
 						<div class="row">
 							<!--<div class="col-lg-3 hidden-md-down"><b>Id</b></div>-->
-							<div class="col-sm-1"><b>Ref.</b></div>
-							<div class="col-sm-1"><b>Sap</b></div>
-							<div class="col-sm-2"><b>Date</b></div>
-							<div class="col-sm-2"><b>Who</b></div>
-							<div class="col-sm-2" *ngIf="showColumn('supplier')"><b>Supplier</b></div>
-							<div class="col-sm-1"><b>With VAT</b></div>
-							<div class="col-sm-2"><b>Status</b></div>
-							<div class="col-sm-1"><b>Delivery</b></div>
+							<div class="col-sm-1"><b>{{'ORDER.COLUMN.REF' | translate}}.</b></div>
+							<div class="col-sm-1"><b>{{'ORDER.COLUMN.SAP' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'ORDER.COLUMN.DATE' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'ORDER.COLUMN.WHO' | translate}}</b></div>
+							<div class="col-sm-2" *ngIf="showColumn('supplier')"><b>{{'ORDER.COLUMN.SUPPLIER' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'ORDER.COLUMN.WITH VAT' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'ORDER.COLUMN.STATUS' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'ORDER.COLUMN.DELIVERY' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>
