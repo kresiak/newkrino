@@ -599,8 +599,35 @@
       "RESPONSABLES": "Responsables",
       "VIEW PIECE TYPES": "Pièces par type"
     },
-    "COLUMN": {},
-    "LABEL": {}
+    "COLUMN": {
+      "SAP ID": "Sap ID",
+      "OUR REF": "Our ReF",
+      "ENG. DATE": "Eng. datE",
+      "LAST ACTIVITY": "Last activitY",
+      "ALREADY INVOICED": "Already invoiceD",
+      "REMAINING ENGAGED": "Remaining engageD",
+      "TYPE": "TypE",
+      "SUPPLIER": "SupplieR",
+      "OTP": "OtP",
+      "EQUIPE": "EquipE",
+      "POSTE": "PostE",
+      "PRODUCT": "ProducT",
+      "INITIAL": "InitiaL",
+      "INVOICED": "InvoiceD",
+      "OPEN": "OpeN",
+      "FACT. FINALE": "Fact. FinalE?",
+      "QTY NOT FACTURED": "Qty not factureD",
+      "QTY": "QtY",
+      "HTVA": "HtvA",
+      "TVAC": "TvaC",
+      "STATUS": "StatuS",
+      "PIECE": "PiecE",
+      "DATE CPT": "Date CpT",
+      "LAST INVOICE": "last invoicE"
+    },
+    "LABEL": {
+      "EQUIPE": "EquipE"
+    }
   },
   "ADMINISTRATION": {
     "MENU": {

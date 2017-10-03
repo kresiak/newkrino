@@ -34,15 +34,15 @@
 
                         <br/>
                         <div class="row">
-                            <div class="col-sm-1"><b>Poste</b></div>
-                            <div class="col-sm-2"><b>Otp</b></div>
-                            <div class="col-sm-2"><b>Product</b></div>
-                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Initial</b></div>
-                            <div class="col-sm-1"><b>Invoiced</b></div>
-                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Open</b></div>
-                            <div class="col-sm-1"><b>Last invoice</b></div>
-                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>Fact. Finale?</b></div>
-                            <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag"><b>Qty not factured</b></div>
+                            <div class="col-sm-1"><b>{{'SAP.COLUMN.POSTE' | translate}}</b></div>
+                            <div class="col-sm-2"><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
+                            <div class="col-sm-2"><b>{{'SAP.COLUMN.PRODUCT' | translate}}</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>{{'SAP.COLUMN.INITIAL' | translate}}</b></div>
+                            <div class="col-sm-1"><b>{{'SAP.COLUMN.INVOICED' | translate}}</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>{{'SAP.COLUMN.OPEN' | translate}}</b></div>
+                            <div class="col-sm-1"><b>{{'SAP.COLUMN.LAST INVOICE' | translate}}</b></div>
+                            <div class="col-sm-1" *ngIf="!sapItem.data.isNoEngag"><b>{{'SAP.COLUMN.FACT. FINALE' | translate}}</b></div>
+                            <div class="col-sm-2" *ngIf="!sapItem.data.isNoEngag"><b>{{'SAP.COLUMN.QTY NOT FACTURED' | translate}}</b></div>
                         </div>
                         <div class="row" *ngFor="let poste of sapObj.postList">   <!--FOR loop-->
                             <div class="col-sm-1">{{poste.poste}}</div>
@@ -85,7 +85,7 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-2 vcenter">Equipe:</div>
+                            <div class="col-sm-2 vcenter">{{'SAP.LABEL.EQUIPE' | translate}}:</div>
                             <div class="col-sm-6 vcenter">
                                 <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'GENERAL.CHOOSE AN EQUIPE' | translate" [selectedId]="equipeId"
                                     (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
