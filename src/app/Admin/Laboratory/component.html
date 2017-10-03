@@ -6,31 +6,31 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="row">
-                                <div class="col-sm-3 vcenter">name of laboratory:</div>
+                                <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.NAME OF LABORATORY' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-editor [content]="labo.data.name" [showControls]="true" (editSaved)="nameUpdated($event)"></gg-editor>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3 vcenter">start of Krino:</div>
+                                <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.START OF KRINO' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-editor-date [content]="labo.data.krinoStartDate" (editSaved)="startOfKrino($event)"></gg-editor-date>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3 vcenter">head(s) of laboratory:</div>
+                                <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.HEAD OF LABORATORY' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedAdminsIdsObservable" (selectionChanged)="headSelectionChanged($event)"></gg-selector>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3 vcenter">executive secretary:</div>
+                                <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.EXECUTIVE SECRETARY' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedSecrExecIdsObservable" (selectionChanged)="secrExecSelectionChanged($event)"></gg-selector>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-3 vcenter">grouped orders user password:</div>
+                                <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.GROUPED ORDERS USER PASSWORD' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
                                     <gg-editor [content]="labo.data.passwordGroupOrdersUser" [showControls]="true" (editSaved)="groupedPasswordChanged($event)"></gg-editor>
                                 </div>
@@ -50,9 +50,9 @@
                                     <input type="checkbox" [checked]="step.enabled" [disabled]="step.name==='Equipe' && !step.equipeId" (click)="selectStep($event.target.checked, step.name)" />
                                 </div>
                                 <div class="col-sm-2 vcenter">
-                                    <div *ngIf="step.name==='EquipeHead'">Head of equipe</div>                                    
-                                    <div *ngIf="step.name==='SecrExec'">Executive secretary</div>
-                                    <div *ngIf="step.name==='Equipe'">Any member of ...</div>
+                                    <div *ngIf="step.name==='EquipeHead'">{{'ADMINISTRATION.LABOCONFIG.LABEL.HEAD OF EQUIPE' | translate}}</div>                                    
+                                    <div *ngIf="step.name==='SecrExec'">{{'ADMINISTRATION.LABOCONFIG.LABEL.EXECUTIVE SECRETARY' | translate}}</div>
+                                    <div *ngIf="step.name==='Equipe'">{{'ADMINISTRATION.LABOCONFIG.LABEL.ANY MEMBER OF' | translate}} ...</div>
                                 </div>
                                 <div class="col-sm-2 vcenter">
                                     <div *ngIf="step.name==='Equipe'">
@@ -119,31 +119,31 @@
                                                 <div class="container-fluid">
                                                     <form [formGroup]="addAddressForm" (ngSubmit)="save(addAddressForm.value, addAddressForm.valid)">
                                                         <div class="form-group row">
-                                                            <label for="nomAddAddress" class="col-sm-2 col-form-label col-xl-2">Name of delivery:</label>
+                                                            <label for="nomAddAddress" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.LABEL.NAME OF DELIVERY' | translate}}</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="1" class="form-control" formControlName="nomAddAddress" id="nomAddAddress" placeholder="Name of delivery">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress1" class="col-sm-2 col-form-label col-xl-2">Description 1:</label>
+                                                            <label for="descriptionAddAddress1" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.LABEL.DESCRIPTION' | translate}} 1:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress1" id="descriptionAddAddress1" placeholder="Description 1">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress2" class="col-sm-2 col-form-label col-xl-2">Description 2:</label>
+                                                            <label for="descriptionAddAddress2" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.LABEL.DESCRIPTION' | translate}} 2:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress2" id="descriptionAddAddress2" placeholder="Description 2">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress3" class="col-sm-2 col-form-label col-xl-2">Description 3:</label>
+                                                            <label for="descriptionAddAddress3" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.LABEL.DESCRIPTION' | translate}} 3:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress3" id="descriptionAddAddress3" placeholder="Description 3">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="descriptionAddAddress4" class="col-sm-2 col-form-label col-xl-2">Description 4:</label>
+                                                            <label for="descriptionAddAddress4" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.LABEL.DESCRIPTION' | translate}} 4:</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" min="0" class="form-control" formControlName="descriptionAddAddress4" id="descriptionAddAddress4" placeholder="Description 4">
                                                             </div>
@@ -177,19 +177,19 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">Maximal amount in one order:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.MAXIMAL AMOUNT ORDER' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor [content]="labo.data.maxOrderAmount" [showControls]="true" [isMonetary]="true" (editSaved)="maxOrderAmount($event)"></gg-editor>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">Last sap Id before Krino:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.LAST SAP ID BEFORE KRINO' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor-number [content]="labo.data.sapIdMaxIdBeforeKrino" (editSaved)="sapIdMaxIdBeforeKrino($event)"></gg-editor-number>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">List of others Sap Ids before Krino:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.LIST OTHERS SAP BEFORE KRINO' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor [content]="labo.data.sapOtherMaxIdsBeforeKrino" [showControls]="true" (editSaved)="sapOtherMaxIdsBeforeKrino($event)"  [ngbTooltip]="'please separate the numbers by \';\' '"></gg-editor>
                                                     </div>
@@ -236,19 +236,19 @@
                                                                     <div class="container-fluid">
                                                                         <form [formGroup]="addFirstIdsForm" (ngSubmit)="saveFirstIds(addFirstIdsForm.value, addFirstIdsForm.valid)">
                                                                             <div class="form-group row">
-                                                                                <label for="nbOfCharacters" class="col-sm-2 col-form-label col-xl-2">Number of characters:</label>
+                                                                                <label for="nbOfCharacters" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.NUMBER OF CHARACTERS' | translate}}</label>
                                                                                 <div class="col-sm-10">
                                                                                     <input type="number" min="0" class="form-control" formControlName="nbOfCharacters" id="nbOfCharacters" placeholder="Number of characters">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
-                                                                                <label for="startingWith" class="col-sm-2 col-form-label col-xl-2">Starting with:</label>
+                                                                                <label for="startingWith" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.STARTING WITH' | translate}}</label>
                                                                                 <div class="col-sm-10">
                                                                                     <input type="number" min="0" class="form-control" formControlName="startingWith" id="startingWith" placeholder="Starting with">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
-                                                                                <label for="firstId" class="col-sm-2 col-form-label col-xl-2">First id:</label>
+                                                                                <label for="firstId" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.FIRST ID' | translate}}</label>
                                                                                 <div class="col-sm-10">
                                                                                     <input type="number" min="0" class="form-control" formControlName="firstId" id="firstId" placeholder="First id">
                                                                                 </div>
@@ -277,19 +277,19 @@
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">number of months before end:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.MONTHS BEFORE END' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor-number [content]="labo.data.warningNbMonthsToEnd" (editSaved)="warningNbMonthsToEndUpdated($event)"></gg-editor-number>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">number of repeats after first warning:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.NUMBER OF REPEATS AFTER FIRST WARNING' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor-number [content]="labo.data.warningNbRepeats" (editSaved)="warningNbRepeatsUpdated($event)"></gg-editor-number>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 vcenter">number of days to wait before repeat:</div>
+                                                    <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.NUMBER OF DAYS TO WAIT BEFORE REPEAT' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
                                                         <gg-editor-number [content]="labo.data.warningNbDaysBetweenRepeats" (editSaved)="warningNbDaysBetweenRepeatsUpdated($event)"></gg-editor-number>
                                                     </div>
@@ -308,12 +308,12 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="row">
-                                <div class="col-sm-3 vcenter"><b>selling services as supplier</b></div>
+                                <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.LABEL.SELLING SERVICES AS SUPPLIER' | translate}}</b></div>
                                 <div class="col-sm-8 vcenter">
                                     <gg-editor-autocomplete [selectableData]="supplierListObservable" [emptyContentText]="'choose a supplier'" [selectedId]="labo.data.platformSellingSupplierId"
                                         (idChanged)="supplierUpdated($event)"></gg-editor-autocomplete>
                                 </div>
-                                <div class="col-sm-3 vcenter"><b>services product category</b></div>
+                                <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.LABEL.SERVICES PRODUCT CATEGORY' | translate}}</b></div>
                                 <div class="col-sm-8 vcenter">
                                     <gg-editor-autocomplete [selectableData]="categoryListObservable" [emptyContentText]="'choose a category'" [selectedId]="labo.data.platformSellingCategoryId"
                                         (idChanged)="categoryUpdated($event)"></gg-editor-autocomplete>

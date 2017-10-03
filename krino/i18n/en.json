@@ -653,7 +653,10 @@
         "GRANULARITY": "Granularity"
       },
       "LABEL": {
-
+        "USERS": "users:",
+        "ÉQUIPES": "équipes:",
+        "CATEGORIES": "categories:",
+        "OTPS": "otps:"
       }
     },
     "LABOCONFIG": {
@@ -668,7 +671,15 @@
 
       },
       "LABEL": {
-
+        "SELLING SERVICES AS SUPPLIER": "selling services as supplier",
+        "SERVICES PRODUCT CATEGORY": "services product category",
+        "HEAD OF EQUIPE": "Head of equipe",
+        "EXECUTIVE SECRETARY": "Executive secretary",
+        "ANY MEMBER OF": "Any member of",
+        "NAME OF LABORATORY": "name of laboratory:",
+        "START OF KRINO": "start of Krino:",
+        "HEAD OF LABORATORY": "head(s) of laboratory:",
+        "GROUPED ORDERS USER PASSWORD": "grouped orders user password:"
       },
       "VALIDATION": {
         "MENU": {
@@ -691,7 +702,8 @@
           "DESCRIPTION": "Description"
         },
         "LABEL": {
-
+          "NAME OF DELIVERY": "Name of delivery:",
+          "DESCRIPTION": "Description"
         }
       },
       "SAP": {
@@ -708,7 +720,15 @@
           "FIRST ID": "First id"
         },
         "LABEL": {
-
+          "MAXIMAL AMOUNT ORDER": "Maximal amount in one order:",
+          "LAST SAP ID BEFORE KRINO": "Last sap Id before Krino:",
+          "LIST OTHERS SAP BEFORE KRINO": "List of others Sap Ids before Krino:",
+          "NUMBER OF CHARACTERS": "Number of characters:",
+          "STARTING WITH": "Starting with:",
+          "FIRST ID": "First id:",
+          "MONTHS BEFORE END": "number of months before end:",
+          "NUMBER OF REPEATS AFTER FIRST WARNING": "number of repeats after first warning:",
+          "NUMBER OF DAYS TO WAIT BEFORE REPEAT": "number of days to wait before repeat:"
         }
       },
       "PLATFORM": {
@@ -734,7 +754,12 @@
         "RESPONSABLES": "Supervisors"
       },
       "LABEL": {
-        
+        "LABO NAME": "labo name:",
+        "LABO SHORT NAME": "labo short name:",
+        "USER FIRST NAME": "user first name:",
+        "USER LAST NAME": "user last name:",
+        "EMAIL": "email:",
+        "USER PASSWORD": "user password:"
       }
     }
   }
