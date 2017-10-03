@@ -133,7 +133,7 @@ export class OtpListComponent implements OnInit {
                 'Engaged in Krino': otp.annotation.amountSpentNotYetInSap,
                 Invoiced: otp.annotation.amountBilled,
                 Available: otp.annotation.amountAvailable,
-                Until: dateUtils.formatShortDate(otp.data.datEnd),
+                Until: otp.annotation.currentPeriodAnnotation ? dateUtils.formatShortDate(otp.annotation.currentPeriodAnnotation.datEnd) : 'not for current period',
                 Deleted: otp.data.isDeleted ? 'Deleted ' : '',
                 Blocked: otp.data.isBlocked ? 'Blocked ' : '',
                 Closed: otp.data.isClosed ? 'Closed ' : '',
