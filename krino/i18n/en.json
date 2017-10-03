@@ -615,28 +615,28 @@
       "ENG. DATE": "Eng. date",
       "LAST ACTIVITY": "Last activity",
       "ALREADY INVOICED": "Already invoiced",
-      "REMAINING ENGAGED": "Remaining engaged",
+      "REMAINING ENGAGED": "Still engaged",
       "TYPE": "Type",
       "SUPPLIER": "Supplier",
       "OTP": "Otp",
-      "EQUIPE": "Equipe",
+      "EQUIPE": "Project",
       "POSTE": "Poste",
       "PRODUCT": "Product",
       "INITIAL": "Initial",
       "INVOICED": "Invoiced",
       "OPEN": "Open",
-      "FACT. FINALE": "Fact. Finale?",
-      "QTY NOT FACTURED": "Qty not factured",
+      "FACT. FINALE": "Finale Invoice?",
+      "QTY NOT FACTURED": "Qty not invoiced",
       "QTY": "Qty",
-      "HTVA": "Htva",
-      "TVAC": "Tvac",
+      "HTVA": "excl. VAT",
+      "TVAC": "w. VAT",
       "STATUS": "Status",
       "PIECE": "Piece",
       "DATE CPT": "Date Cpt",
       "LAST INVOICE": "last invoice"
     },
     "LABEL": {
-      "EQUIPE": "Equipe"
+      "EQUIPE": "Project"
     }
   },
   "ADMINISTRATION": {
