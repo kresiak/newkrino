@@ -651,7 +651,10 @@
       "COLUMN": {
         "FOCUS ON": "Focus sur",
         "THRESHOLD": "Seuil",
-        "GRANULARITY": "Granularité"
+        "GRANULARITY": "Granularité",
+        "ONE TIME": "one timE",
+        "ONE DAY": "one daY",
+        "ONE WEEK": "one weeK"
       },
       "LABEL": {
         "USERS": "userS:",
@@ -672,11 +675,6 @@
 
       },
       "LABEL": {
-        "SELLING SERVICES AS SUPPLIER": "selling services as supplieR",
-        "SERVICES PRODUCT CATEGORY": "services product categorY",
-        "HEAD OF EQUIPE": "Head of equipE",
-        "EXECUTIVE SECRETARY": "Executive secretarY",
-        "ANY MEMBER OF": "Any member oF",
         "NAME OF LABORATORY": "name of laboratorY:",
         "START OF KRINO": "start of KrinO:",
         "HEAD OF LABORATORY": "head(s) of laboratorY:",
@@ -690,7 +688,9 @@
 
         },
         "LABEL": {
-
+          "HEAD OF EQUIPE": "Head of equipE",
+          "EXECUTIVE SECRETARY": "Executive secretarY",
+          "ANY MEMBER OF": "Any member oF"
         }
       },
       "LIVRAISON": {
@@ -740,7 +740,8 @@
 
         },
         "LABEL": {
-
+          "SELLING SERVICES AS SUPPLIER": "selling services as supplieR",
+          "SERVICES PRODUCT CATEGORY": "services product categorY"
         }
       }
     },
