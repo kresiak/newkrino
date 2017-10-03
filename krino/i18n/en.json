@@ -396,9 +396,9 @@
   },
   "EQUIPE": {
     "MENU": {
-      "VIEW EQUIPES": "View Projetc teams",
+      "VIEW EQUIPES": "View project teams",
       "GIFTS": "Gifts",
-      "CREATE AN EQUIPE": "Create a Project Team",
+      "CREATE AN EQUIPE": "Create a project team",
       "GROUPS": "Groups of projects",
       "VIEW GROUPS": "View Groups",
       "CREATE GROUP": "Create a Group",
