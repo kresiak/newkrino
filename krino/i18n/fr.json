@@ -626,7 +626,22 @@
         "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés"
       },
       "LABEL": {
-
+        "CREATION DATE VOUCHER": "creation date of the voucheR:",
+        "USAGE": "usagE:",
+        "SAP HAS BEEN UPDATED": "Sap has been updateD:",
+        "FOR THE USE OF USER": "for the use of useR:",
+        "WEB SUPPLIER": "web supplieR:",
+        "SAP ID TO BE USED": "Sap Id to be useD:",
+        "AMOUNT": "amounT:",
+        "OTP": "otP:",
+        "USING DATE": "using datE:",
+        "USED BY EQUIPE": "used by equipE:",
+        "DESCRIPTION": "descriptioN:",
+        "TOTAL": "totaL:",
+        "NO DELIVERY YET": "no delivery yeT",
+        "PARTIALLY DELIVERED": "partially delivereD",
+        "FULLY DELIVERED": "fully delivereD",
+        "SAP ID": "sap ID:"
       }
     },
     "MONITORING": {
@@ -639,7 +654,10 @@
         "GRANULARITY": "Granularité"
       },
       "LABEL": {
-
+        "USERS": "userS:",
+        "ÉQUIPES": "équipeS:",
+        "CATEGORIES": "categorieS:",
+        "OTPS": "otpS:"
       }
     },
     "LABOCONFIG": {
@@ -654,7 +672,15 @@
 
       },
       "LABEL": {
-
+        "SELLING SERVICES AS SUPPLIER": "selling services as supplieR",
+        "SERVICES PRODUCT CATEGORY": "services product categorY",
+        "HEAD OF EQUIPE": "Head of equipE",
+        "EXECUTIVE SECRETARY": "Executive secretarY",
+        "ANY MEMBER OF": "Any member oF",
+        "NAME OF LABORATORY": "name of laboratorY:",
+        "START OF KRINO": "start of KrinO:",
+        "HEAD OF LABORATORY": "head(s) of laboratorY:",
+        "GROUPED ORDERS USER PASSWORD": "grouped orders user passworD:"
       },
       "VALIDATION": {
         "MENU": {
@@ -677,7 +703,8 @@
           "DESCRIPTION": "Description"
         },
         "LABEL": {
-
+          "NAME OF DELIVERY": "Name of deliverY:",
+          "DESCRIPTION": "DescriptioN"
         }
       },
       "SAP": {
@@ -694,7 +721,15 @@
           "FIRST ID": "Premier id"
         },
         "LABEL": {
-
+          "MAXIMAL AMOUNT ORDER": "Maximal amount in one ordeR:",
+          "LAST SAP ID BEFORE KRINO": "Last sap Id before KrinO:",
+          "LIST OTHERS SAP BEFORE KRINO": "List of others Sap Ids before KrinO:",
+          "NUMBER OF CHARACTERS": "Number of characterS:",
+          "STARTING WITH": "Starting witH:",
+          "FIRST ID": "First iD:",
+          "MONTHS BEFORE END": "number of months before enD:",
+          "NUMBER OF REPEATS AFTER FIRST WARNING": "number of repeats after first warninG:",
+          "NUMBER OF DAYS TO WAIT BEFORE REPEAT": "number of days to wait before repeaT:"
         }
       },
       "PLATFORM": {
@@ -720,7 +755,12 @@
         "RESPONSABLES": "Responsables"
       },
       "LABEL": {
-
+        "LABO NAME": "labo namE:",
+        "LABO SHORT NAME": "labo short namE:",
+        "USER FIRST NAME": "user first namE:",
+        "USER LAST NAME": "user last namE:",
+        "EMAIL": "emaiL:",
+        "USER PASSWORD": "user passworD:"
       }
     }
   }

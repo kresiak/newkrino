@@ -8,7 +8,7 @@
                 <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.MONITORING.COLUMN.GRANULARITY' | translate}}</b></div>
             </div>
             <div class="form-group row">
-                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">users:</label>
+                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.MONITORING.LABEL.USERS' | translate}}</label>
                 <div class="col-sm-3 vcenter">
                     <gg-selector [selectableData]="selectableUsers" [selectedIds]="userIds" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
                 </div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">équipes:</label>
+                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.MONITORING.LABEL.ÉQUIPES' | translate}}</label>
                 <div class="col-sm-3 vcenter">
                     <gg-selector [selectableData]="selectableEquipes" [selectedIds]="equipeIds" (selectionChanged)="equipeSelectionChanged($event)"></gg-selector>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">categories:</label>
+                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.MONITORING.LABEL.CATEGORIES' | translate}}</label>
                 <div class="col-sm-3 vcenter">
                     <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="categoryIds" (selectionChanged)="categorySelectionChanged($event)"></gg-selector>
                 </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">otps:</label>
+                <label for="supplierId" class="col-sm-2 col-form-label col-xl-2">{{'ADMINISTRATION.MONITORING.LABEL.OTPS' | translate}}</label>
                 <div class="col-sm-3 vcenter">
                     <gg-selector [selectableData]="selectableOtps" [selectedIds]="otpIds" (selectionChanged)="otpSelectionChanged($event)"></gg-selector>
                 </div>
