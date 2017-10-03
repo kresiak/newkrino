@@ -626,7 +626,22 @@
         "NB OF REQUESTED VOUCHERS": "Nb de coupons demandés"
       },
       "LABEL": {
-
+        "CREATION DATE VOUCHER": "creation date of the voucheR:",
+        "USAGE": "usagE:",
+        "SAP HAS BEEN UPDATED": "Sap has been updateD:",
+        "FOR THE USE OF USER": "for the use of useR:",
+        "WEB SUPPLIER": "web supplieR:",
+        "SAP ID TO BE USED": "Sap Id to be useD:",
+        "AMOUNT": "amounT:",
+        "OTP": "otP:",
+        "USING DATE": "using datE:",
+        "USED BY EQUIPE": "used by equipE:",
+        "DESCRIPTION": "descriptioN:",
+        "TOTAL": "totaL:",
+        "NO DELIVERY YET": "no delivery yeT",
+        "PARTIALLY DELIVERED": "partially delivereD",
+        "FULLY DELIVERED": "fully delivereD",
+        "SAP ID": "sap ID:"
       }
     },
     "MONITORING": {

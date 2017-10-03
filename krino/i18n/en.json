@@ -640,7 +640,22 @@
         "NB OF REQUESTED VOUCHERS": "Nb of requested vouchers"
       },
       "LABEL": {
-
+        "CREATION DATE VOUCHER": "creation date of the voucher:",
+        "USAGE": "usage:",
+        "SAP HAS BEEN UPDATED": "Sap has been updated:",
+        "FOR THE USE OF USER": "for the use of user:",
+        "WEB SUPPLIER": "web supplier:",
+        "SAP ID TO BE USED": "Sap Id to be used:",
+        "AMOUNT": "amount:",
+        "OTP": "otp:",
+        "USING DATE": "using date:",
+        "USED BY EQUIPE": "used by equipe:",
+        "DESCRIPTION": "description:",
+        "TOTAL": "total:",
+        "NO DELIVERY YET": "no delivery yet",
+        "PARTIALLY DELIVERED": "partially delivered",
+        "FULLY DELIVERED": "fully delivered",
+        "SAP ID": "sap Id:"
       }
     },
     "MONITORING": {

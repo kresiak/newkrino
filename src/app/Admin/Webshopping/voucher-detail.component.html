@@ -4,44 +4,44 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">creation date of the voucher:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.CREATION DATE VOUCHER' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.dateCreation | fullDate}}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">usage:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.USAGE' | translate}}</div>
 						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}
 						</div>
 					</div>
 					<div class="row" *ngIf="voucher.annotation.isUsed">
-						<div class="col-sm-4 vcenter">Sap has been updated:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.SAP HAS BEEN UPDATED' | translate}}</div>
 						<div class="col-sm-6 vcenter" [style.color]="voucher.annotation.isInSap ? 'green' : 'red'">
 							<gg-editor-boolean [content]="voucher.annotation.isInSap" (editSaved)="isInSapUpdated($event)"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">for the use of user:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.FOR THE USE OF USER' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.annotation.user}} {{voucher.annotation.isUsed ? ' / ' + voucher.annotation.equipe : ''}}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">web supplier:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.WEB SUPPLIER' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">Sap Id to be used:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.SAP ID TO BE USED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="voucher.data.sapId" [showControls]="true" (editSaved)="sapIdUpdated($event)"></gg-editor>
 						</div>
 					</div>
 					<div class="row" *ngIf="voucher.annotation.isUsed">
-						<div class="col-sm-4 vcenter">amount:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.AMOUNT' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2'}}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">otp:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.OTP' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-autocomplete [selectableData]="otpListObservable" [selectedId]="voucher.data.otpId" (idChanged)="otpChanged($event)" ></gg-editor-autocomplete>
 						</div>
@@ -64,19 +64,19 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">using date:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.USING DATE' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.date | fullDate}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">used by equipe:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.USED BY EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.annotation.equipe}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.DESCRIPTION' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.description}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">total:</div>
+						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.TOTAL' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
@@ -95,15 +95,15 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-2">no delivery yet</div>
+						<div class="col-sm-2">{{'ADMINISTRATION.WEB SHOPPING.LABEL.NO DELIVERY YET' | translate}}</div>
 						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="!voucher.data.delivery || voucher.data.delivery==='nothing'" (change)="deliveryChanged('nothing')"/> </div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2">partially delivered</div>
+						<div class="col-sm-2">{{'ADMINISTRATION.WEB SHOPPING.LABEL.PARTIALLY DELIVERED' | translate}}</div>
 						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="voucher.data.delivery==='partial'" (change)="deliveryChanged('partial')"/> </div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2">fully delivered</div>
+						<div class="col-sm-2">{{'ADMINISTRATION.WEB SHOPPING.LABEL.FULLY DELIVERED' | translate}}</div>
 						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="voucher.data.delivery==='complete'" (change)="deliveryChanged('complete')"/> </div>
 					</div>
 				</div>
