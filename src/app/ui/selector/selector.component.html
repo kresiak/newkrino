@@ -44,7 +44,8 @@
 	</div>
 </template>
 
-<div class="editor__output" >{{content}}</div>
+<div class="editor__output" *ngIf="content" >{{content}}</div>
+<div class="editor__output" *ngIf="!content" >{{'GENERAL.NOT SET YET' | translate}}</div>
 <div *ngIf="!readOnly && !editMode" class="editor__controls">
 	<button (click)="openModal(mymodal)" class="editor__icon-edit"></button>
 </div>

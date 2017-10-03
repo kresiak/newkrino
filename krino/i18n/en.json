@@ -3,6 +3,7 @@
     "YES": "yes",
     "NO": "no",
     "EMPTY": "",
+    "NOT SET YET" : "(not set yet)",
     "TOGGLE DETAILS": "Show/hide details",
     "COMMENTS": {
       "ADD NEW COMMENT": "Add new comment",
