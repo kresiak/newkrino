@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-sm-2 vcenter">
                                     <div *ngIf="step.name==='Equipe'">
-                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="step.equipeId" (idChanged)="equipeChanged($event, index)" [emptyContentText]="'choose an equipe'"></gg-editor-autocomplete>
+                                        <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="step.equipeId" (idChanged)="equipeChanged($event, index)" [emptyContentText]="'GENERAL.CHOOSE AN EQUIPE' | translate"></gg-editor-autocomplete>
                                     </div>
                                 </div>
                                 <div class="col-sm-1 vcenter">
