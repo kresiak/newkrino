@@ -43,16 +43,16 @@
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
-							<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>Sap Id<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>Our Ref<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.EngagDate)"><b>Eng. date<span *ngIf="isSortKeySet(SortKey.EngagDate)">!</span></b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.LastDate)"><b>Last activity<span *ngIf="isSortKeySet(SortKey.LastDate)">!</span></b></div>
-							<div class="col-sm-1"><b>Already invoiced</b></div>
-							<div class="col-sm-1"><b>Remaining engaged</b></div>
-							<div class="col-sm-1"><b>Type</b></div>
-							<div class="col-sm-1"><b>Supplier</b></div>
-							<div class="col-sm-2"><b>Otp</b></div>
-							<div class="col-sm-2"><b>Equipe</b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>{{'SAP.COLUMN.SAP ID' | translate}}<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>{{'SAP.COLUMN.OUR REF' | translate}}<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.EngagDate)"><b>{{'SAP.COLUMN.ENG. DATE' | translate}}<span *ngIf="isSortKeySet(SortKey.EngagDate)">!</span></b></div>
+							<div class="col-sm-1" (click)="setSortKey(SortKey.LastDate)"><b>{{'SAP.COLUMN.LAST ACTIVITY' | translate}}<span *ngIf="isSortKeySet(SortKey.LastDate)">!</span></b></div>
+							<div class="col-sm-1"><b>{{'SAP.COLUMN.ALREADY INVOICED' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'SAP.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'SAP.COLUMN.TYPE' | translate}}</b></div>
+							<div class="col-sm-1"><b>{{'SAP.COLUMN.SUPPLIER' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
+							<div class="col-sm-2"><b>{{'SAP.COLUMN.EQUIPE' | translate}}</b></div>
 						</div>
 					</template>
 					<template ngbPanelContent>

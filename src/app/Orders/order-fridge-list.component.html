@@ -9,11 +9,11 @@
     <div class="card-block">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-2 vcenter"><b>When?</b></div>
-                <div class="col-sm-2 vcenter"><b>Who</b></div>
-                <div class="col-sm-3 vcenter"><b>Product</b></div>
-                <div class="col-sm-2 vcenter"><b>Quantity</b></div>
-                <div class="col-sm-2 vcenter"><b>Has been delivered</b></div>
+                <div class="col-sm-2 vcenter"><b>{{'ORDER.COLUMN.WHEN' | translate}}</b></div>
+                <div class="col-sm-2 vcenter"><b>{{'ORDER.COLUMN.WHO' | translate}}</b></div>
+                <div class="col-sm-3 vcenter"><b>{{'ORDER.COLUMN.PRODUCT' | translate}}</b></div>
+                <div class="col-sm-2 vcenter"><b>{{'ORDER.COLUMN.QUANTITY' | translate}}</b></div>
+                <div class="col-sm-2 vcenter"><b>{{'ORDER.COLUMN.HAS BEEN DELIVERED' | translate}}</b></div>
             </div>
             <div *ngFor="let order of ordersList">
                 <div class="row">

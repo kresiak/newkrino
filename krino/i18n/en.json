@@ -479,7 +479,9 @@
       "WHY": "Why?",
       "LOT NUMBER": "lot number",
       "FROM LOT NB": "From lot Nb",
-      "QUANTITY": "Quantity"
+      "QUANTITY": "Quantity",
+      "WHO": "Who?",
+      "PROCESSED": "Processed?"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "No manual change yet",
@@ -553,7 +555,15 @@
       "DELETE": "Delete",
       "LOCATION": "Location",
       "LOT NUMBER": "Lot Number",
-      "QUANTITY": "Quantity"
+      "QUANTITY": "Quantity",
+      "REF": "Ref",
+      "SAP": "Sap",
+      "DATE": "Date",
+      "SUPPLIER": "Supplier",
+      "WITH VAT": "With VAT",
+      "STATUS": "Status",
+      "DELIVERY": "Delivery",
+      "HAS BEEN DELIVERED": "has been delivered"
     },
     "LABEL": {
 
@@ -600,10 +610,33 @@
       "VIEW PIECE TYPES": "View Piece Types"
     },
     "COLUMN": {
-
+      "SAP ID": "Sap Id",
+      "OUR REF": "Our Ref",
+      "ENG. DATE": "Eng. date",
+      "LAST ACTIVITY": "Last activity",
+      "ALREADY INVOICED": "Already invoiced",
+      "REMAINING ENGAGED": "Remaining engaged",
+      "TYPE": "Type",
+      "SUPPLIER": "Supplier",
+      "OTP": "Otp",
+      "EQUIPE": "Equipe",
+      "POSTE": "Poste",
+      "PRODUCT": "Product",
+      "INITIAL": "Initial",
+      "INVOICED": "Invoiced",
+      "OPEN": "Open",
+      "FACT. FINALE": "Fact. Finale?",
+      "QTY NOT FACTURED": "Qty not factured",
+      "QTY": "Qty",
+      "HTVA": "Htva",
+      "TVAC": "Tvac",
+      "STATUS": "Status",
+      "PIECE": "Piece",
+      "DATE CPT": "Date Cpt",
+      "LAST INVOICE": "last invoice"
     },
     "LABEL": {
-
+      "EQUIPE": "Equipe"
     }
   },
   "ADMINISTRATION": {

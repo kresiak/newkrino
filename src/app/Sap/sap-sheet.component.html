@@ -25,15 +25,15 @@
             </div> <br><br>
             <div class="row">
                 <div class="row">
-                    <div class="col-sm-1"><b>Poste</b></div>
-                    <div class="col-sm-2"><b>Product</b></div>
-                    <div class="col-sm-2 "><b>Otp</b></div>
-                    <div class="col-sm-1"><b>Qty</b></div>
-                    <div class="col-sm-1 "><b>Htva</b></div>
-                    <div class="col-sm-1 "><b>Tvac</b></div>
-                    <div class="col-sm-1 "><b>Status</b></div>
-                    <div class="col-sm-1" *ngIf="isFacture"><b>Piece</b></div>
-                    <div class="col-sm-1" *ngIf="isFacture"><b>Date Cpt</b></div>
+                    <div class="col-sm-1"><b>{{'SAP.COLUMN.POSTE' | translate}}</b></div>
+                    <div class="col-sm-2"><b>{{'SAP.COLUMN.PRODUCT' | translate}}</b></div>
+                    <div class="col-sm-2 "><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
+                    <div class="col-sm-1"><b>{{'SAP.COLUMN.QTY' | translate}}</b></div>
+                    <div class="col-sm-1 "><b>{{'SAP.COLUMN.HTVA' | translate}}</b></div>
+                    <div class="col-sm-1 "><b>{{'SAP.COLUMN.TVAC' | translate}}</b></div>
+                    <div class="col-sm-1 "><b>{{'SAP.COLUMN.STATUS' | translate}}</b></div>
+                    <div class="col-sm-1" *ngIf="isFacture"><b>{{'SAP.COLUMN.PIECE' | translate}}</b></div>
+                    <div class="col-sm-1" *ngIf="isFacture"><b>{{'SAP.COLUMN.DATE CPT' | translate}}</b></div>
 
                 </div>
                 <div class="row" *ngFor="let item of sortedItems; let i = index">
