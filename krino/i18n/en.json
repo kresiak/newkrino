@@ -493,7 +493,8 @@
       "FROM LOT NB": "From lot Nb",
       "QUANTITY": "Quantity",
       "WHO": "Who?",
-      "PROCESSED": "Processed?"
+      "PROCESSED": "Processed?",
+      "QTY I ALREADY ORDERED": "qty i already ordered"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "No manual change yet",

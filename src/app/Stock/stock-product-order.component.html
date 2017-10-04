@@ -2,9 +2,9 @@
     <br>
     <form [formGroup]="frmStockOrder" (ngSubmit)="save(frmStockOrder.value, frmStockOrder.valid)">
         <div class="row">
-            <div class="col-sm-3"><b>product</b></div>
-            <div class="col-sm-2"><b>available</b></div>
-            <div class="col-sm-2"><b>qty I already ordered</b></div>
+            <div class="col-sm-3"><b>{{'STOCK.COLUMN.PRODUCT' | translate}}</b></div>
+            <div class="col-sm-2"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
+            <div class="col-sm-2"><b>{{'STOCK.COLUMN.QTY I ALREADY ORDERED' | translate}}</b></div>
         </div>
         <div class="row">
 
