@@ -669,7 +669,11 @@
       "OPEN": "OpeN",
       "SUM": "SuM",
       "PRODUCT": "ProducT",
-      "CODE TVA": "Code TvA"
+      "CODE TVA": "Code TvA",
+      "PIECE": "PiecE",
+      "DATE": "DatE",
+      "HTVA": "HTvA",
+      "TVAC": "TvAC"
     }
   },
   "ADMINISTRATION": {
