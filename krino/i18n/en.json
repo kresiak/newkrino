@@ -493,7 +493,8 @@
       "FROM LOT NB": "From lot Nb",
       "QUANTITY": "Quantity",
       "WHO": "Who?",
-      "PROCESSED": "Processed?"
+      "PROCESSED": "Processed?",
+      "QTY I ALREADY ORDERED": "qty i already ordered"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "No manual change yet",
@@ -649,6 +650,28 @@
     },
     "LABEL": {
       "EQUIPE": "Project"
+    },
+    "ATTRIBUTION": {
+      "COLUMN": {
+        "SAP ID": "sap id",
+        "LAST ACTIVITY": "Last activity",
+        "ALREADY INVOICED": "Already invoiced",
+        "REMAINING ENGAGED": "Remaining engaged",
+        "SUPPLIER": "Supplier",
+        "OTP": "Otp",
+        "EQUIPE": "Equipe"
+      },
+      "LABEL": {
+
+      }
+    },
+    "TYPE": {
+      "COLUMN": {
+        "PIECE TYPE": "Piece type",
+        "FIRST PIECE ID": "First piece Id",
+        "LAST PIECE ID": "Last piece Id",
+        "NB": "Nb"
+      }
     }
   },
   "ADMINISTRATION": {
