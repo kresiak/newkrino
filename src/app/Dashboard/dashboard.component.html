@@ -4,10 +4,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.classicOrders.length>0">
 			<div class="card text-xs-center card-outline-danger">
 				<div class="card-header">
-					Classic Orders 
+					{{'DASHBOARD.CLASSIC ORDERS' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.classicOrders"><gg-date-pointer [date]="order.data.date"></gg-date-pointer>: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
 					</ul>
@@ -18,10 +18,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="labManagerMessages && labManagerMessages.validableOrders.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					 Orders to validate
+					{{'DASHBOARD.ORDERS TO VALIDATE' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.validableOrders"><gg-date-pointer [date]="order.data.date"></gg-date-pointer>: {{order.annotation.user}} order <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOrder(order.data._id)">{{order.data.kid}}</a> at {{order.annotation.supplier}} spent {{order.annotation.total  | currency:'EUR':true:'1.2-2'}}</li>
 					</ul>
@@ -32,10 +32,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.fridgeOrders.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Fridge Orders <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewFridge'}">open them</a>
+					{{'DASHBOARD.FRIDGE ORDERS' | translate}} <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewFridge'}">{{'DASHBOARD.OPEN THEM' | translate}}</a>
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.fridgeOrders"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
 					</ul>
@@ -46,10 +46,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.stockOrders.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					Stock Orders <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewStock'}">open them</a>
+					{{'DASHBOARD.STOCK ORDERS' | translate}} <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewStock'}">{{'DASHBOARD.OPEN THEM' | translate}}</a>
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.stockOrders"><gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>: {{order.annotation.user}} needs {{order.data.quantity}} x '{{order.annotation.product}}'</li>
 					</ul>
@@ -60,10 +60,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.requestVouchers.length>0">
 			<div class="card text-xs-center card-outline-info">
 				<div class="card-header">
-					Voucher Requests <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabRequestedVouchers'}">open them</a>
+					{{'DASHBOARD.VOUCHER REQUESTS' | translate}} <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabRequestedVouchers'}">{{'DASHBOARD.OPEN THEM' | translate}}</a>
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New requests</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW REQUESTS' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.requestVouchers">{{order.userName}} needs {{order.quantity}} voucher(s) for {{order.supplierName}} / {{order.categoryName}}</li>
 					</ul>
@@ -74,10 +74,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.usedVouchers.length>0">
 			<div class="card text-xs-center card-outline-success">
 				<div class="card-header">
-					Vouchers used <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabReadyVouchersForSap'}">open them</a>
+					{{'DASHBOARD.VOUCHERS USED' | translate}} <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabReadyVouchersForSap'}">{{'DASHBOARD.OPEN THEM' | translate}}</a>
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">New orders ready for SAP</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.NEW ORDERS READY FOR SAP' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let order of labManagerMessages.usedVouchers">
 							<gg-date-pointer [date]="order.data.shopping.date"></gg-date-pointer>: {{order.annotation.user}} spent {{order.data.shopping.total  | currency:'EUR':true:'1.2-2'}} on a voucher at {{order.annotation.supplier}} / {{order.annotation.category}}</li>
@@ -89,10 +89,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.productsOnValidationWait.length>0">
 			<div class="card text-xs-center card-outline-success">
 				<div class="card-header">
-					New products 
+					{{'DASHBOARD.NEW PRODUCTS' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">In wait for validation</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.IN WAIT FOR VALIDATION' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let product of labManagerMessages.productsOnValidationWait">
 							<gg-date-pointer [date]="product.data.history[0].date"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToProduct(product.data._id)">{{product.data.name}}</a>  for {{product.data.price  | currency:'EUR':true:'1.2-2'}} by {{product.data.history[0].userId}}</li>
@@ -104,10 +104,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.finishingOtps.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					OTP
+					{{'DASHBOARD.OTP' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">Soon expiring</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.SOON EXPIRING' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let otp of labManagerMessages.finishingOtps">
 							<gg-date-pointer [date]="otp.annotation.currentPeriodAnnotation.datEnd"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToOtp(otp.data._id)">{{otp.data.name}}</a> still has {{otp.annotation.amountAvailable  | currency:'EUR':true:'1.2-2'}}
@@ -120,10 +120,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.userMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Users activity
+					{{'DASHBOARD.USERS ACTIVITY' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">Following orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.FOLLOWING ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left spending">
 						<li *ngFor="let log of labManagerMessages.userMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
@@ -135,10 +135,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.equipeMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Equipes activity
+					{{'DASHBOARD.EQUIPES ACTIVITY' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">Following orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.FOLLOWING ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left spending">
 						<li *ngFor="let log of labManagerMessages.equipeMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
@@ -150,10 +150,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.otpMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Otp usage
+					{{'DASHBOARD.OTP USAGE' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">Following orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.FOLLOWING ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left spending">
 						<li *ngFor="let log of labManagerMessages.otpMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
@@ -165,10 +165,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.categoryMonitors.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Products usage
+					{{'DASHBOARD.PRODUCTS USAGE' | translate}}
 				</div>
 				<div class="card-block">
-					<h6 class="card-title">Following orders</h6>
+					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.FOLLOWING ORDERS' | translate}}</h6>
 					<ul class="card-text text-xs-left spending">
 						<li *ngFor="let log of labManagerMessages.categoryMonitors"><gg-date-pointer [date]="log.data.createDate"></gg-date-pointer>: {{log.annotation.info}} an amount of <b> {{log.data.amount | currency:'EUR':true:'1.2-2'}}'</b> 
 									<div class="btn link" (click)="navigateToOrder(log.data.orderId)">(click here)</div> </li>
