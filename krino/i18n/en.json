@@ -604,10 +604,17 @@
       "LIST OF PACKET": "List of packet"
     },
     "COLUMN": {
-
+      "WHEN": "When?",
+      "REFERENCE": "Reference",
+      "SUPPLIER": "Supplier",
+      "POSITION": "Position",
+      "PROCESSED": "Processed"
     },
     "LABEL": {
-
+      "SUPPLIER": "Supplier",
+      "OR SUPPLIER": "Or supplier",
+      "REFERENCE": "Reference",
+      "POSITION": "Position"
     }
   },
   "COMMUNICATION": {
@@ -690,6 +697,14 @@
         "FIRST PIECE ID": "First piece Id",
         "LAST PIECE ID": "Last piece Id",
         "NB": "Total number"
+      },
+      "LABEL": {
+        "TYPE": "Type",
+        "REFERENCE": "Reference:",
+        "SUPPLIER": "Supplier:",
+        "ENGAGEMENT": "Engagement:",
+        "FINAL INVOICE": "Final invoice:",
+        "PIECE TYPE": "Piece type:"
       }
     },
     "BY SAPIDS": {

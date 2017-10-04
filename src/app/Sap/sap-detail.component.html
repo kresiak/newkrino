@@ -7,27 +7,27 @@
                 <div class="card">
                     <div class="card-block">
                         <div class="row" *ngIf="sapItem.data.isNoEngag">
-                            <div class="col-sm-2">Type:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.TYPE' | translate}}</div>
                             <div class="col-sm-8"><b>Pièce sans engagement</b> {{sapObj.typesPiece}}</div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-2">Reference:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.REFERENCE' | translate}}</div>
                             <div class="col-sm-8">{{sapItem.data.sapId}} / <a (click)="navigateToOrder()" [class.imgSearch]="+sapItem.data.ourRef">{{sapItem.data.ourRef ? sapItem.data.ourRef : 'no krino reference'}} / {{sapItem.data.resp}}</a>                                </div>
                         </div>
                         <div class="row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-2">Supplier:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.SUPPLIER' | translate}}</div>
                             <div class="col-sm-8">{{sapItem.data.supplier}}</div>
                         </div>
                         <div class="row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-2">Engagement:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.ENGAGEMENT' | translate}}</div>
                             <div class="col-sm-8">{{sapEngage ? sapEngage.data.maxDate : '(No engagement)'}}</div>
                         </div>
                         <div class="row" *ngIf="!sapItem.data.isNoEngag">
-                            <div class="col-sm-2">Final invoice:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.FINAL INVOICE' | translate}}</div>
                             <div class="col-sm-8">{{sapObj.hasFactureFinale ? 'yes' : 'no'}}</div>
                         </div>
                         <div class="row" >
-                            <div class="col-sm-2">Piece type:</div>
+                            <div class="col-sm-2">{{'SAP.BY PIECE TYPE.LABEL.PIECE TYPE' | translate}}</div>
                             <div class="col-sm-8">{{sapObj.typesPiece}}</div>
                         </div>
 

@@ -599,8 +599,19 @@
       "NEW PACKET": "Nouveau paquet",
       "LIST OF PACKET": "Tous les paquets reçus"
     },
-    "COLUMN": {},
-    "LABEL": {}
+    "COLUMN": {
+      "WHEN": "WheN?",
+      "REFERENCE": "ReferencE",
+      "SUPPLIER": "SupplieR",
+      "POSITION": "PositioN",
+      "PROCESSED": "ProcesseD"
+    },
+    "LABEL": {
+      "SUPPLIER": "SupplieR",
+      "OR SUPPLIER": "Or supplieR",
+      "REFERENCE": "ReferencE",
+      "POSITION": "PositioN"
+    }
   },
   "COMMUNICATION": {
     "MENU": {
@@ -680,6 +691,14 @@
         "FIRST PIECE ID": "Id première pièce",
         "LAST PIECE ID": "Id dernière pièce",
         "NB": "Nombre total"
+      },
+      "LABEL": {
+        "TYPE": "TypE:",
+        "REFERENCE": "ReferencE:",
+        "SUPPLIER": "SupplieR:",
+        "ENGAGEMENT": "EngagemenT:",
+        "FINAL INVOICE": "Final invoicE:",
+        "PIECE TYPE": "Piece typE:"
       }
     },
     "BY SAPIDS": {
