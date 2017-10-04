@@ -3,13 +3,13 @@ import { AuthenticationStatusInfo, AuthService } from './auth.service'
 import { NotificationService } from './notification.service'
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router'
 import { DataStore } from './data.service'
+import { ConfigService } from './config.service'
 import { Observable, Subscription, ReplaySubject } from 'rxjs/Rx'
-import {TranslateService} from 'ng2-translate'
 
 Injectable()
 export class MenuService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService, private router: Router
-        , @Inject(NotificationService) private notificationService: NotificationService,  @Inject(TranslateService) private translate: TranslateService) {
+        , @Inject(NotificationService) private notificationService: NotificationService, @Inject(ConfigService) private configService: ConfigService) {
 
     }
 
@@ -31,16 +31,27 @@ export class MenuService {
             this.statusInfo = info.statusInfo
             this.initMenuBasedOnLoginUser(this.statusInfo, info.laboName)
             this.emitCurrentMenu()
-        }).switchMap(notImportant => {
-            return this.notificationService.getLmWarningMessages().map(messagesObj => messagesObj.finishingOtps.length).distinctUntilChanged()
-        }).do(nbFinishingOtp => {
-            if (this.statusInfo && this.statusInfo.isAdministrator()) {
-                var item = this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
-                if (item) {
-                    item.isAttractAttentionMode = nbFinishingOtp 
-                    item.attractAttentionModeText = nbFinishingOtp ? 'There are expiring otps' : ''
-                    this.emitCurrentMenu()
-                }
+        }).switchMap(info => {
+            return Observable.combineLatest(this.notificationService.getLmWarningMessages().map(messagesObj => messagesObj.finishingOtps.length).distinctUntilChanged(),
+                this.dataStore.getDataObservable('messages').map(msgs => msgs.filter(m => m.isPrivate && m.toUserId === info.statusInfo.currentUserId && !m.isRead).length).distinctUntilChanged(),
+                this.configService.getTranslationWord('DASHBOARD.ALERTS.EXPIRING OTPS'), this.configService.getTranslationWord('DASHBOARD.ALERTS.PRIVATE MSGS'),
+                (nbFinishingOtp, nbPrivateMessages, msgExpiringOtps, msgPrivateMessages) => {
+                    return {
+                        nbFinishingOtp: nbFinishingOtp,
+                        nbPrivateMessages: nbPrivateMessages,
+                        msgExpiringOtps: msgExpiringOtps,
+                        msgPrivateMessages: msgPrivateMessages,
+                        isAdmin: info.statusInfo.isAdministrator()
+                    }
+                })
+        }).do(data => {
+            var needsHighlight: boolean = ((data.isAdmin ? data.nbFinishingOtp : 0) + data.nbPrivateMessages) > 0
+
+            var item = this.menu.filter(menuitem => menuitem.route === '/dashboard')[0]
+            if (item) {
+                item.isAttractAttentionMode = needsHighlight
+                item.attractAttentionModeText = needsHighlight ? ((data.isAdmin && data.nbFinishingOtp > 0) ? data.msgExpiringOtps : '') + (data.nbPrivateMessages > 0 ? data.msgPrivateMessages : '') : ''
+                this.emitCurrentMenu()
             }
         })
     }

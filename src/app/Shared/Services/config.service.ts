@@ -1,9 +1,11 @@
 import { Injectable, Inject } from '@angular/core'
+import { TranslateService, LangChangeEvent } from 'ng2-translate'
+import { Observable} from 'rxjs/Rx'
 
 Injectable()
 export class ConfigService {
 
-    constructor( ) {
+    constructor(@Inject(TranslateService) private translate: TranslateService) {
 
     }
 
@@ -44,5 +46,16 @@ export class ConfigService {
         return n != -1 ? n : defaultNb
     }
 
+
+    getTranslationWord(key: string): Observable<string> {
+        return Observable.combineLatest(this.translate.get(key), this.translate.onLangChange.startWith(undefined), (translation, event: LangChangeEvent) => {
+            if (! event) return translation || key
+            var keyArr= key.split('.')
+            var value= keyArr.reduce((acc, key) => {
+                return acc ? acc[key] : undefined
+            }, event.translations)
+            return value || key
+        })
+    }
 
 }
