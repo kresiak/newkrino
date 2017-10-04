@@ -20,6 +20,22 @@
     "SELECT": "Change language",
     "KRINO": {
       "GREEK": "I judge, I decide, I think good"
+    },
+    "CARD HEADER": {
+      "YOUR BUDGET": "Your budget",
+      "INFORMATION": "Information",
+      "FROM RECEPTION": "From Reception"
+    },
+    "CARD TITLE": {
+      "STATISTICS": "Statistics",
+      "NEW MESSAGES": "New messages",
+      "NEW DELIVERIES": "New deliveries"
+    },
+    "CARD FOOTER": {
+      "DAYS AGO": "days ago"
+    },
+    "CARD TEXT": {
+      "KRINO WILL SHOW HERE": "Krino will show here to the user how the spending of his team is in relation to his allowed budget."
     }
   },
   "LOGIN": {
