@@ -9,7 +9,10 @@
     "COMMENTS": {
       "ADD NEW COMMENT": "Add new comment",
       "ADD COMMENT": "Add comment",
-      "ALL COMMENTS": "All comments"
+      "ALL COMMENTS": "All comments",
+      "PRIVATE COMMENTS MSG": "There are messages here which have been specifically addressed to you.",
+      "PRIVATE COMMENTS TIP": "Click here, if you have read all relevant messages.",
+      "PRIVATE COMMENTS BTN": "I have read the messages"
     }
   },
   "HOME": {
@@ -387,12 +390,21 @@
       "STOCK PACKAGING": "stock packaging:",
       "FRIGO": "frigo:",
       "PRODUCT DISABLED": "This product is disabled",
-      "ATTENTE VALIDATION": "en attente de validation:",
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
       "ALREADY BASKET": "already in basket:",
       "RESTRICTED FOLLOWING USERS": "restricted to following users:",
       "TOTAL": "Total:",
       "CATEGORY": "Category:"
+    },
+    "ACTIONS": {
+        "ATTENTE VALIDATION TEXT": "waiting for validation:",
+        "ACCEPTER VALIDATION BUTON": "accept",
+        "REFUSER VALIDATION BUTON": "refuse",
+        "ACCEPTER VALIDATION TIP": "Don't forget to activate the product before. If you are super administrator you can also make the product public (non labo specific)",
+        "REFUSER VALIDATION TIP": "In this case DON'T activate the product before and put a comment in the Comments tab with the reason of your refusal",
+        "REFUSER VALIDATION MSG": "The creation of one of your product has been refused.",
+        "REASK VALIDATION TIP": "Be sure that you delivered the requested information before re-asking for validation. Read the comments in the Comments tab, if you are unsure",
+        "REASK VALIDATION BUTON": "Ask again for validation"
     }
   },
   "EQUIPE": {

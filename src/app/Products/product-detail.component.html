@@ -13,13 +13,19 @@
 				<div class="card-block">
 					<div class="row" *ngIf="product.data.disabled">
 						<div class="col-sm-3 vcenter" [style.color]="'red'"><b>{{'PRODUCT.LABEL.PRODUCT DISABLED' | translate}}</b></div>
+						<div class="col-sm-3 vcenter">
+							<button class="link" *ngIf="!product.data.onCreateValidation && isProductReadOnly()" (click)="validationReask()" [ngbTooltip]="'PRODUCT.ACTIONS.REASK VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.REASK VALIDATION BUTON' | translate}}</button>
+						</div>
 					</div>
 					<div class="row" [style.color]="'red'" *ngIf="product.data.onCreateValidation && !isProductReadOnly()">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.ATTENTE VALIDATION' | translate}}</div>
-						<div class="col-sm-6 vcenter">
-							<button class="link" (click)="validationDone()">done</button>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.ACTIONS.ATTENTE VALIDATION TEXT' | translate}}</div>
+						<div class="col-sm-3 vcenter">
+							<button class="link" (click)="validationDone()" [ngbTooltip]="'PRODUCT.ACTIONS.ACCEPTER VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.ACCEPTER VALIDATION BUTON' | translate}}</button>
 						</div>
-					</div>					
+						<div class="col-sm-3 vcenter">
+							<button class="link" (click)="validationRefuse()" [ngbTooltip]="'PRODUCT.ACTIONS.REFUSER VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.REFUSER VALIDATION BUTON' | translate}}</button>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}</div>
 						<div class="col-sm-6 vcenter">
@@ -91,12 +97,12 @@
 						<div class="col-sm-3">{{'PRODUCT.LABEL.FREQUENCE' | translate}}</div>
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
-                    <div class="row">
+					<div class="row">
 						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.LABORATORY SPECIFIC' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="product.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!isLaboSpecificChangePossible()"></gg-editor-boolean>
 						</div>
-					</div>					
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.IS DISABLED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
@@ -193,10 +199,10 @@
 				</div>
 			</div>
 		</template>
-	</ngb-tab>
+	</ngb-tab>	
 	<ngb-tab title="{{'PRODUCT.MENU.COMMENTS' | translate}}" id="tabComments">
 		<template ngbTabContent>
-			<gg-comments [comments]="product.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+			<gg-comments-tab [data]="product.data" [dbTable]="'products'"></gg-comments-tab>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="{{'PRODUCT.MENU.ORDERS' | translate}}" id="tabOrders">

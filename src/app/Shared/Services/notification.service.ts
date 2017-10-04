@@ -165,7 +165,7 @@ export class NotificationService {
             this.dataStore.getDataObservable('messages'),
             this.authService.getAnnotatedUsers(),
             (messages, annotatedUsers) => {
-                return messages.map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
+                return messages.filter(message => !message.isPrivate).map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
                     var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
                     return d1 > d2 ? -1 : 1
