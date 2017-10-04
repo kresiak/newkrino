@@ -30,27 +30,27 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
 			<div class="card text-xs-center card-outline-success">
 				<div class="card-header">
-					Your budget
+					{{'HOME.CARD HEADER.YOUR BUDGET' | translate}}
 				</div>
 				<!--				<img class="card-img-top" src="../../images/GIGAlogo.png" alt="Card image cap">-->
 				<div class="card-block ">
-					<h4 class="card-title">Statistics</h4>
+					<h4 class="card-title">{{'HOME.CARD TITLE.STATISTICS' | translate}}</h4>
 					<img class="card-img img-fluid" src="../images/chart.png" alt="Card image">
 					<br/>
-					<p class="card-text">Krino will show here to the user how the spending of his team is in relation to his allowed budget.</p>
+					<p class="card-text">{{'HOME.CARD TEXT.KRINO WILL SHOW HERE' | translate}}</p>
 				</div>
 				<div class="card-footer text-muted">
-					2 days ago
+					2 {{'HOME.CARD FOOTER.DAYS AGO' | translate}}
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="messageList && messageList.length > 0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
-					Information
+					{{'HOME.CARD HEADER.INFORMATION' | translate}}
 				</div>
 				<div class="card-block">
-					<h4 class="card-title">New messages</h4>
+					<h4 class="card-title">{{'HOME.CARD TITLE.NEW MESSAGES' | translate}}</h4>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let message of messageList"><gg-date-pointer [date]="message.data.createDate"></gg-date-pointer>: from {{message.annotation.user}} says '{{message.data.message}}'</li>
 					</ul>
@@ -60,10 +60,10 @@
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="receptionList && receptionList.length > 0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
-					From Reception
+					{{'HOME.CARD HEADER.FROM RECEPTION' | translate}}
 				</div>
 				<div class="card-block">
-					<h4 class="card-title">New deliveries</h4>
+					<h4 class="card-title">{{'HOME.CARD TITLE.NEW DELIVERIES' | translate}}</h4>
 					<ul class="card-text text-xs-left package_at_reception">
 						<li *ngFor="let reception of receptionList"><gg-date-pointer [date]="reception.data.createDate"></gg-date-pointer>: from {{reception.annotation.supplier}} with reference {{reception.data.reference}} can be found in {{reception.data.position}}</li>
 					</ul>
