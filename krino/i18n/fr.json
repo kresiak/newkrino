@@ -667,12 +667,12 @@
     },
     "LABEL": {
       "EQUIPE": "Equipe",
-      "TYPE": "TypE:",
-      "REFERENCE": "ReferencE:",
-      "SUPPLIER": "SupplieR:",
-      "ENGAGEMENT": "EngagemenT:",
-      "FINAL INVOICE": "Final invoicE:",
-      "PIECE TYPE": "Piece typE:"
+      "TYPE": "Type:",
+      "REFERENCE": "Référence:",
+      "SUPPLIER": "Fournisseur:",
+      "ENGAGEMENT": "Engagement:",
+      "FINAL INVOICE": "Facture finale?:",
+      "PIECE TYPE": "Type de pièce:"
     },
     "ATTRIBUTION": {
       "COLUMN": {
@@ -699,12 +699,7 @@
         "NB": "Nombre total"
       },
       "LABEL": {
-        "TYPE": "Type:",
-        "REFERENCE": "Référence:",
-        "SUPPLIER": "Fournisseur:",
-        "ENGAGEMENT": "Engagement:",
-        "FINAL INVOICE": "Facture finale?:",
-        "PIECE TYPE": "Type de pièce:"
+
       }
     },
     "BY SAPIDS": {
