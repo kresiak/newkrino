@@ -672,6 +672,14 @@
         "LAST PIECE ID": "Last piece Id",
         "NB": "Nb"
       }
+    },
+    "BY SAPIDS": {
+      "SAP ID": "Sap Id",
+      "POSTE": "Poste",
+      "OPEN": "Open",
+      "SUM": "Sum",
+      "PRODUCT": "Product",
+      "CODE TVA": "Code Tva"
     }
   },
   "ADMINISTRATION": {
