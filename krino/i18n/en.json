@@ -705,9 +705,7 @@
         "NB": "Total number"
       },
       "LABEL": {
-        "TYPE": "Type",
-        "REFERENCE": "Reference:",
-        "PIECE TYPE": "Piece type:"
+        
       }
     },
     "BY SAPIDS": {
