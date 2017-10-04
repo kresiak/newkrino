@@ -897,6 +897,18 @@
     "ALERTS": {
       "EXPIRING OTPS": "There are expiring otp! ",
       "PRIVATE MSGS": "There are private messages! "
+    },
+    "MESSAGE PARTS": {
+      "ORDER": "order",
+      "AT": "at",
+      "SPENT": "spent",
+      "NEEDS": "needs",
+      "VOUCHER(S) FOR": "voucher(s) for",
+      "ON A VOUCHER AT": "on a voucher at",
+      "FOR": "for",
+      "BY": "by",
+      "STILL HAS": "still has",
+      "AN AMOUNT OF": "an amount of"
     }
   }
 }
