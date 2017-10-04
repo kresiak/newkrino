@@ -672,7 +672,13 @@
       "LAST INVOICE": "last invoice"
     },
     "LABEL": {
-      "EQUIPE": "Project"
+      "EQUIPE": "Project",
+      "TYPE": "Type",
+      "REFERENCE": "Reference:",
+      "SUPPLIER": "Supplier:",
+      "ENGAGEMENT": "Engagement:",
+      "FINAL INVOICE": "Final invoice:",
+      "PIECE TYPE": "Piece type:"
     },
     "ATTRIBUTION": {
       "COLUMN": {
@@ -701,9 +707,6 @@
       "LABEL": {
         "TYPE": "Type",
         "REFERENCE": "Reference:",
-        "SUPPLIER": "Supplier:",
-        "ENGAGEMENT": "Engagement:",
-        "FINAL INVOICE": "Final invoice:",
         "PIECE TYPE": "Piece type:"
       }
     },

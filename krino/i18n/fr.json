@@ -666,7 +666,13 @@
       "LAST INVOICE": "dern. facture"
     },
     "LABEL": {
-      "EQUIPE": "Equipe"
+      "EQUIPE": "Equipe",
+      "TYPE": "TypE:",
+      "REFERENCE": "ReferencE:",
+      "SUPPLIER": "SupplieR:",
+      "ENGAGEMENT": "EngagemenT:",
+      "FINAL INVOICE": "Final invoicE:",
+      "PIECE TYPE": "Piece typE:"
     },
     "ATTRIBUTION": {
       "COLUMN": {
