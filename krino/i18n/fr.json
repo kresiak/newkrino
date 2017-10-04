@@ -25,20 +25,20 @@
       "GREEK": "Je juge, je décide, j'apprécie"
     },
     "CARD HEADER": {
-      "YOUR BUDGET": "Your budgeT",
-      "INFORMATION": "InformatioN",
-      "FROM RECEPTION": "From ReceptioN"
+      "YOUR BUDGET": "Your budget",
+      "INFORMATION": "Information",
+      "FROM RECEPTION": "Message du receptioniste"
     },
     "CARD TITLE": {
-      "STATISTICS": "StatisticS",
-      "NEW MESSAGES": "New messageS",
-      "NEW DELIVERIES": "New deliverieS"
+      "STATISTICS": "Statistiques",
+      "NEW MESSAGES": "Nouveau messages",
+      "NEW DELIVERIES": "Nouvelles livraisons"
     },
     "CARD FOOTER": {
-      "DAYS AGO": "days agO"
+      "DAYS AGO": "il y a plusieurs jours"
     },
     "CARD TEXT": {
-      "KRINO WILL SHOW HERE": "Krino will show here to the user how the spending of his team is in relation to his allowed budgeT."
+      "KRINO WILL SHOW HERE": "Krino va montrer ici à l'utilisateur comment évolue le budget de l'équipe en relation avec le budget autorisé."
     }
   },
   "LOGIN": {
