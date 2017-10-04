@@ -862,27 +862,27 @@
   },
   "DASHBOARD": {
     "CARD HEADER": {
-      "CLASSIC ORDERS": "classic orderS",
-      "ORDERS TO VALIDATE": "Orders to validatE",
-      "FRIDGE ORDERS": "Fridge OrderS",
-      "OPEN THEM": "open theM",
-      "STOCK ORDERS": "Stock OrderS",
-      "VOUCHER REQUESTS": "Voucher RequestS",
-      "VOUCHERS USED": "Vouchers useD",
-      "NEW PRODUCTS": "New productS",
+      "CLASSIC ORDERS": "commandes normales",
+      "ORDERS TO VALIDATE": "Commandes à valider",
+      "FRIDGE ORDERS": "Commandes frigos",
+      "OPEN THEM": "Ouvrir",
+      "STOCK ORDERS": "Commandes stock",
+      "VOUCHER REQUESTS": "Demandes de coupons",
+      "VOUCHERS USED": "Coupons utilisés",
+      "NEW PRODUCTS": "Nouveaux produits",
       "OTP": "OTP",
-      "USERS ACTIVITY": "Users activitY",
-      "EQUIPES ACTIVITY": "Equipes activitY",
-      "OTP USAGE": "Otp usagE",
-      "PRODUCTS USAGE": "Products usagE"
+      "USERS ACTIVITY": "Activité des utilisateurs",
+      "EQUIPES ACTIVITY": "Activité des équipes",
+      "OTP USAGE": "Usage otp",
+      "PRODUCTS USAGE": "Usage des produits"
     },
     "CARD TITLE": {
-      "NEW ORDERS": "New orderS",
-      "NEW REQUESTS": "New requestS",
-      "NEW ORDERS READY FOR SAP": "New orders ready foR SAP",
-      "IN WAIT FOR VALIDATION": "In wait for validatioN",
-      "SOON EXPIRING": "Soon expirinG",
-      "FOLLOWING ORDERS": "Following orderS"
+      "NEW ORDERS": "Nouvelles commandes",
+      "NEW REQUESTS": "Nouvelles demandes",
+      "NEW ORDERS READY FOR SAP": "Nouvelles commandes prêtes pour SAP",
+      "IN WAIT FOR VALIDATION": "En attente de validation",
+      "SOON EXPIRING": "Sur le point d'expirer",
+      "FOLLOWING ORDERS": "Commandes suivantes"
     }
   }
 }
