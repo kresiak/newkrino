@@ -871,19 +871,20 @@
     }
   },
   "DASHBOARD": {
-    "CLASSIC ORDERS": "classic orders",
-    "ORDERS TO VALIDATE": "Orders to validate",
-    "FRIDGE ORDERS": "Fridge Orders",
-    "OPEN THEM": "open them",
-    "STOCK ORDERS": "Stock Orders",
-    "VOUCHER REQUESTS": "Voucher Requests",
-    "VOUCHERS USED": "Vouchers used",
-    "NEW PRODUCTS": "New products",
-    "OTP": "OTP",
-    "USERS ACTIVITY": "Users activity",
-    "EQUIPES ACTIVITY": "Equipes activity",
-    "OTP USAGE": "Otp usage",
-    "PRODUCTS USAGE": "Products usage"
+    "CARD HEADER": {
+      "CLASSIC ORDERS": "classic orders",
+      "ORDERS TO VALIDATE": "Orders to validate",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "OPEN THEM": "open them",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER REQUESTS": "Voucher Requests",
+      "VOUCHERS USED": "Vouchers used",
+      "NEW PRODUCTS": "New products",
+      "OTP": "OTP",
+      "USERS ACTIVITY": "Users activity",
+      "EQUIPES ACTIVITY": "Equipes activity",
+      "OTP USAGE": "Otp usage",
+      "PRODUCTS USAGE": "Products usage"
     },
     "CARD TITLE": {
       "NEW ORDERS": "New orders",
@@ -894,3 +895,4 @@
       "FOLLOWING ORDERS": "Following orders"
     }
   }
+}
