@@ -600,17 +600,17 @@
       "LIST OF PACKET": "Tous les paquets reçus"
     },
     "COLUMN": {
-      "WHEN": "WheN?",
-      "REFERENCE": "ReferencE",
-      "SUPPLIER": "SupplieR",
-      "POSITION": "PositioN",
-      "PROCESSED": "ProcesseD"
+      "WHEN": "Quand?",
+      "REFERENCE": "Référence",
+      "SUPPLIER": "Fournisseur",
+      "POSITION": "Localisation",
+      "PROCESSED": "Traité"
     },
     "LABEL": {
-      "SUPPLIER": "SupplieR",
-      "OR SUPPLIER": "Or supplieR",
-      "REFERENCE": "ReferencE",
-      "POSITION": "PositioN"
+      "SUPPLIER": "Fournisseur",
+      "OR SUPPLIER": "Ou fournisseur",
+      "REFERENCE": "Référence",
+      "POSITION": "Localisation"
     }
   },
   "COMMUNICATION": {
@@ -693,12 +693,12 @@
         "NB": "Nombre total"
       },
       "LABEL": {
-        "TYPE": "TypE:",
-        "REFERENCE": "ReferencE:",
-        "SUPPLIER": "SupplieR:",
-        "ENGAGEMENT": "EngagemenT:",
-        "FINAL INVOICE": "Final invoicE:",
-        "PIECE TYPE": "Piece typE:"
+        "TYPE": "Type:",
+        "REFERENCE": "Référence:",
+        "SUPPLIER": "Fournisseur:",
+        "ENGAGEMENT": "Engagement:",
+        "FINAL INVOICE": "Facture finale?:",
+        "PIECE TYPE": "Type de pièce:"
       }
     },
     "BY SAPIDS": {
