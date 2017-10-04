@@ -637,6 +637,28 @@
     },
     "LABEL": {
       "EQUIPE": "Equipe"
+    },
+    "ATTRIBUTION": {
+      "COLUMN": {
+        "SAP ID": "sap id",
+        "LAST ACTIVITY": "Last activity",
+        "ALREADY INVOICED": "Already invoiced",
+        "REMAINING ENGAGED": "Remaining engaged",
+        "SUPPLIER": "Supplier",
+        "OTP": "Otp",
+        "EQUIPE": "Equipe"
+      },
+      "LABEL": {
+
+      }
+    },
+    "TYPE": {
+      "COLUMN": {
+        "PIECE TYPE": "Piece type",
+        "FIRST PIECE ID": "First piece Id",
+        "LAST PIECE ID": "Last piece Id",
+        "NB": "Nb"
+      }
     }
   },
   "ADMINISTRATION": {

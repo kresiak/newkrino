@@ -17,13 +17,13 @@
                                 <img src="../../images/refresh.png" (click)="refreshAttributionList()" class="imgSearch" placement="right" [ngbTooltip]="'Refresh: hide the sap items already attributed to an equipe'"/>
                             </div>
                             <div class="row">
-                                <div class="col-sm-1 vcenter"><b>Sap Id</b></div>
-                                <div class="col-sm-1 vcenter"><b>Last activity</b></div>
-                                <div class="col-sm-1 vcenter"><b>Already invoiced</b></div>
-                                <div class="col-sm-1 vcenter"><b>Remaining engaged</b></div>
-                                <div class="col-sm-1 vcenter"><b>Supplier</b></div>
-                                <div class="col-sm-2 vcenter"><b>Otp</b></div>
-                                <div class="col-sm-2 vcenter"><b>Equipe</b></div>
+                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.SAP ID' | translate}}</b></div>
+                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.LAST ACTIVITY' | translate}}</b></div>
+                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.ALREADY INVOICED' | translate}}</b></div>
+                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
+                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.SUPPLIER' | translate}}</b></div>
+                                <div class="col-sm-2 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.OTP' | translate}}</b></div>
+                                <div class="col-sm-2 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.EQUIPE' | translate}}</b></div>
                             </div>
                             <div *ngFor="let sapItem of sapItemsToAttribute">
                                 <div class="row">
@@ -84,10 +84,10 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-3 "><b>Piece Type</b></div>
-                                            <div class="col-sm-3 "><b>First piece Id</b></div>
-                                            <div class="col-sm-3 "><b>Last piece Id</b></div>
-                                            <div class="col-sm-3 "><b>Nb</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.PIECE TYPE' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.FIRST PIECE ID' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.LAST PIECE ID' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.NB' | translate}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
