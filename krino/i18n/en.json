@@ -869,5 +869,30 @@
         "USER PASSWORD": "user password:"
       }
     }
+  },
+  "DASHBOARD": {
+    "CARD HEADER": {
+      "CLASSIC ORDERS": "classic orders",
+      "ORDERS TO VALIDATE": "Orders to validate",
+      "FRIDGE ORDERS": "Fridge Orders",
+      "OPEN THEM": "open them",
+      "STOCK ORDERS": "Stock Orders",
+      "VOUCHER REQUESTS": "Voucher Requests",
+      "VOUCHERS USED": "Vouchers used",
+      "NEW PRODUCTS": "New products",
+      "OTP": "OTP",
+      "USERS ACTIVITY": "Users activity",
+      "EQUIPES ACTIVITY": "Equipes activity",
+      "OTP USAGE": "Otp usage",
+      "PRODUCTS USAGE": "Products usage"
+    },
+    "CARD TITLE": {
+      "NEW ORDERS": "New orders",
+      "NEW REQUESTS": "New requests",
+      "NEW ORDERS READY FOR SAP": "New orders ready for SAP",
+      "IN WAIT FOR VALIDATION": "In wait for validation",
+      "SOON EXPIRING": "Soon expiring",
+      "FOLLOWING ORDERS": "Following orders"
+    }
   }
 }
