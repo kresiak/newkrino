@@ -90,6 +90,7 @@ export class ProductEnterComponent implements OnInit {
         this.savingNewProduct= true
         this.lastProductSaved= ''
         this.productService.createProduct({
+            creatingUserId: this.authorizationStatusInfo.currentUserId,
             name: formValue.nameOfProduct,
             description: formValue.description,
             supplierId: this.supplierId,

@@ -116,7 +116,7 @@ export class ProductDetailComponent implements OnInit {
         })
     }
 
-    categorySelectionChanged(selectedIds: string[]) {        
+    categorySelectionChanged(selectedIds: string[]) {
         this.logHistory('category change', this.product.data.categoryIds, selectedIds)
         this.product.data.categoryIds = selectedIds;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
@@ -130,15 +130,6 @@ export class ProductDetailComponent implements OnInit {
 
     categoryHasBeenAdded(newCategory: string) {
         this.productService.createCategory(newCategory);
-    }
-
-    commentsUpdated(comments) {
-        if (this.product && comments) {
-            this.logHistory('comment change', this.product.data.comments, comments)
-            this.product.data.comments = comments;
-            this.dataStore.updateData('products', this.product.data._id, this.product.data);
-        }
-
     }
 
     quantityBasketUpdated(quantity: string) {
@@ -183,10 +174,32 @@ export class ProductDetailComponent implements OnInit {
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
+    validationReask() {
+        this.logHistory('validation asked again', '', '')
+        this.product.data.onCreateValidation = true;
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);        
+    }
+
     validationDone() {
         this.logHistory('validation done', '', '')
         this.product.data.onCreateValidation = false;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
+    }
+
+    validationRefuse() {
+        this.logHistory('validation refused', '', '')
+        this.product.data.onCreateValidation = false        
+        // todo: generate message to creation user: this.product.data.creatingUserId
+        this.dataStore.updateData('products', this.product.data._id, this.product.data)
+        this.dataStore.addData('messages', {
+            userId: this.authorizationStatusInfo.currentUserId,
+            message: 'PRODUCT.ACTIONS.REFUSER VALIDATION MSG',
+            isPrivate: true,
+            toUserId: this.product.data.creatingUserId,
+            objectType: 'product',
+            id: this.product.data._id,
+            isRead: false
+        })
     }
 
     packageUpdated(packName: string) {

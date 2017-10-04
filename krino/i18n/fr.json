@@ -9,7 +9,10 @@
     "COMMENTS": {
       "ADD NEW COMMENT": "Ajouter un commentaire",
       "ADD COMMENT": "Ajouter",
-      "ALL COMMENTS": "Tous les commentaires"
+      "ALL COMMENTS": "Tous les commentaires",
+      "PRIVATE COMMENTS MSG": "Certains messages ici vous ont été explicitement adressés.",
+      "PRIVATE COMMENTS TIP": "Clickez ici, si vous avez lu les messages.",
+      "PRIVATE COMMENTS BTN": "J'ai lu les messages"
     }
   },
   "HOME": {
@@ -345,7 +348,7 @@
       "CHANGE HISTORY": "Changee historique",
       "DUPLICATE CATALOG NR": "Dupliquer le no catalogue",
       "VIEW PRODUCTS": "Voir produits",
-      "VIEW PRIVATE PRODUCTS": "Voir produits provés",
+      "VIEW PRIVATE PRODUCTS": "Voir produits privés",
       "CREATE A PRODUCT": "Créer un produit"
     },
     "COLUMN": {
@@ -387,12 +390,21 @@
       "STOCK PACKAGING": "conditionnement si stock:",
       "FRIGO": "frigo:",
       "PRODUCT DISABLED": "Ce produit est désactivé",
-      "ATTENTE VALIDATION": "en attente de validation:",
       "DUPLICATE CATALOG NR": "numéroo catalogue en double",
       "ALREADY BASKET": "déjà dans panier:",
       "RESTRICTED FOLLOWING USERS": "achat seulement permis aux utilisateurs suivants:",
       "TOTAL": "total:",
       "CATEGORY": "catégorie:"
+    },
+    "ACTIONS": {
+        "ATTENTE VALIDATION TEXT": "en attente de validation:",
+        "ACCEPTER VALIDATION BUTON": "accepter",
+        "REFUSER VALIDATION BUTON": "refuser",
+        "ACCEPTER VALIDATION TIP": "N'oubliez pas d'activer le produit d'abord. Si vous êtes super administrateur vous pouvez aussi rendre le produit accessible à tous les labos (non spécifique au laboratoire)",
+        "REFUSER VALIDATION TIP": "Dans ce cas ne PAS activer le produit. Ajoutez un commentaire via l'onglet Commentaires avec les raisons de votre refus",
+        "REFUSER VALIDATION MSG": "La création d'un de vos produits a été refusée.",
+        "REASK VALIDATION TIP": "Assurez vous d'avoir bien adapté le produit avant de redemander au Lab Manager de valider ce produit. Veuillez consulter les commentaire dans l'onglet Commentaires, en cas de doute.",
+        "REASK VALIDATION BUTON": "Redemander une validation"   
     }
   },
   "EQUIPE": {
@@ -478,8 +490,8 @@
       "LOT NUMBER": "Numéro de lot",
       "FROM LOT NB": "De quel lot",
       "QUANTITY": "Quantité",
-      "WHO": "WhO?",
-      "PROCESSED": "ProcesseD?"
+      "WHO": "Qui?",
+      "PROCESSED": "Traité?"
     },
     "LABEL": {
       "NO MANUAL CHANGE YET": "Pas encore de changement manuel",
@@ -554,14 +566,14 @@
       "LOCATION": "Endroit",
       "LOT NUMBER": "No de lot",
       "QUANTITY": "Quantité",
-      "REF": "ReF",
-      "SAP": "SaP",
-      "DATE": "DatE",
-      "SUPPLIER": "SupplieR",
-      "WITH VAT": "WitH VAT",
-      "STATUS": "StatuS",
-      "DELIVERY": "DeliverY",
-      "HAS BEEN DELIVERED": "has been delivereD"
+      "REF": "Réf",
+      "SAP": "Sap",
+      "DATE": "Date",
+      "SUPPLIER": "Fournisseur",
+      "WITH VAT": "Avec TVA",
+      "STATUS": "Statut",
+      "DELIVERY": "Livraison",
+      "HAS BEEN DELIVERED": "a été livré"
     },
     "LABEL": {}
   },
@@ -601,32 +613,32 @@
     },
     "COLUMN": {
       "SAP ID": "Sap ID",
-      "OUR REF": "Our ReF",
-      "ENG. DATE": "Eng. datE",
-      "LAST ACTIVITY": "Last activitY",
-      "ALREADY INVOICED": "Already invoiceD",
-      "REMAINING ENGAGED": "Remaining engageD",
-      "TYPE": "TypE",
-      "SUPPLIER": "SupplieR",
-      "OTP": "OtP",
-      "EQUIPE": "EquipE",
-      "POSTE": "PostE",
-      "PRODUCT": "ProducT",
-      "INITIAL": "InitiaL",
-      "INVOICED": "InvoiceD",
-      "OPEN": "OpeN",
-      "FACT. FINALE": "Fact. FinalE?",
-      "QTY NOT FACTURED": "Qty not factureD",
-      "QTY": "QtY",
-      "HTVA": "HtvA",
-      "TVAC": "TvaC",
-      "STATUS": "StatuS",
-      "PIECE": "PiecE",
-      "DATE CPT": "Date CpT",
-      "LAST INVOICE": "last invoicE"
+      "OUR REF": "Notre réf",
+      "ENG. DATE": "Date eng.",
+      "LAST ACTIVITY": "Dern. activité",
+      "ALREADY INVOICED": "Facturé",
+      "REMAINING ENGAGED": "Reste engagé",
+      "TYPE": "Type",
+      "SUPPLIER": "Fournisseur",
+      "OTP": "Otp",
+      "EQUIPE": "Equipe",
+      "POSTE": "Poste",
+      "PRODUCT": "Produit",
+      "INITIAL": "Initial",
+      "INVOICED": "Facturé",
+      "OPEN": "Ouvert",
+      "FACT. FINALE": "Fact. Finale?",
+      "QTY NOT FACTURED": "Qté non facturé",
+      "QTY": "Qté",
+      "HTVA": "Htva",
+      "TVAC": "Tvac",
+      "STATUS": "Statut",
+      "PIECE": "Pièce",
+      "DATE CPT": "Date Cpt",
+      "LAST INVOICE": "dern. facture"
     },
     "LABEL": {
-      "EQUIPE": "EquipE"
+      "EQUIPE": "Equipe"
     },
     "ATTRIBUTION": {
       "COLUMN": {

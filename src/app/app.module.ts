@@ -150,6 +150,7 @@ import { EditorBoolean } from './ui/editor/editor-boolean'
 import { Checkbox } from './ui/checkbox/checkbox'
 import { SelectorComponent } from './ui/selector/selector.component'
 import { CommentComponent } from './Comments/comment.component'
+import { CommentsTabComponent } from './Comments/comments-tab.component'
 import { CommentsComponent } from './Comments/comments.component'
 import { HelpPointerComponent } from './ui/help/help-pointer.component'
 import { DatePointerComponent } from './ui/help/date-pointer.component'
@@ -240,7 +241,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
   declarations: [AppComponent, HomeComponent,
     VoucherListComponent, VoucherDetailComponent, MonitoringDetailComponent,
     AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
-    CommentComponent, CommentsComponent, LaboratoryEnterComponent,
+    CommentComponent, CommentsComponent, CommentsTabComponent, LaboratoryEnterComponent,
     SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent, SupplierEprocShoppingComponent,
     ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
     ProductFridgeOrderButtonComponent,
