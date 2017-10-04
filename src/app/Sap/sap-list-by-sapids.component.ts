@@ -54,7 +54,7 @@ export class SapListBySapIdsComponent implements OnInit {
                 })
 
                 if (sapObj.factured) {
-                    this.sapService.filterFactureItemsBasedOnOtp(sapObj.factured.data.items, this.otp.data.name, this.otp.data.datStart).sort((a,b)=>a.poste-b.poste)
+                    this.sapService.filterFactureItemsBasedOnOtp(sapObj.factured.data.items, this.otp.data.name, (this.otp.annotation.currentPeriodAnnotation || {}).datStart).sort((a,b)=>a.poste-b.poste)
                     .forEach(sapItem => {
                         sum2 += sapItem.tvac
                         this.sapFacturesItemsList.push({

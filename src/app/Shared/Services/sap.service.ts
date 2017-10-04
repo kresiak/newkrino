@@ -59,7 +59,7 @@ export class SapService {
 
     filterFactureItemsBasedOnOtp(items, otpName: string, otpStartingDate: string) {
         return items.filter(item => item.otp === otpName && !item.isBlocked && !item.isSuppr)
-            .filter(item => this.isFactureItemAfterDate(item, otpStartingDate))
+            .filter(item => otpStartingDate && this.isFactureItemAfterDate(item, otpStartingDate))
     }
 
     getAmountInvoicedByOtpInSapItems(otpName: string, otpStartingDate: string, sapItems: any[]) {
