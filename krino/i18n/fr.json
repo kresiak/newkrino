@@ -8,6 +8,8 @@
     "CHOOSE AN EQUIPE": "choisir une équipe",    
     "TOGGLE DETAILS": "Voir/cacher détails",
     "COMMENTS": {
+      "TAB TITLE": "Commentaires",  
+      "TAB TITLE TIP": "Ici il y a des messages qui vous attendent. Veuillez les lire.",          
       "ADD NEW COMMENT": "Ajouter un commentaire",
       "ADD COMMENT": "Ajouter",
       "ALL COMMENTS": "Tous les commentaires",

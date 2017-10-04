@@ -200,7 +200,10 @@
 			</div>
 		</template>
 	</ngb-tab>	
-	<ngb-tab title="{{'PRODUCT.MENU.COMMENTS' | translate}}" id="tabComments">
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [id]="product.data._id"></gg-comments-tab-title>
+		</template>
 		<template ngbTabContent>
 			<gg-comments-tab [data]="product.data" [dbTable]="'products'"></gg-comments-tab>
 		</template>

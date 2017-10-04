@@ -4,14 +4,12 @@ import { DataStore } from './../Shared/Services/data.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component({
-    selector: 'gg-comments-tab',
-    templateUrl: './comments-tab.component.html'
+    selector: 'gg-comments-tab-title',
+    templateUrl: './comments-tab-title.component.html'
 })
-export class CommentsTabComponent implements OnInit {
-    privateMessages: any[];
-    @Input() data;
-    @Input() dbTable;
-
+export class CommentsTabTitleComponent implements OnInit {
+    nbMessages: number;
+    @Input() id: string;
 
     constructor(private dataStore: DataStore, private authService: AuthService) {
     }
@@ -25,7 +23,7 @@ export class CommentsTabComponent implements OnInit {
         }).switchMap(noUse => {
             return this.dataStore.getDataObservable('messages').takeWhile(() => this.isPageRunning)    
         }).subscribe(messages => {
-            this.privateMessages= messages.filter(m => m.isPrivate && m.toUserId===this.authorizationStatusInfo.currentUserId && m.id===this.data._id && !m.isRead)
+            this.nbMessages= messages.filter(m => m.isPrivate && m.toUserId===this.authorizationStatusInfo.currentUserId && this.id === m.id && !m.isRead).length
         })
     }
 
@@ -33,21 +31,6 @@ export class CommentsTabComponent implements OnInit {
 
     ngOnDestroy(): void {
         this.isPageRunning = false
-    }
-
-
-    commentsUpdated(comments) {
-        if (this.data && comments) {
-            this.data.comments = comments;
-            this.dataStore.updateData(this.dbTable, this.data._id, this.data);
-        }
-    }
-
-    setMessagesAsRead() {
-        this.privateMessages.forEach(m => {
-            m.isRead= true
-            this.dataStore.updateData('messages', m._id, m)
-        })
     }
 
 }

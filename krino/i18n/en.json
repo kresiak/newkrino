@@ -8,6 +8,8 @@
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
     "COMMENTS": {
+      "TAB TITLE": "Comments",
+      "TAB TITLE TIP": "Here there are probably messages waiting that have explicitely been addressed to you",
       "ADD NEW COMMENT": "Add new comment",
       "ADD COMMENT": "Add comment",
       "ALL COMMENTS": "All comments",
