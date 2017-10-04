@@ -893,6 +893,10 @@
       "IN WAIT FOR VALIDATION": "In wait for validation",
       "SOON EXPIRING": "Soon expiring",
       "FOLLOWING ORDERS": "Following orders"
+    },
+    "ALERTS": {
+      "EXPIRING OTPS": "There are expiring otp! ",
+      "PRIVATE MSGS": "There are private messages! "
     }
   }
 }

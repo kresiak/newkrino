@@ -883,6 +883,10 @@
       "IN WAIT FOR VALIDATION": "En attente de validation",
       "SOON EXPIRING": "Sur le point d'expirer",
       "FOLLOWING ORDERS": "Commandes suivantes"
+    },
+    "ALERTS": {
+      "EXPIRING OTPS": "Des otps vont expirer! ",
+      "PRIVATE MSGS": "Vous avez des messages! "
     }
   }
 }
