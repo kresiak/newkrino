@@ -653,24 +653,27 @@
     },
     "ATTRIBUTION": {
       "COLUMN": {
-        "SAP ID": "sap id",
+        "SAP ID": "Sap Id",
         "LAST ACTIVITY": "Last activity",
         "ALREADY INVOICED": "Already invoiced",
         "REMAINING ENGAGED": "Remaining engaged",
         "SUPPLIER": "Supplier",
         "OTP": "Otp",
-        "EQUIPE": "Equipe"
+        "EQUIPE": "Project"
       },
       "LABEL": {
 
+      },
+      "ACTION": {
+        "SHOW/HIDE OTP": "Show/hide otp"
       }
     },
-    "TYPE": {
+    "BY PIECE TYPE": {
       "COLUMN": {
         "PIECE TYPE": "Piece type",
         "FIRST PIECE ID": "First piece Id",
         "LAST PIECE ID": "Last piece Id",
-        "NB": "Nb"
+        "NB": "Total number"
       }
     },
     "BY SAPIDS": {
@@ -680,11 +683,11 @@
         "OPEN": "Open",
         "SUM": "Sum",
         "PRODUCT": "Product",
-        "CODE TVA": "Code Tva",
+        "CODE TVA": "Vat code",
         "PIECE": "Piece",
         "DATE": "Date",
-        "HTVA": "HTva",
-        "TVAC": "TvaC"
+        "HTVA": "Vat excl.",
+        "TVAC": "Vat incl."
       }
     }
   },

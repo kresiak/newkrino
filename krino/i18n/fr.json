@@ -643,38 +643,41 @@
     },
     "ATTRIBUTION": {
       "COLUMN": {
-        "SAP ID": "sap iD",
-        "LAST ACTIVITY": "Last activitY",
-        "ALREADY INVOICED": "Already invoiceD",
-        "REMAINING ENGAGED": "Remaining engageD",
-        "SUPPLIER": "SupplieR",
-        "OTP": "OtP",
-        "EQUIPE": "EquipE"
+        "SAP ID": "Sap id",
+        "LAST ACTIVITY": "Dernière activité",
+        "ALREADY INVOICED": "Facturé à ce jour",
+        "REMAINING ENGAGED": "Restant engagé",
+        "SUPPLIER": "Fournisseur",
+        "OTP": "Otp",
+        "EQUIPE": "Equipe"
       },
       "LABEL": {
 
+      },
+      "ACTION": {
+        "SHOW/HIDE OTP": "Montrer/Cacher l'otp"
       }
     },
-    "TYPE": {
+    "BY PIECE TYPE": {
       "COLUMN": {
-        "PIECE TYPE": "Piece typE",
-        "FIRST PIECE ID": "First piece ID",
-        "LAST PIECE ID": "Last piece ID",
-        "NB": "NB"
+        "PIECE TYPE": "Type de pièce",
+        "FIRST PIECE ID": "Id première pièce",
+        "LAST PIECE ID": "Id dernière pièce",
+        "NB": "Nombre total"
       }
     },
     "BY SAPIDS": {
       "COLUMN": {
-        "SAP ID": "Sap ID",
-        "POSTE": "PostE",
-        "OPEN": "OpeN",
-        "SUM": "SuM",
-        "PRODUCT": "ProducT",
-        "CODE TVA": "Code TvA",
-        "PIECE": "PiecE",
-        "DATE": "DatE",
-        "HTVA": "HTvA",
-        "TVAC": "TvAC"
+        "SAP ID": "Sap id",
+        "POSTE": "Poste",
+        "OPEN": "Ouvert",
+        "SUM": "Somme",
+        "PRODUCT": "Produit",
+        "CODE TVA": "Code Tva",
+        "PIECE": "Pièce",
+        "DATE": "Date",
+        "HTVA": "Hors Tva",
+        "TVAC": "Tva Compris"
       }
     }
   },

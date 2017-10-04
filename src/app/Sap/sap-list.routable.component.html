@@ -50,7 +50,7 @@
                                             (idChanged)="equipeChanged($event, sapItem)" [emptyContentText]="'ignore for now'" (hasBeenCanceled)="equipeChangeCancelled(sapItem)"></gg-editor-autocomplete>
                                     </div>
                                     <div class="col-sm-2 vcenter">
-                                        <button type="button" class="btn btn-link" (click)="sapItem.isClosed=!sapItem.isClosed">Show/hide otp</button>
+                                        <button type="button" class="btn btn-link" (click)="sapItem.isClosed=!sapItem.isClosed">{{'SAP.ATTRIBUTION.ACTION.SHOW/HIDE OTP' | translate}}</button>
                                     </div>
                                 </div>
                                 <div class="row" [ngbCollapse]="!sapItem.isClosed"> 
@@ -84,10 +84,10 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.PIECE TYPE' | translate}}</b></div>
-                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.FIRST PIECE ID' | translate}}</b></div>
-                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.LAST PIECE ID' | translate}}</b></div>
-                                            <div class="col-sm-3 "><b>{{'SAP.TYPE.COLUMN.NB' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.BY PIECE TYPE.COLUMN.PIECE TYPE' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.BY PIECE TYPE.COLUMN.FIRST PIECE ID' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.BY PIECE TYPE.COLUMN.LAST PIECE ID' | translate}}</b></div>
+                                            <div class="col-sm-3 "><b>{{'SAP.BY PIECE TYPE.COLUMN.NB' | translate}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
