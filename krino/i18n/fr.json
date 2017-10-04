@@ -889,16 +889,16 @@
       "PRIVATE MSGS": "Vous avez des messages! "
     },
     "MESSAGE PARTS": {
-      "ORDER": "ordeR",
-      "AT": "aT",
-      "SPENT": "spenT",
-      "NEEDS": "needS",
-      "VOUCHER(S) FOR": "voucher(s) foR",
-      "ON A VOUCHER AT": "on a voucher aT",
-      "FOR": "foR",
-      "BY": "bY",
-      "STILL HAS": "still haS",
-      "AN AMOUNT OF": "an amount oF"
+      "ORDER": "commande",
+      "AT": "chez",
+      "SPENT": "a dépensé",
+      "NEEDS": "nécessite",
+      "VOUCHER(S) FOR": "coupon(s) pour",
+      "ON A VOUCHER AT": "pour un coupon chez",
+      "FOR": "pour",
+      "BY": "par",
+      "STILL HAS": "a encore",
+      "AN AMOUNT OF": "un montant de"
     }
   }
 }
