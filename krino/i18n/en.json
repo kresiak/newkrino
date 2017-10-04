@@ -3,6 +3,7 @@
     "YES": "yes",
     "NO": "no",
     "EMPTY": "",
+    "CLICK HERE": "click here",
     "NOT SET YET" : "(not set yet)",
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
@@ -916,7 +917,8 @@
       "USERS ACTIVITY": "Users activity",
       "EQUIPES ACTIVITY": "Project team activity",
       "OTP USAGE": "Otp usage",
-      "PRODUCTS USAGE": "Products usage"
+      "PRODUCTS USAGE": "Products usage",
+      "PRIVATE MESSAGES": "Private messages"
     },
     "CARD TITLE": {
       "NEW ORDERS": "New orders",
@@ -924,7 +926,8 @@
       "NEW ORDERS READY FOR SAP": "New orders ready for SAP",
       "IN WAIT FOR VALIDATION": "In wait for validation",
       "SOON EXPIRING": "Soon expiring",
-      "FOLLOWING ORDERS": "Following orders"
+      "FOLLOWING ORDERS": "Following orders",
+      "PRIVATE MESSAGES": "Check them"      
     },
     "ALERTS": {
       "EXPIRING OTPS": "There are expiring otp! ",
