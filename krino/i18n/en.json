@@ -697,6 +697,14 @@
         "FIRST PIECE ID": "First piece Id",
         "LAST PIECE ID": "Last piece Id",
         "NB": "Total number"
+      },
+      "LABEL": {
+        "TYPE": "Type",
+        "REFERENCE": "Reference:",
+        "SUPPLIER": "Supplier:",
+        "ENGAGEMENT": "Engagement:",
+        "FINAL INVOICE": "Final invoice:",
+        "PIECE TYPE": "Piece type:"
       }
     },
     "BY SAPIDS": {
