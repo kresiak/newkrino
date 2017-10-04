@@ -604,10 +604,17 @@
       "LIST OF PACKET": "List of packet"
     },
     "COLUMN": {
-
+      "WHEN": "When?",
+      "REFERENCE": "Reference",
+      "SUPPLIER": "Supplier",
+      "POSITION": "Position",
+      "PROCESSED": "Processed"
     },
     "LABEL": {
-
+      "SUPPLIER": "Supplier",
+      "OR SUPPLIER": "Or supplier",
+      "REFERENCE": "Reference",
+      "POSITION": "Position"
     }
   },
   "COMMUNICATION": {
