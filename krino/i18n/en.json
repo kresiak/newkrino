@@ -465,10 +465,39 @@
       "EQUIPE": "Project",
       "AVAILABLE": "Available",
       "SPENT": "Spent",
-      "DEBT": "Debt"
+      "DEBT": "Debt",
+      "ID": "Id",
+      "POSTE": "Poste",
+      "OTP": "Otp",
+      "OTHER EQUIPE": "Other equipe",
+      "COMMENT": "Comment",
+      "MEMBER EQUIPE": "Member equipe",
+      "FACTOR": "Factor"
     },
     "LABEL": {
-
+      "EQUIPE": "equipe:",
+      "DESCRIPTION": "description:",
+      "WITH FOLLOWING USERS": "with following users:",
+      "HEADS OF EQUIPE": "heads of equipe:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed:",
+      "IS BLOCKED": "is blocked:",
+      "TOTAL BUDGET": "total budget:",
+      "MONEY SPENT": "money spent:",
+      "MONEY AVAILABLE": "money available:",
+      "MONEY OWED TO OTHER": "money owed to other equipes:",
+      "MONEY OWED BY OTHER": "money owed by other equipes:",
+      "SPENT ON REGULAR ORDERS": "Spent on regular orders:",
+      "SPENT ON FRIDGE ORDERS": "Spent on fridge orders:",
+      "SPENT ON WEBSHOPPING ORDERS": "Spent on webshopping orders:",
+      "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orders:",
+      "NAME": "name:",
+      "MONTH AHEAD ALLOWED": "nb of month ahead allowed:",
+      "EQUIPE IDS": "equipe Ids:",
+      "EQUIPE GROUP": "equipe group:",
+      "MEMBERS": "members:",
+      "EQUIPE GIVING": "Equipe giving:",
+      "EQUIPE RECEIVING": "Equipe receiving:",
+      "AMOUNT TRANSFERED": "Amount to be transfered:"
     }    
   },
   "STOCK": {
