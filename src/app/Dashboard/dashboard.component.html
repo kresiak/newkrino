@@ -9,7 +9,7 @@
 				<div class="card-block">
 					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.PRIVATE MESSAGES' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
-						<li *ngFor="let message of privateMessages"><gg-date-pointer [date]="message.createDate"></gg-date-pointer>:  {{message.message | translate}} <a class="imgSearch" [style.color]="'blue'" (click)="navigateToGeneric(message.objectType, message.id)">{{'GENERAL.CLICK HERE' | translate}}</a>  </li>
+						<li *ngFor="let message of privateMessages"><gg-date-pointer [date]="message.createDate"></gg-date-pointer>: {{message.userSendingFullName}} / {{message.message | translate}} <a class="imgSearch" [style.color]="'blue'" (click)="navigateToGeneric(message.objectType, message.id)">{{'GENERAL.CLICK HERE' | translate}}</a>  </li>
 					</ul>
 				</div>
 			</div>

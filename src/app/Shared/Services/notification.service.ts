@@ -177,8 +177,16 @@ export class NotificationService {
         return this.dataStore.getDataObservable('messages').map(messages => messages.filter(m => m.isPrivate && m.toUserId === userId && !m.isRead))
     }
 
+    getUnreadPrivateAnnotatedMessages(userId): Observable<any> {
+        return Observable.combineLatest(this.getUnreadPrivateMessages(userId), this.authService.getAnnotatedUsersHashmap(), (messages: any[], userMap) => {
+            messages.forEach(m => m.userSendingFullName= userMap.has(m.userId) ? userMap.get(m.userId).annotation.fullName : 'unknown user')
+            return messages
+        })
+    }
+
+
     getSortedUnreadPrivateMessages(userId): Observable<any> {
-        return this.getUnreadPrivateMessages(userId).map(messages => messages.sort((a, b) => {
+        return this.getUnreadPrivateAnnotatedMessages(userId).map(messages => messages.sort((a, b) => {
             var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
             var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
             return d1 < d2 ? 1 : -1
