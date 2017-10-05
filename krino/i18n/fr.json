@@ -566,7 +566,7 @@
     "COLUMN": {
       "PRODUCT": "Produit",
       "ORDERED": "Commandé",
-      "ALREADY": "A ce jour",
+      "ALREADY": "Livré",
       "TODAY": "Aujourd'hui",
       "NO LOT": "Numéro de lot",
       "RESELL AS": "Revendu comme",
