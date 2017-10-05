@@ -979,5 +979,112 @@
       "STILL HAS": "still has",
       "AN AMOUNT OF": "an amount of"
     }
+  },
+  "PLATFORM": {
+    "MENU": {
+      "SERVICES": "Services",
+      "MACHINES": "Machines",
+      "LABOUR TYPES": "Labour types",
+      "CLIENT TYPES": "Client types",
+      "CORRECTION TYPES": "Correction types",
+      "ENTERPRISES": "Enterprises",
+      "CLIENTS": "Clients",
+      "OFFERS": "Offers"
+    },
+    "SERVICES": {
+      "MENU": {
+        "LIST OF SERVICES": "List of services",
+        "ALL SERVICES": "All services",
+        "BY CATEGORIES": "By categories",
+        "INFO": "Info",
+        "ADD A SERVICE": "Add a service",
+        "CATEGORIES": "Categories",
+        "LIST OF CATEGORIES": "List of categories",
+        "ADD A SERVICE CATEGORY": "Add a service category"
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "MACHINES": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "LABOUR": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "CLIENT TYPE": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "CORRECTION": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "ENTERPRISES": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "CLIENTS": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "OFFERS": {
+      "MENU": {
+
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    }
   }
 }
