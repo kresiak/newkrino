@@ -236,7 +236,7 @@
 			<gg-comments-tab-title [id]="product.data._id"></gg-comments-tab-title>
 		</template>
 		<template ngbTabContent>
-			<gg-comments-tab [data]="product.data" [dbTable]="'products'"></gg-comments-tab>
+			<gg-comments-tab [data]="product.data" [dbTable]="'products'" [urlPart]="'product'"></gg-comments-tab>
 		</template>
 	</ngb-tab>
 	<ngb-tab title="{{'PRODUCT.MENU.ORDERS' | translate}}" id="tabOrders">

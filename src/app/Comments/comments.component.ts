@@ -1,6 +1,9 @@
-import {Component, Input, Output, ViewEncapsulation, ViewChild, EventEmitter, OnInit} from '@angular/core';
-import {Editor} from '../ui/editor/editor'
-import {UserService} from '../Shared/Services/user.service'
+import { Component, Input, Output, ViewEncapsulation, ViewChild, EventEmitter, OnInit } from '@angular/core';
+import { Editor } from '../ui/editor/editor'
+import { UserService } from '../Shared/Services/user.service'
+import { Observable } from 'rxjs/Rx'
+import { SelectableData } from './../Shared/Classes/selectable-data'
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
 
 @Component({
@@ -13,21 +16,32 @@ import * as moment from "moment"
 })
 export class CommentsComponent implements OnInit {
   @Input() comments;
-  @Input() dontShowOldMessages: boolean= false
-  @Output() commentsUpdated = new EventEmitter();
+  @Input() dontShowOldMessages: boolean = false
+  @Output() commentsUpdated = new EventEmitter()
+  @Output() usersToBeNotified = new EventEmitter()
+  
   // We are using an editor for adding new comments and control it directly using a reference
   @ViewChild(Editor) newCommentEditor;
 
-  
-  constructor(private userService: UserService) {
+
+  constructor(private userService: UserService, private authService: AuthService) {
   }
 
-  ngOnInit():void{
-    if (!this.comments)
-    {
-      this.comments= [];
+  private selectableUsers: Observable<SelectableData[]>;
+
+  ngOnInit(): void {
+    if (!this.comments) {
+      this.comments = [];
     }
+    this.selectableUsers = this.authService.getSelectableUsers();
   }
+
+  private isPageRunning: boolean = true
+
+  ngOnDestroy(): void {
+    this.isPageRunning = false
+  }
+
 
   onChanges(changes) {
     if (changes.comments && changes.comments.currentValue === undefined) {
@@ -36,8 +50,7 @@ export class CommentsComponent implements OnInit {
   }
 
   addNewComment() {
-    this.userService.getCurrentUserObjectForComment().first().subscribe(userrecord =>
-    {
+    this.userService.getCurrentUserObjectForComment().first().subscribe(userrecord => {
       var md = moment()
       const comments = this.comments.slice();
       comments.splice(0, 0, {
@@ -47,6 +60,8 @@ export class CommentsComponent implements OnInit {
       });
       this.commentsUpdated.next(comments);
       this.newCommentEditor.setEditableContent('');
+      if (this.selectedUserIds && this.selectedUserIds.length > 0)
+        this.usersToBeNotified.next(this.selectedUserIds)
     });
   }
 
@@ -63,4 +78,11 @@ export class CommentsComponent implements OnInit {
     }
     this.commentsUpdated.next(comments);
   }
+
+  private selectedUserIds: any[] = undefined
+
+  userSelectionChanged(selectedIds: string[]) {
+    this.selectedUserIds = selectedIds
+  }
+
 }

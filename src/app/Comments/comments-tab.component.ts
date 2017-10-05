@@ -12,6 +12,7 @@ export class CommentsTabComponent implements OnInit {
     privateMessages: any[];
     @Input() data;
     @Input() dbTable;
+    @Input() urlPart;
     @Input() dontShowOldMessages: boolean= false   
     @Output() commentsUpdated = new EventEmitter() 
 
@@ -52,6 +53,10 @@ export class CommentsTabComponent implements OnInit {
             m.isRead= true
             this.dataStore.updateData('messages', m._id, m)
         })
+    }
+
+    notifyUsers(userIds: any[]) {
+        userIds.forEach(id => this.notificationService.sendPrivateObjectMessage(id, this.urlPart, this.data._id, 'GENERAL.COMMENTS.ATTRACT ATTENTION TO OBJECT MSG'))
     }
 
 }

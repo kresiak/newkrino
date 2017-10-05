@@ -5,4 +5,4 @@
     </div>
 </div>
 
-<gg-comments [comments]="data.comments" (commentsUpdated)="commentsHaveBeenUpdated($event)" [dontShowOldMessages]="dontShowOldMessages"></gg-comments>
+<gg-comments [comments]="data.comments" (commentsUpdated)="commentsHaveBeenUpdated($event)" (usersToBeNotified)="notifyUsers($event)" [dontShowOldMessages]="dontShowOldMessages"></gg-comments>
