@@ -44,6 +44,7 @@ export class CommentsTabComponent implements OnInit {
 
 
     commentsHaveBeenUpdated(comments) {
+        if (!this.authorizationStatusInfo || !this.authorizationStatusInfo.isLoggedIn) return
         if (this.data && comments) {
             this.data.comments = comments;
             this.dataStore.updateData(this.dbTable, this.data._id, this.data);
@@ -52,6 +53,7 @@ export class CommentsTabComponent implements OnInit {
     }
 
     setMessagesAsRead() {
+        if (!this.authorizationStatusInfo || !this.authorizationStatusInfo.isLoggedIn) return
         this.privateMessages.forEach(m => {
             m.isRead= true
             this.dataStore.updateData('messages', m._id, m)
@@ -59,6 +61,7 @@ export class CommentsTabComponent implements OnInit {
     }
 
     notifyUsers(userIds: any[]) {
+        if (!this.authorizationStatusInfo || !this.authorizationStatusInfo.isLoggedIn) return
         if (!this.allowNotifyUsers) return
         userIds.forEach(id => this.notificationService.sendPrivateObjectMessage(id, this.urlPart, this.data._id, 'GENERAL.COMMENTS.ATTRACT ATTENTION TO OBJECT MSG'))
     }

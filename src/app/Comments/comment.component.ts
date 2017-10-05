@@ -28,7 +28,7 @@ export class CommentComponent {
 
   ngOnInit(): void {
     this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
-      this.isFromCurrentUser = statusInfo.currentUserId === this.user.id
+      this.isFromCurrentUser = statusInfo.isLoggedIn && statusInfo.currentUserId === this.user.id
     })
   }
 
