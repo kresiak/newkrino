@@ -13,6 +13,7 @@ import * as moment from "moment"
 })
 export class CommentsComponent implements OnInit {
   @Input() comments;
+  @Input() dontShowOldMessages: boolean= false
   @Output() commentsUpdated = new EventEmitter();
   // We are using an editor for adding new comments and control it directly using a reference
   @ViewChild(Editor) newCommentEditor;

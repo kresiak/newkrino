@@ -8,6 +8,7 @@ import { ConfigService } from './../Shared/Services/config.service'
 import { NotificationService } from '../Shared/Services/notification.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -25,7 +26,7 @@ import * as utilsdate from './../Shared/Utils/dates'
 
 export class ProductDetailComponent implements OnInit {
     serviceSnapshot: any;
-    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService,
+    constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService, private modalService: NgbModal,
         private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService, private notificationService: NotificationService) {
     }
 
@@ -86,6 +87,33 @@ export class ProductDetailComponent implements OnInit {
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
+
+    private headerKey: string
+    private footerKey: string
+
+
+    openModal(template, type: string) {
+        if (type === 'REFUSE') {
+            this.headerKey="PRODUCT.ACTIONS.REFUSER VALIDATION MODAL TITLE"
+            this.footerKey="PRODUCT.ACTIONS.REFUSER VALIDATION MODAL FOOTER"
+        }
+        else if (type === 'REASK') {
+            this.headerKey="PRODUCT.ACTIONS.REASK VALIDATION MODAL TITLE"
+            this.footerKey="PRODUCT.ACTIONS.REASK VALIDATION MODAL FOOTER"
+        }
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
+        var promise = ref.result;
+        promise.then((res) => {
+            if (type === 'REFUSE')
+                this.validationRefuse();
+            else if (type === 'REASK')
+                this.validationReask();
+        }, (res) => {
+        });
+        promise.catch((err) => {
+        });
+    }
+
 
     isProductReadOnly() {
         return !this.authorizationStatusInfo || !this.authorizationStatusInfo.isRightAdministrator(this.product.annotation.isPublic)

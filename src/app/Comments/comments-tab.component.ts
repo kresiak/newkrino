@@ -12,6 +12,8 @@ export class CommentsTabComponent implements OnInit {
     privateMessages: any[];
     @Input() data;
     @Input() dbTable;
+    @Input() dontShowOldMessages: boolean= false   
+    @Output() commentsUpdated = new EventEmitter() 
 
 
     constructor(private dataStore: DataStore, private authService: AuthService, private notificationService: NotificationService) {
@@ -37,10 +39,11 @@ export class CommentsTabComponent implements OnInit {
     }
 
 
-    commentsUpdated(comments) {
+    commentsHaveBeenUpdated(comments) {
         if (this.data && comments) {
             this.data.comments = comments;
             this.dataStore.updateData(this.dbTable, this.data._id, this.data);
+            this.commentsUpdated.next('')
         }
     }
 

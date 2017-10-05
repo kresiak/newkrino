@@ -9,7 +9,7 @@
 			<button (click)="addNewComment()" [disabled]="newCommentEditor?.getEditableContent()?.length === 0" class="btn btn-primary btn-sm">{{'GENERAL.COMMENTS.ADD COMMENT' | translate}}</button>
 		</div>
 
-		<div *ngIf="comments?.length > 0">
+		<div *ngIf="comments?.length > 0 && !dontShowOldMessages">
 			<div class="comments__title">{{'GENERAL.COMMENTS.ALL COMMENTS' | translate}}</div>
 			<ul class="comments__list">
 				<li *ngFor="let comment of comments">

@@ -420,10 +420,14 @@
         "ACCEPTER VALIDATION BUTON": "accept",
         "REFUSER VALIDATION BUTON": "refuse",
         "ACCEPTER VALIDATION TIP": "Don't forget to activate the product before. If you are super administrator you can also make the product public (non labo specific)",
-        "REFUSER VALIDATION TIP": "In this case DON'T activate the product before and put a comment in the Comments tab with the reason of your refusal",
+        "REFUSER VALIDATION TIP": "In this case DON'T activate the product before.",
         "REFUSER VALIDATION MSG": "The creation of one of your product has been refused.",
         "REASK VALIDATION TIP": "Be sure that you delivered the requested information before re-asking for validation. Read the comments in the Comments tab, if you are unsure",
-        "REASK VALIDATION BUTON": "Ask again for validation"
+        "REASK VALIDATION BUTON": "Ask again for validation",
+        "REFUSER VALIDATION MODAL TITLE": "Refuse the validation of the product",
+        "REFUSER VALIDATION MODAL FOOTER": "Explain why you are refusing the validation. Adding the comment will perform the validation. Otherwise cancel with the cross in the header.",
+        "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
+        "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header."
     }
   },
   "EQUIPE": {
