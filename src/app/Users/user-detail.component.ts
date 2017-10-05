@@ -117,13 +117,6 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);        
     }
 
-    commentsUpdated(comments) {
-        if (this.user && comments) {
-            this.user.data.comments = comments;
-            this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
-        }
-    };
-
     isReceptionistUpdated(receptionist) {
         this.user.data.isReceptionist = receptionist;
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);

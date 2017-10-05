@@ -19,13 +19,13 @@
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isBlocked" (editSaved)="isBlockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
-					</div> 
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'USER.LABEL.IS LABO USER' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="user.data.isLaboUser" (editSaved)="isLaboUserUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
-					</div> 
+					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'USER.LABEL.IS ADMINISTRATOR' | translate}}</div>
 						<div class="col-sm-6 vcenter">
@@ -76,42 +76,48 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'USER.MENU.COMMENTS' | translate}}" id="tabComments">
+
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [data]="user.data"></gg-comments-tab-title>
+		</template>
 		<template ngbTabContent>
-			<gg-comments [comments]="user.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+			<gg-comments-tab [data]="user.data" [dbTable]="'users.krino'" [urlPart]="'user'"></gg-comments-tab>
 		</template>
 	</ngb-tab>
+
 	<ngb-tab title="{{'USER.MENU.EQUIPES' | translate}}" *ngIf="true" id="tabEquipes">
 		<template ngbTabContent>
 			<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="path+'|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
 		</template>
-	</ngb-tab>	
+	</ngb-tab>
 	<ngb-tab title="{{'USER.MENU.ORDERS' | translate}}" id="tabOrders">
 		<template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'USER.MENU.FRIDGE ORDERS' | translate}}" id="tabFridgeOrders" >
+	<ngb-tab title="{{'USER.MENU.FRIDGE ORDERS' | translate}}" id="tabFridgeOrders">
 		<template ngbTabContent>
-			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="path+'|O:FridgeOrders'" ></gg-order-fridge-list>
+			<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="path+'|O:FridgeOrders'"></gg-order-fridge-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'USER.MENU.STOCK ORDERS' | translate}}" id="tabStockOrders" >
+	<ngb-tab title="{{'USER.MENU.STOCK ORDERS' | translate}}" id="tabStockOrders">
 		<template ngbTabContent>
-			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'" (stateChanged)="childStockOrdersStateChanged($event)"></gg-stock-order-list>
+			<gg-stock-order-list [ordersObservable]="stockOrdersObservable" [state]="state.StockOrders" [path]="path+'|O:StockOrders'"
+			 (stateChanged)="childStockOrdersStateChanged($event)"></gg-stock-order-list>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'USER.MENU.VOUCHER ORDERS' | translate}}" id="tabUsedVouchers" >
+	<ngb-tab title="{{'USER.MENU.VOUCHER ORDERS' | translate}}" id="tabUsedVouchers">
 		<template ngbTabContent>
-			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
+			<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
 		</template>
 	</ngb-tab>
-	
+
 	<ngb-tab id="tabMax">
 		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
-	
+
 	<ngb-tab id="gotoTop" *ngIf="!isRoot  && path!=='dashboard'">
 		<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>

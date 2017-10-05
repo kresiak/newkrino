@@ -61,13 +61,6 @@ export class CategoryDetailComponent implements OnInit {
     private otpsObservable: Observable<any>;
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
-    commentsUpdated(comments) {
-        if (this.category && comments) {
-            this.category.data.comments = comments;
-            this.dataStore.updateData('categories', this.category.data._id, this.category.data);
-        }
-    }
-
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();

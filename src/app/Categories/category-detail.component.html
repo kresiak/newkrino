@@ -58,11 +58,18 @@
 		</template>
 	</ngb-tab>
 	-->
-	<ngb-tab title="{{'CATEGORY.MENU.COMMENTS' | translate}}" id="tabComments">
+
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [data]="category.data"></gg-comments-tab-title>
+		</template>
 		<template ngbTabContent>
-			<gg-comments [comments]="category.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+			<gg-comments-tab [data]="category.data" [dbTable]="'categories'" [urlPart]="'category'"></gg-comments-tab>
 		</template>
 	</ngb-tab>
+
+	
+
 	<ngb-tab title="{{'CATEGORY.MENU.PRODUCTS' | translate}}" id="tabProducts">
 		<template ngbTabContent>
 			<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="path+'|O:Products'"  (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
