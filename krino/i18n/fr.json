@@ -465,7 +465,19 @@
       "SPENT": "Dépensé",
       "DEBT": "Dette"
     },
-    "LABEL": {}
+    "LABEL": {
+      "EQUIPE": "equipE:",
+      "DESCRIPTION": "descriptioN:",
+      "WITH FOLLOWING USERS": "with following userS:",
+      "HEADS OF EQUIPE": "heads of equipE:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead alloweD:",
+      "IS BLOCKED": "is blockeD:",
+      "TOTAL BUDGET": "total budgeT:",
+      "MONEY SPENT": "money spenT:",
+      "MONEY AVAILABLE": "money availablE:",
+      "MONEY OWED TO OTHER": "money owed to other equipeS:",
+      "MONEY OWED BY OTHER": "money owed by other equipeS:"
+    }
   },
   "STOCK": {
     "MENU": {

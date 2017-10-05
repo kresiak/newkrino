@@ -466,7 +466,17 @@
       "DEBT": "Debt"
     },
     "LABEL": {
-
+      "EQUIPE": "equipe:",
+      "DESCRIPTION": "description:",
+      "WITH FOLLOWING USERS": "with following users:",
+      "HEADS OF EQUIPE": "heads of equipe:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed:",
+      "IS BLOCKED": "is blocked:",
+      "TOTAL BUDGET": "total budget:",
+      "MONEY SPENT": "money spent:",
+      "MONEY AVAILABLE": "money available:",
+      "MONEY OWED TO OTHER": "money owed to other equipes:",
+      "MONEY OWED BY OTHER": "money owed by other equipes:"
     }    
   },
   "STOCK": {
