@@ -1,6 +1,7 @@
 import { Component, Input, Output, ViewEncapsulation, ViewChild, EventEmitter, OnInit } from '@angular/core';
 import * as moment from "moment"
 import { DataStore } from './../Shared/Services/data.service'
+import { NotificationService } from '../Shared/Services/notification.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component({
@@ -11,7 +12,7 @@ export class CommentsTabTitleComponent implements OnInit {
     nbMessages: number;
     @Input() id: string;
 
-    constructor(private dataStore: DataStore, private authService: AuthService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private notificationService: NotificationService) {
     }
     
     private authorizationStatusInfo: AuthenticationStatusInfo
@@ -20,10 +21,10 @@ export class CommentsTabTitleComponent implements OnInit {
         
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).do(statusInfo => {
             this.authorizationStatusInfo = statusInfo
-        }).switchMap(noUse => {
-            return this.dataStore.getDataObservable('messages').takeWhile(() => this.isPageRunning)    
-        }).subscribe(messages => {
-            this.nbMessages= messages.filter(m => m.isPrivate && m.toUserId===this.authorizationStatusInfo.currentUserId && this.id === m.id && !m.isRead).length
+        }).switchMap(statusInfo => {
+            return this.notificationService.getNbPrivateMessagesAboutObject(statusInfo.currentUserId, this.id).takeWhile(() => this.isPageRunning)    
+        }).subscribe(nbMessages => {
+            this.nbMessages= nbMessages
         })
     }
 

@@ -33,7 +33,7 @@ export class MenuService {
             this.emitCurrentMenu()
         }).switchMap(info => {
             return Observable.combineLatest(this.notificationService.getLmWarningMessages().map(messagesObj => messagesObj.finishingOtps.length).distinctUntilChanged(),
-                this.dataStore.getDataObservable('messages').map(msgs => msgs.filter(m => m.isPrivate && m.toUserId === info.statusInfo.currentUserId && !m.isRead).length).distinctUntilChanged(),
+                this.notificationService.getNbPrivateMessages(info.statusInfo.currentUserId).distinctUntilChanged(),
                 this.configService.getTranslationWord('DASHBOARD.ALERTS.EXPIRING OTPS'), this.configService.getTranslationWord('DASHBOARD.ALERTS.PRIVATE MSGS'),
                 (nbFinishingOtp, nbPrivateMessages, msgExpiringOtps, msgPrivateMessages) => {
                     return {

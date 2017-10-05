@@ -13,7 +13,7 @@ Injectable()
 export class NotificationService {
 
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
-        @Inject(OrderService) private orderService: OrderService,  @Inject(OtpService) private otpService: OtpService, 
+        @Inject(OrderService) private orderService: OrderService, @Inject(OtpService) private otpService: OtpService,
         @Inject(StockService) private stockService: StockService, @Inject(VoucherService) private voucherService: VoucherService,
         @Inject(ProductService) private productService: ProductService) {
 
@@ -23,7 +23,7 @@ export class NotificationService {
     // ==================
 
     getLmWarningMessages(): Observable<any> {
-        return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.stockService.getAnnotatedStockOrdersAll(), 
+        return Observable.combineLatest(this.orderService.getAnnotatedFridgeOrders(), this.stockService.getAnnotatedStockOrdersAll(),
             this.voucherService.getOpenRequestedVouchers(), this.voucherService.getAnnotatedUsedVouchersReadyForSap(),
             this.getAnnotatedRecentLogs(24), this.getAdminMonitorForCurrentUser(), this.orderService.getAnnotedOrdersByStatus('Received by SAP'), this.orderService.getAnnotedOrdersValidable(),
             this.otpService.getAnnotatedFinishingOtps(), this.productService.getAnnotatedProductsOnValidationWait(),
@@ -173,6 +173,42 @@ export class NotificationService {
             });
     }
 
+    getUnreadPrivateMessages(userId): Observable<any> {
+        return this.dataStore.getDataObservable('messages').map(messages => messages.filter(m => m.isPrivate && m.toUserId === userId && !m.isRead))
+    }
 
+    getSortedUnreadPrivateMessages(userId): Observable<any> {
+        return this.getUnreadPrivateMessages(userId).map(messages => messages.sort((a, b) => {
+            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
+            return d1 < d2 ? 1 : -1
+        }))
+    }
 
+    getNbPrivateMessages(userId): Observable<number> {
+        return this.getUnreadPrivateMessages(userId).map(messages => messages.length)
+    }
+
+    getPrivateMessagesAboutObject(userId, objectId): Observable<any> {
+        return this.getUnreadPrivateMessages(userId).map(messages => messages.filter(m => m.id === objectId))
+    }
+
+    getNbPrivateMessagesAboutObject(userId, objectId): Observable<number> {
+        return this.getPrivateMessagesAboutObject(userId, objectId).map(messages => messages.length)
+    }
+
+    sendPrivateObjectMessage(toUserId, objectType: string, objectId: string, messageKey: string) {
+        this.authService.getStatusObservable().first().subscribe(statusInfo => {
+            var data = {
+                isPrivate: true,
+                isRead: false,
+                userId: statusInfo.currentUserId,
+                toUserId: toUserId,
+                objectType: objectType,
+                id: objectId,
+                message: messageKey
+            }
+            this.dataStore.addData('messages', data)
+        })
+    }
 }

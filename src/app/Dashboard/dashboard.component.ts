@@ -31,14 +31,10 @@ export class DashboardComponent implements OnInit {
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).do(statusInfo => {
             this.authorizationStatusInfo = statusInfo
-        }).switchMap(noUse => {
-            return this.dataStore.getDataObservable('messages').takeWhile(() => this.isPageRunning)    
+        }).switchMap(statusInfo => {
+            return this.notificationService.getSortedUnreadPrivateMessages(statusInfo.currentUserId).takeWhile(() => this.isPageRunning)    
         }).subscribe(messages => {
-            this.privateMessages= messages.filter(m => m.isPrivate && m.toUserId===this.authorizationStatusInfo.currentUserId && !m.isRead).sort((a, b) => {
-                                var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                                var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                                return d1 < d2 ? 1 :  -1
-                            })
+            this.privateMessages= messages
         })
 
         this.notificationService.getLmWarningMessages().takeWhile(() => this.isPageRunning).subscribe(m => {

@@ -5,6 +5,7 @@ import { ProductService } from './../Shared/Services/product.service';
 import { BasketService } from './../Shared/Services/basket.service'
 import { OrderService } from './../Shared/Services/order.service'
 import { ConfigService } from './../Shared/Services/config.service'
+import { NotificationService } from '../Shared/Services/notification.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
@@ -25,7 +26,7 @@ import * as utilsdate from './../Shared/Utils/dates'
 export class ProductDetailComponent implements OnInit {
     serviceSnapshot: any;
     constructor(private dataStore: DataStore, private productService: ProductService, private orderService: OrderService, private navigationService: NavigationService,
-        private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService) {
+        private authService: AuthService, private basketService: BasketService, private router: Router, private configService: ConfigService, private notificationService: NotificationService) {
     }
 
     @Input() productObservable: Observable<any>;
@@ -189,17 +190,8 @@ export class ProductDetailComponent implements OnInit {
     validationRefuse() {
         this.logHistory('validation refused', '', '')
         this.product.data.onCreateValidation = false        
-        // todo: generate message to creation user: this.product.data.creatingUserId
         this.dataStore.updateData('products', this.product.data._id, this.product.data)
-        this.dataStore.addData('messages', {
-            userId: this.authorizationStatusInfo.currentUserId,
-            message: 'PRODUCT.ACTIONS.REFUSER VALIDATION MSG',
-            isPrivate: true,
-            toUserId: this.product.data.creatingUserId,
-            objectType: 'product',
-            id: this.product.data._id,
-            isRead: false
-        })
+        this.notificationService.sendPrivateObjectMessage(this.product.data.creatingUserId, 'product', this.product.data._id, 'PRODUCT.ACTIONS.REFUSER VALIDATION MSG')
     }
 
     packageUpdated(packName: string) {
