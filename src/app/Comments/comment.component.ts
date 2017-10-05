@@ -1,4 +1,5 @@
-import {Component, Input, Output, ViewEncapsulation, EventEmitter} from '@angular/core';
+import { Component, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 
 @Component({
   //moduleId: module.id,
@@ -10,14 +11,26 @@ import {Component, Input, Output, ViewEncapsulation, EventEmitter} from '@angula
   encapsulation: ViewEncapsulation.None,
 })
 export class CommentComponent {
-  constructor()
-  {
+  isFromCurrentUser: boolean= false;
+  constructor(private authService: AuthService) {
   }
 
   @Input() time;
   @Input() user;
   @Input() content;
   @Output() commentEdited = new EventEmitter();
+
+  private isPageRunning: boolean = true
+
+  ngOnDestroy(): void {
+    this.isPageRunning = false
+  }
+
+  ngOnInit(): void {
+    this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
+      this.isFromCurrentUser = statusInfo.currentUserId === this.user.id
+    })
+  }
 
   onEditSaved(content) {
     this.commentEdited.next(content);
