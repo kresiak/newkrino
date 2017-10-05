@@ -17,6 +17,7 @@ import * as moment from "moment"
 export class CommentsComponent implements OnInit {
   @Input() comments;
   @Input() dontShowOldMessages: boolean = false
+  @Input() allowNotifyUsers: boolean = false
   @Output() commentsUpdated = new EventEmitter()
   @Output() usersToBeNotified = new EventEmitter()
   

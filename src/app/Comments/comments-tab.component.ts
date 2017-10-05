@@ -13,7 +13,8 @@ export class CommentsTabComponent implements OnInit {
     @Input() data;
     @Input() dbTable;
     @Input() urlPart;
-    @Input() dontShowOldMessages: boolean= false   
+    @Input() dontShowOldMessages: boolean= false 
+    @Input() allowNotifyUsers: boolean = undefined  
     @Output() commentsUpdated = new EventEmitter() 
 
 
@@ -23,7 +24,9 @@ export class CommentsTabComponent implements OnInit {
     private authorizationStatusInfo: AuthenticationStatusInfo
 
     ngOnInit(): void {
-        
+        if (this.allowNotifyUsers===undefined && this.urlPart) 
+            this.allowNotifyUsers= true
+
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).do(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         }).switchMap(statusInfo => {
@@ -56,6 +59,7 @@ export class CommentsTabComponent implements OnInit {
     }
 
     notifyUsers(userIds: any[]) {
+        if (!this.allowNotifyUsers) return
         userIds.forEach(id => this.notificationService.sendPrivateObjectMessage(id, this.urlPart, this.data._id, 'GENERAL.COMMENTS.ATTRACT ATTENTION TO OBJECT MSG'))
     }
 

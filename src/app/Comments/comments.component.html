@@ -7,7 +7,7 @@
 				<gg-editor [editMode]="true" [showControls]="false"></gg-editor>
 			</div>
 
-			<div *ngIf="selectableUsers && !dontShowOldMessages" class="comments__add-comment-box" >
+			<div *ngIf="selectableUsers && allowNotifyUsers" class="comments__add-comment-box" >
 				<span style="width:250px">{{'GENERAL.COMMENTS.NOTIFY USERS LABEL' | translate}}</span>		<gg-selector [ngbTooltip]="'GENERAL.COMMENTS.NOTIFY USERS TIP' | translate" [selectableData]="selectableUsers" [selectedIds]="undefined" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
 			</div>
 			<button (click)="addNewComment()" [disabled]="newCommentEditor?.getEditableContent()?.length === 0" class="btn btn-primary btn-sm">{{'GENERAL.COMMENTS.ADD COMMENT' | translate}}</button>
