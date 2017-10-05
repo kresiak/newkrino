@@ -1,19 +1,19 @@
 <div class="card">
     <div class="card-block">
         <div class="row">
-            <div class="col-sm-4 vcenter">Spent on regular orders:</div>
+            <div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.SPENT ON REGULAR ORDERS' | translate}}</div>
             <div class="col-sm-4 vcenter">{{bilan.totalOrders | currency:'EUR':true:'1.2-2' }}</div>
         </div>
         <div class="row">
-            <div class="col-sm-4 vcenter">Spent on fridge orders:</div>
+            <div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.SPENT ON FRIDGE ORDERS' | translate}}</div>
             <div class="col-sm-4 vcenter">{{bilan.totalFridgeOrders | currency:'EUR':true:'1.2-2' }}</div>
         </div>
         <div class="row">
-            <div class="col-sm-4 vcenter">Spent on webshopping orders:</div>
+            <div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.SPENT ON WEBSHOPPING ORDERS' | translate}}</div>
             <div class="col-sm-4 vcenter">{{bilan.totalVoucherOrders | currency:'EUR':true:'1.2-2' }}</div>
         </div>
         <div class="row">
-            <div class="col-sm-4 vcenter">Spent on internal stock orders:</div>
+            <div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.SPENT INTERNAL STOCK ORDERS' | translate}}</div>
             <div class="col-sm-4 vcenter">{{bilan.totalStockOrders | currency:'EUR':true:'1.2-2' }}</div>
         </div>
     </div>

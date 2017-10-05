@@ -465,9 +465,40 @@
       "EQUIPE": "Equipe",
       "AVAILABLE": "Disponible",
       "SPENT": "Dépensé",
-      "DEBT": "Dette"
+      "DEBT": "Dette",
+      "ID": "ID",
+      "POSTE": "PostE",
+      "OTP": "OtP",
+      "OTHER EQUIPE": "Other equipE",
+      "COMMENT": "CommenT",
+      "MEMBER EQUIPE": "Member equipE",
+      "FACTOR": "FactoR"
     },
-    "LABEL": {}
+    "LABEL": {
+      "EQUIPE": "equipE:",
+      "DESCRIPTION": "descriptioN:",
+      "WITH FOLLOWING USERS": "with following userS:",
+      "HEADS OF EQUIPE": "heads of equipE:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead alloweD:",
+      "IS BLOCKED": "is blockeD:",
+      "TOTAL BUDGET": "total budgeT:",
+      "MONEY SPENT": "money spenT:",
+      "MONEY AVAILABLE": "money availablE:",
+      "MONEY OWED TO OTHER": "money owed to other equipeS:",
+      "MONEY OWED BY OTHER": "money owed by other equipeS:",
+      "SPENT ON REGULAR ORDERS": "Spent on regular orderS:",
+      "SPENT ON FRIDGE ORDERS": "Spent on fridge orderS:",
+      "SPENT ON WEBSHOPPING ORDERS": "Spent on webshopping orderS:",
+      "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orderS:",
+      "NAME": "namE:",
+      "MONTH AHEAD ALLOWED": "nb of month ahead alloweD:",
+      "EQUIPE IDS": "equipe IdS:",
+      "EQUIPE GROUP": "equipe grouP:",
+      "MEMBERS": "memberS:",
+      "EQUIPE GIVING": "Equipe givinG:",
+      "EQUIPE RECEIVING": "Equipe receivinG:",
+      "AMOUNT TRANSFERED": "Amount to be transfereD:"
+    }
   },
   "STOCK": {
     "MENU": {

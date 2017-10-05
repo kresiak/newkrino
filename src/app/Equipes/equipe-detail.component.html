@@ -6,61 +6,61 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">equipe:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.DESCRIPTION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="equipe.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">with following users:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.WITH FOLLOWING USERS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)"
 							 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">heads of equipe:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.HEADS OF EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableManagers" [selectedIds]="selectedManagerIdsObservable" (selectionChanged)="managerSelectionChanged($event)"
 							 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">nb of months ahead allowed:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.MONTHS AHEAD ALLOWED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed" (editSaved)="nbOfMonthAheadAllowedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row" [style.color]="equipe.data.isBlocked ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">is blocked:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.IS BLOCKED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">total budget:</div>
+						<div class="col-sm-4">{{'EQUIPE.LABEL.TOTAL BUDGET' | translate}}</div>
 						<div class="col-sm-6">{{equipe.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money spent:</div>
+						<div class="col-sm-4">{{'EQUIPE.LABEL.MONEY SPENT' | translate}}</div>
 						<div class="col-sm-6">{{equipe.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money available:</div>
+						<div class="col-sm-4">{{'EQUIPE.LABEL.MONEY AVAILABLE' | translate}}</div>
 						<div class="col-sm-6">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money owed to other equipes:</div>
+						<div class="col-sm-4">{{'EQUIPE.LABEL.MONEY OWED TO OTHER' | translate}}</div>
 						<div class="col-sm-6" [style.color]="'red'">{{equipe.annotation.owing | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">money owed by other equipes:</div>
+						<div class="col-sm-4">{{'EQUIPE.LABEL.MONEY OWED BY OTHER' | translate}}</div>
 						<div class="col-sm-6" [style.color]="'green'">{{equipe.annotation.owed | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
