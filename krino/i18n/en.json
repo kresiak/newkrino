@@ -487,7 +487,8 @@
       "SPENT ON WEBSHOPPING ORDERS": "Spent on webshopping orders:",
       "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orders:",
       "NAME": "name:",
-      "MONTH AHEAD ALLOWED": "nb of month ahead allowed:"
+      "MONTH AHEAD ALLOWED": "nb of month ahead allowed:",
+      "EQUIPE IDS": "equipe Ids:"
     }    
   },
   "STOCK": {
