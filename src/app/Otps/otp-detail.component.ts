@@ -141,14 +141,6 @@ export class OtpDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
-    commentsUpdated(comments) {
-        if (this.otp && comments) {
-            this.otp.data.comments = comments;
-            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-        }
-
-    }
-
     public beforeTabChange($event: NgbTabChangeEvent) {
         if ($event.nextId === 'tabMax') {
             $event.preventDefault();

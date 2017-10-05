@@ -191,11 +191,17 @@
 				</div>
 			</template>
 		</ngb-tab>
-		<ngb-tab title="{{'Comments ' + ((order.data.comments && order.data.comments.length > 0) ? '(' + order.data.comments.length + ')' : '')}}" id="tabComment">
+
+		<ngb-tab id="tabComments">
+			<template ngbTabTitle>
+				<gg-comments-tab-title [data]="order.data"></gg-comments-tab-title>
+			</template>
 			<template ngbTabContent>
-				<gg-comments [comments]="order.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+				<gg-comments-tab [data]="order.data" [dbTable]="'orders'" [urlPart]="'order'"></gg-comments-tab>
 			</template>
 		</ngb-tab>
+
+
 		<ngb-tab title="{{'ORDER.MENU.REPARTITION' | translate}}" id="tabRepartition" *ngIf="order.annotation.equipes">
 			<template ngbTabContent>
 				<div class="card">

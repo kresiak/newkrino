@@ -299,10 +299,13 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'OTP.MENU.COMMENTS' | translate}}" id="tabComments">
-		<template ngbTabContent>
-			<gg-comments [comments]="otp.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [data]="otp.data"></gg-comments-tab-title>
 		</template>
+		<template ngbTabContent>
+			<gg-comments-tab [data]="otp.data" [dbTable]="'otps'" [urlPart]="'otp'"></gg-comments-tab>
+		</template>		
 	</ngb-tab>
 	<ngb-tab title="{{'OTP.MENU.ORDERS' | translate}}" *ngIf="anyOrder" id="tabOrders">
 		<template ngbTabContent>

@@ -221,14 +221,6 @@ export class OrderDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
-    commentsUpdated(comments) {
-        if (this.order && comments) {
-            this.order.data.comments = comments;
-            this.dataStore.updateData('orders', this.order.data._id, this.order.data);
-        }
-
-    }
-
     navigateToProduct(productId) {
         this.navigationService.maximizeOrUnmaximize('/product', productId, this.path, false)
     }
