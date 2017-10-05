@@ -492,7 +492,10 @@
       "MONTH AHEAD ALLOWED": "nb of month ahead allowed:",
       "EQUIPE IDS": "equipe Ids:",
       "EQUIPE GROUP": "equipe group:",
-      "MEMBERS": "members:"
+      "MEMBERS": "members:",
+      "EQUIPE GIVING": "Equipe giving:",
+      "EQUIPE RECEIVING": "Equipe receiving:",
+      "AMOUNT TRANSFERED": "Amount to be transfered:"
     }    
   },
   "STOCK": {
