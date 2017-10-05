@@ -109,7 +109,7 @@
 					<h6 class="card-title">{{'DASHBOARD.CARD TITLE.IN WAIT FOR VALIDATION' | translate}}</h6>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let product of labManagerMessages.productsOnValidationWait">
-							<gg-date-pointer [date]="product.data.history[0].date"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToProduct(product.data._id)">{{product.data.name}}</a> {{'DASHBOARD.MESSAGE PARTS.FOR' | translate}} {{product.data.price  | currency:'EUR':true:'1.2-2'}} {{'DASHBOARD.MESSAGE PARTS.BY' | translate}} {{product.data.history[0].userId}}</li>
+							<gg-date-pointer [date]="product.data.history[0].date"></gg-date-pointer>: <a class="imgSearch" [style.color]="'blue'" (click)="navigateToProduct(product.data._id)">{{product.data.name}}</a> {{'DASHBOARD.MESSAGE PARTS.FOR' | translate}} {{product.data.price  | currency:'EUR':true:'1.2-2'}} {{'DASHBOARD.MESSAGE PARTS.BY' | translate}} {{product.annotation.userWhoCreated}}</li>
 					</ul>
 				</div>
 			</div>

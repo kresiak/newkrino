@@ -206,6 +206,7 @@ export class ProductDetailComponent implements OnInit {
     validationReask() {
         this.logHistory('validation asked again', '', '')
         this.product.data.onCreateValidation = true;
+        this.product.data.creatingUserId= this.authorizationStatusInfo.currentUserId
         this.dataStore.updateData('products', this.product.data._id, this.product.data);        
     }
 

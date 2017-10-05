@@ -179,9 +179,11 @@ export class ProductService {
                 return products.map(product => {
                     if (!product.divisionFactor || !(+product.divisionFactor) || (+product.divisionFactor) < 0) product.divisionFactor = 1
                     let supplier = mapSuppliers.get(product.supplierId) //suppliers.filter(supplier => supplier._id === product.supplierId)[0];
+                    let userWhoCreated= annotatedUsers.filter(user => user.data._id === product.creatingUserId)[0]
                     return {
                         data: product,
                         annotation: {
+                            userWhoCreated: userWhoCreated ? userWhoCreated.annotation.fullName : 'unknown user',
                             isPublic: !product.isLabo,
                             //basketId: basketItemFiltered && basketItemFiltered.length > 0 ? basketItemFiltered[0]._id : null,
                             hasCurrentUserPermissionToShop: !product.userIds || product.userIds.includes(currentUserId),
