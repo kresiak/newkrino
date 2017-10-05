@@ -124,13 +124,6 @@ export class EquipeDetailComponent implements OnInit {
             this.userService.removeDashletForCurrentUser(dashletId);
     }
 
-    commentsUpdated(comments) {
-        if (this.equipe && comments) {
-            this.equipe.data.comments = comments;
-            this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);
-        }
-    }
-
     userSelectionChanged(selectedIds: string[]) {
         this.equipe.data.userIds = selectedIds;
         this.dataStore.updateData('equipes', this.equipe.data._id, this.equipe.data);

@@ -199,6 +199,7 @@ export class NotificationService {
 
     sendPrivateObjectMessage(toUserId, objectType: string, objectId: string, messageKey: string) {
         this.authService.getStatusObservable().first().subscribe(statusInfo => {
+            if (statusInfo.currentUserId === toUserId) return   // don't send to myself
             var data = {
                 isPrivate: true,
                 isRead: false,
