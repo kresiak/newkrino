@@ -72,14 +72,6 @@ export class StockOrderDetailComponent implements OnInit {
          this.subscriptionAuthorization.unsubscribe()
     }
 
-    commentsUpdated(comments) {
-        if (this.order && comments) {
-            this.order.data.comments = comments;
-            this.dataStore.updateData('orders.stock', this.order.data._id, this.order.data);
-        }
-
-    }
-
     private isProcessFormOK: boolean= true
     private isBlocked: boolean= false
 
