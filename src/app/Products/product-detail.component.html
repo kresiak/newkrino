@@ -233,7 +233,7 @@
 	</ngb-tab>
 	<ngb-tab id="tabComments">
 		<template ngbTabTitle>
-			<gg-comments-tab-title [id]="product.data._id"></gg-comments-tab-title>
+			<gg-comments-tab-title [data]="product.data"></gg-comments-tab-title>
 		</template>
 		<template ngbTabContent>
 			<gg-comments-tab [data]="product.data" [dbTable]="'products'" [urlPart]="'product'"></gg-comments-tab>

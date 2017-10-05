@@ -10,7 +10,7 @@ import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.s
 })
 export class CommentsTabTitleComponent implements OnInit {
     nbMessages: number;
-    @Input() id: string;
+    @Input() data: any;
 
     constructor(private dataStore: DataStore, private authService: AuthService, private notificationService: NotificationService) {
     }
@@ -22,7 +22,7 @@ export class CommentsTabTitleComponent implements OnInit {
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).do(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         }).switchMap(statusInfo => {
-            return this.notificationService.getNbPrivateMessagesAboutObject(statusInfo.currentUserId, this.id).takeWhile(() => this.isPageRunning)    
+            return this.notificationService.getNbPrivateMessagesAboutObject(statusInfo.currentUserId, this.data._id).takeWhile(() => this.isPageRunning)    
         }).subscribe(nbMessages => {
             this.nbMessages= nbMessages
         })
@@ -34,4 +34,8 @@ export class CommentsTabTitleComponent implements OnInit {
         this.isPageRunning = false
     }
 
+    getNbTotalMessagesText() {
+        var nb= (this.data.comments || []).length
+        return nb ? ('(' + nb + ')')  : ''
+    }
 }
