@@ -1007,6 +1007,50 @@
       },
       "LABEL": {
 
+      },
+      "DETAIL": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      }, 
+      "STEP": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        },
+        "COST": {
+          "MENU": {
+
+          },
+          "COLUMN": {
+
+          },
+          "LABEL": {
+
+          }
+        }
+      },
+      "SNAPSHOT": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
       }
     },
     "MACHINES": {

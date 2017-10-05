@@ -977,31 +977,75 @@
   },
   "PLATFORM": {
     "MENU": {
-      "SERVICES": "ServiceS",
-      "MACHINES": "MachineS",
-      "LABOUR TYPES": "Labour typeS",
-      "CLIENT TYPES": "Client typeS",
-      "CORRECTION TYPES": "Correction typeS",
-      "ENTERPRISES": "EnterpriseS",
-      "CLIENTS": "ClientS",
-      "OFFERS": "OfferS"
+      "SERVICES": "Services",
+      "MACHINES": "Machines",
+      "LABOUR TYPES": "Types de main d'oeuvre",
+      "CLIENT TYPES": "Types de clients",
+      "CORRECTION TYPES": "Types de corrections",
+      "ENTERPRISES": "Enterprises",
+      "CLIENTS": "Clients",
+      "OFFERS": "Offres"
     },
     "SERVICES": {
       "MENU": {
-        "LIST OF SERVICES": "List of serviceS",
-        "ALL SERVICES": "All serviceS",
-        "BY CATEGORIES": "By categorieS",
-        "INFO": "InfO",
-        "ADD A SERVICE": "Add a servicE",
-        "CATEGORIES": "CategorieS",
-        "LIST OF CATEGORIES": "List of categorieS",
-        "ADD A SERVICE CATEGORY": "Add a service categorY"
+        "LIST OF SERVICES": "Liste de services",
+        "ALL SERVICES": "Tous les services",
+        "BY CATEGORIES": "Par catégorie",
+        "INFO": "Info",
+        "ADD A SERVICE": "Ajouter un service",
+        "CATEGORIES": "Catégories",
+        "LIST OF CATEGORIES": "Liste des catégorieS",
+        "ADD A SERVICE CATEGORY": "Ajouter une catégorie de services"
       },
       "COLUMN": {
 
       },
       "LABEL": {
 
+      },
+      "DETAIL": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
+      }, 
+      "STEP": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        },
+        "COST": {
+          "MENU": {
+
+          },
+          "COLUMN": {
+
+          },
+          "LABEL": {
+
+          }
+        }
+      },
+      "SNAPSHOT": {
+        "MENU": {
+
+        },
+        "COLUMN": {
+
+        },
+        "LABEL": {
+
+        }
       }
     },
     "MACHINES": {
