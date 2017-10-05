@@ -54,11 +54,18 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.COMMENTS' | translate}}" id="tabComments">
-		<template ngbTabContent>
-			<gg-comments [comments]="voucher.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [data]="voucher.data"></gg-comments-tab-title>
 		</template>
-	</ngb-tab>	
+		<template ngbTabContent>
+			<gg-comments-tab [data]="voucher.data" [dbTable]="'orders.vouchers'"></gg-comments-tab>
+		</template>
+	</ngb-tab>
+
+
+
 	<ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.PURCHASE' | translate}}" id="tabPurchase" *ngIf="voucher.annotation.isUsed">
 		<template ngbTabContent>
 			<div class="card">

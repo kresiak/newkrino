@@ -64,13 +64,6 @@ export class VoucherDetailComponent implements OnInit {
     private voucher: any;
     private otpListObservable: any
 
-    commentsUpdated(comments) {
-        if (this.voucher && comments) {
-            this.voucher.data.comments = comments;
-            this.dataStore.updateData('orders.vouchers', this.voucher.data._id, this.voucher.data);
-        }
-    }
-
     public beforeTabChange($event: NgbTabChangeEvent) {
 
         this.state.selectedTabId = $event.nextId;

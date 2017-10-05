@@ -63,13 +63,6 @@ export class EquipeGroupDetailComponent implements OnInit {
     private subscriptionGroup: Subscription
     private equipeGroup: any;
 
-    commentsUpdated(comments) {
-        if (this.equipeGroup && comments) {
-            this.equipeGroup.data.comments = comments;
-            this.dataStore.updateData('equipes.groups', this.equipeGroup.data._id, this.equipeGroup.data);
-        }
-    }
-
     public beforeTabChange($event: NgbTabChangeEvent) {
         this.state.selectedTabId = $event.nextId;
         this.stateChanged.next(this.state);

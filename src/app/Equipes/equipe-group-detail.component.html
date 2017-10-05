@@ -31,11 +31,17 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'EQUIPE.MENU.COMMENTS' | translate}}" id="tabComments">
+
+	<ngb-tab id="tabComments">
+		<template ngbTabTitle>
+			<gg-comments-tab-title [data]="equipeGroup.data"></gg-comments-tab-title>
+		</template>
 		<template ngbTabContent>
-			<gg-comments [comments]="equipeGroup.data.comments" (commentsUpdated)="commentsUpdated($event)"></gg-comments>
+			<gg-comments-tab [data]="equipeGroup.data" [dbTable]="'equipes.groups'"></gg-comments-tab>
 		</template>
 	</ngb-tab>
+
+
 	<ngb-tab title="{{'EQUIPE.MENU.REPARTITION KEYS' | translate}}" id="tabRepartition">
 		<template ngbTabContent>
 			<div class="card">
