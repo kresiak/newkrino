@@ -468,7 +468,9 @@
       "POSTE": "Poste",
       "OTP": "Otp",
       "OTHER EQUIPE": "Other equipe",
-      "COMMENT": "Comment"
+      "COMMENT": "Comment",
+      "MEMBER EQUIPE": "Member equipe",
+      "FACTOR": "Factor"
     },
     "LABEL": {
       "EQUIPE": "equipe:",
@@ -488,7 +490,9 @@
       "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orders:",
       "NAME": "name:",
       "MONTH AHEAD ALLOWED": "nb of month ahead allowed:",
-      "EQUIPE IDS": "equipe Ids:"
+      "EQUIPE IDS": "equipe Ids:",
+      "EQUIPE GROUP": "equipe group:",
+      "MEMBERS": "members:"
     }    
   },
   "STOCK": {

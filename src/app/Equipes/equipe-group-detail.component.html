@@ -4,19 +4,19 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">equipe group:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.EQUIPE GROUP' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">description:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.DESCRIPTION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">members:</div>
+						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.MEMBERS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector #equipeSelector [selectedIds]="selectedEquipeIdsObservable" [selectableData]="selectableEquipes" (selectionChanged)="equipeSelectionChanged($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
 						</div>
@@ -42,11 +42,11 @@
 				<div class="card-block">
 					<div class="row">
 						<div class="col-sm-4 vcenter">
-							<b>Member equipe</b>
+							<b>{{'EQUIPE.COLUMN.MEMBER EQUIPE' | translate}}</b>
 						</div>
 						<div class="col-sm-4  vcenter"><b>%</b></div>
 						<div class="col-sm-2  vcenter">
-							<b>Factor</b>
+							<b>{{'EQUIPE.COLUMN.FACTOR' | translate}}</b>
 						</div>
 					</div>
 
