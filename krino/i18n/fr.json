@@ -463,7 +463,12 @@
       "EQUIPE": "Equipe",
       "AVAILABLE": "Disponible",
       "SPENT": "Dépensé",
-      "DEBT": "Dette"
+      "DEBT": "Dette",
+      "ID": "ID",
+      "POSTE": "PostE",
+      "OTP": "OtP",
+      "OTHER EQUIPE": "Other equipE",
+      "COMMENT": "CommenT"
     },
     "LABEL": {
       "EQUIPE": "equipE:",

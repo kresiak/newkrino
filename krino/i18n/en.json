@@ -463,7 +463,12 @@
       "EQUIPE": "Project",
       "AVAILABLE": "Available",
       "SPENT": "Spent",
-      "DEBT": "Debt"
+      "DEBT": "Debt",
+      "ID": "Id",
+      "POSTE": "Poste",
+      "OTP": "Otp",
+      "OTHER EQUIPE": "Other equipe",
+      "COMMENT": "Comment"
     },
     "LABEL": {
       "EQUIPE": "equipe:",
