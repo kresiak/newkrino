@@ -476,7 +476,11 @@
       "MONEY SPENT": "money spenT:",
       "MONEY AVAILABLE": "money availablE:",
       "MONEY OWED TO OTHER": "money owed to other equipeS:",
-      "MONEY OWED BY OTHER": "money owed by other equipeS:"
+      "MONEY OWED BY OTHER": "money owed by other equipeS:",
+      "SPENT ON REGULAR ORDERS": "Spent on regular orderS:",
+      "SPENT ON FRIDGE ORDERS": "Spent on fridge orderS:",
+      "SPENT ON WEBSHOPPING ORDERS": "Spent on webshopping orderS:",
+      "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orderS:"
     }
   },
   "STOCK": {
