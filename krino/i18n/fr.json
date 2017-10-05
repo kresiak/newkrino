@@ -485,7 +485,9 @@
       "SPENT ON REGULAR ORDERS": "Spent on regular orderS:",
       "SPENT ON FRIDGE ORDERS": "Spent on fridge orderS:",
       "SPENT ON WEBSHOPPING ORDERS": "Spent on webshopping orderS:",
-      "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orderS:"
+      "SPENT INTERNAL STOCK ORDERS": "Spent on internal stock orderS:",
+      "NAME": "namE:",
+      "MONTH AHEAD ALLOWED": "nb of month ahead alloweD:"
     }
   },
   "STOCK": {
