@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="labourList && labourList.length !== 0" title="List of labour types" id="tabListOfLabourTypes">
+        <ngb-tab *ngIf="labourList && labourList.length !== 0" title="{{'PLATFORM.LABOUR.MENU.LIST OF LABOUR TYPES' | translate}}" id="tabListOfLabourTypes">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -26,7 +26,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add a labour type" id="tabAddALabourType">
+        <ngb-tab title="{{'PLATFORM.LABOUR.MENU.ADD A LABOUR TYPE' | translate}}" id="tabAddALabourType">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
