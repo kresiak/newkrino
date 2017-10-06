@@ -175,7 +175,7 @@ export class AuthService {
         this.authInfo.isLoginError = false
         this.unsubscribeCurrentUser()
         this.currentUserSubscription= this.getAnnotatedCurrentUserDisturbLess().subscribe(user => {
-            if ((!user.data.password && user.data.password != '') || user.data.password === password) {
+            if (user && ((!user.data.password && user.data.password != '') || user.data.password === password)) {
                 this.authInfo.setAnnotatedUser(user)
                 this.setLoggedIn()
             }
