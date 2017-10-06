@@ -1010,15 +1010,15 @@
       },
       "DETAIL": {
         "MENU": {
-          "INFO": "InfO",
-          "CORRECTION FACTORS": "Correction factorS",
-          "CURRENT PRICES": "Current priceS",
-          "SERVICE STEPS": "Service stepS",
-          "SNAPSHOTS": "SnapshotS",
-          "CLONE THIS SERVICE": "Clone this servicE",
-          "IDENTICAL SERVICES": "Identical serviceS",
-          "SIMILAR SERVICES": "Similar serviceS",
-          "COMPARE SERVICES": "Compare serviceS"
+          "INFO": "Info",
+          "CORRECTION FACTORS": "Facteurs de correction",
+          "CURRENT PRICES": "Prix actuels",
+          "SERVICE STEPS": "Etapes du service",
+          "SNAPSHOTS": "Snapshots",
+          "CLONE THIS SERVICE": "Cloner ce service",
+          "IDENTICAL SERVICES": "Services identiques",
+          "SIMILAR SERVICES": "Services similaires",
+          "COMPARE SERVICES": "Comparer les services"
         },
         "COLUMN": {
 
@@ -1029,23 +1029,23 @@
       }, 
       "STEP": {
         "MENU": {
-          "LIST OF STEPS": "List of stepS",
-          "ADD STEP": "Add steP",
-          "DISABLED STEPS": "Disabled stepS",
-          "INFO": "InfO",
-          "COST DETAIL": "Cost detaiL",
-          "SERVICES": "ServiceS",
-          "USED SERVICES": "Used serviceS",
-          "SELECT SERVICES": "Select serviceS",
-          "PRODUCTS": "ProductS",
-          "USED PRODUCTS": "Used productS",
-          "SELECT PRODUCTS": "Select productS",
-          "SELECT PRIVATE PRODUCTS": "Select private productS",
-          "LABOUR": "LabouR",
-          "USED HOURS": "Used hourS",
-          "ADD LABOUR TYPE": "Add labour typE",
-          "DISABLE STEP": "Disable steP",
-          "REACTIVATE STEP": "Reactivate steP"
+          "LIST OF STEPS": "Liste d'étapes",
+          "ADD STEP": "Ajouter une étape",
+          "DISABLED STEPS": "Etapes désactivées",
+          "INFO": "Info",
+          "COST DETAIL": "Détail du coût",
+          "SERVICES": "Services",
+          "USED SERVICES": "Services utilisés",
+          "SELECT SERVICES": "Choisir des services",
+          "PRODUCTS": "Produits",
+          "USED PRODUCTS": "Produits utilisés",
+          "SELECT PRODUCTS": "Choisir des produits",
+          "SELECT PRIVATE PRODUCTS": "Choisir des produits privés",
+          "LABOUR": "Main d'oeuvre",
+          "USED HOURS": "Heures de travail",
+          "ADD LABOUR TYPE": "Ajouter un type de main d'oeuvre",
+          "DISABLE STEP": "Désactiver l'étape",
+          "REACTIVATE STEP": "Réactiver l'étape"
         },
         "COLUMN": {
 
