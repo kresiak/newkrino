@@ -996,7 +996,7 @@
       "CLIENTS": "Clients",
       "OFFERS": "Offers"
     },
-    "SERVICES": {
+    "SERVICE": {
       "MENU": {
         "LIST OF SERVICES": "List of services",
         "ALL SERVICES": "All services",
@@ -1082,9 +1082,12 @@
         }
       }
     },
-    "MACHINES": {
+    "MACHINE": {
       "MENU": {
-
+        "LIST OF MACHINES": "List of machines",
+        "INFO": "Info",
+        "COST": "Cost",
+        "ADD A MACHINE": "Add a machine"
       },
       "COLUMN": {
 
@@ -1095,7 +1098,8 @@
     },
     "LABOUR": {
       "MENU": {
-
+        "LIST OF LABOUR TYPES": "List of labour types",
+        "ADD A LABOUR TYPE": "Add a labour type"
       },
       "COLUMN": {
 
@@ -1106,7 +1110,11 @@
     },
     "CLIENT TYPE": {
       "MENU": {
-
+        "LIST OF CLIENT TYPES": "List of client types",
+        "INFO": "Info",
+        "SPECIFIC CORRECTIONS": "Specific corrections",
+        "ADD A CLIENT TYPE": "Add a client type",
+        "CORRECTION FACTORS": "Correction factors"
       },
       "COLUMN": {
 
@@ -1117,7 +1125,8 @@
     },
     "CORRECTION": {
       "MENU": {
-
+        "LIST OF CORRECTION TYPES": "List of correction types",
+        "ADD A CORRECTION TYPE": "Add a correction type"
       },
       "COLUMN": {
 
@@ -1126,7 +1135,18 @@
 
       }
     },
-    "ENTERPRISES": {
+    "ENTERPRISE": {
+      "MENU": {
+        "LIST OF ENTERPRISES": "List of enterprises"
+      },
+      "COLUMN": {
+
+      },
+      "LABEL": {
+
+      }
+    },
+    "CLIENT": {
       "MENU": {
 
       },
@@ -1137,18 +1157,7 @@
 
       }
     },
-    "CLIENTS": {
-      "MENU": {
-
-      },
-      "COLUMN": {
-
-      },
-      "LABEL": {
-
-      }
-    },
-    "OFFERS": {
+    "OFFER": {
       "MENU": {
 
       },

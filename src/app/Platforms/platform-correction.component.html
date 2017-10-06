@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="correctionList && correctionList.length !== 0" title="List of correction types" id="tabListOfCorrectionTypes">
+        <ngb-tab *ngIf="correctionList && correctionList.length !== 0" title="{{'PLATFORM.CORRECTION.MENU.LIST OF CORRECTION TYPES' | translate}}" id="tabListOfCorrectionTypes">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -38,7 +38,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add a correction type" id="tabAddACorrectionType">
+        <ngb-tab title="{{'PLATFORM.CORRECTION.MENU.ADD A CORRECTION TYPE' | translate}}" id="tabAddACorrectionType">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">

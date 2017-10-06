@@ -1,6 +1,6 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="machinesList && machinesList.length !== 0" title="List of machines" id="tabListOfMachines">
+        <ngb-tab *ngIf="machinesList && machinesList.length !== 0" title="{{'PLATFORM.MACHINE.MENU.LIST OF MACHINES' | translate}}" id="tabListOfMachines">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -25,7 +25,7 @@
                                     </template>
                                     <template ngbPanelContent>
                                     <ngb-tabset>
-                                        <ngb-tab title="Info" id="tabInfo">
+                                        <ngb-tab title="{{'PLATFORM.MACHINE.MENU.INFO' | translate}}" id="tabInfo">
                                             <template ngbTabContent>
                                                 <div class="card">
                                                     <div class="card-block">
@@ -63,7 +63,7 @@
                                                 </div>
                                             </template>
                                         </ngb-tab>
-                                        <ngb-tab title="Cost" id="tabCost">
+                                        <ngb-tab title="{{'PLATFORM.MACHINE.MENU.COST' | translate}}" id="tabCost">
                                             <template ngbTabContent>
                                                 <div class="card">
                                                     <div class="card-block">
@@ -102,7 +102,7 @@
                 </div>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add a machine" id="tabAddMachine">
+        <ngb-tab title="{{'PLATFORM.MACHINE.MENU.ADD A MACHINE' | translate}}" id="tabAddMachine">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">

@@ -1,5 +1,5 @@
 <ngb-tabset *ngIf="serviceStep">
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.INFO' | translate}}" id="tabInfo">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.INFO' | translate}}" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -28,7 +28,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.COST DETAIL' | translate}}" id="tabCost">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.COST DETAIL' | translate}}" id="tabCost">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -44,12 +44,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.SERVICES' | translate}}" id="tabServices">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.SERVICES' | translate}}" id="tabServices">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.USED SERVICES' | translate}}" id="tabUsedServices" *ngIf="serviceStep.annotation.services && serviceStep.annotation.services.length > 0">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.USED SERVICES' | translate}}" id="tabUsedServices" *ngIf="serviceStep.annotation.services && serviceStep.annotation.services.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -83,7 +83,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.SELECT SERVICES' | translate}}" id="tabSelectServices" *ngIf="!isSnapshot">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.SELECT SERVICES' | translate}}" id="tabSelectServices" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -98,12 +98,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.PRODUCTS' | translate}}" id="tabProducts">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.PRODUCTS' | translate}}" id="tabProducts">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.USED PRODUCTS' | translate}}" id="tabUsedProducts" *ngIf="serviceStep.annotation.products && serviceStep.annotation.products.length > 0">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.USED PRODUCTS' | translate}}" id="tabUsedProducts" *ngIf="serviceStep.annotation.products && serviceStep.annotation.products.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -152,7 +152,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.SELECT PRODUCTS' | translate}}" id="tabSelectProducts" *ngIf="!isSnapshot">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.SELECT PRODUCTS' | translate}}" id="tabSelectProducts" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -162,7 +162,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.SELECT PRIVATE PRODUCTS' | translate}}" id="tabSelectPrivateProducts" *ngIf="!isSnapshot">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.SELECT PRIVATE PRODUCTS' | translate}}" id="tabSelectPrivateProducts" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -177,12 +177,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.LABOUR' | translate}}" id="tabLabour">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.LABOUR' | translate}}" id="tabLabour">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.USED HOURS' | translate}}" id="tabUsedLabourHours">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.USED HOURS' | translate}}" id="tabUsedLabourHours">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -220,7 +220,7 @@
 
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.ADD LABOUR TYPE' | translate}}" id="tabAddLabourType" *ngIf="false && !isSnapshot">
+                        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.ADD LABOUR TYPE' | translate}}" id="tabAddLabourType" *ngIf="false && !isSnapshot">
                             <template ngbTabContent>
                             </template>
                         </ngb-tab>
@@ -229,7 +229,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.DISABLE STEP' | translate}}" id="tabDisableStep" *ngIf="!serviceStep.data.isDisabled && !isSnapshot">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.DISABLE STEP' | translate}}" id="tabDisableStep" *ngIf="!serviceStep.data.isDisabled && !isSnapshot">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -251,7 +251,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'PLATFORM.SERVICES.STEP.MENU.REACTIVATE STEP' | translate}}" id="tabReactivateStep" *ngIf="serviceStep.data.isDisabled && !isSnapshot">
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.REACTIVATE STEP' | translate}}" id="tabReactivateStep" *ngIf="serviceStep.data.isDisabled && !isSnapshot">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
