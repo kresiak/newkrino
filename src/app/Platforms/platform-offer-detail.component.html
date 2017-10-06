@@ -1,5 +1,5 @@
 <ngb-tabset>
-    <ngb-tab title="Info" id="tabInfo">
+    <ngb-tab title="{{'PLATFORM.OFFER.MENU.INFO' | translate}}" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -52,7 +52,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Operations" id="tabOperations" *ngIf="!isSnapshot">
+    <ngb-tab title="{{'PLATFORM.OFFER.MENU.OPERATIONS' | translate}}" id="tabOperations" *ngIf="!isSnapshot">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -79,12 +79,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Services" id="tabServices">
+    <ngb-tab title="{{'PLATFORM.OFFER.MENU.SERVICES' | translate}}" id="tabServices">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="Ordered services" id="tabUsedServices" *ngIf="offerItem.annotation.services && offerItem.annotation.services.length > 0">
+                        <ngb-tab title="{{'PLATFORM.OFFER.MENU.ORDERED SERVICES' | translate}}" id="tabUsedServices" *ngIf="offerItem.annotation.services && offerItem.annotation.services.length > 0">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -156,7 +156,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Select services" id="tabSelectServices" *ngIf="!isSnapshot">
+                        <ngb-tab title="{{'PLATFORM.OFFER.MENU.SELECT SERVICES' | translate}}" id="tabSelectServices" *ngIf="!isSnapshot">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -171,12 +171,12 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Versions" id="tabSnapshots" *ngIf="!isSnapshot">
+    <ngb-tab title="{{'PLATFORM.OFFER.MENU.VERSIONS' | translate}}" id="tabSnapshots" *ngIf="!isSnapshot">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
                     <ngb-tabset>
-                        <ngb-tab title="All versions" id="tabAllVersions" *ngIf="offerItem.annotation.hasSnapshots">
+                        <ngb-tab title="{{'PLATFORM.OFFER.MENU.ALL VERSIONS' | translate}}" id="tabAllVersions" *ngIf="offerItem.annotation.hasSnapshots">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">
@@ -212,7 +212,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="Save current version" id="tabSaveVersion">
+                        <ngb-tab title="{{'PLATFORM.OFFER.MENU.SAVE CURRENT VERSION' | translate}}" id="tabSaveVersion">
                             <template ngbTabContent>
                                 <div class="card">
                                     <div class="card-block">

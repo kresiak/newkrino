@@ -1137,7 +1137,9 @@
     },
     "ENTERPRISE": {
       "MENU": {
-        "LIST OF ENTERPRISES": "List of enterprises"
+        "LIST OF ENTERPRISES": "List of enterprises",
+        "INFO": "Info",
+        "ADD AN ENTERPRISE": "Add an enterprise"
       },
       "COLUMN": {
 
@@ -1148,7 +1150,9 @@
     },
     "CLIENT": {
       "MENU": {
-
+        "LIST OF CLIENTS": "List of clients",
+        "INFO": "Info",
+        "ADD A CLIENT": "Add a client"
       },
       "COLUMN": {
 
@@ -1159,7 +1163,16 @@
     },
     "OFFER": {
       "MENU": {
-
+        "LIST OF OFFERS": "List of offers",
+        "ADD AN OFFER": "Add an offer",
+        "INFO": "Info",
+        "OPERATIONS": "Operations",
+        "SERVICES": "Services",
+        "ORDERED SERVICES": "Ordered services",
+        "SELECT SERVICES": "Select services",
+        "VERSIONS": "Versions",
+        "ALL VERSIONS": "All versions",
+        "SAVE CURRENT VERSION": "Save current version"
       },
       "COLUMN": {
 
