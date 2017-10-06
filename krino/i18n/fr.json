@@ -1079,10 +1079,10 @@
     },
     "MACHINE": {
       "MENU": {
-        "LIST OF MACHINES": "List of machineS",
-        "INFO": "InfO",
-        "COST": "CosT",
-        "ADD A MACHINE": "Add a machinE"
+        "LIST OF MACHINES": "Liste de machines",
+        "INFO": "Info",
+        "COST": "Coûts",
+        "ADD A MACHINE": "Ajouter une machine"
       },
       "COLUMN": {
 
@@ -1093,8 +1093,8 @@
     },
     "LABOUR": {
       "MENU": {
-        "LIST OF LABOUR TYPES": "List of labour typeS",
-        "ADD A LABOUR TYPE": "Add a labour typE"
+        "LIST OF LABOUR TYPES": "Liste des types de main d'oeuvre",
+        "ADD A LABOUR TYPE": "Ajouter un type de main d'oeuvre"
       },
       "COLUMN": {
 
@@ -1105,11 +1105,11 @@
     },
     "CLIENT TYPE": {
       "MENU": {
-        "LIST OF CLIENT TYPES": "List of client typeS",
-        "INFO": "InfO",
-        "SPECIFIC CORRECTIONS": "Specific correctionS",
-        "ADD A CLIENT TYPE": "Add a client typE",
-        "CORRECTION FACTORS": "Correction factorS"
+        "LIST OF CLIENT TYPES": "Liste de types de clients",
+        "INFO": "Info",
+        "SPECIFIC CORRECTIONS": "Corrections spécifiques",
+        "ADD A CLIENT TYPE": "Ajouter un type de client",
+        "CORRECTION FACTORS": "Facteurs de correction"
       },
       "COLUMN": {
 
@@ -1120,8 +1120,8 @@
     },
     "CORRECTION": {
       "MENU": {
-        "LIST OF CORRECTION TYPES": "List of correction typeS",
-        "ADD A CORRECTION TYPE": "Add a correction typE"
+        "LIST OF CORRECTION TYPES": "Liste des types de correction",
+        "ADD A CORRECTION TYPE": "Ajouter un type de correction"
       },
       "COLUMN": {
 
@@ -1132,9 +1132,9 @@
     },
     "ENTERPRISE": {
       "MENU": {
-        "LIST OF ENTERPRISES": "List of enterpriseS",
-        "INFO": "InfO",
-        "ADD AN ENTERPRISE": "Add an enterprisE"
+        "LIST OF ENTERPRISES": "Liste d'enterprises",
+        "INFO": "Info",
+        "ADD AN ENTERPRISE": "Ajouter une entreprise"
       },
       "COLUMN": {
 
@@ -1145,9 +1145,9 @@
     },
     "CLIENT": {
       "MENU": {
-        "LIST OF CLIENTS": "List of clientS",
-        "INFO": "InfO",
-        "ADD A CLIENT": "Add a clienT"
+        "LIST OF CLIENTS": "Liste de clients",
+        "INFO": "Info",
+        "ADD A CLIENT": "Ajouter un client"
       },
       "COLUMN": {
 
@@ -1158,16 +1158,16 @@
     },
     "OFFER": {
       "MENU": {
-        "LIST OF OFFERS": "List of offerS",
-        "ADD AN OFFER": "Add an offeR",
-        "INFO": "InfO",
-        "OPERATIONS": "OperationS",
-        "SERVICES": "ServiceS",
-        "ORDERED SERVICES": "Ordered serviceS",
-        "SELECT SERVICES": "Select services",
+        "LIST OF OFFERS": "Liste des offres",
+        "ADD AN OFFER": "Ajouter une offre",
+        "INFO": "Info",
+        "OPERATIONS": "Opérations",
+        "SERVICES": "Services",
+        "ORDERED SERVICES": "Services commandés",
+        "SELECT SERVICES": "Choisir des services",
         "VERSIONS": "Versions",
-        "ALL VERSIONS": "All versions",
-        "SAVE CURRENT VERSION": "Save current version"
+        "ALL VERSIONS": "Toutes les versions",
+        "SAVE CURRENT VERSION": "Sauver la version actuelle"
       },
       "COLUMN": {
 
