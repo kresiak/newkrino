@@ -1,11 +1,11 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="offersList && offersList.length > 0" title="List of offers" id="tabListOfOffers">
+        <ngb-tab *ngIf="offersList && offersList.length > 0" title="{{'PLATFORM.OFFER.MENU.LIST OF OFFERS' | translate}}" id="tabListOfOffers">
             <template ngbTabContent>
                 <gg-platform-offer-list [offersObservable]="offersObservable"></gg-platform-offer-list>
             </template>
         </ngb-tab>
-        <ngb-tab title="Add an offer" id="tabAddAnOffer">
+        <ngb-tab title="{{'PLATFORM.OFFER.MENU.ADD AN OFFER' | translate}}" id="tabAddAnOffer">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
