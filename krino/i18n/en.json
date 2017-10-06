@@ -1015,7 +1015,15 @@
       },
       "DETAIL": {
         "MENU": {
-
+          "INFO": "Info",
+          "CORRECTION FACTORS": "Correction factors",
+          "CURRENT PRICES": "Current prices",
+          "SERVICE STEPS": "Service steps",
+          "SNAPSHOTS": "Snapshots",
+          "CLONE THIS SERVICE": "Clone this service",
+          "IDENTICAL SERVICES": "Identical services",
+          "SIMILAR SERVICES": "Similar services",
+          "COMPARE SERVICES": "Compare services"
         },
         "COLUMN": {
 
@@ -1026,7 +1034,23 @@
       }, 
       "STEP": {
         "MENU": {
-
+          "LIST OF STEPS": "List of steps",
+          "ADD STEP": "Add step",
+          "DISABLED STEPS": "Disabled steps",
+          "INFO": "Info",
+          "COST DETAIL": "Cost detail",
+          "SERVICES": "Services",
+          "USED SERVICES": "Used services",
+          "SELECT SERVICES": "Select services",
+          "PRODUCTS": "Products",
+          "USED PRODUCTS": "Used products",
+          "SELECT PRODUCTS": "Select products",
+          "SELECT PRIVATE PRODUCTS": "Select private products",
+          "LABOUR": "Labour",
+          "USED HOURS": "Used hours",
+          "ADD LABOUR TYPE": "Add labour type",
+          "DISABLE STEP": "Disable step",
+          "REACTIVATE STEP": "Reactivate step"
         },
         "COLUMN": {
 

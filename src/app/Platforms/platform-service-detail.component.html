@@ -1,5 +1,5 @@
 <ngb-tabset>
-    <ngb-tab title="Info" id="tabInfo">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.INFO' | translate}}" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -27,7 +27,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Correction factors" id="tabCorrFactors">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.CORRECTION FACTORS' | translate}}" id="tabCorrFactors">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -55,7 +55,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Current prices" id="tabCurrentPrices" *ngIf="serviceItem.annotation.currentSnapshot">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.CURRENT PRICES' | translate}}" id="tabCurrentPrices" *ngIf="serviceItem.annotation.currentSnapshot">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -80,7 +80,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Service steps" id="tabSteps">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.SERVICE STEPS' | translate}}" id="tabSteps">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -89,7 +89,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Snapshots" id="tabSnapshotList2">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.SNAPSHOTS' | translate}}" id="tabSnapshotList2">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -98,7 +98,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Clone this service" id="tabClone">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.CLONE THIS SERVICE' | translate}}" id="tabClone">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -130,7 +130,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Identical services" id="tabIdenticalServices" *ngIf="!serviceToCompareToId">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.IDENTICAL SERVICES' | translate}}" id="tabIdenticalServices" *ngIf="!serviceToCompareToId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -139,7 +139,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Similar services" id="tabSimilarServices" *ngIf="!serviceToCompareToId">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.SIMILAR SERVICES' | translate}}" id="tabSimilarServices" *ngIf="!serviceToCompareToId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -148,7 +148,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Compare services" id="tabCompareServices" *ngIf="serviceToCompareToId">
+    <ngb-tab title="{{'PLATFORM.SERVICES.DETAIL.MENU.COMPARE SERVICES' | translate}}" id="tabCompareServices" *ngIf="serviceToCompareToId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
