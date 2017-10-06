@@ -368,7 +368,7 @@
       "SERVICE SNAPSHOT ASSOCIATED": "Service snapshot associé",
       "PRICE HISTORY": "Historique des prix",
       "CHANGE HISTORY": "Historique des changements",
-      "DUPLICATE CATALOG NR": "Dupliquer le no catalogue",
+      "DUPLICATE CATALOG NR": "No catalogue déjà utilisé",
       "VIEW PRODUCTS": "Voir produits",
       "VIEW PRIVATE PRODUCTS": "Voir produits privés",
       "CREATE A PRODUCT": "Créer un produit"
@@ -431,6 +431,9 @@
         "REFUSER VALIDATION MODAL FOOTER": "Justifier le refus de validation. Après l'ajout du commentaire le refus de la validation sera acté. Si vous ne voulez pas refuser la validation, fermer la fenêtre via la croix en haut.",
         "REASK VALIDATION MODAL TITLE": "Demander (peut-être à nouveau) la validation du produit",
         "REASK VALIDATION MODAL FOOTER": "Expliquer ce qui a changé qui vous amène à refaire la demande. Après l'ajout du commentaire la demande de validation sera actée. Si vous ne voulez pas redemander la validation, fermer la fenêtre via la croix en haut."    
+    },
+    "HELP": {
+      "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
     }
   },
   "EQUIPE": {

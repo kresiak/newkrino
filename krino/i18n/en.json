@@ -431,6 +431,9 @@
         "REFUSER VALIDATION MODAL FOOTER": "Explain why you are refusing the validation. Adding the comment will perform the validation. Otherwise cancel with the cross in the header.",
         "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
         "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header."
+    },
+    "HELP": {
+      "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number."
     }
   },
   "EQUIPE": {
