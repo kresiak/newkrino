@@ -184,7 +184,7 @@
         "REASON/COMMENT": "Raison / commentaire"
       },
       "MENU": {
-        "INFO": "InfO",
+        "INFO": "Info",
         "BUDGET CHANGES": "Changement dans budget",
         "HISTORY BUDGET": "Histoire des changements",
         "ADD BUDGET CHANGE": "Ajouter un changement de budget",
@@ -288,8 +288,9 @@
       "SUPER ADMINISTRATOR": "super administrateur:"
     },
     "MENU": {
-      "INFO": "InfO",
+      "INFO": "Info",
       "ADMINISTRATION": "Administration",
+      "PHOTO": "Photo",
       "COMMENTS": "Commentaire",
       "EQUIPES": "Equipes",
       "ORDERS": "Commandes",

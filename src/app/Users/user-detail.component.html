@@ -10,6 +10,21 @@
 			</div>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="{{'USER.MENU.PHOTO' | translate}}" id="tabPhoto" *ngIf="authorizationStatusInfo?.isAdministrator()">
+		<template ngbTabContent>
+			<div class="card">
+				<div class="card-block">
+					<div class="row">
+						<div class="col-sm-3">file:</div>
+						<div class="col-sm-6">
+							<image-upload [url]="dataStore.getUploadUrl()" (uploadFinished)="onUploadFinished($event)">
+							</image-upload>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</ngb-tab>
 	<ngb-tab title="{{'USER.MENU.ADMINISTRATION' | translate}}" id="tabAdministration">
 		<template ngbTabContent>
 			<div class="card">
@@ -72,6 +87,7 @@
 						<div class="col-sm-3">_id:</div>
 						<div class="col-sm-6">{{user.data._id}}</div>
 					</div>
+
 				</div>
 			</div>
 		</template>

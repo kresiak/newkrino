@@ -1,6 +1,7 @@
 import { Component, Input, Output, ViewEncapsulation, ViewChild, EventEmitter, OnInit } from '@angular/core';
 import { Editor } from '../ui/editor/editor'
 import { UserService } from '../Shared/Services/user.service'
+import { DataStore } from '../Shared/Services/data.service'
 import { Observable } from 'rxjs/Rx'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -15,6 +16,7 @@ import * as moment from "moment"
   templateUrl: './comments.component.html'
 })
 export class CommentsComponent implements OnInit {
+  userMap: Map<string, any>
   @Input() comments;
   @Input() dontShowOldMessages: boolean = false
   @Input() allowNotifyUsers: boolean = false
@@ -25,7 +27,7 @@ export class CommentsComponent implements OnInit {
   @ViewChild(Editor) newCommentEditor;
 
 
-  constructor(private userService: UserService, private authService: AuthService) {
+  constructor(private userService: UserService, private authService: AuthService, private dataStore: DataStore) {
   }
 
   private selectableUsers: Observable<SelectableData[]>;
@@ -35,6 +37,10 @@ export class CommentsComponent implements OnInit {
       this.comments = [];
     }
     this.selectableUsers = this.authService.getSelectableUsers();
+
+    this.authService.getAnnotatedUsersHashmap().takeWhile(() => this.isPageRunning).subscribe(map => {
+      this.userMap= map
+    })
   }
 
   private isPageRunning: boolean = true
@@ -48,6 +54,11 @@ export class CommentsComponent implements OnInit {
     if (changes.comments && changes.comments.currentValue === undefined) {
       this.comments = [];
     }
+  }
+
+  getPictureFile(comment) {
+    var userId= comment.user.id
+    return this.userMap.has(userId) ? this.dataStore.getPictureUrl(this.userMap.get(userId).data.pictureFile) : undefined
   }
 
   addNewComment() {

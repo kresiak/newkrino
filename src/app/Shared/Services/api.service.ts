@@ -8,22 +8,34 @@ import { ConfigService } from './config.service'
 export class ApiService {
     private urlBaseForData   
     private urlBaseForService 
+    private urlBaseForPicture
+    public urlBaseForUpload
 
     constructor(private _http: Http, @Inject(ConfigService) private configService: ConfigService) { 
         if (configService.isProduction()) {
             if (configService.isVM2()) {
                 this.urlBaseForData= 'http://139.165.57.34:80/data'
                 this.urlBaseForService=  'http://139.165.57.34:80/service'
+                this.urlBaseForPicture='http://139.165.57.34:80/pictures'
+                this.urlBaseForUpload="http://139.165.57.34:80/upload"
             }
             else  {
                 this.urlBaseForData= 'http://139.165.56.57:3002/data'
                 this.urlBaseForService=  'http://139.165.56.57:3002/service'
+                this.urlBaseForPicture='http://139.165.56.57:3002/pictures'
+                this.urlBaseForUpload="http://139.165.56.57:3002/upload"
             }
         }
         else {
             this.urlBaseForData= 'http://localhost:1337/data'
             this.urlBaseForService= 'http://localhost:1337/service'
+            this.urlBaseForPicture='http://localhost:1337/pictures'
+            this.urlBaseForUpload="http://localhost:1337/upload"
         }
+    }
+
+    public getPictureUrlBase() {
+        return this.urlBaseForPicture
     }
 
     private getOptions(type: RequestMethod, url) {

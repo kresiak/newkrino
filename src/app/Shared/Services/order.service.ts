@@ -107,6 +107,7 @@ export class OrderService {
             annotation: {
                 sapId: krinoSapMap.get(order.kid),
                 user: annotatedUser ? annotatedUser.annotation.fullName : 'Unknown user',
+                userPicture: annotatedUser ? annotatedUser.data.pictureFile : undefined,
                 supplier: supplier ? supplier.name : 'Unknown supllier',
                 status: status,
                 isGroupedOrder: annotatedUser && this.authService.isUserGroupOrderUser(annotatedUser.data._id),

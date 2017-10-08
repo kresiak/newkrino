@@ -17,7 +17,7 @@
 			<div class="comments__title">{{'GENERAL.COMMENTS.ALL COMMENTS' | translate}}</div>
 			<ul class="comments__list">
 				<li *ngFor="let comment of comments">
-					<gg-comment [content]="comment.content" [time]="comment.time" [user]="comment.user" (commentEdited)="onCommentEdited(comment, $event)">
+					<gg-comment [content]="comment.content" [time]="comment.time" [user]="comment.user" [picture]="getPictureFile(comment)" (commentEdited)="onCommentEdited(comment, $event)">
 					</gg-comment>
 				</li>
 			</ul>

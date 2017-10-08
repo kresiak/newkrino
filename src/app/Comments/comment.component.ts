@@ -17,6 +17,7 @@ export class CommentComponent {
 
   @Input() time;
   @Input() user;
+  @Input() picture: string= undefined;
   @Input() content;
   @Output() commentEdited = new EventEmitter();
 

@@ -290,6 +290,7 @@
     "MENU": {
       "INFO": "Info",
       "ADMINISTRATION": "Administration",
+      "PHOTO": "Picture",      
       "COMMENTS": "Comments",
       "EQUIPES": "Projects",
       "ORDERS": "Orders",

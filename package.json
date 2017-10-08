@@ -25,6 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.8",
     "angular2-chartist": "^0.10.1",
     "angular2-csv": "^0.2.3",
+    "angular2-image-upload": "^1.0.0-rc.0",
     "bootstrap": "^3.3.7",
     "chartist": "^0.10.1",
     "core-js": "^2.4.1",
