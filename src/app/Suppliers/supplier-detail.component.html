@@ -63,7 +63,7 @@
 															<img src="../../images/trash.png" (click)="deleteFixCost(fixCost)" class="imgTrash" />
 														</div>
 														<div class="col-sm-2 vcenter" *ngIf="fixCost.data.disabled">
-															already disabled
+															{{'GENERAL.IS DISABLED' | translate}}
 														</div>
 													</div>
 												</div>
