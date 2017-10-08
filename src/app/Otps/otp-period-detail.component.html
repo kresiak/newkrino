@@ -82,7 +82,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BUDGET CHANGE' | translate}}" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BUDGET CHANGE' | translate}}" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo?.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetPeriod, budgetChangeForm.valid)">
@@ -160,7 +160,7 @@
                                 </div>
                             </template>
                         </ngb-tab>
-                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BLOCKED AMOUNT' | translate}}" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+                        <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BLOCKED AMOUNT' | translate}}" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo?.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, budgetPeriod, blockedAmountForm.valid)">

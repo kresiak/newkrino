@@ -9,7 +9,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="{{'STOCK.MENU.DETAILS' | translate}} {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+    <ngb-tab title="{{'STOCK.MENU.DETAILS' | translate}} {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo?.isAdministrator()">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">

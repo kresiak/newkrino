@@ -47,7 +47,7 @@
 											<div class="row">
 												<div class="col-sm-3 vcenter"><b>{{'SUPPLIER.COLUMN.DESCRIPTION' | translate}}</b></div>
 												<div class="col-sm-2 vcenter"><b>{{'SUPPLIER.COLUMN.PRICE' | translate}}</b></div>
-												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()"><b>{{'SUPPLIER.COLUMN.DISABLE' | translate}}</b></div>
+												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo?.isAdministrator()"><b>{{'SUPPLIER.COLUMN.DISABLE' | translate}}</b></div>
 											</div>
 											<div *ngFor="let fixCost of fixCosts">
 												<div *ngIf="true">
@@ -73,7 +73,7 @@
 								</div>
 							</template>
 						</ngb-tab>
-						<ngb-tab title="{{'SUPPLIER.MENU.ADD FIX COST' | translate}}" id="tabAddFixCost" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+						<ngb-tab title="{{'SUPPLIER.MENU.ADD FIX COST' | translate}}" id="tabAddFixCost" *ngIf="authorizationStatusInfo?.isAdministrator()">
 							<template ngbTabContent>
 								<div class="card">
 									<div class="card-block">

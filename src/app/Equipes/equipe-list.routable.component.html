@@ -7,7 +7,7 @@
                     <gg-equipe-list [equipesObservable]="equipesObservable" [state]="state"></gg-equipe-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="{{'EQUIPE.MENU.CREATE AN EQUIPE' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+            <ngb-tab title="{{'EQUIPE.MENU.CREATE AN EQUIPE' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo?.isAdministrator()">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

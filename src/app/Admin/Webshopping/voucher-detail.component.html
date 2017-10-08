@@ -86,7 +86,7 @@
 						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.TOTAL' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
-					<div class="row" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+					<div class="row" *ngIf="authorizationStatusInfo?.isAdministrator()">
 						<div class="col-sm-4 vcenter"><button (click)="deletePurchase()" class="btn btn-warning" type="submit" [disabled]="!iAgreeToDelete.checked">Delete the web shopping purchase order</button></div>
 						<div class="col-sm-6 vcenter"><input type="checkbox"  #iAgreeToDelete> I am aware of the fact that if I delete this purchase, the information will be lost and I really want to delete it.<br></div>
 					</div>
