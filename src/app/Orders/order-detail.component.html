@@ -89,14 +89,14 @@
 									</div>
 									<div class="row" *ngIf="!order.annotation.isGroupedOrder">
 										<div class="col-sm-10">
-											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator() || order.annotation.equipeGroup"
+											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator() || order.annotation.equipeGroup"
 											 [selectableData]="equipeListObservable" [selectedId]="order.data.equipeId" (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
 											<div *ngIf="order.annotation.equipeGroup">group: {{order.annotation.equipeGroup}}</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-4 vcenter">
-											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [limitToChoice]="true"
+											<gg-editor-autocomplete-text [readOnly]="!authorizationStatusInfo?.isAdministrator()" [limitToChoice]="true"
 											 [selectableData]="getStatusList()" [selectedText]="order.annotation.status" (textChanged)="statusChanged($event)">
 											</gg-editor-autocomplete-text>
 										</div>
@@ -123,21 +123,21 @@
 										</div>
 
 										<div class="col-sm-1 vcenter">
-											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="order.annotation.isGroupedOrder || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+											<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityChanged(item, $event)" [readOnly]="order.annotation.isGroupedOrder || !authorizationStatusInfo?.isAdministrator()"></gg-editor-number>
 										</div>
 
 										<div class="col-sm-1 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 										<div class="col-sm-2 vcenter">
 											<gg-editor [content]="item.data.total" [showControls]="true" [isMonetary]="true" (editSaved)="updateTotalAmount(item, $event)"
-											 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+											 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 										</div>
 										<div class="col-sm-2 vcenter" *ngIf="!smallScreen">
-											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
+											<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable"
 											 [selectedId]="item.data.otpId" (idChanged)="otpUpdated(item, $event)" [linkable]="true" (hasBeenClicked)="navigateToOtp(item.data.otpId)"></gg-editor-autocomplete>
 										</div>
 										<div class="col-sm-1 vcenter" *ngIf="smallScreen">{{item.annotation.otp}}</div>
 										<div class="col-sm-2 vcenter">
-											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+											<gg-editor [content]="item.data.comment" [showControls]="true" (editSaved)="updateComment(item, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 										</div>
 										<div class="col-sm-1 vcenter" *ngIf="order.annotation.isGroupedOrder">
 											<button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>

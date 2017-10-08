@@ -8,25 +8,25 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.CATEGORY' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="category.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.NO OF ARTICLE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="category.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.GROUP MARCHANDISE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="category.data.groupMarch" [showControls]="true" (editSaved)="groupMUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="category.data.groupMarch" [showControls]="true" (editSaved)="groupMUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div> 
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.IS BLOCKED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+							<gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div> 
                     <div class="row">
@@ -38,7 +38,7 @@
 					<div class="row">
 						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.OFFICE SPECIFIC' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="category.data.isOffice" (editSaved)="isOfficUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+							<gg-editor-boolean [content]="category.data.isOffice" (editSaved)="isOfficUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 

@@ -7,19 +7,19 @@
                         <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.INITIAL BUDGET' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             <gg-editor [isMonetary]="true" [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetPeriodUpdated($event)"
-                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.START DATE' | translate}}</div>
                         <div class="col-sm-6 vcenter">
-                            <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                            <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.END DATE' | translate}}</div>
                         <div class="col-sm-6 vcenter">
-                            <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                            <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
@@ -65,14 +65,14 @@
                                                     <div class="row">
                                                         <div class="col-sm-2 vcenter">
                                                             <gg-editor [isMonetary]="true" [content]="budgetHistoryItem.budgetIncrement" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                                [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-4 vcenter">
-                                                            <gg-editor-date [content]="budgetHistoryItem.date" (editSaved)="dateBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-date>
+                                                            <gg-editor-date [content]="budgetHistoryItem.date" (editSaved)="dateBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                                                         </div>
                                                         <div class="col-sm-3 vcenter">
                                                             <gg-editor [content]="budgetHistoryItem.comment" [showControls]="true" (editSaved)="commentsBudgetChangeUpdated(budgetHistoryItem, $event)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                                [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -146,11 +146,11 @@
                                                     <div class="row">
                                                         <div class="col-sm-3 vcenter">
                                                             <gg-editor [isMonetary]="true" [content]="blockedAmountItem.amount" [showControls]="true" (editSaved)="blockedAmountUpdated(blockedAmountItem, $event)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                                [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-6 vcenter">
                                                             <gg-editor [content]="blockedAmountItem.comment" [showControls]="true" (editSaved)="blockedAmountCommentUpdated(blockedAmountItem, $event)"
-                                                                [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+                                                                [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                     </div>
                                                 </div>

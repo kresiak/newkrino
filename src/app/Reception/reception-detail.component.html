@@ -69,7 +69,7 @@
                                             <gg-editor [content]="reception.data.position" [showControls]="true" (editSaved)="positionUpdated($event, reception)"></gg-editor>
                                         </div>
                                         <div class="col-sm-2 vcenter">
-                                            <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+                                            <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
                                         </div>
                                     </div>                        
                                 </div>

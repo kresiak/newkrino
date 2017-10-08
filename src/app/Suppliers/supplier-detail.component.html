@@ -53,11 +53,11 @@
 												<div *ngIf="true">
 													<div class="row">
 														<div class="col-sm-3 vcenter">
-															<gg-editor [content]="fixCost.data.name" [showControls]="true" (editSaved)="costsDescriptionUpdated(fixCost, $event)" [readOnly]="fixCost.data.disabled || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+															<gg-editor [content]="fixCost.data.name" [showControls]="true" (editSaved)="costsDescriptionUpdated(fixCost, $event)" [readOnly]="fixCost.data.disabled || !authorizationStatusInfo?.isAdministrator()"></gg-editor>
 														</div>
 														<div class="col-sm-2 vcenter">
 															<gg-editor [content]="fixCost.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(fixCost, $event)"
-															 [readOnly]="fixCost.data.disabled || !authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+															 [readOnly]="fixCost.data.disabled || !authorizationStatusInfo?.isAdministrator()"></gg-editor>
 														</div>
 														<div class="col-sm-2 vcenter" *ngIf="!fixCost.data.disabled && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 															<img src="../../images/trash.png" (click)="deleteFixCost(fixCost)" class="imgTrash" />

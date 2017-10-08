@@ -47,11 +47,11 @@
 			<div class="row" *ngIf="product && product.data" [style.color]="product.data.disabled ? 'red' : 'black'">
 				<div class="col-sm-3 col-md-3 vcenter">
 					<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event, product)" class="imgSearch"
-					 (click)="navigateToProduct(product)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+					 (click)="navigateToProduct(product)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter">
 					<gg-editor [id]="product.data._id" [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event, product)"
-					 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+					 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 				</div>
 				<div class="col-sm-1 col-md-1 vcenter">
 					<gg-editor-number *ngIf="product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" [content]="product.annotation.quantity"
@@ -63,7 +63,7 @@
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
 
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && product.annotation.otp._id && showColumn('otp')">
-					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()" [selectableData]="otpListObservable"
+					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable"
 					 [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete> {{product.annotation.otp.description}}
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>

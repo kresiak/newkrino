@@ -77,7 +77,7 @@
                                                                                     <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.NAME' | translate}}</b></div>
                                                                                     <div class="col-sm-8 vcenter">
                                                                                         <gg-editor [content]="classificationsItem.data.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
-                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                            [readOnly]="!authorizationStatusInfo?.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
                                                                                 </div>
@@ -85,7 +85,7 @@
                                                                                     <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.DESCRIPTION' | translate}}</b></div>
                                                                                     <div class="col-sm-8 vcenter">
                                                                                         <gg-editor [content]="classificationsItem.data.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
-                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                            [readOnly]="!authorizationStatusInfo?.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
                                                                                 </div>
@@ -95,7 +95,7 @@
                                                                                         <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem.data._id)"
                                                                                             (selectionChanged)="categorySelectionChanged($event, classificationsItem)"
                                                                                             (selectionOptionAdded)="categoryHasBeenAdded($event)"
-                                                                                            [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()">
+                                                                                            [readOnly]="!authorizationStatusInfo?.isAdministrator()">
                                                                                         </gg-selector>
                                                                                     </div>
                                                                                 </div>

@@ -8,39 +8,39 @@
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="equipe.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.DESCRIPTION' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor [content]="equipe.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor>
+							<gg-editor [content]="equipe.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.WITH FOLLOWING USERS' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)"
-							 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
+							 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.HEADS OF EQUIPE' | translate}}</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableManagers" [selectedIds]="selectedManagerIdsObservable" (selectionChanged)="managerSelectionChanged($event)"
-							 [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-selector>
+							 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.MONTHS AHEAD ALLOWED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed" (editSaved)="nbOfMonthAheadAllowedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-number>
+							<gg-editor-number [content]="equipe.data.nbOfMonthAheadAllowed" (editSaved)="nbOfMonthAheadAllowedUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row" [style.color]="equipe.data.isBlocked ? 'red' : 'black'">
 						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.IS BLOCKED' | translate}}</div>
 						<div class="col-sm-6 vcenter">
-							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isAdministrator()"></gg-editor-boolean>
+							<gg-editor-boolean [content]="equipe.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">

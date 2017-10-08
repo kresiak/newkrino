@@ -217,7 +217,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'PRODUCT.MENU.PERMISSIONS' | translate}}" id="tabPermissions" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+	<ngb-tab title="{{'PRODUCT.MENU.PERMISSIONS' | translate}}" id="tabPermissions" *ngIf="authorizationStatusInfo?.isAdministrator()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
