@@ -185,6 +185,8 @@ import { FullDatePipe } from './Shared/Pipes/fulldate.pipe'
 import { ShortDatePipe } from './Shared/Pipes/shortdate.pipe'
 import { FromNowPipe } from './Shared/Pipes/fromnow.pipe'
 
+import { RainbowDirective } from './Shared/Directives/test.directive'
+
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate'
 
 //import {MomentModule} from 'angular2-moment';
@@ -264,7 +266,8 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
     PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,
     PlatformServiceSnapshotDetailComponent, PlatformServiceStepClientTypeCostComponent, PlatformEnterprisesComponent, PlatformOffersComponent, PlatformOfferDetailComponent, PlatformOfferListComponent,
-    PublicMainComponent, MarketsMainComponent, MarketsEnterComponent, SigninEnterComponent, RegisterEnterComponent
+    PublicMainComponent, MarketsMainComponent, MarketsEnterComponent, SigninEnterComponent, RegisterEnterComponent,
+    RainbowDirective
   ],
   providers: [NavigationService, OtpChoiceService, ApiService, DataStore, AuthService, ProductService, SupplierService, OrderService, UserService, ChartService, WebSocketService, MenuService,
     AdminService, SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, ConfigService, PlatformService, AuthAnoynmousService],
