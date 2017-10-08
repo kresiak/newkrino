@@ -41,7 +41,7 @@
 		</template>
 	</ngb-tab>
 
-	<ngb-tab title="{{'STOCK.MENU.DELETE' | translate}}" id="tabDelete" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed && !isBlocked">
+	<ngb-tab title="{{'STOCK.MENU.DELETE' | translate}}" id="tabDelete" *ngIf="authorizationStatusInfo?.isAdministrator() && !order.data.isProcessed && !isBlocked">
 		<template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -64,7 +64,7 @@
 			
 		</template>
 	</ngb-tab>    
-    <ngb-tab title="{{'STOCK.MENU.PROCESS ORDER' | translate}}" id="tabProcessOrder" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && !order.data.isProcessed && !isBlocked">
+    <ngb-tab title="{{'STOCK.MENU.PROCESS ORDER' | translate}}" id="tabProcessOrder" *ngIf="authorizationStatusInfo?.isAdministrator() && !order.data.isProcessed && !isBlocked">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">

@@ -164,7 +164,7 @@
 														</div>
 													</template>
 												</ngb-tab>
-												<ngb-tab title="{{'OTP.MENU.ADD BUDGET PERIOD' | translate}}" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && otp.data.isAnnual">
+												<ngb-tab title="{{'OTP.MENU.ADD BUDGET PERIOD' | translate}}" id="tabAddNewBudgetPeriod" *ngIf="authorizationStatusInfo?.isAdministrator() && otp.data.isAnnual">
 													<template ngbTabContent>
 														<div class="card">
 															<form [formGroup]="annualForm" (ngSubmit)="SaveNewBudget(annualForm.value, annualForm.valid)">

@@ -76,7 +76,7 @@
 									<div class="row" *ngIf="order.annotation.needsValidation">
 										Waiting for authorization by {{order.annotation.validationStatus}}
 									</div>
-									<div class="row" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer()">
+									<div class="row" *ngIf="authorizationStatusInfo?.isProgrammer()">
 										{{order.data._id}}
 									</div>
 								</div>

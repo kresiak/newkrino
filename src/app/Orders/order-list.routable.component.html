@@ -22,7 +22,7 @@
                     <gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
                 </template>
             </ngb-tab>
-            <ngb-tab title="{{'ORDER.MENU.CREATE AN ORDER' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+            <ngb-tab title="{{'ORDER.MENU.CREATE AN ORDER' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo?.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

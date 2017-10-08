@@ -22,7 +22,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Marchés Ulg" id="tabMarchés" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+            <ngb-tab title="Marchés Ulg" id="tabMarchés" *ngIf="authorizationStatusInfo?.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

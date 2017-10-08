@@ -1,7 +1,7 @@
 <div id="GGTOP"></div>
 <div class="card">
     <div class="card-block">
-        <ngb-tabset *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+        <ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
             <ngb-tab title="{{'USER.MENU.VIEW USERS' | translate}}" id="tabView">
                 <template ngbTabContent>
 

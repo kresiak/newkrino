@@ -75,7 +75,7 @@
                                                                     </gg-editor-number>
                                                                 </div>
 
-                                                                <div class="col-sm-2  col-md-2 vcenter" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer()">
+                                                                <div class="col-sm-2  col-md-2 vcenter" *ngIf="authorizationStatusInfo?.isProgrammer()">
                                                                     <input type="checkbox" [ngbTooltip]="'Dont use this, if you are not Alex! Click here to select the item for deletion'" *ngIf="!historyItem.isDueToDelete"
                                                                         (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete"
                                                                     />

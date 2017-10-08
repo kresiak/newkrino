@@ -275,7 +275,7 @@
 			</div>
 		</template>
 	</ngb-tab>
-	<ngb-tab title="{{'PRODUCT.MENU.CHANGE HISTORY' | translate}}" id="tabChangeHistory" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isProgrammer() && product.data.history && product.data.history.length > 0">
+	<ngb-tab title="{{'PRODUCT.MENU.CHANGE HISTORY' | translate}}" id="tabChangeHistory" *ngIf="authorizationStatusInfo?.isProgrammer() && product.data.history?.length > 0">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">

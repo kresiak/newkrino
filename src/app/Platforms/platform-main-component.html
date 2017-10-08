@@ -1,4 +1,4 @@
-<div class="card" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn && authorizationStatusInfo.isPlatformAdminstrator()">
+<div class="card" *ngIf="authorizationStatusInfo?.isLoggedIn && authorizationStatusInfo?.isPlatformAdminstrator()">
     <div class="card-block">
         <ngb-tabset>
             <ngb-tab title="{{'PLATFORM.MENU.SERVICES' | translate}}" id="tabServices">

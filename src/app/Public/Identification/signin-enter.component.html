@@ -27,7 +27,7 @@
                 There is an error. Try again.
             </div>            
         </div>
-        <div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+        <div class="container-fluid" *ngIf="authorizationStatusInfo?.isLoggedIn">
             <div class="row">
                 You are signed in as {{authorizationStatusInfo.getCurrentUserName()}}
             </div>

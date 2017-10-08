@@ -1,7 +1,7 @@
-<div class="container-fluid" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn">
+<div class="container-fluid" *ngIf="authorizationStatusInfo?.isLoggedIn">
 	<br/>
 	<div class="row">
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="privateMessages && privateMessages.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="privateMessages && privateMessages?.length>0">
 			<div class="card text-xs-center card-outline-danger">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.PRIVATE MESSAGES' | translate}}
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.classicOrders.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.classicOrders?.length>0">
 			<div class="card text-xs-center card-outline-danger">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.CLASSIC ORDERS' | translate}}
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="labManagerMessages && labManagerMessages.validableOrders.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="labManagerMessages?.validableOrders?.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.ORDERS TO VALIDATE' | translate}}
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.fridgeOrders.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.fridgeOrders?.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.FRIDGE ORDERS' | translate}} <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewFridge'}">{{'DASHBOARD.CARD HEADER.OPEN THEM' | translate}}</a>
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.stockOrders.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.stockOrders?.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.STOCK ORDERS' | translate}} <a [routerLink]="['/orders']" [queryParams]="{tab:'tabViewStock'}">{{'DASHBOARD.CARD HEADER.OPEN THEM' | translate}}</a>
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.requestVouchers.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.requestVouchers?.length>0">
 			<div class="card text-xs-center card-outline-info">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.VOUCHER REQUESTS' | translate}} <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabRequestedVouchers'}">{{'DASHBOARD.CARD HEADER.OPEN THEM' | translate}}</a>
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.usedVouchers.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.usedVouchers?.length>0">
 			<div class="card text-xs-center card-outline-success">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.VOUCHERS USED' | translate}} <a [routerLink]="['/admin']" [queryParams]="{tab:'tabWebShopping',tab2:'tabReadyVouchersForSap'}">{{'DASHBOARD.CARD HEADER.OPEN THEM' | translate}}</a>
@@ -100,7 +100,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.productsOnValidationWait.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.productsOnValidationWait?.length>0">
 			<div class="card text-xs-center card-outline-success">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.NEW PRODUCTS' | translate}}
@@ -115,7 +115,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.finishingOtps.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.finishingOtps?.length>0">
 			<div class="card text-xs-center card-outline-warning">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.OTP' | translate}}
@@ -131,7 +131,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.userMonitors.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.userMonitors?.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.USERS ACTIVITY' | translate}}
@@ -146,7 +146,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.equipeMonitors.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.equipeMonitors?.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.EQUIPES ACTIVITY' | translate}}
@@ -161,7 +161,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.otpMonitors.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.otpMonitors?.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.OTP USAGE' | translate}}
@@ -176,7 +176,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo && authorizationStatusInfo.isAdministrator() && labManagerMessages && labManagerMessages.categoryMonitors.length>0">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="authorizationStatusInfo?.isAdministrator() && labManagerMessages?.categoryMonitors?.length>0">
 			<div class="card text-xs-center card-outline-primary">
 				<div class="card-header">
 					{{'DASHBOARD.CARD HEADER.PRODUCTS USAGE' | translate}}
