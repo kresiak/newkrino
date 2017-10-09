@@ -8,6 +8,8 @@ import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as reportsUtils from './../Shared/Utils/reports'
+import * as dateUtils from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -17,6 +19,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class ProductListComponent implements OnInit {
+        allProducts: any;
     @Input() productsObservable: Observable<any>;
     @Input() config;
     @Input() state;
@@ -130,6 +133,7 @@ export class ProductListComponent implements OnInit {
             });
         }).do(products => {
             this.nbHits = products.length
+            this.allProducts = products            
         })
             .switchMap(products => {
                 return this.nbHitsShownObservable.map(nbItems => {
@@ -214,4 +218,28 @@ export class ProductListComponent implements OnInit {
     isProductSelected(product) {
         return this.selectedProductIdsMap.has(product.data._id)
     }
+
+    createReport() {
+
+        var fnFormat= product => {
+            return {
+                Name: product.data.name,
+                Supplier: product.annotation.supplierName,
+                Package: product.data.package,
+                CatalogNr: product.data.catalogNr,
+                Price: product.data.price,
+                Frigo: product.data.isFrigo,
+                Disabled: product.data.disabled,
+                NbOrders: product.annotation.productFrequence
+            }
+        }
+
+        var listNonDeleted=this.allProducts.filter(order => !order.data.disabled).map(fnFormat)
+        var listDeleted= this.allProducts.filter(order => order.data.disabled).map(fnFormat)
+
+
+
+        reportsUtils.generateReport(listNonDeleted.concat(listDeleted))
+    }
+    
 }

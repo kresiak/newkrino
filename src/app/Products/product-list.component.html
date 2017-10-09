@@ -14,6 +14,7 @@
 				<li>$PR : private products (can be seen only by this labo)</li>
 				<li>$PU : public products (can be seen by all labo)</li>
 				<li>$V : products waiting for validation</li>
+				<li>$OR : products that have been ordered</li>
 	</ul>
 </template>
 
@@ -33,6 +34,7 @@
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
 				 src="../../images/close.png" (click)="resetSerachControl()" />
+				<span *ngIf="nbHits" class="gg-price">{{nbHits}} {{'GENERAL.PRODUCTS' | translate}}	</span>				 
 			</div>
 		</div>
 		<div class="row">
@@ -94,11 +96,14 @@
 			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
 				<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
 			</div>
-			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
-				<div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
+			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits && nbHits <= 1000">
+				<div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS WARNING TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
 			</div>
 			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
 				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
+			</div>
+			<div class="col-sm-2" *ngIf="nbHits > 0">
+				<div  class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.PRODUCT REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
 			</div>
 
 		</div>
