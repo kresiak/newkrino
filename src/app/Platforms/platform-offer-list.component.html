@@ -55,10 +55,10 @@
             </ngb-accordion>
         </div>
         <div class="row" *ngIf="nbHitsShown < nbHits">
-            <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+            <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
         </div>
         <div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-            {{nbHits}} hits shown
+            {{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
         </div>        
     </div>
 </div>

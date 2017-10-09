@@ -115,6 +115,9 @@ export class ProductListComponent implements OnInit {
                 if (txt.startsWith('$PU')) {
                     return !product.data.isLabo;
                 }
+                if (txt.startsWith('$OR')) {
+                    return product.annotation.productFrequence;
+                }
 
                 if (txt.startsWith('$V')) {
                     return product.data.onCreateValidation;
@@ -189,6 +192,13 @@ export class ProductListComponent implements OnInit {
         this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
+
+    private allHits() {
+        this.nbHitsShown += this.nbHits
+        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
 
     private selectedProductIdsMap: Set<string>
 

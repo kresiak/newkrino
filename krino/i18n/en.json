@@ -8,7 +8,19 @@
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
     "IS DISABLED": "disabled",
-    "COMMENTS": {
+    "SHOW MORE": "show more",
+    "SHOW ALL": "show all",
+    "GET A REPORT": "get a report",
+    "HITS SHOWN": "hits shown",
+    "AVAILABLE IN": "available in",
+    "ORDERS": "orders",
+    "IN": "in",
+    "HITS": {
+      "NB HITS TXT": "now showing {{nbHitsShown}} of {{nbHits}}",
+      "ORDER REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Deleted orders will be added at the end of the file.",
+      "OTP REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked/Deleted otps will be added at the end of the file."
+    },    
+   "COMMENTS": {
       "TAB TITLE": "Comments",
       "TAB TITLE TIP": "Here there are probably messages waiting that have explicitely been addressed to you",
       "ADD NEW COMMENT": "Add new comment",

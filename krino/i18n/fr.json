@@ -8,6 +8,18 @@
     "CHOOSE AN EQUIPE": "choisir une équipe",    
     "TOGGLE DETAILS": "Voir/cacher détails",
     "IS DISABLED": "désactivé",    
+    "SHOW MORE": "voir plus",
+    "SHOW ALL": "voir tout",
+    "GET A REPORT": "rapport",
+    "HITS SHOWN": "entrées",
+    "AVAILABLE IN": "disponible dans",  
+    "IN": "dans",      
+    "ORDERS": "commandes",
+    "HITS": {
+      "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées",
+      "ORDER REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les commandes supprimées seront ajoutées en fin de fichier.",
+      "OTP REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les OTP supprimés ou bloqués seront ajoutés en fin de fichier."
+    },
     "COMMENTS": {
       "TAB TITLE": "Commentaires",  
       "TAB TITLE TIP": "Ici il y a des messages qui vous attendent. Veuillez les lire.",          

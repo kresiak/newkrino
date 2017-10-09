@@ -32,7 +32,7 @@
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
 				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
 				 src="../../images/close.png" (click)="resetSerachControl()" />
-				<span *ngIf="nbHits" class="gg-price">{{'  ' + total | currency:'EUR':true:'1.2-2'}} in {{nbHits}} orders	</span>
+				<span *ngIf="nbHits" class="gg-price">{{'  ' + total | currency:'EUR':true:'1.2-2'}} {{'GENERAL.IN' | translate}} {{nbHits}} {{'GENERAL.ORDERS' | translate}}	</span>
 			</div>
 		</div>
 
@@ -87,13 +87,13 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
-				<div  class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+				<div  class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
 			</div>
 			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-				{{nbHits}} hits shown
+				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
 			</div>
 			<div class="col-sm-2" *ngIf="nbHits > 0">
-				<div  class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'A report with all the ' + nbHits + ' hit(s) will be downloaded. Deleted orders will be added at the end of the file.'">get a report</div>
+				<div  class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.ORDER REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
 			</div>
 		</div>
 	</div>

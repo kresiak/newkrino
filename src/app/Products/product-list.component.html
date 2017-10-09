@@ -58,11 +58,11 @@
 					<template ngbPanelTitle>
 						<div class="row" id="{{product.data._id}}">
 							<div class="col-sm-1" *ngIf="isForSelection">
-								<img ngbTooltip="select product" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" 
-																	(click)="productSelectedInList($event, product, false)" />
+								<img ngbTooltip="select product" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" (click)="productSelectedInList($event, product, false)"
+								/>
 
-								<img ngbTooltip="unselect product" *ngIf="isProductSelected(product)" height="25" width="25" src="../../images/remove.png" 
-																	(click)="productSelectedInList($event, product, true)" />
+								<img ngbTooltip="unselect product" *ngIf="isProductSelected(product)" height="25" width="25" src="../../images/remove.png"
+								 (click)="productSelectedInList($event, product, true)" />
 							</div>
 							<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection" [style.font-weight]="product.data._id === state.openPanelId ? 'bold' : 'lighter'">{{product.data.name}}</div>
 							<div class="col-sm-2">{{product.annotation.supplierName}}</div>
@@ -90,12 +90,19 @@
 				</ngb-panel>
 			</ngb-accordion>
 		</div>
-		<div class="row" *ngIf="nbHitsShown < nbHits">
-			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'now showing ' + nbHitsShown + ' of ' + nbHits">show more</div>
+		<div class="row">
+			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
+				<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
+			</div>
+			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
+				<div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
+			</div>
+			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
+			</div>
+
 		</div>
-		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-			{{nbHits}} hits shown
-		</div>
+
 
 	</div>
 </div>
