@@ -58,10 +58,10 @@
 				 [source]="possibleEquipes" placeholder="{{'LOGIN.CHOOSE EQUIPE' | translate}}" [list-formatter]="autocompleListFormatter" (valueChanged)="equipeSelected($event)">
 
 				<div class="row">
-					<div class="col-sm-6 vcenter" *ngIf="authorizationStatusInfo.isReadyForPassword()">
+					<div class="col-sm-11 vcenter" *ngIf="authorizationStatusInfo.isReadyForPassword()">
 						<button style="font-size:12px;" type="button" (click)="openModal(passwordModal)" class="form-control btn btn-link">{{'LOGIN.ENTER PWD' | translate}}</button>
 					</div>
-					<div class="col-sm-5 vcenter" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
+					<div class="col-sm-11 vcenter" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
 						<button [ngbTooltip]="tipLaboName" placement="bottom" style="font-size:12px;" type="button" (click)="changeLabo()" class="form-control btn btn-link">{{'LOGIN.LABO.CHANGE' | translate}}  {{authorizationStatusInfo.isLoginError? ('(' + ('LOGIN.PWD ERR' | translate) + ')') : ''}}</button>
 					</div>
 					
