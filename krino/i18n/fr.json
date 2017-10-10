@@ -15,7 +15,8 @@
     "AVAILABLE IN": "disponible dans",  
     "IN": "dans",      
     "ORDERS": "commandes",
-    "PRODUCTS": "produits",    
+    "PRODUCTS": "produits",   
+    "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées",
       "NB HITS WARNING TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées. Cette opération peut être lente. Soyez patient!",      

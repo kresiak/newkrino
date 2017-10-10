@@ -16,6 +16,7 @@
     "ORDERS": "orders",
     "PRODUCTS": "products",
     "IN": "in",
+    "HOW TO SEARCH": "How to search: examples",
     "HITS": {
       "NB HITS TXT": "now showing {{nbHitsShown}} of {{nbHits}}",
       "NB HITS WARNING TXT": "now showing {{nbHitsShown}} of {{nbHits}}. This operation can be a bit slow. Please be patient!",

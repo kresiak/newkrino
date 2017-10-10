@@ -30,7 +30,7 @@
 				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
 				/>
 				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="How to search: examples"><img *ngIf="showSearch"
+				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
 				 src="../../images/close.png" (click)="resetSerachControl()" />
 				<span *ngIf="nbHits" class="gg-price">{{'  ' + total | currency:'EUR':true:'1.2-2'}} {{'GENERAL.IN' | translate}} {{nbHits}} {{'GENERAL.ORDERS' | translate}}	</span>
 			</div>
