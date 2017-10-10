@@ -821,6 +821,24 @@
         "HTVA": "Vat excl.",
         "TVAC": "Vat incl."
       }
+    },
+    "SEARCH HELP": {
+      "MSG1": "1245: si le Sap Id contient '1245'",
+      "MSG2": "vwr: si le fournisseur contient 'vwr'",
+      "MSG3": "$d: supprimée/deleted",
+      "MSG4": "$f: avec facture finale",
+      "MSG5": "$t: terminé: avec facture finale ou montant restant engagé nul",
+      "MSG6": "$o: ouvert: avec un montant qui reste engagé",
+      "MSG7": "$p: pièces sans engagement",
+      "MSG8": "$pTB: pièces sans engagement of type TB",
+      "MSG9": "$EO: avec otp error: plusieurs otp différents sur le même poste",
+      "MSG10": "$E>200: résidu engagé supérieur à 200 euros",
+      "MSG11": "$E <10: résidu engagé inférieur à 10 euros",
+      "MSG12": "$R>200: réalisé supérieur à 200 euros",
+      "MSG13": "$R <10: réalisé inférieur à 10 euros",
+      "MSG14": "#>2: nombre de postes supérieur à 2",
+      "MSG15": "# <5: nombre de postes inférieur à 5",
+      "MSG16": "#=2: nombre de postes égal à 2"
     }
   },
   "ADMINISTRATION": {
