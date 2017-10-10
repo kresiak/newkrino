@@ -654,6 +654,21 @@
     },
     "LABEL": {
 
+    },
+    "SEARCH HELP": {
+      "MSG1": "nadi: commandes dont l'équipe, le fournisseur, le Id, le statut ou l'utilisateur contient 'nadi'",
+      "MSG2": "deleted: commandes supprimées",
+      "MSG3": "$>200: montants supérieurs à 200 euros",
+      "MSG4": "#co: orders with comments from krino users",
+      "MSG5": "#nd: not delivered (buy maybe partially delivered)",
+      "MSG6": "#zd: zero delivery",
+      "MSG7": "#ad: all delivered",
+      "MSG8": "#pd: partially delivered",
+      "MSG9": "#nu: non urgent orders (ordres groupés)",
+      "MSG10": "#>5: orders with at least 5 order lines",
+      "MSG11": "$ <200: montants inférieurs à 200 euros",
+      "MSG12": "#enzym: commande avec un produit contenant 'enzym'",
+      "MSG13": "#2755: commande avec un produit dont le catlog number contient '2755'"
     }
   },
   "RECEPTION": {

@@ -651,7 +651,24 @@
       "DELIVERY": "Livraison",
       "HAS BEEN DELIVERED": "a été livré"
     },
-    "LABEL": {}
+    "LABEL": {
+
+    },
+    "SEARCH HELP": {
+      "MSG1": "nadi: commandes dont l'équipe, le fournisseur, le Id, le statut ou l'utilisateur contient 'nadI'",
+      "MSG2": "deleted: commandes suppriméeS",
+      "MSG3": "$>200: montants supérieurs à 200 euroS",
+      "MSG4": "#co: orders with comments from krino userS",
+      "MSG5": "#nd: not delivered (buy maybe partially delivereD)",
+      "MSG6": "#zd: zero deliverY",
+      "MSG7": "#ad: all delivereD",
+      "MSG8": "#pd: partially delivereD",
+      "MSG9": "#nu: non urgent orders (ordres groupéS)",
+      "MSG10": "#>5: orders with at least 5 order lineS",
+      "MSG11": "$ <200: montants inférieurs à 200 euroS",
+      "MSG12": "#enzym: commande avec un produit contenant 'enzyM'",
+      "MSG13": "#2755: commande avec un produit dont le catlog number contient '2755'"
+    }
   },
   "RECEPTION": {
     "MENU": {
