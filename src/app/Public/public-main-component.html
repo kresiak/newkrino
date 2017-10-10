@@ -12,7 +12,7 @@
                                         <gg-signin-enter></gg-signin-enter>
                                     </template>
                                 </ngb-tab>
-                                <ngb-tab title="Register as a user" id="tabRegister">
+                                <ngb-tab title="{{'PUBLIC.MENU.REGISTER AS A USER' | translate}}" id="tabRegister">
                                     <template ngbTabContent>
                                         <gg-register-enter></gg-register-enter>
                                     </template>
@@ -22,7 +22,7 @@
                     </div>
                 </template>
             </ngb-tab>
-            <ngb-tab title="Marchés Ulg" id="tabMarchés" *ngIf="authorizationStatusInfo?.isLoggedIn">
+            <ngb-tab title="{{'PUBLIC.MENU.MARCHÉS ULG' | translate}}" id="tabMarchés" *ngIf="authorizationStatusInfo?.isLoggedIn">
                 <template ngbTabContent>
                     <div class="card">
                         <div class="card-block">

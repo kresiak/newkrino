@@ -3,13 +3,13 @@
         <div class="container-fluid" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
             <form [formGroup]="signinEnterForm" (ngSubmit)="login(signinEnterForm.value, signinEnterForm.valid)">
                 <div class="form-group row">
-                    <label for="emailAddress" class="col-sm-2 col-form-label col-xl-2">e-mail address:</label>
+                    <label for="emailAddress" class="col-sm-2 col-form-label col-xl-2">{{'PUBLIC.IDENTIFICATION.LABEL.E-MAIL ADDRESS' | translate}}</label>
                     <div class="col-sm-10">
                         <input type="text" min="2" class="form-control" formControlName="emailAddress" id="emailAddress" placeholder="e-mail address">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label col-xl-2">password:</label>
+                    <label for="password" class="col-sm-2 col-form-label col-xl-2">{{'PUBLIC.IDENTIFICATION.LABEL.PASSWORD' | translate}}</label>
                     <div class="col-sm-10">
                         <input type="password" min="2" class="form-control" formControlName="password" id="password" placeholder="password">
                     </div>

@@ -1193,5 +1193,21 @@
 
       }
     }
+  },
+  "PUBLIC": {
+    "MENU": {
+      "REGISTER AS A USER": "Register as a useR",
+      "MARCHÉS ULG": "Marchés UlG"
+    },
+    "IDENTIFICATION": {
+      "LABEL": {
+        "FIRST NAME": "first namE:",
+        "LAST NAME": "last namE:",
+        "E-MAIL ADDRESS": "e-mail addresS:",
+        "LABO": "labO:",
+        "PASSWORD": "passworD:",
+        "REPEAT PASSWORD": "repeat passworD:"
+      }
+    }
   }
 }
