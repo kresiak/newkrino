@@ -52,67 +52,70 @@ export class OrderListComponent implements OnInit {
     private total: number = 0
     private searchObservable = new Subject() // used by searchbox
 
+    filterOrders(order, txt) {
+        if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return !order.data.status || order.data.status.value !== 'deleted'
+
+        if (txt.startsWith('#AD')) {
+            return order.annotation.allDelivered && order.data.status.value !== 'deleted'
+        }
+        if (txt.startsWith('#CO')) {
+            return order.data.comments && order.data.comments.length > 0
+        }
+        if (txt.startsWith('#ND')) {
+            return !order.annotation.allDelivered && order.data.status.value !== 'deleted'
+        }
+        if (txt.startsWith('#ZD')) {
+            return !order.annotation.allDelivered && !order.annotation.anyDelivered && order.data.status.value !== 'deleted'
+        }
+        if (txt.startsWith('#PD')) {
+            return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value !== 'deleted'
+        }
+        if (txt.startsWith('#NU')) {
+            return order.annotation.isGroupedOrder
+        }
+        if (txt.startsWith('#>') && +txt.slice(2)) {
+            let montant = +txt.slice(2);
+            return order.data.items && order.data.items.length >= montant;
+        }
+        if (txt.startsWith('#')) {
+            let txt2 = txt.slice(1);
+            return order.annotation.items.filter(item =>
+                item.annotation.description.toUpperCase().includes(txt2) || item.annotation.catalogNr.toUpperCase().includes(txt2)).length > 0;
+        }
+        if (txt.startsWith('$>') && +txt.slice(2)) {
+            let montant = +txt.slice(2);
+            return + order.annotation.total >= montant;
+        }
+        if (txt.startsWith('$<') && +txt.slice(2)) {
+            let montant = +txt.slice(2);
+            return + order.annotation.total <= montant;
+        }
+        return order.annotation.user.toUpperCase().includes(txt)
+            || order.annotation.supplier.toUpperCase().includes(txt)
+            || (this.authorizationStatusInfo && this.authorizationStatusInfo.isProgrammer() && order.data._id.toUpperCase().includes(txt))
+            || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
+            || order.annotation.status.toUpperCase().includes(txt)
+            || (order.data.kid || '').toString().includes(txt) || (order.annotation.sapId || '').toString().includes(txt);
+
+    }
+
     ngOnInit(): void {
         this.stateInit();
         this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
         this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchObservable, (orders, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value !== 'deleted');
-            return orders.filter(order => {
-                if (txt.startsWith('#AD')) {
-                    return order.annotation.allDelivered && order.data.status.value !== 'deleted'
-                }
-                if (txt.startsWith('#CO')) {
-                    return order.data.comments && order.data.comments.length > 0
-                }
-                if (txt.startsWith('#ND')) {
-                    return !order.annotation.allDelivered && order.data.status.value !== 'deleted'
-                }
-                if (txt.startsWith('#ZD')) {
-                    return !order.annotation.allDelivered && !order.annotation.anyDelivered && order.data.status.value !== 'deleted'
-                }
-                if (txt.startsWith('#PD')) {
-                    return order.annotation.anyDelivered && !order.annotation.allDelivered && order.data.status.value !== 'deleted'
-                }
-                if (txt.startsWith('#NU')) {
-                    return order.annotation.isGroupedOrder
-                }
-                if (txt.startsWith('#>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return order.data.items && order.data.items.length >= montant;
-                }
-                if (txt.startsWith('#')) {
-                    let txt2 = txt.slice(1);
-                    return order.annotation.items.filter(item =>
-                        item.annotation.description.toUpperCase().includes(txt2) || item.annotation.catalogNr.toUpperCase().includes(txt2)).length > 0;
-                }
-                if (txt.startsWith('$>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + order.annotation.total >= montant;
-                }
-                if (txt.startsWith('$<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + order.annotation.total <= montant;
-                }
-                return order.annotation.user.toUpperCase().includes(txt)
-                    || order.annotation.supplier.toUpperCase().includes(txt)
-                    || (this.authorizationStatusInfo && this.authorizationStatusInfo.isProgrammer() && order.data._id.toUpperCase().includes(txt))
-                    || (order.annotation.equipe && order.annotation.equipe.toUpperCase().includes(txt))
-                    || order.annotation.status.toUpperCase().includes(txt)
-                    || (order.data.kid || '').toString().includes(txt) || (order.annotation.sapId || '').toString().includes(txt);
-
-            })
+            //if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value !== 'deleted');
+            return orders.filter(order => this.filterOrders(order, txt))
         }).do(orders => {
             this.nbHits = orders.length
             this.total = orders.filter(order => !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
             this.allOrders = orders
-        })
-        .switchMap(orders => {
+        }).switchMap(orders => {
                 return this.nbHitsShownObservable.map(nbItems => {
                     return orders.slice(0, nbItems)
                 })
-        });
+            });
 
         this.orders2Observable.takeWhile(() => this.isPageRunning).subscribe(o => {
             if (!comparatorsUtils.softCopy(this.orders, o))
@@ -131,7 +134,7 @@ export class OrderListComponent implements OnInit {
 
     createReport() {
 
-        var fnFormat= order => {
+        var fnFormat = order => {
             return {
                 'Krino id': order.data.kid,
                 'Sap id': order.annotation.sapId,
@@ -144,8 +147,8 @@ export class OrderListComponent implements OnInit {
             }
         }
 
-        var listNonDeleted=this.allOrders.filter(order => order.data.status.value !== 'deleted').map(fnFormat)
-        var listDeleted= this.allOrders.filter(order => order.data.status.value === 'deleted').map(fnFormat)
+        var listNonDeleted = this.allOrders.filter(order => order.data.status.value !== 'deleted').map(fnFormat)
+        var listDeleted = this.allOrders.filter(order => order.data.status.value === 'deleted').map(fnFormat)
 
 
 
