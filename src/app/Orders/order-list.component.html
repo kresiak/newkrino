@@ -3,7 +3,7 @@
 	<div class="card-block">
 		<div class="row">
 			<gg-search-box [objectTypeTranslationKey]="listName" [nbHits]="nbHits" [moneyTotal]="total" (searchChanged)="searchObservable.next($event)">
-				<ul>
+				<ul searchHelp>
 					<li>{{'ORDER.SEARCH HELP.MSG1' | translate}}</li>
 					<li>{{'ORDER.SEARCH HELP.MSG2' | translate}}</li>
 					<li>{{'ORDER.SEARCH HELP.MSG3' | translate}}</li>

@@ -3,7 +3,7 @@
 	<div class="card-block">
 		<div class="row">
 			<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [nbHits]="nbHits" (searchChanged)="searchObservable.next($event)">
-				<ul>
+				<ul searchHelp>
 					<li>RWAL: si la catégorie contient 'RWAL'</li>
 				</ul>
 			</gg-search-box>
