@@ -1193,5 +1193,20 @@
 
       }
     }
+  },
+  "PUBLIC": {
+    "MENU": {
+  
+    },
+    "IDENTIFICATION": {
+      "LABEL": {
+        "FIRST NAME": "first namE:",
+        "LAST NAME": "last namE:",
+        "E-MAIL ADDRESS": "e-mail addresS:",
+        "LABO": "labO:",
+        "PASSWORD": "passworD:",
+        "REPEAT PASSWORD": "repeat passworD:"
+      }
+    }
   }
 }
