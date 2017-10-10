@@ -1196,6 +1196,7 @@
   },
   "PUBLIC": {
     "MENU": {
+      "REGISTER AS A USER": "Register as a useR",
       "MARCHÉS ULG": "Marchés UlG"
     },
     "IDENTIFICATION": {
