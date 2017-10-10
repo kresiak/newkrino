@@ -1,20 +1,19 @@
 <template #searchPopContent>
 	<ul>
-		<li>liquid : the product or the supplier should contain the string 'liquid'</li>
-		<li>$>200 : montants supérieurs à 200 euros</li>
-		<li>$
-			<50 : montants inférieurs à 200 euros</li>
-				<li *ngIf="isForSelection">$SE : selected products</li>
-				<li>$S/ : product that might be found in the stock</li>
-				<li>$S/tip : stock product that includes tip in the name</li>
-				<li>$T6 : product with 6% VAT</li>
-				<li>$T0 : product with 0% VAT</li>
-				<li>$M : product presents several times with the same CatalogNr</li>
-				<li>$D : disabled products</li>
-				<li>$PR : private products (can be seen only by this labo)</li>
-				<li>$PU : public products (can be seen by all labo)</li>
-				<li>$V : products waiting for validation</li>
-				<li>$OR : products that have been ordered</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG1' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG2' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG3' | translate}}</li>
+		<li *ngIf="isForSelection">{{'PRODUCT.SEARCH HELP.MSG4' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG5' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG6' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG7' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG8' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG9' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG10' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG11' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG12' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG13' | translate}}</li>
+		<li>{{'PRODUCT.SEARCH HELP.MSG14' | translate}}</li>
 	</ul>
 </template>
 

@@ -243,6 +243,17 @@
       "UNTIL": "Jusque (priorité)",
       "IN SAP": "Dans SAP",
       "STATUS": "Statut"
+    },
+    "SEARCH HELP": {
+      "MSG1": "RWAL: si l'OTP ou l'équipe associée contient 'RWAl'",
+      "MSG2": "#DE: si l'OTP est deleted/supprimE",
+      "MSG3": "#BL: si l'OTP est blockeD",
+      "MSG4": "#CL: si l'OTP est closeD",
+      "MSG5": "#LI: si l'OTP est limité à l'équipE",
+      "MSG6": "#NL: si l'OTP est non limité (pas limité à l'équipE)",
+      "MSG7": "#P0: si l'OTP n'a pas de priorité (et ne sera donc jamais choisI)",
+      "MSG8": "#OK: si l'OTP est OK et peut donc en principe, si les dates et le budget restant collent, être choisi (ni deleted, ni blocked, ni closed, ni prioritY 0)",
+      "MSG9": "#NO: si l'OTP, à cause de son statut, ne peut être choisi (blocked ou closed ou prioritY 0)"
     }
   },
   "CATEGORY": {
@@ -453,6 +464,22 @@
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
+    },
+    "SEARCH HELP": {
+      "MSG1": "liquid : the product or the supplier should contain the string 'liquiD'",
+      "MSG2": "$>200 : montants supérieurs à 200 euroS",
+      "MSG3": "$ <50 : montants inférieurs à 200 euroS",
+      "MSG4": "$SE : selected productS",
+      "MSG5": "$S/ : product that might be found in the stocK",
+      "MSG6": "$S/tip : stock product that includes tip in the namE",
+      "MSG7": "$T6 : product with 6% VAT",
+      "MSG8": "$T0 : product with 0% VAT",
+      "MSG9": "$M : product presents several times with the same CatalogNR",
+      "MSG10": "$D : disabled productS",
+      "MSG11": "$PR : private products (can be seen only by this labO)",
+      "MSG12": "$PU : public products (can be seen by all labO)",
+      "MSG13": "$V : products waiting for validatioN",
+      "MSG14": "$OR : products that have been ordereD"
     }
   },
   "EQUIPE": {
@@ -652,7 +679,24 @@
       "DELIVERY": "Livraison",
       "HAS BEEN DELIVERED": "a été livré"
     },
-    "LABEL": {}
+    "LABEL": {
+
+    },
+    "SEARCH HELP": {
+      "MSG1": "nadi: commandes dont l'équipe, le fournisseur, le Id, le statut ou l'utilisateur contient 'nadI'",
+      "MSG2": "deleted: commandes suppriméeS",
+      "MSG3": "$>200: montants supérieurs à 200 euroS",
+      "MSG4": "#co: orders with comments from krino userS",
+      "MSG5": "#nd: not delivered (buy maybe partially delivereD)",
+      "MSG6": "#zd: zero deliverY",
+      "MSG7": "#ad: all delivereD",
+      "MSG8": "#pd: partially delivereD",
+      "MSG9": "#nu: non urgent orders (ordres groupéS)",
+      "MSG10": "#>5: orders with at least 5 order lineS",
+      "MSG11": "$ <200: montants inférieurs à 200 euroS",
+      "MSG12": "#enzym: commande avec un produit contenant 'enzyM'",
+      "MSG13": "#2755: commande avec un produit dont le catlog number contient '2755'"
+    }
   },
   "RECEPTION": {
     "MENU": {
@@ -775,6 +819,24 @@
         "HTVA": "Hors Tva",
         "TVAC": "Tva Compris"
       }
+    },
+    "SEARCH HELP": {
+      "MSG1": "1245: si le Sap Id contient '1245'",
+      "MSG2": "vwr: si le fournisseur contient 'vwR'",
+      "MSG3": "$d: supprimée/deleteD",
+      "MSG4": "$f: avec facture finalE",
+      "MSG5": "$t: terminé: avec facture finale ou montant restant engagé nuL",
+      "MSG6": "$o: ouvert: avec un montant qui reste engagE",
+      "MSG7": "$p: pièces sans engagemenT",
+      "MSG8": "$pTB: pièces sans engagement of type TB",
+      "MSG9": "$EO: avec otp error: plusieurs otp différents sur le même postE",
+      "MSG10": "$E>200: résidu engagé supérieur à 200 euroS",
+      "MSG11": "$E <10: résidu engagé inférieur à 10 euroS",
+      "MSG12": "$R>200: réalisé supérieur à 200 euroS",
+      "MSG13": "$R <10: réalisé inférieur à 10 euroS",
+      "MSG14": "#>2: nombre de postes supérieur à 2",
+      "MSG15": "# <5: nombre de postes inférieur à 5",
+      "MSG16": "#=2: nombre de postes égal à 2"
     }
   },
   "ADMINISTRATION": {
