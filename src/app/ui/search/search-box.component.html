@@ -3,7 +3,7 @@
 </template>
 
 <template #tipSearchLoupe>
-    <div style="font-size: 70%;">Click here to <br/> search specific {{'GENERAL.' + objectTypeTranslationKey | translate}}</div>
+    <div style="font-size: 70%;"> {{'GENERAL.CLICK HERE TO' | translate}} <br/> {{'GENERAL.SEARCH SPECIFIC' | translate}} {{'GENERAL.' + objectTypeTranslationKey | translate}}</div>
 </template>
 
 <div [formGroup]="searchForm">
