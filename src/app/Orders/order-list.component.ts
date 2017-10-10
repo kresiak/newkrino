@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { ConfigService } from './../Shared/Services/config.service'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
-import { FormControl, FormGroup } from '@angular/forms'
+import { Observable, BehaviorSubject, Subject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
@@ -20,18 +19,11 @@ import * as dateUtils from './../Shared/Utils/dates'
 export class OrderListComponent implements OnInit {
     allOrders: any;
     constructor(private configService: ConfigService, private authService: AuthService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
     }
 
     private isPageRunning: boolean = true
 
-    private listName = 'orderList'
-    private showSearch: boolean = false
-
-    searchControl = new FormControl();
-    searchForm;
+    private listName = 'ORDERS'
 
     private orders
 
@@ -57,24 +49,14 @@ export class OrderListComponent implements OnInit {
 
     private authorizationStatusInfo: AuthenticationStatusInfo;
 
-    resetSerachControl() {
-        this.searchControl.setValue('')
-    };
-
     private total: number = 0
+    private searchObservable = new Subject() // used by searchbox
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch = this.configService.listGetSearchText(this.listName)
-        if (initialSearch) {
-            this.showSearch = true
-            this.searchControl.setValue(initialSearch)
-        }
         this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
-
-        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (orders, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)
+        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchObservable, (orders, searchTxt: string) => {
             let txt: string = searchTxt.trim().toUpperCase();
             if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value !== 'deleted');
             return orders.filter(order => {

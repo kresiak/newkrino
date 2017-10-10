@@ -11,6 +11,7 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
     }
 )
 export class CategoryListComponent implements OnInit {
+    nbHits: number;
     constructor(private productService: ProductService) {
     }
 
@@ -28,7 +29,7 @@ export class CategoryListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    private searchObservable= new Subject() // used by searchbox
+    private searchObservable = new Subject() // used by searchbox
 
     ngOnInit(): void {
         this.stateInit();
@@ -36,7 +37,10 @@ export class CategoryListComponent implements OnInit {
         this.subscriptionCategories = Observable.combineLatest(this.categoryObservable, this.searchObservable, (categories, searchTxt: string) => {
             if (searchTxt.trim() === '') return categories;
             return categories.filter(category => category.data.name && (category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase())));
-        }).subscribe(categories => this.categories = categories);
+        }).subscribe(categories => {
+            this.categories = categories
+            this.nbHits = categories.length
+        });
     }
 
     ngOnDestroy(): void {

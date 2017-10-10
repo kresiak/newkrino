@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { FormControl, FormGroup } from '@angular/forms'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { ConfigService } from './../../Shared/Services/config.service'
@@ -6,7 +6,8 @@ import { ConfigService } from './../../Shared/Services/config.service'
 @Component(
     {
         selector: 'gg-search-box',
-        templateUrl: './search-box.component.html'
+        templateUrl: './search-box.component.html',
+        changeDetection: ChangeDetectionStrategy.OnPush
     }
 )
 export class SearchBoxComponent implements OnInit {
@@ -27,7 +28,9 @@ export class SearchBoxComponent implements OnInit {
 
     //@Input() listName: string
     @Input() objectTypeTranslationKey: string 
-    @Output() searchChanged = new EventEmitter();
+    @Input() nbHits: number=0
+    @Input() moneyTotal: number=0
+    @Output() searchChanged = new EventEmitter(true);  // the true parameter is important to make the this.searchChanged.next() call asynchr and thus to avaoid the error: `ExpressionChangedAfterItHasBeenCheckedError` (https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4)
 
     ngOnInit(): void {
         var initialSearch = this.configService.listGetSearchText(this.objectTypeTranslationKey)
@@ -35,13 +38,16 @@ export class SearchBoxComponent implements OnInit {
             this.showSearch = true
             this.searchControl.setValue(initialSearch)
         }
-        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch).subscribe(searchTxt => {
+        this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch).takeWhile(() => this.isPageRunning).subscribe(searchTxt => {
             this.configService.listSaveSearchText(this.objectTypeTranslationKey, searchTxt)            
             this.searchChanged.next(searchTxt)
         })
     }
 
+    isPageRunning: boolean= true
+
     ngOnDestroy(): void {
+        this.isPageRunning = false
     }
 
 }
