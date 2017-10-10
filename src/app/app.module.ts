@@ -158,6 +158,9 @@ import { HelpPointerComponent } from './ui/help/help-pointer.component'
 import { DatePointerComponent } from './ui/help/date-pointer.component'
 import { TextCompactComponent } from './ui/help/text-compact.component'
 
+import { SearchBoxComponent } from './ui/search/search-box.component'
+
+
 import { PlatformService } from './Shared/Services/platform.service';
 import { AdminService } from './Shared/Services/admin.service';
 import { WebSocketService } from './Shared/Services/websocket.service';
@@ -263,7 +266,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
     SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
-    FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,
+    FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
     SupplierSapDetailComponent, SupplierSapListComponent,
     PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,
     PlatformLabourComponent, PlatformClientComponent, PlatformCorrectionComponent, PlatformServiceListComponent, PlatformServiceDetailComponent, PlatformServiceCompareComponent, PlatformServiceCompareBaseComponent, PlatformClientsComponent,

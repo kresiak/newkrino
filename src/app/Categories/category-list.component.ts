@@ -1,9 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
 import { ProductService } from './../Shared/Services/product.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable, Subscription, Subject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { ConfigService } from './../Shared/Services/config.service'
 
 @Component(
     {
@@ -13,17 +11,8 @@ import { ConfigService } from './../Shared/Services/config.service'
     }
 )
 export class CategoryListComponent implements OnInit {
-    constructor(private productService: ProductService, private configService: ConfigService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
+    constructor(private productService: ProductService) {
     }
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
-    }
-
-
 
     @Input() categoryObservable: Observable<any>;
     categories: any
@@ -39,22 +28,12 @@ export class CategoryListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-
-    private listName = 'categoryList'
-    private showSearch: boolean = false
+    private searchObservable= new Subject() // used by searchbox
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch = this.configService.listGetSearchText(this.listName)
-        if (initialSearch) {
-            this.showSearch = true
-            this.searchControl.setValue(initialSearch)
-        }
 
-        this.subscriptionCategories = Observable.combineLatest(this.categoryObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (categories, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)
+        this.subscriptionCategories = Observable.combineLatest(this.categoryObservable, this.searchObservable, (categories, searchTxt: string) => {
             if (searchTxt.trim() === '') return categories;
             return categories.filter(category => category.data.name && (category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase())));
         }).subscribe(categories => this.categories = categories);

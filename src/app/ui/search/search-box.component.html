@@ -1,0 +1,15 @@
+<template #searchPopContent>
+    <ng-content></ng-content>
+</template>
+
+<template #tipSearchLoupe>
+    <div style="font-size: 70%;">Click here to <br/> search specific {{'GENERAL.' + objectTypeTranslationKey | translate}}</div>
+</template>
+
+<div [formGroup]="searchForm">
+    <img src="../../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
+    />
+    <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
+        placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
+        src="../../../images/close.png" (click)="resetSearchControl()" />
+</div>

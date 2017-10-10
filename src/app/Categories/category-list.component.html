@@ -1,19 +1,12 @@
-<template #searchPopContent>
-	<ul>
-		<li>RWAL: si la catégorie contient 'RWAL'</li>
-	</ul>
-</template>
-
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific category</div></template>
 
 <div class="card">
 	<div class="card-block">
 		<div class="row">
-			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
-			</div>
+			<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" (searchChanged)="searchObservable.next($event)">
+				<ul>
+					<li>RWAL: si la catégorie contient 'RWAL'</li>
+				</ul>
+			</gg-search-box>
 		</div>
 		<div class="row">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
@@ -22,8 +15,9 @@
 						<div class="row">
 							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CATEGORY' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.SUPPLIER EXAMPLE' | translate}}</b></div>
-<!--							<div class="col-sm-3"><b>Otp example</b></div>
--->							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CLASSIFICATIONS' | translate}}</b></div>
+							<!--							<div class="col-sm-3"><b>Otp example</b></div>
+-->
+							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CLASSIFICATIONS' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.ARTICLE NB' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.GROUP MARCHANDISE' | translate}}</b></div>
 							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.LABO SPECIFIC' | translate}}</b></div>
@@ -37,16 +31,19 @@
 						<div class="row" id="{{category.data._id}}">
 							<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
 							<div class="col-sm-2">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
-<!--							<div class="col-sm-3">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
--->							<div class="col-sm-2"><gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30" ></gg-text-compact></div>
+							<!--							<div class="col-sm-3">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
+-->
+							<div class="col-sm-2">
+								<gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30"></gg-text-compact>
+							</div>
 							<div class="col-sm-2">{{category.data.noArticle }}</div>
 							<div class="col-sm-2">{{category.data.groupMarch }}</div>
 							<div class="col-sm-2">{{getIsLaboText(category) | translate }}</div>
 						</div>
 					</template>
 					<template ngbPanelContent>
-						<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id" 
-						(stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
+						<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id"
+						 (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
 					</template>
 				</ngb-panel>
 			</ngb-accordion>

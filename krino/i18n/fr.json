@@ -16,6 +16,7 @@
     "IN": "dans",      
     "ORDERS": "commandes",
     "PRODUCTS": "produits",   
+    "CATEGORIES": "catégories",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées",
