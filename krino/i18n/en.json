@@ -452,6 +452,22 @@
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number."
+    },
+    "SEARCH HELP": {
+      "MSG1": "liquid : the product or the supplier should contain the string 'liquid'",
+      "MSG2": "$ >200 : montants supérieurs à 200 euros",
+      "MSG3": "$ <50 : montants inférieurs à 200 euros",
+      "MSG4": "$SE : selected products",
+      "MSG5": "$S/ : product that might be found in the stock",
+      "MSG6": "$S/tip : stock product that includes tip in the name",
+      "MSG7": "$T6 : product with 6% VAT",
+      "MSG8": "$T0 : product with 0% VAT",
+      "MSG9": "$M : product presents several times with the same CatalogNr",
+      "MSG10": "$D : disabled products",
+      "MSG11": "$PR : private products (can be seen only by this labo)",
+      "MSG12": "$PU : public products (can be seen by all labo)",
+      "MSG13": "$V : products waiting for validation",
+      "MSG14": "$OR : products that have been ordered"
     }
   },
   "EQUIPE": {
