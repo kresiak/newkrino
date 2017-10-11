@@ -681,7 +681,9 @@
       "WITH VAT": "With VAT",
       "STATUS": "Status",
       "DELIVERY": "Delivery",
-      "HAS BEEN DELIVERED": "has been delivered"
+      "HAS BEEN DELIVERED": "has been delivered",
+      "WITH COMMENT TXT": "w. comments",
+      "NON URGENT ORDER": "non urgent order"
     },
     "LABEL": {
 

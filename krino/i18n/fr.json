@@ -680,7 +680,9 @@
       "WITH VAT": "Avec TVA",
       "STATUS": "Statut",
       "DELIVERY": "Livraison",
-      "HAS BEEN DELIVERED": "a été livré"
+      "HAS BEEN DELIVERED": "a été livré",
+      "WITH COMMENT TXT": "av. commentaire",
+      "NON URGENT ORDER": "commande groupée"
     },
     "LABEL": {
 
