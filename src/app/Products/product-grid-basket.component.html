@@ -69,7 +69,7 @@
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.userFullName}}</div>
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.equipe}}</div>
 								<div class="col-sm-2 col-md-2 vcenter">
-									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, itemPos)" [readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, itemPos)" [readOnly]="!authorizationStatusInfo || authorizationStatusInfo.isGroupOrdersUser() || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId))">
 									</gg-editor-number>
 								</div>
 							</div>

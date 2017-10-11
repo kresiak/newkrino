@@ -165,7 +165,7 @@
 	</ngb-tab>
 
 
-	<ngb-tab title="{{'SUPPLIER.MENU.E-PROCUREMENT' | translate}}" id="tabEProc" *ngIf="supplier.data.isEproc">
+	<ngb-tab title="{{'SUPPLIER.MENU.E-PROCUREMENT' | translate}}" id="tabEProc" *ngIf="supplier.data.isEproc && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
