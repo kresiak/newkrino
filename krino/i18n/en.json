@@ -246,7 +246,13 @@
       "AVAILABLE": "Available",
       "UNTIL": "Until (priority)",
       "IN SAP": "In SAP",
-      "STATUS": "Status"
+      "STATUS": "Status",
+      "NOT FOR CURRENT PERIOD": "Not for current period",
+      "DELETED": "Deleted",
+      "BLOCKED": "Blocked",
+      "LIMITED": "Limited",
+      "CLOSED": "Closed",
+      "NO PRIORITY": "No priority"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: if the OTP or the associated Project contains 'RWAL'",

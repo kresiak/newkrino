@@ -82,6 +82,7 @@ export class OtpListComponent implements OnInit {
         this.sapService.getSapOtpMapObservable().takeWhile(() => this.isPageRunning).subscribe(otpSapMap => {
             this.otpSapMap = otpSapMap
         })
+
     }
 
     private isPageRunning: boolean = true
@@ -144,6 +145,16 @@ export class OtpListComponent implements OnInit {
     private childStateChanged(newState, objectId) {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
+    }
+
+    private getStatusText(otp): Observable<string> {
+
+        return Observable.combineLatest(this.configService.getTranslationWord('OTP.COLUMN.DELETED'), this.configService.getTranslationWord('OTP.COLUMN.BLOCKED'), this.configService.getTranslationWord('OTP.COLUMN.LIMITED'), 
+                                        this.configService.getTranslationWord('OTP.COLUMN.CLOSED'), this.configService.getTranslationWord('OTP.COLUMN.NO PRIORITY'),
+            (deletedTxt, blockedTxt, limitedTxt, closedTxt, noPriorityTxt) => {
+                var txt= (otp.data.isDeleted ? (deletedTxt + ' ') : '') + (otp.data.isBlocked ? (blockedTxt + ' ') : '') + (otp.data.isLimitedToOwner ? (limitedTxt + ' ') : '') + (otp.data.isClosed ? (closedTxt + ' ') : '') + (!otp.data.priority ? (noPriorityTxt + ' ') : '') 
+                return txt.trim()
+            })
     }
 
 }

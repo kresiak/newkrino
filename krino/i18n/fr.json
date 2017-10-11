@@ -246,7 +246,13 @@
       "AVAILABLE": "Disponible",
       "UNTIL": "Jusque (priorité)",
       "IN SAP": "Dans SAP",
-      "STATUS": "Statut"
+      "STATUS": "Statut",
+      "NOT FOR CURRENT PERIOD": "Pas disponible actuellement",
+      "DELETED": "Supprimé",
+      "BLOCKED": "Bloqué",
+      "LIMITED": "Limité",
+      "CLOSED": "Fermé",
+      "NO PRIORITY": "Sans priorité"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si l'OTP ou l'équipe associée contient 'RWAL'",
