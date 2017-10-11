@@ -1,52 +1,40 @@
+<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [objectsObservable]="categoryObservable" [fnFilterObjects]="filterCategories" (listChanged)="categories=$event">
+	<ul searchHelp>
+		<li>RWAL: si la catégorie contient 'RWAL'</li>
+	</ul>
 
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-<!--			<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [nbHits]="nbHits" (searchChanged)="searchObservable.next($event)">
-				<ul searchHelp>
-					<li>RWAL: si la catégorie contient 'RWAL'</li>
-				</ul>
-			</gg-search-box>
--->		</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CATEGORY' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.SUPPLIER EXAMPLE' | translate}}</b></div>
-							<!--							<div class="col-sm-3"><b>Otp example</b></div>
--->
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CLASSIFICATIONS' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.ARTICLE NB' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.GROUP MARCHANDISE' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.LABO SPECIFIC' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let category of categories" [id]="category.data._id">
-					<template ngbPanelTitle>
-						<div class="row" id="{{category.data._id}}">
-							<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
-							<div class="col-sm-2">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
-							<!--							<div class="col-sm-3">{{category.annotation.otpNames.length === 0 ? '' : category.annotation.otpNames[0] }}</div>
--->
-							<div class="col-sm-2">
-								<gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30"></gg-text-compact>
-							</div>
-							<div class="col-sm-2">{{category.data.noArticle }}</div>
-							<div class="col-sm-2">{{category.data.groupMarch }}</div>
-							<div class="col-sm-2">{{getIsLaboText(category) | translate }}</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-						<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id"
-						 (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-	</div>
-</div>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CATEGORY' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.SUPPLIER EXAMPLE' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CLASSIFICATIONS' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.ARTICLE NB' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.GROUP MARCHANDISE' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.LABO SPECIFIC' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let category of categories" [id]="category.data._id">
+			<template ngbPanelTitle>
+				<div class="row" id="{{category.data._id}}">
+					<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
+					<div class="col-sm-2">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
+					<div class="col-sm-2">
+						<gg-text-compact [text]="category.annotation.classificationsTxt" [numberOfChar]="30"></gg-text-compact>
+					</div>
+					<div class="col-sm-2">{{category.data.noArticle }}</div>
+					<div class="col-sm-2">{{category.data.groupMarch }}</div>
+					<div class="col-sm-2">{{getIsLaboText(category) | translate }}</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+				<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id"
+				 (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
+</gg-search-box>

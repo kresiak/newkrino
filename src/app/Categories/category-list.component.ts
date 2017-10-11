@@ -1,24 +1,20 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'
-import { ProductService } from './../Shared/Services/product.service'
-import { Observable, Subscription, Subject } from 'rxjs/Rx'
+import { Observable, Subject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-category-list',
         templateUrl: './category-list.component.html'
     }
 )
 export class CategoryListComponent implements OnInit {
-    nbHits: number;
-    constructor(private productService: ProductService) {
+    constructor() {
     }
 
     @Input() categoryObservable: Observable<any>;
     categories: any
     openPanelId: string = "";
-    subscriptionCategories: Subscription
 
     @Input() state;
     @Input() path: string = 'categories'
@@ -31,20 +27,15 @@ export class CategoryListComponent implements OnInit {
 
     private searchObservable = new Subject() // used by searchbox
 
+    filterCategories(category, txt) { 
+        return category.data.name && (category.data.name.toUpperCase().includes(txt))
+    }
+
     ngOnInit(): void {
         this.stateInit();
-
-        this.subscriptionCategories = Observable.combineLatest(this.categoryObservable, this.searchObservable, (categories, searchTxt: string) => {
-            if (searchTxt.trim() === '') return categories;
-            return categories.filter(category => category.data.name && (category.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || category.data.name.toUpperCase().includes(searchTxt.toUpperCase())));
-        }).subscribe(categories => {
-            this.categories = categories
-            this.nbHits = categories.length
-        });
     }
 
     ngOnDestroy(): void {
-        this.subscriptionCategories.unsubscribe()
     }
 
 
