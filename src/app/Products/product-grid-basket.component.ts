@@ -104,9 +104,10 @@ export class ProductGridBasketComponent implements OnInit {
         this.basketService.doBasketUpdate(product, quantity)
     }
 
-    quantityGroupedBasketUpdated(quantity: string, product, item) {
+    quantityGroupedBasketUpdated(quantity: string, product, itemPos: number) {
         if (!+quantity) return
-        item.data.quantity = +quantity
+        product.annotation.basketData.items[itemPos].quantity= +quantity
+        //item.data.quantity = +quantity
         product.annotation.basketData.quantity = (product.annotation.basketData.items || []).reduce((acc, item) => acc + item.quantity, 0)
         this.dataStore.updateData('basket', product.annotation.basketId, product.annotation.basketData)
     }
