@@ -1,32 +1,7 @@
-<template #searchPopContent>
-	<ul>
-		<li>liquid: the product should contain the string 'liquid'</li>
-		<li>$>200: montants supérieurs à 200 euros</li>
-		<li>$
-			<50: montants inférieurs à 200 euros</li>
-				<li>$S/: product that might be found in the stock</li>
-				<li>$S/tip: stock product that includes tip in the name</li>
-				<li>$M : product presents several times with the same CatalogNr</li>
-				<li>$D : disabled products</li>
+<gg-search-box [objectTypeTranslationKey]="'PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="getFilterFn()" (listChanged)="setProducts($event)" >
+	<gg-product-list-help searchHelp> </gg-product-list-help>
 
-	</ul>
-</template>
-
-<template #tipSearchLoupe>
-	<div style="font-size: 70%;">Click here to <br/> search specific product</div>
-</template>
-
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-				/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
-				 src="../../images/close.png" (click)="resetSerachControl()" />
-			</div>
-		</div>
+	<div accordion>	   
 		<div class="row ">
 			<div class="col-sm-3 col-md-4 vcenter">
 				<b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b>
@@ -66,16 +41,9 @@
 			</div>
 
 		</div>
+	</div>
 
-		<div class="row" *ngIf="nbHitsShown < nbHits">
-			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-		</div>
-		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-			{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-		</div>
-		
+</gg-search-box>
 
-<!--		<gg-product [otpListObservable]="otpListObservable" [path]="path" *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)"
-		 [config]="config"></gg-product>
--->	</div>
-</div>
+
+

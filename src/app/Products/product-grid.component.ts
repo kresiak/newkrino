@@ -1,21 +1,17 @@
 import {Component, Input, OnInit, ViewChildren, QueryList} from '@angular/core';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
-import { FormControl, FormGroup } from '@angular/forms'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import { OrderService } from './../Shared/Services/order.service';
 import { ProductService } from './../Shared/Services/product.service';
 import { BasketService } from './../Shared/Services/basket.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
 import { Editor} from './../ui/editor/editor'
-import { DataStore } from './../Shared/Services/data.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import * as utilsdate from './../Shared/Utils/dates'
 
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-product-grid',
         templateUrl: './product-grid.component.html'
     }
@@ -27,93 +23,35 @@ export class ProductGridComponent implements OnInit
 
     private products= [];
 
-    private nbHitsShown: number= 15
-    private nbHitsIncrement: number= 10
-    private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
-
-    constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
-                        private basketService: BasketService, private router: Router)
+    constructor(private navigationService: NavigationService, private productService: ProductService, private authService: AuthService, private basketService: BasketService, private router: Router)
     {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });        
     }
 
-    searchControl = new FormControl();
-    searchForm;
-    private subscriptionProducts: Subscription 
     private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
     private selectableCategoriesObservable: Observable<any>;
-    
-    
-    private otpListObservable: any
     
     @ViewChildren(Editor) priceChildren : QueryList<Editor>;
 
-    resetSerachControl() {
-        this.searchControl.setValue('')
+    private basketPorductsMap: Map<string, any> = new Map<string, any>()
+
+    getFilterFn() {
+        var self = this
+        return this.productService.getIsProductOKForListFn(self)
     }
 
-    private basketPorductsMap: Map<string, any> = new Map<string, any>()
+    setProducts(products) {
+        this.products = products
+        if (this.basketPorductsMap)
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
+    }
+
 
     ngOnInit() : void{
         this.selectableCategoriesObservable = this.productService.getSelectableCategories();
 
-        this.otpListObservable = this.dataStore.getDataObservable('otps').map(otps => otps.map(otp => {
-            return {
-                id: otp._id,
-                name: otp.name
-            }
-        }));     
-
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });        
-
-        this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
-            let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products.filter(product => !product.data.disabled);
-
-            return products.filter(product => {
-                if (txt.startsWith('$S/')) {
-                    let txt2 = txt.slice(3);
-                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))                     
-                }                
-                if (txt.startsWith('!')) {
-                    let txt2 = txt.slice(1);
-                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
-                }
-                if (txt.startsWith('$>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price >= montant;
-                }
-                if (txt.startsWith('$<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price <= montant;
-                }
-                if (txt.startsWith('$M')) {
-                    return product.annotation.multipleOccurences;
-                }
-
-                if (txt.startsWith('$D')) {
-                    return product.data.disabled;
-                }
-
-                return product.data.name.toUpperCase().includes(txt)  || (product.data.description||'').toUpperCase().includes(txt) 
-            });
-        }).do(products => {
-            this.nbHits= products.length
-        })
-        .switchMap(products => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return products.slice(0, nbItems)
-            })
-        }).subscribe(products => {
-            this.products = products
-            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
-        });
 
         this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap =>  {
             this.basketPorductsMap= basketPorductsMap
@@ -121,9 +59,9 @@ export class ProductGridComponent implements OnInit
         })
     }
 
+    private isPageRunning: boolean = true
     ngOnDestroy(): void {
-        this.subscriptionProducts.unsubscribe()
-        this.subscriptionAuthorization.unsubscribe()                 
+        this.isPageRunning= false
     }
 
     private logHistory(product, event: string, oldValue, newValue) {
@@ -191,11 +129,6 @@ export class ProductGridComponent implements OnInit
 
     navigateToProduct(product) {
         this.navigationService.maximizeOrUnmaximize('/product', product.data._id, this.path, false)
-    }
-
-    private moreHits() {
-        this.nbHitsShown+= this.nbHitsIncrement
-        this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
 }
