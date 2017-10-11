@@ -263,8 +263,64 @@ export class ProductService {
     }
 
 
+    //=======================
+    // filtering list helper
 
 
+    getIsProductOKForListFn(self) {
+        return function(product, txt) {
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return true
+
+            if (txt.startsWith('$S/')) {
+                let txt2 = txt.slice(3);
+                return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))
+            }
+            if (txt.startsWith('!')) {
+                let txt2 = txt.slice(1);
+                return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
+            }
+            if (txt.startsWith('$>') && +txt.slice(2)) {
+                let montant = +txt.slice(2);
+                return + product.data.price >= montant;
+            }
+            if (txt.startsWith('$<') && +txt.slice(2)) {
+                let montant = +txt.slice(2);
+                return + product.data.price <= montant;
+            }
+            if (txt.startsWith('$T') && (+txt.slice(2) + 1)) {
+                let montant = +txt.slice(2);
+                return + product.data.tva == montant;
+            }
+
+            if (txt.startsWith('$M')) {
+                return !product.data.disabled && product.annotation.multipleOccurences;
+            }
+
+            if (txt.startsWith('$D')) {
+                return product.data.disabled;
+            }
+
+            if (txt.startsWith('$PR')) {
+                return product.data.isLabo;
+            }
+            if (txt.startsWith('$PU')) {
+                return !product.data.isLabo;
+            }
+            if (txt.startsWith('$OR')) {
+                return product.annotation.productFrequence;
+            }
+
+            if (txt.startsWith('$V')) {
+                return product.data.onCreateValidation;
+            }
+            if (self.isForSelection && txt.startsWith('$SE')) {
+                return self.selectedProductIdsMap && self.selectedProductIdsMap.has(product.data._id);
+            }
+
+            return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
+        }
+        
+    }
 
 
     //=======================
