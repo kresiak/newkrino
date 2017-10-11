@@ -1,13 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
 import { BasketService } from './../Shared/Services/basket.service'
 import { ConfigService } from './../Shared/Services/config.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import * as comparatorsUtils from './../Shared/Utils/comparators'
 import * as reportsUtils from './../Shared/Utils/reports'
 import * as dateUtils from './../Shared/Utils/dates'
 
@@ -19,13 +17,12 @@ import * as dateUtils from './../Shared/Utils/dates'
     }
 )
 export class ProductListComponent implements OnInit {
-        allProducts: any;
     @Input() productsObservable: Observable<any>;
     @Input() config;
     @Input() state;
     @Input() path: string = 'products'
     @Input() isForSelection: boolean = false
-    @Input() selectedProductIds: string[]= []
+    @Input() selectedProductIds: string[] = []
 
     @Output() stateChanged = new EventEmitter();
     @Output() productsSelected = new EventEmitter();
@@ -35,130 +32,97 @@ export class ProductListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-
-    private listName = 'productList'
-    private showSearch: boolean = false
-
     private products;
-    private nbHitsShown: number = 15
-    private nbHitsIncrement: number = 10
-    private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
-
 
     constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService, private configService: ConfigService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
-    }
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
-    private subscriptionAuthorization: Subscription
-    private subscriptionProducts: Subscription
 
     private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
-    ngOnInit(): void {
-        this.selectedProductIdsMap= new Set(this.selectedProductIds)
-        this.stateInit();
-        var initialSearch = this.configService.listGetSearchText(this.listName)
-        if (initialSearch) {
-            this.showSearch = true
-            this.searchControl.setValue(initialSearch)
+
+    getFilterFn() {
+        var self = this
+
+        var filterProducts = function(product, txt) {
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return true
+
+            if (txt.startsWith('$S/')) {
+                let txt2 = txt.slice(3);
+                return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))
+            }
+            if (txt.startsWith('!')) {
+                let txt2 = txt.slice(1);
+                return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
+            }
+            if (txt.startsWith('$>') && +txt.slice(2)) {
+                let montant = +txt.slice(2);
+                return + product.data.price >= montant;
+            }
+            if (txt.startsWith('$<') && +txt.slice(2)) {
+                let montant = +txt.slice(2);
+                return + product.data.price <= montant;
+            }
+            if (txt.startsWith('$T') && (+txt.slice(2) + 1)) {
+                let montant = +txt.slice(2);
+                return + product.data.tva == montant;
+            }
+
+            if (txt.startsWith('$M')) {
+                return !product.data.disabled && product.annotation.multipleOccurences;
+            }
+
+            if (txt.startsWith('$D')) {
+                return product.data.disabled;
+            }
+
+            if (txt.startsWith('$PR')) {
+                return product.data.isLabo;
+            }
+            if (txt.startsWith('$PU')) {
+                return !product.data.isLabo;
+            }
+            if (txt.startsWith('$OR')) {
+                return product.annotation.productFrequence;
+            }
+
+            if (txt.startsWith('$V')) {
+                return product.data.onCreateValidation;
+            }
+            if (self.isForSelection && txt.startsWith('$SE')) {
+                return self.selectedProductIdsMap && self.selectedProductIdsMap.has(product.data._id);
+            }
+
+            return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
         }
-        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
+        return filterProducts
+    }
 
-        this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (products, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)
-            let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
-
-
-
-            return products.filter(product => {
-                if (txt.startsWith('$S/')) {
-                    let txt2 = txt.slice(3);
-                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))
-                }
-                if (txt.startsWith('!')) {
-                    let txt2 = txt.slice(1);
-                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
-                }
-                if (txt.startsWith('$>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price >= montant;
-                }
-                if (txt.startsWith('$<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price <= montant;
-                }
-                if (txt.startsWith('$T') && (+txt.slice(2) + 1)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.tva == montant;
-                }
-
-                if (txt.startsWith('$M')) {
-                    return !product.data.disabled && product.annotation.multipleOccurences;
-                }
-
-                if (txt.startsWith('$D')) {
-                    return product.data.disabled;
-                }
-
-                if (txt.startsWith('$PR')) {
-                    return product.data.isLabo;
-                }
-                if (txt.startsWith('$PU')) {
-                    return !product.data.isLabo;
-                }
-                if (txt.startsWith('$OR')) {
-                    return product.annotation.productFrequence;
-                }
-
-                if (txt.startsWith('$V')) {
-                    return product.data.onCreateValidation;
-                }
-                if (this.isForSelection && txt.startsWith('$SE')) {
-                    return this.selectedProductIdsMap && this.selectedProductIdsMap.has(product.data._id);
-                }
-
-                return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
-            });
-        }).do(products => {
-            this.nbHits = products.length
-            this.allProducts = products            
-        })
-            .switchMap(products => {
-                return this.nbHitsShownObservable.map(nbItems => {
-                    return products.slice(0, nbItems)
-                })
-            }).subscribe(products => {
-                if (!comparatorsUtils.softCopy(this.products, products)) {
-                    this.products = comparatorsUtils.clone(products)
-                }
-                this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
-            });
+    ngOnInit(): void {
+        this.selectedProductIdsMap = new Set(this.selectedProductIds)
+        this.stateInit();
 
         this.basketService.getBasketProductsSetForCurrentUser().subscribe(basketPorductsMap => {
             this.basketPorductsMap = basketPorductsMap
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
         })
 
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         })
     }
 
+    setProducts(products) {
+        this.products = products
+        if (this.basketPorductsMap)
+            this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
+    }
+
+    private isPageRunning: boolean = true
     ngOnDestroy(): void {
-        this.subscriptionAuthorization.unsubscribe()
-        this.subscriptionProducts.unsubscribe()
+        this.isPageRunning = false
     }
 
 
@@ -191,25 +155,12 @@ export class ProductListComponent implements OnInit {
         this.dataStore.updateData('products', product.data._id, product.data);
     }
 
-    private moreHits() {
-        this.nbHitsShown += this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
-        this.nbHitsShownObservable.next(this.nbHitsShown)
-    }
-
-    private allHits() {
-        this.nbHitsShown += this.nbHits
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
-        this.nbHitsShownObservable.next(this.nbHitsShown)
-    }
-
-
     private selectedProductIdsMap: Set<string>
 
     productSelectedInList(event, product, isSelected: boolean) {
         event.preventDefault()
         event.stopPropagation()
-        var id=(product.data || {})._id
+        var id = (product.data || {})._id
         if (isSelected && this.selectedProductIdsMap.has(id)) this.selectedProductIdsMap.delete(id)
         if (!isSelected && !this.selectedProductIdsMap.has(id)) this.selectedProductIdsMap.add(id)
         this.productsSelected.next(Array.from(this.selectedProductIdsMap.values()))
@@ -219,9 +170,9 @@ export class ProductListComponent implements OnInit {
         return this.selectedProductIdsMap.has(product.data._id)
     }
 
-    createReport() {
+    createReport(allProducts) {
 
-        var fnFormat= product => {
+        var fnFormat = product => {
             return {
                 Name: product.data.name,
                 Supplier: product.annotation.supplierName,
@@ -234,12 +185,10 @@ export class ProductListComponent implements OnInit {
             }
         }
 
-        var listNonDeleted=this.allProducts.filter(order => !order.data.disabled).map(fnFormat)
-        var listDeleted= this.allProducts.filter(order => order.data.disabled).map(fnFormat)
-
-
+        var listNonDeleted = allProducts.filter(order => !order.data.disabled).map(fnFormat)
+        var listDeleted = allProducts.filter(order => order.data.disabled).map(fnFormat)
 
         reportsUtils.generateReport(listNonDeleted.concat(listDeleted))
     }
-    
+
 }

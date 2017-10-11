@@ -144,6 +144,7 @@ export class ProductService {
 
 
     setBasketInformationOnProducts(basketPorductsMap: Map<string, any>, products: any[]) {
+        if (!basketPorductsMap || !products) return
         products.forEach(product => {
             product.annotation.hasBasket = basketPorductsMap.has(product.data._id)
             var basketItem = basketPorductsMap.get(product.data._id)

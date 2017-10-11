@@ -90,6 +90,12 @@ export class SearchBoxComponent implements OnInit {
         this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
+    private allHits() {
+        this.nbHitsShown = this.nbHits
+        this.configService.listSaveNbHits(this.objectTypeTranslationKey, this.nbHitsShown)
+        this.nbHitsShownObservable.next(this.nbHitsShown)
+    }
+
     createReport() {
         this.reportNeeded.next(this.allObjects)
     }

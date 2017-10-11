@@ -38,6 +38,11 @@
 			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
 				<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
 			</div>
+
+			<div class="col-sm-2" *ngIf="false && nbHitsShown < nbHits && nbHits <= 1000">  <!--todo-->
+				<div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS WARNING TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
+			</div>
+            
 			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
 				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
 			</div>
