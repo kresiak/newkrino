@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { OtpService } from '../Shared/Services/otp.service'
 import { ConfigService } from './../Shared/Services/config.service'
 import { SapService } from './../Shared/Services/sap.service'
@@ -18,7 +17,7 @@ import * as dateUtils from './../Shared/Utils/dates'
     }
 )
 export class OtpListComponent implements OnInit {
-    allOtps: any;
+
     @Input() otpsObservable: Observable<any>;
     @Input() config;
     @Input() state;
@@ -30,100 +29,73 @@ export class OtpListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-    private subscriptionOtps: Subscription
-
-    private listName = 'otpList'
-    private showSearch: boolean = false
-
     private otps;
-    private nbHitsShown: number = 15
-    private nbHitsIncrement: number = 10
-    private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
-
-    private total: number = 0
+    otpSapMap: Map<string, any>;
 
     constructor(private sapService: SapService, private otpService: OtpService, private configService: ConfigService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
     }
 
-    resetSerachControl() {
-        this.searchControl.setValue('')
+    filterOtps(otp, txt) {
+        if (txt === '' || txt === '#') return !otp.data.isDeleted
+
+        if (txt.startsWith('#LI')) {
+            return otp.data.isLimitedToOwner && !otp.data.isDeleted
+        }
+        if (txt.startsWith('#NL')) {
+            return !otp.data.isLimitedToOwner && !otp.data.isDeleted
+        }
+        if (txt.startsWith('#DE')) {
+            return otp.data.isDeleted
+        }
+        if (txt.startsWith('#BL')) {
+            return otp.data.isBlocked && !otp.data.isDeleted
+        }
+        if (txt.startsWith('#CL')) {
+            return otp.data.isClosed && !otp.data.isDeleted
+        }
+        if (txt.startsWith('#P0')) {
+            return !otp.data.priority && !otp.data.isDeleted
+        }
+        if (txt.startsWith('#OK')) {
+            return otp.data.priority && !otp.data.isDeleted && !otp.data.isClosed && !otp.data.isBlocked
+        }
+        if (txt.startsWith('#NO')) {
+            return (!otp.data.priority || otp.data.isClosed || otp.data.isBlocked) && !otp.data.isDeleted
+        }
+
+        return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
+    }
+
+    calculateTotal(otps): number {
+        return otps.filter(otp => !otp.data.isDeleted).reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
+    }
+
+
+    private otpAddInfo = function (otp, otpSapMap) {
+        otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
+        return otp
     }
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch = this.configService.listGetSearchText(this.listName)
-        if (initialSearch) {
-            this.showSearch = true
-            this.searchControl.setValue(initialSearch)
-        }
-        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
 
-        var otpAddInfo = function (otp, otpSapMap) {
-            otp.annotation.nbSapItems = otpSapMap.has(otp.data.name) ? otpSapMap.get(otp.data.name).sapIdSet.size : 0
-            return otp
-        }
-
-        this.subscriptionOtps = Observable.combineLatest(this.otpsObservable, this.sapService.getSapOtpMapObservable(),
-            this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch),
-            (otps, otpSapMap, searchTxt: string) => {
-                this.configService.listSaveSearchText(this.listName, searchTxt)
-                let txt: string = searchTxt.trim().toUpperCase();
-                if (txt === '' || txt === '#') return otps.filter(otp => !otp.data.isDeleted).map(otp => otpAddInfo(otp, otpSapMap));
-                return otps.filter(otp => {
-                    if (txt.startsWith('#LI')) {
-                        return otp.data.isLimitedToOwner && !otp.data.isDeleted
-                    }
-                    if (txt.startsWith('#NL')) {
-                        return !otp.data.isLimitedToOwner && !otp.data.isDeleted
-                    }
-                    if (txt.startsWith('#DE')) {
-                        return otp.data.isDeleted
-                    }
-                    if (txt.startsWith('#BL')) {
-                        return otp.data.isBlocked && !otp.data.isDeleted
-                    }
-                    if (txt.startsWith('#CL')) {
-                        return otp.data.isClosed && !otp.data.isDeleted
-                    }
-                    if (txt.startsWith('#P0')) {
-                        return !otp.data.priority && !otp.data.isDeleted 
-                    }
-                    if (txt.startsWith('#OK')) {
-                        return otp.data.priority && !otp.data.isDeleted && !otp.data.isClosed && !otp.data.isBlocked
-                    }
-                    if (txt.startsWith('#NO')) {
-                        return (!otp.data.priority || otp.data.isClosed || otp.data.isBlocked) && !otp.data.isDeleted
-                    }
-
-                    return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
-                }).map(otp => otpAddInfo(otp, otpSapMap));
-            }).do(otps => {
-                this.nbHits = otps.length
-                this.total = otps.filter(otp => !otp.data.isDeleted).reduce((acc, otp) => acc + (+otp.annotation.amountAvailable || 0), 0)
-                this.allOtps = otps
-            })
-            .switchMap(otps => {
-                return this.nbHitsShownObservable.map(nbItems => {
-                    return otps.slice(0, nbItems)
-                })
-            }).subscribe(otps => {
-                if (!comparatorsUtils.softCopy(this.otps, otps)) {
-                    this.otps = comparatorsUtils.clone(otps)
-                }
-            });
+        this.sapService.getSapOtpMapObservable().takeWhile(() => this.isPageRunning).subscribe(otpSapMap => {
+            this.otpSapMap = otpSapMap
+        })
     }
+
+    private isPageRunning: boolean = true
+
 
     ngOnDestroy(): void {
-        this.subscriptionOtps.unsubscribe()
+        this.isPageRunning = false
     }
 
-    createReport() {
+    setOtps(otps) {
+        this.otps= otps.map(otp => this.otpAddInfo(otp, this.otpSapMap))
+    }
+
+    createReport(otps) {
 
         var fnFormat = otp => {
             return {
@@ -144,9 +116,9 @@ export class OtpListComponent implements OnInit {
             }
         }
 
-        var listNonDeleted = this.otps.filter(otp => !otp.data.isDeleted && !otp.data.isBlocked).map(fnFormat)
-        var listDeleted = this.otps.filter(otp => otp.data.isDeleted).map(fnFormat)
-        var listBlocked = this.otps.filter(otp => otp.data.isBlocked).map(fnFormat)
+        var listNonDeleted = otps.filter(otp => !otp.data.isDeleted && !otp.data.isBlocked).map(fnFormat)
+        var listDeleted = otps.filter(otp => otp.data.isDeleted).map(fnFormat)
+        var listBlocked = otps.filter(otp => otp.data.isBlocked).map(fnFormat)
 
         reportsUtils.generateReport(listNonDeleted.concat(listBlocked).concat(listDeleted))
     }
@@ -172,12 +144,6 @@ export class OtpListComponent implements OnInit {
     private childStateChanged(newState, objectId) {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
-    }
-
-    private moreHits() {
-        this.nbHitsShown += this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
-        this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
 }

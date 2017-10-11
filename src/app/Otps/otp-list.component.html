@@ -1,5 +1,6 @@
-<template #searchPopContent>
-	<ul>
+
+<gg-search-box [objectTypeTranslationKey]="'OTPS'" [hasReport]="true" [objectsObservable]="otpsObservable" [fnFilterObjects]="filterOtps" [fnCalculateTotal]="calculateTotal" (listChanged)="setOtps($event)" (reportNeeded)="createReport($event)" >
+	<ul searchHelp>
 		<li>{{'OTP.SEARCH HELP.MSG1' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG2' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG3' | translate}}</li>
@@ -10,22 +11,8 @@
 		<li>{{'OTP.SEARCH HELP.MSG8' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG9' | translate}}</li>
 	</ul>
-</template>
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific otp</div></template>
-
-<div class="card" id="asdfgh">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
-			</div>
-		</div>
-		<div class="row gg-price" *ngIf="nbHits">{{total | currency:'EUR':true:'1.2-2'}} {{'GENERAL.AVAILABLE IN' | translate}} {{nbHits}} otps</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+			<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
 					<template ngbPanelTitle>
 						<div class="row">
@@ -69,17 +56,5 @@
 					</template>
 				</ngb-panel>
 			</ngb-accordion>
-		</div>
-		<div class="row">
-			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
-				<div  class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-			</div>
-			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-			</div>
-			<div class="col-sm-2" *ngIf="nbHits > 0">
-				<div  class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.OTPS REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
-			</div>
-		</div>		
-	</div>
-</div>
+</gg-search-box>
+
