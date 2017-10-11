@@ -1,118 +1,71 @@
-import {Component, Input, OnInit, ViewChildren, QueryList} from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx'
-import { FormControl, FormGroup } from '@angular/forms'
+import { Component, Input, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Observable } from 'rxjs/Rx'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
-import { OrderService } from './../Shared/Services/order.service';
 import { ProductService } from './../Shared/Services/product.service';
 import { BasketService } from './../Shared/Services/basket.service'
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { SelectableData } from './../Shared/Classes/selectable-data'
-import { Editor} from './../ui/editor/editor'
+import { Editor } from './../ui/editor/editor'
 import { DataStore } from './../Shared/Services/data.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-product-grid-basket',
         templateUrl: './product-grid-basket.component.html'
     }
 )
-export class ProductGridBasketComponent implements OnInit
-{
+export class ProductGridBasketComponent implements OnInit {
+    otpListObservable: Observable<{ id: any; name: any; }[]>;
+    authorizationStatusInfo: AuthenticationStatusInfo;
     @Input() productsObservable: Observable<any>;
     @Input() config;
-    @Input() isGroupedBasket: boolean= false;
+    @Input() isGroupedBasket: boolean = false;
     @Input() path: string = 'productsBasket'
 
     private products;
-
-    constructor(private orderService: OrderService, private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
-                        private basketService: BasketService, private router: Router)
-    {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });        
-    }
-
-    searchControl = new FormControl();
-    searchForm;
-    private subscriptionProducts: Subscription 
-    private authorizationStatusInfo: AuthenticationStatusInfo;
-    private subscriptionAuthorization: Subscription
-    private selectableCategoriesObservable: Observable<any>;
-    
     private total: number= 0
-    private otpListObservable: any
-    
-    @ViewChildren(Editor) priceChildren : QueryList<Editor>;
 
-    resetSerachControl() {
-        this.searchControl.setValue('')
+    constructor(private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
+        private basketService: BasketService, private router: Router) {
     }
 
-    ngOnInit() : void{
-        this.selectableCategoriesObservable = this.productService.getSelectableCategories();
+    @ViewChildren(Editor) priceChildren: QueryList<Editor>;
 
+    getFilterFn() {
+        var self = this
+        return this.productService.getIsProductOKForListFn(self)
+    }
+
+    calculateTotal(products): number {
+        return products.filter(product => !product.data.disabled).reduce((acc, product) => acc + (+product.annotation.totalPrice || 0), 0)
+    }
+
+    ngOnInit(): void {
         this.otpListObservable = this.dataStore.getDataObservable('otps').map(otps => otps.map(otp => {
             return {
                 id: otp._id,
                 name: otp.name
             }
-        }));     
+        }));
 
-        this.subscriptionAuthorization = this.authService.getStatusObservable().subscribe(statusInfo => {
+        this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
-        });        
-
-        this.subscriptionProducts= Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
-            let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return products;
-
-            return products.filter(product => {
-                if (txt.startsWith('$S/')) {
-                    let txt2 = txt.slice(3);
-                    return product.data.isStock && (!txt2 || product.data.name.toUpperCase().includes(txt2))                     
-                }                
-                if (txt.startsWith('!')) {
-                    let txt2 = txt.slice(1);
-                    return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
-                }
-                if (txt.startsWith('$>') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price >= montant;
-                }
-                if (txt.startsWith('$<') && +txt.slice(2)) {
-                    let montant = +txt.slice(2);
-                    return + product.data.price <= montant;
-                }
-                if (txt.startsWith('$M')) {
-                    return product.annotation.multipleOccurences;
-                }
-
-                if (txt.startsWith('$D')) {
-                    return product.data.disabled;
-                }
-
-                return product.data.name.toUpperCase().includes(txt)  || (product.data.description||'').toUpperCase().includes(txt) 
-            });
-        })
-        .do (products => {
-            this.total= products.reduce((acc, product) => acc + (+product.annotation.totalPrice || 0), 0)
-        })
-        .subscribe(products => {
-            this.products = products.slice(0, 50)
         });
     }
 
+    private isPageRunning: boolean = true
     ngOnDestroy(): void {
-        this.subscriptionProducts.unsubscribe()
-        this.subscriptionAuthorization.unsubscribe()                 
+        this.isPageRunning = false
     }
 
-    getProductObservable(id: string) : Observable<any>
-    {
+    setProducts(products) {
+        this.products = products
+        this.total= this.calculateTotal(products)
+    }
+
+    getProductObservable(id: string): Observable<any> {
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0]);
     }
 
@@ -121,8 +74,7 @@ export class ProductGridBasketComponent implements OnInit
         return !this.config || !this.config['skip'] || !(this.config['skip'] instanceof Array) || !this.config['skip'].includes(columnName);
     }
 
-    getProductCategoryIdsObservable(id: string) : Observable<any>
-    {
+    getProductCategoryIdsObservable(id: string): Observable<any> {
         return this.productsObservable.map(products => products.filter(product => product.data._id === id)[0].data.categoryIds);
     }
 
@@ -142,8 +94,8 @@ export class ProductGridBasketComponent implements OnInit
             }
         }
         else {
-            var ctrl= this.priceChildren.toArray().filter(editorControl => editorControl.id === product.data._id)[0]
-            if (ctrl)                
+            var ctrl = this.priceChildren.toArray().filter(editorControl => editorControl.id === product.data._id)[0]
+            if (ctrl)
                 ctrl.resetContent(product.data.price);
         }
     }
@@ -154,8 +106,8 @@ export class ProductGridBasketComponent implements OnInit
 
     quantityGroupedBasketUpdated(quantity: string, product, item) {
         if (!+quantity) return
-        item.data.quantity=+quantity
-        product.annotation.basketData.quantity= (product.annotation.basketData.items || []).reduce((acc,item) => acc + item.quantity, 0)
+        item.data.quantity = +quantity
+        product.annotation.basketData.quantity = (product.annotation.basketData.items || []).reduce((acc, item) => acc + item.quantity, 0)
         this.dataStore.updateData('basket', product.annotation.basketId, product.annotation.basketData)
     }
 

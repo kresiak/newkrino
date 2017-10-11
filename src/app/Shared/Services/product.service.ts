@@ -277,7 +277,7 @@ export class ProductService {
             }
             if (txt.startsWith('!')) {
                 let txt2 = txt.slice(1);
-                return !product.data.name.toUpperCase().includes(txt2) && !product.annotation.supplierName.toUpperCase().includes(txt2)
+                return !product.data.name.toUpperCase().includes(txt2) && !(product.annotation.supplierName || '').toUpperCase().includes(txt2)
             }
             if (txt.startsWith('$>') && +txt.slice(2)) {
                 let montant = +txt.slice(2);
@@ -317,7 +317,7 @@ export class ProductService {
                 return self.selectedProductIdsMap && self.selectedProductIdsMap.has(product.data._id);
             }
 
-            return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || product.annotation.supplierName.toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
+            return product.data.name.toUpperCase().includes(txt) || (product.data.description || '').toUpperCase().includes(txt) || (product.annotation.supplierName || '').toUpperCase().includes(txt) || product.data.catalogNr.toUpperCase().includes(txt)
         }
         
     }

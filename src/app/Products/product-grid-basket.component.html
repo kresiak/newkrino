@@ -1,32 +1,8 @@
-<template #searchPopContent>
-	<ul>
-		<li>liquid: the product should contain the string 'liquid'</li>
-		<li>$>200: montants supérieurs à 200 euros</li>
-		<li>$
-			<50: montants inférieurs à 200 euros</li>
-				<li>$S/: product that might be found in the stock</li>
-				<li>$S/tip: stock product that includes tip in the name</li>
-				<li>$M : product presents several times with the same CatalogNr</li>
-				<li>$D : disabled products</li>
+<gg-search-box [objectTypeTranslationKey]="'PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="getFilterFn()"
+ [fnCalculateTotal]="calculateTotal" (listChanged)="setProducts($event)">
+	<gg-product-list-help searchHelp> </gg-product-list-help>
 
-	</ul>
-</template>
-
-<template #tipSearchLoupe>
-	<div style="font-size: 70%;">Click here to <br/> search specific product</div>
-</template>
-
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-				/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
-				 src="../../images/close.png" (click)="resetSerachControl()" />
-			</div>
-		</div>
+	<div accordion>
 		<div class="row">
 			<div class="col-sm-3 col-md-3 vcenter">
 				<b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b>
@@ -34,7 +10,7 @@
 			<div class="col-sm-2 col-md-2 vcenter">
 				<b>{{'PRODUCT.COLUMN.PRICE' | translate}}</b>
 			</div>
-			
+
 			<div class="col-sm-1 col-md-1 vcenter">
 				<b>{{'PRODUCT.COLUMN.QTY IN BASKET' | translate}}</b>
 			</div>
@@ -43,7 +19,8 @@
 
 		</div>
 
-		<div *ngFor="let product of products">  <!--FOR-->
+		<div *ngFor="let product of products">
+			<!--FOR-->
 			<div class="row" *ngIf="product && product.data" [style.color]="product.data.disabled ? 'red' : 'black'">
 				<div class="col-sm-3 col-md-3 vcenter">
 					<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event, product)" class="imgSearch"
@@ -54,8 +31,8 @@
 					 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 				</div>
 				<div class="col-sm-1 col-md-1 vcenter">
-					<gg-editor-number *ngIf="product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled" [content]="product.annotation.quantity"
-					 (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="isGroupedBasket && !product.annotation.isFixCost"></gg-editor-number>
+					<gg-editor-number *ngIf="product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled"
+					 [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event, product)" [readOnly]="isGroupedBasket && !product.annotation.isFixCost"></gg-editor-number>
 					<div *ngIf="!product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo">{{product.annotation.quantity}} (Contact Labmanager)</div>
 					<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="getProductObservable(product.data._id)"></gg-product-fridge-order-button>
 
@@ -63,35 +40,37 @@
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
 
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && product.annotation.otp._id && showColumn('otp')">
-					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable"
-					 [selectedId]="product.annotation.otp._id" (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete> {{product.annotation.otp.description}}
+					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable" [selectedId]="product.annotation.otp._id"
+					 (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete> {{product.annotation.otp.description}}
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
 				<div class="col-sm-1 col-md-1 vcenter" *ngIf="!isGroupedBasket && !product.annotation.isFixCost">
 					<button type="button" class="btn btn-link" (click)="setNotUrgent(product)">Set as not urgent</button>
 				</div>
 				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isGroupedBasket">
-					<button type="button" class="btn btn-link" (click)="product.annotation.isClosed=!product.annotation.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>					
-				</div>				
+					<button type="button" class="btn btn-link" (click)="product.annotation.isClosed=!product.annotation.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
+				</div>
 			</div>
-			<div class="row"  [ngbCollapse]="!product.annotation.isClosed">
+			<div class="row" [ngbCollapse]="!product.annotation.isClosed">   <!--Only for grouped baskets-->
 				<div class="col-sm-12 col-md-12">
 					<div class="card">
 						<div class="row">
 							<div class="col-sm-2 col-md-2 vcenter">{{'PRODUCT.COLUMN.WHEN' | translate}}</div>
-							<div class="col-sm-2 col-md-3 vcenter">{{'PRODUCT.COLUMN.WHO' | translate}}</div>	
+							<div class="col-sm-2 col-md-3 vcenter">{{'PRODUCT.COLUMN.WHO' | translate}}</div>
 							<div class="col-sm-2 col-md-3 vcenter">{{'PRODUCT.COLUMN.EQUIPE' | translate}}</div>
 							<div class="col-sm-2 col-md-2 vcenter">{{'PRODUCT.COLUMN.HOW MANY' | translate}}</div>
 						</div>
 						<div class="card">
-							<div class="row" *ngFor="let item of product.annotation.basketItems">  <!--FOR-->
-								<div class="col-sm-2 col-md-2 vcenter"><gg-date-pointer [date]="item.data.date"></gg-date-pointer></div>
+							<div class="row" *ngFor="let item of product.annotation.basketItems">
+								<!--FOR-->
+								<div class="col-sm-2 col-md-2 vcenter">
+									<gg-date-pointer [date]="item.data.date"></gg-date-pointer>
+								</div>
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.userFullName}}</div>
 								<div class="col-sm-2 col-md-3 vcenter">{{item.annotation.equipe}}</div>
 								<div class="col-sm-2 col-md-2 vcenter">
-									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" 
-										[readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
-									</gg-editor-number> 
+									<gg-editor-number [content]="item.data.quantity" (editSaved)="quantityGroupedBasketUpdated($event, product, item)" [readOnly]="!authorizationStatusInfo || (!authorizationStatusInfo.isAdministrator() && !authorizationStatusInfo.isThisUser(item.data.userId) && !authorizationStatusInfo.isGroupOrdersUser())">
+									</gg-editor-number>
 								</div>
 							</div>
 						</div>
@@ -105,13 +84,11 @@
 			<div class="col-sm-3 col-md-3 vcenter">
 			</div>
 			<div class="col-sm-2 col-md-2 vcenter">
-			</div>			
+			</div>
 			<div class="col-sm-1 col-md-1 vcenter">{{'PRODUCT.LABEL.TOTAL' | translate}}</div>
 			<div class="col-sm-2 col-md-2 vcenter">{{total | currency:'EUR':true:'1.2-2'}}</div>
 		</div>
-		
 
-<!--		<gg-product [otpListObservable]="otpListObservable" [path]="path" *ngFor="let product of products" [productObservable]="getProductObservable(product.data._id)"
-		 [config]="config"></gg-product>
--->	</div>
-</div>
+	</div>
+
+</gg-search-box>
