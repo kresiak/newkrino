@@ -470,7 +470,9 @@
         "REFUSER VALIDATION MODAL TITLE": "Refuse the validation of the product",
         "REFUSER VALIDATION MODAL FOOTER": "Explain why you are refusing the validation. Adding the comment will perform the validation. Otherwise cancel with the cross in the header.",
         "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
-        "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header."
+        "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header.",
+        "SET AS NOT URGENT": "Set as not urgent",
+        "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info."
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number."

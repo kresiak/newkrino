@@ -470,7 +470,9 @@
         "REFUSER VALIDATION MODAL TITLE": "Refuser la validation du produit",
         "REFUSER VALIDATION MODAL FOOTER": "Justifier le refus de validation. Après l'ajout du commentaire le refus de la validation sera acté. Si vous ne voulez pas refuser la validation, fermer la fenêtre via la croix en haut.",
         "REASK VALIDATION MODAL TITLE": "Demander (peut-être à nouveau) la validation du produit",
-        "REASK VALIDATION MODAL FOOTER": "Expliquer ce qui a changé qui vous amène à refaire la demande. Après l'ajout du commentaire la demande de validation sera actée. Si vous ne voulez pas redemander la validation, fermer la fenêtre via la croix en haut."    
+        "REASK VALIDATION MODAL FOOTER": "Expliquer ce qui a changé qui vous amène à refaire la demande. Après l'ajout du commentaire la demande de validation sera actée. Si vous ne voulez pas redemander la validation, fermer la fenêtre via la croix en haut." ,
+        "SET AS NOT URGENT": "Non urgent: grouper l'achat",
+        "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que votre commande n'est pas urgente et que l'achat de ce produit peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info."
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
