@@ -1,6 +1,6 @@
 <div class="card" *ngIf="supplier">
 	<div class="card-block">
-		<h5 class="card-title">Checkout at {{supplier.name}}</h5>
+		<h5 class="card-title">{{'ORDER.BASKET.CHECKOUT AT' | translate}} {{supplier.name}}</h5>
 		<ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
 			<ngb-tab title="{{'ORDER.MENU.SHOPPING BASKET' | translate}}">
 				<template ngbTabContent>
@@ -10,19 +10,19 @@
 								<gg-product-grid-basket [productsObservable]="productsBasketObservable" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()"></gg-product-grid-basket>
 							</div>
 							<div class="row" *ngIf="authorizationStatusInfo.isAdministrator()">
-								<div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
+								<div class="col-sm-2 vcenter">{{'ORDER.BASKET.ATTRIBUTE TO GROUP OF EQUIPES' | translate}} </div>
 								<div class="col-sm-6 vcenter">
-									<gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"
+									<gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'ORDER.BASKET.USE THE EQUIPE OF THE USER' | translate"
 									 (idChanged)="equipeGroupChanged($event)"></gg-editor-autocomplete>
 								</div>
 							</div>
 							<div class="row">
-								<button *ngIf="(authorizationStatusInfo.hasEquipeId() || authorizationStatusInfo.isGroupOrdersUser()) && isSubmitButtonFree && isOtpOk && nbLinesNonDisabled && (authorizationStatusInfo.isAdministrator() || ((isEnoughBudget || isGroupOrdersUser) && isTotalUnderLimit))" class="btn btn-warning" (click)="createOrder()">Pass the order</button>
-								<h6 *ngIf="!authorizationStatusInfo.hasEquipeId() && !authorizationStatusInfo.isGroupOrdersUser()">You cannot pass order, as you entered without selecting an equipe. Please login again!</h6>
-								<h6 *ngIf="!isEnoughBudget && !isGroupOrdersUser">Sorry, you don't have enough budget available</h6>
-								<h6 *ngIf="!isOtpOk">Sorry, there is an Otp problem. Contact your administrator!</h6>
-								<h6 *ngIf="!isTotalUnderLimit">Sorry, you are over the maximal limit for an order. Split the order or contact your administrator!</h6>
-								<h6 *ngIf="!nbLinesNonDisabled">All products that you have in your basket are disabled. You can't pass such an order!</h6>
+								<button *ngIf="(authorizationStatusInfo.hasEquipeId() || authorizationStatusInfo.isGroupOrdersUser()) && isSubmitButtonFree && isOtpOk && nbLinesNonDisabled && (authorizationStatusInfo.isAdministrator() || ((isEnoughBudget || isGroupOrdersUser) && isTotalUnderLimit))" class="btn btn-warning" (click)="createOrder()">{{'ORDER.BASKET.PASS THE ORDER' | translate}}</button>
+								<h6 *ngIf="!authorizationStatusInfo.hasEquipeId() && !authorizationStatusInfo.isGroupOrdersUser()">{{'ORDER.BASKET.NO EQUIPE MSG' | translate}}</h6>
+								<h6 *ngIf="!isEnoughBudget && !isGroupOrdersUser">{{'ORDER.BASKET.NOT ENOUGH BUDGET MSG' | translate}}</h6>
+								<h6 *ngIf="!isOtpOk">{{'ORDER.BASKET.OTP PROBLEM MSG' | translate}}</h6>
+								<h6 *ngIf="!isTotalUnderLimit">{{'ORDER.BASKET.OVER LIMIT MSG' | translate}}</h6>
+								<h6 *ngIf="!nbLinesNonDisabled">{{'ORDER.BASKET.ALL DISABLED MSG' | translate}}</h6>
 							</div>
 						</div>
 					</div>

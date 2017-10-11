@@ -697,6 +697,18 @@
     "LABEL": {
 
     },
+    "BASKET": {
+      "CHECKOUT AT": "Checkout at",
+      "ATTRIBUTE TO GROUP OF EQUIPES": "Attribute to group of projects:",
+      "USE THE EQUIPE OF THE USER": "no, use the project of the current user",
+      "PASS THE ORDER": "Pass the order",
+      "NO EQUIPE MSG": "You cannot pass order, as you entered without selecting an equipe. Please login again!",
+      "NOT ENOUGH BUDGET MSG": "Sorry, you don't have enough budget available",
+      "OTP PROBLEM MSG" : "Sorry, there is an Otp problem. Contact your administrator!",
+      "OVER LIMIT MSG" : "Sorry, you are over the maximal limit for an order. Split the order or contact your administrator!",
+      "ALL DISABLED MSG" : "All products that you have in your basket are disabled. You can't pass such an order!",
+      "PROCEED TO CHECKOUT": "Proceed to Checkout"
+    },
     "SEARCH HELP": {
       "MSG1": "nadi: order that contains 'nadi' either in the supplier name or the order number or the status or the user/project that issued the order",
       "MSG2": "deleted: deleted orders",

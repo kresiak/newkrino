@@ -14,15 +14,15 @@
     "HITS SHOWN": "entrées",
     "AVAILABLE IN": "disponible dans",  
     "CLICK HERE TO": "Cliquer ici pour",    
-    "SEARCH SPECIFIC": "rechercher des",    
+    "SEARCH SPECIFIC": "rechercher un(e) ou plusieurs",    
     "IN": "dans",      
-    "ORDERS": "commandes",
-    "OTPS": "otps",    
-    "PRODUCTS": "produits",   
-    "CATEGORIES": "catégories",    
+    "ORDERS": "commande(s)",
+    "OTPS": "otp(s)",    
+    "PRODUCTS": "produit(s)",   
+    "CATEGORIES": "catégorie(s)",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
-      "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées",
+      "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
       "NB HITS WARNING TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées. Cette opération peut être lente. Soyez patient!",      
       "ORDERS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les commandes supprimées seront ajoutées en fin de fichier.",
       "OTPS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les OTP supprimés ou bloqués seront ajoutés en fin de fichier.",
@@ -472,7 +472,7 @@
         "REASK VALIDATION MODAL TITLE": "Demander (peut-être à nouveau) la validation du produit",
         "REASK VALIDATION MODAL FOOTER": "Expliquer ce qui a changé qui vous amène à refaire la demande. Après l'ajout du commentaire la demande de validation sera actée. Si vous ne voulez pas redemander la validation, fermer la fenêtre via la croix en haut." ,
         "SET AS NOT URGENT": "Non urgent: grouper l'achat",
-        "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que votre commande n'est pas urgente et que l'achat de ce produit peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info."
+        "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que l'achat de ce produit n'est pas urgent et qu'il peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info."
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
@@ -695,6 +695,18 @@
     },
     "LABEL": {
 
+    },
+    "BASKET": {
+      "CHECKOUT AT": "Passer à l'achat chez",
+      "ATTRIBUTE TO GROUP OF EQUIPES": "Attribuer à un groupe d'équipes:",
+      "USE THE EQUIPE OF THE USER": "non, utiliser l'équipe de l'utilisateur",
+      "PASS THE ORDER": "Passer la commande",
+      "NO EQUIPE MSG": "Vous ne pouvez passer la commande, vu que vous vous êtes connecté sans équipe. Reconnectez vous!",
+      "NOT ENOUGH BUDGET MSG": "Désolé, il ne vous reste pas assez de budget!",
+      "OTP PROBLEM MSG" : "Il y a un problème de séelection d'Otp. Contactez votre administrateur!",
+      "OVER LIMIT MSG" : "Votre commande dépasse la limite de dépense pour une seule commande. Faites plusieurs plus petites commandes ou contactez votre administrateur!",
+      "ALL DISABLED MSG" : "Tous les produits dans le panier sont des produits désactivés par votre Lab Manager.",
+      "PROCEED TO CHECKOUT": "Passer à la 'caisse'"
     },
     "SEARCH HELP": {
       "MSG1": "nadi: commandes dont l'équipe, le fournisseur, le numéro, le statut ou l'utilisateur contient 'nadi'",
