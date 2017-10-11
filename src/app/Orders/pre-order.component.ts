@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Rx'
     }
 )
 export class PreOrderComponent implements OnInit {
+        nbLinesNonDisabled: any;
     constructor(private orderService: OrderService, private supplierService: SupplierService, private basketService: BasketService, private route: ActivatedRoute, 
                 private authService: AuthService, private equipeService: EquipeService, private adminService: AdminService, private router: Router) {
 
@@ -65,15 +66,18 @@ export class PreOrderComponent implements OnInit {
             this.adminService.getLabo().map(labo => labo.data.maxOrderAmount).takeWhile(() => this.isPageRunning),    //takeWhile necessary on each starting observable path
             (products, isGroupOrderUser, maxOrderAmount) => {
                 var totalHtva = products.map(item => item.annotation.totalPriceHTva).reduce((a, b) => a + b, 0)
+                var nbLinesNonDisabled= products.filter(p => !p.data.disabled && !p.data.isFixCost).length
                 return { 
                     total : products.map(item => item.annotation.totalPrice).reduce((a, b) => a + b, 0),
                     isTotalUnderLimit: totalHtva < maxOrderAmount,
-                    isGroupOrderUser: isGroupOrderUser
+                    isGroupOrderUser: isGroupOrderUser,
+                    nbLinesNonDisabled: nbLinesNonDisabled
                 }
             }
         )
         .do(infoObject => {
             this.isTotalUnderLimit= infoObject.isTotalUnderLimit
+            this.nbLinesNonDisabled= infoObject.nbLinesNonDisabled
         })
         .filter(infoObject => !infoObject.isGroupOrderUser)
         .switchMap(infoObject => {
