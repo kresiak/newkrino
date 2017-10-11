@@ -1,5 +1,5 @@
-
-<gg-search-box [objectTypeTranslationKey]="'OTPS'" [hasReport]="true" [objectsObservable]="otpsObservable" [fnFilterObjects]="filterOtps" [fnCalculateTotal]="calculateTotal" (listChanged)="setOtps($event)" (reportNeeded)="createReport($event)" >
+<gg-search-box [objectTypeTranslationKey]="'OTPS'" [hasReport]="true" [objectsObservable]="otpsObservable" [fnFilterObjects]="filterOtps"
+ [fnCalculateTotal]="calculateTotal" (listChanged)="setOtps($event)" (reportNeeded)="createReport($event)">
 	<ul searchHelp>
 		<li>{{'OTP.SEARCH HELP.MSG1' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG2' | translate}}</li>
@@ -12,49 +12,50 @@
 		<li>{{'OTP.SEARCH HELP.MSG9' | translate}}</li>
 	</ul>
 
-			<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-2"><b>{{'OTP.COLUMN.OTP' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'OTP.COLUMN.CLASSIFICATION' | translate}}</b></div>
-							<div class="col-sm-1" *ngIf="showColumn('equipe')"><b>{{'OTP.COLUMN.EQUIPE' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'OTP.COLUMN.INITIAL' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'OTP.COLUMN.AVAILABLE' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'OTP.COLUMN.UNTIL' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'OTP.COLUMN.IN SAP' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'OTP.COLUMN.STATUS' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-2"><b>{{'OTP.COLUMN.OTP' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'OTP.COLUMN.CLASSIFICATION' | translate}}</b></div>
+					<div class="col-sm-1" *ngIf="showColumn('equipe')"><b>{{'OTP.COLUMN.EQUIPE' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'OTP.COLUMN.INITIAL' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'OTP.COLUMN.AVAILABLE' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'OTP.COLUMN.UNTIL' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'OTP.COLUMN.IN SAP' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'OTP.COLUMN.STATUS' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
 
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let otp of otps" [id]="otp.data._id">
-					<template ngbPanelTitle>
-						<div class="row" id="{{otp.data._id}}">							
-							<div class="col-sm-2" [style.font-weight]="otp.data._id === state.openPanelId ? 'bold' : 'lighter'">{{otp.data.name}} </div>
-							<div class="col-sm-2"><gg-text-compact [text]="otp.annotation.classification" [numberOfChar]="16"></gg-text-compact></div>
-							<div class="col-sm-1" *ngIf="showColumn('equipe')"><gg-text-compact [text]="otp.annotation.equipe" [numberOfChar]="8"></gg-text-compact></div>
-							<div class="col-sm-1" ngbTooltip="engaged: {{(otp.annotation.amountEngaged + otp.annotation.amountSpentNotYetInSap) | currency:'EUR':true:'1.2-2'}} / invoiced: {{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}">
-								{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}
-							</div>
-							<div class="col-sm-1">
-								{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}
-							</div>
-							<div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{ otp.annotation.currentPeriodAnnotation.datEnd | shortDate }} ({{otp.data.priority}})</div>
-							<div class="col-sm-2" *ngIf="!otp.annotation.currentPeriodAnnotation" [style.color]="'red'">{{'OTP.COLUMN.NOT FOR CURRENT PERIOD' | translate}}</div>
-							<div class="col-sm-1">{{ otp.annotation.nbSapItems || '' }}</div>
-							<div class="col-sm-2" [style.color]="'red'">{{getStatusText(otp)|async}}
-<!--								{{ otp.data.isDeleted ? 'Deleted ' : '' }}{{ otp.data.isBlocked ? 'Blocked ' : '' }}{{ otp.data.isLimitedToOwner ? 'Limited ' : '' }}{{ otp.data.isClosed ? 'Closed ' : '' }}
-								{{ !otp.data.priority ? 'No priority ' : '' }}
--->							</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-						<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" [path]="path+'|P:'+otp.data._id" (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let otp of otps" [id]="otp.data._id">
+			<template ngbPanelTitle>
+				<div class="row" id="{{otp.data._id}}">
+					<div class="col-sm-2" [style.font-weight]="otp.data._id === state.openPanelId ? 'bold' : 'lighter'">{{otp.data.name}} </div>
+					<div class="col-sm-2">
+						<gg-text-compact [text]="otp.annotation.classification" [numberOfChar]="16"></gg-text-compact>
+					</div>
+					<div class="col-sm-1" *ngIf="showColumn('equipe')">
+						<gg-text-compact [text]="otp.annotation.equipe" [numberOfChar]="8"></gg-text-compact>
+					</div>
+					<div class="col-sm-1" ngbTooltip="engaged: {{(otp.annotation.amountEngaged + otp.annotation.amountSpentNotYetInSap) | currency:'EUR':true:'1.2-2'}} / invoiced: {{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}">
+						{{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}
+					</div>
+					<div class="col-sm-1">
+						{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}
+					</div>
+					<div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{ otp.annotation.currentPeriodAnnotation.datEnd | shortDate }} ({{otp.data.priority}})</div>
+					<div class="col-sm-2" *ngIf="!otp.annotation.currentPeriodAnnotation" [style.color]="'red'">{{'OTP.COLUMN.NOT FOR CURRENT PERIOD' | translate}}</div>
+					<div class="col-sm-1">{{ otp.annotation.nbSapItems || '' }}</div>
+					<div class="col-sm-2" [style.color]="'red'">{{getStatusText(otp)|async}}</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+				<gg-otp-detail [otpObservable]="getOtpObservable(otp.data._id)" [state]="state[otp.data._id]" [path]="path+'|P:'+otp.data._id"
+				 (stateChanged)="childStateChanged($event, otp.data._id)"></gg-otp-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
 </gg-search-box>
-
