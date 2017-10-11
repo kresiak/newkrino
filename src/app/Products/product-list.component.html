@@ -1,20 +1,5 @@
 <gg-search-box [objectTypeTranslationKey]="'PRODUCTS'" [hasReport]="true" [objectsObservable]="productsObservable" [fnFilterObjects]="getFilterFn()" (listChanged)="setProducts($event)" (reportNeeded)="createReport($event)">
-	<ul searchHelp>
-		<li>{{'PRODUCT.SEARCH HELP.MSG1' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG2' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG3' | translate}}</li>
-		<li *ngIf="isForSelection">{{'PRODUCT.SEARCH HELP.MSG4' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG5' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG6' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG7' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG8' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG9' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG10' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG11' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG12' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG13' | translate}}</li>
-		<li>{{'PRODUCT.SEARCH HELP.MSG14' | translate}}</li>
-	</ul>
+	<gg-product-list-help searchHelp [isForSelection]="isForSelection"> </gg-product-list-help>
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">

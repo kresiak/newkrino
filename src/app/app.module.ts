@@ -32,7 +32,7 @@ import { SupplierDetailComponent } from './Suppliers/supplier-detail.component';
 import { SupplierDetailComponentRoutable } from './Suppliers/supplier-detail.routable.component';
 import { SupplierEprocShoppingComponent } from './Suppliers/supplier-eproc-shopping';
 
-
+import { ProductListHelpComponent } from './Products/product-list-help.component';
 import { ProductGridComponent } from './Products/product-grid.component';
 import { ProductGridBasketComponent } from './Products/product-grid-basket.component';
 import { ProductListComponent } from './Products/product-list.component';
@@ -252,7 +252,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     CommentComponent, CommentsComponent, CommentsTabComponent, CommentsTabTitleComponent, LaboratoryEnterComponent,
     SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent, SupplierEprocShoppingComponent,
     ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductListComponentRoutable, ProductDetailComponent, ProductDetailComponentRoutable,
-    ProductFridgeOrderButtonComponent,
+    ProductFridgeOrderButtonComponent, ProductListHelpComponent,
     OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent,
 
     CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent, CategoryDetailComponentRoutable,

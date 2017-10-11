@@ -476,7 +476,7 @@
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
     },
     "SEARCH HELP": {
-      "MSG1": "liquid : the product or the supplier should contain the string 'liquid'",
+      "MSG1": "liquid : produits dont le nom ou le nom du fournisseur contient le texte 'liquid'",
       "MSG2": "$>200 : produits dont le prix est supérieur à 200 euroS",
       "MSG3": "$ <50 : produits dont le prix est inférieur à 50 euroS",
       "MSG4": "$SE : produits sélectionnés",
