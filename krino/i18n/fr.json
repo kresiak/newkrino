@@ -23,9 +23,10 @@
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées",
       "NB HITS WARNING TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrées. Cette opération peut être lente. Soyez patient!",      
-      "ORDER REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les commandes supprimées seront ajoutées en fin de fichier.",
-      "OTP REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les OTP supprimés ou bloqués seront ajoutés en fin de fichier.",
-      "PRODUCT REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les produits bloqués seront ajoutés en fin de fichier."
+      "ORDERS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les commandes supprimées seront ajoutées en fin de fichier.",
+      "OTPS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les OTP supprimés ou bloqués seront ajoutés en fin de fichier.",
+      "PRODUCTS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les produits bloqués seront ajoutés en fin de fichier.",
+      "NO HIT TEXT": "Pas encore de {{param}} dans la base de données pour cette requête"      
     },
     "COMMENTS": {
       "TAB TITLE": "Commentaires",  

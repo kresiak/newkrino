@@ -23,9 +23,10 @@
     "HITS": {
       "NB HITS TXT": "now showing {{nbHitsShown}} of {{nbHits}}",
       "NB HITS WARNING TXT": "now showing {{nbHitsShown}} of {{nbHits}}. This operation can be a bit slow. Please be patient!",
-      "ORDER REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Deleted orders will be added at the end of the file.",
-      "OTP REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked/Deleted otps will be added at the end of the file.",
-      "PRODUCT REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked products will be added at the end of the file."      
+      "ORDERS REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Deleted orders will be added at the end of the file.",
+      "OTPS REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked/Deleted otps will be added at the end of the file.",
+      "PRODUCTS REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked products will be added at the end of the file.",
+      "NO HIT TEXT": "No {{param}} yet in the database for this query"
     },    
    "COMMENTS": {
       "TAB TITLE": "Comments",

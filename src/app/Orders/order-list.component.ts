@@ -11,7 +11,6 @@ import * as dateUtils from './../Shared/Utils/dates'
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-order-list',
         templateUrl: './order-list.component.html'
     }
@@ -23,15 +22,7 @@ export class OrderListComponent implements OnInit {
 
     private isPageRunning: boolean = true
 
-    private listName = 'ORDERS'
-
     private orders
-
-    private nbHitsShown: number = 10
-    private nbHitsIncrement: number = 10
-    private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
-
 
     @Input() ordersObservable: Observable<any>;
     @Input() state;
@@ -45,12 +36,7 @@ export class OrderListComponent implements OnInit {
 
     @Input() config;
 
-    private orders2Observable: Observable<any>;
-
     private authorizationStatusInfo: AuthenticationStatusInfo;
-
-    private total: number = 0
-    private searchObservable = new Subject() // used by searchbox
 
     filterOrders(order, txt) {
         if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return !order.data.status || order.data.status.value !== 'deleted'
@@ -99,40 +85,23 @@ export class OrderListComponent implements OnInit {
 
     }
 
+    calculateTotal(orders): number {
+        return orders.filter(order => !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
+    }
+
     ngOnInit(): void {
         this.stateInit();
-        this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.listName, this.nbHitsShown))
-
-        this.orders2Observable = Observable.combineLatest(this.ordersObservable, this.searchObservable, (orders, searchTxt: string) => {
-            let txt: string = searchTxt.trim().toUpperCase();
-            //if (txt === '' || txt === '$' || txt === '$>' || txt === '$<' || txt === '#') return orders.filter(order => !order.data.status || order.data.status.value !== 'deleted');
-            return orders.filter(order => this.filterOrders(order, txt))
-        }).do(orders => {
-            this.nbHits = orders.length
-            this.total = orders.filter(order => !order.annotation.status.toUpperCase().includes('DELETED')).reduce((acc, order) => acc + order.annotation.total, 0)
-            this.allOrders = orders
-        }).switchMap(orders => {
-                return this.nbHitsShownObservable.map(nbItems => {
-                    return orders.slice(0, nbItems)
-                })
-            });
-
-        this.orders2Observable.takeWhile(() => this.isPageRunning).subscribe(o => {
-            if (!comparatorsUtils.softCopy(this.orders, o))
-                this.orders = comparatorsUtils.clone(o)
-        })
 
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning).subscribe(statusInfo => {
             this.authorizationStatusInfo = statusInfo
         });
-
     }
 
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
 
-    createReport() {
+    createReport(allOrders) {
 
         var fnFormat = order => {
             return {
@@ -147,8 +116,8 @@ export class OrderListComponent implements OnInit {
             }
         }
 
-        var listNonDeleted = this.allOrders.filter(order => order.data.status.value !== 'deleted').map(fnFormat)
-        var listDeleted = this.allOrders.filter(order => order.data.status.value === 'deleted').map(fnFormat)
+        var listNonDeleted = allOrders.filter(order => order.data.status.value !== 'deleted').map(fnFormat)
+        var listDeleted = allOrders.filter(order => order.data.status.value === 'deleted').map(fnFormat)
 
 
 
@@ -184,12 +153,6 @@ export class OrderListComponent implements OnInit {
     private childStateChanged(newState, objectId) {
         this.state[objectId] = newState;
         this.stateChanged.next(this.state);
-    }
-
-    private moreHits() {
-        this.nbHitsShown += this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)
-        this.nbHitsShownObservable.next(this.nbHitsShown)
     }
 
 

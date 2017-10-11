@@ -2,12 +2,12 @@
 <div class="card">
 	<div class="card-block">
 		<div class="row">
-			<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [nbHits]="nbHits" (searchChanged)="searchObservable.next($event)">
+<!--			<gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [nbHits]="nbHits" (searchChanged)="searchObservable.next($event)">
 				<ul searchHelp>
 					<li>RWAL: si la catégorie contient 'RWAL'</li>
 				</ul>
 			</gg-search-box>
-		</div>
+-->		</div>
 		<div class="row">
 			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 				<ngb-panel [disabled]="true">
