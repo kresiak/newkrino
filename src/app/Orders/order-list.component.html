@@ -1,4 +1,4 @@
-<gg-search-box [objectTypeTranslationKey]="'ORDERS'" [hasReport]="true" [objectsObservable]="ordersObservable" [fnFilterObjects]="filterOrders" [fnCalculateTotal]="calculateTotal" (listChanged)="orders=$event" (reportNeeded)="createReport($event)" >
+<gg-search-box [objectTypeTranslationKey]="'ORDERS'" [hasReport]="true" [objectsObservable]="ordersObservable" [fnFilterObjects]="getFilterFn()" [fnCalculateTotal]="calculateTotal" (listChanged)="orders=$event" (reportNeeded)="createReport($event)" >
 	<ul searchHelp>
 		<li>{{'ORDER.SEARCH HELP.MSG1' | translate}}</li>
 		<li>{{'ORDER.SEARCH HELP.MSG2' | translate}}</li>
