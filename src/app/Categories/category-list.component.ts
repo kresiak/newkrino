@@ -25,8 +25,6 @@ export class CategoryListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    private searchObservable = new Subject() // used by searchbox
-
     filterCategories(category, txt) { 
         return category.data.name && (category.data.name.toUpperCase().includes(txt))
     }
