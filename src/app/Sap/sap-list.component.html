@@ -1,5 +1,6 @@
-<template #searchPopContent>
-	<ul>
+<gg-search-box [objectTypeTranslationKey]="'SAPS'" [objectsObservable]="sapsObservable" [fnFilterObjects]="fnFilterSap"
+ 	[sortFunctionObservable]="sortFnObservable" (listChanged)="setSaps($event)" >
+	<ul searchHelp>
 		<li>{{'SAP.SEARCH HELP.MSG1' | translate}}</li>
 		<li>{{'SAP.SEARCH HELP.MSG2' | translate}}</li>
 		<li>{{'SAP.SEARCH HELP.MSG3' | translate}}</li>
@@ -17,86 +18,59 @@
 		<li>{{'SAP.SEARCH HELP.MSG15' | translate}}</li>
 		<li>{{'SAP.SEARCH HELP.MSG16' | translate}}</li>
 	</ul>
-</template>
 
-<template #tipSearchLoupe>
-	<div style="font-size: 70%;">Click here to <br/> search specific sap</div>
-</template>
 
-<div class="card" id="asdfgh">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-				/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-				 placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
-				 src="../../images/close.png" (click)="resetSerachControl()" />
-				 <span *ngIf="nbHits" class="gg-price"> {{' ' + nbHits}} items	</span>
-			</div>
-		</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>{{'SAP.COLUMN.SAP ID' | translate}}<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>{{'SAP.COLUMN.OUR REF' | translate}}<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.EngagDate)"><b>{{'SAP.COLUMN.ENG. DATE' | translate}}<span *ngIf="isSortKeySet(SortKey.EngagDate)">!</span></b></div>
-							<div class="col-sm-1" (click)="setSortKey(SortKey.LastDate)"><b>{{'SAP.COLUMN.LAST ACTIVITY' | translate}}<span *ngIf="isSortKeySet(SortKey.LastDate)">!</span></b></div>
-							<div class="col-sm-1"><b>{{'SAP.COLUMN.ALREADY INVOICED' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'SAP.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'SAP.COLUMN.TYPE' | translate}}</b></div>
-							<div class="col-sm-1"><b>{{'SAP.COLUMN.SUPPLIER' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'SAP.COLUMN.EQUIPE' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>{{'SAP.COLUMN.SAP ID' | translate}}<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
+					<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>{{'SAP.COLUMN.OUR REF' | translate}}<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
+					<div class="col-sm-1" (click)="setSortKey(SortKey.EngagDate)"><b>{{'SAP.COLUMN.ENG. DATE' | translate}}<span *ngIf="isSortKeySet(SortKey.EngagDate)">!</span></b></div>
+					<div class="col-sm-1" (click)="setSortKey(SortKey.LastDate)"><b>{{'SAP.COLUMN.LAST ACTIVITY' | translate}}<span *ngIf="isSortKeySet(SortKey.LastDate)">!</span></b></div>
+					<div class="col-sm-1"><b>{{'SAP.COLUMN.ALREADY INVOICED' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'SAP.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'SAP.COLUMN.TYPE' | translate}}</b></div>
+					<div class="col-sm-1"><b>{{'SAP.COLUMN.SUPPLIER' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'SAP.COLUMN.EQUIPE' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
 
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId.toString()">
-					<template ngbPanelTitle>
-						<div class="row" id="{{sap.mainData.data.sapId}}">
-							<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
-							<div class="col-sm-1">{{sap.mainData.data.ourRef}}</div>
-							<div class="col-sm-1">{{sap.engaged ? sap.engaged.data.maxDate : ''}}</div>
-							<div class="col-sm-1">{{sap.dateLastActivity}}</div>
-							<div class="col-sm-1">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured
-								? 'invoiced' : 'engaged')))}}</div>
-							<div class="col-sm-1">
-								<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="10"></gg-text-compact>
-							</div>
-							<div class="col-sm-2">
-								<gg-text-compact [text]="sap.mainData.annotation.otpTxt" [extraTooltipText]="sap.mainData.data.resp"></gg-text-compact>
-							</div>
-							<div class="col-sm-2">
-								<gg-text-compact [text]="sap.equipeInfo || ''" [extraTooltipText]="sap.extraEquipeInfo" ></gg-text-compact>
-							</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-						<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId"
-						 (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId.toString()">
+			<template ngbPanelTitle>
+				<div class="row" id="{{sap.mainData.data.sapId}}">
+					<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
+					<div class="col-sm-1">{{sap.mainData.data.ourRef}}</div>
+					<div class="col-sm-1">{{sap.engaged ? sap.engaged.data.maxDate : ''}}</div>
+					<div class="col-sm-1">{{sap.dateLastActivity}}</div>
+					<div class="col-sm-1">{{sap.alreadyBilled | currency:'EUR':true:'1.2-2'}}</div>
+					<div class="col-sm-1">{{ sap.residuEngaged | currency:'EUR':true:'1.2-2'}}</div>
+					<div class="col-sm-1">{{sap.mainData.data.isNoEngag ? 'No engage' : (sap.isSuppr ? 'deleted' : (sap.hasFactureFinale ? 'final bill' : (sap.factured
+						? 'invoiced' : 'engaged')))}}</div>
+					<div class="col-sm-1">
+						<gg-text-compact [text]="!sap.mainData.data.isNoEngag ?  sap.mainData.data.supplier : sap.typesPiece" [numberOfChar]="10"></gg-text-compact>
+					</div>
+					<div class="col-sm-2">
+						<gg-text-compact [text]="sap.mainData.annotation.otpTxt" [extraTooltipText]="sap.mainData.data.resp"></gg-text-compact>
+					</div>
+					<div class="col-sm-2">
+						<gg-text-compact [text]="sap.equipeInfo || ''" [extraTooltipText]="sap.extraEquipeInfo"></gg-text-compact>
+					</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+				<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId"
+				 (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
 
-		<div class="row">
-			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
-				<div  class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-			</div>
-			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-			</div>
-			<div class="col-sm-2" *ngIf="nbHits > 0">
-				<div  class="btn btn-sm btn-info" (click)="reverseHits()" [ngbTooltip]="'Reverse the sort order of the list.'">reverse</div>
-			</div>
-		</div>
+</gg-search-box>
 
-	</div>
-</div>
+
+
+
