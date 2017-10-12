@@ -308,6 +308,9 @@
     "HELP": {
       "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
+    "SEARCH HELP": {
+      "MSG1": "RWAL: si l'user contienT 'RWAL'"
+    },
     "LABEL": {
       "FULL NAME": "nom complet:",
       "EMAIL": "adresse e-mail:",
@@ -572,6 +575,10 @@
       "EQUIPE GIVING": "Equipe qui donne:",
       "EQUIPE RECEIVING": "Equipe qui reçoit:",
       "AMOUNT TRANSFERED": "Montant transféré:"
+    },
+    "SEARCH HELP": {
+      "MSG1": "RWAL: si l'équipe contienT 'RWAL'",
+      "MSG2": "RWAL: si l'équipe group contienT 'RWAL'"
     }
   },
   "STOCK": {
@@ -1112,6 +1119,9 @@
       "OFFERS": "Offres"
     },
     "SERVICE": {
+      "SEARCH HELP": {
+        "MSG1": "pme: search for services having 'pme' in either version or descriptioN"
+      },
       "MENU": {
         "LIST OF SERVICES": "Liste de services",
         "ALL SERVICES": "Tous les services",
@@ -1186,6 +1196,9 @@
         }
       },
       "SNAPSHOT": {
+        "SEARCH HELP": {
+          "MSG1": "pme: search for snapshots having 'pme' in either version or descriptioN"
+        },  
         "MENU": {
 
         },
@@ -1277,6 +1290,14 @@
       }
     },
     "OFFER": {
+      "SEARCH HELP": {
+        "MSG1": "pme: search for offers having 'pme' in description or in the offered serviceS",
+        "MSG2": "20170715-GEN: search for offers having '20170715-GEN' in the offer numbeR",
+        "MSG3": "Georges: search for offers having 'Georges' in the client or enterprise namE",
+        "MSG4": "envoyé: search for offers having 'envoyé' in the status of the offeR",
+        "MSG5": "$>200: totals higher than 200 euroS",
+        "MSG6": "$<200: totals less than 200 euroS"
+      },  
       "MENU": {
         "LIST OF OFFERS": "Liste des offres",
         "ADD AN OFFER": "Ajouter une offre",
