@@ -43,7 +43,7 @@ export class OtpChoiceService {
     determineOtp(product, classifications: any[], quantity: number, otpsBudgetMap, currentEquipeId: string): any {
         var totalPrice = +product.price * quantity * 1.21;
         let productCategories: string[] = product.categoryIds ? product.categoryIds : []
-        let productClassifications: string[] = classifications.filter(c => c.categoryIds.filter(catId => productCategories.includes(catId)).length > 0).map(c => c._id)
+        let productClassifications: string[] = classifications.filter(c => c.categoryIds && c.categoryIds.filter(catId => productCategories.includes(catId)).length > 0).map(c => c._id)
         var isFixCostProduct = product.isFixCost
 
         var annotatedOtps: any[] = Array.from(otpsBudgetMap.values())
