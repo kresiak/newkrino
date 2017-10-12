@@ -1,61 +1,42 @@
-<template #searchPopContent>
-	<ul>
+<gg-search-box [objectTypeTranslationKey]="'SUPPLIERS'" [objectsObservable]="suppliersObservable" [fnFilterObjects]="filterSuppliers" (listChanged)="setSuppliers($event)" >
+	<ul searchHelp>
 		<li>{{'SUPPLIER.SEARCH HELP.MSG1' | translate}}</li>
-		<li>{{'SUPPLIER.SEARCH HELP.MSG2' | translate}}</li>
-		<li>{{'SUPPLIER.SEARCH HELP.MSG3' | translate}}</li>
 		<li>{{'SUPPLIER.SEARCH HELP.MSG4' | translate}}</li>
 		<li>{{'SUPPLIER.SEARCH HELP.MSG5' | translate}}</li>
 		<li>{{'SUPPLIER.SEARCH HELP.MSG6' | translate}}</li>
+		<li>{{'SUPPLIER.SEARCH HELP.MSG7' | translate}}</li>
 	</ul>
-</template>
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific supplier</div></template>
 
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
-			</div>
-		</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-3"><b>{{'SUPPLIER.COLUMN.SUPPLIER' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.CITY' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.COUNTRY' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.VOUCHERS' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
-					<template ngbPanelTitle>
-						<div class="row" id="{{supplier.data._id}}">
-							<div class="col-sm-3" [style.font-weight]="supplier.data._id === state.openPanelId ? 'bold' : 'lighter'">{{supplier.data.name}}</div>
-							<div class="col-sm-2">{{supplier.data.city}}</div>
-							<div class="col-sm-2">{{supplier.data.country}}</div>						
-							<div class="col-sm-2">{{supplier.annotation.webShopping.isEnabled ? supplier.annotation.webShopping.nbTotalVouchers + (supplier.annotation.webShopping.nbVouchersOrdered ? ' (' + supplier.annotation.webShopping.nbVouchersOrdered + ' pending)' : '' ) : 'no web' }}</div>
-							<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-						<gg-supplier-detail [supplierId]="supplier.data._id" [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail"
-							[path]="path+'|P:'+supplier.data._id"  (stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-		<div class="row" *ngIf="nbHitsShown < nbHits">
-			<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-		</div>
-		<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-			{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-		</div>
-	</div>
-</div>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-3"><b>{{'SUPPLIER.COLUMN.SUPPLIER' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.CITY' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.COUNTRY' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.VOUCHERS' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
+			<template ngbPanelTitle>
+				<div class="row" id="{{supplier.data._id}}">
+					<div class="col-sm-3" [style.font-weight]="supplier.data._id === state.openPanelId ? 'bold' : 'lighter'">{{supplier.data.name}}</div>
+					<div class="col-sm-2">{{supplier.data.city}}</div>
+					<div class="col-sm-2">{{supplier.data.country}}</div>
+					<div class="col-sm-2">{{supplier.annotation.webShopping.isEnabled ? supplier.annotation.webShopping.nbTotalVouchers + (supplier.annotation.webShopping.nbVouchersOrdered
+						? ' (' + supplier.annotation.webShopping.nbVouchersOrdered + ' pending)' : '' ) : 'no web' }}</div>
+					<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+				<gg-supplier-detail [supplierId]="supplier.data._id" [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail"
+				 [path]="path+'|P:'+supplier.data._id" (stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
+
+</gg-search-box>

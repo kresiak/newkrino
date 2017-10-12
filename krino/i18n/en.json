@@ -19,6 +19,7 @@
     "OTPS": "otps",
     "PRODUCTS": "products",
     "CATEGORIES": "categories",
+    "SUPPLIERS": "suppliers",
     "IN": "in",
     "HOW TO SEARCH": "How to search: examples",
     "HITS": {
@@ -309,7 +310,7 @@
       "SUPER ADMINISTRATOR": "A super administrator has the right to change public data (products, ...) and to create a new labo. Use this with caution please!!"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'user contient 'RWAL'"
+      "MSG1": "john: if the user's name contains 'john'"
     },
     "LABEL": {
       "FULL NAME": "full name:",
@@ -351,13 +352,11 @@
       "EPROC BUTTON": "I have passed the order on e-procurement"
     },
     "SEARCH HELP": {
-      "MSG1": "bru: the supplier's name, city, or country should contain the string 'bru'",
-      "MSG2": "ulg: the supplier is a ulg supplier",
-      "MSG3": "gsvl: the supplier is a gesval supplier",
+      "MSG1": "bru: the supplier's name, SAP id, city, or country should contain the string 'bru'",
       "MSG4": "$w: the supplier is web shopping enabled",
       "MSG5": "$c: the supplier has fix costs entered",
       "MSG6": "$ep: the supplier is a e-procurement supplier",
-      "MSG7": "bru: the supplier's name, SAP id, city, or country should contain the string 'bru'"
+      "MSG7": "04897: the sap ID of the supplier contains '04897"      
     },
     "MENU": {
       "INFO": "Info",

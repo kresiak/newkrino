@@ -1,24 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { DataStore } from './../Shared/Services/data.service'
 import { SupplierService } from './../Shared/Services/supplier.service'
-import { ConfigService } from './../Shared/Services/config.service'
 import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-supplier-list',
         templateUrl: './supplier-list.component.html'
     }
 )
 export class SupplierListComponent implements OnInit {
-    constructor(private dataStore: DataStore, private supplierService: SupplierService, private configService: ConfigService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
+    constructor(private supplierService: SupplierService) {
     }
 
     private suppliers = []; //: Observable<any>;
@@ -34,78 +27,55 @@ export class SupplierListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-    private listName= 'supplierList'
-    private showSearch: boolean= false
-    
-
     private supplierIdsSetWithBasketForCurrentUser: Set<string> = new Set<string>()
 
-    private nbHitsShown: number= 10
-    private nbHitsIncrement: number= 10
-    private nbHits: number
-    private nbHitsShownObservable: BehaviorSubject<number>= new BehaviorSubject<number>(this.nbHitsShown)
     private isPageRunning: boolean = true
 
-    resetSerachControl() {
-        this.searchControl.setValue('')
-    }
-
     setBasketInformation() {
+        if (!this.supplierIdsSetWithBasketForCurrentUser) return
         this.suppliers.forEach(supplier => {
             supplier.annotation.hasBasket = this.supplierIdsSetWithBasketForCurrentUser.has(supplier.data._id)
         })
     }
 
+    filterSuppliers = function (supplier, txt) {   // check that there is no use of this. here... 
+        if (txt === '' || txt === '$') return true
+
+        if (txt.toUpperCase().startsWith('$W')) {
+            return supplier.data.webShopping && supplier.data.webShopping.isEnabled
+        }
+
+        if (txt.toUpperCase().startsWith('$C')) {
+            return supplier.annotation.nbFixCosts > 0
+        }
+
+        if (txt.toUpperCase().startsWith('$E')) {
+            return supplier.data.isEproc
+        }
+
+        return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) ||
+            (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) ||
+            (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) ||
+            (supplier.data.oldId && supplier.data.oldId.toString().toUpperCase().includes(txt)) ||
+            (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt))
+    }
+
+
+
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch= this.configService.listGetSearchText(this.listName)
-        if (initialSearch){ 
-            this.showSearch= true
-            this.searchControl.setValue(initialSearch)
-        }
-        this.nbHitsShownObservable.next(this.nbHitsShown= this.configService.listGetNbHits(this.listName, this.nbHitsShown))
-        
-
-        Observable.combineLatest(this.suppliersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (suppliers, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)
-            let txt: string = searchTxt.trim().toUpperCase();
-            if (txt === '' || txt === '$') return suppliers;
-
-            if (txt.toUpperCase().startsWith('$W')) return suppliers.filter(supplier => supplier.data.webShopping && supplier.data.webShopping.isEnabled)
-            if (txt.toUpperCase().startsWith('$C')) return suppliers.filter(supplier => supplier.annotation.nbFixCosts > 0)
-            if (txt.toUpperCase().startsWith('$E')) return suppliers.filter(supplier => supplier.data.isEproc)
-
-            return suppliers.filter(supplier => {
-                return (supplier.data.name && supplier.data.name.toUpperCase().includes(txt)) ||
-                    (supplier.data.city && supplier.data.city.toUpperCase().includes(txt)) ||
-                    (supplier.data.country && supplier.data.country.toUpperCase().includes(txt)) ||
-                    (supplier.data.oldId && supplier.data.oldId.toString().toUpperCase().includes(txt)) ||
-                    (supplier.data.sapId && supplier.data.sapId.toString().toUpperCase().includes(txt))
-
-            });
-        }).do(suppliers => {
-            this.nbHits= suppliers.length
-        })
-        .switchMap(suppliers => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return suppliers.slice(0, nbItems)
-            })
-        }).takeWhile(() => this.isPageRunning).subscribe(suppliers => {
-            if (!comparatorsUtils.softCopy(this.suppliers, suppliers))
-            {
-                this.suppliers= comparatorsUtils.clone(suppliers)
-            }
-            this.setBasketInformation()
-        });
-
 
         this.supplierService.getSupplierIdsSetObservableWithBasketForCurrentUser().takeWhile(() => this.isPageRunning).subscribe(idsSet => {
             this.supplierIdsSetWithBasketForCurrentUser = idsSet
             this.setBasketInformation()
         })
     }
+
+    setSuppliers(suppliers) {
+        this.suppliers = suppliers
+        this.setBasketInformation()
+    }
+
 
     ngOnDestroy(): void {
         this.isPageRunning = false
@@ -126,10 +96,5 @@ export class SupplierListComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
-    private moreHits() {
-        this.nbHitsShown+= this.nbHitsIncrement
-        this.configService.listSaveNbHits(this.listName, this.nbHitsShown)        
-        this.nbHitsShownObservable.next(this.nbHitsShown)
-    }
 }
 
