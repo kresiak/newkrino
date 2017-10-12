@@ -576,6 +576,10 @@
     }    
   },
   "STOCK": {
+    "SEARCH HELP": {
+      "MSG1": "tip: the product's name, supplier or catalog Nr contains the string 'tip'",
+      "MSG2": "bru: the order should contain the string 'bru'"
+    },
     "MENU": {
       "ORDER PRODUCTS": "Order products",
       "DETAILS": "Details",
@@ -1310,6 +1314,11 @@
         "PASSWORD": "password:",
         "REPEAT PASSWORD": "repeat password:"
       }
+    }
+  },
+  "VOUCHER": {
+    "SEARCH HELP": {
+      "MSG1": "latifa: if the user who ordered or the supplier contains 'latifa'"
     }
   }
 }
