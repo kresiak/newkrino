@@ -20,6 +20,7 @@
     "PRODUCTS": "products",
     "CATEGORIES": "categories",
     "SUPPLIERS": "suppliers",
+    "SUPPLIERSSAP": "sap suppliers",
     "IN": "in",
     "HOW TO SEARCH": "How to search: examples",
     "HITS": {
