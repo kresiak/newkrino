@@ -347,6 +347,15 @@
       "EPROC STATUS": "Permission to shop on e-procurement:",
       "EPROC BUTTON": "I have passed the order on e-procurement"
     },
+    "SEARCH HELP": {
+      "MSG1": "bru: the supplier's name, city, or country should contain the string 'bru'",
+      "MSG2": "ulg: the supplier is a ulg supplier",
+      "MSG3": "gsvl: the supplier is a gesval supplier",
+      "MSG4": "$w: the supplier is web shopping enabled",
+      "MSG5": "$c: the supplier has fix costs entered",
+      "MSG6": "$ep: the supplier is a e-procurement supplier",
+      "MSG7": "bru: the supplier's name, SAP id, city, or country should contain the string 'bru'"
+    },
     "MENU": {
       "INFO": "Info",
       "FIX COSTS": "Fix costs",
@@ -567,6 +576,10 @@
     }    
   },
   "STOCK": {
+    "SEARCH HELP": {
+      "MSG1": "tip: the product's name, supplier or catalog Nr contains the string 'tip'",
+      "MSG2": "bru: the order should contain the string 'bru'"
+    },
     "MENU": {
       "ORDER PRODUCTS": "Order products",
       "DETAILS": "Details",
@@ -1301,6 +1314,11 @@
         "PASSWORD": "password:",
         "REPEAT PASSWORD": "repeat password:"
       }
+    }
+  },
+  "VOUCHER": {
+    "SEARCH HELP": {
+      "MSG1": "latifa: if the user who ordered or the supplier contains 'latifa'"
     }
   }
 }
