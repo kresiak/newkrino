@@ -49,6 +49,9 @@
 			<div class="col-sm-2" *ngIf="hasReport && nbHits > 0">
 				<div class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.' + objectTypeTranslationKey + ' REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
 			</div>
+			<div class="col-sm-2" *ngIf="nbHits > 1">
+				<div class="btn btn-sm btn-info" (click)="reverseHits()" [ngbTooltip]="'GENERAL.REVERSE SORT TIP' | translate">{{'GENERAL.REVERSE SORT' | translate}}</div>
+			</div>
 		</div>
 
     </div>

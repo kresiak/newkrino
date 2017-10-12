@@ -160,6 +160,22 @@ export class OrderListComponent implements OnInit {
         this.stateChanged.next(this.state);
     }
 
+    private sortFnObservable: BehaviorSubject<any> = new BehaviorSubject<any>(undefined)
+    private sortKey: string= undefined
+
+    private setSortKey(sortKey) {
+        this.sortKey = sortKey === this.sortKey ? undefined : sortKey
+        var fn: any
+
+        if (!this.sortKey) {
+            fn= undefined
+        }
+        else if (this.sortKey === 'SUPPLIER') {
+            fn= (a, b) => a.annotation.supplier <= b.annotation.supplier ? -1 : 1
+        }
+
+        this.sortFnObservable.next(fn)
+    }
 
 }
 

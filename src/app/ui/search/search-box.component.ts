@@ -26,6 +26,8 @@ export class SearchBoxComponent implements OnInit {
     private moneyTotal: number = 0
     private objectTypeText: string
 
+    private isReverse: boolean = false
+    private isReverseObservable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isReverse)
 
     constructor(private configService: ConfigService) {
         this.searchForm = new FormGroup({
@@ -42,6 +44,7 @@ export class SearchBoxComponent implements OnInit {
     @Input() hasReport: boolean = false
     @Input() fnFilterObjects
     @Input() fnCalculateTotal
+    @Input() sortFunctionObservable: Observable<any>
 
     @Output() listChanged = new EventEmitter(true);  // the true parameter is important to make the this.searchChanged.next() call asynchr and thus to avaoid the error: `ExpressionChangedAfterItHasBeenCheckedError` (https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4)
     @Output() reportNeeded = new EventEmitter(true);
@@ -62,19 +65,30 @@ export class SearchBoxComponent implements OnInit {
         }).do(objects => {
             this.nbHits = objects.length
             this.moneyTotal = this.fnCalculateTotal ? this.fnCalculateTotal(objects) : 0
-            this.allObjects = objects            
+            this.allObjects = objects
         }).switchMap(objects => {
-            return this.nbHitsShownObservable.map(nbItems => {
-                return objects.slice(0, nbItems)
-            })
+                if (!this.sortFunctionObservable) return Observable.from([objects])
+                var objectsCopy = comparatorsUtils.clone(objects)
+                return this.sortFunctionObservable.map(fn => {
+                    return fn ? objectsCopy.sort(fn) : objects
+                })
+        }).switchMap(objects => {
+                var objectsCopy = comparatorsUtils.clone(objects)
+                return this.isReverseObservable.map(isReverse => {
+                    return isReverse ? objectsCopy.reverse() : objects
+                })
+        }).switchMap(objects => {
+                return this.nbHitsShownObservable.map(nbItems => {
+                    return objects.slice(0, nbItems)
+                })
         }).takeWhile(() => this.isPageRunning).subscribe(o => {
-            if (!comparatorsUtils.softCopy(this.objects, o))
-                this.objects = comparatorsUtils.clone(o)
-            this.listChanged.next(this.objects)
-        })
+                if (!comparatorsUtils.softCopy(this.objects, o))
+                    this.objects = comparatorsUtils.clone(o)
+                this.listChanged.next(this.objects)
+            })
 
         this.configService.getTranslationWord('GENERAL.' + this.objectTypeTranslationKey).subscribe(txt => {
-            this.objectTypeText= txt
+            this.objectTypeText = txt
         })
     }
 
@@ -99,5 +113,11 @@ export class SearchBoxComponent implements OnInit {
     createReport() {
         this.reportNeeded.next(this.allObjects)
     }
+
+    private reverseHits() {
+        this.isReverse = !this.isReverse
+        this.isReverseObservable.next(this.isReverse)
+    }
+
 }
 
