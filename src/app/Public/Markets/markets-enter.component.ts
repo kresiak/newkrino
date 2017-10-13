@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../../Shared/Services/data.service'
+import { AuthAnoynmousService } from './../../Shared/Services/auth-anonymous.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import * as utilsdate from './../../Shared/Utils/dates'
 
 @Component(
     {
@@ -13,11 +15,11 @@ export class MarketsEnterComponent implements OnInit {
     isPageRunning: boolean = true;
     private marketsEnterForm: FormGroup
 
-    constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authAnoynmousService: AuthAnoynmousService) {
     }
 
 
-    ngOnInit(): void {
+    ngOnInit(): void {        
 
         this.marketsEnterForm = this.formBuilder.group({
             nameOfProduct: ['', [Validators.required, Validators.minLength(2)]],
@@ -36,6 +38,8 @@ export class MarketsEnterComponent implements OnInit {
                     var theProduct = products[0]
                     if (!theProduct.items) theProduct.items = []
                     theProduct.items.push({
+                        date: utilsdate.nowFormated(),
+                        userId: this.authAnoynmousService.getUserId(),
                         supplier: formValue.supplier,
                         catalogNr: formValue.catalogNr,
                         price: formValue.price,
@@ -48,6 +52,8 @@ export class MarketsEnterComponent implements OnInit {
                         name: formValue.nameOfProduct,
                         package: formValue.package,
                         items: [{
+                            date: utilsdate.nowFormated(),
+                            userId: this.authAnoynmousService.getUserId(),
                             supplier: formValue.supplier,
                             catalogNr: formValue.catalogNr,
                             price: formValue.price,

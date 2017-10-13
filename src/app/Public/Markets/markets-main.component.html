@@ -17,13 +17,67 @@
 
                             <div accordion class="card">
                                 <div class="card-block">
-                                    <div class="row" *ngFor="let prodList of productsList">
-                                        <div class="col-sm-3">{{prodList.name}}</div>
-                                        <div class="col-sm-3">{{prodList.package}}</div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2 vcenter">
+                                            <b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b>
+                                        </div>
+                                        <div class="col-sm-2 vcenter">
+                                            <b>{{'PRODUCT.COLUMN.PACKAGE' | translate}}</b>
+                                        </div>
+                                        <div class="col-sm-3 vcenter">
+                                            <b>{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</b>
+                                        </div>
+                                        <div class="col-sm-3 vcenter">
+                                            <b>{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" *ngFor="let product of productsList">
+                                        <!--FOR-->
+                                        <div class="row">
+                                            <div class="col-sm-2 vcenter">{{product.data.name}}</div>
+                                            <div class="col-sm-2 vcenter">{{product.data.package}}</div>
+                                            <div class="col-sm-3 vcenter">{{product.annotation.suppliersTxt}}</div>
+                                            <div class="col-sm-3 vcenter">{{product.annotation.catNrTxt}}</div>
+                                            <div class="col-sm-1 vcenter" *ngIf="product.data.items.length > 0">
+                                                <button type="button" class="btn btn-link" (click)="product.isClosed=!product.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" [ngbCollapse]="!product.isClosed">
+                                            <!--Only for grouped baskets-->
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="card">
+                                                    <div class="row">
+                                                        <div class="col-sm-1 vcenter">{{'PRODUCT.COLUMN.WHEN' | translate}}</div>
+                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.WHO' | translate}}</div>
+                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</div>
+                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</div>
+                                                        <div class="col-sm-1 vcenter">{{'PRODUCT.COLUMN.PRICE' | translate}}</div>
+                                                        <div class="col-sm-3 vcenter">{{'PRODUCT.COLUMN.JUSTIFICATION' | translate}}</div>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="row" *ngFor="let item of product.annotation.items; let itemPos = index">
+                                                            <!--FOR-->
+                                                            <div class="col-sm-1 vcenter">
+                                                                <gg-date-pointer [date]="item.data.date"></gg-date-pointer>
+                                                            </div>
+                                                            <div class="col-sm-2 vcenter">{{item.annotation.user}}</div>
+                                                            <div class="col-sm-2 vcenter">{{item.data.supplier}}</div>
+                                                            <div class="col-sm-2 vcenter">{{item.data.catalogNr}}</div>
+                                                            <div class="col-sm-1 vcenter">{{item.data.price | currency:'EUR':true:'1.2-2'}}</div>
+                                                            <div class="col-sm-3 vcenter">{{item.data.justification}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </gg-search-box>
                     </div>
                 </div>
