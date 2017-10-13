@@ -1,55 +1,39 @@
-<template #searchPopContent>
-	<ul>
+<gg-search-box [objectTypeTranslationKey]="'STOCK PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="filterProducts" (listChanged)="products = $event">
+	<ul searchHelp>
 		<li>{{'STOCK.SEARCH HELP.MSG1' | translate}}</li>
 	</ul>
-</template>
+
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-3"><b>{{'STOCK.COLUMN.PRODUCT' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'STOCK.COLUMN.CATALOG NR' | translate}}</b></div>
+					<div class="col-sm-3"><b>{{'STOCK.COLUMN.SUPPLIER' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
+					<div *ngIf="accentOnOrdering" class="col-sm-2"><b>{{'STOCK.COLUMN.RESERVED BY MYSELF' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let product of products" [id]="product.key">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-3">{{product.values[0].annotation.product}} <span [style.color]="'red'">{{hasManualChanges(product.key) ? '(with manual changes!!)' : ''}}</span></div>
+					<div class="col-sm-2">{{product.values[0].annotation.catalogNr}}</div>
+					<div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
+					<div class="col-sm-2">{{nbAvailable(product)}}</div>
+					<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+
+				<gg-stock-detail [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
+				 (stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
 
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific product</div></template>
-
-<div class="card" *ngIf="products ">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				<img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-				/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
-					src="../../images/close.png" (click)="resetSerachControl()" />
-			</div>
-		</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-3"><b>{{'STOCK.COLUMN.PRODUCT' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'STOCK.COLUMN.CATALOG NR' | translate}}</b></div>
-							<div class="col-sm-3"><b>{{'STOCK.COLUMN.SUPPLIER' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
-							<div *ngIf="accentOnOrdering" class="col-sm-2"><b>{{'STOCK.COLUMN.RESERVED BY MYSELF' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let product of products" [id]="product.key">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-3">{{product.values[0].annotation.product}} <span [style.color]="'red'">{{hasManualChanges(product.key) ? '(with manual changes!!)' : ''}}</span></div>
-							<div class="col-sm-2">{{product.values[0].annotation.catalogNr}}</div>
-							<div class="col-sm-3">{{product.values[0].annotation.supplier}}</div>
-							<div class="col-sm-2">{{nbAvailable(product)}}</div>
-							<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-
-						<gg-stock-detail [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
-							(stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>						
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-	</div>
-</div>
+</gg-search-box>

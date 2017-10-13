@@ -24,6 +24,7 @@
     "SUPPLIERS": "suppliers",
     "SUPPLIERSSAP": "sap suppliers",
     "SAPS": "sap items",
+    "STOCK PRODUCTS": "stock products",
     "IN": "in",
     "HOW TO SEARCH": "How to search: examples",
     "HITS": {
@@ -588,7 +589,8 @@
   "STOCK": {
     "SEARCH HELP": {
       "MSG1": "tip: the product's name, supplier or catalog Nr contains the string 'tip'",
-      "MSG2": "bru: the order should contain the string 'bru'"
+      "MSG2": "john: the order has been made by a user or a project team containing 'john'",
+      "MSG3": "tip: the product ordered (or its catalog number) contains 'tip'"      
     },
     "MENU": {
       "ORDER PRODUCTS": "Order products",

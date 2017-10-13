@@ -25,6 +25,7 @@
     "SUPPLIERS": "fournisseur(s)",    
     "SUPPLIERSSAP": "fournisseur(s) sap",
     "SAPS": "pièce(s) sap",
+    "STOCK PRODUCTS": "produit(s) stock",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
@@ -586,8 +587,9 @@
   },
   "STOCK": {
     "SEARCH HELP": {
-      "MSG1": "tip: the product's name, supplier or catalog Nr contains the string 'tiP'",
-      "MSG2": "bru: the order should contain the string 'brU'"
+      "MSG1": "tip: trouver les produits dont le nom, le fournisseur ou le numéro catalogue contient 'tip'",
+      "MSG2": "john: trouver les commandes dont le nom de l'utilisateur qui commande (ou son équipe) contient 'john'",
+      "MSG3": "tip: trouver les commandes dont le produit commandé (ou son numéro de catalogue) contient 'tip'"
     },
     "MENU": {
       "ORDER PRODUCTS": "Commander des produits",

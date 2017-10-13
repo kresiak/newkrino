@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { ProductService } from './../Shared/Services/product.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -16,9 +14,6 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 )
 export class StockListComponent implements OnInit {
     constructor() {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
     }
 
     private products; //: Observable<any>;
@@ -28,29 +23,23 @@ export class StockListComponent implements OnInit {
     @Input() accentOnOrdering: boolean = true
     @Output() stateChanged = new EventEmitter();
 
-    subscriptionProducts: Subscription
-    searchControl = new FormControl();
-    searchForm;
-
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
+    filterProducts = function (product, txt) {
+        return product.values[0].annotation.product && (product.values[0].annotation.product.toUpperCase().includes(txt.toUpperCase()) 
+                                                || product.values[0].annotation.supplier.toUpperCase().includes(txt.toUpperCase())
+                                                || product.values[0].annotation.catalogNr.toUpperCase().includes(txt.toUpperCase())
+                                            )
+    }
+
     ngOnInit(): void {
         this.stateInit();
-
-        this.subscriptionProducts = Observable.combineLatest(this.productsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (products, searchTxt: string) => {
-            if (searchTxt.trim() === '') return products;
-            return products.filter(product => product.values[0].annotation.product && (product.values[0].annotation.product.toUpperCase().includes(searchTxt.toUpperCase()) 
-                                                || product.values[0].annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase())
-                                                || product.values[0].annotation.catalogNr.toUpperCase().includes(searchTxt.toUpperCase())
-                                            ));
-        }).subscribe(products => this.products = products);
     }
 
     ngOnDestroy(): void {
-        this.subscriptionProducts.unsubscribe()
     }
 
     getProductObservable(id: string): Observable<any> {
@@ -62,10 +51,6 @@ export class StockListComponent implements OnInit {
 
     nbAvailable(product) {
         return product ? product.values.reduce((acc, b) => acc + b.annotation.nbAvailable, 0) : 0;
-    }
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
     }
 
 
