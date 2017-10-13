@@ -34,8 +34,8 @@ export class MarketsMainComponent implements OnInit {
                 return {
                     data: product,
                     annotation: {
-                        suppliersTxt: product.items.reduce((i1, i2) => i1.supplier + ', ' + i2.supplier),
-                        catNrTxt: product.items.reduce((i1, i2) => i1.catalogNr + ', ' + i2.catalogNr),
+                        suppliersTxt: product.items.reduce((acc, i2) => acc + (acc ? ', ': '') + i2.supplier, ''),
+                        catNrTxt: product.items.reduce((acc, i2) =>  acc + ((acc && i2.catalogNr) ? ', ': '') + i2.catalogNr, ''),
                         items: product.items.map(item => {
                             var theUser= users.filter(u => u.data._id === item.userId)[0]
                             return {
