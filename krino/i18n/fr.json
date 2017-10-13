@@ -26,6 +26,7 @@
     "SUPPLIERSSAP": "fournisseur(s) sap",
     "SAPS": "pièce(s) sap",
     "STOCK PRODUCTS": "produit(s) stock",    
+    "STOCK ORDERS": "commande(s) stock",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
