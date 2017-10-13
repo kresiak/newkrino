@@ -1349,7 +1349,8 @@
         "MSG4": "vwr: trouver les produits avec un fournisseur dont le nom contient 'vwr'"        
       },
       "ACTION":{
-        "SUBMIT NEW PROD AND AGAIN SAME": "Envoyer et entrer encore une offre pour le même produit"
+        "SUBMIT NEW PROD AND AGAIN SAME": "Envoyer et entrer encore une offre pour le même produit",
+        "SHOW/HIDE DOCS": "Voir/cacher documents"
       }
     }
   },

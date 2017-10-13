@@ -1352,7 +1352,8 @@
         "MSG4": "vwr: list of products of supplier the name of which is containing 'vwr'"
       },
       "ACTION":{
-        "SUBMIT NEW PROD AND AGAIN SAME": "Submit and enter another offer for the same product"
+        "SUBMIT NEW PROD AND AGAIN SAME": "Submit and enter another offer for the same product",
+        "SHOW/HIDE DOCS": "Show/Hide documents"
       }
     }
   },
