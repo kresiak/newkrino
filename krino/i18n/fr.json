@@ -27,6 +27,7 @@
     "SAPS": "pièce(s) sap",
     "STOCK PRODUCTS": "produit(s) stock",    
     "STOCK ORDERS": "commande(s) stock",    
+    "MARKET PRODUCTS": "produit(s)",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
@@ -1326,23 +1327,34 @@
   },
   "PUBLIC": {
     "MENU": {
-      "REGISTER AS A USER": "Register as a useR",
+      "REGISTER AS A USER": "Créer un nouveau compte",
       "MARCHÉS ULG": "Marchés UlG"
     },
     "IDENTIFICATION": {
       "LABEL": {
-        "FIRST NAME": "first namE:",
-        "LAST NAME": "last namE:",
-        "E-MAIL ADDRESS": "e-mail addresS:",
-        "LABO": "labO:",
-        "PASSWORD": "passworD:",
-        "REPEAT PASSWORD": "repeat passworD:"
+        "FIRST NAME": "prénom:",
+        "LAST NAME": "nom de famille:",
+        "E-MAIL ADDRESS": "adresse e-mail:",
+        "LABO": "labo:",
+        "PASSWORD": "mot de passe:",
+        "REPEAT PASSWORD": "mot de passe (encore une fois):"
+      }
+    },
+    "MARKET": {
+      "SEARCH HELP": {
+        "MSG1": "tip: trouver les produits dont le nom contient 'tip'",
+        "MSG2": "10 ml: trouver les produits dont le conditionnement contient '10 ml'",
+        "MSG3": "145-6: trouver les produits avec un numéro catalogue contenant '145-6'",
+        "MSG4": "vwr: trouver les produits avec un fournisseur dont le nom contient 'vwr'"        
+      },
+      "ACTION":{
+        "SUBMIT NEW PROD AND AGAIN SAME": "Envoyer et entrer encore une offre pour le même produit"
       }
     }
   },
   "VOUCHER": {
     "SEARCH HELP": {
-      "MSG1": "latifa: if the user who ordered or the supplier contains 'latifA'"
+      "MSG1": "tips: coupons dont le nom de l'utilisateur ou le fournisseur associé au coupon contient 'latifa'"
     }
   }
 }

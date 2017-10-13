@@ -9,18 +9,28 @@ import { DataStore } from './../../Shared/Services/data.service'
     }
 )
 export class MarketsMainComponent implements OnInit {
-    isPageRunning: boolean= true;
+    productsObservable: Observable<any[]>;
+    isPageRunning: boolean = true;
     private productsList: any[]
 
-    constructor( private dataStore: DataStore) {
+
+    constructor(private dataStore: DataStore) {
+    }
+
+    fnFilterProduct(product, txt) {
+        return (product.name.toUpperCase().includes(txt.toUpperCase())
+            || product.catalogNr.toUpperCase().includes(txt.toUpperCase())
+            || product.supplier.toUpperCase().includes(txt.toUpperCase())
+            || product.package.toUpperCase().includes(txt.toUpperCase())
+        )
     }
 
     ngOnInit(): void {
-
-        this.dataStore.getDataObservable('products.market').subscribe(productsList => {
-            this.productsList= productsList
-        })
-
+        this.productsObservable = this.dataStore.getDataObservable('products.market')
+        /*        this.dataStore.getDataObservable('products.market').subscribe(productsList => {
+                    this.productsList= productsList
+                })
+        */
     }
 
     ngOnDestroy(): void {

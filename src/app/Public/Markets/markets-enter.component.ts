@@ -10,12 +10,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
     }
 )
 export class MarketsEnterComponent implements OnInit {
-    isPageRunning: boolean= true;
+    isPageRunning: boolean = true;
     private marketsEnterForm: FormGroup
 
-    constructor( private dataStore: DataStore, private formBuilder: FormBuilder ) {
+    constructor(private dataStore: DataStore, private formBuilder: FormBuilder) {
     }
-    
+
+
     ngOnInit(): void {
 
         this.marketsEnterForm = this.formBuilder.group({
@@ -23,29 +24,52 @@ export class MarketsEnterComponent implements OnInit {
             package: ['', [Validators.required, Validators.minLength(2)]],
             supplier: [''],
             catalogNr: [''],
-            price: [''] ,           
+            price: [''],
             justification: ['']
         });
     }
 
-    save(formValue, isValid) {
-        this.dataStore.addData('products.market', {
-            name: formValue.nameOfProduct,
-            package: formValue.package,
-            supplier: formValue.supplier,
-            catalogNr: formValue.catalogNr,
-            price: formValue.price,
-            justification: formValue.justification
-        }).first().subscribe(res => {
-        var x = res;
-        this.resetMarketsEnterForm();
-        });
+    save(formValue, isValid, resteAll: boolean) {
+        this.dataStore.getDataObservable('products.market').first().map(products => products.filter(p => p.name.toUpperCase().trim() === formValue.nameOfProduct.toUpperCase().trim() && p.package.toUpperCase().trim() === formValue.package.toUpperCase().trim()))
+            .switchMap(products => {
+                if (products.length > 0) {
+                    var theProduct = products[0]
+                    if (!theProduct.items) theProduct.items = []
+                    theProduct.items.push({
+                        supplier: formValue.supplier,
+                        catalogNr: formValue.catalogNr,
+                        price: formValue.price,
+                        justification: formValue.justification
+                    })
+                    return this.dataStore.updateData('products.market', theProduct._id, theProduct)
+                }
+                else {
+                    var newProduct = {
+                        name: formValue.nameOfProduct,
+                        package: formValue.package,
+                        items: [{
+                            supplier: formValue.supplier,
+                            catalogNr: formValue.catalogNr,
+                            price: formValue.price,
+                            justification: formValue.justification
+                        }]
+                    }
+                    return this.dataStore.addData('products.market', newProduct)
+                }
+            }).subscribe(res => {
+                this.resetMarketsEnterForm(resteAll);
+            })
     }
-        
-    resetMarketsEnterForm() {
-        this.marketsEnterForm.reset();
+
+    resetMarketsEnterForm(resetAll: boolean) {
+        if (resetAll) this.marketsEnterForm.controls['nameOfProduct'].setValue('')
+        if (resetAll) this.marketsEnterForm.controls['package'].setValue('')
+        this.marketsEnterForm.controls['supplier'].setValue('')
+        this.marketsEnterForm.controls['catalogNr'].setValue('')
+        this.marketsEnterForm.controls['price'].setValue('')
+        this.marketsEnterForm.controls['justification'].setValue('')
     }
-        
+
     ngOnDestroy(): void {
         this.isPageRunning = false
     }

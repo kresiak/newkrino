@@ -1,24 +1,38 @@
+<div class="card-block">
+    <ngb-tabset>
+        <!-- (tabChange)="beforeTabChange($event)" [activeId]="initTabId"-->
+        <ngb-tab title="List of products" id="tabListOfProducts">
+            <template ngbTabContent>
+                <div class="card">
+                    <div class="card-block">
 
-    <div class="card-block">
-        <ngb-tabset> <!-- (tabChange)="beforeTabChange($event)" [activeId]="initTabId"-->
-            <ngb-tab title="List of products" id="tabListOfProducts">
-                <template ngbTabContent>
-                    <div class="card">
-                        <div class="card-block">
-                            <div class="row" *ngFor="let prodList of productsList">
-                        
-                                <div class="col-sm-3">{{prodList.name}}</div>
-                                <div class="col-sm-3">{{prodList.package}}</div>
+                        <gg-search-box [objectTypeTranslationKey]="'MARKET PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="fnFilterProduct"
+                            (listChanged)="productsList = $event">
+                            <ul searchHelp>
+                                <li>{{'PUBLIC.MARKET.SEARCH HELP.MSG1' | translate}}</li>
+                                <li>{{'PUBLIC.MARKET.SEARCH HELP.MSG2' | translate}}</li>
+                                <li>{{'PUBLIC.MARKET.SEARCH HELP.MSG3' | translate}}</li>
+                                <li>{{'PUBLIC.MARKET.SEARCH HELP.MSG4' | translate}}</li>
+                            </ul>
+
+                            <div accordion class="card">
+                                <div class="card-block">
+                                    <div class="row" *ngFor="let prodList of productsList">
+                                        <div class="col-sm-3">{{prodList.name}}</div>
+                                        <div class="col-sm-3">{{prodList.package}}</div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            
+                        </gg-search-box>
                     </div>
-                </template>
-            </ngb-tab>
-            <ngb-tab title="Enter new product" id="tabEnterNewProduct">
-                <template ngbTabContent>
-                    <gg-enter-market-product></gg-enter-market-product>
-                </template>
-            </ngb-tab>
-        </ngb-tabset>
-    </div>
-
+                </div>
+            </template>
+        </ngb-tab>
+        <ngb-tab title="Enter new product" id="tabEnterNewProduct">
+            <template ngbTabContent>
+                <gg-enter-market-product></gg-enter-market-product>
+            </template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

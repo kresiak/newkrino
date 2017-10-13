@@ -26,6 +26,7 @@
     "SAPS": "sap items",
     "STOCK PRODUCTS": "stock products",
     "STOCK ORDERS": "stock orders",
+    "MARKET PRODUCTS": "products",
     "IN": "in",
     "HOW TO SEARCH": "How to search: examples",
     "HITS": {
@@ -1340,6 +1341,17 @@
         "LABO": "labo:",
         "PASSWORD": "password:",
         "REPEAT PASSWORD": "repeat password:"
+      }
+    },
+    "MARKET": {
+      "SEARCH HELP": {
+        "MSG1": "tip: list of products with a name containing 'tip'",
+        "MSG2": "10 ml: list of products with a packaging containing '10 ml'",
+        "MSG3": "145-6: list of products with a catalog number containing '145-6'",
+        "MSG4": "vwr: list of products of supplier the name of which is containing 'vwr'"
+      },
+      "ACTION":{
+        "SUBMIT NEW PROD AND AGAIN SAME": "Submit and enter another offer for the same product"
       }
     }
   },

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-block">
         <div class="container-fluid">
-            <form [formGroup]="marketsEnterForm" (ngSubmit)="save(marketsEnterForm.value, marketsEnterForm.valid)">
+            <form [formGroup]="marketsEnterForm" (ngSubmit)="save(marketsEnterForm.value, marketsEnterForm.valid, true)">
                 <div class="form-group row">
                     <label for="nameOfProduct" class="col-sm-2 col-form-label col-xl-2">name of product:</label>
                     <div class="col-sm-10">
@@ -39,10 +39,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-md-2 col-lg-2">
-                        <button class="btn btn-success" type="submit" [disabled]="!marketsEnterForm.valid">{{'FORM.SUBMIT' | translate}}</button>
+                    <div class="col-sm-3 col-md-2 ">
+                        <button class="btn btn-success" type="button" (click)="save(marketsEnterForm.value, marketsEnterForm.valid, true)" [disabled]="!marketsEnterForm.valid">{{'FORM.SUBMIT' | translate}}</button>
                     </div>
-                    <div class="col-sm-3 col-md-2 col-lg-2">
+                    <div class="col-sm-3 col-md-4" >
+                        <button class="btn btn-success" type="button" (click)="save(marketsEnterForm.value, marketsEnterForm.valid, false)" [disabled]="!marketsEnterForm.valid">{{'PUBLIC.MARKET.ACTION.SUBMIT NEW PROD AND AGAIN SAME' | translate}}</button>
+                    </div>
+                    <div class="col-md-2 ">
                         <button class="btn btn-info" [disabled]="marketsEnterForm.pristine" (click)="resetMarketsEnterForm()">{{'FORM.RESET' | translate}}</button>
                     </div>
                 </div>
