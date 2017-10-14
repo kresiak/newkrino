@@ -15,10 +15,12 @@ export class CheckboxDelete {
     @Output() doDelete = new EventEmitter();
 
     private isDueToDelete: boolean= false
+    private hideAll: boolean= false
 
     onCheckedChange() {
         if (this.isDueToDelete)
             this.doDelete.next();
+        this.hideAll= true    
     }
 }
 
