@@ -51,6 +51,17 @@
       "ATTRACT ATTENTION TO OBJECT MSG": "You have been asked to have a look at the comments of an object."
     }
   },
+  "UI": {
+    "CHECKBOX DELETE": {
+      "OBJECT": "object",
+      "CLICK HERE TO SELECT THE": "click here to select the",
+      "FOR DELETION": "for deletion",
+      "CAREFUL THIS WILL" : "Careful! This will delete the selected",
+      "IF YOU ARE SURE": "and can't be undone. Click here if you are sure you want to delete it.",
+      "DELETE": "Delete",
+      "CANCEL": "Cancel"
+    }
+  },
   "HOME": {
     "TITLE": "Hello Angular 2 with ng2-translate!",
     "SELECT": "Change language",
@@ -1345,6 +1356,7 @@
       }
     },
     "MARKET": {
+      "DOCUMENT": "document", 
       "SEARCH HELP": {
         "MSG1": "tip: list of products with a name containing 'tip'",
         "MSG2": "10 ml: list of products with a packaging containing '10 ml'",

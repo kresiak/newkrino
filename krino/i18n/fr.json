@@ -51,6 +51,17 @@
       "ATTRACT ATTENTION TO OBJECT MSG": "On vous prie de jeter un coup d'oeil aux commentaire d'une ressource."
     }
   },
+  "UI": {
+    "CHECKBOX DELETE": {
+      "OBJECT": "obket",
+      "CLICK HERE TO SELECT THE": "clicker ici pour choisir le (la)",
+      "FOR DELETION": "qui va être supprimé(e)",
+      "CAREFUL THIS WILL" : "Attention! Cette action va supprimer le (la)",
+      "IF YOU ARE SURE": ", ce qui ne peut pas être annulé. Clicker ici, si vous êtes certain de vouloir supprimer.",
+      "DELETE": "Supprimer",
+      "CANCEL": "Annuler"
+    }
+  },  
   "HOME": {
     "TITLE": "Bonjour Angular 2 avec ng2-translate !",
     "SELECT": "Changer la langue",
@@ -1342,6 +1353,7 @@
       }
     },
     "MARKET": {
+      "DOCUMENT": "document",       
       "SEARCH HELP": {
         "MSG1": "tip: trouver les produits dont le nom contient 'tip'",
         "MSG2": "10 ml: trouver les produits dont le conditionnement contient '10 ml'",
