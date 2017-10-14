@@ -51,7 +51,10 @@
       "ATTRACT ATTENTION TO OBJECT MSG": "You have been asked to have a look at the comments of an object."
     },
     "OBJECT": {
-      "DELIVERY": "delivery"
+      "DELIVERY": "delivery",
+      "SERVICE": "service",
+      "OFFER": "offer",
+      "PRODUCT": "product"
     }
   },
   "UI": {

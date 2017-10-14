@@ -51,7 +51,10 @@
       "ATTRACT ATTENTION TO OBJECT MSG": "On vous prie de jeter un coup d'oeil aux commentaire d'une ressource."
     },
     "OBJECT": {
-      "DELIVERY": "livraison"
+      "DELIVERY": "livraison",
+      "SERVICE": "service",
+      "OFFER": "offre",
+      "PRODUCT": "produit"
     }
   },
   "UI": {
