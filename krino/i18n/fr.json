@@ -49,6 +49,9 @@
       "NOTIFY USERS LABEL": "Prévenir ces utilisateurs:",
       "NOTIFY USERS TIP": "Optionel: utiliser ceci pour attirer l'attention d'un ou plusieurs utilisateurs au sujet de votre commentaire. N'utiliser cela que si c'est nécessaire.",
       "ATTRACT ATTENTION TO OBJECT MSG": "On vous prie de jeter un coup d'oeil aux commentaire d'une ressource."
+    },
+    "OBJECT": {
+      "DELIVERY": "livraison"
     }
   },
   "UI": {

@@ -282,8 +282,6 @@ export class OrderDetailComponent implements OnInit {
     };
 
     deteteDeliveryItem(orderItem, deliveryItem) {
-        if (!deliveryItem.data.isDueToDelete) return
-        deliveryItem.data.isDueToDelete= false
         var stockId = deliveryItem.data.stockId
         var qty = +deliveryItem.data.quantity
 

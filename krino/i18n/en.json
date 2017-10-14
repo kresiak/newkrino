@@ -49,6 +49,9 @@
       "NOTIFY USERS LABEL": "Notify following users:",
       "NOTIFY USERS TIP": "Optional: Use this to attract attention of one of serveral users regarding your new message. Please use this only if necessary.",
       "ATTRACT ATTENTION TO OBJECT MSG": "You have been asked to have a look at the comments of an object."
+    },
+    "OBJECT": {
+      "DELIVERY": "delivery"
     }
   },
   "UI": {

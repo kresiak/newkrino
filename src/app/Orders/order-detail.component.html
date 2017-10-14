@@ -311,11 +311,7 @@
 													<div class="col-sm-1">{{delivery.data.lotNb}}</div>
 													<div class="col-sm-2 ">{{delivery.annotation.isStock ? 'in stock' : order.annotation.user}}</div>
 													<div class="col-sm-2" *ngIf="authorizationStatusInfo?.isAdministrator()">
-														<input type="checkbox" [ngbTooltip]="'click here to select the delivery for deletion'" *ngIf="!delivery.data.isDueToDelete"
-														 (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete" />
-														<div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected delivery item and can't be undone. Click here if you are sure you want to delete it."
-														 *ngIf="delivery.data.isDueToDelete" (click)="deteteDeliveryItem(item, delivery)">Delete</div>
-														<div class="btn btn-success btn-sm" *ngIf="delivery.data.isDueToDelete" (click)="delivery.data.isDueToDelete= !delivery.data.isDueToDelete">Cancel</div>
+														<gg-checkbox-delete [typeObjectKey]="'GENERAL.OBJECT.DELIVERY'" (doDelete)="deteteDeliveryItem(item, delivery)"></gg-checkbox-delete>
 													</div>
 												</div>
 											</div>
