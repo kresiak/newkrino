@@ -76,12 +76,7 @@
                                                                 </div>
 
                                                                 <div class="col-sm-2  col-md-2 vcenter" *ngIf="authorizationStatusInfo?.isProgrammer()">
-                                                                    <input type="checkbox" [ngbTooltip]="'Dont use this, if you are not Alex! Click here to select the item for deletion'" *ngIf="!historyItem.isDueToDelete"
-                                                                        (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete"
-                                                                    />
-                                                                    <div class="btn btn-warning btn-sm" ngbTooltip="Careful! This will delete the selected item and can't be undone. Click here if you are sure you want to delete it."
-                                                                        *ngIf="historyItem.isDueToDelete" (click)="deteteHistoryItem(stockProduct, historyItem)">Delete</div>
-                                                                    <div class="btn btn-success btn-sm" *ngIf="historyItem.isDueToDelete" (click)="historyItem.isDueToDelete= !historyItem.isDueToDelete">Cancel</div>
+                                                                    <gg-checkbox-delete (doDelete)="deteteHistoryItem(stockProduct, historyItem)"></gg-checkbox-delete>
                                                                 </div>
                                                             </div>
 

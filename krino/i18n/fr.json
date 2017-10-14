@@ -59,9 +59,9 @@
   },
   "UI": {
     "CHECKBOX DELETE": {
-      "OBJECT": "obket",
-      "CLICK HERE TO SELECT THE": "clicker ici pour choisir le (la)",
-      "FOR DELETION": "qui va être supprimé(e)",
+      "OBJECT": "objet",
+      "CLICK HERE TO SELECT THE": "clicker ici pour spécifier que le (la)",
+      "FOR DELETION": "va être supprimé(e)",
       "CAREFUL THIS WILL" : "Attention! Cette action va supprimer le (la)",
       "IF YOU ARE SURE": ", ce qui ne peut pas être annulé. Clicker ici, si vous êtes certain de vouloir supprimer.",
       "DELETE": "Supprimer",
