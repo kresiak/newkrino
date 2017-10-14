@@ -1372,6 +1372,10 @@
       "ACTION":{
         "SUBMIT NEW PROD AND AGAIN SAME": "Submit and enter another offer for the same product",
         "SHOW/HIDE DOCS": "Show/Hide documents"
+      },
+      "MENU": {
+        "CAROUSEL": "Preview documents",
+        "DELETE": "Delete documents"
       }
     }
   },

@@ -1369,7 +1369,11 @@
       "ACTION":{
         "SUBMIT NEW PROD AND AGAIN SAME": "Envoyer et entrer encore une offre pour le même produit",
         "SHOW/HIDE DOCS": "Voir/cacher documents"
-      }
+      },
+      "MENU": {
+        "CAROUSEL": "Visualiser les documents",
+        "DELETE": "Supprimer des documents"
+      }      
     }
   },
   "VOUCHER": {
