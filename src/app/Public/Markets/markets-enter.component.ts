@@ -45,7 +45,7 @@ export class MarketsEnterComponent implements OnInit {
                         catalogNr: formValue.catalogNr,
                         price: formValue.price,
                         justification: formValue.justification,
-                        documents: this.fileDocuments.map(fn => fn.filename)
+                        documents: this.fileDocuments
                     }
                 }
 

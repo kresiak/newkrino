@@ -56,4 +56,9 @@ export class MarketsMainComponent implements OnInit {
         this.isPageRunning = false
     }
 
+    deleteDocument(product, itemPos, docPos) {
+        product.data.items[itemPos].documents.splice(docPos, 1)
+        this.dataStore.updateData('products.market', product.data._id, product.data)
+    }
+
 }

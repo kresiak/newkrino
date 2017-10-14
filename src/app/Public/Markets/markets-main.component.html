@@ -84,7 +84,7 @@
                                                                                             <ngb-carousel>
                                                                                                 <div *ngFor="let document of (item.data.documents || [])">
                                                                                                     <template ngbSlide>
-                                                                                                        <img [src]="dataStore.getPictureUrl(document)">
+                                                                                                        <img [src]="dataStore.getPictureUrl(document.filename)">
                                                                                                         <div class="carousel-caption">
                                                                                                         </div>
                                                                                                     </template>
@@ -98,11 +98,13 @@
                                                                                 <template ngbTabContent>
                                                                                     <div class="card">
                                                                                         <div class="card-block">
-                                                                                            <div class="row" *ngFor="let document of (item.data.documents || [])">
+                                                                                            <div class="row" *ngFor="let document of (item.data.documents || []); let docPos = index">  <!--FOR-->
                                                                                                 <div class="col-sm-3 vcenter">
-                                                                                                    <img style="max-width:50%;max-height:50%" [src]="dataStore.getPictureUrl(document)">
+                                                                                                    <img style="max-width:50%;max-height:50%" [src]="dataStore.getPictureUrl(document.filename)">
                                                                                                 </div>
-                                                                                                <div class="col-sm-2 vcenter">delete</div>
+                                                                                                <div class="col-sm-2 vcenter">
+                                                                                                    <gg-checkbox-delete [typeObjectKey]="'PUBLIC.MARKET.DOCUMENT'" (doDelete)="deleteDocument(product, itemPos, docPos)"></gg-checkbox-delete>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
