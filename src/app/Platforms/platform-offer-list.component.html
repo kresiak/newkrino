@@ -1,64 +1,44 @@
-<template #searchPopContent>
-    <ul>
+<gg-search-box [objectTypeTranslationKey]="'OFFERS'" [objectsObservable]="offersObservable" [fnFilterObjects]="fnFilter" (listChanged)="offersList= $event">
+    <ul searchHelp>
         <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG1' | translate}}</li>
         <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG2' | translate}}</li>
         <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG3' | translate}}</li>
         <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG4' | translate}}</li>
-		<li>{{'PLATFORM.OFFER.SEARCH HELP.MSG5' | translate}}</li>
-		<li>{{'PLATFORM.OFFER.SEARCH HELP.MSG6' | translate}}</li>
+        <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG5' | translate}}</li>
+        <li>{{'PLATFORM.OFFER.SEARCH HELP.MSG6' | translate}}</li>
     </ul>
-</template>
 
-<template #tipSearchLoupe>
-    <div style="font-size: 70%;">Click here to <br/> search specific offers</div>
-</template>
-
-<div class="card">
-    <div class="card-block">
-        <div class="row">
-            <div class="row">
-                <div [formGroup]="searchForm">
-                    <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-                    />
-                    <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-                        placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img
-                        *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()" />
+    <ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
+        <ngb-panel [disabled]="true">
+            <template ngbPanelTitle>
+                <div class="row">
+                    <div class="col-sm-2"><b>Numero</b></div>
+                    <div class="col-sm-3"><b>Client</b></div>
+                    <div class="col-sm-2"><b>Status</b></div>
+                    <div class="col-sm-2"><b>Price</b></div>
+                    <div class="col-sm-3"><b>Products</b></div>
                 </div>
-            </div>
+            </template>
+        </ngb-panel>
+        <ngb-panel *ngFor="let offerItem of offersList" [id]="offerItem.data._id">
+            <template ngbPanelTitle>
+                <div class="row" id="{{offerItem._id}}">
+                    <div class="col-sm-2" [style.font-weight]="offerItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{offerItem.annotation.numero}}</div>
+                    <div class="col-sm-3">
+                        <gg-text-compact [text]="offerItem.annotation.client" [numberOfChar]="40" [extraTooltipText]="offerItem.annotation.clientType"></gg-text-compact>
+                    </div>
+                    <div class="col-sm-2">{{offerItem.annotation.commercialStatus}}</div>
+                    <div class="col-sm-2 gg-price">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                    <div class="col-sm-3">{{offerItem.annotation.serviceTxt}}</div>
+                </div>
+            </template>
+            <template ngbPanelContent>
+                <gg-platform-offer-detail [offerItem]="offerItem"></gg-platform-offer-detail>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
 
-            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)" >
-                <ngb-panel [disabled]="true">
-                    <template ngbPanelTitle>
-                        <div class="row">
-                            <div class="col-sm-2"><b>Numero</b></div>
-                            <div class="col-sm-3"><b>Client</b></div>
-                            <div class="col-sm-2"><b>Status</b></div>
-                            <div class="col-sm-2"><b>Price</b></div>
-                            <div class="col-sm-3"><b>Products</b></div>
-                        </div>
-                    </template>
-                </ngb-panel>
-                <ngb-panel *ngFor="let offerItem of offersList" [id]="offerItem.data._id">
-                    <template ngbPanelTitle>
-                        <div class="row" id="{{offerItem._id}}">
-                            <div class="col-sm-2" [style.font-weight]="offerItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{offerItem.annotation.numero}}</div>
-                            <div class="col-sm-3"><gg-text-compact [text]="offerItem.annotation.client" [numberOfChar]="40" [extraTooltipText]="offerItem.annotation.clientType" ></gg-text-compact></div>
-                            <div class="col-sm-2">{{offerItem.annotation.commercialStatus}}</div>
-                            <div class="col-sm-2 gg-price">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
-                            <div class="col-sm-3">{{offerItem.annotation.serviceTxt}}</div>
-                        </div>
-                    </template>
-                    <template ngbPanelContent>
-                        <gg-platform-offer-detail [offerItem]="offerItem" ></gg-platform-offer-detail>
-                    </template>
-                </ngb-panel>
-            </ngb-accordion>
-        </div>
-        <div class="row" *ngIf="nbHitsShown < nbHits">
-            <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-        </div>
-        <div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-            {{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-        </div>        
-    </div>
-</div>
+
+</gg-search-box>
+
+

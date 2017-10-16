@@ -32,7 +32,8 @@
     "STOCK ORDERS": "commande(s) stock",    
     "MARKET PRODUCTS": "produit(s)",    
     "VOUCHERS": "coupon(s) webshopping",    
-    "SERVICES": "services",    
+    "SERVICES": "service(s)", 
+    "OFFERS": "offre(s)",       
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
@@ -1153,7 +1154,7 @@
     },
     "SERVICE": {
       "SEARCH HELP": {
-        "MSG1": "pme: search for services having 'pme' in either version or descriptioN"
+        "MSG1": "pme: liste des services ayant 'pme' dans la version ou la description"
       },
       "MENU": {
         "LIST OF SERVICES": "Liste de services",
@@ -1230,7 +1231,7 @@
       },
       "SNAPSHOT": {
         "SEARCH HELP": {
-          "MSG1": "pme: search for snapshots having 'pme' in either version or descriptioN"
+          "MSG1": "pme: liste des snapshots aynat 'pme' dans la version ou dans la description"
         },  
         "MENU": {
 
@@ -1324,12 +1325,12 @@
     },
     "OFFER": {
       "SEARCH HELP": {
-        "MSG1": "pme: search for offers having 'pme' in description or in the offered serviceS",
-        "MSG2": "20170715-GEN: search for offers having '20170715-GEN' in the offer numbeR",
-        "MSG3": "Georges: search for offers having 'Georges' in the client or enterprise namE",
-        "MSG4": "envoyé: search for offers having 'envoyé' in the status of the offeR",
-        "MSG5": "$>200: totals higher than 200 euroS",
-        "MSG6": "$<200: totals less than 200 euroS"
+        "MSG1": "pme: liste des offres avec 'pme' dans la description ou dans les services offerts",
+        "MSG2": "20170715-GEN: liste des offres ayant '20170715-GEN' dans le numéro d'offre",
+        "MSG3": "Georges: liste des offres ayant 'Georges' dans le nom du client ou de l'entreprise",
+        "MSG4": "envoyé: liste des offres ayant 'envoyé' dans le statut de l'offre",
+        "MSG5": "$>200: liste des offres dont le total est supérieur à euros",
+        "MSG6": "$<200: liste des offres dont le total est inférieur à euros"
       },  
       "MENU": {
         "LIST OF OFFERS": "Liste des offres",
