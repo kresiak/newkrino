@@ -36,8 +36,6 @@ export class PlatformServiceSnapshotListComponent implements OnInit {
 
     private state
 
-    private clientListObservable
-
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
