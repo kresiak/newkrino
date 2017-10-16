@@ -1375,7 +1375,8 @@
       },
       "MENU": {
         "CAROUSEL": "Preview documents",
-        "DELETE": "Delete documents"
+        "DELETE DOC": "Delete documents",
+        "ADD DOC": "Add documents"
       }
     }
   },

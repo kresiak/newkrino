@@ -1372,7 +1372,8 @@
       },
       "MENU": {
         "CAROUSEL": "Visualiser les documents",
-        "DELETE": "Supprimer des documents"
+        "DELETE DOC": "Supprimer des documents",
+        "ADD DOC": "Ajouter des documents"
       }      
     }
   },

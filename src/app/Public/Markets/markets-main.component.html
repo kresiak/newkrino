@@ -46,7 +46,6 @@
                                         </div>
 
                                         <div class="row" [ngbCollapse]="!product.isClosed">
-                                            <!--Only for grouped baskets-->
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="card">
                                                     <div class="row">
@@ -65,10 +64,10 @@
                                                                     <gg-date-pointer [date]="item.data.date"></gg-date-pointer>
                                                                 </div>
                                                                 <div class="col-sm-2 vcenter">{{item.annotation.user}}</div>
-                                                                <div class="col-sm-2 vcenter">{{item.data.supplier}}</div>
-                                                                <div class="col-sm-2 vcenter">{{item.data.catalogNr}}</div>
-                                                                <div class="col-sm-1 vcenter">{{item.data.price | currency:'EUR':true:'1.2-2'}}</div>
-                                                                <div class="col-sm-2 vcenter">{{item.data.justification}}</div>
+                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.supplier" [showControls]="true" (editSaved)="supplierChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.catalogNr" [showControls]="true" (editSaved)="catalogNrChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-1 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.justification" [showControls]="true" (editSaved)="justificationChanged($event, product, itemPos)"></gg-editor></div>
                                                                 <div class="col-sm-1 vcenter" *ngIf="(item.data.documents || []).length > 0">
                                                                     <button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">{{'PUBLIC.MARKET.ACTION.SHOW/HIDE DOCS' | translate}}</button>
                                                                 </div>
@@ -94,18 +93,29 @@
                                                                                     </div>
                                                                                 </template>
                                                                             </ngb-tab>
-                                                                            <ngb-tab title="{{'PUBLIC.MARKET.MENU.DELETE' | translate}}">
+                                                                            <ngb-tab title="{{'PUBLIC.MARKET.MENU.DELETE DOC' | translate}}">
                                                                                 <template ngbTabContent>
                                                                                     <div class="card">
                                                                                         <div class="card-block">
-                                                                                            <div class="row" *ngFor="let document of (item.data.documents || []); let docPos = index">  <!--FOR-->
+                                                                                            <div class="row" *ngFor="let document of (item.data.documents || []); let docPos = index">
+                                                                                                <!--FOR-->
                                                                                                 <div class="col-sm-3 vcenter">
                                                                                                     <img style="max-width:50%;max-height:50%" [src]="dataStore.getPictureUrl(document.filename)">
                                                                                                 </div>
-                                                                                                <div class="col-sm-2 vcenter">
+                                                                                                <div class="col-sm-2 vcenter" *ngIf="isUser(item)">
                                                                                                     <gg-checkbox-delete [typeObjectKey]="'PUBLIC.MARKET.DOCUMENT'" (doDelete)="deleteDocument(product, itemPos, docPos)"></gg-checkbox-delete>
                                                                                                 </div>
                                                                                             </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </template>
+                                                                            </ngb-tab>
+                                                                            <ngb-tab title="{{'PUBLIC.MARKET.MENU.ADD DOC' | translate}}"  *ngIf="isUser(item)">
+                                                                                <template ngbTabContent>
+                                                                                    <div class="card">
+                                                                                        <div class="card-block">
+                                                                                            <image-upload [url]="dataStore.getUploadUrl()" [max]="1" (uploadFinished)="onUploadFinished(product, itemPos,$event)">
+                                                                                            </image-upload>
                                                                                         </div>
                                                                                     </div>
                                                                                 </template>
