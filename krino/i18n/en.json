@@ -20,6 +20,7 @@
     "ORDERS": "orders",
     "OTPS": "otps",
     "PRODUCTS": "products",
+    "USERS": "users",
     "CATEGORIES": "categories",
     "SUPPLIERS": "suppliers",
     "SUPPLIERSSAP": "sap suppliers",

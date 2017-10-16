@@ -1,53 +1,44 @@
-<template #searchPopContent>
-	<ul>
+<gg-search-box [objectTypeTranslationKey]="'USERS'" [objectsObservable]="usersObservable" [fnFilterObjects]="fnFilter"
+ (listChanged)="users=$event">
+	<ul searchHelp>
 		<li>{{'USER.SEARCH HELP.MSG1' | translate}}</li>
 	</ul>
-</template>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-3"><b>{{'USER.COLUMN.FULL NAME' | translate}}</b></div>
+					<div class="col-sm-3"><b>{{'USER.COLUMN.EQUIPE(S)' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'USER.COLUMN.BLOCKED?' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'USER.COLUMN.ADMINISTRATOR?' | translate}}</b></div>
+					<div class="col-sm-2"><b>{{'USER.COLUMN.SUPER ADMINISTRATOR?' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let user of users" [id]="user.data._id">
+			<template ngbPanelTitle>
+				<div class="row" id="{{user.data._id}}">
+					<div class="col-sm-3" [style.font-weight]="user.data._id === state.openPanelId ? 'bold' : 'lighter'">{{user.annotation.fullName}}</div>
+					<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
+					<div class="col-sm-2">{{getBooleanText(user.data.isBlocked) | translate}}</div>
+					<div class="col-sm-2">{{getBooleanText(user.data.isAdmin) | translate}}</div>
+					<div class="col-sm-2">{{getBooleanText(user.data.isSuperAdmin) | translate}}</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific user</div></template>
+				<gg-user-detail [userObservable]="getUserObservable(user.data._id)" [state]="state[user.data._id]" [path]="path+'|P:'+user.data._id"
+				 (stateChanged)="childStateChanged($event, user.data._id)"></gg-user-detail>
 
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				 <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch" src="../../images/close.png" (click)="resetSerachControl()"/>
-			</div>
-		</div>
-		<div class="row">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-3"><b>{{'USER.COLUMN.FULL NAME' | translate}}</b></div>
-							<div class="col-sm-3"><b>{{'USER.COLUMN.EQUIPE(S)' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'USER.COLUMN.BLOCKED?' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'USER.COLUMN.ADMINISTRATOR?' | translate}}</b></div>
-							<div class="col-sm-2"><b>{{'USER.COLUMN.SUPER ADMINISTRATOR?' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let user of users" [id]="user.data._id">
-					<template ngbPanelTitle>
-						<div class="row" id="{{user.data._id}}">
-							<div class="col-sm-3" [style.font-weight]="user.data._id === state.openPanelId ? 'bold' : 'lighter'">{{user.annotation.fullName}}</div>
-							<div class="col-sm-3">{{user.annotation.equipesTxt}}</div>
-							<div class="col-sm-2">{{getBooleanText(user.data.isBlocked) | translate}}</div>
-							<div class="col-sm-2">{{getBooleanText(user.data.isAdmin) | translate}}</div>
-							<div class="col-sm-2">{{getBooleanText(user.data.isSuperAdmin) | translate}}</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-		
-        				<gg-user-detail [userObservable]="getUserObservable(user.data._id)" [state]="state[user.data._id]" [path]="path+'|P:'+user.data._id" 
-						(stateChanged)="childStateChanged($event, user.data._id)"></gg-user-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
+</gg-search-box>
 
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-	</div>
-</div>
+
+
+
+
+
