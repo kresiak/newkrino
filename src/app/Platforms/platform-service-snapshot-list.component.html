@@ -1,15 +1,9 @@
-<div class="row">
-    <div class="row">
-        <div [formGroup]="searchForm">
-            <img src="../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
-            />
-            <input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-                placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch"
-                src="../../images/close.png" (click)="resetSerachControl()" />
-        </div>
-    </div>
+<gg-search-box [objectTypeTranslationKey]="'SNAPSHOTS'" [objectsObservable]="observableSnapshots" [fnFilterObjects]="fnFilter" (listChanged)="setSnapshots($event)">
+    <ul searchHelp>
+        <li>{{'PLATFORM.SERVICE.SNAPSHOT.SEARCH HELP.MSG1' | translate}}</li>
+    </ul>
 
-    <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+    <ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
         <ngb-panel [disabled]="true">
             <template ngbPanelTitle>
                 <div class="row">
@@ -39,10 +33,6 @@
             </template>
         </ngb-panel>
     </ngb-accordion>
-</div>
-<div class="row" *ngIf="nbHitsShown < nbHits">
-    <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-</div>
-<div class="row" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-    {{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-</div>
+
+</gg-search-box>
+

@@ -33,6 +33,7 @@
     "MARKET PRODUCTS": "produit(s)",    
     "VOUCHERS": "coupon(s) webshopping",    
     "SERVICES": "service(s)", 
+    "SNAPSHOTS": "snapshot(s)",    
     "OFFERS": "offre(s)",       
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
@@ -1231,7 +1232,7 @@
       },
       "SNAPSHOT": {
         "SEARCH HELP": {
-          "MSG1": "pme: liste des snapshots aynat 'pme' dans la version ou dans la description"
+          "MSG1": "pme: liste des snapshots ayant 'pme' dans la version ou dans la description"
         },  
         "MENU": {
 

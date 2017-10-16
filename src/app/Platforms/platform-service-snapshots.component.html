@@ -1,14 +1,3 @@
-<template #searchPopContent>
-    <ul>
-        <li>{{'PLATFORM.SERVICE.SNAPSHOT.SEARCH HELP.MSG1' | translate}}</li>
-    </ul>
-</template>
-
-<template #tipSearchLoupe>
-    <div style="font-size: 70%;">Click here to <br/> search specific snapshot</div>
-</template>
-
-
 <ngb-tabset [activeId]="state.selectedTabId">
     <ngb-tab title="List of snapshots" id="tabListOfSnapshots" *ngIf=" observableSnapshots && ((observableSnapshots |async) || []).length > 0">
         <template ngbTabContent>
