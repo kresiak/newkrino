@@ -22,6 +22,8 @@
     "OTPS": "otp(s)",    
     "PRODUCTS": "produit(s)",  
     "USERS": "utilisateur(s)",     
+    "EQUIPES": "équipes",
+    "EQUIPE GROUPS": "groupes d'équipes",    
     "CATEGORIES": "catégorie(s)",    
     "SUPPLIERS": "fournisseur(s)",    
     "SUPPLIERSSAP": "fournisseur(s) sap",
@@ -339,7 +341,7 @@
       "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'user contienT 'RWAL'"
+      "MSG1": "john: si le nom de l'utilisateur contient 'john'"
     },
     "LABEL": {
       "FULL NAME": "nom complet:",
@@ -606,8 +608,8 @@
       "AMOUNT TRANSFERED": "Montant transféré:"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'équipe contienT 'RWAL'",
-      "MSG2": "RWAL: si l'équipe group contienT 'RWAL'"
+      "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",
+      "MSG2": "RWAL: si le nom du groupe d'équipe contient 'RWAL'"
     }
   },
   "STOCK": {

@@ -1,80 +1,44 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
-import { ConfigService } from './../Shared/Services/config.service'
 import { DOCUMENT } from '@angular/platform-browser'
-
-
 
 @Component(
     {
-        //moduleId: module.id,
         selector: 'gg-equipe-list',
         templateUrl: './equipe-list.component.html'
     }
 )
 export class EquipeListComponent implements OnInit {
-    constructor(private configService: ConfigService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
+    constructor() {
     }
 
     @Input() equipesObservable: Observable<any>;
-    equipes: any
-    equipesSubscription: Subscription
-    
+    equipes: any    
 
     @Input() state;
     @Input() initialTabInEquipeDetail: string = '';
     @Input() path: string= 'equipes'
     @Output() stateChanged = new EventEmitter();
 
-    private listName= 'equipeList'
-    private showSearch: boolean= false
-
-
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
+    fnFilter(equipe, txt) {
+        if (txt.trim() === '') return true;
+        return (equipe.data.name || '').toUpperCase().includes(txt.toUpperCase()) || (equipe.data.description || '').toUpperCase().includes(txt.toUpperCase())
     }
 
     ngOnInit(): void {
         this.stateInit();
-        var initialSearch= this.configService.listGetSearchText(this.listName)
-        if (initialSearch){ 
-            this.showSearch= true
-            this.searchControl.setValue(initialSearch)
-        }
-
-        this.equipesSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch), (equipes, searchTxt: string) => {
-            this.configService.listSaveSearchText(this.listName, searchTxt)
-            if (searchTxt.trim() === '') return equipes;
-            return equipes.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || otp.data.description.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(equipes => this.equipes = equipes);
-        
     }
-
-    ngOnDestroy(): void {
-         this.equipesSubscription.unsubscribe()
-    }
-
-
 
     getEquipeObservable(id: string): Observable<any> {
         return this.equipesObservable.map(equipes => equipes.filter(s => s.data._id === id)[0]);
     }
-
-
 
     // This is typically used for accordions with ngFor, for remembering the open Accordion Panel (see template as well)
     private beforeAccordionChange($event: NgbPanelChangeEvent) {

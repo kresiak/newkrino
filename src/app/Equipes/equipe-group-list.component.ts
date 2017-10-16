@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
 import { EquipeService } from '../Shared/Services/equipe.service';
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
 import { DOCUMENT } from '@angular/platform-browser'
@@ -17,9 +16,6 @@ import { DOCUMENT } from '@angular/platform-browser'
 )
 export class EquipeGroupListComponent implements OnInit {
     constructor(private equipeService: EquipeService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
     }
 
     equipesObservable: Observable<any>;
@@ -36,27 +32,17 @@ export class EquipeGroupListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-    equipeGroupSubscription: Subscription
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
+    fnFilter(equipe, txt) {
+        if (txt.trim() === '') return true;
+        return (equipe.data.name || '').toUpperCase().includes(txt.toUpperCase()) || (equipe.data.description || '').toUpperCase().includes(txt.toUpperCase())
     }
 
     ngOnInit(): void {
         this.stateInit();
         this.equipesObservable = this.equipeService.getAnnotatedEquipesGroups();
-
-        this.equipeGroupSubscription= Observable.combineLatest(this.equipesObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (equipes, searchTxt: string) => {
-            if (searchTxt.trim() === '') return equipes;
-            return equipes.filter(otp => otp.data.name.toUpperCase().includes(searchTxt.toUpperCase()) || otp.data.description.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(equipes => this.equipes = equipes);
-        
     }
 
     ngOnDestroy(): void {
-         this.equipeGroupSubscription.unsubscribe()
     }
 
 

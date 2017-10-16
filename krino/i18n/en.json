@@ -21,6 +21,8 @@
     "OTPS": "otps",
     "PRODUCTS": "products",
     "USERS": "users",
+    "EQUIPES": "projects",
+    "EQUIPE GROUPS": "groups of projects",
     "CATEGORIES": "categories",
     "SUPPLIERS": "suppliers",
     "SUPPLIERSSAP": "sap suppliers",
@@ -607,8 +609,8 @@
       "AMOUNT TRANSFERED": "Amount to be transfered:"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'équipe contient 'RWAL'",
-      "MSG2": "RWAL: si l'équipe group contient 'RWAL'"
+      "MSG1": "RWAL: if the name of the project contains 'RWAL'",
+      "MSG2": "RWAL: if the name of the group of  projects contains 'RWAL'"
     }  
   },
   "STOCK": {
