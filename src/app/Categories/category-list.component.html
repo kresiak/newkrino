@@ -1,6 +1,6 @@
 <gg-search-box [objectTypeTranslationKey]="'CATEGORIES'" [objectsObservable]="categoryObservable" [fnFilterObjects]="filterCategories" (listChanged)="categories=$event">
 	<ul searchHelp>
-		<li>RWAL: si la catégorie contient 'RWAL'</li>
+		<li>{{'CATEGORY.SEARCH HELP.MSG1' | translate}}</li>
 	</ul>
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">

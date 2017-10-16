@@ -300,6 +300,9 @@
       "VIEW CATEGORIES": "Liste de catégories",
       "CREATE CATEGORY": "Créer une catégorie"
     },
+    "SEARCH HELP": {
+      "MSG1": "RWAL: si la catégorie contient 'RWAL'"
+    },
     "LABEL": {
       "CATEGORY": "catégorie",
       "NO OF ARTICLE": "numéro d'article:",
