@@ -1,71 +1,56 @@
-<template #searchPopContent>
-	<ul>
+<gg-search-box [objectTypeTranslationKey]="'VOUCHERS'" [objectsObservable]="vouchersObservable" [fnFilterObjects]="fnFilterVoucher"
+ (listChanged)="vouchers=$event">
+	<ul searchHelp>
 		<li>{{'VOUCHER.SEARCH HELP.MSG1' | translate}}</li>
 	</ul>
-</template>
 
-<template #tipSearchLoupe><div style="font-size: 70%;">Click here to <br/> search specific voucher</div></template>
+	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+		<ngb-panel [disabled]="true">
+			<template ngbPanelTitle>
+				<div class="row">
+					<div class="col-sm-2"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USER' | translate}}</b></div>
 
-<div class="card">
-	<div class="card-block">
-		<div class="row">
-			<div [formGroup]="searchForm">
-				 <img src="../../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"/>
-				<input *ngIf="showSearch" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-					placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img *ngIf="showSearch" src="../../../images/close.png" (click)="resetSerachControl()"/>
-			</div>
-		</div>
-		<div class="card" *ngIf="!vouchers || vouchers.length == 0">
-			<div class="card-block">
-				<div class="centertextbox">Nothing yet in the database for this query</div>
-			</div>
-		</div>		
-		<div class="row" *ngIf="vouchers && vouchers.length > 0">
-			<ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-				<ngb-panel [disabled]="true">
-					<template ngbPanelTitle>
-						<div class="row">
-							<div class="col-sm-2"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USER' | translate}}</b></div>
+					<div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SUPPLIER' | translate}}</b></div>
 
-							<div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SUPPLIER' | translate}}</b></div>
+					<div class="col-sm-3"><b>{{getVoucherUsageText() | translate}} </b></div>
 
-							<div class="col-sm-3"><b>{{getVoucherUsageText() | translate}} </b></div>
+					<div class="col-sm-1"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SAPID' | translate}}</b></div>
 
-							<div class="col-sm-1"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.SAPID' | translate}}</b></div>
+					<div class="col-sm-2" *ngIf="!focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USED' | translate}}</b></div>
+					<div class="col-sm-2" *ngIf="focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.AMOUNT' | translate}}</b></div>
+				</div>
+			</template>
+			<template ngbPanelContent>
 
-							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USED' | translate}}</b></div>
-							<div class="col-sm-2" *ngIf="focusOnVoucherUsage"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.AMOUNT' | translate}}</b></div>
-						</div>
-					</template>
-					<template ngbPanelContent>
+			</template>
+		</ngb-panel>
+		<ngb-panel *ngFor="let voucher of vouchers" [id]="voucher.data._id">
+			<template ngbPanelTitle>
+				<div class="row" id="{{voucher.data._id}}">
+					<div class="col-sm-2" *ngIf="!focusOnVoucherUsage">{{voucher.annotation.user}}</div>
+					<div class="col-sm-2" *ngIf="focusOnVoucherUsage">{{voucher.annotation.user}}/{{voucher.annotation.equipe}}</div>
 
-					</template>
-				</ngb-panel>
-				<ngb-panel *ngFor="let voucher of vouchers" [id]="voucher.data._id">
-					<template ngbPanelTitle>
-						<div class="row" id="{{voucher.data._id}}">
-							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage">{{voucher.annotation.user}}</div>
-							<div class="col-sm-2" *ngIf="focusOnVoucherUsage">{{voucher.annotation.user}}/{{voucher.annotation.equipe}}</div>
+					<div class="col-sm-3">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}</div>
 
-							<div class="col-sm-3">{{voucher.annotation.supplier}}/{{voucher.annotation.category}}</div>
+					<div class="col-sm-3">{{(focusOnVoucherUsage && voucher.data.shopping ? voucher.data.shopping.date : voucher.data.dateCreation) | fullDate}}</div>
 
-							<div class="col-sm-3">{{(focusOnVoucherUsage && voucher.data.shopping ? voucher.data.shopping.date : voucher.data.dateCreation) | fullDate}}</div>
+					<div class="col-sm-1">{{voucher.data.sapId}}</div>
 
-							<div class="col-sm-1">{{voucher.data.sapId}}</div>
+					<div class="col-sm-2" *ngIf="!focusOnVoucherUsage" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}</div>
+					<div class="col-sm-2" *ngIf="focusOnVoucherUsage && voucher.data.shopping">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2' }}</div>
+					<div class="col-sm-1">
+						<img *ngIf="voucher.data.delivery=='partial'" src="../../../images/shipping.png" /><img *ngIf="voucher.data.delivery=='complete'"
+						 src="../../../images/ok.png" />
+					</div>
+				</div>
+			</template>
+			<template ngbPanelContent>
+				<gg-voucher-detail [voucherObservable]="getVoucherObservable(voucher.data._id)" [initialTab]="initialTabInVoucherDetail"
+				 [state]="state[voucher.data._id]" [path]="path+'|P:'+voucher.data._id" (stateChanged)="childStateChanged($event, voucher.data._id)"></gg-voucher-detail>
+			</template>
+		</ngb-panel>
+	</ngb-accordion>
 
-							<div class="col-sm-2" *ngIf="!focusOnVoucherUsage" [style.color]="voucher.annotation.isUsed ? 'blue' : 'green'">{{voucher.annotation.status}}</div>
-							<div class="col-sm-2" *ngIf="focusOnVoucherUsage && voucher.data.shopping">{{voucher.data.shopping.total | currency:'EUR':true:'1.2-2' }}</div>
-							<div class="col-sm-1">
-								<img *ngIf="voucher.data.delivery=='partial'" src="../../../images/shipping.png" /><img *ngIf="voucher.data.delivery=='complete'" src="../../../images/ok.png" />
-							</div>
-						</div>
-					</template>
-					<template ngbPanelContent>
-						<gg-voucher-detail [voucherObservable]="getVoucherObservable(voucher.data._id)" [initialTab]="initialTabInVoucherDetail" [state]="state[voucher.data._id]" [path]="path+'|P:'+voucher.data._id"
-								(stateChanged)="childStateChanged($event, voucher.data._id)"></gg-voucher-detail>
-					</template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-	</div>
-</div>
+</gg-search-box>
+
+

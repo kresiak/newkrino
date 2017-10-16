@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core'
-import { FormControl, FormGroup } from '@angular/forms'
-import { ProductService } from './../../Shared/Services/product.service'
-import { Observable, Subscription } from 'rxjs/Rx'
+import { Observable } from 'rxjs/Rx'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import {PageScrollService} from 'ng2-page-scroll/ng2-page-scroll';
 import { DOCUMENT } from '@angular/platform-browser'
@@ -16,15 +14,11 @@ import { DOCUMENT } from '@angular/platform-browser'
     }
 )
 export class VoucherListComponent implements OnInit {
-    constructor(private productService: ProductService) {
-        this.searchForm = new FormGroup({
-            searchControl: new FormControl()
-        });
+    constructor() {
     }
 
     @Input() vouchersObservable: Observable<any>;
 
-    private subscriptionVouchers: Subscription 
     vouchers: any
 
     @Input() state;
@@ -33,32 +27,21 @@ export class VoucherListComponent implements OnInit {
     @Input() path: string= 'vouchers'
     @Output() stateChanged = new EventEmitter();
 
+    fnFilterVoucher(voucher, txt) {
+        if(txt ==='') return true
+        return voucher.annotation.user.toUpperCase().includes(txt.toUpperCase()) || voucher.annotation.supplier.toUpperCase().includes(txt.toUpperCase())
+    }
 
     private stateInit() {
         if (!this.state) this.state = {};
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    searchControl = new FormControl();
-    searchForm;
-
-    resetSerachControl() {
-        this.searchControl.setValue('')
-    }
-
     ngOnInit(): void {
         this.stateInit();
-
-        this.subscriptionVouchers= Observable.combineLatest(this.vouchersObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(''), (vouchers, searchTxt: string) => {
-            if (searchTxt.trim() === '') return vouchers;
-            return vouchers.filter(otp => otp.annotation.user.toUpperCase().includes(searchTxt.toUpperCase()) || otp.annotation.supplier.toUpperCase().includes(searchTxt.toUpperCase()));
-        }).subscribe(vouchers => {
-            this.vouchers = vouchers
-        });        
     }
 
     ngOnDestroy(): void {
-         this.subscriptionVouchers.unsubscribe()
     }    
 
     getVoucherObservable(id: string): Observable<any> {
