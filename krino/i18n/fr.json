@@ -799,7 +799,9 @@
       "SUPPLIER": "Fournisseur",
       "OR SUPPLIER": "Ou fournisseur",
       "REFERENCE": "Référence",
-      "POSITION": "Localisation"
+      "POSITION": "Localisation",
+      "CHOOSE IN LIST PHOLDER": "choose in LisT",
+      "IF NOT IN LIST PHOLDER": "if not in lisT"
     }
   },
   "COMMUNICATION": {

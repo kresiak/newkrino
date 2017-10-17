@@ -800,7 +800,9 @@
       "SUPPLIER": "Supplier",
       "OR SUPPLIER": "Or supplier",
       "REFERENCE": "Reference",
-      "POSITION": "Position"
+      "POSITION": "Position",
+      "CHOOSE IN LIST PHOLDER": "choose in List",
+      "IF NOT IN LIST PHOLDER": "if not in list"
     }
   },
   "COMMUNICATION": {
