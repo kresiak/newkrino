@@ -479,30 +479,31 @@
       "JUSTIFICATION": "Justification"
     },
     "LABEL": {
-      "NAME OF PRODUCT": "name of product:",
-      "DESCRIPTION": "description:",
-      "PACKAGE": "package:",
-      "CATALOG NR": "catalog nr.",
-      "PRICE": "price:",
-      "NO OF ARTICLE": "no of article:",
-      "GROUP MARCHANDISE": "group marchandise:",
-      "VAT": "vat:",
-      "SUPPLIER": "supplier:",
-      "CATEGORIES": "categories:",
-      "FREQUENCE": "frequence:",
-      "LABORATORY SPECIFIC": "laboratory specific:",
-      "IS DISABLED": "is disabled:",
-      "MAY ENCODING NUMBER": "may need encoding of lot number:",
-      "MAY RESOLD STOCK": "may be resold in stock:",
-      "DIVISION FACTOR STOCK": "division factor for stock:",
-      "STOCK PACKAGING": "stock packaging:",
-      "FRIGO": "frigo:",
+      "NAME OF PRODUCT": "name of product",
+      "DESCRIPTION": "description",
+      "PACKAGE": "package",
+      "CATALOG NR": "catalog number",
+      "PRICE": "price",
+      "NO OF ARTICLE": "no of article",
+      "GROUP MARCHANDISE": "group marchandise",
+      "VAT": "vat",
+      "SUPPLIER": "supplier",
+      "CATEGORIES": "categories",
+      "FREQUENCE": "frequence",
+      "LABORATORY SPECIFIC": "laboratory specific",
+      "IS DISABLED": "is disabled",
+      "MAY ENCODING NUMBER": "may need encoding of lot number",
+      "MAY RESOLD STOCK": "may be resold in stock",
+      "DIVISION FACTOR STOCK": "division factor for stock",
+      "STOCK PACKAGING": "stock packaging",
+      "FRIGO": "frigo",
       "PRODUCT DISABLED": "This product is disabled",
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
-      "ALREADY BASKET": "already in basket:",
-      "RESTRICTED FOLLOWING USERS": "restricted to following users:",
-      "TOTAL": "Total:",
-      "CATEGORY": "Category:"
+      "ALREADY BASKET": "already in basket",
+      "RESTRICTED FOLLOWING USERS": "restricted to following users",
+      "TOTAL": "Total",
+      "CATEGORY": "Category",
+      "JUSTIFICATION": "justification"
     },
     "ACTIONS": {
         "ATTENTE VALIDATION TEXT": "waiting for validation:",
@@ -1356,7 +1357,7 @@
       }
     }
   },
-  "PUBLIC": {
+  "PUBLIC": {    
     "MENU": {
       "REGISTER AS A USER": "Register as a user",
       "MARCHÉS ULG": "Marchés Ulg"
@@ -1373,6 +1374,9 @@
     },
     "MARKET": {
       "DOCUMENT": "document", 
+      "SELECT IMAGES": "Select scanned document",
+      "DROP YOUR IMAGES HERE": "drop your images here",
+      "CLEAR": "clear all",      
       "SEARCH HELP": {
         "MSG1": "tip: list of products with a name containing 'tip'",
         "MSG2": "10 ml: list of products with a packaging containing '10 ml'",

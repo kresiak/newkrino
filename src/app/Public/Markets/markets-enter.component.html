@@ -3,45 +3,46 @@
         <div class="container-fluid">
             <form [formGroup]="marketsEnterForm" (ngSubmit)="save(marketsEnterForm.value, marketsEnterForm.valid, true)">
                 <div class="form-group row">
-                    <label for="nameOfProduct" class="col-sm-2 col-form-label col-xl-2">name of product:</label>
+                    <label for="nameOfProduct" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}:</label>
                     <div class="col-sm-10">
-                        <input type="text" min="2" class="form-control" formControlName="nameOfProduct" id="nameOfProduct" placeholder="name of product">
+                        <input type="text" min="2" class="form-control" formControlName="nameOfProduct" id="nameOfProduct" placeholder="{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="package" class="col-sm-2 col-form-label col-xl-2">package:</label>
+                    <label for="package" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.PACKAGE' | translate}}:</label>
                     <div class="col-sm-10">
-                        <input type="text" min="2" class="form-control" formControlName="package" id="package" placeholder="package">
+                        <input type="text" min="2" class="form-control" formControlName="package" id="package" placeholder="{{'PRODUCT.LABEL.PACKAGE' | translate}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="supplier" class="col-sm-2 col-form-label col-xl-2">supplier:</label>
+                    <label for="supplier" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.SUPPLIER' | translate}}:</label>
                     <div class="col-sm-10">
-                        <input type="text" min="0" class="form-control" formControlName="supplier" id="supplier" placeholder="supplier">
+                        <input type="text" min="0" class="form-control" formControlName="supplier" id="supplier" placeholder="{{'PRODUCT.LABEL.SUPPLIER' | translate}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="catalogNr" class="col-sm-2 col-form-label col-xl-2">catalog nr:</label>
+                    <label for="catalogNr" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.CATALOG NR' | translate}}:</label>
                     <div class="col-sm-10">
-                        <input type="text" min="0" class="form-control" formControlName="catalogNr" id="catalogNr" placeholder="catalog nr">
+                        <input type="text" min="0" class="form-control" formControlName="catalogNr" id="catalogNr" placeholder="{{'PRODUCT.LABEL.CATALOG NR' | translate}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="price" class="col-sm-2 col-form-label col-xl-2">price:</label>
+                    <label for="price" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.PRICE' | translate}}:</label>
                     <div class="col-sm-10">
-                        <input type="number" min="1" step="any"  class="form-control" formControlName="price" id="price" placeholder="price">
+                        <input type="number" min="1" step="any"  class="form-control" formControlName="price" id="price" placeholder="{{'PRODUCT.LABEL.PRICE' | translate}}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="justification" class="col-sm-2 col-form-label col-xl-2">justification:</label>
+                    <label for="justification" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.JUSTIFICATION' | translate}}:</label>
                     <div class="col-sm-10">
-                        <textarea rows="6" class="form-control" formControlName="justification" placeholder="justification"></textarea>
+                        <textarea rows="6" class="form-control" formControlName="justification" placeholder="{{'PRODUCT.LABEL.JUSTIFICATION' | translate}}"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-xl-2">documents:</label>
                     <div class="col-sm-10">
-							<image-upload [url]="dataStore.getUploadUrl()" (uploadFinished)="onUploadFinished($event)" [beforeUpload]="onBeforeUpload" (removed)="onRemoved($event)">
+							<image-upload [url]="dataStore.getUploadUrl()" (uploadFinished)="onUploadFinished($event)" [beforeUpload]="onBeforeUpload" (removed)="onRemoved($event)" 
+                                [buttonCaption]="'PUBLIC.MARKET.SELECT IMAGES' | translate" [dropBoxMessage]="'PUBLIC.MARKET.DROP YOUR IMAGES HERE' | translate" [clearButtonCaption]="'PUBLIC.MARKET.CLEAR' | translate">
 							</image-upload>                        
                     </div>
                 </div>

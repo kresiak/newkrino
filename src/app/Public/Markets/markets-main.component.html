@@ -114,7 +114,8 @@
                                                                                 <template ngbTabContent>
                                                                                     <div class="card">
                                                                                         <div class="card-block">
-                                                                                            <image-upload [url]="dataStore.getUploadUrl()" [max]="1" (uploadFinished)="onUploadFinished(product, itemPos,$event)">
+                                                                                            <image-upload [url]="dataStore.getUploadUrl()" [max]="1" (uploadFinished)="onUploadFinished(product, itemPos,$event)"
+                                                                                                [buttonCaption]="'PUBLIC.MARKET.SELECT IMAGES' | translate" [dropBoxMessage]="'PUBLIC.MARKET.DROP YOUR IMAGES HERE' | translate" [clearButtonCaption]="'PUBLIC.MARKET.CLEAR' | translate">
                                                                                             </image-upload>
                                                                                         </div>
                                                                                     </div>

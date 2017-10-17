@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
@@ -71,103 +71,103 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DESCRIPTION' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DESCRIPTION' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PACKAGE' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PACKAGE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.package" [showControls]="true" (editSaved)="packageUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATALOG NR' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATALOG NR' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.catalogNr" [showControls]="true" (editSaved)="catalogNrUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PRICE' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PRICE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceProdUpdated($event)"
 							 [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NO OF ARTICLE' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NO OF ARTICLE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.GROUP MARCHANDISE' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.GROUP MARCHANDISE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="product.data.groupMarch" [showControls]="true" (editSaved)="groupMarchUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.VAT' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.VAT' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="product.data.tva" (editSaved)="tvaUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.SUPPLIER' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.SUPPLIER' | translate}}:</div>
 						<div class="col-sm-6 vcenter">{{product.annotation.supplierName}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATEGORIES' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATEGORIES' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="isProductReadOnly()"></gg-selector>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3">{{'PRODUCT.LABEL.FREQUENCE' | translate}}</div>
+						<div class="col-sm-3">{{'PRODUCT.LABEL.FREQUENCE' | translate}}:</div>
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.LABORATORY SPECIFIC' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.LABORATORY SPECIFIC' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="product.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!isLaboSpecificChangePossible()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.IS DISABLED' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.IS DISABLED' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" ngbTooltip="Define here if this product might potentially be resold from the stock">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div *ngIf="product.data.isStock == true">
 						<div class="row" ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
-							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}</div>
+							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}:</div>
 							<div class="col-sm-6 vcenter">
 								<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-number>
 							</div>
 						</div>
 						<div class="row" [style.color]="product.data.divisionFactor===1 || product.data.stockPackage ? 'black' : 'red'" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
-							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}</div>
+							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}:</div>
 							<div class="col-sm-6 vcenter">
 								<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.FRIGO' | translate}}</div>
+						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.FRIGO' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25"
 							 width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
