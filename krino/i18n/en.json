@@ -226,7 +226,7 @@
         "COMMENT": "Comment",
         "AMOUNT BLOCKED": "blocked amount",
         "REASON/COMMENT": "reason / comment:",
-        "BUDGET CHANGE": "Budget change"
+        "BUDGET CHANGE PHOLDER": "Budget change"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
@@ -505,7 +505,8 @@
       "RESTRICTED FOLLOWING USERS": "restricted to following users",
       "TOTAL": "Total",
       "CATEGORY": "Category",
-      "JUSTIFICATION": "justification"
+      "JUSTIFICATION": "justification",
+      "PRICE PER UNIT PHOLDER": "price per unit (without VAT)"
     },
     "ACTIONS": {
         "ATTENTE VALIDATION TEXT": "waiting for validation:",

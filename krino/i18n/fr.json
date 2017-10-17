@@ -156,7 +156,7 @@
         "WANTS ORDER": "équipe qui passe la commande:",
         "HOW MUCH WISH SPEND": "combien veut-elle dépenser:",
         "AVAILABLE BUDGET": "budget disponible:",
-        "AMOUNT TO SPEND": "amount to spenD"
+        "AMOUNT TO SPEND PHOLDER": "amount to spenD"
       },
       "COLUMN": {
         "PRODUCT TYPE": "Type de produit",
@@ -226,7 +226,7 @@
         "COMMENT": "commentaire",
         "AMOUNT BLOCKED": "montant bloqué",
         "REASON/COMMENT": "raison / commentaire:",
-        "BUDGET CHANGE": "Budget changE"
+        "BUDGET CHANGE PHOLDER": "Budget changE"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
@@ -505,7 +505,8 @@
       "RESTRICTED FOLLOWING USERS": "achat seulement permis aux utilisateurs suivants",
       "TOTAL": "total",
       "CATEGORY": "catégorie",
-      "JUSTIFICATION": "justification"
+      "JUSTIFICATION": "justification",
+      "PRICE PER UNIT PHOLDER": "price per uniT (without VAT)"
     },
     "ACTIONS": {
         "ATTENTE VALIDATION TEXT": "en attente de validation:",
