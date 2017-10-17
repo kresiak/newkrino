@@ -18,14 +18,14 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CLASSIFICATION' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CLASSIFICATION' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableClassificationsObservable" [selectedIds]="selectedClassificationIdsObservable" (selectionChanged)="classificationChanged($event)"
 							 (selectionOptionAdded)="classificationHasBeenAdded($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-selector>							
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.EQUIPE' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.EQUIPE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="otp.data.equipeId" (idChanged)="equipeChanged($event)" ></gg-editor-autocomplete>
 						</div>
@@ -37,44 +37,44 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.ALLOWED PRODUCTS' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.ALLOWED PRODUCTS' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="true"></gg-selector>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isLimitedToOwner ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.LIMITED OWNER' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.LIMITED OWNER' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isLimitedToOwner" (editSaved)="limitedToOwnerUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isBlocked ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS BLOCKED' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS BLOCKED' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isBlocked" (editSaved)="blockedUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isClosed ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS CLOSED' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS CLOSED' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isClosed" (editSaved)="closedUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.isDeleted ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS DELETED' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.IS DELETED' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.isDeleted" (editSaved)="deletedUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" [style.color]="!otp.data.priority ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.PRIORITY' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.PRIORITY' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-number [content]="otp.data.priority" (editSaved)="priorityUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row" [style.color]="otp.data.excludeFixCost ? 'red' : 'black'">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CANNOT TRANSPORT COSTS' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.CANNOT TRANSPORT COSTS' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor-boolean [content]="otp.data.excludeFixCost" (editSaved)="excludeFixCostUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
@@ -121,7 +121,7 @@
 										<div class="card-block">
 
 											<div class="row">
-												<label class="col-sm-3 col-form-label col-xl-3 vcenter">{{'OTP.LABEL.IS ANNUAL' | translate}}</label>
+												<label class="col-sm-3 col-form-label col-xl-3 vcenter">{{'OTP.LABEL.IS ANNUAL' | translate}}:</label>
 												<div class="col-md-3 vcenter">
 													<gg-editor-boolean [content]="otp.data.isAnnual" (editSaved)="updatedIsAnnualChecked($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 												</div>
@@ -171,19 +171,19 @@
 																<div class="card">
 																	<div class="card-block">
 																		<div class="form-group row">
-																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">{{'OTP.LABEL.BUDGET' | translate}}</label>
+																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">{{'OTP.LABEL.BUDGET' | translate}}:</label>
 																			<div class="col-sm-7">
 																				<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="{{'OTP.LABEL.BUDGET' | translate}}">
 																			</div>
 																		</div>
 																		<div class="form-group row">
-																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.FROM' | translate}}</div>
+																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.FROM' | translate}}:</div>
 																			<div class="col-sm-7 vcenter">
 																				<gg-editor-date [content]="" (editSaved)="dateStartAnnualUpdated($event)"></gg-editor-date>
 																			</div>
 																		</div>
 																		<div class="form-group row">
-																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.TO' | translate}}</div>
+																			<div class="col-sm-3 vcenter">{{'OTP.LABEL.TO' | translate}}:</div>
 																			<div class="col-sm-7 vcenter">
 																				<gg-editor-date [content]="" (editSaved)="dateEndAnnualUpdated($event)"></gg-editor-date>
 																			</div>
@@ -245,11 +245,11 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.TOTAL BUDGET' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.TOTAL BUDGET' | translate}}:</div>
 						<div class="col-sm-6">+ {{otp.annotation.budget | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.SPENT OR BLOCKED' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.SPENT OR BLOCKED' | translate}}:</div>
 						<div class="col-sm-6">- {{otp.annotation.amountSpent | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
@@ -257,7 +257,7 @@
 						<div class="col-sm-6">================</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.AMOUNT AVAILABLE' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.AMOUNT AVAILABLE' | translate}}:</div>
 						<div class="col-sm-6">= {{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
@@ -265,15 +265,15 @@
 						<div class="col-sm-6"></div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED PURCHASE ORDERS' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED PURCHASE ORDERS' | translate}}:</div>
 						<div class="col-sm-6">{{otp.annotation.amountSpentNotYetInSap | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED STILL ENGAGED' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.BLOCKED STILL ENGAGED' | translate}}:</div>
 						<div class="col-sm-6">{{otp.annotation.amountEngaged | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">{{'OTP.LABEL.SPENT INVOICES' | translate}}</div>
+						<div class="col-sm-4">{{'OTP.LABEL.SPENT INVOICES' | translate}}:</div>
 						<div class="col-sm-6">{{otp.annotation.amountBilled | currency:'EUR':true:'1.2-2'}}</div>
 					</div>
 				</div>
