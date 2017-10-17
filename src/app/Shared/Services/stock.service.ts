@@ -3,6 +3,7 @@ import { DataStore } from './data.service'
 import { AuthService } from './auth.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as utilsDate from './../Utils/dates'
 
 Injectable()
 export class StockService {
@@ -109,11 +110,7 @@ export class StockService {
         return Observable.combineLatest(ordersStockObservable, this.dataStore.getDataObservable('equipes'), this.authService.getAnnotatedUsers(), this.dataStore.getDataObservable('products'),
             this.dataStore.getDataObservable('products.stock'),
             (ordersStock, equipes, annotatedUsers, products, stockItems, annotatedOrders) => {
-                return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems)).sort((v1, v2) => {
-                    var d1 = moment(v1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(v2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
+                return ordersStock.map(orderStock => this.createAnnotatedStockOrder(orderStock, equipes, annotatedUsers, products, stockItems)).sort(utilsDate.getSortFn(x => x.data.createDate));
             });
     }
 

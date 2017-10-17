@@ -5,6 +5,7 @@ import { ApiService } from './api.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
+import * as utilsDate from './../Utils/dates'
 
 Injectable()
 export class VoucherService {
@@ -173,19 +174,11 @@ export class VoucherService {
     }
 
     getAnnotatedVouchersByCreationDate(): Observable<any> {
-        return this.getAnnotatedVouchers().map(vouchers => vouchers.sort((v1, v2) => {
-            var d1 = moment(v1.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
-            var d2 = moment(v2.data.dateCreation, 'DD/MM/YYYY HH:mm:ss').toDate()
-            return d1 > d2 ? -1 : 1
-        }))
+        return this.getAnnotatedVouchers().map(vouchers => vouchers.sort(utilsDate.getSortFn(x => x.data.dateCreation)))
     }
 
     getAnnotatedUsedVouchersByDate(): Observable<any> {
-        return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed).sort((v1, v2) => {
-            var d1 = moment(v1.data.shopping.date, 'DD/MM/YYYY HH:mm:ss').toDate()
-            var d2 = moment(v2.data.shopping.date, 'DD/MM/YYYY HH:mm:ss').toDate()
-            return d1 > d2 ? -1 : 1
-        }))
+        return this.getAnnotatedVouchers().map(vouchers => vouchers.filter(voucher => voucher.annotation.isUsed).sort(utilsDate.getSortFn(x => x.data.shopping.date)))
     }
 
     getAnnotatedUsedVouchersOfCurrentUserByDate(): Observable<any> {
