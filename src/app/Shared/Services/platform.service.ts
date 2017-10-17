@@ -263,7 +263,7 @@ export class PlatformService {
     }
 
     getAnnotatedServices(): Observable<any> {
-        return this.getAnnotatedServicesHelper(this.dataStore.getDataObservable('platform.services'))
+        return this.getAnnotatedServicesHelper(this.dataStore.getDataObservable('platform.services')).map(services => services.sort((a, b) => a.data.name < b.data.name ? -1 : 1))
     }
 
     getSelectableCategories(): Observable<SelectableData[]> {
