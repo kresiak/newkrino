@@ -8,6 +8,7 @@ import { SelectableData } from './../Classes/selectable-data'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
+import * as utilsDate from './../Utils/dates'
 
 
 Injectable()
@@ -325,11 +326,7 @@ export class OrderService {
                         }
                     }
                 }
-                ).sort((a, b) => {
-                    var d1 = moment(a.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(b.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 < d2 ? 1 : -1
-                });
+                ).sort(utilsDate.getSortFn(x => x.data.createDate));
             })
     }
 
@@ -362,11 +359,7 @@ export class OrderService {
             this.dataStore.getDataObservable('equipes'),
             this.authService.getAnnotatedUsers(),
             (orders, products, equipes, annotatedUsers) => {
-                return orders.map(order => this.createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers)).sort((r1, r2) => {
-                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
+                return orders.map(order => this.createAnnotatedFridgeOrder(order, products, equipes, annotatedUsers)).sort(utilsDate.getSortFn(x => x.data.createDate));
             });
     }
 

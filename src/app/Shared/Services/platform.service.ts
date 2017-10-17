@@ -8,6 +8,7 @@ import * as moment from "moment"
 import * as utils from './../Utils/observables'
 import * as utilsComparator from './../Utils/comparators'
 import * as utilsKrino from './../Utils/krino'
+import * as utilsDate from './../Utils/dates'
 
 
 Injectable()
@@ -18,11 +19,7 @@ export class PlatformService {
     // =====================
 
     private getCurrentSnapshotIdOfService(serviceId, snapshots) {
-        var theSnapshot = snapshots.filter(s => !s.isDisabled && s.serviceId === serviceId).sort((a, b) => {
-            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            return d1 > d2 ? -1 : 1
-        })[0]
+        var theSnapshot = snapshots.filter(s => !s.isDisabled && s.serviceId === serviceId).sort(utilsDate.getSortFn(x => x.createDate))[0]
         return theSnapshot ? { id: theSnapshot._id, version: theSnapshot.version } : undefined
     }
 
