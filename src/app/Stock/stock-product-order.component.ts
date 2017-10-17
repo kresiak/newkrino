@@ -6,6 +6,7 @@ import { NavigationService } from './../Shared/Services/navigation.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
+import * as dateUtils from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -56,7 +57,7 @@ export class StockProductEnterComponent implements OnInit {
             userId : this.authService.getUserId(),
             equipeId : this.authService.getEquipeId(),
             productId : this.product.key,
-            date: moment().format('DD/MM/YYYY HH:mm:ss'),
+            date: dateUtils.nowFormated(),
             quantity: +formValue.quantity > this.getNbOrderable() ? this.getNbOrderable() : +formValue.quantity
         }
         this.product.values[0].annotation.nbReservedByMe += +formValue.quantity

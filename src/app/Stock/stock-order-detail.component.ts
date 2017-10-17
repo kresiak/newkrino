@@ -8,6 +8,7 @@ import { StockService } from '../Shared/Services/stock.service';
 import { NavigationService } from './../Shared/Services/navigation.service'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import * as moment from "moment"
+import * as dateUtils from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -83,7 +84,7 @@ export class StockOrderDetailComponent implements OnInit {
         if (!this.isProcessFormOK) return
         let userId = this.order.data.userId;
         let equipeId = this.order.data.equipeId;
-        let now = moment().format('DD/MM/YYYY HH:mm:ss')
+        let now = dateUtils.nowFormated()
         this.order.data.stockItemIds= []
         this.stockItems.forEach(stockItem => {
             if (formValue[stockItem.data._id] && +formValue[stockItem.data._id] > 0) {

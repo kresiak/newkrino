@@ -10,6 +10,7 @@ import * as moment from "moment"
 import * as comparatorsUtils from './../Shared/Utils/comparators'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import * as dateUtils from './../Shared/Utils/dates'
 
 @Component(
     {
@@ -57,7 +58,7 @@ export class OtpPeriodDetailComponent implements OnInit {
 
         budgetItem.budgetHistory.push({
             budgetIncrement: formValue.budgetChange,
-            date: this.dateInBudgetChangeForm || moment().format('DD/MM/YYYY HH:mm:ss'),
+            date: this.dateInBudgetChangeForm || dateUtils.nowFormated(),
             comment: formValue.commentBudgetChange
         })
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {

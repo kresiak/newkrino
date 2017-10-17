@@ -15,6 +15,7 @@ import { ChartService } from './../Shared/Services/chart.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as dateUtils from './../Shared/Utils/dates'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
@@ -105,8 +106,8 @@ export class OtpDetailComponent implements OnInit {
 
         this.otp.data.budgetPeriods.push({
             budget: formValue.budgetAnnual,
-            datStart: this.datStartAnnual || moment().format('DD/MM/YYYY HH:mm:ss'),
-            datEnd: this.datEndAnnual || moment().format('DD/MM/YYYY HH:mm:ss')
+            datStart: this.datStartAnnual || dateUtils.nowFormated(),
+            datEnd: this.datEndAnnual || dateUtils.nowFormated()
         })
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
             this.reset();

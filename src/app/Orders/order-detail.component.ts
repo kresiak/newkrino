@@ -11,6 +11,7 @@ import { EquipeService } from '../Shared/Services/equipe.service';
 
 import * as moment from "moment"
 import * as comparatorsUtils from './../Shared/Utils/comparators'
+import * as dateUtils from './../Shared/Utils/dates'
 
 
 @Component(
@@ -89,7 +90,7 @@ export class OrderDetailComponent implements OnInit {
             var prepareDeliveryDataForOrder = function (qty: number): any {
                 return {
                     quantity: qty,
-                    date: moment().format('DD/MM/YYYY HH:mm:ss'),
+                    date: dateUtils.nowFormated(),
                     userId: self.authorizationStatusInfo.currentUserId
                 };
             }
@@ -102,7 +103,7 @@ export class OrderDetailComponent implements OnInit {
                     divisionFactor: orderItem.annotation.stockDivisionFactor,
                     package: orderItem.annotation.stockPackaging,
                     lotNumber: lot,
-                    history: [{ userId: self.authorizationStatusInfo.currentUserId, date: moment().format('DD/MM/YYYY HH:mm:ss'), quantity: qtyInStock, orderId: orderId }]
+                    history: [{ userId: self.authorizationStatusInfo.currentUserId, date: dateUtils.nowFormated(), quantity: qtyInStock, orderId: orderId }]
                 };
                 let stockItem = stockItems.filter(si => si.productId === prodData.productId && si.divisionFactor === prodData.divisionFactor
                     && si.package === prodData.package && si.lotNumber === prodData.lotNumber)[0]
@@ -242,7 +243,7 @@ export class OrderDetailComponent implements OnInit {
 
     private updateStatus(newStatus) {
         if (!this.order.data.status) this.order.data.status = { history: [] }
-        this.order.data.status.history.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), value: newStatus, by: this.authorizationStatusInfo.getCurrentUserName() })
+        this.order.data.status.history.unshift({ date: dateUtils.nowFormated(), value: newStatus, by: this.authorizationStatusInfo.getCurrentUserName() })
         this.order.data.status.value = newStatus
         this.dataStore.updateData('orders', this.order.data._id, this.order.data);
     }
@@ -294,7 +295,7 @@ export class OrderDetailComponent implements OnInit {
                     (stockItem.history = stockItem.history || []).push(
                         {
                             userId: this.authorizationStatusInfo.currentUserId,
-                            date: moment().format('DD/MM/YYYY HH:mm:ss'),
+                            date: dateUtils.nowFormated(),
                             quantity: -qtyInStock,
                             orderId: this.order.data._id
                         })

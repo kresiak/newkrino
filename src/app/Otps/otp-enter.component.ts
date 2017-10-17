@@ -5,6 +5,7 @@ import { SelectableData } from '../Shared/Classes/selectable-data'
 import { ProductService } from '../Shared/Services/product.service'
 import { Observable, Subscription } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as dateUtils from './../Shared/Utils/dates'
 
 @Component({
     //moduleId: module.id,
@@ -60,8 +61,8 @@ export class OtpEnterComponent implements OnInit {
         let budgetPeriods = []
         budgetPeriods.push({
             budget: formValue.budget,
-            datStart: this.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-            datEnd: this.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+            datStart: this.datStart || dateUtils.nowFormated(),
+            datEnd: this.datEnd || dateUtils.nowFormated()
         })
         newOtpEnter.budgetPeriods = budgetPeriods
         this.dataStore.addData('otps', newOtpEnter

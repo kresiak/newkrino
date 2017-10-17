@@ -237,7 +237,7 @@ export class ProductDetailComponent implements OnInit {
 
     priceProdUpdated(priceProd) {
         if (!this.product.data.priceUpdates) this.product.data.priceUpdates = []
-        this.product.data.priceUpdates.unshift({ date: moment().format('DD/MM/YYYY HH:mm:ss'), newPrice: +priceProd, oldPrice: +this.product.data.price, userId: this.authorizationStatusInfo.currentUserId })
+        this.product.data.priceUpdates.unshift({ date: utilsdate.nowFormated(), newPrice: +priceProd, oldPrice: +this.product.data.price, userId: this.authorizationStatusInfo.currentUserId })
         this.product.data.price = +priceProd;
         this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }

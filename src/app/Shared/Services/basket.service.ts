@@ -11,6 +11,7 @@ import { SharedObservable } from './../Classes/shared-observable'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
 import * as utils from './../Utils/observables'
+import * as dateUtils from './../Utils/dates'
 
 Injectable()
 export class BasketService {
@@ -192,7 +193,7 @@ export class BasketService {
         return Observable.combineLatest(this.dataStore.getDataObservable('basket'), (basket) => {
             var groupOrderUserId = this.authService.systemGroupUserId
             var nonUrgentBasketItem = basket.filter(item => item.user === groupOrderUserId && item.produit === productAnnotated.data._id)[0]
-            let now = moment().format('DD/MM/YYYY HH:mm:ss')
+            let now = dateUtils.nowFormated()
             var item = {
                 date: now,
                 userId: this.authService.getUserId(),

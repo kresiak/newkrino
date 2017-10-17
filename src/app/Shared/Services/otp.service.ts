@@ -48,8 +48,8 @@ export class OtpService {
             otp.budgetPeriods = [
                 {
                     budget: +otp.budget || 0,
-                    datStart: otp.datStart || moment().format('DD/MM/YYYY HH:mm:ss'),
-                    datEnd: otp.datEnd || moment().format('DD/MM/YYYY HH:mm:ss')
+                    datStart: otp.datStart || utilsDate.nowFormated(),
+                    datEnd: otp.datEnd || utilsDate.nowFormated()
                 }
             ]
             delete otp.budget
