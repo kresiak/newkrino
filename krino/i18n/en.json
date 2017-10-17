@@ -247,11 +247,11 @@
       }
     },
     "LABEL": {
-      "OTP": "otp:",
-      "DESCRIPTION": "description:",
+      "OTP": "otp",
+      "DESCRIPTION": "description",
       "CLASSIFICATION": "classification:",
       "EQUIPE": "project:",
-      "NOTE": "note:",
+      "NOTE": "note",
       "ALLOWED PRODUCTS": "allowed products (will disappear soon/use classification):",
       "LIMITED OWNER": "is limited to owner project:",
       "IS BLOCKED": "is blocked:",
@@ -266,7 +266,7 @@
       "BLOCKED PURCHASE ORDERS": "amount blocked in purchase orders:",
       "BLOCKED STILL ENGAGED": "amount blocked still reserved:",
       "SPENT INVOICES": "amount spent in invoices:",
-      "BUDGET": "budget:",
+      "BUDGET": "budget",
       "FROM": "from:",
       "TO": "to:"
     },

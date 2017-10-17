@@ -247,11 +247,11 @@
       }
     },
     "LABEL": {
-      "OTP": "otp:",
-      "DESCRIPTION": "description:",
+      "OTP": "otp",
+      "DESCRIPTION": "description",
       "CLASSIFICATION": "classification:",
       "EQUIPE": "équipe:",
-      "NOTE": "note:",
+      "NOTE": "note",
       "ALLOWED PRODUCTS": "produits compatibles (va disparaitre bientôt):",
       "LIMITED OWNER": "otp privé (seulement pour l'équipe):",
       "IS BLOCKED": "bloqué:",
@@ -266,7 +266,7 @@
       "BLOCKED PURCHASE ORDERS": "montant bloqué dans les demandes d'achats:",
       "BLOCKED STILL ENGAGED": "montant bloqué encore engagé:",
       "SPENT INVOICES": "montant facturé:",
-      "BUDGET": "budget:",
+      "BUDGET": "budget",
       "FROM": "de:",
       "TO": "à:"
     },

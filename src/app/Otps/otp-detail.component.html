@@ -6,13 +6,13 @@
 			<div class="card">
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.OTP' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.OTP' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.DESCRIPTION' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.DESCRIPTION' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'OTP.LABEL.NOTE' | translate}}</div>
+						<div class="col-sm-4 vcenter">{{'OTP.LABEL.NOTE' | translate}}:</div>
 						<div class="col-sm-6 vcenter">
 							<gg-editor [content]="otp.data.note" [showControls]="true" (editSaved)="noteUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
@@ -173,7 +173,7 @@
 																		<div class="form-group row">
 																			<label for="budgetAnnual" class="col-sm-3 col-form-label col-xl-3">{{'OTP.LABEL.BUDGET' | translate}}</label>
 																			<div class="col-sm-7">
-																				<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="Budget annual">
+																				<input type="number" min="0" step="any" class="form-control" formControlName="budgetAnnual" id="budgetAnnual" placeholder="{{'OTP.LABEL.BUDGET' | translate}}">
 																			</div>
 																		</div>
 																		<div class="form-group row">
