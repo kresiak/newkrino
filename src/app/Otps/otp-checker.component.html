@@ -14,7 +14,7 @@
         <div class="row" *ngIf="currentEquipe">
             <div class="col-sm-3 vcenter">{{'OTP.CHECKER.LABEL.HOW MUCH WISH SPEND' | translate}}</div>
             <div class="col-sm-5 vcenter">
-                <input type="number" min="0" step="any" class="form-control" (input)="changeTotalToSpend($event)" placeholder="amount to spend" [value]="totalToSpend">                
+                <input type="number" min="0" step="any" class="form-control" (input)="changeTotalToSpend($event)" placeholder="{{'OTP.CHECKER.LABEL.AMOUNT TO SPEND' | translate}}" [value]="totalToSpend">
             </div>
             <div class="col-sm-2 vcenter" [style.color]="isProblemInTotal ? 'red' : 'green'">
                 {{isProblemInTotal? 'Impossible' : 'OK'}}
@@ -44,7 +44,7 @@
                     <div class="row">
                         <div class="col-sm-2 vcenter">{{classificationsItem.data.name}}</div>
                         <div class="col-sm-2 vcenter">
-                            <input type="number" min="0" step="any" class="form-control" (input)="changePrice(classificationsItem, $event)" placeholder="amount to spend" value="0">
+                            <input type="number" min="0" step="any" class="form-control" (input)="changePrice(classificationsItem, $event)" placeholder="{{'OTP.CHECKER.LABEL.AMOUNT TO SPEND' | translate}}" value="0">
                         </div>
                         <div class="col-sm-2 vcenter" *ngIf="(getFirstOtpCompatible(classificationsItem, equipeId) | async)">
                             {{(getFirstOtpCompatibleOrEmpty(classificationsItem, equipeId) | async).data.name}}

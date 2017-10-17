@@ -155,7 +155,8 @@
       "LABEL": {
         "WANTS ORDER": "project that wants to order:",
         "HOW MUCH WISH SPEND": "how much money you wish to spend:",
-        "AVAILABLE BUDGET": "available budget:"
+        "AVAILABLE BUDGET": "available budget:",
+        "AMOUNT TO SPEND": "amount to spend"
       },
       "COLUMN": {
         "PRODUCT TYPE": "Product type",
@@ -223,8 +224,9 @@
         "BUDGET INCREMENT": "Budget increment",
         "DATE": "Date",
         "COMMENT": "Comment",
-        "AMOUNT BLOCKED": "blocked amount:",
-        "REASON/COMMENT": "reason / comment:"
+        "AMOUNT BLOCKED": "blocked amount",
+        "REASON/COMMENT": "reason / comment:",
+        "BUDGET CHANGE": "Budget change"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
