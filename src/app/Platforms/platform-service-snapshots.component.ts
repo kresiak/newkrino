@@ -37,11 +37,8 @@ export class PlatformServiceSnapshotsComponent implements OnInit {
     ngOnInit(): void {
         this.stateInit()
 
-        this.observableSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && !s.isDisabled).sort((a, b) => {
-            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            return d1 > d2 ? -1 : 1            
-        }))
+        this.observableSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && !s.isDisabled).sort(utilsdate.getSortFn(x => x.createDate)))
+
         this.observableDisabledSnapshots= this.dataStore.getDataObservable('platform.service.snapshots').map(snapshots => snapshots.filter(s => s.serviceId===this.serviceId && s.isDisabled))
         
 

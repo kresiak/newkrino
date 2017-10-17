@@ -8,6 +8,7 @@ import { VoucherService } from './voucher.service'
 import { ProductService } from './product.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
 import * as moment from "moment"
+import * as utilsDate from './../Utils/dates'
 
 Injectable()
 export class NotificationService {
@@ -79,7 +80,7 @@ export class NotificationService {
             this.dataStore.getDataObservable('otps'), this.dataStore.getDataObservable('categories'), (logs, users, equipes, otps, categories) => {
                 let now = moment()
                 let relevantLogs = logs.filter(log => {
-                    let date = moment(log.createDate, 'DD/MM/YYYY HH:mm:ss')
+                    let date = utilsDate.getMomentDateFromFormated(log.createDate)
                     let diff = now.diff(date, 'hours')
                     return diff <= nbHours
                 })
@@ -111,11 +112,7 @@ export class NotificationService {
                             info: info
                         }
                     }
-                }).sort((v1, v2) => {
-                    var d1 = moment(v1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(v2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
+                }).sort(utilsDate.getSortFn(x => x.data.createDate));
 
             })
         //return this.dataStore.getDataObservable('orders.log')
@@ -133,11 +130,7 @@ export class NotificationService {
                             supplier: supplier ? supplier.name : reception.supplier
                         }
                     }
-                }).sort((r1, r2) => {
-                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
+                }).sort(utilsDate.getSortFn(x => x.data.createDate));
             }
         );
     }
@@ -165,11 +158,7 @@ export class NotificationService {
             this.dataStore.getDataObservable('messages'),
             this.authService.getAnnotatedUsers(),
             (messages, annotatedUsers) => {
-                return messages.filter(message => !message.isPrivate).map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort((r1, r2) => {
-                    var d1 = moment(r1.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    var d2 = moment(r2.data.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-                    return d1 > d2 ? -1 : 1
-                });
+                return messages.filter(message => !message.isPrivate).map(message => this.createAnnotatedMessage(message, annotatedUsers)).sort(utilsDate.getSortFn(x => x.data.createDate));
             });
     }
 
@@ -186,11 +175,7 @@ export class NotificationService {
 
 
     getSortedUnreadPrivateMessages(userId): Observable<any> {
-        return this.getUnreadPrivateAnnotatedMessages(userId).map(messages => messages.sort((a, b) => {
-            var d1 = moment(a.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            var d2 = moment(b.createDate, 'DD/MM/YYYY HH:mm:ss').toDate()
-            return d1 < d2 ? 1 : -1
-        }))
+        return this.getUnreadPrivateAnnotatedMessages(userId).map(messages => messages.sort(utilsDate.getSortFn(x => x.createDate)))
     }
 
     getNbPrivateMessages(userId): Observable<number> {
