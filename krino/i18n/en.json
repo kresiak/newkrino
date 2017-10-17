@@ -312,18 +312,18 @@
       "MSG1": "RWAL: if the category contains 'RWAL'"
     },
     "LABEL": {
-      "CATEGORY": "category:",
-      "NO OF ARTICLE": "no of article:",
-      "GROUP MARCHANDISE": "group marchandise:",
-      "IS BLOCKED": "is blocked:",
-      "LABORATORY SPECIFIC": "laboratory specific:",
-      "OFFICE SPECIFIC": "office specific:",
-      "NAME": "name:",
-      "NO OF ARTICLE ENTER": "No of article:",
-      "GROUP MARCHANDISE ENTER": "Group marchandise:",
-      "IS BLOCKED ENTER": "is blocked:",
-      "LABORATORY SPECIFIC ENTER": "laboratory specific:",
-      "OFFICE SPECIFIC ENTER": "office specific:"
+      "CATEGORY": "category",
+      "NO OF ARTICLE": "no of article",
+      "GROUP MARCHANDISE": "group marchandise",
+      "IS BLOCKED": "is blocked",
+      "LABORATORY SPECIFIC": "laboratory specific",
+      "OFFICE SPECIFIC": "office specific",
+      "NAME": "name",
+      "NO OF ARTICLE ENTER": "No of article",
+      "GROUP MARCHANDISE ENTER": "Group marchandise",
+      "IS BLOCKED ENTER": "is blocked",
+      "LABORATORY SPECIFIC ENTER": "laboratory specific",
+      "OFFICE SPECIFIC ENTER": "office specific"
     },
     "COLUMN": {
       "CATEGORY": "Category",
@@ -1099,12 +1099,12 @@
         "RESPONSABLES": "Supervisors"
       },
       "LABEL": {
-        "LABO NAME": "labo name:",
-        "LABO SHORT NAME": "labo short name:",
-        "USER FIRST NAME": "user first name:",
-        "USER LAST NAME": "user last name:",
-        "EMAIL": "email:",
-        "USER PASSWORD": "user password:"
+        "LABO NAME": "labo name",
+        "LABO SHORT NAME": "labo short name",
+        "USER FIRST NAME": "user first name",
+        "USER LAST NAME": "user last name",
+        "EMAIL": "email",
+        "USER PASSWORD": "user password"
       }
     }
   },

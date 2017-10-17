@@ -313,17 +313,17 @@
     },
     "LABEL": {
       "CATEGORY": "catégorie",
-      "NO OF ARTICLE": "numéro d'article:",
-      "GROUP MARCHANDISE": "groupe marchandise:",
-      "IS BLOCKED": "bloqué:",
-      "LABORATORY SPECIFIC": "spécifique au laboratoire:",
-      "OFFICE SPECIFIC": "office spécifique:",
-      "NAME": "nom:",
-      "NO OF ARTICLE ENTER": "numéro d'article:",
-      "GROUP MARCHANDISE ENTER": "groupe marchandise:",
-      "IS BLOCKED ENTER": "bloqué:",
-      "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire:",
-      "OFFICE SPECIFIC ENTER": "office spécifique:"
+      "NO OF ARTICLE": "numéro d'article",
+      "GROUP MARCHANDISE": "groupe marchandise",
+      "IS BLOCKED": "bloqué",
+      "LABORATORY SPECIFIC": "spécifique au laboratoire",
+      "OFFICE SPECIFIC": "office spécifique",
+      "NAME": "nom",
+      "NO OF ARTICLE ENTER": "numéro d'article",
+      "GROUP MARCHANDISE ENTER": "groupe marchandise",
+      "IS BLOCKED ENTER": "bloqué",
+      "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire",
+      "OFFICE SPECIFIC ENTER": "office spécifique"
     },
     "COLUMN": {
       "CATEGORY": "catégorie",
@@ -1096,12 +1096,12 @@
         "RESPONSABLES": "Responsables"
       },
       "LABEL": {
-        "LABO NAME": "nom du labo:",
-        "LABO SHORT NAME": "nom court du labo:",
-        "USER FIRST NAME": "prénom de l'utilisateur:",
-        "USER LAST NAME": "nom de famille de l'utilisateur:",
-        "EMAIL": "e-mail:",
-        "USER PASSWORD": "mot de passe:"
+        "LABO NAME": "nom du labo",
+        "LABO SHORT NAME": "nom court du labo",
+        "USER FIRST NAME": "prénom de l'utilisateur",
+        "USER LAST NAME": "nom de famille de l'utilisateur",
+        "EMAIL": "e-mail",
+        "USER PASSWORD": "mot de passe"
       }
     }
   },
