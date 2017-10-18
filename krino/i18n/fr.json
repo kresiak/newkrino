@@ -155,7 +155,8 @@
       "LABEL": {
         "WANTS ORDER": "équipe qui passe la commande:",
         "HOW MUCH WISH SPEND": "combien veut-elle dépenser:",
-        "AVAILABLE BUDGET": "budget disponible:"
+        "AVAILABLE BUDGET": "budget disponible:",
+        "AMOUNT TO SPEND PHOLDER": "amount to spenD"
       },
       "COLUMN": {
         "PRODUCT TYPE": "Type de produit",
@@ -223,8 +224,9 @@
         "BUDGET INCREMENT": "incrément de budget",
         "DATE": "date",
         "COMMENT": "commentaire",
-        "AMOUNT BLOCKED": "montant bloqué:",
-        "REASON/COMMENT": "raison / commentaire:"
+        "AMOUNT BLOCKED": "montant bloqué",
+        "REASON/COMMENT": "raison / commentaire:",
+        "BUDGET CHANGE PHOLDER": "Budget changE"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
@@ -311,17 +313,17 @@
     },
     "LABEL": {
       "CATEGORY": "catégorie",
-      "NO OF ARTICLE": "numéro d'article:",
-      "GROUP MARCHANDISE": "groupe marchandise:",
-      "IS BLOCKED": "bloqué:",
-      "LABORATORY SPECIFIC": "spécifique au laboratoire:",
-      "OFFICE SPECIFIC": "office spécifique:",
-      "NAME": "nom:",
-      "NO OF ARTICLE ENTER": "numéro d'article:",
-      "GROUP MARCHANDISE ENTER": "groupe marchandise:",
-      "IS BLOCKED ENTER": "bloqué:",
-      "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire:",
-      "OFFICE SPECIFIC ENTER": "office spécifique:"
+      "NO OF ARTICLE": "numéro d'article",
+      "GROUP MARCHANDISE": "groupe marchandise",
+      "IS BLOCKED": "bloqué",
+      "LABORATORY SPECIFIC": "spécifique au laboratoire",
+      "OFFICE SPECIFIC": "office spécifique",
+      "NAME": "nom",
+      "NO OF ARTICLE ENTER": "numéro d'article",
+      "GROUP MARCHANDISE ENTER": "groupe marchandise",
+      "IS BLOCKED ENTER": "bloqué",
+      "LABORATORY SPECIFIC ENTER": "spécifique au laboratoire",
+      "OFFICE SPECIFIC ENTER": "office spécifique"
     },
     "COLUMN": {
       "CATEGORY": "catégorie",
@@ -503,7 +505,8 @@
       "RESTRICTED FOLLOWING USERS": "achat seulement permis aux utilisateurs suivants",
       "TOTAL": "total",
       "CATEGORY": "catégorie",
-      "JUSTIFICATION": "justification"
+      "JUSTIFICATION": "justification",
+      "PRICE PER UNIT PHOLDER": "price per uniT (without VAT)"
     },
     "ACTIONS": {
         "ATTENTE VALIDATION TEXT": "en attente de validation:",
@@ -796,7 +799,9 @@
       "SUPPLIER": "Fournisseur",
       "OR SUPPLIER": "Ou fournisseur",
       "REFERENCE": "Référence",
-      "POSITION": "Localisation"
+      "POSITION": "Localisation",
+      "CHOOSE IN LIST PHOLDER": "choose in LisT",
+      "IF NOT IN LIST PHOLDER": "if not in lisT"
     }
   },
   "COMMUNICATION": {
@@ -1091,12 +1096,12 @@
         "RESPONSABLES": "Responsables"
       },
       "LABEL": {
-        "LABO NAME": "nom du labo:",
-        "LABO SHORT NAME": "nom court du labo:",
-        "USER FIRST NAME": "prénom de l'utilisateur:",
-        "USER LAST NAME": "nom de famille de l'utilisateur:",
-        "EMAIL": "e-mail:",
-        "USER PASSWORD": "mot de passe:"
+        "LABO NAME": "nom du labo",
+        "LABO SHORT NAME": "nom court du labo",
+        "USER FIRST NAME": "prénom de l'utilisateur",
+        "USER LAST NAME": "nom de famille de l'utilisateur",
+        "EMAIL": "e-mail",
+        "USER PASSWORD": "mot de passe"
       }
     }
   },
