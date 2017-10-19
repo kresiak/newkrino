@@ -21,6 +21,13 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-sm-5 vcenter"><b>Cost of consommables</b></div>
+            <div class="col-sm-6 vcenter">
+                {{serviceStep.annotation.consommablesCost | currency:'EUR':true:'1.2-2'}}
+            </div>
+        </div>
+
         <div class="row" *ngFor="let prodExtra of clientType.productsExtras">
             <div class="col-sm-5 vcenter">{{prodExtra.labeltxt}}</div>
             <div class="col-sm-6 vcenter">

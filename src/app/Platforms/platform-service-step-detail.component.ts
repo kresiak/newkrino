@@ -156,7 +156,7 @@ export class PlatformServiceStepDetailComponent implements OnInit {
     }
 
     costConsommableUpdated(cost) {
-        this.serviceStep.data.costConsommables = cost
+        this.serviceStep.data.costConsommables = +cost
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 

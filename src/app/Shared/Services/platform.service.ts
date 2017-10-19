@@ -71,7 +71,7 @@ export class PlatformService {
             let productsExtras = correctionsFactors.filter(cf => cf.data.isOnProduct).map(cf => {
                 return {
                     labeltxt: cf.name + ' (' + cf.perCent + '%)',
-                    extraValue: cf.perCent / 100 * productsCost
+                    extraValue: cf.perCent / 100 * (productsCost + consommablesCost)
                 }
             })
             let sumProductsExtras = productsExtras.reduce((acc, pe) => acc + +pe.extraValue, 0)
@@ -87,7 +87,7 @@ export class PlatformService {
             // totals
             // ======
 
-            let total = sumServicesCosts + labourCost + sumLabourReduction + productsCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
+            let total = sumServicesCosts + labourCost + sumLabourReduction + productsCost + consommablesCost + sumProductsExtras + ((machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0)
 
             let totalExtras = correctionsFactors.filter(cf => cf.data.isOnTotal).map(cf => {
                 return {
@@ -125,6 +125,7 @@ export class PlatformService {
             return acc + unitPrice * p.quantity
         }, 0)
 
+        let consommablesCost = serviceStep.costConsommables || 0
 
         // labour
         // ======
@@ -148,6 +149,7 @@ export class PlatformService {
                 machineName: (machine.data || {}).name,
                 machineCost: (machine && machine.annotation) ? machine.annotation.costOfHour * (serviceStep.runtime || 0) : 0,
                 productsCost: productsCost,
+                consommablesCost: consommablesCost,
                 labourCost: labourCost,
                 costsByClientType: costsByClientType,
                 grandTotalCost: getTotals((service || {}).clientTypeId).grandTotalCost,
