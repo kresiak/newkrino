@@ -125,7 +125,7 @@ export class ProductListComponent implements OnInit {
                 Supplier: product.annotation.supplierName,
                 Package: product.data.package,
                 CatalogNr: product.data.catalogNr,
-                Price: product.data.price,
+                Price: (+product.data.price).toLocaleString('fr-BE', {useGrouping: false}),
                 Frigo: product.data.isFrigo,
                 Disabled: product.data.disabled,
                 NbOrders: product.annotation.productFrequence

@@ -116,7 +116,7 @@ export class OrderListComponent implements OnInit {
                 User: order.annotation.user,
                 Equipe: order.annotation.equipe ? order.annotation.equipe : (order.annotation.equipeGroup ? order.annotation.equipeGroup : 'unknown equipe'),
                 Supplier: order.annotation.supplier,
-                'With VAT': order.annotation.total,
+                'With VAT': order.annotation.total.toLocaleString('fr-BE', {useGrouping: false}), 
                 Status: order.annotation.status
             }
         }

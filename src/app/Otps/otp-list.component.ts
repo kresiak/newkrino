@@ -101,11 +101,11 @@ export class OtpListComponent implements OnInit {
         var fnFormat = otp => {
             return {
                 Otp: otp.data.name,
-                Budget: otp.annotation.budget,
-                Engaged: otp.annotation.amountEngaged,
-                'Engaged in Krino': otp.annotation.amountSpentNotYetInSap,
-                Invoiced: otp.annotation.amountBilled,
-                Available: otp.annotation.amountAvailable,
+                Budget: otp.annotation.budget.toLocaleString('fr-BE', {useGrouping: false}),
+                Engaged: otp.annotation.amountEngaged.toLocaleString('fr-BE', {useGrouping: false}),
+                'Engaged in Krino': otp.annotation.amountSpentNotYetInSap.toLocaleString('fr-BE', {useGrouping: false}),
+                Invoiced: otp.annotation.amountBilled.toLocaleString('fr-BE', {useGrouping: false}),
+                Available: otp.annotation.amountAvailable.toLocaleString('fr-BE', {useGrouping: false}),
                 Until: otp.annotation.currentPeriodAnnotation ? dateUtils.formatShortDate(otp.annotation.currentPeriodAnnotation.datEnd) : 'not for current period',
                 Deleted: otp.data.isDeleted ? 'Deleted ' : '',
                 Blocked: otp.data.isBlocked ? 'Blocked ' : '',
