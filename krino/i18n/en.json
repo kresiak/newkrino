@@ -171,7 +171,7 @@
         "WANTS ORDER": "project that wants to order:",
         "HOW MUCH WISH SPEND": "how much money you wish to spend:",
         "AVAILABLE BUDGET": "available budget:",
-        "AMOUNT TO SPEND": "amount to spend"
+        "AMOUNT TO SPEND PHOLDER": "amount to spend"
       },
       "COLUMN": {
         "PRODUCT TYPE": "Product type",
@@ -812,11 +812,11 @@
       "PROCESSED": "Processed"
     },
     "LABEL": {
-      "SUPPLIER": "Supplier",
-      "OR SUPPLIER": "Or supplier",
-      "REFERENCE": "Reference",
-      "POSITION": "Position",
-      "CHOOSE IN LIST PHOLDER": "choose in List",
+      "SUPPLIER": "supplier",
+      "OR SUPPLIER": "or supplier",
+      "REFERENCE": "reference",
+      "POSITION": "position",
+      "CHOOSE IN LIST PHOLDER": "choose in list",
       "IF NOT IN LIST PHOLDER": "if not in list"
     }
   },
