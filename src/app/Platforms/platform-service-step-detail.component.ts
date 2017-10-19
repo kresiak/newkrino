@@ -155,4 +155,15 @@ export class PlatformServiceStepDetailComponent implements OnInit {
         this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
     }
 
+    costConsommableUpdated(cost) {
+        this.serviceStep.data.costConsommables = cost
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
+    }
+
+    descriptionConsommableUpdated(description) {
+        this.serviceStep.data.descriptionConsommables = description
+        this.dataStore.updateData('platform.service.steps', this.serviceStep.data._id, this.serviceStep.data);
+    }
+
+
 }

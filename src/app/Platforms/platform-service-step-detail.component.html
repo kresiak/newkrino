@@ -94,6 +94,24 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.CONSOMMABLES' | translate}}" id="tabConsommables">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3 vcenter"><b>Evaluation of cost</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor [content]="serviceStep.data.costConsommables || 0" [isMonetary]="true" [showControls]="true" (editSaved)="costConsommableUpdated($event)"></gg-editor>
+                        </div>
+                        <div class="col-sm-3 vcenter"><b>Description of consommables</b></div>
+                        <div class="col-sm-8 vcenter">
+                            <gg-editor [content]="serviceStep.data.descriptionConsommables || 'no description yet'" [showControls]="true" (editSaved)="descriptionConsommableUpdated($event)"></gg-editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.PRODUCTS' | translate}}" id="tabProducts">
         <template ngbTabContent>
             <div class="card">
