@@ -150,6 +150,8 @@ import { EditorDate } from './ui/editor/editor-date'
 import { EditorBoolean } from './ui/editor/editor-boolean'
 import { Checkbox } from './ui/checkbox/checkbox'
 import { CheckboxDelete } from './ui/confirmation/checkbox-delete.component'
+import { ButtonActionConfirm } from './ui/confirmation/button-action.component'
+
 
 import { SelectorComponent } from './ui/selector/selector.component'
 import { CommentComponent } from './Comments/comment.component'
@@ -267,7 +269,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     PreOrderComponent, OrderDetailComponent, OrderComponentRoutable, BasketRoutableComponent,
     OrderListComponent, OrderListComponentRoutable, OrderFridgeListComponent,
     SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
-    Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
+    Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     FullDatePipe, ShortDatePipe, FromNowPipe, HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
     SupplierSapDetailComponent, SupplierSapListComponent,
     PlatformMainComponent, PlatformMachinesComponent, PlatformServicesComponent, PlatformServiceStepListComponent, PlatformServiceStepDetailComponent, PlatformServiceSnapshotsComponent, PlatformServiceSnapshotListComponent,

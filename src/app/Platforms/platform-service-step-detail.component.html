@@ -225,20 +225,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <p>This action will disable the step. Are you sure you want to do that? If yes, click the button
-                                below.
-                            </p>
-                        </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2" *ngIf="!serviceStep.confirmation">
-                            <button class="btn btn-warning" (click)="serviceStep.confirmation = true">Disable the step</button>
-                        </div>
-                        <div class="col-sm-11 col-md-10 col-lg-10" *ngIf="serviceStep.confirmation">
-                            <button class="btn btn-danger" (click)="enableDisableStep(true)">Now I will disable the step</button>
-                            <button class="btn btn-success" (click)="serviceStep.confirmation = false">Cancel</button>
-                        </div>
-                    </div>
+                    <gg-button-action-confirm (doAction)="enableDisableStep(true)" [typeObjectKey]="'GENERAL.OBJECT.STEP'" [typeActionKey]="'GENERAL.ACTION.DISABLE'"></gg-button-action-confirm>
                 </div>
             </div>
         </template>
@@ -247,14 +234,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm-11">
-                            <p>If you want to reactivate the step, click the button below.</p>
-                        </div>
-                        <div class="col-sm-3 col-md-2 col-lg-2">
-                            <button class="btn btn-warning" (click)="enableDisableStep(false)">Now I will reactivate the step</button>
-                        </div>
-                    </div>
+                    <gg-button-action-confirm (doAction)="enableDisableStep(false)" [typeObjectKey]="'GENERAL.OBJECT.STEP'" [typeActionKey]="'GENERAL.ACTION.REACTIVATE'"></gg-button-action-confirm>
                 </div>
             </div>
         </template>

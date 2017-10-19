@@ -60,8 +60,16 @@
     "OBJECT": {
       "DELIVERY": "livraison",
       "SERVICE": "service",
+      "STEP": "étape",      
+      "SNAPSHOT": "snapshot",
       "OFFER": "offre",
-      "PRODUCT": "produit"
+      "PRODUCT": "produit",
+      "ORDER": "commande"
+    },
+    "ACTION": {
+      "DISABLE": "désactiver",
+      "REACTIVATE": "réactiver",
+      "DELETE": "supprimer"
     }
   },
   "UI": {
@@ -73,6 +81,13 @@
       "IF YOU ARE SURE": ", ce qui ne peut pas être annulé. Clicker ici, si vous êtes certain de vouloir supprimer.",
       "DELETE": "Supprimer",
       "CANCEL": "Annuler"
+    },
+    "ACTION BUTTON": {
+      "ACTION": "action",
+      "THIS ACTION WILL": "Cette action va",
+      "THE": "le/la",
+      "ARE YOU SURE": "Etes vous certain de vouloir faire cela? Si oui, clicker le bouton ci-dessous.",
+      "NOW I WILL": "Maintenant on va"
     }
   },  
   "HOME": {

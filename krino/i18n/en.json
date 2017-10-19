@@ -60,8 +60,16 @@
     "OBJECT": {
       "DELIVERY": "delivery",
       "SERVICE": "service",
+      "STEP": "step",
+      "SNAPSHOT": "snapshot",
       "OFFER": "offer",
-      "PRODUCT": "product"
+      "PRODUCT": "product",
+      "ORDER": "order"
+    },
+    "ACTION": {
+      "DISABLE": "disable",
+      "REACTIVATE": "reactivate",
+      "DELETE": "delete"
     }
   },
   "UI": {
@@ -73,6 +81,13 @@
       "IF YOU ARE SURE": "and can't be undone. Click here if you are sure you want to delete it.",
       "DELETE": "Delete",
       "CANCEL": "Cancel"
+    },
+    "ACTION BUTTON": {
+      "ACTION": "action",
+      "THIS ACTION WILL": "This action will",
+      "THE": "the",
+      "ARE YOU SURE": "Are you sure you want to do that? If yes, click the button below.",
+      "NOW I WILL": "Now I will"
     }
   },
   "HOME": {
