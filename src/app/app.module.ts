@@ -149,7 +149,7 @@ import { EditorNumber } from './ui/editor/editor-number'
 import { EditorDate } from './ui/editor/editor-date'
 import { EditorBoolean } from './ui/editor/editor-boolean'
 import { Checkbox } from './ui/checkbox/checkbox'
-import { CheckboxDelete } from './ui/checkbox/checkbox-delete.component'
+import { CheckboxDelete } from './ui/confirmation/checkbox-delete.component'
 
 import { SelectorComponent } from './ui/selector/selector.component'
 import { CommentComponent } from './Comments/comment.component'
