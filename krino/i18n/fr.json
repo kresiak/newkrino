@@ -1176,7 +1176,8 @@
     },
     "SERVICE": {
       "SEARCH HELP": {
-        "MSG1": "pme: liste des services ayant 'pme' dans la version ou la description"
+        "MSG1": "pme: liste des services ayant 'pme' dans la version ou la description",
+        "MSG2": "$d: liste des services supprimés"
       },
       "MENU": {
         "LIST OF SERVICES": "Liste de services",
@@ -1204,7 +1205,9 @@
           "CLONE THIS SERVICE": "Cloner ce service",
           "IDENTICAL SERVICES": "Services identiques",
           "SIMILAR SERVICES": "Services similaires",
-          "COMPARE SERVICES": "Comparer les services"
+          "COMPARE SERVICES": "Comparer les services",
+          "DISABLE": "Désactiver le service",
+          "REACTIVATE": "Réactiver le service"
         },
         "COLUMN": {
 

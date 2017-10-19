@@ -1179,7 +1179,8 @@
     },
     "SERVICE": {
       "SEARCH HELP": {
-        "MSG1": "pme: search for services having 'pme' in either version or description"
+        "MSG1": "pme: search for services having 'pme' in either version or description",
+        "MSG2": "$d: search for deleted services"
       },
       "MENU": {
         "LIST OF SERVICES": "List of services",
@@ -1207,7 +1208,9 @@
           "CLONE THIS SERVICE": "Clone this service",
           "IDENTICAL SERVICES": "Identical services",
           "SIMILAR SERVICES": "Similar services",
-          "COMPARE SERVICES": "Compare services"
+          "COMPARE SERVICES": "Compare services",
+          "DISABLE": "Disable the service",
+          "REACTIVATE": "Reactivate the service"
         },
         "COLUMN": {
 

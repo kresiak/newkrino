@@ -157,5 +157,23 @@
             </div>
         </template>
     </ngb-tab>
+    <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.DISABLE' | translate}}" id="tabDisableService" *ngIf="!serviceItem.data.isDisabled">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <gg-button-action-confirm (doAction)="enableDisableService(true)" [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" [typeActionKey]="'GENERAL.ACTION.DISABLE'"></gg-button-action-confirm>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
+    <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.REACTIVATE' | translate}}" id="tabEnableService" *ngIf="serviceItem.data.isDisabled">
+        <template ngbTabContent>
+            <div class="card">
+                <div class="card-block">
+                    <gg-button-action-confirm (doAction)="enableDisableService(false)" [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" [typeActionKey]="'GENERAL.ACTION.REACTIVATE'"></gg-button-action-confirm>
+                </div>
+            </div>
+        </template>
+    </ngb-tab>
 
 </ngb-tabset>

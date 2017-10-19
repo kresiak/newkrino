@@ -1,6 +1,7 @@
 <gg-search-box [objectTypeTranslationKey]="'SERVICES'" [objectsObservable]="servicesObservable" [fnFilterObjects]="fnFilter" (listChanged)="setServices($event)">
     <ul searchHelp>
         <li>{{'PLATFORM.SERVICE.SEARCH HELP.MSG1' | translate}}</li>
+        <li>{{'PLATFORM.SERVICE.SEARCH HELP.MSG2' | translate}}</li>
     </ul>
 
     <ngb-accordion accordion *ngIf="servicesList" [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)"

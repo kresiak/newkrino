@@ -110,4 +110,10 @@ export class PlatformServiceDetailComponent implements OnInit {
 
         return +x[1]
     }
+
+    enableDisableService(isDisabled: boolean) {
+        this.serviceItem.data.isDisabled = isDisabled
+        this.dataStore.updateData('platform.services', this.serviceItem.data._id, this.serviceItem.data);
+    }
+    
 }

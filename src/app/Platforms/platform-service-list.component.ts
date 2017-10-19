@@ -35,9 +35,10 @@ export class PlatformServiceListComponent implements OnInit {
         if (!this.state.openPanelId) this.state.openPanelId = '';
     }
 
-    fnFilter(s, txt) {
-        if (txt === '' ) return true
-        return (s.data.description || '').toUpperCase().includes(txt) || (s.data.name || '').toUpperCase().includes(txt) || (s.annotation.category || '').toUpperCase().includes(txt)
+    fnFilter(s, txt: string) {
+        if (txt === '' || txt === '$' ) return !s.data.isDisabled
+        if (txt === '$D') return s.data.isDisabled
+        return !s.data.isDisabled && ((s.data.description || '').toUpperCase().includes(txt) || (s.data.name || '').toUpperCase().includes(txt) || (s.annotation.category || '').toUpperCase().includes(txt))
     }
 
     setServices(services) {
