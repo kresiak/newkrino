@@ -26,8 +26,9 @@ private isPageRunning: boolean = true
             price: ['', Validators.required],
             lifetime: ['', Validators.required],
             maintenancePrice: ['', Validators.required],
-            occupancy: ['', Validators.required],
-            hoursPerDay: ['', Validators.required]
+            occupancy: [''],
+            hoursPerDay: [''],
+            hoursPerYear: ['']
         })
 
         this.platformService.getAnnotatedMachines().takeWhile(() => this.isPageRunning).subscribe(machines => {
@@ -45,7 +46,8 @@ private isPageRunning: boolean = true
             lifetime: formValue.lifetime,
             maintenancePrice: formValue.maintenancePrice,
             occupancy: formValue.occupancy,
-            hoursPerDay: formValue.hoursPerDay
+            hoursPerDay: formValue.hoursPerDay,
+            hoursPerYear: formValue.hoursPerYear
         }).subscribe(res =>
         {
             this.reset()
@@ -96,5 +98,9 @@ private isPageRunning: boolean = true
         this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
     }
     
+    hoursPerYearMachineUpdated(hoursPerYear, machineItem) {
+        machineItem.data.hoursPerYear = +hoursPerYear
+        this.dataStore.updateData('platform.machines', machineItem.data._id, machineItem.data)
+    }
    
 }

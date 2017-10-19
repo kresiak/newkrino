@@ -1,6 +1,7 @@
 <div class="card-block">
     <ngb-tabset>
-        <ngb-tab *ngIf="machinesList && machinesList.length !== 0" title="{{'PLATFORM.MACHINE.MENU.LIST OF MACHINES' | translate}}" id="tabListOfMachines">
+        <ngb-tab *ngIf="machinesList && machinesList.length !== 0" title="{{'PLATFORM.MACHINE.MENU.LIST OF MACHINES' | translate}}"
+            id="tabListOfMachines">
             <template ngbTabContent>
                 <div class="card">
                     <div class="card-block">
@@ -10,7 +11,7 @@
                                     <template ngbPanelTitle>
                                         <div class="row">
                                             <div class="col-sm-3"><b>Name</b></div>
-                                            <div class="col-sm-5"><b>Description</b></div>
+                                            <div class="col-sm-4"><b>Description</b></div>
                                             <div class="col-sm-2"><b>Cost per hour</b></div>
                                         </div>
                                     </template>
@@ -19,85 +20,96 @@
                                     <template ngbPanelTitle>
                                         <div class="row" id="{{machineItem._id}}">
                                             <div class="col-sm-3">{{machineItem.data.name}}</div>
-                                            <div class="col-sm-5">{{machineItem.data.description}}</div>
+                                            <div class="col-sm-4">{{machineItem.data.description}}</div>
                                             <div class="col-sm-2 gg-price">{{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2" [style.color]="'red'" *ngIf="!machineItem.annotation.isOK">Error in occupancy!!!</div>
                                         </div>
                                     </template>
                                     <template ngbPanelContent>
-                                    <ngb-tabset>
-                                        <ngb-tab title="{{'PLATFORM.MACHINE.MENU.INFO' | translate}}" id="tabInfo">
-                                            <template ngbTabContent>
-                                                <div class="card">
-                                                    <div class="card-block">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.data.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Description</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.data.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Price</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.data.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Lifetime (in years)</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.data.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Maintenance price (per year)</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor [content]="machineItem.data.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Occupancy (in %)</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.data.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Hours per day</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                <gg-editor-number [content]="machineItem.data.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </ngb-tab>
-                                        <ngb-tab title="{{'PLATFORM.MACHINE.MENU.COST' | translate}}" id="tabCost">
-                                            <template ngbTabContent>
-                                                <div class="card">
-                                                    <div class="card-block">
-                                                        <div class="row gg-line-height">
-                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                {{machineItem.data.name}}
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Annual amortization</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                {{machineItem.annotation.annualAmortisation | currency:'EUR':true:'1.2-2'}}
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Annual cost (incl. maintenance)</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                {{machineItem.annotation.annualCost | currency:'EUR':true:'1.2-2'}}
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Nb running hours per year</b></div>
-                                                            <div class="col-sm-8 vcenter">
-                                                                {{machineItem.annotation.nbHoursPerYear}}
-                                                            </div>
-                                                            <div class="col-sm-3 vcenter"><b>Cost per hour hour</b></div>
-                                                            <div class="col-sm-8 vcenter gg-price">
-                                                                {{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}
+                                        <ngb-tabset>
+                                            <ngb-tab title="{{'PLATFORM.MACHINE.MENU.INFO' | translate}}" id="tabInfo">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor [content]="machineItem.data.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor [content]="machineItem.data.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Price</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor [content]="machineItem.data.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Lifetime (in years)</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-number [content]="machineItem.data.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Maintenance price (per year)</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor [content]="machineItem.data.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-11 vcenter"><b>Either:</b></div>
+                                                                <div class="col-sm-1 vcenter"></div>
+                                                                <div class="col-sm-2 vcenter"><b> Occupancy (in %)</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-number [content]="machineItem.data.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                </div>
+                                                                <div class="col-sm-1 vcenter"></div>
+                                                                <div class="col-sm-2 vcenter"><b>  Hours per day</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-number [content]="machineItem.data.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                </div>
+                                                                <div class="col-sm-11 vcenter"><b>Or:</b></div>
+                                                                <div class="col-sm-1 vcenter"></div>
+                                                                <div class="col-sm-2 vcenter"><b>  Hours per year</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    <gg-editor-number [content]="machineItem.data.hoursPerYear" (editSaved)="hoursPerYearMachineUpdated($event, machineItem)"></gg-editor-number>
+                                                                </div>
+                                                                <div class="col-sm-11 vcenter" *ngIf="!machineItem.annotation.isOK" [style.color]="'red'"><b>Error in occupancy!!! Check your data!</b></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </template>
-                                        </ngb-tab>
-                                    </ngb-tabset>
-		                            </template>
-				                </ngb-panel>
-			                </ngb-accordion>
-		                </div>
+                                                </template>
+                                            </ngb-tab>
+                                            <ngb-tab title="{{'PLATFORM.MACHINE.MENU.COST' | translate}}" id="tabCost">
+                                                <template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <div class="row gg-line-height">
+                                                                <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    {{machineItem.data.name}}
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Annual amortization</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    {{machineItem.annotation.annualAmortisation | currency:'EUR':true:'1.2-2'}}
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Annual cost (incl. maintenance)</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    {{machineItem.annotation.annualCost | currency:'EUR':true:'1.2-2'}}
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Nb running hours per year</b></div>
+                                                                <div class="col-sm-8 vcenter">
+                                                                    {{machineItem.annotation.nbHoursPerYear}}
+                                                                </div>
+                                                                <div class="col-sm-3 vcenter"><b>Cost per hour hour</b></div>
+                                                                <div class="col-sm-8 vcenter gg-price">
+                                                                    {{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </ngb-tab>
+                                        </ngb-tabset>
+                                    </template>
+                                </ngb-panel>
+                            </ngb-accordion>
+                        </div>
                     </div>
                 </div>
             </template>
@@ -109,45 +121,62 @@
                         <div class="container-fluid">
                             <form [formGroup]="machineForm" (ngSubmit)="save(machineForm.value, machineForm.valid)">
                                 <div class="form-group row">
-                                    <label for="nameOfMachine" class="col-sm-2 col-form-label col-xl-2">name of machine:</label>
-                                    <div class="col-sm-10">
+                                    <label for="nameOfMachine" class="col-sm-3 col-form-label">name of machine:</label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control" formControlName="nameOfMachine" id="nameOfMachine" placeholder="name of machine">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
-                                    <div class="col-sm-10">
+                                    <label for="description" class="col-sm-3 col-form-label">description:</label>
+                                    <div class="col-sm-9">
                                         <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="price" class="col-sm-2 col-form-label col-xl-2">price:</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" min="0" step="any"  class="form-control" formControlName="price" id="price" placeholder="price">
+                                    <label for="price" class="col-sm-3 col-form-label">price:</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="price" id="price" placeholder="price">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lifetime" class="col-sm-2 col-form-label col-xl-2">lifetime (in years):</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" min="0" step="any"  class="form-control" formControlName="lifetime" id="lifetime" placeholder="lifetime (in years)">
+                                    <label for="lifetime" class="col-sm-3 col-form-label">lifetime (in years):</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="lifetime" id="lifetime" placeholder="lifetime (in years)">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="maintenancePrice" class="col-sm-2 col-form-label col-xl-2">maintenance price (per year):</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" min="0"step="any"  step="any" class="form-control" formControlName="maintenancePrice" id="maintenancePrice" placeholder="maintenance price (per year)">
+                                    <label for="maintenancePrice" class="col-sm-3 col-form-label">maintenance price (per year):</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" min="0" step="any" step="any" class="form-control" formControlName="maintenancePrice" id="maintenancePrice"
+                                            placeholder="maintenance price (per year)">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="occupancy" class="col-sm-2 col-form-label col-xl-2">occupancy (in %):</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">Either:</div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-1"></div>
+                                    <label for="occupancy" class="col-sm-2 col-form-label">occupancy (in %):</label>
+                                    <div class="col-sm-9">
                                         <input type="number" min="0" step="any" class="form-control" formControlName="occupancy" id="occupancy" placeholder="occupancy (in %)">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="hoursPerDay" class="col-sm-2 col-form-label col-xl-2">hours per Day:</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" min="0" step="any"  class="form-control" formControlName="hoursPerDay" id="hoursPerDay" placeholder="hours per Day">
+                                    <div class="col-sm-1"></div>
+                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">hours per day:</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerDay" id="hoursPerDay" placeholder="hours per day">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">Or:</div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-1"></div>
+                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">hours per year:</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerYear" id="hoursPerYear" placeholder="hours per year">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -155,7 +184,7 @@
                                         <button class="btn btn-success" type="submit" [disabled]="!machineForm.valid">{{'FORM.SUBMIT' | translate}}</button>
                                     </div>
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-info"  [disabled]="machineForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
+                                        <button class="btn btn-info" [disabled]="machineForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
                                     </div>
                                 </div>
                             </form>

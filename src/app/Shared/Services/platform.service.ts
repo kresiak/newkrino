@@ -570,15 +570,16 @@ export class PlatformService {
         return Observable.combineLatest(this.dataStore.getDataObservable('platform.machines'), (machines) => {
             return machines.map(machine => {
                 var annualAmortisation = +machine.price / +machine.lifetime
-                var nbHoursPerYear = +machine.hoursPerDay * 365 * +machine.occupancy / 100
+                var nbHoursPerYear = +machine.hoursPerYear || (+machine.hoursPerDay * 365 * +machine.occupancy / 100)
                 var annualCost = annualAmortisation + +machine.maintenancePrice
                 return {
                     data: machine,
                     annotation: {
+                        isOK: (machine.hoursPerDay && machine.occupancy) || machine.hoursPerYear,
                         annualAmortisation: annualAmortisation,
                         annualCost: annualCost,
                         nbHoursPerYear: nbHoursPerYear,
-                        costOfHour: annualCost / nbHoursPerYear
+                        costOfHour: nbHoursPerYear ? (annualCost / nbHoursPerYear) : annualCost
                     }
                 }
             })
