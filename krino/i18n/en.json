@@ -836,7 +836,8 @@
       "DISABLED": "Disabled"
     },
     "LABEL": {
-
+      "MESSAGE": "Message",
+      "ENTER MESSAGE INFORMATION PHOLDER": "enter message information"
     }
   },
   "SAP": {

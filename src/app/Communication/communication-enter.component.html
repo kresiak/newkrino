@@ -8,9 +8,9 @@
                             <div class="container-fluid">
                                 <form [formGroup]="communicationMessageForm" (ngSubmit)="save(communicationMessageForm.value, communicationMessageForm.valid)">
                                     <div class="form-group row">
-                                        <label for="communicationMessage" class="col-sm-2 col-form-label col-xl-2">Message:</label>
+                                        <label for="communicationMessage" class="col-sm-2 col-form-label col-xl-2">{{'COMMUNICATION.LABEL.MESSAGE' | translate}}:</label>
                                         <div class="col-sm-10">
-                                            <textarea rows="6" class="form-control" formControlName="communicationMessage" placeholder="enter message information"></textarea>
+                                            <textarea rows="6" class="form-control" formControlName="communicationMessage" placeholder="{{'COMMUNICATION.LABEL.ENTER MESSAGE INFORMATION PHOLDER' | translate}}"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">

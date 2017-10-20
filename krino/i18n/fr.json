@@ -834,7 +834,10 @@
       "MESSAGE": "Message",
       "DISABLED": "Désactivé"
     },
-    "LABEL": {}
+    "LABEL": {
+      "MESSAGE": "Message",
+      "ENTER MESSAGE INFORMATION PHOLDER": "enter message information XX"
+    }
   },
   "SAP": {
     "MENU": {
