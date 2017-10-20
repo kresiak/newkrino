@@ -648,7 +648,8 @@
       "NAME PHOLDER": "name of the equipe XX",
       "NAME GROUP PHOLDER": "name of the group XX",
       "CHOOSE IN LIST PHOLDER": "choose in list XX",
-      "AMOUNT PHOLDER": "amount XX"
+      "AMOUNT PHOLDER": "amount XX",
+      "SELECT ONE PHOLDER": "Select One XX"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",
@@ -791,7 +792,8 @@
       "NON URGENT ORDER": "commande groupée"
     },
     "LABEL": {
-
+      "ENTER TEXT PHOLDER": "enter text XX",
+      "SELECT ONE PHOLDER": "Select One XX"
     },
     "BASKET": {
       "CHECKOUT AT": "Passer à l'achat chez",
@@ -839,7 +841,8 @@
       "REFERENCE": "référence",
       "POSITION": "localisation",
       "CHOOSE IN LIST PHOLDER": "choisir dans la liste",
-      "IF NOT IN LIST PHOLDER": "écrire ici, s'il n'est pas dans la liste"
+      "IF NOT IN LIST PHOLDER": "écrire ici, s'il n'est pas dans la liste",
+      "SELECT ONE PHOLDER": "Select One XX"
     }
   },
   "COMMUNICATION": {
@@ -1021,7 +1024,8 @@
         "NO DELIVERY YET": "pas encore de livraison",
         "PARTIALLY DELIVERED": "livraison partielle",
         "FULLY DELIVERED": "livraison complète",
-        "SAP ID": "sap id:"
+        "SAP ID": "sap id:",
+        "SELECT ONE PHOLDER": "Select One XX"
       }
     },
     "MONITORING": {
