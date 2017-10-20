@@ -365,10 +365,10 @@
     },
     "LABEL": {
       "FULL NAME": "nom complet:",
-      "EMAIL": "adresse e-mail:",
+      "EMAIL": "adresse e-mail",
       "NAME": "nom:",
       "FIRST NAME": "prénom:",
-      "PASSWORD": "mot de passe:",
+      "PASSWORD": "mot de passe",
       "EQUIPE(S)": "équipe(s):",
       "IS BLOCKED": "bloqué:",
       "IS LABO USER": "travaille au labo:",
@@ -378,7 +378,9 @@
       "IS KRINO PROGRAMMER": "programmeur:",
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
-      "SUPER ADMINISTRATOR": "super administrateur:"
+      "SUPER ADMINISTRATOR": "super administrateur:",
+      "NAME OF THE USER PHOLDER": "name of the user XX",
+      "FIRST NAME OF THE USER PHOLDER": "first name of the user XX"
     },
     "MENU": {
       "INFO": "Info",
@@ -445,7 +447,9 @@
       "SHOPPING ENABLED": "web shopping activé:",
       "ALLOWED PRODUCTS": "produits autorisés:",
       "VOUCHERS AVAILABLE": "coupons disponibles:",
-      "VOUCHERS ORDERED": "coupons utilisés:"
+      "VOUCHERS ORDERED": "coupons utilisés:",
+      "DESCRIPTION OF FIX COSTS PHOLDER": "Description of Fix Costs XX",
+      "PRICE FIX COSTS PHOLDER": "price fix costs XX"
     },
     "INFO": {
       "LABEL": {
@@ -557,6 +561,19 @@
       "MSG12": "$PU : produits publics (peuvent être vus/utilisés seulement par les membres de TOUS les labos)",
       "MSG13": "$V : produits en attente de validation",
       "MSG14": "$OR : produits qui ont déjà été commandés dans votre labo"
+    },
+    "FRIDGE": {
+      "LABEL": {
+        "ORDER PRODUCT FROM FRIDGE": "Order a product from the fridge XX",
+        "YOU WILL ORDER": "You will order XX",
+        "FROM THE FRIDGE OF": "From the fridge of XX",
+        "AT FOLLOWING UNITARY PRICE": "At following unitary price XX",
+        "QUANTITY TO ORDER": "Quantity to order XX",
+        "ENTER QUANTITY TO ORDER PHOLDER": "enter quantity to order XX"
+      },
+      "BUTTON": {
+        "SEND REQUEST": "Send request XX"
+      }
     }
   },
   "EQUIPE": {
@@ -608,10 +625,10 @@
     },
     "LABEL": {
       "EQUIPE": "équipe:",
-      "DESCRIPTION": "description:",
+      "DESCRIPTION": "description",
       "WITH FOLLOWING USERS": "avec les utilisateurs suivants:",
       "HEADS OF EQUIPE": "chefs d'équipe:",
-      "MONTHS AHEAD ALLOWED": "nb de mois en avance de budget autorisés:",
+      "MONTHS AHEAD ALLOWED": "nb de mois en avance de budget autorisés",
       "IS BLOCKED": "bloqué:",
       "TOTAL BUDGET": "budget total:",
       "MONEY SPENT": "montant dépensé:",
@@ -627,7 +644,12 @@
       "MEMBERS": "membres:",
       "EQUIPE GIVING": "Equipe qui donne:",
       "EQUIPE RECEIVING": "Equipe qui reçoit:",
-      "AMOUNT TRANSFERED": "Montant transféré:"
+      "AMOUNT TRANSFERED": "Montant transféré:",
+      "NAME PHOLDER": "name of the equipe XX",
+      "NAME GROUP PHOLDER": "name of the group XX",
+      "CHOOSE IN LIST PHOLDER": "choose in list XX",
+      "AMOUNT PHOLDER": "amount XX",
+      "SELECT ONE PHOLDER": "Select One XX"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",
@@ -694,7 +716,9 @@
       "CATALOG NUMBER": "Numéro de catalogue:",
       "QUANTITY": "Quantité:",
       "STATUS": "Statut:",
-      "ORDER PROCESSED": "Commande traitée:"
+      "ORDER PROCESSED": "Commande traitée:",
+      "COMMENT EXPLICATION PHOLDER": "comment/explication XX",
+      "QUANTITY INCREMENT PHOLDER": "quantity increment. Ex.: -10 XX"
     }
   },
   "MYKRINO": {
@@ -768,7 +792,8 @@
       "NON URGENT ORDER": "commande groupée"
     },
     "LABEL": {
-
+      "ENTER TEXT PHOLDER": "enter text XX",
+      "SELECT ONE PHOLDER": "Select One XX"
     },
     "BASKET": {
       "CHECKOUT AT": "Passer à l'achat chez",
@@ -816,7 +841,8 @@
       "REFERENCE": "référence",
       "POSITION": "localisation",
       "CHOOSE IN LIST PHOLDER": "choisir dans la liste",
-      "IF NOT IN LIST PHOLDER": "écrire ici, s'il n'est pas dans la liste"
+      "IF NOT IN LIST PHOLDER": "écrire ici, s'il n'est pas dans la liste",
+      "SELECT ONE PHOLDER": "Select One XX"
     }
   },
   "COMMUNICATION": {
@@ -830,7 +856,10 @@
       "MESSAGE": "Message",
       "DISABLED": "Désactivé"
     },
-    "LABEL": {}
+    "LABEL": {
+      "MESSAGE": "Message",
+      "ENTER MESSAGE INFORMATION PHOLDER": "enter message information XX"
+    }
   },
   "SAP": {
     "MENU": {
@@ -995,7 +1024,9 @@
         "NO DELIVERY YET": "pas encore de livraison",
         "PARTIALLY DELIVERED": "livraison partielle",
         "FULLY DELIVERED": "livraison complète",
-        "SAP ID": "sap id:"
+        "SAP ID": "sap id:",
+        "SELECT ONE PHOLDER": "Select One XX",
+        "ENTER TEXT PHOLDER": "enter text XX"
       }
     },
     "MONITORING": {
@@ -1385,12 +1416,12 @@
     },
     "IDENTIFICATION": {
       "LABEL": {
-        "FIRST NAME": "prénom:",
-        "LAST NAME": "nom de famille:",
-        "E-MAIL ADDRESS": "adresse e-mail:",
-        "LABO": "labo:",
-        "PASSWORD": "mot de passe:",
-        "REPEAT PASSWORD": "mot de passe (encore une fois):"
+        "FIRST NAME": "prénom",
+        "LAST NAME": "nom de famille",
+        "E-MAIL ADDRESS": "adresse e-mail",
+        "LABO": "labo",
+        "PASSWORD": "mot de passe",
+        "REPEAT PASSWORD": "mot de passe (encore une fois)"
       }
     },
     "MARKET": {

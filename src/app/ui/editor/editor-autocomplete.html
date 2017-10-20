@@ -1,5 +1,5 @@
 
-<input class="editor__editable-content form-control" [(ngModel)]="selectedItem" ng2-auto-complete blank-option-text="Select One"  [source]="selectableData | async" placeholder="enter text" [list-formatter]="autocompleListFormatter"
+<input class="editor__editable-content form-control" [(ngModel)]="selectedItem" ng2-auto-complete blank-option-text="{{'ORDER.LABEL.SELECT ONE PHOLDER' | translate}}"  [source]="selectableData | async" placeholder="{{'ORDER.LABEL.ENTER TEXT PHOLDER' | translate}}" [list-formatter]="autocompleListFormatter"
     value-property-name="id" display-property-name="name">
 
 <div class="editor__output imgSearch" (click)="clicked()" *ngIf="linkable" >{{content}}</div>

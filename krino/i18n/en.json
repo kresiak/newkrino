@@ -365,10 +365,10 @@
     },
     "LABEL": {
       "FULL NAME": "full name:",
-      "EMAIL": "email:",
+      "EMAIL": "email",
       "NAME": "name:",
       "FIRST NAME": "first name:",
-      "PASSWORD": "password:",
+      "PASSWORD": "password",
       "EQUIPE(S)": "project(s):",
       "IS BLOCKED": "is blocked:",
       "IS LABO USER": "is labo user:",
@@ -378,7 +378,9 @@
       "IS KRINO PROGRAMMER": "is krino programmer:",
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
-      "SUPER ADMINISTRATOR": "is super administrator:"
+      "SUPER ADMINISTRATOR": "is super administrator:",
+      "NAME OF THE USER PHOLDER": "name of the user",
+      "FIRST NAME OF THE USER PHOLDER": "first name of the user"
     },
     "MENU": {
       "INFO": "Info",
@@ -445,7 +447,9 @@
       "SHOPPING ENABLED": "web shopping enabled:",
       "ALLOWED PRODUCTS": "allowed products:",
       "VOUCHERS AVAILABLE": "vouchers available:",
-      "VOUCHERS ORDERED": "vouchers ordered:"
+      "VOUCHERS ORDERED": "vouchers ordered:",
+      "DESCRIPTION OF FIX COSTS PHOLDER": "Description of Fix Costs",
+      "PRICE FIX COSTS PHOLDER": "price fix costs"
     },
     "INFO": {
       "LABEL": {
@@ -557,6 +561,19 @@
       "MSG12": "$PU : public products (can be seen by all labo)",
       "MSG13": "$V : products waiting for validation",
       "MSG14": "$OR : products that already have been ordered"
+    },
+    "FRIDGE": {
+      "LABEL": {
+        "ORDER PRODUCT FROM FRIDGE": "Order a product from the fridge",
+        "YOU WILL ORDER": "You will order",
+        "FROM THE FRIDGE OF": "From the fridge of",
+        "AT FOLLOWING UNITARY PRICE": "At following unitary price",
+        "QUANTITY TO ORDER": "Quantity to order",
+        "ENTER QUANTITY TO ORDER PHOLDER": "enter quantity to order"
+      },
+      "BUTTON": {
+        "SEND REQUEST": "Send request"
+      }
     }
   },
   "EQUIPE": {
@@ -608,10 +625,10 @@
     },
     "LABEL": {
       "EQUIPE": "project:",
-      "DESCRIPTION": "description:",
+      "DESCRIPTION": "description",
       "WITH FOLLOWING USERS": "with following users:",
       "HEADS OF EQUIPE": "heads of project:",
-      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed",
       "IS BLOCKED": "is blocked:",
       "TOTAL BUDGET": "total budget:",
       "MONEY SPENT": "money spent:",
@@ -628,7 +645,12 @@
       "MEMBERS": "members:",
       "EQUIPE GIVING": "Project giving:",
       "EQUIPE RECEIVING": "Project receiving:",
-      "AMOUNT TRANSFERED": "Amount to be transfered:"
+      "AMOUNT TRANSFERED": "Amount to be transfered:",
+      "NAME PHOLDER": "name of the equipe",
+      "NAME GROUP PHOLDER": "name of the group",
+      "CHOOSE IN LIST PHOLDER": "choose in list",
+      "AMOUNT PHOLDER": "amount",
+      "SELECT ONE PHOLDER": "Select One"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: if the name of the project contains 'RWAL'",
@@ -695,7 +717,9 @@
       "CATALOG NUMBER": "Catalog number:",
       "QUANTITY": "Quantity:",
       "STATUS": "Status:",
-      "ORDER PROCESSED": "Order processed:"
+      "ORDER PROCESSED": "Order processed:",
+      "COMMENT EXPLICATION PHOLDER": "comment/explication",
+      "QUANTITY INCREMENT PHOLDER": "quantity increment. Ex.: -10"
     }
   },
   "MYKRINO": {
@@ -769,7 +793,8 @@
       "NON URGENT ORDER": "non urgent order"
     },
     "LABEL": {
-
+      "ENTER TEXT PHOLDER": "enter text",
+      "SELECT ONE PHOLDER": "Select One"
     },
     "BASKET": {
       "CHECKOUT AT": "Checkout at",
@@ -817,7 +842,8 @@
       "REFERENCE": "reference",
       "POSITION": "position",
       "CHOOSE IN LIST PHOLDER": "choose in list",
-      "IF NOT IN LIST PHOLDER": "if not in list"
+      "IF NOT IN LIST PHOLDER": "if not in list",
+      "SELECT ONE PHOLDER": "Select One"
     }
   },
   "COMMUNICATION": {
@@ -832,7 +858,8 @@
       "DISABLED": "Disabled"
     },
     "LABEL": {
-
+      "MESSAGE": "Message",
+      "ENTER MESSAGE INFORMATION PHOLDER": "enter message information"
     }
   },
   "SAP": {
@@ -998,7 +1025,9 @@
         "NO DELIVERY YET": "no delivery yet",
         "PARTIALLY DELIVERED": "partially delivered",
         "FULLY DELIVERED": "fully delivered",
-        "SAP ID": "sap Id:"
+        "SAP ID": "sap Id:",
+        "SELECT ONE PHOLDER": "Select One",
+        "ENTER TEXT PHOLDER": "enter text"
       }
     },
     "MONITORING": {
@@ -1388,12 +1417,12 @@
     },
     "IDENTIFICATION": {
       "LABEL": {
-        "FIRST NAME": "first name:",
-        "LAST NAME": "last name:",
-        "E-MAIL ADDRESS": "e-mail address:",
-        "LABO": "labo:",
-        "PASSWORD": "password:",
-        "REPEAT PASSWORD": "repeat password:"
+        "FIRST NAME": "first name",
+        "LAST NAME": "last name",
+        "E-MAIL ADDRESS": "e-mail address",
+        "LABO": "labo",
+        "PASSWORD": "password",
+        "REPEAT PASSWORD": "repeat password"
       }
     },
     "MARKET": {
