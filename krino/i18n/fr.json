@@ -1025,7 +1025,8 @@
         "PARTIALLY DELIVERED": "livraison partielle",
         "FULLY DELIVERED": "livraison complète",
         "SAP ID": "sap id:",
-        "SELECT ONE PHOLDER": "Select One XX"
+        "SELECT ONE PHOLDER": "Select One XX",
+        "ENTER TEXT PHOLDER": "enter text XX"
       }
     },
     "MONITORING": {
