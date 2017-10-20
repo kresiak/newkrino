@@ -716,7 +716,9 @@
       "CATALOG NUMBER": "Catalog number:",
       "QUANTITY": "Quantity:",
       "STATUS": "Status:",
-      "ORDER PROCESSED": "Order processed:"
+      "ORDER PROCESSED": "Order processed:",
+      "COMMENT EXPLICATION PHOLDER": "comment/explication",
+      "QUANTITY INCREMENT PHOLDER": "quantity increment. Ex.: -10"
     }
   },
   "MYKRINO": {
