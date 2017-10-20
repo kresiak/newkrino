@@ -612,10 +612,10 @@
     },
     "LABEL": {
       "EQUIPE": "équipe:",
-      "DESCRIPTION": "description:",
+      "DESCRIPTION": "description",
       "WITH FOLLOWING USERS": "avec les utilisateurs suivants:",
       "HEADS OF EQUIPE": "chefs d'équipe:",
-      "MONTHS AHEAD ALLOWED": "nb de mois en avance de budget autorisés:",
+      "MONTHS AHEAD ALLOWED": "nb de mois en avance de budget autorisés",
       "IS BLOCKED": "bloqué:",
       "TOTAL BUDGET": "budget total:",
       "MONEY SPENT": "montant dépensé:",
@@ -631,7 +631,8 @@
       "MEMBERS": "membres:",
       "EQUIPE GIVING": "Equipe qui donne:",
       "EQUIPE RECEIVING": "Equipe qui reçoit:",
-      "AMOUNT TRANSFERED": "Montant transféré:"
+      "AMOUNT TRANSFERED": "Montant transféré:",
+      "NAME PHOLDER": "name of the equipe XX"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",

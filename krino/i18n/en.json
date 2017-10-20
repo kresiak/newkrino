@@ -612,10 +612,10 @@
     },
     "LABEL": {
       "EQUIPE": "project:",
-      "DESCRIPTION": "description:",
+      "DESCRIPTION": "description",
       "WITH FOLLOWING USERS": "with following users:",
       "HEADS OF EQUIPE": "heads of project:",
-      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed:",
+      "MONTHS AHEAD ALLOWED": "nb of months ahead allowed",
       "IS BLOCKED": "is blocked:",
       "TOTAL BUDGET": "total budget:",
       "MONEY SPENT": "money spent:",
@@ -632,7 +632,8 @@
       "MEMBERS": "members:",
       "EQUIPE GIVING": "Project giving:",
       "EQUIPE RECEIVING": "Project receiving:",
-      "AMOUNT TRANSFERED": "Amount to be transfered:"
+      "AMOUNT TRANSFERED": "Amount to be transfered:",
+      "NAME PHOLDER": "name of the equipe"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: if the name of the project contains 'RWAL'",
