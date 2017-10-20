@@ -447,7 +447,9 @@
       "SHOPPING ENABLED": "web shopping activé:",
       "ALLOWED PRODUCTS": "produits autorisés:",
       "VOUCHERS AVAILABLE": "coupons disponibles:",
-      "VOUCHERS ORDERED": "coupons utilisés:"
+      "VOUCHERS ORDERED": "coupons utilisés:",
+      "DESCRIPTION OF FIX COSTS PHOLDER": "Description of Fix Costs XX",
+      "PRICE FIX COSTS PHOLDER": "price fix costs XX"
     },
     "INFO": {
       "LABEL": {
