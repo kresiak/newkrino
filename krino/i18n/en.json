@@ -365,10 +365,10 @@
     },
     "LABEL": {
       "FULL NAME": "full name:",
-      "EMAIL": "email:",
+      "EMAIL": "email",
       "NAME": "name:",
       "FIRST NAME": "first name:",
-      "PASSWORD": "password:",
+      "PASSWORD": "password",
       "EQUIPE(S)": "project(s):",
       "IS BLOCKED": "is blocked:",
       "IS LABO USER": "is labo user:",
@@ -378,7 +378,9 @@
       "IS KRINO PROGRAMMER": "is krino programmer:",
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
-      "SUPER ADMINISTRATOR": "is super administrator:"
+      "SUPER ADMINISTRATOR": "is super administrator:",
+      "NAME OF THE USER PHOLDER": "name of the user",
+      "FIRST NAME OF THE USER PHOLDER": "first name of the user"
     },
     "MENU": {
       "INFO": "Info",

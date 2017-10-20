@@ -365,10 +365,10 @@
     },
     "LABEL": {
       "FULL NAME": "nom complet:",
-      "EMAIL": "adresse e-mail:",
+      "EMAIL": "adresse e-mail",
       "NAME": "nom:",
       "FIRST NAME": "prénom:",
-      "PASSWORD": "mot de passe:",
+      "PASSWORD": "mot de passe",
       "EQUIPE(S)": "équipe(s):",
       "IS BLOCKED": "bloqué:",
       "IS LABO USER": "travaille au labo:",
@@ -378,7 +378,9 @@
       "IS KRINO PROGRAMMER": "programmeur:",
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
-      "SUPER ADMINISTRATOR": "super administrateur:"
+      "SUPER ADMINISTRATOR": "super administrateur:",
+      "NAME OF THE USER PHOLDER": "name of the user XX",
+      "FIRST NAME OF THE USER PHOLDER": "first name of the user XX"
     },
     "MENU": {
       "INFO": "Info",
