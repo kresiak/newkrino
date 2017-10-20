@@ -248,7 +248,12 @@
 		<template ngbTabContent>
 			<div class="card">
 				<div class="card-block">
-					<gg-platform-service-snapshot-detail [snapshot]="serviceSnapshot"></gg-platform-service-snapshot-detail>
+					<div class="row">
+						<div class="col-sm-12">{{serviceSnapshot.data.name}}</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">{{serviceSnapshot.version}}</div>
+					</div>
 				</div>
 			</div>
 		</template>
