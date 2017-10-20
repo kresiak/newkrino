@@ -73,6 +73,8 @@
     }
   },
   "UI": {
+    "SELECT ONE PHOLDER": "choisir une option",    
+    "ENTER TEXT PHOLDER": "entrer du texte",    
     "CHECKBOX DELETE": {
       "OBJECT": "objet",
       "CLICK HERE TO SELECT THE": "clicker ici pour spécifier que le (la)",
@@ -379,8 +381,8 @@
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
       "SUPER ADMINISTRATOR": "super administrateur:",
-      "NAME OF THE USER PHOLDER": "name of the user XX",
-      "FIRST NAME OF THE USER PHOLDER": "first name of the user XX"
+      "NAME OF THE USER PHOLDER": "nom de l'utilisateur",
+      "FIRST NAME OF THE USER PHOLDER": "prénom de l'utilisateur"
     },
     "MENU": {
       "INFO": "Info",
@@ -448,8 +450,8 @@
       "ALLOWED PRODUCTS": "produits autorisés:",
       "VOUCHERS AVAILABLE": "coupons disponibles:",
       "VOUCHERS ORDERED": "coupons utilisés:",
-      "DESCRIPTION OF FIX COSTS PHOLDER": "Description of Fix Costs XX",
-      "PRICE FIX COSTS PHOLDER": "price fix costs XX"
+      "DESCRIPTION OF FIX COSTS PHOLDER": "description du coût fixe",
+      "PRICE FIX COSTS PHOLDER": "prix du coût fixe"
     },
     "INFO": {
       "LABEL": {
@@ -564,15 +566,15 @@
     },
     "FRIDGE": {
       "LABEL": {
-        "ORDER PRODUCT FROM FRIDGE": "Order a product from the fridge XX",
-        "YOU WILL ORDER": "You will order XX",
-        "FROM THE FRIDGE OF": "From the fridge of XX",
-        "AT FOLLOWING UNITARY PRICE": "At following unitary price XX",
-        "QUANTITY TO ORDER": "Quantity to order XX",
-        "ENTER QUANTITY TO ORDER PHOLDER": "enter quantity to order XX"
+        "ORDER PRODUCT FROM FRIDGE": "Commander un produit dans le frigo",
+        "YOU WILL ORDER": "vous allez commander",
+        "FROM THE FRIDGE OF": "dans le frigo de",
+        "AT FOLLOWING UNITARY PRICE": "au prix unitaire de",
+        "QUANTITY TO ORDER": "quantité à commander",
+        "ENTER QUANTITY TO ORDER PHOLDER": "entrer une quantité à commander"
       },
       "BUTTON": {
-        "SEND REQUEST": "Send request XX"
+        "SEND REQUEST": "Envoyer la demande"
       }
     }
   },
@@ -645,11 +647,11 @@
       "EQUIPE GIVING": "Equipe qui donne:",
       "EQUIPE RECEIVING": "Equipe qui reçoit:",
       "AMOUNT TRANSFERED": "Montant transféré:",
-      "NAME PHOLDER": "name of the equipe XX",
-      "NAME GROUP PHOLDER": "name of the group XX",
-      "CHOOSE IN LIST PHOLDER": "choose in list XX",
-      "AMOUNT PHOLDER": "amount XX",
-      "SELECT ONE PHOLDER": "Select One XX"
+      "NAME PHOLDER": "nom de l'équipe",
+      "NAME GROUP PHOLDER": "nom du groupe",
+      "CHOOSE IN LIST PHOLDER": "choisir dans la liste",
+      "AMOUNT PHOLDER": "montant",
+      "SELECT ONE PHOLDER": "choisir une option"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",
@@ -717,8 +719,8 @@
       "QUANTITY": "Quantité:",
       "STATUS": "Statut:",
       "ORDER PROCESSED": "Commande traitée:",
-      "COMMENT EXPLICATION PHOLDER": "comment/explication XX",
-      "QUANTITY INCREMENT PHOLDER": "quantity increment. Ex.: -10 XX"
+      "COMMENT EXPLICATION PHOLDER": "commentaire ou explication",
+      "QUANTITY INCREMENT PHOLDER": "quantité à 'ajouter'. Par ex.: -10"
     }
   },
   "MYKRINO": {
@@ -792,8 +794,8 @@
       "NON URGENT ORDER": "commande groupée"
     },
     "LABEL": {
-      "ENTER TEXT PHOLDER": "enter text XX",
-      "SELECT ONE PHOLDER": "Select One XX"
+      "ENTER TEXT PHOLDER": "entrer un texte",
+      "SELECT ONE PHOLDER": "Choisir une option"
     },
     "BASKET": {
       "CHECKOUT AT": "Passer à l'achat chez",
@@ -842,7 +844,7 @@
       "POSITION": "localisation",
       "CHOOSE IN LIST PHOLDER": "choisir dans la liste",
       "IF NOT IN LIST PHOLDER": "écrire ici, s'il n'est pas dans la liste",
-      "SELECT ONE PHOLDER": "Select One XX"
+      "SELECT ONE PHOLDER": "choisir une option"
     }
   },
   "COMMUNICATION": {
@@ -858,7 +860,7 @@
     },
     "LABEL": {
       "MESSAGE": "Message",
-      "ENTER MESSAGE INFORMATION PHOLDER": "enter message information XX"
+      "ENTER MESSAGE INFORMATION PHOLDER": "entrer un message d'information"
     }
   },
   "SAP": {
@@ -1025,8 +1027,8 @@
         "PARTIALLY DELIVERED": "livraison partielle",
         "FULLY DELIVERED": "livraison complète",
         "SAP ID": "sap id:",
-        "SELECT ONE PHOLDER": "Select One XX",
-        "ENTER TEXT PHOLDER": "enter text XX"
+        "SELECT ONE PHOLDER": "choisir une option",
+        "ENTER TEXT PHOLDER": "entrer un texte"
       }
     },
     "MONITORING": {

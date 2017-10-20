@@ -73,6 +73,8 @@
     }
   },
   "UI": {
+    "SELECT ONE PHOLDER": "select one",
+    "ENTER TEXT PHOLDER": "enter text",
     "CHECKBOX DELETE": {
       "OBJECT": "object",
       "CLICK HERE TO SELECT THE": "click here to select the",
@@ -793,8 +795,6 @@
       "NON URGENT ORDER": "non urgent order"
     },
     "LABEL": {
-      "ENTER TEXT PHOLDER": "enter text",
-      "SELECT ONE PHOLDER": "Select One"
     },
     "BASKET": {
       "CHECKOUT AT": "Checkout at",
