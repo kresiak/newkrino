@@ -1389,12 +1389,12 @@
     },
     "IDENTIFICATION": {
       "LABEL": {
-        "FIRST NAME": "prénom:",
-        "LAST NAME": "nom de famille:",
-        "E-MAIL ADDRESS": "adresse e-mail:",
-        "LABO": "labo:",
-        "PASSWORD": "mot de passe:",
-        "REPEAT PASSWORD": "mot de passe (encore une fois):"
+        "FIRST NAME": "prénom",
+        "LAST NAME": "nom de famille",
+        "E-MAIL ADDRESS": "adresse e-mail",
+        "LABO": "labo",
+        "PASSWORD": "mot de passe",
+        "REPEAT PASSWORD": "mot de passe (encore une fois)"
       }
     },
     "MARKET": {
