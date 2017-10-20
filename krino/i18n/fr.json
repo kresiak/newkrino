@@ -632,7 +632,10 @@
       "EQUIPE GIVING": "Equipe qui donne:",
       "EQUIPE RECEIVING": "Equipe qui reçoit:",
       "AMOUNT TRANSFERED": "Montant transféré:",
-      "NAME PHOLDER": "name of the equipe XX"
+      "NAME PHOLDER": "name of the equipe XX",
+      "NAME GROUP PHOLDER": "name of the group XX",
+      "CHOOSE IN LIST PHOLDER": "choose in list XX",
+      "AMOUNT PHOLDER": "amount XX"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si le nom de l'équipe contient 'RWAL'",

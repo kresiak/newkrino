@@ -633,7 +633,10 @@
       "EQUIPE GIVING": "Project giving:",
       "EQUIPE RECEIVING": "Project receiving:",
       "AMOUNT TRANSFERED": "Amount to be transfered:",
-      "NAME PHOLDER": "name of the equipe"
+      "NAME PHOLDER": "name of the equipe",
+      "NAME GROUP PHOLDER": "name of the group",
+      "CHOOSE IN LIST PHOLDER": "choose in list",
+      "AMOUNT PHOLDER": "amount"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: if the name of the project contains 'RWAL'",
