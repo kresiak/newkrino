@@ -561,6 +561,19 @@
       "MSG12": "$PU : public products (can be seen by all labo)",
       "MSG13": "$V : products waiting for validation",
       "MSG14": "$OR : products that already have been ordered"
+    },
+    "FRIDGE": {
+      "LABEL": {
+        "ORDER PRODUCT FROM FRIDGE": "Order a product from the fridge",
+        "YOU WILL ORDER": "You will order",
+        "FROM THE FRIDGE OF": "From the fridge of",
+        "AT FOLLOWING UNITARY PRICE": "At following unitary price",
+        "QUANTITY TO ORDER": "Quantity to order",
+        "ENTER QUANTITY TO ORDER PHOLDER": "enter quantity to order"
+      },
+      "BUTTON": {
+        "SEND REQUEST": "Send request"
+      }
     }
   },
   "EQUIPE": {

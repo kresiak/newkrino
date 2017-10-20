@@ -561,6 +561,19 @@
       "MSG12": "$PU : produits publics (peuvent être vus/utilisés seulement par les membres de TOUS les labos)",
       "MSG13": "$V : produits en attente de validation",
       "MSG14": "$OR : produits qui ont déjà été commandés dans votre labo"
+    },
+    "FRIDGE": {
+      "LABEL": {
+        "ORDER PRODUCT FROM FRIDGE": "Order a product from the fridge XX",
+        "YOU WILL ORDER": "You will order XX",
+        "FROM THE FRIDGE OF": "From the fridge of XX",
+        "AT FOLLOWING UNITARY PRICE": "At following unitary price XX",
+        "QUANTITY TO ORDER": "Quantity to order XX",
+        "ENTER QUANTITY TO ORDER PHOLDER": "enter quantity to order XX"
+      },
+      "BUTTON": {
+        "SEND REQUEST": "Send request XX"
+      }
     }
   },
   "EQUIPE": {
