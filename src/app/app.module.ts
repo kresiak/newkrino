@@ -22,6 +22,11 @@ import { OrdersModule } from'./Orders/modules/orders.module'
 
 import { CommentsModule } from'./Comments/modules/comments.module'
 
+import { XeniaModule } from'./Xenia/modules/xenia.module'
+
+import { XeniaMainComponent } from'./Xenia/xenia-main.component'
+import { XeniaWelcomeMainComponent } from'./Xenia/xenia-welcome-main.component'
+import { XeniaWelcomeIntroComponent } from'./Xenia/welcome/welcome-intro.component'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home.component'
@@ -152,7 +157,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 
 @NgModule({
   imports: [
-    UiModule, ProductsModule, CommentsModule, OrdersModule,
+    UiModule, ProductsModule, CommentsModule, OrdersModule, XeniaModule,
     BasicServicesModule.forRoot(),
     PlatformModule.forRoot(),
     ChartistModule,
@@ -200,6 +205,22 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
       { path: 'communication', component: CommunicationEnterComponent },
       { path: 'platform', component: PlatformMainComponent },
       { path: 'public', component: PublicMainComponent },
+      { 
+        path: 'xenia', 
+        component: XeniaMainComponent,
+        children: [
+          {
+            path: 'welcome',
+            component: XeniaWelcomeMainComponent,
+            children: [
+              {
+                path: 'intro',
+                component: XeniaWelcomeIntroComponent                  
+              }              
+            ]
+          }
+        ]
+      },      
       { path: '**', redirectTo: '/home' }
     ])
   ],
