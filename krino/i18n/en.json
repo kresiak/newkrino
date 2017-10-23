@@ -1376,10 +1376,19 @@
         "ADD A CLIENT": "Add a client"
       },
       "COLUMN": {
-
+        "FULL NAME": "Full name",
+        "EMAIL": "Email",
+        "TELEPHONE": "Telephone",
+        "ENTERPRISE/LABO": "Enterprise/Labo",
+        "CLIENT TYPE": "Client type"
       },
       "LABEL": {
-
+        "NAME": "name",
+        "FIRST NAME": "first name",
+        "EMAIL": "email",
+        "TELEPHONE": "telephone",
+        "ENTERPRISE": "Enterprise",
+        "ENTERPRISE OF CLIENT": "enterprise of client"
       }
     },
     "OFFER": {
