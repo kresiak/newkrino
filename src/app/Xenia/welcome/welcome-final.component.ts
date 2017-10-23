@@ -5,10 +5,10 @@ import { XeniaWelcomeService } from '../services/welcome.service'
 
 @Component(
     {
-        templateUrl: './welcome-intro.component.html'
+        templateUrl: './welcome-final.component.html'
     }
 )
-export class XeniaWelcomeIntroComponent implements OnInit {
+export class XeniaWelcomeFinalComponent implements OnInit {
     constructor(private welcomeService: XeniaWelcomeService) { }
 
     ngOnInit(): void {

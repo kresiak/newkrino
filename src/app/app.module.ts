@@ -27,6 +27,11 @@ import { XeniaModule } from'./Xenia/modules/xenia.module'
 import { XeniaMainComponent } from'./Xenia/xenia-main.component'
 import { XeniaWelcomeMainComponent } from'./Xenia/xenia-welcome-main.component'
 import { XeniaWelcomeIntroComponent } from'./Xenia/welcome/welcome-intro.component'
+import { XeniaWelcomeNameComponent } from'./Xenia/welcome/welcome-name.component'
+import { XeniaWelcomeNameConfirmComponent } from'./Xenia/welcome/welcome-name-confirm.component'
+import { XeniaWelcomeEmailComponent } from'./Xenia/welcome/welcome-email.component'
+import { XeniaWelcomePiComponent } from'./Xenia/welcome/welcome-pi.component'
+import { XeniaWelcomeFinalComponent } from'./Xenia/welcome/welcome-final.component'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home.component'
@@ -216,7 +221,27 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
               {
                 path: 'intro',
                 component: XeniaWelcomeIntroComponent                  
-              }              
+              },
+              {
+                path: 'name',
+                component: XeniaWelcomeNameComponent             
+              },
+              {
+                path: 'nameConfirm',
+                component: XeniaWelcomeNameConfirmComponent
+              },
+              {
+                path: 'email',
+                component: XeniaWelcomeEmailComponent            
+              },
+              {
+                path: 'pi',
+                component: XeniaWelcomePiComponent                  
+              },
+              {
+                path: 'final',
+                component: XeniaWelcomeFinalComponent
+              }                            
             ]
           }
         ]
