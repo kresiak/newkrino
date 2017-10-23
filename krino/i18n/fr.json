@@ -1339,10 +1339,15 @@
         "CORRECTION FACTORS": "Facteurs de correction"
       },
       "COLUMN": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "IS INTERNAL CLIENT": "Is internal client XX"
       },
       "LABEL": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "IS INTERNAL CLIENT": "Is internal client XX",
+        "CLIENT TYPE": "client type XX"
       }
     },
     "CORRECTION": {
