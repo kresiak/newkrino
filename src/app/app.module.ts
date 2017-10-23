@@ -219,6 +219,11 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
             component: XeniaWelcomeMainComponent,
             children: [
               {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'intro'
+              },
+              {                
                 path: 'intro',
                 component: XeniaWelcomeIntroComponent                  
               },
