@@ -1339,15 +1339,15 @@
         "CORRECTION FACTORS": "Facteurs de correction"
       },
       "COLUMN": {
-        "NAME": "Name XX",
-        "DESCRIPTION": "Description XX",
-        "IS INTERNAL CLIENT": "Is internal client XX"
+        "NAME": "Nom",
+        "DESCRIPTION": "Description",
+        "IS INTERNAL CLIENT": "Est ce un client interne"
       },
       "LABEL": {
-        "NAME": "Name XX",
-        "DESCRIPTION": "Description XX",
-        "IS INTERNAL CLIENT": "Is internal client XX",
-        "CLIENT TYPE": "client type XX"
+        "NAME": "nom",
+        "DESCRIPTION": "description",
+        "IS INTERNAL CLIENT": "est ce un client interne",
+        "CLIENT TYPE": "type de client"
       }
     },
     "CORRECTION": {
@@ -1356,17 +1356,17 @@
         "ADD A CORRECTION TYPE": "Ajouter un type de correction"
       },
       "COLUMN": {
-        "CORRECTION TYPE": "Correction type XX",
-        "SHORTCUT": "Shortcut XX",
-        "DEFAULT VALUE": "default value (in %) XX",
-        "ON PRODUCTS": "on products XX",
-        "ON LABOUR": "on labour XX",
-        "ON TOTAL": "on total XX"
+        "CORRECTION TYPE": "type de correction",
+        "SHORTCUT": "abbréviation",
+        "DEFAULT VALUE": "valeur par défaut (en %)",
+        "ON PRODUCTS": "sur les produits",
+        "ON LABOUR": "sur le travail",
+        "ON TOTAL": "sur le total"
       },
       "LABEL": {
-        "CORRECTION TYPE": "correction type XX",
-        "SHORTCUT": "shortcut XX",
-        "DEFAULT VALUE": "default value (in %) XX"
+        "CORRECTION TYPE": "type de correction",
+        "SHORTCUT": "abbréviation",
+        "DEFAULT VALUE": "valeur par défaut (en %)"
       }
     },
     "ENTERPRISE": {
@@ -1389,19 +1389,19 @@
         "ADD A CLIENT": "Ajouter un client"
       },
       "COLUMN": {
-        "FULL NAME": "Full name XX",
-        "EMAIL": "Email XX",
-        "TELEPHONE": "Telephone XX",
-        "ENTERPRISE/LABO": "Enterprise/Labo XX",
-        "CLIENT TYPE": "Client type XX"
+        "FULL NAME": "Nom",
+        "EMAIL": "Email",
+        "TELEPHONE": "Téléphone",
+        "ENTERPRISE/LABO": "Entreprise/Labo",
+        "CLIENT TYPE": "Type de client"
       },
       "LABEL": {
-        "NAME": "name XX",
-        "FIRST NAME": "first name XX",
-        "EMAIL": "email XX",
-        "TELEPHONE": "telephone XX",
-        "ENTERPRISE": "Enterprise XX",
-        "ENTERPRISE OF CLIENT": "enterprise of client XX"
+        "NAME": "nom",
+        "FIRST NAME": "prénom",
+        "EMAIL": "e-mail",
+        "TELEPHONE": "téléphone",
+        "ENTERPRISE": "entreprise",
+        "ENTERPRISE OF CLIENT": "entreprise du client"
       }
     },
     "OFFER": {
