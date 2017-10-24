@@ -1339,10 +1339,15 @@
         "CORRECTION FACTORS": "Facteurs de correction"
       },
       "COLUMN": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "IS INTERNAL CLIENT": "Is internal client XX"
       },
       "LABEL": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "IS INTERNAL CLIENT": "Is internal client XX",
+        "CLIENT TYPE": "client type XX"
       }
     },
     "CORRECTION": {
@@ -1351,10 +1356,17 @@
         "ADD A CORRECTION TYPE": "Ajouter un type de correction"
       },
       "COLUMN": {
-
+        "CORRECTION TYPE": "Correction type XX",
+        "SHORTCUT": "Shortcut XX",
+        "DEFAULT VALUE": "default value (in %) XX",
+        "ON PRODUCTS": "on products XX",
+        "ON LABOUR": "on labour XX",
+        "ON TOTAL": "on total XX"
       },
       "LABEL": {
-
+        "CORRECTION TYPE": "correction type XX",
+        "SHORTCUT": "shortcut XX",
+        "DEFAULT VALUE": "default value (in %) XX"
       }
     },
     "ENTERPRISE": {
@@ -1377,10 +1389,19 @@
         "ADD A CLIENT": "Ajouter un client"
       },
       "COLUMN": {
-
+        "FULL NAME": "Full name XX",
+        "EMAIL": "Email XX",
+        "TELEPHONE": "Telephone XX",
+        "ENTERPRISE/LABO": "Enterprise/Labo XX",
+        "CLIENT TYPE": "Client type XX"
       },
       "LABEL": {
-
+        "NAME": "name XX",
+        "FIRST NAME": "first name XX",
+        "EMAIL": "email XX",
+        "TELEPHONE": "telephone XX",
+        "ENTERPRISE": "Enterprise XX",
+        "ENTERPRISE OF CLIENT": "enterprise of client XX"
       }
     },
     "OFFER": {

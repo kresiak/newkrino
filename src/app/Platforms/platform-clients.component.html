@@ -9,11 +9,11 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-3"><b>Full name</b></div>
-                                            <div class="col-sm-2"><b>Email</b></div>
-                                            <div class="col-sm-2"><b>Telephone</b></div>
-                                            <div class="col-sm-2"><b>Enterprise/Labo</b></div>
-                                            <div class="col-sm-2"><b>Client type</b></div>
+                                            <div class="col-sm-3"><b>{{'PLATFORM.CLIENT.COLUMN.FULL NAME' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.CLIENT.COLUMN.EMAIL' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.CLIENT.COLUMN.TELEPHONE' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.CLIENT.COLUMN.ENTERPRISE/LABO' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.CLIENT.COLUMN.CLIENT TYPE' | translate}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -34,23 +34,23 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT.LABEL.NAME' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor [content]="clientItem.data.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>First name</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT.LABEL.FIRST NAME' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor [content]="clientItem.data.firstName" [showControls]="true" (editSaved)="firstNameClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Email</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT.LABEL.EMAIL' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor [content]="clientItem.data.email" [showControls]="true" (editSaved)="emailClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Telephone</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT.LABEL.TELEPHONE' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor [content]="clientItem.data.telephone" [showControls]="true" (editSaved)="telephoneClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>Enterprise</b></div>
+                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT.LABEL.ENTERPRISE' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
                                                                 <gg-editor-autocomplete [selectableData]="entrepriseListObservable" [emptyContentText]="'choose an enterprise'" [selectedId]="clientItem.data.enterpriseId"
                                                                     (idChanged)="enterpriseUpdated($event, clientItem)"></gg-editor-autocomplete>
@@ -77,31 +77,31 @@
                         <div class="container-fluid">
                             <form [formGroup]="clientsForm" (ngSubmit)="save(clientsForm.value, clientsForm.valid)">
                                 <div class="form-group row">
-                                    <label for="nameOfClient" class="col-sm-2 col-form-label col-xl-2">name:</label>
+                                    <label for="nameOfClient" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.CLIENT.LABEL.NAME' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="nameOfClient" id="nameOfClient" placeholder="name of client">
+                                        <input type="text" class="form-control" formControlName="nameOfClient" id="nameOfClient" placeholder="{{'PLATFORM.CLIENT.LABEL.NAME' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="firstName" class="col-sm-2 col-form-label col-xl-2">first name:</label>
+                                    <label for="firstName" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.CLIENT.LABEL.FIRST NAME' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="first name">
+                                        <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="{{'PLATFORM.CLIENT.LABEL.FIRST NAME' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="email" class="col-sm-2 col-form-label col-xl-2">email:</label>
+                                    <label for="email" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.CLIENT.LABEL.EMAIL' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="email" id="email" placeholder="email">
+                                        <input type="text" class="form-control" formControlName="email" id="email" placeholder="{{'PLATFORM.CLIENT.LABEL.EMAIL' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="telephone" class="col-sm-2 col-form-label col-xl-2">telephone:</label>
+                                    <label for="telephone" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.CLIENT.LABEL.TELEPHONE' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="telephone" id="telephone" placeholder="telephone">
+                                        <input type="text" class="form-control" formControlName="telephone" id="telephone" placeholder="{{'PLATFORM.CLIENT.LABEL.TELEPHONE' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-xl-2">enterprise of client:</label>
+                                    <label class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.CLIENT.LABEL.ENTERPRISE OF CLIENT' | translate}}:</label>
                                     <div class="col-sm-10">
                                         <gg-editor-autocomplete [selectableData]="entrepriseListObservable" [emptyContentText]="'choose an enterprise'"
                                         (idChanged)="enterpriseChanged($event)"></gg-editor-autocomplete>
