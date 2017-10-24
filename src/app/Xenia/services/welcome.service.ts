@@ -19,6 +19,10 @@ export class XeniaWelcomeService {
         this.data.userId= userId
     }
 
+    public setEmail(email) {
+        this.data.email2= email
+    }
+
     public getData() {
         return this.data
     }

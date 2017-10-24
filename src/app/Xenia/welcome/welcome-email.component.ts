@@ -11,7 +11,15 @@ import { XeniaWelcomeService } from '../services/welcome.service'
 export class XeniaWelcomeEmailComponent implements OnInit {
     constructor(private welcomeService: XeniaWelcomeService) { }
 
+    private userAnswer: string= ''
+    private email2: string
+
     ngOnInit(): void {
+        var data = this.welcomeService.getData()
+        this.email2= data.email2
+        if (this.email2) this.userAnswer= this.email2 === '-1' ? 'no' : 'yes'
+        if (this.email2 === '-1') this.email2=''
+        this.checkData()
     }
 
     private isPageRunning: boolean= true
@@ -20,4 +28,26 @@ export class XeniaWelcomeEmailComponent implements OnInit {
         this.isPageRunning= false
     }
 
+    private checkData() {
+        if ((this.userAnswer === 'yes' && this.email2) || this.userAnswer === 'no') {
+            this.welcomeService.nextEnable(() => {
+                this.welcomeService.setEmail(this.userAnswer === 'no' ? '-1' : this.email2)
+                this.welcomeService.navigateTo('final')
+            })
+        }
+        else {
+            this.welcomeService.nextDisable()
+        }
+    }
+
+    setUserAnswer(answer) {
+        this.userAnswer= answer
+        if (answer==='no') this.email2=''
+        this.checkData()
+    }
+
+    mailChanged(mail) {
+        this.email2= mail
+        this.checkData()
+    }
 }
