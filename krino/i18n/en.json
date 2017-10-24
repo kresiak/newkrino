@@ -1458,10 +1458,25 @@
         "SAVE CURRENT VERSION": "Save current version"
       },
       "COLUMN": {
-
+        "DATE": "Date",
+        "NUMERO": "Numero",
+        "REASON": "Reason",
+        "PRICE": "Price",
+        "PRODUCTS": "Products"
       },
       "LABEL": {
-
+        "NUMERO": "Numero",
+        "DESCRIPTION": "Description",
+        "CLIENT": "Client",
+        "CLIENT TYPE": "Client type",
+        "COMMERCIAL STATUS": "Commercial status",
+        "OPERATIVE STATUS": "Operative status",
+        "CHOOSE A CLIENT": "choose a client",
+        "CHOOSE A STATUS": "choose a status",
+        "SNAPSHOT REASON": "Snapshot reason",
+        "THESE OPERATION WILL CREATE NEW VERSION": "These operation will create a new version of the offer and save the current version",
+        "SEND TO CLIENT": "Send to Client",
+        "INVOICE HAS BEEN SENT": "Invoice has been sent"
       }
     }
   },

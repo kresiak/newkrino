@@ -4,47 +4,47 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row" *ngIf="isSnapshot">
-                        <div class="col-sm-3 vcenter"><b>Snapshot reason</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.SNAPSHOT REASON' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             {{offerItem.description}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Numero</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.NUMERO' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             {{offerItem.annotation.numero}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.DESCRIPTION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [readOnly]="isSnapshot" [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Client</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.CLIENT' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="clientsListObservable" [emptyContentText]="'choose a client'"
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="clientsListObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A CLIENT' | translate"
                                 [selectedId]="offerItem.data.clientId" (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Client type</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.CLIENT TYPE' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             {{offerItem.annotation.clientType}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Commercial status</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.COMMERCIAL STATUS' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="commercialStatusesObservable" [emptyContentText]="'choose a status'"
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="commercialStatusesObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A STATUS' | translate"
                                 [selectedId]="offerItem.data.commercialStatusId" (idChanged)="commercialStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Operative status</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.OPERATIVE STATUS' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
-                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="operativeStatusesObservable" [emptyContentText]="'choose a status'"
+                            <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="operativeStatusesObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A STATUS' | translate"
                                 [selectedId]="offerItem.data.operativeStatusId" (idChanged)="operativeStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
@@ -57,13 +57,13 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        These operation will create a new version of the offer and save the current version
+                        {{'PLATFORM.OFFER.LABEL.THESE OPERATION WILL CREATE NEW VERSION' | translate}}
                     </div>
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-3 ">
                             <button class="btn btn-warning" [disabled]="blockSendToClient" (click)="SendToClient()">
-                                Send to Client
+                                {{'PLATFORM.OFFER.LABEL.SEND TO CLIENT' | translate}}
                             </button>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         <div class="col-sm-3"></div>
                         <div class="col-sm-3">
                             <button [disabled]="blockInvoiceHasBeenSent" (click)="InvoiceHasBeenSent()" class=" btn btn-warning">
-                                Invoice has been sent
+                                {{'PLATFORM.OFFER.LABEL.INVOICE HAS BEEN SENT' | translate}}
                             </button>
                         </div>
                     </div>
@@ -180,11 +180,11 @@
                                             <ngb-panel [disabled]="true">
                                                 <template ngbPanelTitle>
                                                     <div class="row">
-                                                        <div class="col-sm-2"><b>Date</b></div>
-                                                        <div class="col-sm-2"><b>Numero</b></div>
-                                                        <div class="col-sm-2"><b>Reason</b></div>
-                                                        <div class="col-sm-2"><b>Price</b></div>
-                                                        <div class="col-sm-3"><b>Products</b></div>
+                                                        <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.DATE' | translate}}</b></div>
+                                                        <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.NUMERO' | translate}}</b></div>
+                                                        <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.REASON' | translate}}</b></div>
+                                                        <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.PRICE' | translate}}</b></div>
+                                                        <div class="col-sm-3"><b>{{'PLATFORM.OFFER.COLUMN.PRODUCTS' | translate}}</b></div>
                                                     </div>
                                                 </template>
                                             </ngb-panel>
