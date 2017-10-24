@@ -15,6 +15,10 @@ export class XeniaWelcomeService {
         this.data.firstName= firstName
     }
 
+    public setUserId(userId) {
+        this.data.userId= userId
+    }
+
     public getData() {
         return this.data
     }

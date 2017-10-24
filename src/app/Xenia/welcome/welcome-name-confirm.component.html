@@ -1,34 +1,33 @@
-<div class="row" ng-hide="!possibleUsers || possibleUsers.length===0">
+<div class="row" *ngIf="possibleUsers && possibleUsers.length>0">
     <div class="col-sm-4">We found a possible ULg email address, as well as an ULg identifier for you. Thank you for choosing the right one or
         telling us that none of these corresponds to you.</div>
     <div class="col-sm-8">
+
         <div class="row">
             <div class="col-sm-4">
                 <div class="radio">
-                    <label><input type="radio" ng-model="userAnswer" value="yes">This is me</label>
+                    <label><input type="radio" (click)="setUserAnswer('yes')" [(ngModel)]="userAnswer" value="yes">This is me</label>
                 </div>
             </div>
             <div class="col-sm-8">
-                <div style="">
+                <div>
                     <div class="list-group">
-                        <a ng-repeat="candidate in possibleUsers" class="list-group-item" ng-click="setUserSelected(candidate)" ng-class="{active:isUserTheActiveOne(candidate)}">{{getDisplayUserName(candidate)}}</a>
+                        <a *ngFor="let candidate of possibleUsers" class="list-group-item" (click)="setUserSelected(candidate)" [class.active]="candidate.data._id===selectedUserId">{{candidate.annotation.fullName}}</a>
                     </div>
-                    <p>Click on the name that corresponds, even if there is only one (temporary message)</p>
+                    <br/>
+                    <p>Click on the name that corresponds</p>
                 </div>
-                <!--<select ng-model="specifiedUserId" size="5">
-                            <option ng-repeat="candidate in possibleUsers" value="{{candidate._id}}">{{getDisplayUserName(candidate)}}</option>
-                        </select>-->
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <div class="radio">
-                    <label><input type="radio" ng-model="userAnswer" value="no">None of these correspond to me</label>
+                    <label><input type="radio" (click)="setUserAnswer('no')" [(ngModel)]="userAnswer" value="no">None of these correspond to me</label>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div ng-show="!possibleUsers || possibleUsers.length===0">
-    <h3>Unfortunately we could not find you in our database. We will create a temporyry user for you. Please continue.</h3>
+<div *ngIf="!possibleUsers || possibleUsers.length===0">
+    <h5>Unfortunately we could not find you in our database. We will create a temporary user for you. Please continue.</h5>
 </div>

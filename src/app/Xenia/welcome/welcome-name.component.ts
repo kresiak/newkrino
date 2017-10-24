@@ -38,7 +38,7 @@ export class XeniaWelcomeNameComponent implements OnInit {
         if ((formData.name || '').trim().length > 0 && (formData.firstName || '').trim().length > 0) {
             this.welcomeService.nextEnable(() => {
                 this.welcomeService.setNameData(formData.name.trim(), formData.firstName.trim()) 
-                this.welcomeService.navigateTo('email')               
+                this.welcomeService.navigateTo('nameConfirm')               
             })
         }
         else {
