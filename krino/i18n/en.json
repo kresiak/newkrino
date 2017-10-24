@@ -1311,10 +1311,27 @@
         "ADD A MACHINE": "Add a machine"
       },
       "COLUMN": {
-
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "COST PER HOUR": "Cost per hour"
       },
       "LABEL": {
-
+        "NAME": "Name",
+        "DESCRIPTION": "Description",
+        "PRICE": "Price",
+        "LIFETIME (IN YEARS)": "Lifetime (in years)",
+        "MAINTENANCE PRICE (PER YEAR)": "Maintenance price (per year)",
+        "EITHER": "Either",
+        "OCCUPANCY (IN %)": "Occupancy (in %)",
+        "HOURS PER DAY": "Hours per day",
+        "OR": "Or",
+        "HOURS PER YEAR": "Hours per year",
+        "ERROR IN OCCUPANCY!!! CHECK YOUR DATA!": "Error in occupancy!!! Check your data!",
+        "ANNUAL AMORTIZATION": "Annual amortization",
+        "ANNUAL COST (INCL. MAINTENANCE)": "Annual cost (incl. maintenance)",
+        "NB RUNNING HOURS PER YEAR": "Nb running hours per year",
+        "COST PER HOUR HOUR": "Cost per hour hour",
+        "NAME OF MACHINE": "name of machine"
       }
     },
     "LABOUR": {
@@ -1323,10 +1340,15 @@
         "ADD A LABOUR TYPE": "Add a labour type"
       },
       "COLUMN": {
-
+        "LABOUR TYPE": "Labour type",
+        "DESCRIPTION": "Description",
+        "HOURLY RATE": "Hourly rate"
       },
       "LABEL": {
-
+        "LABOUR TYPE": "Labour type",
+        "DESCRIPTION": "Description",
+        "HOURLY RATE": "Hourly rate",
+        "HOURLY RATE (IN EUROS)": "hourly rate (in euros)"
       }
     },
     "CLIENT TYPE": {
@@ -1375,9 +1397,19 @@
         "ADD AN ENTERPRISE": "Add an enterprise"
       },
       "COLUMN": {
-
+        "NAME": "Name",
+        "TELEPHONE": "Telephone",
+        "FAX": "Fax",
+        "WEB": "Web",
+        "TYPE": "Type"
       },
       "LABEL": {
+        "NAME": "Name",
+        "TELEPHONE": "Telephone",
+        "FAX": "Fax",
+        "WEB": "Web",
+        "CLIENT TYPE": "Client type",
+        "CHOOSE A CLIENT TYPE PHOLDER": "choose a client type"
 
       }
     },
@@ -1400,7 +1432,8 @@
         "EMAIL": "email",
         "TELEPHONE": "telephone",
         "ENTERPRISE": "Enterprise",
-        "ENTERPRISE OF CLIENT": "enterprise of client"
+        "ENTERPRISE OF CLIENT": "enterprise of client",
+        "CHOOSE AN ENTERPRISE PHOLDER": "choose an enterprise"
       }
     },
     "OFFER": {
@@ -1425,10 +1458,38 @@
         "SAVE CURRENT VERSION": "Save current version"
       },
       "COLUMN": {
-
+        "DATE": "Date",
+        "NUMERO": "Numero",
+        "REASON": "Reason",
+        "PRICE": "Price",
+        "PRODUCTS": "Products",
+        "SERVICE": "Service",
+        "QUANTITY": "Quantity",
+        "PRICE/U.": "Price/u.",
+        "REDUCT. (%)": "Reduct. (%)",
+        "TOTAL": "Total",
+        "PREPAID": "Prepaid",
+        "COMMENT": "Comment",
+        "STATUS": "Status",
+        "CLIENT": "Client"
       },
       "LABEL": {
-
+        "NUMERO": "Numero",
+        "DESCRIPTION": "Description",
+        "CLIENT": "Client",
+        "CLIENT TYPE": "Client type",
+        "COMMERCIAL STATUS": "Commercial status",
+        "OPERATIVE STATUS": "Operative status",
+        "CHOOSE A CLIENT": "choose a client",
+        "CHOOSE A STATUS": "choose a status",
+        "SNAPSHOT REASON": "Snapshot reason",
+        "THESE OPERATION WILL CREATE NEW VERSION": "These operation will create a new version of the offer and save the current version",
+        "SEND TO CLIENT": "Send to Client",
+        "INVOICE HAS BEEN SENT": "Invoice has been sent",
+        "HIDE DETAILS": "hide details",
+        "DESCRIPTION OF SNAPSHOT PHOLDER": "description of snapshot",
+        "SNAPSHOT": "Snapshot",
+        "TOTAL": "Total"
       }
     }
   },
