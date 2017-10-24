@@ -37,7 +37,7 @@ export class DataStore { // contains one observable property by database table/c
 
     private laboFieldName: string = 'laboName'
 
-    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications', 'sap.fusion', 'sap.supplier', 'users.public', 'users.xenia']
+    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications', 'sap.fusion', 'sap.supplier', 'users.public']
 
     //public laboName= 'demo' 
     //public laboName = 'michel'
@@ -68,7 +68,7 @@ export class DataStore { // contains one observable property by database table/c
     private isFromRightLabo(table, rec): boolean {
         let laboNameInRecord = rec[this.laboFieldName]
 
-        if (this.universalTables.includes(table) && !rec.isLabo) return true
+        if ((this.universalTables.includes(table) || table.includes('xenia')) && !rec.isLabo) return true
         
         if (this.laboName === 'michel') return !laboNameInRecord || laboNameInRecord === this.laboName
         return laboNameInRecord === this.laboName

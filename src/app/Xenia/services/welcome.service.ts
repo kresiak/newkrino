@@ -23,6 +23,10 @@ export class XeniaWelcomeService {
         this.data.email2= email
     }
 
+    public setPiId(piId) {
+        this.data.piId= piId
+    }
+
     public getData() {
         return this.data
     }

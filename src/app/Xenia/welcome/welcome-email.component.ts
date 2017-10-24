@@ -32,7 +32,7 @@ export class XeniaWelcomeEmailComponent implements OnInit {
         if ((this.userAnswer === 'yes' && this.email2) || this.userAnswer === 'no') {
             this.welcomeService.nextEnable(() => {
                 this.welcomeService.setEmail(this.userAnswer === 'no' ? '-1' : this.email2)
-                this.welcomeService.navigateTo('final')
+                this.welcomeService.navigateTo('pi')
             })
         }
         else {
