@@ -10,9 +10,9 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-3"><b>Name</b></div>
-                                            <div class="col-sm-4"><b>Description</b></div>
-                                            <div class="col-sm-2"><b>Cost per hour</b></div>
+                                            <div class="col-sm-3"><b>{{'PLATFORM.MACHINE.COLUMN.NAME' | translate}}</b></div>
+                                            <div class="col-sm-4"><b>{{'PLATFORM.MACHINE.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.MACHINE.COLUMN.COST PER HOUR' | translate}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -32,44 +32,44 @@
                                                     <div class="card">
                                                         <div class="card-block">
                                                             <div class="row">
-                                                                <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor [content]="machineItem.data.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Description</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.DESCRIPTION' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor [content]="machineItem.data.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Price</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.PRICE' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor [content]="machineItem.data.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Lifetime (in years)</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.LIFETIME (IN YEARS)' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-number [content]="machineItem.data.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Maintenance price (per year)</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.MAINTENANCE PRICE (PER YEAR)' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor [content]="machineItem.data.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter"><b>Either:</b></div>
+                                                                <div class="col-sm-11 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.EITHER' | translate}}:</b></div>
                                                                 <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b> Occupancy (in %)</b></div>
+                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.OCCUPANCY (IN %)' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-number [content]="machineItem.data.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
                                                                 <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b>  Hours per day</b></div>
+                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER DAY' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-number [content]="machineItem.data.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter"><b>Or:</b></div>
+                                                                <div class="col-sm-11 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.OR' | translate}}:</b></div>
                                                                 <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b>  Hours per year</b></div>
+                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER YEAR' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     <gg-editor-number [content]="machineItem.data.hoursPerYear" (editSaved)="hoursPerYearMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter" *ngIf="!machineItem.annotation.isOK" [style.color]="'red'"><b>Error in occupancy!!! Check your data!</b></div>
+                                                                <div class="col-sm-11 vcenter" *ngIf="!machineItem.annotation.isOK" [style.color]="'red'"><b>{{'PLATFORM.MACHINE.LABEL.ERROR IN OCCUPANCY!!! CHECK YOUR DATA!' | translate}}</b></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -80,23 +80,23 @@
                                                     <div class="card">
                                                         <div class="card-block">
                                                             <div class="row gg-line-height">
-                                                                <div class="col-sm-3 vcenter"><b>Name</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     {{machineItem.data.name}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Annual amortization</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL AMORTIZATION' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     {{machineItem.annotation.annualAmortisation | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Annual cost (incl. maintenance)</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL COST (INCL. MAINTENANCE)' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     {{machineItem.annotation.annualCost | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Nb running hours per year</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NB RUNNING HOURS PER YEAR' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
                                                                     {{machineItem.annotation.nbHoursPerYear}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>Cost per hour hour</b></div>
+                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.COST PER HOUR HOUR' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter gg-price">
                                                                     {{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
@@ -121,62 +121,62 @@
                         <div class="container-fluid">
                             <form [formGroup]="machineForm" (ngSubmit)="save(machineForm.value, machineForm.valid)">
                                 <div class="form-group row">
-                                    <label for="nameOfMachine" class="col-sm-3 col-form-label">name of machine:</label>
+                                    <label for="nameOfMachine" class="col-sm-3 col-form-label">{{'PLATFORM.MACHINE.LABEL.NAME OF MACHINE' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" formControlName="nameOfMachine" id="nameOfMachine" placeholder="name of machine">
+                                        <input type="text" class="form-control" formControlName="nameOfMachine" id="nameOfMachine" placeholder="{{'PLATFORM.MACHINE.LABEL.NAME OF MACHINE' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-3 col-form-label">description:</label>
+                                    <label for="description" class="col-sm-3 col-form-label">{{'PLATFORM.MACHINE.LABEL.DESCRIPTION' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="{{'PLATFORM.MACHINE.LABEL.DESCRIPTION' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="price" class="col-sm-3 col-form-label">price:</label>
+                                    <label for="price" class="col-sm-3 col-form-label">{{'PLATFORM.MACHINE.LABEL.PRICE' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="price" id="price" placeholder="price">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="price" id="price" placeholder="{{'PLATFORM.MACHINE.LABEL.PRICE' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lifetime" class="col-sm-3 col-form-label">lifetime (in years):</label>
+                                    <label for="lifetime" class="col-sm-3 col-form-label">{{'PLATFORM.MACHINE.LABEL.LIFETIME (IN YEARS)' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="lifetime" id="lifetime" placeholder="lifetime (in years)">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="lifetime" id="lifetime" placeholder="{{'PLATFORM.MACHINE.LABEL.LIFETIME (IN YEARS)' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="maintenancePrice" class="col-sm-3 col-form-label">maintenance price (per year):</label>
+                                    <label for="maintenancePrice" class="col-sm-3 col-form-label">{{'PLATFORM.MACHINE.LABEL.MAINTENANCE PRICE (PER YEAR)' | translate}}:</label>
                                     <div class="col-sm-9">
                                         <input type="number" min="0" step="any" step="any" class="form-control" formControlName="maintenancePrice" id="maintenancePrice"
-                                            placeholder="maintenance price (per year)">
+                                            placeholder="{{'PLATFORM.MACHINE.LABEL.MAINTENANCE PRICE (PER YEAR)' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-12">Either:</div>
+                                    <div class="col-sm-12">{{'PLATFORM.MACHINE.LABEL.EITHER' | translate}}:</div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-sm-1"></div>
-                                    <label for="occupancy" class="col-sm-2 col-form-label">occupancy (in %):</label>
+                                    <label for="occupancy" class="col-sm-2 col-form-label">{{'PLATFORM.MACHINE.LABEL.OCCUPANCY (IN %)' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="occupancy" id="occupancy" placeholder="occupancy (in %)">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="occupancy" id="occupancy" placeholder="{{'PLATFORM.MACHINE.LABEL.OCCUPANCY (IN %)' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-1"></div>
-                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">hours per day:</label>
+                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">{{'PLATFORM.MACHINE.LABEL.HOURS PER DAY' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerDay" id="hoursPerDay" placeholder="hours per day">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerDay" id="hoursPerDay" placeholder="{{'PLATFORM.MACHINE.LABEL.HOURS PER DAY' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-12">Or:</div>
+                                    <div class="col-sm-12">{{'PLATFORM.MACHINE.LABEL.OR' | translate}}:</div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-1"></div>
-                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">hours per year:</label>
+                                    <label for="hoursPerDay" class="col-sm-2 col-form-label">{{'PLATFORM.MACHINE.LABEL.HOURS PER YEAR' | translate}}:</label>
                                     <div class="col-sm-9">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerYear" id="hoursPerYear" placeholder="hours per year">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="hoursPerYear" id="hoursPerYear" placeholder="{{'PLATFORM.MACHINE.LABEL.HOURS PER YEAR' | translate}}">
                                     </div>
                                 </div>
                                 <div class="row">

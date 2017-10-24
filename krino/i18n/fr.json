@@ -1312,10 +1312,27 @@
         "ADD A MACHINE": "Ajouter une machine"
       },
       "COLUMN": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "COST PER HOUR": "Cost per hour XX"
       },
       "LABEL": {
-
+        "NAME": "Name XX",
+        "DESCRIPTION": "Description XX",
+        "PRICE": "Price XX",
+        "LIFETIME (IN YEARS)": "Lifetime (in years) XX",
+        "MAINTENANCE PRICE (PER YEAR)": "Maintenance price (per year) XX",
+        "EITHER": "Either XX",
+        "OCCUPANCY (IN %)": "Occupancy (in %) XX",
+        "HOURS PER DAY": "Hours per day XX",
+        "OR": "Or XX",
+        "HOURS PER YEAR": "Hours per year XX",
+        "ERROR IN OCCUPANCY!!! CHECK YOUR DATA!": "Error in occupancy!!! Check your data! XX",
+        "ANNUAL AMORTIZATION": "Annual amortization XX",
+        "ANNUAL COST (INCL. MAINTENANCE)": "Annual cost (incl. maintenance) XX",
+        "NB RUNNING HOURS PER YEAR": "Nb running hours per year XX",
+        "COST PER HOUR HOUR": "Cost per hour hour XX",
+        "NAME OF MACHINE": "name of machine XX"
       }
     },
     "LABOUR": {
@@ -1324,10 +1341,15 @@
         "ADD A LABOUR TYPE": "Ajouter un type de main d'oeuvre"
       },
       "COLUMN": {
-
+        "LABOUR TYPE": "Labour type XX",
+        "DESCRIPTION": "Description XX",
+        "HOURLY RATE": "Hourly rate XX"
       },
       "LABEL": {
-
+        "LABOUR TYPE": "Labour type XX",
+        "DESCRIPTION": "Description XX",
+        "HOURLY RATE": "Hourly rate XX",
+        "HOURLY RATE (IN EUROS)": "hourly rate (in euros) XX"
       }
     },
     "CLIENT TYPE": {
@@ -1376,10 +1398,19 @@
         "ADD AN ENTERPRISE": "Ajouter une entreprise"
       },
       "COLUMN": {
-
+        "NAME": "Name XX",
+        "TELEPHONE": "Telephone XX",
+        "FAX": "Fax XX",
+        "WEB": "Web XX",
+        "TYPE": "Type XX"
       },
       "LABEL": {
-
+        "NAME": "Name XX",
+        "TELEPHONE": "Telephone XX",
+        "FAX": "Fax XX",
+        "WEB": "Web XX",
+        "CLIENT TYPE": "Client type XX",
+        "CHOOSE A CLIENT TYPE PHOLDER": "choose a client type XX"
       }
     },
     "CLIENT": {
@@ -1401,7 +1432,8 @@
         "EMAIL": "e-mail",
         "TELEPHONE": "téléphone",
         "ENTERPRISE": "entreprise",
-        "ENTERPRISE OF CLIENT": "entreprise du client"
+        "ENTERPRISE OF CLIENT": "entreprise du client",
+        "CHOOSE AN ENTERPRISE PHOLDER": "choose an enterprise XX"
       }
     },
     "OFFER": {
