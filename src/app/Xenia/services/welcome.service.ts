@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { Observable, BehaviorSubject } from 'rxjs/Rx'
+import { Observable, BehaviorSubject, Subject } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
 import { DataStore } from '../../Shared/Services/data.service'
 import * as utils from '../../Shared/Utils/comparators'
@@ -9,6 +9,13 @@ export class XeniaWelcomeService {
     constructor(private router: Router, private route: ActivatedRoute, @Inject(DataStore) private dataStore: DataStore) { }
 
     private data: any= {}
+    private newDbId: string
+
+    private newDbIdSubject: BehaviorSubject<string>= new BehaviorSubject<any>('')    
+
+    public getNewDbIdObservable(): Observable<any> {
+        return this.newDbIdSubject
+    }
 
     public setNameData(name: string='', firstName: string= '') {
         this.data.name= name
@@ -30,6 +37,24 @@ export class XeniaWelcomeService {
     public getData() {
         return this.data
     }
+
+    public saveData() {        
+        if (this.data.userId) {
+            var id= this.data.userId
+            delete this.data.userId
+            this.dataStore.updateData('users.xenia', id, this.data).first().subscribe(res => {
+                this.newDbIdSubject.next(id)
+            })
+        }
+        else {
+            delete this.data.userId
+            if (this.data.email2==='-1') this.data.email2=''
+            this.dataStore.addData('users.xenia', this.data).first().subscribe(res => {
+                this.newDbIdSubject.next(res._id)
+            })
+        }
+    }
+
 
     private stdNextInfo: any = {
         text: 'next page',
@@ -93,8 +118,9 @@ export class XeniaWelcomeService {
 
     private pathStack= []
 
-    public resetPath() {
+    public reset() {
         this.pathStack= []
+        this.data= {}
     }
 
     private _navigateTo(path) {

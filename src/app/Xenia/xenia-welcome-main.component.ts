@@ -22,7 +22,7 @@ export class XeniaWelcomeMainComponent implements OnInit {
             this.backInfo = backInfo
         })
 
-        this.welcomeService.resetPath()
+        this.welcomeService.reset()
     }
 
     private isPageRunning: boolean = true

@@ -42,6 +42,8 @@ export class XeniaWelcomePiComponent implements OnInit {
         if (this.piId) {
             this.welcomeService.nextEnable(() => {
                 this.welcomeService.setPiId(this.piId)
+                this.welcomeService.saveData()
+                this.welcomeService.reset()
                 this.welcomeService.navigateTo('final')
             })
         }

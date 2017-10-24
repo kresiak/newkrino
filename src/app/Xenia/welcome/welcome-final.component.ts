@@ -11,7 +11,17 @@ import { XeniaWelcomeService } from '../services/welcome.service'
 export class XeniaWelcomeFinalComponent implements OnInit {
     constructor(private welcomeService: XeniaWelcomeService) { }
 
+    private newUserId: string
+
+
     ngOnInit(): void {
+        var data = this.welcomeService.getData()
+
+        this.welcomeService.backDisable()        
+
+        this.welcomeService.getNewDbIdObservable().takeWhile(() => this.isPageRunning).subscribe(res => {
+            this.newUserId= res
+        })
     }
 
     private isPageRunning: boolean= true
