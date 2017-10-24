@@ -1469,7 +1469,9 @@
         "REDUCT. (%)": "Reduct. (%) XX",
         "TOTAL": "Total XX",
         "PREPAID": "Prepaid XX",
-        "COMMENT": "Comment XX"
+        "COMMENT": "Comment XX",
+        "STATUS": "Status XX",
+        "CLIENT": "Client XX"
       },
       "LABEL": {
         "NUMERO": "Numero XX",
@@ -1486,7 +1488,8 @@
         "INVOICE HAS BEEN SENT": "Invoice has been sent XX",
         "HIDE DETAILS": "hide details XX",
         "DESCRIPTION OF SNAPSHOT PHOLDER": "description of snapshot XX",
-        "SNAPSHOT": "Snapshot XX"
+        "SNAPSHOT": "Snapshot XX",
+        "TOTAL": "Total XX"
       }
     }
   },
