@@ -1462,7 +1462,14 @@
         "NUMERO": "Numero XX",
         "REASON": "Reason XX",
         "PRICE": "Price XX",
-        "PRODUCTS": "Products XX"
+        "PRODUCTS": "Products XX",
+        "SERVICE": "Service XX",
+        "QUANTITY": "Quantity XX",
+        "PRICE/U.": "Price/u. XX",
+        "REDUCT. (%)": "Reduct. (%) XX",
+        "TOTAL": "Total XX",
+        "PREPAID": "Prepaid XX",
+        "COMMENT": "Comment XX"
       },
       "LABEL": {
         "NUMERO": "Numero XX",
@@ -1476,7 +1483,10 @@
         "SNAPSHOT REASON": "Snapshot reason XX",
         "THESE OPERATION WILL CREATE NEW VERSION": "These operation will create a new version of the offer and save the current version XX",
         "SEND TO CLIENT": "Send to Client XX",
-        "INVOICE HAS BEEN SENT": "Invoice has been sent XX"
+        "INVOICE HAS BEEN SENT": "Invoice has been sent XX",
+        "HIDE DETAILS": "hide details XX",
+        "DESCRIPTION OF SNAPSHOT PHOLDER": "description of snapshot XX",
+        "SNAPSHOT": "Snapshot XX"
       }
     }
   },
