@@ -26,6 +26,9 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     private blockedAmountForm: FormGroup
 
+    private nouvelleCreanceForm: FormGroup
+    private dateNouvelleCreanceForm: string
+
     @Input() budgetPeriod
     @Input() otp
     @Input() budgetAnnotation
@@ -49,6 +52,11 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.blockedAmountForm = this.formBuilder.group({
             blockedAmount: ['', [Validators.required]],
             comment: ['', [Validators.required]]
+        })
+
+        this.nouvelleCreanceForm = this.formBuilder.group({
+            depenseNouvelleCreance: ['', [Validators.required]],
+            commentNouvelleCreance: ['', [Validators.required]]
         })
     }
 
@@ -85,6 +93,24 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     resetBlockedAmount() {
         this.blockedAmountForm.reset();
+    }
+
+    SaveNouvelleCreance(formValue, budgetItem, isValid) {
+        if (!isValid) return
+        if (!budgetItem.creances) budgetItem.creances = []
+
+        budgetItem.creances.push({
+            date: this.dateNouvelleCreanceForm || dateUtils.nowFormated(),
+            amount: formValue.depenseNouvelleCreance,
+            description: formValue.commentNouvelleCreance
+        })
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
+            this.resetNouvelleCreance();
+        });
+    }
+
+    resetNouvelleCreance() {
+        this.nouvelleCreanceForm.reset();
     }
 
 
@@ -135,6 +161,26 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     blockedAmountCommentUpdated(blockedAmountItem, comment) {
         blockedAmountItem.comment = comment
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    dateNouvelleCreanceInForm(dateInForm) {
+        this.dateNouvelleCreanceForm = dateInForm
+    }
+
+    dateCreanceChangeUpdated(creanceItem, dateChange) {
+        creanceItem.date = dateChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    depenseChangeUpdated(creanceItem, depenseChange) {
+        if (! +depenseChange) return
+        creanceItem.amount = +depenseChange
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+    commentCreanceChangeUpdated(creanceItem, description) {
+        creanceItem.description = description
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 

@@ -244,7 +244,9 @@
         "COMMENT": "Comment",
         "AMOUNT BLOCKED": "blocked amount",
         "REASON/COMMENT": "reason / comment:",
-        "BUDGET CHANGE PHOLDER": "Budget change"
+        "BUDGET CHANGE PHOLDER": "Budget change",
+        "DATE DE LA CREANCE": "date de la créance XX",
+        "DEPENSE POUR LA PERIODE": "dépense pour la période XX"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
@@ -254,7 +256,9 @@
         "DATE": "Date",
         "COMMENT": "Comment",
         "AMOUNT BLOCKED": "Amount blocked",
-        "REASON/COMMENT": "Reason/Comment"
+        "REASON/COMMENT": "Reason/Comment",
+        "DATE DE LA CREANCE": "date de la créance XX",
+        "DEPENSE POUR LA PERIODE": "dépense pour la période XX"
       },
       "MENU": {
         "INFO": "Info",
@@ -263,7 +267,10 @@
         "ADD BUDGET CHANGE": "Add budget change",
         "BLOCKED AMOUNTS": "Blocked amounts",
         "LIST BLOCKED AMOUNT": "List of blocked amount",
-        "ADD BLOCKED AMOUNT": "Add a blocked amount"
+        "ADD BLOCKED AMOUNT": "Add a blocked amount",
+        "CREANCES": "Créances XX",
+        "LIST DE CREANCES": "List de créances XX",
+        "ENTER UNE NOUVELLE CREANCE": "Enter une nouvelle créance XX"
       }
     },
     "LABEL": {
