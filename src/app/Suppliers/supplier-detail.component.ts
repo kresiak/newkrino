@@ -23,6 +23,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SupplierDetailComponent implements OnInit {
+        usersObservable: Observable<any>;
         eprocOrders: Observable<any>;
     fixCosts: any;
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
@@ -93,6 +94,9 @@ export class SupplierDetailComponent implements OnInit {
         this.productsGroupedBasketObservable.takeWhile(() => this.isPageRunning).subscribe(products => this.isThereAGroupedBasket = products && products.length > 0);
 
         this.ordersObservable = this.orderService.getAnnotedOrdersBySupplier(this.supplierId);
+
+        this.usersObservable = this.orderService.getAnnotedUsersBySupplier(this.supplierId);
+
         this.orderService.hasSupplierAnyOrder(this.supplierId).takeWhile(() => this.isPageRunning).subscribe(anyOrder => this.anyOrder = anyOrder);
         this.authService.getAnnotatedCurrentUser().takeWhile(() => this.isPageRunning).subscribe(user => {
             this.currentAnnotatedUser = user
@@ -281,6 +285,12 @@ export class SupplierDetailComponent implements OnInit {
         }).subscribe(res => {
             this.resetFixCosts()
         });
+    }
+
+
+    private childUsersStateChanged($event) {
+        this.state.Users = $event;
+        this.stateChanged.next(this.state);
     }
 
 }

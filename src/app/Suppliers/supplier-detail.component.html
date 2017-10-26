@@ -123,6 +123,11 @@
 			 (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</template>
 	</ngb-tab>
+	<ngb-tab title="{{'EQUIPE.MENU.USERS' | translate}}" id="tabUsers">
+		<template ngbTabContent>
+			<gg-user-list [state]="state.Users" [usersObservable]="usersObservable" [path]="path+'|O:Users'" (stateChanged)="childUsersStateChanged($event)"></gg-user-list>
+		</template>
+	</ngb-tab>	
 	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING BASKET' | translate}}" *ngIf="isThereABasket && authorizationStatusInfo && !authorizationStatusInfo.isPassiveUser()"
 	 id="tabBasket">
 		<template ngbTabContent>

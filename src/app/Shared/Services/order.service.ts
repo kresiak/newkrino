@@ -253,6 +253,17 @@ export class OrderService {
         return this.getAnnotedOrders(ordersObservable);
     }
 
+    getAnnotedUsersBySupplier(supplierId: string): Observable<any> {
+        return this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.supplierId === supplierId))
+            .switchMap(orders => {
+                var userIdList= orders.reduce((acc: Set<string>, o) => {
+                    if (!acc.has(o.userId)) acc.add(o.userId)
+                    return acc
+                }, new Set<string>())
+                return this.authService.getAnnotatedUsers().map(users => users.filter(u => userIdList.has(u.data._id)))
+            })
+    }
+
     getAnnotedOrdersByProduct(productId: string): Observable<any> {
         let ordersObservable = this.dataStore.getDataObservable('orders').map(orders => orders.filter(order => order.items && order.items.map(item => item.productId).includes(productId))).map(orders => orders.sort((a, b) => b.kid - a.kid))
         return this.getAnnotedOrders(ordersObservable);
