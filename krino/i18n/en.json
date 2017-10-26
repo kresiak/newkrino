@@ -438,7 +438,8 @@
       "CREATE SUPPLIER": "Create a Supplier",
       "INCLUDE KRINO": "Include into Krino",
       "NEW EPROC": "New e-procurement order",
-      "LIST EPROC": "List of orders"
+      "LIST EPROC": "List of orders",
+      "USERS": "Users"
     },
     "COLUMN": {
       "DESCRIPTION": "Description",
