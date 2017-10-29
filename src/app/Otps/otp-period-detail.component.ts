@@ -60,11 +60,11 @@ export class OtpPeriodDetailComponent implements OnInit {
         })
     }
 
-    SaveBudgetChange(formValue, budgetItem, isValid) {
+    SaveBudgetChange(formValue, isValid) {
         if (!isValid) return
-        if (!budgetItem.budgetHistory) budgetItem.budgetHistory = []
+        if (!this.budgetPeriod.budgetHistory) this.budgetPeriod.budgetHistory = []
 
-        budgetItem.budgetHistory.push({
+        this.budgetPeriod.budgetHistory.push({
             budgetIncrement: formValue.budgetChange,
             date: this.dateInBudgetChangeForm || dateUtils.nowFormated(),
             comment: formValue.commentBudgetChange
@@ -78,11 +78,11 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.budgetChangeForm.reset();
     }
 
-    saveBlockedAmount(formValue, budgetItem, isValid) {
+    saveBlockedAmount(formValue, isValid) {
         if (!isValid) return
-        if (!budgetItem.blockedAmounts) budgetItem.blockedAmounts = []
+        if (!this.budgetPeriod.blockedAmounts) this.budgetPeriod.blockedAmounts = []
 
-        budgetItem.blockedAmounts.push({
+        this.budgetPeriod.blockedAmounts.push({
             amount: formValue.blockedAmount,
             comment: formValue.comment
         })
@@ -95,19 +95,79 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.blockedAmountForm.reset();
     }
 
-    SaveNouvelleCreance(formValue, budgetItem, isValid) {
-        if (!isValid) return
-        if (!budgetItem.creances) budgetItem.creances = []
+    checkCreances(): boolean {
+        var lastAmount = -1
+        var isOk: boolean = true
+        this.budgetPeriod.creances.sort(dateUtils.getSortFn(x => x.date)).forEach(c => {
+            if (isOk) {
+                if (c.amount > this.budgetAnnotation.budgetAvailable) isOk = false
+                if (c.amount > lastAmount && lastAmount !== -1) isOk = false
+                lastAmount = c.amount
+            }
+        })
+        return isOk
+    }
 
-        budgetItem.creances.push({
+    private creanceFormError: boolean= false
+
+    SaveNouvelleCreance(formValue, isValid) {        
+        if (!isValid) return
+        if (!this.budgetPeriod.creances) this.budgetPeriod.creances = []
+        this.creanceFormError= false
+
+        this.budgetPeriod.creances.push({
             date: this.dateNouvelleCreanceForm || dateUtils.nowFormated(),
             amount: formValue.depenseNouvelleCreance,
             description: formValue.commentNouvelleCreance
         })
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
-            this.resetNouvelleCreance();
-        });
+
+        if (this.checkCreances()) {
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data).first().subscribe(res => {
+                this.resetNouvelleCreance();
+            });
+        }
+        else {
+            this.budgetPeriod.creances.pop()
+            this.creanceFormError=true
+        }
     }
+
+    private creanceUpdateError: boolean= false
+
+    dateCreanceChangeUpdated(creanceItem, dateChange) {
+        this.creanceUpdateError= false
+        var saved= creanceItem.date
+        creanceItem.date = dateChange
+        if (this.checkCreances()) {
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+        }
+        else {
+            this.creanceUpdateError= true
+            creanceItem.date= saved
+        }        
+    }
+
+    depenseCreanceChangeUpdated(creanceItem, depenseChange) {
+        if (! +depenseChange) return
+        this.creanceUpdateError= false
+        var saved= creanceItem.amount
+        creanceItem.amount = +depenseChange
+        if (this.checkCreances()) {
+            this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+        }
+        else {
+            this.creanceUpdateError= true
+            creanceItem.amount= saved
+        }        
+    }
+
+    commentCreanceChangeUpdated(creanceItem, description) {
+        creanceItem.description = description
+        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
+    }
+
+
+
 
     resetNouvelleCreance() {
         this.nouvelleCreanceForm.reset();
@@ -118,8 +178,8 @@ export class OtpPeriodDetailComponent implements OnInit {
         this.isPageRunning = false
     }
 
-    budgetPeriodUpdated(budgetPeriod) {
-        this.budgetPeriod.budget = +budgetPeriod;
+    budgetPeriodUpdated(budget) {
+        this.budgetPeriod.budget = +budget;
         this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
@@ -166,22 +226,6 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     dateNouvelleCreanceInForm(dateInForm) {
         this.dateNouvelleCreanceForm = dateInForm
-    }
-
-    dateCreanceChangeUpdated(creanceItem, dateChange) {
-        creanceItem.date = dateChange
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    depenseChangeUpdated(creanceItem, depenseChange) {
-        if (! +depenseChange) return
-        creanceItem.amount = +depenseChange
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
-    }
-
-    commentCreanceChangeUpdated(creanceItem, description) {
-        creanceItem.description = description
-        this.dataStore.updateData('otps', this.otp.data._id, this.otp.data);
     }
 
 }

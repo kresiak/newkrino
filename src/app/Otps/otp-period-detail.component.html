@@ -85,7 +85,7 @@
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BUDGET CHANGE' | translate}}" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo?.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
-                                    <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetPeriod, budgetChangeForm.valid)">
+                                    <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetChangeForm.valid)">
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
@@ -163,7 +163,7 @@
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BLOCKED AMOUNT' | translate}}" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo?.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
-                                    <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, budgetPeriod, blockedAmountForm.valid)">
+                                    <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, blockedAmountForm.valid)">
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
@@ -210,6 +210,11 @@
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
+                                                    <div class="col-sm-12" [style.color]="'red'" *ngIf="creanceUpdateError">
+                                                        {{'OTP.PERIOD.MSG.CREANCE ERROR' | translate}}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
                                                     
                                                     <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.DATE DE LA CREANCE' | translate}}</b></div>
                                                     <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.DEPENSE POUR LA PERIODE' | translate}}</b></div>
@@ -223,7 +228,7 @@
                                                             <gg-editor-date [content]="creanceItem.date" (editSaved)="dateCreanceChangeUpdated(creanceItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                                                         </div>
                                                         <div class="col-sm-3 vcenter">
-                                                            <gg-editor [isMonetary]="true" [content]="creanceItem.amount" [showControls]="true" (editSaved)="depenseChangeUpdated(creanceItem, $event)"
+                                                            <gg-editor [isMonetary]="true" [content]="creanceItem.amount" [showControls]="true" (editSaved)="depenseCreanceChangeUpdated(creanceItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-3 vcenter">
@@ -241,7 +246,7 @@
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ENTER UNE NOUVELLE CREANCE' | translate}}" id="tabEnterNouvelleCreance" *ngIf="authorizationStatusInfo?.isAdministrator()">
                             <template ngbTabContent>
                                 <div class="card">
-                                    <form [formGroup]="nouvelleCreanceForm" (ngSubmit)="SaveNouvelleCreance(nouvelleCreanceForm.value, budgetPeriod, nouvelleCreanceForm.valid)"> 
+                                    <form [formGroup]="nouvelleCreanceForm" (ngSubmit)="SaveNouvelleCreance(nouvelleCreanceForm.value, nouvelleCreanceForm.valid)"> 
                                         <div class="card">
                                             <div class="card-block">
                                                 <div class="form-group row">
@@ -268,6 +273,9 @@
                                                     </div>
                                                     <div class="col-sm-3 col-md-2 col-lg-2">
                                                         <button class="btn btn-info" [disabled]="nouvelleCreanceForm.pristine" (click)="resetNouvelleCreance()">{{'FORM.RESET' | translate}}</button>
+                                                    </div>
+                                                    <div class="col-sm-5 col-md-7 col-lg-7" [style.color]="'red'" *ngIf="creanceFormError">
+                                                        {{'OTP.PERIOD.MSG.CREANCE ERROR' | translate}}
                                                     </div>
                                                 </div>
                                             </div>

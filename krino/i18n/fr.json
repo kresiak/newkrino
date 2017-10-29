@@ -246,7 +246,7 @@
         "REASON/COMMENT": "raison / commentaire:",
         "BUDGET CHANGE PHOLDER": "changement de budget",
         "DATE DE LA CREANCE": "date de la créance",
-        "DEPENSE POUR LA PERIODE": "dépense pour la période"
+        "DEPENSE POUR LA PERIODE": "dépense totale visée à cette date"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget pour la période",
@@ -257,8 +257,8 @@
         "COMMENT": "Commentaire",
         "AMOUNT BLOCKED": "Montant bloqué",
         "REASON/COMMENT": "Raison / commentaire",
-        "DATE DE LA CREANCE": "date de la créance",
-        "DEPENSE POUR LA PERIODE": "dépense pour la période"
+        "DATE DE LA CREANCE": "Date de la créance",
+        "DEPENSE POUR LA PERIODE": "Dépense totale visée"
       },
       "MENU": {
         "INFO": "Info",
@@ -268,9 +268,12 @@
         "BLOCKED AMOUNTS": "Montants bloqués",
         "LIST BLOCKED AMOUNT": "Liste de montants bloqués",
         "ADD BLOCKED AMOUNT": "Ajouter un montant bloqué",
-        "CREANCES": "Créances",
-        "LIST DE CREANCES": "List de créances",
-        "ENTER UNE NOUVELLE CREANCE": "Enter une nouvelle créance"
+        "CREANCES": "Dates de créances",
+        "LIST DE CREANCES": "Liste des dates de créances",
+        "ENTER UNE NOUVELLE CREANCE": "Ajouter une date de créance"
+      },
+      "MSG": {
+        "CREANCE ERROR": "Erreur: la dépense totale pour une date ultérieure doit toujours être supérieure à celle d'une créance antérieure! Elle doit aussi être inférieure au montant total de budget disponible pour la période."
       }
     },
     "LABEL": {

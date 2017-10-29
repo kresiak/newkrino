@@ -245,8 +245,8 @@
         "AMOUNT BLOCKED": "blocked amount",
         "REASON/COMMENT": "reason / comment:",
         "BUDGET CHANGE PHOLDER": "Budget change",
-        "DATE DE LA CREANCE": "date de la créance XX",
-        "DEPENSE POUR LA PERIODE": "dépense pour la période XX"
+        "DATE DE LA CREANCE": "date of the claim",
+        "DEPENSE POUR LA PERIODE": "total spending desired at claim date"
       },
       "COLUMN": {
         "BUDGET OF THE PERIOD": "Budget of the period",
@@ -257,8 +257,8 @@
         "COMMENT": "Comment",
         "AMOUNT BLOCKED": "Amount blocked",
         "REASON/COMMENT": "Reason/Comment",
-        "DATE DE LA CREANCE": "date de la créance XX",
-        "DEPENSE POUR LA PERIODE": "dépense pour la période XX"
+        "DATE DE LA CREANCE": "Date of the claim",
+        "DEPENSE POUR LA PERIODE": "Desired total spending"
       },
       "MENU": {
         "INFO": "Info",
@@ -268,9 +268,12 @@
         "BLOCKED AMOUNTS": "Blocked amounts",
         "LIST BLOCKED AMOUNT": "List of blocked amount",
         "ADD BLOCKED AMOUNT": "Add a blocked amount",
-        "CREANCES": "Créances XX",
-        "LIST DE CREANCES": "List de créances XX",
-        "ENTER UNE NOUVELLE CREANCE": "Enter une nouvelle créance XX"
+        "CREANCES": "Claim dates",
+        "LIST DE CREANCES": "List of claim dates",
+        "ENTER UNE NOUVELLE CREANCE": "Add a claim date"
+      },
+      "MSG": {
+        "CREANCE ERROR": "There was an error: a spending amount at a later date must always be superior to an earlier one! Also it must be less than the available budget for that period."
       }
     },
     "LABEL": {
