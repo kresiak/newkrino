@@ -10,6 +10,7 @@
 		<li>{{'OTP.SEARCH HELP.MSG7' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG8' | translate}}</li>
 		<li>{{'OTP.SEARCH HELP.MSG9' | translate}}</li>
+		<li>{{'OTP.SEARCH HELP.MSG10' | translate}}</li>
 	</ul>
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
@@ -46,7 +47,7 @@
 					<div class="col-sm-1">
 						{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}
 					</div>
-					<div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{ otp.annotation.currentPeriodAnnotation.datEnd | shortDate }} ({{otp.data.priority}})</div>
+					<div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{ (otp.annotation.currentPeriodAnnotation.datNextCreance || otp.annotation.currentPeriodAnnotation.datEnd) | shortDate }} <span *ngIf="otp.annotation.currentPeriodAnnotation.datNextCreance">{{'OTP.COLUMN.CREANCE' | translate}}</span> </div>
 					<div class="col-sm-2" *ngIf="!otp.annotation.currentPeriodAnnotation" [style.color]="'red'">{{'OTP.COLUMN.NOT FOR CURRENT PERIOD' | translate}}</div>
 					<div class="col-sm-1">{{ otp.annotation.nbSapItems || '' }}</div>
 					<div class="col-sm-2" [style.color]="'red'">{{getStatusText(otp)|async}}</div>

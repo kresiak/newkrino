@@ -62,12 +62,16 @@ export class OtpService {
     private getAnnotationsOfBudgetPeriod(p) {
         var changesSum = !p.budgetHistory ? 0 : p.budgetHistory.reduce((acc, item) => acc + item.budgetIncrement, 0)
         var blockedSum = !p.blockedAmounts ? 0 : p.blockedAmounts.reduce((acc, item) => acc + item.amount, 0)
+        if (p.creances) 
+            var xxx=120
+        var creances= !p.creances ? undefined : p.creances.filter(c => utilsDate.isDateAfterNow(c.date)).sort(utilsDate.getSortFn(c => c.date, true))
         return {
             changesSum: changesSum,
             blockedSum: blockedSum,
             budgetAvailable: +p.budget + changesSum - blockedSum,
             datStart: p.datStart,
-            datEnd: p.datEnd
+            datEnd: p.datEnd,
+            datNextCreance: (creances && creances.length > 0) ? creances[0].date : undefined 
         }
     }
 

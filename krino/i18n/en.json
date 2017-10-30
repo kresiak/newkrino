@@ -236,6 +236,7 @@
         "INITIAL BUDGET": "initial budget for period:",
         "START DATE": "start date:",
         "END DATE": "end date:",
+        "CREANCE DATE": "date of the claim:",
         "ADDED LATER": "budget added later:",
         "BUDGET BLOCKED": "budget blocked:",
         "THAT CAN USED": "budget that can be used:",
@@ -306,7 +307,7 @@
       "CLASSIFICATION": "Classification",
       "INITIAL": "Initial",
       "AVAILABLE": "Available",
-      "UNTIL": "Until (priority)",
+      "UNTIL": "Deadline",
       "IN SAP": "In SAP",
       "STATUS": "Status",
       "NOT FOR CURRENT PERIOD": "Not for current period",
@@ -314,7 +315,8 @@
       "BLOCKED": "Blocked",
       "LIMITED": "Limited",
       "CLOSED": "Closed",
-      "NO PRIORITY": "No priority"
+      "NO PRIORITY": "No priority",
+      "CREANCE": "(claim)"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: if the OTP or the associated Project contains 'RWAL'",
@@ -325,7 +327,8 @@
       "MSG6": "#NL: if the OTP is open for all and thus NOT reserved for the use of the owning Project",
       "MSG7": "#P0: if the OTP has no priority/priority=0 set (those otps will never be chosen)",
       "MSG8": "#OK: if the OTP is OK, and could be chosen, provided that the dates and budget are adequate. (neither deleted, nor blocked, nor closed, nor priority 0)",
-      "MSG9": "#NO: if the OTP can't be chosen (blocked or closed or priority 0)"
+      "MSG9": "#NO: if the OTP can't be chosen (blocked or closed or priority 0)",
+      "MSG10": "#CR: if the OTP has a coming claim date"
     }
   },
   "CATEGORY": {

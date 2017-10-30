@@ -236,6 +236,7 @@
         "INITIAL BUDGET": "budget initial pour la période:",
         "START DATE": "date de début:",
         "END DATE": "date de fin:",
+        "CREANCE DATE": "date de créance:",        
         "ADDED LATER": "budget ajouté ultérieurement:",
         "BUDGET BLOCKED": "budget bloqué:",
         "THAT CAN USED": "budget utilisable:",
@@ -306,7 +307,7 @@
       "CLASSIFICATION": "Classification",
       "INITIAL": "Initial",
       "AVAILABLE": "Disponible",
-      "UNTIL": "Jusque (priorité)",
+      "UNTIL": "Echéance",
       "IN SAP": "Dans SAP",
       "STATUS": "Statut",
       "NOT FOR CURRENT PERIOD": "Pas disponible actuellement",
@@ -314,7 +315,8 @@
       "BLOCKED": "Bloqué",
       "LIMITED": "Limité",
       "CLOSED": "Fermé",
-      "NO PRIORITY": "Sans priorité"
+      "NO PRIORITY": "Sans priorité",
+      "CREANCE": "(créance)"
     },
     "SEARCH HELP": {
       "MSG1": "RWAL: si l'OTP ou l'équipe associée contient 'RWAL'",
@@ -325,7 +327,8 @@
       "MSG6": "#NL: si l'OTP est non limité (pas limité à l'équipe)",
       "MSG7": "#P0: si l'OTP n'a pas de priorité (et ne sera donc jamais choisi)",
       "MSG8": "#OK: si l'OTP est OK et peut donc en principe, si les dates et le budget restant collent, être choisi (ni supprimé, ni bloqué, ni fermé, ni priorité 0)",
-      "MSG9": "#NO: si l'OTP, à cause de son statut, ne peut être choisi (bloqué ou fermé ou priorité 0)"
+      "MSG9": "#NO: si l'OTP, à cause de son statut, ne peut être choisi (bloqué ou fermé ou priorité 0)",
+      "MSG10": "#CR: si l'OTP a une date de créance en cours"
     }
   },
   "CATEGORY": {

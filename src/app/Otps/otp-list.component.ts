@@ -62,6 +62,9 @@ export class OtpListComponent implements OnInit {
         if (txt.startsWith('#NO')) {
             return (!otp.data.priority || otp.data.isClosed || otp.data.isBlocked) && !otp.data.isDeleted
         }
+        if (txt.startsWith('#CR')) {
+            return otp.annotation.currentPeriodAnnotation && otp.annotation.currentPeriodAnnotation.datNextCreance
+        }
 
         return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
     }

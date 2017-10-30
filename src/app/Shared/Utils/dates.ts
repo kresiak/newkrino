@@ -7,6 +7,13 @@ export function isDateIntervalCompatibleWithNow(datStart: string, datEnd: string
     return d1 && d2 && d1.isSameOrBefore(now) && now.isBefore(d2) 
 }
 
+export function isDateAfterNow(datEnd: string) {
+    var now = moment()
+    var d2 = moment(datEnd, 'DD/MM/YYYY HH:mm:ss').add(1, 'day').startOf('day')
+    return d2 && now.isBefore(d2) 
+}
+
+
 export function nowFormated() {
     return moment().format('DD/MM/YYYY HH:mm:ss')
 }
@@ -25,9 +32,10 @@ export function formatShortDate(date) {
     return moment(date, 'DD/MM/YYYY HH:mm:ss').format('LL');        
 }
 
-export function getSortFn(fn) {
+export function getSortFn(fn, flgIncreasing: boolean= false) {
+    var facteur: number= flgIncreasing ? -1 : 1
     return (a, b)  => {            
         var d1 = moment(fn(a), 'DD/MM/YYYY HH:mm:ss').toDate()
         var d2 = moment(fn(b), 'DD/MM/YYYY HH:mm:ss').toDate()
-        return d1 > d2 ? -1 : 1          }  
+        return (d1 > d2 ? -1  : 1) * facteur          }  
 }

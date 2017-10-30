@@ -23,6 +23,12 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.CREANCE DATE' | translate}}</div>
+                        <div class="col-sm-6 vcenter">
+                            {{budgetAnnotation.datNextCreance | shortDate}}
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.ADDED LATER' | translate}}</div>
                         <div class="col-sm-6 vcenter">
                             {{budgetAnnotation.changesSum | currency:'EUR':true:'1.2-2'}}

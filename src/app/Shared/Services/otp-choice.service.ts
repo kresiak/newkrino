@@ -29,8 +29,12 @@ export class OtpChoiceService {
                 })
                 .filter(otp => otp.data.priority > 0)
                 .sort((o1, o2) => {
-                    var d1 = moment(o1.annotation.currentPeriodAnnotation.datEnd, 'DD/MM/YYYY').toDate()
-                    var d2 = moment(o2.annotation.currentPeriodAnnotation.datEnd, 'DD/MM/YYYY').toDate()
+                    function getRelevantDate(o) {
+                        return o.annotation.currentPeriodAnnotation.datNextCreance || o.annotation.currentPeriodAnnotation.datEnd
+                    }
+
+                    var d1 = moment(getRelevantDate(o1), 'DD/MM/YYYY').toDate()
+                    var d2 = moment(getRelevantDate(o2), 'DD/MM/YYYY').toDate()
 
                     return d1 < d2 ? -1 : (d1 > d2 ? 1 : +o1.data.priority - +o2.data.priority)
                 });
