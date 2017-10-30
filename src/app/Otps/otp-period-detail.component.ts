@@ -11,6 +11,7 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import * as dateUtils from './../Shared/Utils/dates'
+import * as utils from './../Shared/Utils/comparators'
 
 @Component(
     {
@@ -98,7 +99,8 @@ export class OtpPeriodDetailComponent implements OnInit {
     checkCreances(): boolean {
         var lastAmount = -1
         var isOk: boolean = true
-        this.budgetPeriod.creances.sort(dateUtils.getSortFn(x => x.date)).forEach(c => {
+        var copied= utils.clone(this.budgetPeriod.creances)
+        copied.sort(dateUtils.getSortFn(x => x.date)).forEach(c => {
             if (isOk) {
                 if (c.amount > this.budgetAnnotation.budgetAvailable) isOk = false
                 if (c.amount > lastAmount && lastAmount !== -1) isOk = false
@@ -134,7 +136,8 @@ export class OtpPeriodDetailComponent implements OnInit {
 
     private creanceUpdateError: boolean= false
 
-    dateCreanceChangeUpdated(creanceItem, dateChange) {
+    dateCreanceChangeUpdated(creanceItem, data) {
+        var dateChange= data.value
         this.creanceUpdateError= false
         var saved= creanceItem.date
         creanceItem.date = dateChange
@@ -144,10 +147,12 @@ export class OtpPeriodDetailComponent implements OnInit {
         else {
             this.creanceUpdateError= true
             creanceItem.date= saved
+            data.fnCancel()
         }        
     }
 
-    depenseCreanceChangeUpdated(creanceItem, depenseChange) {
+    depenseCreanceChangeUpdated(creanceItem, data) {
+        var depenseChange= data.value
         if (! +depenseChange) return
         this.creanceUpdateError= false
         var saved= creanceItem.amount
@@ -158,6 +163,7 @@ export class OtpPeriodDetailComponent implements OnInit {
         else {
             this.creanceUpdateError= true
             creanceItem.amount= saved
+            data.fnCancel()
         }        
     }
 

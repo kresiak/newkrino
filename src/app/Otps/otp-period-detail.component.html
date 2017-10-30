@@ -225,10 +225,10 @@
                                                     
                                                     <div class="row">
                                                         <div class="col-sm-3 vcenter">
-                                                            <gg-editor-date [content]="creanceItem.date" (editSaved)="dateCreanceChangeUpdated(creanceItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
+                                                            <gg-editor-date [content]="creanceItem.date" (editSavedWithCancelOption)="dateCreanceChangeUpdated(creanceItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                                                         </div>
                                                         <div class="col-sm-3 vcenter">
-                                                            <gg-editor [isMonetary]="true" [content]="creanceItem.amount" [showControls]="true" (editSaved)="depenseCreanceChangeUpdated(creanceItem, $event)"
+                                                            <gg-editor [isMonetary]="true" [content]="creanceItem.amount" [showControls]="true" (editSavedWithCancelOption)="depenseCreanceChangeUpdated(creanceItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
                                                         <div class="col-sm-3 vcenter">

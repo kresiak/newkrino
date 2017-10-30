@@ -16,6 +16,7 @@ export class EditorDate implements OnInit, OnChanges {
     @Input() format= 'DD/MM/YYYY HH:mm:ss'
     @Input() @HostBinding('class.editor--edit-mode') editMode = false;
     @Output() editSaved = new EventEmitter();
+    @Output() editSavedWithCancelOption = new EventEmitter();
 
     private initialized=false;
 
@@ -65,6 +66,13 @@ export class EditorDate implements OnInit, OnChanges {
     save() {
         this.content = this.fromDatePickerDateObjec(this.contentEdited);
         this.editSaved.next(this.content);
+        this.editSavedWithCancelOption.next({
+            value: this.content,
+            fnCancel: () => {
+                this.content = this.fromDatePickerDateObjec(this.savedContentEdited);
+                this.contentEdited = this.savedContentEdited;
+            }
+        })
         this.editMode = false;
     }
 

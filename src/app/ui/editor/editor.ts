@@ -20,6 +20,7 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
     @Input() isMonetary: boolean= false;
     @Input() regexp: string = '.*';
     @Output() editSaved = new EventEmitter();
+    @Output() editSavedWithCancelOption = new EventEmitter();
     @Output() editableInput = new EventEmitter();
     private editableContentElement;
     private isValid: boolean= true
@@ -82,8 +83,16 @@ export class Editor implements OnInit, AfterViewInit, OnChanges{
 
     // On save we reflect the content of the editable element into the content field and emit an event
     save() {
+        var saved= this.content
         this.content = this.getEditableContent();
         this.editSaved.next(this.content);
+        this.editSavedWithCancelOption.next({
+            value: this.content,
+            fnCancel: () => {
+                this.setEditableContent(saved)
+                this.content= saved
+            } 
+        })
         // Setting editMode to false to switch the editor back to viewing mode
         this.editMode = false;
     }
