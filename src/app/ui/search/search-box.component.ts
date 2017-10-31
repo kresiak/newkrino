@@ -18,7 +18,7 @@ export class SearchBoxComponent implements OnInit {
 
     private objects
 
-    private nbHitsShown: number = 10
+    private nbHitsShown: number = 20
     private nbHitsIncrement: number = 10
     private nbHits: number
     private nbHitsShownObservable: BehaviorSubject<number> = new BehaviorSubject<number>(this.nbHitsShown)
