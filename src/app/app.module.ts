@@ -78,6 +78,7 @@ import { OtpEnterComponent } from './Otps/otp-enter.component';
 import { OtpSapByDateComponent } from './Otps/otp-sap-date.component';
 import { OtpPeriodDetailComponent } from './Otps/otp-period-detail.component';
 import { OtpCheckerComponent } from './Otps/otp-checker.component'
+import { OtpCandidatesComponent } from './Otps/otp-candidates.component'
 
 import { PlatformMainComponent } from './Platforms/platform-main-component'
 
@@ -260,7 +261,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     LaboratoryEnterComponent,
     SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent, SupplierEprocShoppingComponent,
     ProductListComponentRoutable, ProductDetailComponentRoutable,
-    OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent,
+    OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent, OtpCandidatesComponent,
 
     CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent, CategoryDetailComponentRoutable,
     ReceptionDetailComponent, CommunicationEnterComponent,

@@ -1,0 +1,17 @@
+<div class="card-block">
+    <div class="row">
+        <div class="col-sm-1"><b>{{'OTP.CHECKER.COLUMN.PREFERENCE' | translate}}</b></div>
+        <div class="col-sm-2"><b>{{'OTP.CHECKER.COLUMN.OTP' | translate}}</b></div>
+        <div class="col-sm-2"><b>{{'OTP.CHECKER.COLUMN.EQUIPE' | translate}}</b></div>
+        <div class="col-sm-2"><b>{{'OTP.CHECKER.COLUMN.EXPIRES' | translate}}</b></div>
+        <div class="col-sm-2"><b>{{'OTP.CHECKER.COLUMN.AVAILABLE' | translate}}</b></div>
+    </div>
+    <div class="row" *ngFor="let otp of (getOtpsCompatible() | async); let i = index">
+        <div class="col-sm-1">{{i+1}}</div>
+        <div class="col-sm-2">{{otp.data.name}}</div>
+        <div class="col-sm-2">{{otp.annotation.equipe}} {{otp.data.isLimitedToOwner ? '(exclusive)' : ''}}</div>
+        <div class="col-sm-2" *ngIf="otp.annotation.currentPeriodAnnotation">{{otp.annotation.currentPeriodAnnotation.datEnd | shortDate }} ({{otp.data.priority}})</div>
+        <div class="col-sm-2" *ngIf="!otp.annotation.currentPeriodAnnotation" [style.color]="'red'">Not for current period</div>
+        <div class="col-sm-2">{{otp.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
+    </div>
+</div>
