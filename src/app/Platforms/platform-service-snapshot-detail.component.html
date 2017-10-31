@@ -1,21 +1,21 @@
 <ngb-tabset *ngIf="snapshot">
-    <ngb-tab title="Info" id="tabInfo">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.INFO' | translate}}" id="tabInfo">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block gg-line-height">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Service name</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.SERVICE NAME' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
-                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.DESCRIPTION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">{{snapshot.description}}</div>
-                        <div class="col-sm-3 vcenter"><b>Version</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.VERSION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">{{snapshot.version}}</div>
                     </div>
                 </div>
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Service steps" id="tabSteps">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.SERVICE STEPS' | translate}}" id="tabSteps">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -24,7 +24,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Prices" id="tabPrices">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.PRICES' | translate}}" id="tabPrices">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -77,7 +77,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Disable snapshot" id="tabDisableSnapshot" *ngIf="!snapshot.isDisabled">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.DISABLE SNAPSHOT' | translate}}" id="tabDisableSnapshot" *ngIf="!snapshot.isDisabled">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -86,7 +86,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Reactivate snapshot" id="tabReactivateStep" *ngIf="snapshot.isDisabled">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.REACTIVATE SNAPSHOT' | translate}}" id="tabReactivateStep" *ngIf="snapshot.isDisabled">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
@@ -95,7 +95,7 @@
             </div>
         </template>
     </ngb-tab>
-    <ngb-tab title="Product associated" id="tabLinkToProduct" *ngIf="snapshot.productId">
+    <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.PRODUCT ASSOCIATED' | translate}}" id="tabLinkToProduct" *ngIf="snapshot.productId">
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">

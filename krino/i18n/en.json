@@ -1317,13 +1317,20 @@
           "MSG1": "pme: search for snapshots having 'pme' in either version or description"
         },  
         "MENU": {
-
+          "INFO": "Info",
+          "SERVICE STEPS": "Service steps",
+          "PRICES": "Prices",
+          "DISABLE SNAPSHOT": "Disable snapshot",
+          "REACTIVATE SNAPSHOT": "Reactivate snapshot",
+          "PRODUCT ASSOCIATED": "Product associated"
         },
         "COLUMN": {
 
         },
         "LABEL": {
-
+          "SERVICE NAME": "Service name",
+          "DESCRIPTION": "Description",
+          "VERSION": "Version"
         }
       }
     },

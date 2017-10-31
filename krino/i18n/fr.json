@@ -1239,10 +1239,10 @@
       },
       "COLUMN": {
         "SERVICE": "Service XX",
-        "CLIENT TYPE": "Client Type",
-        "CATEGORIES": "Categories",
-        "COST": "Cost",
-        "CURRENT": "Current"
+        "CLIENT TYPE": "Client Type XX",
+        "CATEGORIES": "Categories XX",
+        "COST": "Cost XX",
+        "CURRENT": "Current XX"
       },
       "LABEL": {
         
@@ -1266,12 +1266,12 @@
         },
         "LABEL": {
           "NAME": "Name XX",
-          "DESCRIPTION": "Description",
-          "CURRENT VERSION": "Current version",
-          "CATEGORY": "Category",
-          "CLIENT TYPE USED": "Client type used",
-          "BASED ON CURRENT SNAPSHOT": "Based on current snapshot",
-          "NAME OF NEW SERVICE": "name of new service"
+          "DESCRIPTION": "Description XX",
+          "CURRENT VERSION": "Current version XX",
+          "CATEGORY": "Category XX",
+          "CLIENT TYPE USED": "Client type used XX",
+          "BASED ON CURRENT SNAPSHOT": "Based on current snapshot XX",
+          "NAME OF NEW SERVICE": "name of new service XX"
         }
       }, 
       "STEP": {
@@ -1318,13 +1318,20 @@
           "MSG1": "pme: liste des snapshots ayant 'pme' dans la version ou dans la description"
         },  
         "MENU": {
-
+          "INFO": "Info XX",
+          "SERVICE STEPS": "Service steps XX",
+          "PRICES": "Prices XX",
+          "DISABLE SNAPSHOT": "Disable snapshot XX",
+          "REACTIVATE SNAPSHOT": "Reactivate snapshot XX",
+          "PRODUCT ASSOCIATED": "Product associated XX"
         },
         "COLUMN": {
 
         },
         "LABEL": {
-
+          "SERVICE NAME": "Service name XX",
+          "DESCRIPTION": "Description XX",
+          "VERSION": "Version XX"
         }
       }
     },
