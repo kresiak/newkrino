@@ -319,7 +319,7 @@
       "CREANCE": "(créance)"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'OTP ou l'équipe associée contient 'RWAL'",
+      "MSG1": "RWAL: si l'OTP, sa classification ou l'équipe associée contient 'RWAL'",
       "MSG2": "#DE: si l'OTP est supprimé",
       "MSG3": "#BL: si l'OTP est bloqué",
       "MSG4": "#CL: si l'OTP est fermé",

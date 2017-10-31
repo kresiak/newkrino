@@ -319,12 +319,12 @@
       "CREANCE": "(claim)"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: if the OTP or the associated Project contains 'RWAL'",
+      "MSG1": "RWAL: if the OTP, its classification or the associated project contains 'RWAL'",
       "MSG2": "#DE: if the OTP is deleted",
       "MSG3": "#BL: if the OTP is blocked",
       "MSG4": "#CL: if the OTP is closed",
-      "MSG5": "#LI: if the OTP is reserved for the use of the owning Project",
-      "MSG6": "#NL: if the OTP is open for all and thus NOT reserved for the use of the owning Project",
+      "MSG5": "#LI: if the OTP is reserved for the use of the owning project",
+      "MSG6": "#NL: if the OTP is open for all and thus NOT reserved for the use of the owning project",
       "MSG7": "#P0: if the OTP has no priority/priority=0 set (those otps will never be chosen)",
       "MSG8": "#OK: if the OTP is OK, and could be chosen, provided that the dates and budget are adequate. (neither deleted, nor blocked, nor closed, nor priority 0)",
       "MSG9": "#NO: if the OTP can't be chosen (blocked or closed or priority 0)",
