@@ -1325,7 +1325,9 @@
           "PRODUCT ASSOCIATED": "Product associated"
         },
         "COLUMN": {
-
+          "CLIENT TYPE": "Client Type",
+          "COST": "Cost",
+          "STEP": "Step"
         },
         "LABEL": {
           "SERVICE NAME": "Service name",
