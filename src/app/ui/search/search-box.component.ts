@@ -49,6 +49,21 @@ export class SearchBoxComponent implements OnInit {
     @Output() listChanged = new EventEmitter(true);  // the true parameter is important to make the this.searchChanged.next() call asynchr and thus to avaoid the error: `ExpressionChangedAfterItHasBeenCheckedError` (https://blog.angularindepth.com/everything-you-need-to-know-about-the-expressionchangedafterithasbeencheckederror-error-e3fd9ce7dbb4)
     @Output() reportNeeded = new EventEmitter(true);
 
+    private createFilterFn(searchString: string) {
+        if (! this.fnFilterObjects) return (object) => true
+        var txt= searchString.toUpperCase()
+        var andList= txt.split(' AND ').map(terme => terme.split(' OR ').map(e => e.trim()).filter(e => e != '')).filter(orList => orList && orList.length > 0)
+        return object => {
+            return andList.reduce((isOkSoFar, orList: any[]) => {
+                if (!isOkSoFar) return false
+                var isThisOk: boolean= orList.reduce((isOrListOkSoFar, tokenTxt) => {
+                    return isOrListOkSoFar || this.fnFilterObjects(object, tokenTxt)
+                }, false)
+                return isThisOk
+            }, true)
+        }
+    }
+
     ngOnInit(): void {
         this.nbHitsShownObservable.next(this.nbHitsShown = this.configService.listGetNbHits(this.objectTypeTranslationKey, this.nbHitsShown))
 
@@ -60,8 +75,8 @@ export class SearchBoxComponent implements OnInit {
 
         Observable.combineLatest(this.objectsObservable, this.searchControl.valueChanges.debounceTime(400).distinctUntilChanged().startWith(initialSearch).takeWhile(() => this.isPageRunning), (objects, searchTxt: string) => {
             this.configService.listSaveSearchText(this.objectTypeTranslationKey, searchTxt)
-            let txt: string = searchTxt.trim().toUpperCase();
-            return objects.filter(object => !this.fnFilterObjects || this.fnFilterObjects(object, txt))
+            var filterFn= this.createFilterFn(searchTxt)
+            return objects.filter(object => filterFn(object))
         }).do(objects => {
             this.nbHits = objects.length
             this.moneyTotal = this.fnCalculateTotal ? this.fnCalculateTotal(objects) : 0
