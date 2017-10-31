@@ -133,4 +133,7 @@ export class PlatformServicesComponent implements OnInit {
         this.selectedIds = selectedIds;
     }
 
+    categoryHasBeenAdded(newCategory: string) {
+        this.platformService.createCategory(newCategory);
+    }
 }
