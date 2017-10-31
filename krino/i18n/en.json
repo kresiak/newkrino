@@ -1237,10 +1237,14 @@
         "ADD A SERVICE CATEGORY": "Add a service category"
       },
       "COLUMN": {
-
+        "SERVICE": "Service",
+        "CLIENT TYPE": "Client Type",
+        "CATEGORIES": "Categories",
+        "COST": "Cost",
+        "CURRENT": "Current"
       },
       "LABEL": {
-
+        
       },
       "DETAIL": {
         "MENU": {
@@ -1260,7 +1264,13 @@
 
         },
         "LABEL": {
-
+          "NAME": "Name",
+          "DESCRIPTION": "Description",
+          "CURRENT VERSION": "Current version",
+          "CATEGORY": "Category",
+          "CLIENT TYPE USED": "Client type used",
+          "BASED ON CURRENT SNAPSHOT": "Based on current snapshot",
+          "NAME OF NEW SERVICE": "name of new service"
         }
       }, 
       "STEP": {
