@@ -56,8 +56,12 @@ export class SearchBoxComponent implements OnInit {
         return object => {
             return andList.reduce((isOkSoFar, orList: any[]) => {
                 if (!isOkSoFar) return false
-                var isThisOk: boolean= orList.reduce((isOrListOkSoFar, tokenTxt) => {
-                    return isOrListOkSoFar || this.fnFilterObjects(object, tokenTxt)
+                var isThisOk: boolean= orList.reduce((isOrListOkSoFar, tokenTxt: string) => {
+                    if (isOrListOkSoFar) return true
+                    var isNot= tokenTxt.startsWith('NOT ')
+                    var txtToSearch= isNot ? tokenTxt.substring(4).trim() : tokenTxt
+                    var result= this.fnFilterObjects(object, txtToSearch)
+                    return isNot ? !result : result
                 }, false)
                 return isThisOk
             }, true)
