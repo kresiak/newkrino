@@ -820,7 +820,7 @@
       "NO EQUIPE MSG": "Vous ne pouvez passer la commande, vu que vous vous êtes connecté sans équipe. Reconnectez vous!",
       "NOT ENOUGH BUDGET MSG": "Désolé, il ne vous reste pas assez de budget!",
       "OTP PROBLEM MSG" : "Il y a un problème de séelection d'Otp. Contactez votre administrateur!",
-      "OVER LIMIT MSG" : "Votre commande dépasse la limite de dépense pour une seule commande. Faites plusieurs plus petites commandes ou contactez votre administrateur!",
+      "OVER LIMIT MSG" : "Votre commande dépasse la limite de dépense pour une seule commande. Contactez votre administrateur!",
       "ALL DISABLED MSG" : "Tous les produits dans le panier sont des produits désactivés par votre Lab Manager.",
       "PROCEED TO CHECKOUT": "Passer à la 'caisse'"
     },

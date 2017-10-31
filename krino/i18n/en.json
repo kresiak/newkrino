@@ -819,7 +819,7 @@
       "NO EQUIPE MSG": "You cannot pass order, as you entered without selecting a project team. Please login again!",
       "NOT ENOUGH BUDGET MSG": "Sorry, you don't have enough budget available",
       "OTP PROBLEM MSG" : "Sorry, there is an Otp problem. Contact your administrator!",
-      "OVER LIMIT MSG" : "Sorry, you are over the maximal limit for an order. Split the order or contact your administrator!",
+      "OVER LIMIT MSG" : "Sorry, you are over the maximal limit for an order. Contact your administrator!",
       "ALL DISABLED MSG" : "All products that you have in your basket are disabled. You can't pass such an order!",
       "PROCEED TO CHECKOUT": "Proceed to Checkout"
     },
