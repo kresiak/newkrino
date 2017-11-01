@@ -18,14 +18,28 @@ export class OtpCandidatesComponent implements OnInit {
     @Input() equipeId: string
     @Input() classificationId: string
     @Input() amount: number= 1
+    @Input() otpSelectable: boolean= false
+    @Input() selectedOtpId: string
+    @Output() otpChosen= new EventEmitter()
 
     private authorizationStatusInfo: AuthenticationStatusInfo
+
+    private otps: any[]
 
     ngOnInit(): void {
         this.authService.getStatusObservable().takeWhile(() => this.isPageRunning)
             .subscribe(statusInfo => {
                 this.authorizationStatusInfo = statusInfo
             })
+
+        this.getOtpsCompatible().takeWhile(() => this.isPageRunning).subscribe(res => {
+            this.otps= res
+            this.otps.forEach(otp => {
+                otp.selected=false
+                if (otp.data._id === this.selectedOtpId) otp.selected= true
+            })
+
+        })
     }
 
     ngOnDestroy(): void {
@@ -34,6 +48,12 @@ export class OtpCandidatesComponent implements OnInit {
 
     getOtpsCompatible(): Observable<any> {
         return this.otpChoiceService.getCompatibleOtpsObservable(this.equipeId, this.amount, this.classificationId)
+    }
+
+    otpClicked(otp) {
+        this.otpChosen.next(otp.data._id)
+        this.otps.forEach(otp => otp.selected=false)
+        otp.selected= true
     }
 
 }

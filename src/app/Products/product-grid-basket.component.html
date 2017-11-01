@@ -1,3 +1,28 @@
+<template #mymodal let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<button type="button" class="close" (click)="d('Cross click')">
+            <span >&times;</span>
+        </button>
+		<h6 class="modal-title" [innerHTML]="'PRODUCT.ACTIONS.CHOOSE OTP TITLE' | translate:{product:productForModalW.data.name}"></h6>
+	</div>
+	<div class="modal-body">
+		<gg-otp-candidates [otpSelectable]="true" [selectedOtpId]="productForModalW.annotation.otp._id" (otpChosen)="otpUpdated($event, productForModalW)" [equipeId]="equipeIdForModalW" 
+							[classificationId]="classificationIdForModalW" [amount]="amountForModalW"></gg-otp-candidates>
+	</div>
+	<div class="modal-footer">
+		<div class="enter-newselectableitem__l-container">
+			<div class="row">
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-success" (click)="c({ })">{{'PRODUCT.ACTIONS.CHOOSE OTP BUTTON' | translate}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+
 <gg-search-box [objectTypeTranslationKey]="'PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="getFilterFn()"
  [fnCalculateTotal]="calculateTotal" (listChanged)="setProducts($event)">
 	<gg-product-list-help searchHelp> </gg-product-list-help>
@@ -24,7 +49,7 @@
 			<div class="row" *ngIf="product && product.data" [style.color]="product.data.disabled ? 'red' : 'black'">
 				<div class="col-sm-3 col-md-3 vcenter">
 					<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="descriptionUpdated($event, product)" class="imgSearch"
-					 (click)="navigateToProduct(product)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
+					 (click)="navigateToProduct(product)" [readOnly]="true"></gg-editor>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter">
 					<gg-editor [id]="product.data._id" [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="prixUpdated($event, product)"
@@ -40,18 +65,26 @@
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.totalPrice">{{product.annotation.totalPrice | currency:'EUR':true:'1.2-2'}}</div>
 
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && product.annotation.otp._id && showColumn('otp')">
-					<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable" [selectedId]="product.annotation.otp._id"
-					 (idChanged)="otpUpdated($event, product)"></gg-editor-autocomplete> {{product.annotation.otp.description}}
+						<div class="col-sm-10 vcenter nopadding">
+							<gg-editor-autocomplete [readOnly]="!authorizationStatusInfo?.isAdministrator()" [selectableData]="otpListObservable" [selectedId]="product.annotation.otp._id"
+							 (idChanged)="otpUpdated($event, product)" [ngbTooltip]="('PRODUCT.HELP.OTP DESCRIPTION IS' | translate) + ': ' + product.annotation.otp.description">
+							</gg-editor-autocomplete>
+						</div>
+						<div class="col-sm-1 vcenter nopadding">
+							<img class="imgSearch" [ngbTooltip]="'PRODUCT.HELP.CHOOSE OTP TIP' | translate" *ngIf="true" src="../../images/eye.png" (click)="openModal(mymodal, product)">
+						</div>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
-				<div class="col-sm-1 col-md-1 vcenter" *ngIf="authorizationStatusInfo?.hasEquipeId() && !isGroupedBasket && !product.annotation.isFixCost && !product.data.disabled" [ngbTooltip]="'PRODUCT.ACTIONS.SET AS NOT URGENT TIP' | translate">
-					<button type="button" class="btn btn-link" (click)="setNotUrgent(product)"  >{{'PRODUCT.ACTIONS.SET AS NOT URGENT' | translate}}</button>
+				<div class="col-sm-1 col-md-1 vcenter" *ngIf="authorizationStatusInfo?.hasEquipeId() && !isGroupedBasket && !product.annotation.isFixCost && !product.data.disabled"
+				 [ngbTooltip]="'PRODUCT.ACTIONS.SET AS NOT URGENT TIP' | translate">
+					<button type="button" class="btn btn-link" (click)="setNotUrgent(product)">{{'PRODUCT.ACTIONS.SET AS NOT URGENT' | translate}}</button>
 				</div>
 				<div class="col-sm-1 col-md-1 vcenter" *ngIf="isGroupedBasket">
 					<button type="button" class="btn btn-link" (click)="product.annotation.isClosed=!product.annotation.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
 				</div>
 			</div>
-			<div class="row" [ngbCollapse]="!product.annotation.isClosed">   <!--Only for grouped baskets-->
+			<div class="row" [ngbCollapse]="!product.annotation.isClosed">
+				<!--Only for grouped baskets-->
 				<div class="col-sm-12 col-md-12">
 					<div class="card">
 						<div class="row">

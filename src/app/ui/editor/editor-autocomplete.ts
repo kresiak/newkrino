@@ -46,6 +46,13 @@ export class EditorAutocomplete implements OnInit {
         this.initContent(Observable.from([this.selectedId]))
     }
 
+    ngOnChanges(changes) {
+        if (changes.selectedId)
+        {
+            this.initContent(Observable.from([changes.selectedId.currentValue]))
+        }
+    }     
+
     save() {
         this.idChanged.next(this.selectedItem ? this.selectedItem.id : undefined)
         this.initContent( Observable.from([this.selectedItem ? this.selectedItem.id : undefined]) )

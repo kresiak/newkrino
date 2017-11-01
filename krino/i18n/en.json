@@ -184,8 +184,9 @@
         "PREFERENCE": "Preference",
         "OTP": "Otp",
         "EQUIPE": "Project",
-        "EXPIRES": "Expires",
-        "AVAILABLE": "Available"
+        "EXPIRES": "Deadline",
+        "AVAILABLE": "Available",
+        "PRIORTY": "Priority"
       }
     },
     "CLASSIFICATION": {
@@ -509,7 +510,7 @@
       "FROM": "From",
       "TO": "TO",
       "WHAT": "What?",
-      "QTY IN BASKET": "Qty in basket",
+      "QTY IN BASKET": "Qty",
       "TOTAL": "Total",
       "EQUIPE": "Project",
       "HOW MANY": "How many",
@@ -558,10 +559,14 @@
         "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
         "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header.",
         "SET AS NOT URGENT": "Set as not urgent",
-        "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info."
+        "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info.",
+        "CHOOSE OTP TITLE": "You can change the OTP for '{{product}}' by clicking on one of the otp below",
+        "CHOOSE OTP BUTTON": "Close"
     },
     "HELP": {
-      "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number."
+      "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number.",
+      "OTP DESCRIPTION IS": "Description of this Otp",
+      "CHOOSE OTP TIP": "You can choose an other Otp by clicking here"
     },
     "SEARCH HELP": {
       "MSG1": "liquid : if the product or the supplier contains the string 'liquid'",
