@@ -1225,7 +1225,8 @@
     },
     "ALERTS": {
       "EXPIRING OTPS": "Des otps vont expirer! ",
-      "PRIVATE MSGS": "Vous avez des messages! "
+      "PRIVATE MSGS": "Vous avez des messages! ",
+      "PLEASE CHECK YOUR DASHBOARD" : "Veuillez consulter votre tableau de bord: vous avez {{nbTotal}} nouvelles commandes en attente"
     },
     "MESSAGE PARTS": {
       "ORDER": "commande",

@@ -1224,7 +1224,8 @@
     },
     "ALERTS": {
       "EXPIRING OTPS": "There are expiring otp! ",
-      "PRIVATE MSGS": "There are private messages! "
+      "PRIVATE MSGS": "There are private messages! ",
+      "PLEASE CHECK YOUR DASHBOARD" : "Please check your dashboard: you have {{nbTotal}} new orders waiting"
     },
     "MESSAGE PARTS": {
       "ORDER": "order",
