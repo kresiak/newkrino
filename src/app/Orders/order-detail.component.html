@@ -1,11 +1,11 @@
-<template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
+<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
 
 <template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
         </button>
-		<h4 class="modal-title">Please enter the delivery</h4>
+		<h4 class="modal-title">{{'ORDER.ACTION.PLEASE ENTER THE DELIVERY' | translate}}</h4>
 	</div>
 	<div class="modal-body">
 		<div class="card">
@@ -30,7 +30,7 @@
 						/>
 					</div>
 					<div class="col-sm-2">
-						<input type="checkbox" class="form-control" [ngbTooltip]="'Resell as ' + item.stockPackaging" [(ngModel)]="item.isForStock"
+						<input type="checkbox" class="form-control" [ngbTooltip]="'Revendre comme ' + item.stockPackaging" [(ngModel)]="item.isForStock"
 						 *ngIf="item.nbAlready < item.nbOrdered && item.stockPackaging" />
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 
 				</div>
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-success" (click)="c({ })">Save delivery</button>
+					<button type="button" class="btn btn-success" (click)="c({ })">{{'ORDER.ACTION.SAVE DELIVERY' | translate}}</button>
 				</div>
 			</div>
 		</div>
@@ -277,7 +277,7 @@
 														<div class="col-sm-2 vcenter">{{item.annotation.price | currency:'EUR':true:'1.2-2'}}</div>
 														<div class="col-sm-1 vcenter">{{item.annotation.nbDelivered}}</div>
 														<div class="col-sm-2 vcenter">
-															<div *ngIf="authorizationStatusInfo?.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal)" style="margin:5px">Add delivery</div>
+															<div *ngIf="authorizationStatusInfo?.isAdministrator()" class="btn btn-info btn-sm" (click)="openModal(mymodal)" style="margin:5px">{{'ORDER.ACTION.ADD DELIVERY' | translate}}</div>
 														</div>
 													</div>
 												</div>
@@ -329,7 +329,7 @@
 			<template ngbTabContent></template>
 		</ngb-tab>
 		<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-			<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
+			<template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
 			<template ngbTabContent></template>
 		</ngb-tab>
 

@@ -73,7 +73,10 @@
     "ACTION": {
       "DISABLE": "désactiver",
       "REACTIVATE": "réactiver",
-      "DELETE": "supprimer"
+      "DELETE": "supprimer",
+      "CLICK HERE TO GET A DETAIL VIEW": "Cliquer ici pour obtenir une vue détaillée",
+      "CLICK HERE TO GO BACK TO LAST VIEW" : "Cliquer ici pour retourner à la vue précédente",
+      "GOTO TOP OF THE PAGE": "Aller au début de la page"
     }
   },
   "UI": {
@@ -425,7 +428,12 @@
     "MSG": {
       "EPROC INTRO": "Pour acheter chez {{param}}  via e-procurement, veuillez remplir ce formulaire de manière aussi exacte que possible et vérifiez que vous recevez un OK de Krino avant de passer la commande dans e-procurement. Si vous recevez un OK, alors (et alors seulement) passez votre commande via e-procurement. Quand c'est fait appuyez sur le bouton ci-dessous.",
       "EPROC STATUS": "Permission pour faire l'achat sur e-procurement:",
-      "EPROC BUTTON": "J'ai passé la commande sur e-procurement"
+      "EPROC BUTTON": "J'ai passé la commande sur e-procurement",
+      "YOUR WEB PURCHASE HAS BEEN REGISTERED": "Votre commande web a été enregistrée",
+      "USE FOLLOWING PURCHASE ID": "Veuillez utiliser le numéro de commande suivant sur le site web du fournisseur:",
+      "USE A VOUCHER": "utilisation d'un coupon de type {{category}}",
+      "FILL THIS FORM WEBSHOPPING": "Veuillez remplir ce formulaire correctement; vous recevrez le numéro de bon de commande Sap dont vous avez besoin pour placer la commande sur la platforme webshopping de {{supplier}}.",
+      "THE INFORMATION ENTERED WEBSHOPPING IS CORRECT": "L'information que j'ai entrée est correcte et correspond à ce que j'ai entré sur le site de {{supplier}}."
     },
     "SEARCH HELP": {
       "MSG1": "bru: liste des fournisseurs dont le nom ou la ville ou le pays contient 'bru'",
@@ -466,6 +474,8 @@
     },
     "LABEL": {
       "DESCRIPTION": "description:",
+      "DESCRIPTION OF PRODUCT PHOLDER": "description du produit",  
+      "TOTAL PRICE OF WEB SHOPPING PHOLDER": "prix total de l'achat web (TVA compris)",          
       "PRICE": "prix:",
       "E-PROCUREMENT ENABLED": "e-procurement activé:",
       "SHOPPING ENABLED": "web shopping activé:",
@@ -567,7 +577,10 @@
         "SET AS NOT URGENT": "Non urgent: grouper l'achat",
         "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que l'achat de ce produit n'est pas urgent et qu'il peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info.",
         "CHOOSE OTP TITLE": "Changez l'otp pour '{{product}}' en clickant sur un des otp ci-dessous",
-        "CHOOSE OTP BUTTON": "Fermer"
+        "CHOOSE OTP BUTTON": "Fermer",
+        "CLICK TO DESACTIVATE FRIGO": "Cliquer pour désactiver frigo",
+        "CLICK HERE ORDER PRODUCT FROM FRIDGE": "Cliquer ici pour commander ce produit du frigo.",
+        "CLICK HERE TO ADD PRODUCT": "Cliquer ici pour <br/> ajouter une unité du produit <br/> dans le panier. <br/> Cliquer et attendre une seconde pour que l'écran se rafraîchisse!"
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue.",
@@ -787,7 +800,7 @@
     },
     "COLUMN": {
       "PRODUCT": "Produit",
-      "ORDERED": "Commandé",
+      "ORDERED": "Qté",
       "ALREADY": "Livré",
       "TODAY": "Aujourd'hui",
       "NO LOT": "Numéro de lot",
@@ -849,6 +862,11 @@
       "MSG10": "#>5: commandes avec au moins 5 lignes de commande",
       "MSG12": "#enzym: commande avec un produit contenant 'enzym'",
       "MSG13": "#2755: commande avec un produit dont le numéro de catalogue contient '2755'"
+    },
+    "ACTION": {
+      "PLEASE ENTER THE DELIVERY": "Veuillez encoder la livraison",
+      "SAVE DELIVERY": "Enregistrer la livraison",
+      "ADD DELIVERY": "Ajouter une livraison"
     }
   },
   "RECEPTION": {

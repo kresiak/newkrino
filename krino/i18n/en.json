@@ -73,7 +73,10 @@
     "ACTION": {
       "DISABLE": "disable",
       "REACTIVATE": "reactivate",
-      "DELETE": "delete"
+      "DELETE": "delete",
+      "CLICK HERE TO GET A DETAIL VIEW": "Click here to get a detail view",
+      "CLICK HERE TO GO BACK TO LAST VIEW" : "Click here to go back to last view",
+      "GOTO TOP OF THE PAGE": "Goto top of the page"
     }
   },
   "UI": {
@@ -425,7 +428,12 @@
     "MSG": {
       "EPROC INTRO": "In order to shop at {{param}}  with e-procurement, please fill this form as exacty as possible and wait for the OK before you pass the order on e-procurement. If you get an OK, then feel free to pass your order via e-procurement, and then finally submit this form by pushing the button below.",
       "EPROC STATUS": "Permission to shop on e-procurement:",
-      "EPROC BUTTON": "I have passed the order on e-procurement"
+      "EPROC BUTTON": "I have passed the order on e-procurement",
+      "YOUR WEB PURCHASE HAS BEEN REGISTERED": "Your web purchase has been registered",
+      "USE FOLLOWING PURCHASE ID": "Please use following purchase id on web portal of the supplier:",
+      "USE A VOUCHER": "use of a {{category}} voucher",
+      "FILL THIS FORM WEBSHOPPING": "Fill this form adequately and you will get the Sap Id that you need in order to place your order on the {{supplier}} webshopping platform.",
+      "THE INFORMATION ENTERED WEBSHOPPING IS CORRECT": "The information I have entered here is correct and correspond to what I have entered on the {{supplier}} website."
     },
     "SEARCH HELP": {
       "MSG1": "bru: the supplier's name, SAP id, city, or country should contain the string 'bru'",
@@ -466,6 +474,8 @@
     },
     "LABEL": {
       "DESCRIPTION": "Description:",
+      "DESCRIPTION OF PRODUCT PHOLDER": "description of the product",
+      "TOTAL PRICE OF WEB SHOPPING PHOLDER": "total price of web shopping (with VAT)",
       "PRICE": "Price:",
       "E-PROCUREMENT ENABLED": "e-procurement enabled:",
       "SHOPPING ENABLED": "web shopping enabled:",
@@ -567,7 +577,10 @@
         "SET AS NOT URGENT": "Set as not urgent",
         "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info.",
         "CHOOSE OTP TITLE": "You can change the OTP for '{{product}}' by clicking on one of the otp below",
-        "CHOOSE OTP BUTTON": "Close"
+        "CHOOSE OTP BUTTON": "Close",
+        "CLICK TO DESACTIVATE FRIGO": "Click to desactivate frigo",
+        "CLICK HERE ORDER PRODUCT FROM FRIDGE": "Click here to order this product from the fridge.",
+        "CLICK HERE TO ADD PRODUCT": "Click here to <br/> add one unity of this product <br/> into the basket. <br/> Click and wait for a second to update!"
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number.",
@@ -848,6 +861,11 @@
       "MSG10": "#>5: orders with at least 5 order lines",
       "MSG12": "#enzym: orders having a product called 'enzym'",
       "MSG13": "#2755: orders having a catalog number containing '2755'"
+    },
+    "ACTION": {
+      "PLEASE ENTER THE DELIVERY": "Please enter the delivery",
+      "SAVE DELIVERY": "Save delivery",
+      "ADD DELIVERY": "Add delivery"
     }
   },
   "RECEPTION": {
