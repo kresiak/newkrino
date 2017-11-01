@@ -375,6 +375,7 @@
       "SUPER ADMINISTRATOR?": "Super administrateur?"
     },
     "HELP": {
+      "ALLOWED CHANGE OTP TIP": "Réservé aux utiliseurs qui connaissent le concept d'otp. Ils ne pourront que choisir un otp valide selon Krino.",      
       "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
     "SEARCH HELP": {
@@ -395,6 +396,7 @@
       "IS KRINO PROGRAMMER": "programmeur:",
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
+      "ALLOWED CHANGE OTP": "utilisateur peut changer l'otp dans le panier de commande:",
       "SUPER ADMINISTRATOR": "super administrateur:",
       "NAME OF THE USER PHOLDER": "nom de l'utilisateur",
       "FIRST NAME OF THE USER PHOLDER": "prénom de l'utilisateur"

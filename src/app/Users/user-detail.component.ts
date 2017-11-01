@@ -142,6 +142,10 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     }
 
+    isOtpAwareUserUpdated(isOtpAwareUser) {
+        this.user.data.isOtpAware = isOtpAwareUser;
+        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    }
 
     onUploadFinished(res) {
         var x = JSON.parse(res.serverResponse._body)

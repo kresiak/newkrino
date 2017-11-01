@@ -375,6 +375,7 @@
       "SUPER ADMINISTRATOR?": "Super Administrator?"
     },
     "HELP": {
+      "ALLOWED CHANGE OTP TIP": "For advanced users who are aware of their Otps. They can only select valid Otps.",
       "SUPER ADMINISTRATOR": "A super administrator has the right to change public data (products, ...) and to create a new labo. Use this with caution please!!"
     },
     "SEARCH HELP": {
@@ -395,6 +396,7 @@
       "IS KRINO PROGRAMMER": "is krino programmer:",
       "IS PLATFORM ADMINISTRATOR": "is platform administrator:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "user is not allowed to order products:",
+      "ALLOWED CHANGE OTP": "user is allowed to change the Otp in shopping basket:",
       "SUPER ADMINISTRATOR": "is super administrator:",
       "NAME OF THE USER PHOLDER": "name of the user",
       "FIRST NAME OF THE USER PHOLDER": "first name of the user"

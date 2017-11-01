@@ -83,6 +83,12 @@
 							<gg-editor-boolean [content]="user.data.isPassiveUser" (editSaved)="isPassiveUserUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>
+					<div class="row" [ngbTooltip]="'USER.HELP.ALLOWED CHANGE OTP TIP' | translate">
+						<div class="col-sm-3 vcenter">{{'USER.LABEL.ALLOWED CHANGE OTP' | translate}}</div>
+						<div class="col-sm-6 vcenter">
+							<gg-editor-boolean [content]="user.data.isOtpAware"  (editSaved)="isOtpAwareUserUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
+						</div>
+					</div>
 					<div class="row" *ngIf="!configService.isProduction()">
 						<div class="col-sm-3">_id:</div>
 						<div class="col-sm-6">{{user.data._id}}</div>

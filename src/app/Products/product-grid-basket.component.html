@@ -70,8 +70,8 @@
 							 (idChanged)="otpUpdated($event, product)" [ngbTooltip]="('PRODUCT.HELP.OTP DESCRIPTION IS' | translate) + ': ' + product.annotation.otp.description">
 							</gg-editor-autocomplete>
 						</div>
-						<div class="col-sm-1 vcenter nopadding">
-							<img class="imgSearch" [ngbTooltip]="'PRODUCT.HELP.CHOOSE OTP TIP' | translate" *ngIf="true" src="../../images/eye.png" (click)="openModal(mymodal, product)">
+						<div class="col-sm-1 vcenter nopadding" *ngIf="authorizationStatusInfo?.isAdministrator() || authorizationStatusInfo?.isOtpAwareUser()" >
+							<img class="imgSearch" [ngbTooltip]="'PRODUCT.HELP.CHOOSE OTP TIP' | translate" src="../../images/eye.png" (click)="openModal(mymodal, product)">
 						</div>
 				</div>
 				<div class="col-sm-2 col-md-2 vcenter" *ngIf="product.annotation.otp && !product.annotation.otp._id"><b>Otp problem!</b></div>
