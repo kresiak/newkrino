@@ -4,6 +4,7 @@
     "NO": "no",
     "EMPTY": "",
     "CLICK HERE": "click here",
+    "CLOSE": "Close",
     "NOT SET YET" : "(not set yet)",
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
@@ -35,6 +36,9 @@
     "SNAPSHOTS": "snapshots",
     "OFFERS": "offers",
     "IN": "in",
+    "ADD THE CHOICE": "Add the choice",
+    "ENTER NEW CHOICE": "Enter new choice...",
+    "PLEASE CHOOSE": "Please choose",
     "HOW TO SEARCH": "How to search: examples",
     "HITS": {
       "NB HITS TXT": "now showing {{nbHitsShown}} of {{nbHits}}",

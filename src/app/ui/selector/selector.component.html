@@ -3,7 +3,7 @@
 		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
         </button>
-		<h4 class="modal-title">Please choose</h4>
+		<h4 class="modal-title">{{'GENERAL.PLEASE CHOOSE' | translate}}</h4>
 	</div>
 	<div class="modal-body">
 		<div class="card">
@@ -25,17 +25,17 @@
 		<div class="enter-newselectableitem__l-container">
 			<div class="row">
 				<div class="col-sm-5">
-					<input type="text" class="enter-newselectableitem-input" placeholder="Enter new choice..." (keydown)="onKeyDown($event)"
+					<input type="text" class="enter-newselectableitem-input" placeholder="{{'GENERAL.ENTER NEW CHOICE' | translate}}" (keydown)="onKeyDown($event)"
 						#newselectableitemtitle>
 				</div>
 				<div class="col-sm-2">
-					<button class="button btn btn-default btn-sm" (click)="enterNewSelectableItem(newselectableitemtitle)">Add the choice</button>
+					<button class="button btn btn-default btn-sm" (click)="enterNewSelectableItem(newselectableitemtitle)">{{'GENERAL.ADD THE CHOICE' | translate}}</button>
 				</div>
 				<div class="col-sm-2">
 
 				</div>
 				<div class="col-sm-3">
-                    <button type="button" class="btn btn-success" (click)="c('Close click')">Close</button>
+                    <button type="button" class="btn btn-success" (click)="c('Close click')">{{'GENERAL.CLOSE' | translate}}</button>
 				</div>
 			</div>
 		</div>

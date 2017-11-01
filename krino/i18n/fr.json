@@ -4,6 +4,7 @@
     "NO": "non",
     "EMPTY": "",
     "CLICK HERE": "clicker ici",    
+    "CLOSE": "Fermer",    
     "NOT SET YET" : "(pas encore choisi)",    
     "CHOOSE AN EQUIPE": "choisir une équipe",    
     "TOGGLE DETAILS": "Voir/cacher détails",
@@ -35,6 +36,9 @@
     "SERVICES": "service(s)", 
     "SNAPSHOTS": "snapshot(s)",    
     "OFFERS": "offre(s)",       
+    "ENTER NEW CHOICE": "Entrer une nouvelle option...", 
+    "PLEASE CHOOSE": "Veuillez choisir",       
+    "ADD THE CHOICE": "Ajouter l'option",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
@@ -1241,7 +1245,7 @@
         "INFO": "Info",
         "ADD A SERVICE": "Ajouter un service",
         "CATEGORIES": "Catégories",
-        "LIST OF CATEGORIES": "Liste des catégorieS",
+        "LIST OF CATEGORIES": "Liste des catégories",
         "ADD A SERVICE CATEGORY": "Ajouter une catégorie de services"
       },
       "COLUMN": {
