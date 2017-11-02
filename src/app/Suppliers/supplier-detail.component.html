@@ -127,7 +127,7 @@
 		<ng-template ngbTabContent>
 			<gg-user-list [state]="state.Users" [usersObservable]="usersObservable" [path]="path+'|O:Users'" (stateChanged)="childUsersStateChanged($event)"></gg-user-list>
 		</ng-template>
-	</ngb-tab>	
+	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING BASKET' | translate}}" *ngIf="isThereABasket && authorizationStatusInfo && !authorizationStatusInfo.isPassiveUser()"
 	 id="tabBasket">
 		<ng-template ngbTabContent>
@@ -149,7 +149,7 @@
 		<ng-template ngbTabContent>
 			<div class="card">
 				<div class="card-body">
-					<div >
+					<div>
 						<gg-product-grid-basket [path]="path+'|O:GroupedBasket'" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable"
 						 [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>
@@ -161,9 +161,7 @@
 		<ng-template ngbTabContent>
 			<div class="card">
 				<div class="card-body">
-					<div class="row">
-						<gg-product-enter [supplierId]="supplier.data._id"></gg-product-enter>
-					</div>
+					<gg-product-enter [supplierId]="supplier.data._id"></gg-product-enter>
 				</div>
 			</div>
 		</ng-template>
@@ -177,7 +175,7 @@
 					<ngb-tabset #tabsetEProc [activeId]="tabEprocSelected">
 						<ngb-tab title="{{'SUPPLIER.MENU.NEW EPROC' | translate}}" id="tabEprocAdd">
 							<ng-template ngbTabContent>
-								<gg-supplier-eproc-shopping [supplier]="supplier" (isDone)="tabsetEProc.select('tabEprocList')" ></gg-supplier-eproc-shopping>
+								<gg-supplier-eproc-shopping [supplier]="supplier" (isDone)="tabsetEProc.select('tabEprocList')"></gg-supplier-eproc-shopping>
 							</ng-template>
 						</ngb-tab>
 						<ngb-tab title="{{'SUPPLIER.MENU.LIST EPROC' | translate}}" id="tabEprocList">
@@ -188,7 +186,7 @@
 											<div class="col-sm-3">
 												{{order.data.createDate | fullDate}}
 											</div>
-											
+
 											<div class="col-sm-2">
 												{{order.annotation.supplier}}
 											</div>
@@ -319,7 +317,8 @@
 		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></ng-template>
+		<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave"
+			/></ng-template>
 		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 

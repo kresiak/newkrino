@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row" *ngFor="let product of productsList">
+                                    <div *ngFor="let product of productsList">
                                         <!--FOR-->
                                         <div class="row">
                                             <div class="col-sm-2 align-self-center">{{product.data.name}}</div>
@@ -53,11 +53,11 @@
                                                         <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.WHO' | translate}}</div>
                                                         <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</div>
                                                         <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</div>
-                                                        <div class="col-sm-1 align-self-center">{{'PRODUCT.COLUMN.PRICE' | translate}}</div>
+                                                        <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.PRICE' | translate}}</div>
                                                         <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.JUSTIFICATION' | translate}}</div>
                                                     </div>
                                                     <div class="card">
-                                                        <div class="row" *ngFor="let item of product.annotation.items; let itemPos = index">
+                                                        <div *ngFor="let item of product.annotation.items; let itemPos = index">
                                                             <!--FOR-->
                                                             <div class="row">
                                                                 <div class="col-sm-1 align-self-center">
@@ -66,7 +66,7 @@
                                                                 <div class="col-sm-2 align-self-center">{{item.annotation.user}}</div>
                                                                 <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.supplier" [showControls]="true" (editSaved)="supplierChanged($event, product, itemPos)"></gg-editor></div>
                                                                 <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.catalogNr" [showControls]="true" (editSaved)="catalogNrChanged($event, product, itemPos)"></gg-editor></div>
-                                                                <div class="col-sm-1 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceChanged($event, product, itemPos)"></gg-editor></div>
                                                                 <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.justification" [showControls]="true" (editSaved)="justificationChanged($event, product, itemPos)"></gg-editor></div>
                                                                 <div class="col-sm-1 align-self-center" *ngIf="(item.data.documents || []).length > 0">
                                                                     <button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">{{'PUBLIC.MARKET.ACTION.SHOW/HIDE DOCS' | translate}}</button>
