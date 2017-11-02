@@ -4,21 +4,21 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Name of step</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.NAME OF STEP' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Used machine</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.USED MACHINE' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
                                 [readOnly]="isSnapshot" (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                         </div>
 
-                        <div class="col-sm-3 vcenter"><b>Runtime (in hours)</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor-number [content]="serviceStep.data.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
                         </div>
@@ -54,9 +54,9 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Service</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Current</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
+                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.SERVICE' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.CURRENT' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let service of (serviceStep.annotation.services || []); let pos = index">
                                             <!--FOR  -->
@@ -99,11 +99,11 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Evaluation of cost</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.EVALUATION OF COST' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceStep.data.costConsommables || 0" [isMonetary]="true" [showControls]="true" (editSaved)="costConsommableUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Description of consommables</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION OF CONSOMMABLES' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceStep.data.descriptionConsommables || 'no description yet'" [showControls]="true" (editSaved)="descriptionConsommableUpdated($event)"></gg-editor>
                         </div>
@@ -122,11 +122,11 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Product</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Nb of units used</b></div>
-                                            <div class="col-sm-1 vcenter"><b>Price per unit</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Nb of units in product</b></div>
-                                            <div class="col-sm-1 vcenter"><b>Total</b></div>
+                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRODUCT' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
+                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRICE PER UNIT' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS IN PRODUCT' | translate}}</b></div>
+                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let product of (serviceStep.annotation.products || []); let pos = index">
                                             <!--FOR  -->
@@ -155,7 +155,7 @@
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
                                             <div class="col-sm-1 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter">Total:</div>
+                                            <div class="col-sm-2 vcenter">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
                                             <div class="col-sm-1 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
@@ -197,10 +197,10 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>Labour</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Nb Hours</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Rate</b></div>
-                                            <div class="col-sm-2 vcenter"><b>Total</b></div>
+                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.LABOUR' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB HOURS' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RATE' | translate}}</b></div>
+                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let labourType of (serviceStep.annotation.labourTypes || []); let pos = index">
                                             <!--FOR  -->
@@ -222,7 +222,7 @@
                                         <div class="row gg-price">
                                             <div class="col-sm-3 vcenter"><b></b></div>
                                             <div class="col-sm-2 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter">Total:</div>
+                                            <div class="col-sm-2 vcenter">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
                                             <div class="col-sm-2 vcenter">{{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>

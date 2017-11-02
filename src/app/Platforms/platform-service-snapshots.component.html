@@ -15,13 +15,13 @@
                     <div class="container-fluid">
                         <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(snapshotForm.value, snapshotForm.valid)">
                             <div class="form-group row">
-                                <label for="version" class="col-sm-3 col-form-label col-xl-3">version of snapshot:</label>
+                                <label for="version" class="col-sm-3 col-form-label col-xl-3">{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.VERSION OF SNAPSHOT' | translate}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" formControlName="version" id="version" placeholder="version of service snapshot">
+                                    <input type="text" class="form-control" formControlName="version" id="version" placeholder="{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.VERSION OF SNAPSHOT' | translate}}">
                                 </div>
-                                <label for="description" class="col-sm-3 col-form-label col-xl-3">description:</label>
+                                <label for="description" class="col-sm-3 col-form-label col-xl-3">{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.DESCRIPTION' | translate}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="description of snapshot">
+                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.DESCRIPTION' | translate}}">
                                 </div>
                             </div>
                             <div class="row">
