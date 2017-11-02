@@ -5,31 +5,31 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.CORRECTION TYPE' | translate}}</b></div>
-                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.SHORTCUT' | translate}}</b></div>
-                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.DEFAULT VALUE' | translate}}</b></div>
-                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.ON PRODUCTS' | translate}}</b></div>
-                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.ON LABOUR' | translate}}</b></div>
-                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.ON TOTAL' | translate}}</b></div>
+                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.CORRECTION TYPE' | translate}}</b></div>
+                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.SHORTCUT' | translate}}</b></div>
+                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.DEFAULT VALUE' | translate}}</b></div>
+                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.ON PRODUCTS' | translate}}</b></div>
+                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.ON LABOUR' | translate}}</b></div>
+                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.CORRECTION.COLUMN.ON TOTAL' | translate}}</b></div>
 		                </div>
                         <div *ngFor="let correctionItem of correctionList">
                             <div class="row">
-                                <div class="col-sm-3 vcenter">
+                                <div class="col-sm-3 align-self-center">
                                     <gg-editor [content]="correctionItem.name" [showControls]="true" (editSaved)="nameCorrectionUpdated($event, correctionItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-2 align-self-center">
                                     <gg-editor [content]="correctionItem.shortcut" [showControls]="true" (editSaved)="shortcutCorrectionUpdated($event, correctionItem)"></gg-editor>
                                 </div>
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-2 align-self-center">
                                     <gg-editor-number [content]="correctionItem.defaultPerCent" (editSaved)="defaultPerCentUpdated($event, correctionItem)"></gg-editor-number>
                                 </div>
-                                <div class="col-sm-1 vcenter" [style.color]="correctionItem.isOnProduct ? 'red' : 'black'">
+                                <div class="col-sm-1 align-self-center" [style.color]="correctionItem.isOnProduct ? 'red' : 'black'">
                                     <gg-editor-boolean [content]="correctionItem.isOnProduct" (editSaved)="isOnProductUpdated($event, correctionItem)"></gg-editor-boolean>
                                 </div>
-                                <div class="col-sm-1 vcenter" [style.color]="correctionItem.isOnLabour ? 'red' : 'black'">
+                                <div class="col-sm-1 align-self-center" [style.color]="correctionItem.isOnLabour ? 'red' : 'black'">
                                     <gg-editor-boolean [content]="correctionItem.isOnLabour" (editSaved)="isOnLabourUpdated($event, correctionItem)"></gg-editor-boolean>
                                 </div>
-                                <div class="col-sm-1 vcenter" [style.color]="correctionItem.isOnTotal ? 'red' : 'black'">
+                                <div class="col-sm-1 align-self-center" [style.color]="correctionItem.isOnTotal ? 'red' : 'black'">
                                     <gg-editor-boolean [content]="correctionItem.isOnTotal" (editSaved)="isOnTotalUpdated($event, correctionItem)"></gg-editor-boolean>
                                 </div>
                             </div>                        

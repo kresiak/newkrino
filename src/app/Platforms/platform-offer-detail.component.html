@@ -4,46 +4,46 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row" *ngIf="isSnapshot">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.SNAPSHOT REASON' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.SNAPSHOT REASON' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             {{offerItem.description}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.NUMERO' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.NUMERO' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             {{offerItem.annotation.numero}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.DESCRIPTION' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.DESCRIPTION' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [readOnly]="isSnapshot" [content]="offerItem.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event, offerItem)"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.CLIENT' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.CLIENT' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="clientsListObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A CLIENT' | translate"
                                 [selectedId]="offerItem.data.clientId" (idChanged)="clientIdUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.CLIENT TYPE' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.CLIENT TYPE' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             {{offerItem.annotation.clientType}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.COMMERCIAL STATUS' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.COMMERCIAL STATUS' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="commercialStatusesObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A STATUS' | translate"
                                 [selectedId]="offerItem.data.commercialStatusId" (idChanged)="commercialStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.OPERATIVE STATUS' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.OFFER.LABEL.OPERATIVE STATUS' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor-autocomplete [readOnly]="isSnapshot" [selectableData]="operativeStatusesObservable" [emptyContentText]="'PLATFORM.OFFER.LABEL.CHOOSE A STATUS' | translate"
                                 [selectedId]="offerItem.data.operativeStatusId" (idChanged)="operativeStatusUpdated($event, offerItem)"></gg-editor-autocomplete>
                         </div>
@@ -89,40 +89,40 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.SERVICE' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.QUANTITY' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.PRICE/U.' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.REDUCT. (%)' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.TOTAL' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.PREPAID' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.COMMENT' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.SERVICE' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.QUANTITY' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.PRICE/U.' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.REDUCT. (%)' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.TOTAL' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.PREPAID' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.OFFER.COLUMN.COMMENT' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let service of (offerItem.annotation.services || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     <gg-text-compact [text]="service.annotation.service" [numberOfChar]="40" [extraTooltipText]="service.annotation.version"></gg-text-compact>
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     {{service.annotation.unitPrice | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.reduction" (editSaved)="serviceReductionUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter gg-price">
+                                                <div class="col-sm-2 align-self-center gg-price">
                                                     {{service.annotation.total | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     <gg-editor-boolean [readOnly]="isSnapshot" [content]="service.data.isPrepaid" (editSaved)="servicePrepaidUpdated(pos, $event)"></gg-editor-boolean>
                                                 </div>
-                                                <div class="col-sm-2 vcenter" (click)="service.showExtraPart=!service.showExtraPart" style="cursor: pointer;">
+                                                <div class="col-sm-2 align-self-center" (click)="service.showExtraPart=!service.showExtraPart" style="cursor: pointer;">
                                                     <gg-text-compact [text]="service.data.comment || 'No comment yet'" [numberOfChar]="40" [extraTooltipText]="'Click in order to change the comment'"></gg-text-compact>
                                                     <!--<button (click)="service.showExtraPart=!service.showExtraPart" class="editor__icon-edit"></button>-->
                                                 </div>
-                                                <div class="col-sm-1 vcenter" *ngIf="!isSnapshot">
+                                                <div class="col-sm-1 align-self-center" *ngIf="!isSnapshot">
                                                     <gg-checkbox-delete [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" (doDelete)="deleteService(pos)"></gg-checkbox-delete>
                                                 </div>
                                             </div>
@@ -130,11 +130,11 @@
                                                 <div class="col-sm-1"></div>
                                                 <div class="col-sm-9">
                                                     <div class="row card">
-                                                        <div class="col-sm-9 vcenter">
+                                                        <div class="col-sm-9 align-self-center">
                                                             <gg-editor [showControls]="true" [readOnly]="isSnapshot" [content]="service.data.comment" (editSaved)="serviceCommentUpdated(pos, $event)"></gg-editor>
                                                         </div>
 
-                                                        <div class="col-sm-2 vcenter">
+                                                        <div class="col-sm-2 align-self-center">
                                                             <button class="btn btn-info btn-sm" (click)="service.showExtraPart=!service.showExtraPart">{{'PLATFORM.OFFER.LABEL.HIDE DETAILS' | translate}}</button>
                                                         </div>
                                                     </div>
@@ -142,11 +142,11 @@
                                             </div>
                                         </div>
                                         <div class="row" class="gg-price">
-                                            <div class="col-sm-2 vcenter"></div>
-                                            <div class="col-sm-1 vcenter"></div>
-                                            <div class="col-sm-1 vcenter"></div>
-                                            <div class="col-sm-1 vcenter">{{'PLATFORM.OFFER.LABEL.TOTAL' | translate}}:</div>
-                                            <div class="col-sm-2 vcenter">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-2 align-self-center"></div>
+                                            <div class="col-sm-1 align-self-center"></div>
+                                            <div class="col-sm-1 align-self-center"></div>
+                                            <div class="col-sm-1 align-self-center">{{'PLATFORM.OFFER.LABEL.TOTAL' | translate}}:</div>
+                                            <div class="col-sm-2 align-self-center">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
                                 </div>

@@ -52,23 +52,23 @@
                         <div class="card-body">
                             <div class="container-fluid">
         						<div class="row">
-                                    <div class="col-sm-2 vcenter"><b>{{'RECEPTION.COLUMN.WHEN' | translate}}</b></div>
-                                    <div class="col-sm-2 vcenter"><b>{{'RECEPTION.COLUMN.REFERENCE' | translate}}</b></div>
-                                    <div class="col-sm-3 vcenter"><b>{{'RECEPTION.COLUMN.SUPPLIER' | translate}}</b></div>
-                                    <div class="col-sm-2 vcenter"><b>{{'RECEPTION.COLUMN.POSITION' | translate}}</b></div>
-                                    <div class="col-sm-2 vcenter"><b>{{'RECEPTION.COLUMN.PROCESSED' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'RECEPTION.COLUMN.WHEN' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'RECEPTION.COLUMN.REFERENCE' | translate}}</b></div>
+                                    <div class="col-sm-3 align-self-center"><b>{{'RECEPTION.COLUMN.SUPPLIER' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'RECEPTION.COLUMN.POSITION' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'RECEPTION.COLUMN.PROCESSED' | translate}}</b></div>
                                 </div>
                                 <div *ngFor="let reception of receptionList" [id]="reception" >
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter"><gg-date-pointer [date]="reception.data.createDate"></gg-date-pointer></div>
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-2 align-self-center"><gg-date-pointer [date]="reception.data.createDate"></gg-date-pointer></div>
+                                        <div class="col-sm-2 align-self-center">
                                             <gg-editor [content]="reception.data.reference" [showControls]="true" (editSaved)="referenceUpdated($event, reception)"></gg-editor>
                                         </div>
-                                        <div class="col-sm-3 vcenter">{{reception.annotation.supplier}}</div>
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-3 align-self-center">{{reception.annotation.supplier}}</div>
+                                        <div class="col-sm-2 align-self-center">
                                             <gg-editor [content]="reception.data.position" [showControls]="true" (editSaved)="positionUpdated($event, reception)"></gg-editor>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-2 align-self-center">
                                             <gg-editor-boolean [content]="reception.data.isProcessed" (editSaved)="isProcessed($event, reception)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
                                         </div>
                                     </div>                        

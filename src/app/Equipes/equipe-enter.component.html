@@ -19,20 +19,20 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'EQUIPE.LABEL.IS BLOCKED' | translate}}</label>
-            <div class="col-md-1 vcenter">
+            <label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'EQUIPE.LABEL.IS BLOCKED' | translate}}</label>
+            <div class="col-md-1 align-self-center">
                 <input type="checkbox" class="form-control" formControlName="isBlocked" id="isBlocked" class="isCheckbox" value="">
             </div>
         </div>
         <div class="form-group row">
-            <label for="userIds" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'EQUIPE.LABEL.WITH FOLLOWING USERS' | translate}}</label>
-            <div class="col-sm-9 vcenter">
+            <label for="userIds" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'EQUIPE.LABEL.WITH FOLLOWING USERS' | translate}}</label>
+            <div class="col-sm-9 align-self-center">
                 <gg-selector #userSelector [selectableData]="selectableUsers" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
             </div>
         </div>
         <div class="form-group row">
-            <label for="managerIds" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'EQUIPE.LABEL.HEADS OF EQUIPE' | translate}}</label>
-            <div class="col-sm-9 vcenter">
+            <label for="managerIds" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'EQUIPE.LABEL.HEADS OF EQUIPE' | translate}}</label>
+            <div class="col-sm-9 align-self-center">
                 <gg-selector #mgrSelector [selectableData]="selectableManagers" (selectionChanged)="managerSelectionChanged($event)"></gg-selector>
             </div>
         </div>

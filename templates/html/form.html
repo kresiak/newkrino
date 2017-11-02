@@ -7,15 +7,15 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-sm-2 col-form-label col-xl-2 vcenter">from:</label>
-		<div class="col-sm-9 vcenter">
+		<label class="col-sm-2 col-form-label col-xl-2 align-self-center">from:</label>
+		<div class="col-sm-9 align-self-center">
 			<gg-editor-date #datStart [content]="" (editSaved)="dateUpdatedStartInForm($event)"></gg-editor-date>
 			<!--Control where we use a special component: save value in a temporary property-->
 		</div>
 	</div>
 	<div class="form-group row">
-		<label for="category" class="col-sm-2 col-form-label col-xl-2 vcenter">Category:</label>
-		<div class="col-sm-9 vcenter">
+		<label for="category" class="col-sm-2 col-form-label col-xl-2 align-self-center">Category:</label>
+		<div class="col-sm-9 align-self-center">
 			<gg-selector #categoriesSelector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChangedInForm($event)"></gg-selector>
 			<!--Control where we use a special component: save value in a temporary property-->
 		</div>
@@ -30,8 +30,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 vcenter">is limited to owner:</label>
-		<div class="col-md-1 vcenter">
+		<label for="isBlocked" class="col-sm-2 col-form-label col-xl-2 align-self-center">is limited to owner:</label>
+		<div class="col-md-1 align-self-center">
 			<input type="checkbox" class="form-control" formControlName="isLimitedToOwner" id="isLimitedToOwner" class="isCheckbox" value="">
 			<!--Checkbox-->
 		</div>

@@ -112,15 +112,15 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
-                                                        <div class="col-sm-7 vcenter"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
+                                                        <div class="col-sm-7 align-self-center"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
                                                     </div>
                                                     <div *ngFor="let categoryItem of categoryList">
                                                         <div class="row">
-                                                            <div class="col-sm-3 vcenter">
+                                                            <div class="col-sm-3 align-self-center">
                                                                 <gg-editor [content]="categoryItem.name" [showControls]="true" (editSaved)="nameServiceCategoryUpdated($event, categoryItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-7 vcenter">
+                                                            <div class="col-sm-7 align-self-center">
                                                                 <gg-editor [content]="categoryItem.description" [showControls]="true" (editSaved)="descriptionServiceCategoryUpdated($event, categoryItem)"></gg-editor>
                                                             </div>
                                                         </div>

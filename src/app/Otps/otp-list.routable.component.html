@@ -74,24 +74,24 @@
                                                                         <div class="card">
                                                                             <div class="card-body">
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.NAME' | translate}}</b></div>
-                                                                                    <div class="col-sm-8 vcenter">
+                                                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.CLASSIFICATION.LABEL.NAME' | translate}}</b></div>
+                                                                                    <div class="col-sm-8 align-self-center">
                                                                                         <gg-editor [content]="classificationsItem.data.name" [showControls]="true" (editSaved)="classificationsNameUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo?.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.DESCRIPTION' | translate}}</b></div>
-                                                                                    <div class="col-sm-8 vcenter">
+                                                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.CLASSIFICATION.LABEL.DESCRIPTION' | translate}}</b></div>
+                                                                                    <div class="col-sm-8 align-self-center">
                                                                                         <gg-editor [content]="classificationsItem.data.description" [showControls]="true" (editSaved)="classificationsDescriptionUpdated($event, classificationsItem)"
                                                                                             [readOnly]="!authorizationStatusInfo?.isAdministrator()">
                                                                                         </gg-editor>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
-                                                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.CLASSIFICATION.LABEL.PRODUCT CATEGORIES' | translate}}</b></div>
-                                                                                    <div class="col-sm-8 vcenter">
+                                                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.CLASSIFICATION.LABEL.PRODUCT CATEGORIES' | translate}}</b></div>
+                                                                                    <div class="col-sm-8 align-self-center">
                                                                                         <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="getCategoriesObservable(classificationsItem.data._id)"
                                                                                             (selectionChanged)="categorySelectionChanged($event, classificationsItem)"
                                                                                             (selectionOptionAdded)="categoryHasBeenAdded($event)"

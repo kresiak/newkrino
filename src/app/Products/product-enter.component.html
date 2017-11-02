@@ -65,20 +65,20 @@
 			<!--<p *ngIf="productForm.controls.tva.errors">This field is required!</p>-->
 		</div>
 		<div class="form-group row">
-			<label for="disabled" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'PRODUCT.LABEL.IS DISABLED' | translate}}</label>
-			<div class="col-md-1 vcenter">
+			<label for="disabled" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'PRODUCT.LABEL.IS DISABLED' | translate}}</label>
+			<div class="col-md-1 align-self-center">
 				<input type="checkbox" class="form-control" formControlName="disabled" id="disabled" class="isCheckbox">
 			</div>
 		</div>
 		<div class="form-group row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
-			<label for="needsLotNumber" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}</label>
-			<div class="col-md-1 vcenter">
+			<label for="needsLotNumber" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}</label>
+			<div class="col-md-1 align-self-center">
 				<input type="checkbox" class="form-control" formControlName="needsLotNumber" id="needsLotNumber" class="isCheckbox">
 			</div>
 		</div>
 		<div class="form-group row" ngbTooltip="Define here if this product might potentially be resold from the stock">
-			<label for="isStock" class="col-sm-2 col-form-label col-xl-2 vcenter">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}</label>
-			<div class="col-md-1 vcenter">
+			<label for="isStock" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}</label>
+			<div class="col-md-1 align-self-center">
 				<input type="checkbox" class="form-control" formControlName="isStock" id="isStock" class="isCheckbox" #showhideStockDetail >
 			</div>
 		</div>

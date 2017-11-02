@@ -30,16 +30,16 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT TYPE.LABEL.NAME' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.CLIENT TYPE.LABEL.NAME' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="clientItem.name" [showControls]="true" (editSaved)="nameClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT TYPE.LABEL.DESCRIPTION' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.CLIENT TYPE.LABEL.DESCRIPTION' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="clientItem.description" [showControls]="true" (editSaved)="descriptionClientUpdated($event, clientItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT TYPE.LABEL.IS INTERNAL CLIENT' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.CLIENT TYPE.LABEL.IS INTERNAL CLIENT' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor-boolean [content]="clientItem.isInternalClient" (editSaved)="updateIsInternalClient($event, clientItem)" ></gg-editor-boolean>
                                                             </div>
                                                         </div>
@@ -54,13 +54,13 @@
                                                         <div class="row">
                                                             <div *ngFor="let correctionItem of fnGetCorrectionsForClient(clientItem._id)">
                                                                 <div class="row">
-                                                                    <div class="col-sm-3 vcenter">
+                                                                    <div class="col-sm-3 align-self-center">
                                                                         {{correctionItem.name}}
                                                                     </div>
-                                                                    <div class="col-sm-2 vcenter">
+                                                                    <div class="col-sm-2 align-self-center">
                                                                         {{correctionItem.perCent + ' %'}}
                                                                     </div>
-                                                                    <div class="col-sm-3 vcenter" [style.color]= "correctionItem.isDefault ? 'black' : 'red'">
+                                                                    <div class="col-sm-3 align-self-center" [style.color]= "correctionItem.isDefault ? 'black' : 'red'">
                                                                         {{correctionItem.isDefault ? 'default value' : 'specificed by client type'}}
                                                                     </div>
                                                                 </div>
@@ -115,15 +115,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-2 vcenter"></div>
-                            <div *ngFor="let correctionItem of correctionList" class="col-sm-1 vcenter"><b>{{correctionItem.shortcut}}</b></div>
+                            <div class="col-sm-2 align-self-center"></div>
+                            <div *ngFor="let correctionItem of correctionList" class="col-sm-1 align-self-center"><b>{{correctionItem.shortcut}}</b></div>
                         </div>
                         <div *ngFor="let clientItem of clientList">
                             <div class="row">
-                                <div class="col-sm-2 vcenter">
+                                <div class="col-sm-2 align-self-center">
                                     {{clientItem.name}}
                                 </div>
-                                <div [ngbTooltip]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'This is a default value. You can overwrite it' : 'Set -1 if you want to use default value'" class="col-sm-1 vcenter" *ngFor="let correctionItem of correctionList" 
+                                <div [ngbTooltip]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'This is a default value. You can overwrite it' : 'Set -1 if you want to use default value'" class="col-sm-1 align-self-center" *ngFor="let correctionItem of correctionList" 
                                         [style.color]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 'green' : 'red'">
                                     <gg-editor-number [minimumValue]="isCorrectionDefaultValue(correctionItem._id, clientItem._id) ? 0 : -1" [content]="correctionGetValue(correctionItem._id, clientItem._id)" (editSaved)="correctionSaveValue($event, correctionItem._id, clientItem._id)"></gg-editor-number>
                                 </div>

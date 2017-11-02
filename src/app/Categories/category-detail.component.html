@@ -6,38 +6,38 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.CATEGORY' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.CATEGORY' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="category.data.name" [showControls]="true" (editSaved)="nameCatUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.NO OF ARTICLE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.NO OF ARTICLE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="category.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.GROUP MARCHANDISE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.GROUP MARCHANDISE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="category.data.groupMarch" [showControls]="true" (editSaved)="groupMUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div> 
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.IS BLOCKED' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.IS BLOCKED' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="category.data.isBlocked" (editSaved)="dateUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div> 
                     <div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.LABORATORY SPECIFIC' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.LABORATORY SPECIFIC' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="category.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!authorizationStatusInfo || !authorizationStatusInfo.isProgrammer()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'CATEGORY.LABEL.OFFICE SPECIFIC' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'CATEGORY.LABEL.OFFICE SPECIFIC' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="category.data.isOffice" (editSaved)="isOfficUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
 						</div>
 					</div>

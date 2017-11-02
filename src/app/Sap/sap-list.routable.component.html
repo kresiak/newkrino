@@ -17,39 +17,39 @@
                                 <img src="../../images/refresh.png" (click)="refreshAttributionList()" class="imgSearch" placement="right" [ngbTooltip]="'Refresh: hide the sap items already attributed to an equipe'"/>
                             </div>
                             <div class="row">
-                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.SAP ID' | translate}}</b></div>
-                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.LAST ACTIVITY' | translate}}</b></div>
-                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.ALREADY INVOICED' | translate}}</b></div>
-                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
-                                <div class="col-sm-1 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.SUPPLIER' | translate}}</b></div>
-                                <div class="col-sm-2 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.OTP' | translate}}</b></div>
-                                <div class="col-sm-2 vcenter"><b>{{'SAP.ATTRIBUTION.COLUMN.EQUIPE' | translate}}</b></div>
+                                <div class="col-sm-1 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.SAP ID' | translate}}</b></div>
+                                <div class="col-sm-1 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.LAST ACTIVITY' | translate}}</b></div>
+                                <div class="col-sm-1 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.ALREADY INVOICED' | translate}}</b></div>
+                                <div class="col-sm-1 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.REMAINING ENGAGED' | translate}}</b></div>
+                                <div class="col-sm-1 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.SUPPLIER' | translate}}</b></div>
+                                <div class="col-sm-2 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.OTP' | translate}}</b></div>
+                                <div class="col-sm-2 align-self-center"><b>{{'SAP.ATTRIBUTION.COLUMN.EQUIPE' | translate}}</b></div>
                             </div>
                             <div *ngFor="let sapItem of sapItemsToAttribute">
                                 <div class="row">
-                                    <div class="col-sm-1 vcenter">
+                                    <div class="col-sm-1 align-self-center">
                                         {{sapItem.sapId}}
                                     </div>
-                                    <div class="col-sm-1 vcenter">
+                                    <div class="col-sm-1 align-self-center">
                                         {{sapItem.dateLastActivity}}
                                     </div>
-                                    <div class="col-sm-1 vcenter">
+                                    <div class="col-sm-1 align-self-center">
                                         {{sapItem.alreadyBilled | currency:'EUR':true:'1.2-2'}}
                                     </div>
-                                    <div class="col-sm-1 vcenter">
+                                    <div class="col-sm-1 align-self-center">
                                         {{ sapItem.residuEngaged | currency:'EUR':true:'1.2-2'}}
                                     </div>
-                                    <div class="col-sm-1 vcenter">
+                                    <div class="col-sm-1 align-self-center">
                                         <gg-text-compact [text]="!sapItem.mainData.data.isNoEngag ?  sapItem.mainData.data.supplier : sapItem.typesPiece" [numberOfChar]="10"></gg-text-compact>
                                     </div>
-                                    <div class="col-sm-2 vcenter">
+                                    <div class="col-sm-2 align-self-center">
                                         <gg-text-compact [text]="sapItem.mainData.annotation.otpTxt"></gg-text-compact>
                                     </div>
-                                    <div class="col-sm-2 vcenter">
+                                    <div class="col-sm-2 align-self-center">
                                         <gg-editor-autocomplete [selectableData]="equipeListObservable" [selectedId]="sapItem.equipeId" [editMode]="!sapItem.equipeId"
                                             (idChanged)="equipeChanged($event, sapItem)" [emptyContentText]="'ignore for now'" (hasBeenCanceled)="equipeChangeCancelled(sapItem)"></gg-editor-autocomplete>
                                     </div>
-                                    <div class="col-sm-2 vcenter">
+                                    <div class="col-sm-2 align-self-center">
                                         <button type="button" class="btn btn-link" (click)="sapItem.isClosed=!sapItem.isClosed">{{'SAP.ATTRIBUTION.ACTION.SHOW/HIDE OTP' | translate}}</button>
                                     </div>
                                 </div>

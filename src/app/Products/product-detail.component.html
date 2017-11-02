@@ -42,84 +42,84 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row" *ngIf="product.data.disabled">
-						<div class="col-sm-3 vcenter" [style.color]="'red'"><b>{{'PRODUCT.LABEL.PRODUCT DISABLED' | translate}}</b></div>
-						<div class="col-sm-3 vcenter">
+						<div class="col-sm-3 align-self-center" [style.color]="'red'"><b>{{'PRODUCT.LABEL.PRODUCT DISABLED' | translate}}</b></div>
+						<div class="col-sm-3 align-self-center">
 							<button class="btn btn-info btn-sm" *ngIf="!product.data.onCreateValidation && isProductReadOnly()" (click)="openModal(validationModal, 'REASK')"
 							 [ngbTooltip]="'PRODUCT.ACTIONS.REASK VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.REASK VALIDATION BUTON' | translate}}</button>
 						</div>
 					</div>
 					<div class="row" [style.color]="'red'" *ngIf="product.data.onCreateValidation && !isProductReadOnly()">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.ACTIONS.ATTENTE VALIDATION TEXT' | translate}}</div>
-						<div class="col-sm-3 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.ACTIONS.ATTENTE VALIDATION TEXT' | translate}}</div>
+						<div class="col-sm-3 align-self-center">
 							<button class="btn btn-success btn-sm" (click)="validationDone()" [ngbTooltip]="'PRODUCT.ACTIONS.ACCEPTER VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.ACCEPTER VALIDATION BUTON' | translate}}</button>
 						</div>
-						<div class="col-sm-3 vcenter">
+						<div class="col-sm-3 align-self-center">
 							<button class="btn btn-warning btn-sm" (click)="openModal(validationModal, 'REFUSE')" [ngbTooltip]="'PRODUCT.ACTIONS.REFUSER VALIDATION TIP' | translate">{{'PRODUCT.ACTIONS.REFUSER VALIDATION BUTON' | translate}}</button>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.NAME OF PRODUCT' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
-						<div class="col-sm-1 vcenter" *ngIf="!authorizationStatusInfo.isPassiveUser() && product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled"
+						<div class="col-sm-1 align-self-center" *ngIf="!authorizationStatusInfo.isPassiveUser() && product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled"
 						 placement="right" [ngbTooltip]="tipAddToBasket">
 							<img class="card-img img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()"><span>{{product.annotation.quantity}}</span>
 						</div>
-						<div class="col-sm-1 vcenter" *ngIf="product.data.isFrigo">
+						<div class="col-sm-1 align-self-center" *ngIf="product.data.isFrigo">
 							<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="productObservable"></gg-product-fridge-order-button>+
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DESCRIPTION' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.DESCRIPTION' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PACKAGE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.PACKAGE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.package" [showControls]="true" (editSaved)="packageUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATALOG NR' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.CATALOG NR' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.catalogNr" [showControls]="true" (editSaved)="catalogNrUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.PRICE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.PRICE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceProdUpdated($event)"
 							 [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.NO OF ARTICLE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.NO OF ARTICLE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.noArticle" [showControls]="true" (editSaved)="noArticleUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.GROUP MARCHANDISE' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.GROUP MARCHANDISE' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.groupMarch" [showControls]="true" (editSaved)="groupMarchUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.VAT' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.VAT' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-number [content]="product.data.tva" (editSaved)="tvaUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-number>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.SUPPLIER' | translate}}:</div>
-						<div class="col-sm-6 vcenter">{{product.annotation.supplierName}}</div>
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.SUPPLIER' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">{{product.annotation.supplierName}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.CATEGORIES' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.CATEGORIES' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 							 (selectionOptionAdded)="categoryHasBeenAdded($event)" [readOnly]="isProductReadOnly()"></gg-selector>
 						</div>
@@ -129,46 +129,46 @@
 						<div class="col-sm-6">{{product.annotation.productFrequence}}</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.LABORATORY SPECIFIC' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.LABORATORY SPECIFIC' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.isLabo" (editSaved)="isLabUpdated($event)" [readOnly]="!isLaboSpecificChangePossible()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.IS DISABLED' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.IS DISABLED' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div class="row" ngbTooltip="Define here if this product might potentially be resold from the stock">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div *ngIf="product.data.isStock == true">
 						<div class="row" ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
-							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}:</div>
-							<div class="col-sm-6 vcenter">
+							<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}:</div>
+							<div class="col-sm-6 align-self-center">
 								<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-number>
 							</div>
 						</div>
 						<div class="row" [style.color]="product.data.divisionFactor===1 || product.data.stockPackage ? 'black' : 'red'" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
-							<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}:</div>
-							<div class="col-sm-6 vcenter">
+							<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}:</div>
+							<div class="col-sm-6 align-self-center">
 								<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.FRIGO' | translate}}:</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.FRIGO' | translate}}:</div>
+						<div class="col-sm-6 align-self-center">
 							<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25"
 							 width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
 							<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png"
@@ -205,8 +205,8 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.ALREADY BASKET' | translate}}</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.ALREADY BASKET' | translate}}</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor-number [content]="product.annotation.quantity" (editSaved)="quantityBasketUpdated($event)"></gg-editor-number>
 						</div>
 					</div>
@@ -222,8 +222,8 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-3 vcenter">{{'PRODUCT.LABEL.RESTRICTED FOLLOWING USERS' | translate}}</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.RESTRICTED FOLLOWING USERS' | translate}}</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-selector [selectableData]="selectableUsers" [selectedIds]="selectedUserIdsObservable" (selectionChanged)="userSelectionChanged($event)"></gg-selector>
 						</div>
 					</div>
@@ -263,17 +263,17 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-3 vcenter"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
-						<div class="col-sm-3 vcenter"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
-						<div class="col-sm-1 vcenter"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
+						<div class="col-sm-3 align-self-center"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
+						<div class="col-sm-3 align-self-center"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
+						<div class="col-sm-1 align-self-center"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
 					</div>
 					<div *ngFor="let priceHistory of product.annotation.priceUpdates">
 						<div class="row">
-							<div class="col-sm-3 vcenter">{{priceHistory.data.date}}</div>
-							<div class="col-sm-3 vcenter">{{priceHistory.annotation.user}}</div>
-							<div class="col-sm-2 vcenter">{{priceHistory.data.oldPrice | currency:'EUR':true:'1.2-2'}}</div>
-							<div class="col-sm-3 vcenter">{{priceHistory.data.newPrice | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-3 align-self-center">{{priceHistory.data.date}}</div>
+							<div class="col-sm-3 align-self-center">{{priceHistory.annotation.user}}</div>
+							<div class="col-sm-2 align-self-center">{{priceHistory.data.oldPrice | currency:'EUR':true:'1.2-2'}}</div>
+							<div class="col-sm-3 align-self-center">{{priceHistory.data.newPrice | currency:'EUR':true:'1.2-2'}}</div>
 						</div>
 					</div>
 				</div>
@@ -285,19 +285,19 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.WHAT' | translate}}</b></div>
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
-						<div class="col-sm-2 vcenter"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.WHEN' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.WHO' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.WHAT' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.FROM' | translate}}</b></div>
+						<div class="col-sm-2 align-self-center"><b>{{'PRODUCT.COLUMN.TO' | translate}}</b></div>
 					</div>
 					<div *ngFor="let change of product.data.history">
 						<div class="row">
-							<div class="col-sm-2 vcenter">{{change.date}}</div>
-							<div class="col-sm-2 vcenter">{{change.userId}}</div>
-							<div class="col-sm-2 vcenter">{{change.event}}</div>
-							<div class="col-sm-2 vcenter">{{(change.oldValue || '').toString()}}</div>
-							<div class="col-sm-2 vcenter">{{(change.newValue || '').toString()}}</div>
+							<div class="col-sm-2 align-self-center">{{change.date}}</div>
+							<div class="col-sm-2 align-self-center">{{change.userId}}</div>
+							<div class="col-sm-2 align-self-center">{{change.event}}</div>
+							<div class="col-sm-2 align-self-center">{{(change.oldValue || '').toString()}}</div>
+							<div class="col-sm-2 align-self-center">{{(change.newValue || '').toString()}}</div>
 						</div>
 					</div>
 				</div>

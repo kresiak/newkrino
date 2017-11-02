@@ -4,20 +4,20 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.EQUIPE GROUP' | translate}}</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-4 align-self-center">{{'EQUIPE.LABEL.EQUIPE GROUP' | translate}}</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="equipeGroup.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.DESCRIPTION' | translate}}</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-4 align-self-center">{{'EQUIPE.LABEL.DESCRIPTION' | translate}}</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="equipeGroup.data.description" [showControls]="true" (editSaved)="descriptionUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4 vcenter">{{'EQUIPE.LABEL.MEMBERS' | translate}}</div>
-						<div class="col-sm-6 vcenter">
+						<div class="col-sm-4 align-self-center">{{'EQUIPE.LABEL.MEMBERS' | translate}}</div>
+						<div class="col-sm-6 align-self-center">
 							<gg-selector #equipeSelector [selectedIds]="selectedEquipeIdsObservable" [selectableData]="selectableEquipes" (selectionChanged)="equipeSelectionChanged($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-selector>
 						</div>
 					</div>
@@ -47,19 +47,19 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-4 vcenter">
+						<div class="col-sm-4 align-self-center">
 							<b>{{'EQUIPE.COLUMN.MEMBER EQUIPE' | translate}}</b>
 						</div>
-						<div class="col-sm-4  vcenter"><b>%</b></div>
-						<div class="col-sm-2  vcenter">
+						<div class="col-sm-4  align-self-center"><b>%</b></div>
+						<div class="col-sm-2  align-self-center">
 							<b>{{'EQUIPE.COLUMN.FACTOR' | translate}}</b>
 						</div>
 					</div>
 
 					<div class="row" *ngFor="let item of equipeGroup.annotation.equipes">
-						<div class="col-sm-4 vcenter">{{item.annotation.equipe}}</div>
-						<div class="col-sm-4 vcenter">{{item.annotation.pc}}</div>
-						<div class="col-sm-2 vcenter">
+						<div class="col-sm-4 align-self-center">{{item.annotation.equipe}}</div>
+						<div class="col-sm-4 align-self-center">{{item.annotation.pc}}</div>
+						<div class="col-sm-2 align-self-center">
 							<gg-editor-number [content]="item.data.weight" (editSaved)="weightupdated(item.data, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-number>
 						</div>
 					</div>

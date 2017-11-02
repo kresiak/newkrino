@@ -4,45 +4,45 @@
             <div class="card">
                 <div class="card-body gg-line-height">
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.INITIAL BUDGET' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.INITIAL BUDGET' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             <gg-editor [isMonetary]="true" [content]="budgetPeriod.budget" [showControls]="true" (editSaved)="budgetPeriodUpdated($event)"
                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.START DATE' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.START DATE' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             <gg-editor-date [content]="budgetPeriod.datStart" (editSaved)="datStartPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.END DATE' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.END DATE' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             <gg-editor-date [content]="budgetPeriod.datEnd" (editSaved)="datEndPeriodUpdated($event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.CREANCE DATE' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.CREANCE DATE' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             {{budgetAnnotation.datNextCreance | shortDate}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.ADDED LATER' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.ADDED LATER' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             {{budgetAnnotation.changesSum | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.BUDGET BLOCKED' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.BUDGET BLOCKED' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             {{budgetAnnotation.blockedSum | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.THAT CAN USED' | translate}}</div>
-                        <div class="col-sm-6 vcenter">
+                        <div class="col-sm-4 align-self-center">{{'OTP.PERIOD.LABEL.THAT CAN USED' | translate}}</div>
+                        <div class="col-sm-6 align-self-center">
                             {{budgetAnnotation.budgetAvailable | currency:'EUR':true:'1.2-2'}}
                         </div>
                     </div>
@@ -62,21 +62,21 @@
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-2 vcenter"><b>{{'OTP.PERIOD.COLUMN.BUDGET INCREMENT' | translate}}</b></div>
-                                                    <div class="col-sm-4 vcenter"><b>{{'OTP.PERIOD.COLUMN.DATE' | translate}}</b></div>
-                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.COMMENT' | translate}}</b></div>
+                                                    <div class="col-sm-2 align-self-center"><b>{{'OTP.PERIOD.COLUMN.BUDGET INCREMENT' | translate}}</b></div>
+                                                    <div class="col-sm-4 align-self-center"><b>{{'OTP.PERIOD.COLUMN.DATE' | translate}}</b></div>
+                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.PERIOD.COLUMN.COMMENT' | translate}}</b></div>
                                                 </div>
                                                 <div *ngFor="let budgetHistoryItem of budgetPeriod.budgetHistory">
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
                                                     <div class="row">
-                                                        <div class="col-sm-2 vcenter">
+                                                        <div class="col-sm-2 align-self-center">
                                                             <gg-editor [isMonetary]="true" [content]="budgetHistoryItem.budgetIncrement" [showControls]="true" (editSaved)="budgetChangeUpdated(budgetHistoryItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
-                                                        <div class="col-sm-4 vcenter">
+                                                        <div class="col-sm-4 align-self-center">
                                                             <gg-editor-date [content]="budgetHistoryItem.date" (editSaved)="dateBudgetChangeUpdated(budgetHistoryItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                                                         </div>
-                                                        <div class="col-sm-3 vcenter">
+                                                        <div class="col-sm-3 align-self-center">
                                                             <gg-editor [content]="budgetHistoryItem.comment" [showControls]="true" (editSaved)="commentsBudgetChangeUpdated(budgetHistoryItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
@@ -101,14 +101,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.DATE' | translate}}</div>
-                                                    <div class="col-sm-7 vcenter">
+                                                    <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.DATE' | translate}}</div>
+                                                    <div class="col-sm-7 align-self-center">
                                                         <gg-editor-date [content]="" (editSaved)="dateBudgetChangeInForm($event)"></gg-editor-date>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.COMMENT' | translate}}</div>
-                                                    <div class="col-sm-7 vcenter">
+                                                    <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.COMMENT' | translate}}</div>
+                                                    <div class="col-sm-7 align-self-center">
                                                         <input type="text" class="form-control" formControlName="commentBudgetChange" id="commentBudgetChange" placeholder="{{'OTP.PERIOD.LABEL.COMMENT' | translate}}">
                                                     </div>
                                                 </div>
@@ -150,11 +150,11 @@
                                                 <div *ngFor="let blockedAmountItem of budgetPeriod.blockedAmounts">
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
                                                     <div class="row">
-                                                        <div class="col-sm-3 vcenter">
+                                                        <div class="col-sm-3 align-self-center">
                                                             <gg-editor [isMonetary]="true" [content]="blockedAmountItem.amount" [showControls]="true" (editSaved)="blockedAmountUpdated(blockedAmountItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
-                                                        <div class="col-sm-6 vcenter">
+                                                        <div class="col-sm-6 align-self-center">
                                                             <gg-editor [content]="blockedAmountItem.comment" [showControls]="true" (editSaved)="blockedAmountCommentUpdated(blockedAmountItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
@@ -173,14 +173,14 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.AMOUNT BLOCKED' | translate}}:</div>
-                                                    <div class="col-sm-7 vcenter">
+                                                    <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.AMOUNT BLOCKED' | translate}}:</div>
+                                                    <div class="col-sm-7 align-self-center">
                                                         <input type="number" min="0" step="any" class="form-control" formControlName="blockedAmount" id="blockedAmount" placeholder="{{'OTP.PERIOD.LABEL.AMOUNT BLOCKED' | translate}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.REASON/COMMENT' | translate}}</div>
-                                                    <div class="col-sm-7 vcenter">
+                                                    <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.REASON/COMMENT' | translate}}</div>
+                                                    <div class="col-sm-7 align-self-center">
                                                         <input type="text" class="form-control" formControlName="comment" id="comment" placeholder="{{'OTP.PERIOD.LABEL.COMMENT' | translate}}">
                                                     </div>
                                                 </div>
@@ -222,22 +222,22 @@
                                                 </div>
                                                 <div class="row">
                                                     
-                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.DATE DE LA CREANCE' | translate}}</b></div>
-                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.DEPENSE POUR LA PERIODE' | translate}}</b></div>
-                                                    <div class="col-sm-3 vcenter"><b>{{'OTP.PERIOD.COLUMN.COMMENT' | translate}}</b></div>
+                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.PERIOD.COLUMN.DATE DE LA CREANCE' | translate}}</b></div>
+                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.PERIOD.COLUMN.DEPENSE POUR LA PERIODE' | translate}}</b></div>
+                                                    <div class="col-sm-3 align-self-center"><b>{{'OTP.PERIOD.COLUMN.COMMENT' | translate}}</b></div>
                                                 </div>
                                                 <div *ngFor="let creanceItem of budgetPeriod.creances">
                                                     <!--FOR in History items (we are in a praticular history of budget) -->
                                                     
                                                     <div class="row">
-                                                        <div class="col-sm-3 vcenter">
+                                                        <div class="col-sm-3 align-self-center">
                                                             <gg-editor-date [content]="creanceItem.date" (editSavedWithCancelOption)="dateCreanceChangeUpdated(creanceItem, $event)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-date>
                                                         </div>
-                                                        <div class="col-sm-3 vcenter">
+                                                        <div class="col-sm-3 align-self-center">
                                                             <gg-editor [isMonetary]="true" [content]="creanceItem.amount" [showControls]="true" (editSavedWithCancelOption)="depenseCreanceChangeUpdated(creanceItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
-                                                        <div class="col-sm-3 vcenter">
+                                                        <div class="col-sm-3 align-self-center">
                                                             <gg-editor [content]="creanceItem.description" [showControls]="true" (editSaved)="commentCreanceChangeUpdated(creanceItem, $event)"
                                                                 [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                                         </div>
@@ -256,8 +256,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="form-group row">
-                                                    <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.DATE DE LA CREANCE' | translate}}</div>
-                                                    <div class="col-sm-7 vcenter">
+                                                    <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.DATE DE LA CREANCE' | translate}}</div>
+                                                    <div class="col-sm-7 align-self-center">
                                                         <gg-editor-date [content]="" (editSaved)="dateNouvelleCreanceInForm($event)"></gg-editor-date>
                                                     </div>
                                                 </div>        
@@ -268,8 +268,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                        <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.COMMENT' | translate}}</div>
-                                                        <div class="col-sm-7 vcenter">
+                                                        <div class="col-sm-3 align-self-center">{{'OTP.PERIOD.LABEL.COMMENT' | translate}}</div>
+                                                        <div class="col-sm-7 align-self-center">
                                                             <input type="text" class="form-control" formControlName="commentNouvelleCreance" id="commentNouvelleCreance" placeholder="{{'OTP.PERIOD.LABEL.COMMENT' | translate}}">
                                                         </div>
                                                     </div>

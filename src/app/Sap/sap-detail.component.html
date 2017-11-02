@@ -85,15 +85,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-2 vcenter">{{'SAP.LABEL.EQUIPE' | translate}}:</div>
-                            <div class="col-sm-6 vcenter">
+                            <div class="col-sm-2 align-self-center">{{'SAP.LABEL.EQUIPE' | translate}}:</div>
+                            <div class="col-sm-6 align-self-center">
                                 <gg-editor-autocomplete [selectableData]="equipeListObservable" [emptyContentText]="'GENERAL.CHOOSE AN EQUIPE' | translate" [selectedId]="equipeId"
                                     (idChanged)="equipeChanged($event)"></gg-editor-autocomplete>
                             </div>
                         </div>
 <!--                        <div class="row">
-                            <div class="col-sm-2 vcenter">Attribute to group of equipes: </div>
-                            <div class="col-sm-6 vcenter">
+                            <div class="col-sm-2 align-self-center">Attribute to group of equipes: </div>
+                            <div class="col-sm-6 align-self-center">
                                 <gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'no, use the equipe of the user'"
                                     (idChanged)="equipeGroupChanged($event)"></gg-editor-autocomplete>
                             </div>

@@ -202,12 +202,12 @@ ul.spending{
     width: 120px;
 }
 
-.vcenter {
+/*.v center {
     display: inline-block;
     vertical-align: middle;
     float: none;
 }
-
+*/
 .gg-price {
     color: darkturquoise;
 }

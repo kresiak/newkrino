@@ -4,20 +4,20 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [content]="serviceItem.data.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.DESCRIPTION' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.DESCRIPTION' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [content]="serviceItem.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CURRENT VERSION' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CURRENT VERSION' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             {{serviceItem.annotation.currentSnapshot}}
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CATEGORY' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CATEGORY' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
                                 (selectionOptionAdded)="categoryHasBeenAdded($event)">
                             </gg-selector>
@@ -31,8 +31,8 @@
         <ng-template ngbTabContent>
             <div class="card">
                 <div class="card-body">
-                    <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CLIENT TYPE USED' | translate}}</b></div>
-                    <div class="col-sm-8 vcenter">
+                    <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CLIENT TYPE USED' | translate}}</b></div>
+                    <div class="col-sm-8 align-self-center">
                         <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
                             (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
 
@@ -40,13 +40,13 @@
 
                     <div *ngFor="let correctionItem of serviceItem.annotation.correctionsFactors">
                         <div class="row">
-                            <div class="col-sm-3 vcenter">
+                            <div class="col-sm-3 align-self-center">
                                 {{correctionItem.name}}
                             </div>
-                            <div class="col-sm-2 vcenter">
+                            <div class="col-sm-2 align-self-center">
                                 {{correctionItem.perCent + ' %'}}
                             </div>
-                            <div class="col-sm-3 vcenter" [style.color]="correctionItem.isDefault ? 'black' : 'red'">
+                            <div class="col-sm-3 align-self-center" [style.color]="correctionItem.isDefault ? 'black' : 'red'">
                                 {{correctionItem.isDefault ? 'default value' : 'specificed by client type'}}
                             </div>
                         </div>
@@ -60,18 +60,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3 vcenter">{{'PLATFORM.SERVICE.DETAIL.LABEL.BASED ON CURRENT SNAPSHOT' | translate}}:</div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center">{{'PLATFORM.SERVICE.DETAIL.LABEL.BASED ON CURRENT SNAPSHOT' | translate}}:</div>
+                        <div class="col-sm-8 align-self-center">
                             {{serviceItem.annotation.currentSnapshot}}
                         </div>
                     </div>
 
                     <div *ngFor="let clientType of clientListObservable |async">
                         <div class="row">
-                            <div class="col-sm-3 vcenter">
+                            <div class="col-sm-3 align-self-center">
                                 {{clientType.name}}
                             </div>
-                            <div class="col-sm-3 vcenter">
+                            <div class="col-sm-3 align-self-center">
                                 {{getCostByClientTypeId(clientType.id) | currency:'EUR':true:'1.2-2' }}
                             </div>
                         </div>

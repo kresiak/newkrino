@@ -34,24 +34,24 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.NAME' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.NAME' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="enterpriseItem.data.name" [showControls]="true" (editSaved)="nameEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.TELEPHONE' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.TELEPHONE' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="enterpriseItem.data.telephone" [showControls]="true" (editSaved)="telephoneEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.FAX' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.FAX' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="enterpriseItem.data.fax" [showControls]="true" (editSaved)="faxEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.WEB' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.WEB' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor [content]="enterpriseItem.data.web" [showControls]="true" (editSaved)="webEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
                                                             </div>
-                                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.CLIENT TYPE' | translate}}</b></div>
-                                                            <div class="col-sm-8 vcenter">
+                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.CLIENT TYPE' | translate}}</b></div>
+                                                            <div class="col-sm-8 align-self-center">
                                                                 <gg-editor-autocomplete [selectableData]="clientTypeListObservable" [emptyContentText]="'PLATFORM.ENTERPRISE.LABEL.CHOOSE A CLIENT TYPE PHOLDER' | translate" [selectedId]="enterpriseItem.data.clientTypeId"
                                                                     (idChanged)="clientTypeUpdated($event, enterpriseItem)"></gg-editor-autocomplete>
                                                             </div>

@@ -19,16 +19,16 @@
                                 <div class="card-body">
 
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-2 align-self-center">
                                             <b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-2 align-self-center">
                                             <b>{{'PRODUCT.COLUMN.PACKAGE' | translate}}</b>
                                         </div>
-                                        <div class="col-sm-3 vcenter">
+                                        <div class="col-sm-3 align-self-center">
                                             <b>{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</b>
                                         </div>
-                                        <div class="col-sm-3 vcenter">
+                                        <div class="col-sm-3 align-self-center">
                                             <b>{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</b>
                                         </div>
                                     </div>
@@ -36,11 +36,11 @@
                                     <div class="row" *ngFor="let product of productsList">
                                         <!--FOR-->
                                         <div class="row">
-                                            <div class="col-sm-2 vcenter">{{product.data.name}}</div>
-                                            <div class="col-sm-2 vcenter">{{product.data.package}}</div>
-                                            <div class="col-sm-3 vcenter">{{product.annotation.suppliersTxt}}</div>
-                                            <div class="col-sm-3 vcenter">{{product.annotation.catNrTxt}}</div>
-                                            <div class="col-sm-1 vcenter" *ngIf="product.data.items.length > 0">
+                                            <div class="col-sm-2 align-self-center">{{product.data.name}}</div>
+                                            <div class="col-sm-2 align-self-center">{{product.data.package}}</div>
+                                            <div class="col-sm-3 align-self-center">{{product.annotation.suppliersTxt}}</div>
+                                            <div class="col-sm-3 align-self-center">{{product.annotation.catNrTxt}}</div>
+                                            <div class="col-sm-1 align-self-center" *ngIf="product.data.items.length > 0">
                                                 <button type="button" class="btn btn-link" (click)="product.isClosed=!product.isClosed">{{'GENERAL.TOGGLE DETAILS' | translate}}</button>
                                             </div>
                                         </div>
@@ -49,26 +49,26 @@
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="card">
                                                     <div class="row">
-                                                        <div class="col-sm-1 vcenter">{{'PRODUCT.COLUMN.WHEN' | translate}}</div>
-                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.WHO' | translate}}</div>
-                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</div>
-                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</div>
-                                                        <div class="col-sm-1 vcenter">{{'PRODUCT.COLUMN.PRICE' | translate}}</div>
-                                                        <div class="col-sm-2 vcenter">{{'PRODUCT.COLUMN.JUSTIFICATION' | translate}}</div>
+                                                        <div class="col-sm-1 align-self-center">{{'PRODUCT.COLUMN.WHEN' | translate}}</div>
+                                                        <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.WHO' | translate}}</div>
+                                                        <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.SUPPLIER' | translate}}</div>
+                                                        <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.CATALOG NR' | translate}}</div>
+                                                        <div class="col-sm-1 align-self-center">{{'PRODUCT.COLUMN.PRICE' | translate}}</div>
+                                                        <div class="col-sm-2 align-self-center">{{'PRODUCT.COLUMN.JUSTIFICATION' | translate}}</div>
                                                     </div>
                                                     <div class="card">
                                                         <div class="row" *ngFor="let item of product.annotation.items; let itemPos = index">
                                                             <!--FOR-->
                                                             <div class="row">
-                                                                <div class="col-sm-1 vcenter">
+                                                                <div class="col-sm-1 align-self-center">
                                                                     <gg-date-pointer [date]="item.data.date"></gg-date-pointer>
                                                                 </div>
-                                                                <div class="col-sm-2 vcenter">{{item.annotation.user}}</div>
-                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.supplier" [showControls]="true" (editSaved)="supplierChanged($event, product, itemPos)"></gg-editor></div>
-                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.catalogNr" [showControls]="true" (editSaved)="catalogNrChanged($event, product, itemPos)"></gg-editor></div>
-                                                                <div class="col-sm-1 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceChanged($event, product, itemPos)"></gg-editor></div>
-                                                                <div class="col-sm-2 vcenter"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.justification" [showControls]="true" (editSaved)="justificationChanged($event, product, itemPos)"></gg-editor></div>
-                                                                <div class="col-sm-1 vcenter" *ngIf="(item.data.documents || []).length > 0">
+                                                                <div class="col-sm-2 align-self-center">{{item.annotation.user}}</div>
+                                                                <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.supplier" [showControls]="true" (editSaved)="supplierChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.catalogNr" [showControls]="true" (editSaved)="catalogNrChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-1 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="priceChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-2 align-self-center"><gg-editor [readOnly]="!isUser(item)" [content]="item.data.justification" [showControls]="true" (editSaved)="justificationChanged($event, product, itemPos)"></gg-editor></div>
+                                                                <div class="col-sm-1 align-self-center" *ngIf="(item.data.documents || []).length > 0">
                                                                     <button type="button" class="btn btn-link" (click)="item.annotation.isClosed=!item.annotation.isClosed">{{'PUBLIC.MARKET.ACTION.SHOW/HIDE DOCS' | translate}}</button>
                                                                 </div>
                                                             </div>
@@ -99,10 +99,10 @@
                                                                                         <div class="card-body">
                                                                                             <div class="row" *ngFor="let document of (item.data.documents || []); let docPos = index">
                                                                                                 <!--FOR-->
-                                                                                                <div class="col-sm-3 vcenter">
+                                                                                                <div class="col-sm-3 align-self-center">
                                                                                                     <img style="max-width:50%;max-height:50%" [src]="dataStore.getPictureUrl(document.filename)">
                                                                                                 </div>
-                                                                                                <div class="col-sm-2 vcenter" *ngIf="isUser(item)">
+                                                                                                <div class="col-sm-2 align-self-center" *ngIf="isUser(item)">
                                                                                                     <gg-checkbox-delete [typeObjectKey]="'PUBLIC.MARKET.DOCUMENT'" (doDelete)="deleteDocument(product, itemPos, docPos)"></gg-checkbox-delete>
                                                                                                 </div>
                                                                                             </div>

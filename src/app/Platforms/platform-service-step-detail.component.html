@@ -4,22 +4,22 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.NAME OF STEP' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.NAME OF STEP' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.name" [showControls]="true" (editSaved)="nameStepUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [readOnly]="isSnapshot" [content]="serviceStep.data.description" [showControls]="true" (editSaved)="descriptionStepUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.USED MACHINE' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.USED MACHINE' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'" [selectedId]="serviceStep.data.machineId"
                                 [readOnly]="isSnapshot" (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                         </div>
 
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor-number [content]="serviceStep.data.runtime" (editSaved)="runtimeMachineUpdated($event, machineItem)"></gg-editor-number>
                         </div>
 
@@ -54,23 +54,23 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.SERVICE' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.CURRENT' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
+                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.SERVICE' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.CURRENT' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let service of (serviceStep.annotation.services || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
-                                                <div class="col-sm-3 vcenter">
+                                                <div class="col-sm-3 align-self-center">
                                                     {{service.annotation.service}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     {{service.annotation.currentSnapshot}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter" *ngIf="!isSnapshot">
+                                                <div class="col-sm-2 align-self-center" *ngIf="!isSnapshot">
                                                     <gg-checkbox-delete [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" (doDelete)="deleteService(pos)"></gg-checkbox-delete>
                                                 </div>
                                             </div>
@@ -99,12 +99,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.EVALUATION OF COST' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.EVALUATION OF COST' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [content]="serviceStep.data.costConsommables || 0" [isMonetary]="true" [showControls]="true" (editSaved)="costConsommableUpdated($event)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION OF CONSOMMABLES' | translate}}</b></div>
-                        <div class="col-sm-8 vcenter">
+                        <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION OF CONSOMMABLES' | translate}}</b></div>
+                        <div class="col-sm-8 align-self-center">
                             <gg-editor [content]="serviceStep.data.descriptionConsommables || 'no description yet'" [showControls]="true" (editSaved)="descriptionConsommableUpdated($event)"></gg-editor>
                         </div>
                     </div>
@@ -122,41 +122,41 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRODUCT' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRICE PER UNIT' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS IN PRODUCT' | translate}}</b></div>
-                                            <div class="col-sm-1 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
+                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRODUCT' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRICE PER UNIT' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS IN PRODUCT' | translate}}</b></div>
+                                            <div class="col-sm-1 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let product of (serviceStep.annotation.products || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
-                                                <div class="col-sm-3 vcenter">
+                                                <div class="col-sm-3 align-self-center">
                                                     {{product.annotation.product}} {{product.annotation.package ? ' (' + product.annotation.package + ')' : ''}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="product.data.quantity" (editSaved)="productQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     {{product.annotation.productPrice | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     {{product.annotation.nbUnitsInProduct}}
                                                 </div>
-                                                <div class="col-sm-1 vcenter">
+                                                <div class="col-sm-1 align-self-center">
                                                     {{product.annotation.productTotal | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter" *ngIf="!isSnapshot">
+                                                <div class="col-sm-2 align-self-center" *ngIf="!isSnapshot">
                                                     <gg-checkbox-delete [typeObjectKey]="'GENERAL.OBJECT.PRODUCT'" (doDelete)="deleteProduct(pos)"></gg-checkbox-delete>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gg-price">
-                                            <div class="col-sm-3 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter"><b></b></div>
-                                            <div class="col-sm-1 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
-                                            <div class="col-sm-1 vcenter">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-3 align-self-center"><b></b></div>
+                                            <div class="col-sm-2 align-self-center"><b></b></div>
+                                            <div class="col-sm-1 align-self-center"><b></b></div>
+                                            <div class="col-sm-2 align-self-center">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
+                                            <div class="col-sm-1 align-self-center">{{serviceStep.annotation.productsCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,33 +197,33 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.LABOUR' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB HOURS' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RATE' | translate}}</b></div>
-                                            <div class="col-sm-2 vcenter"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
+                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.LABOUR' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB HOURS' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RATE' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let labourType of (serviceStep.annotation.labourTypes || []); let pos = index">
                                             <!--FOR  -->
                                             <div class="row">
-                                                <div class="col-sm-3 vcenter">
+                                                <div class="col-sm-3 align-self-center">
                                                     {{labourType.data.name}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="labourType.annotation.nbHours" (editSaved)="labourQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     {{labourType.data.hourlyRate | currency:'EUR':true:'1.2-2'}}
                                                 </div>
-                                                <div class="col-sm-2 vcenter">
+                                                <div class="col-sm-2 align-self-center">
                                                     {{labourType.annotation.totalCost | currency:'EUR':true:'1.2-2'}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row gg-price">
-                                            <div class="col-sm-3 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter"><b></b></div>
-                                            <div class="col-sm-2 vcenter">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
-                                            <div class="col-sm-2 vcenter">{{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-3 align-self-center"><b></b></div>
+                                            <div class="col-sm-2 align-self-center"><b></b></div>
+                                            <div class="col-sm-2 align-self-center">{{'PLATFORM.SERVICE.STEP.LABEL.TOTAL' | translate}}:</div>
+                                            <div class="col-sm-2 align-self-center">{{serviceStep.annotation.labourCost | currency:'EUR':true:'1.2-2'}}</div>
                                         </div>
                                     </div>
                                 </div>

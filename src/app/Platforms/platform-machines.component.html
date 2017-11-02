@@ -32,44 +32,44 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor [content]="machineItem.data.name" [showControls]="true" (editSaved)="nameMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.DESCRIPTION' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.DESCRIPTION' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor [content]="machineItem.data.description" [showControls]="true" (editSaved)="descriptionMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.PRICE' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.PRICE' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor [content]="machineItem.data.price" [isMonetary]="true" [showControls]="true" (editSaved)="priceMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.LIFETIME (IN YEARS)' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.LIFETIME (IN YEARS)' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor-number [content]="machineItem.data.lifetime" (editSaved)="lifetimeMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.MAINTENANCE PRICE (PER YEAR)' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.MAINTENANCE PRICE (PER YEAR)' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor [content]="machineItem.data.maintenancePrice" [isMonetary]="true" [showControls]="true" (editSaved)="maintenancePriceMachineUpdated($event, machineItem)"></gg-editor>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.EITHER' | translate}}:</b></div>
-                                                                <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.OCCUPANCY (IN %)' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-11 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.EITHER' | translate}}:</b></div>
+                                                                <div class="col-sm-1 align-self-center"></div>
+                                                                <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.OCCUPANCY (IN %)' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor-number [content]="machineItem.data.occupancy" (editSaved)="occupancyMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER DAY' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-1 align-self-center"></div>
+                                                                <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER DAY' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor-number [content]="machineItem.data.hoursPerDay" (editSaved)="hoursPerDayMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.OR' | translate}}:</b></div>
-                                                                <div class="col-sm-1 vcenter"></div>
-                                                                <div class="col-sm-2 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER YEAR' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-11 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.OR' | translate}}:</b></div>
+                                                                <div class="col-sm-1 align-self-center"></div>
+                                                                <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.HOURS PER YEAR' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     <gg-editor-number [content]="machineItem.data.hoursPerYear" (editSaved)="hoursPerYearMachineUpdated($event, machineItem)"></gg-editor-number>
                                                                 </div>
-                                                                <div class="col-sm-11 vcenter" *ngIf="!machineItem.annotation.isOK" [style.color]="'red'"><b>{{'PLATFORM.MACHINE.LABEL.ERROR IN OCCUPANCY!!! CHECK YOUR DATA!' | translate}}</b></div>
+                                                                <div class="col-sm-11 align-self-center" *ngIf="!machineItem.annotation.isOK" [style.color]="'red'"><b>{{'PLATFORM.MACHINE.LABEL.ERROR IN OCCUPANCY!!! CHECK YOUR DATA!' | translate}}</b></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -80,24 +80,24 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <div class="row gg-line-height">
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     {{machineItem.data.name}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL AMORTIZATION' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL AMORTIZATION' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     {{machineItem.annotation.annualAmortisation | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL COST (INCL. MAINTENANCE)' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.ANNUAL COST (INCL. MAINTENANCE)' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     {{machineItem.annotation.annualCost | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NB RUNNING HOURS PER YEAR' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.NB RUNNING HOURS PER YEAR' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
                                                                     {{machineItem.annotation.nbHoursPerYear}}
                                                                 </div>
-                                                                <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.COST PER HOUR HOUR' | translate}}</b></div>
-                                                                <div class="col-sm-8 vcenter gg-price">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.MACHINE.LABEL.COST PER HOUR HOUR' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center gg-price">
                                                                     {{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}
                                                                 </div>
                                                             </div>

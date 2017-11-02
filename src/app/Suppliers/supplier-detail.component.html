@@ -45,24 +45,24 @@
 									<div class="card-body">
 										<div class="container-fluid">
 											<div class="row">
-												<div class="col-sm-3 vcenter"><b>{{'SUPPLIER.COLUMN.DESCRIPTION' | translate}}</b></div>
-												<div class="col-sm-2 vcenter"><b>{{'SUPPLIER.COLUMN.PRICE' | translate}}</b></div>
-												<div class="col-sm-2 vcenter" *ngIf="authorizationStatusInfo?.isAdministrator()"><b>{{'SUPPLIER.COLUMN.DISABLE' | translate}}</b></div>
+												<div class="col-sm-3 align-self-center"><b>{{'SUPPLIER.COLUMN.DESCRIPTION' | translate}}</b></div>
+												<div class="col-sm-2 align-self-center"><b>{{'SUPPLIER.COLUMN.PRICE' | translate}}</b></div>
+												<div class="col-sm-2 align-self-center" *ngIf="authorizationStatusInfo?.isAdministrator()"><b>{{'SUPPLIER.COLUMN.DISABLE' | translate}}</b></div>
 											</div>
 											<div *ngFor="let fixCost of fixCosts">
 												<div *ngIf="true">
 													<div class="row">
-														<div class="col-sm-3 vcenter">
+														<div class="col-sm-3 align-self-center">
 															<gg-editor [content]="fixCost.data.name" [showControls]="true" (editSaved)="costsDescriptionUpdated(fixCost, $event)" [readOnly]="fixCost.data.disabled || !authorizationStatusInfo?.isAdministrator()"></gg-editor>
 														</div>
-														<div class="col-sm-2 vcenter">
+														<div class="col-sm-2 align-self-center">
 															<gg-editor [content]="fixCost.data.price" [showControls]="true" [isMonetary]="true" (editSaved)="costsPriceUpdated(fixCost, $event)"
 															 [readOnly]="fixCost.data.disabled || !authorizationStatusInfo?.isAdministrator()"></gg-editor>
 														</div>
-														<div class="col-sm-2 vcenter" *ngIf="!fixCost.data.disabled && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
+														<div class="col-sm-2 align-self-center" *ngIf="!fixCost.data.disabled && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 															<img src="../../images/trash.png" (click)="deleteFixCost(fixCost)" class="imgTrash" />
 														</div>
-														<div class="col-sm-2 vcenter" *ngIf="fixCost.data.disabled">
+														<div class="col-sm-2 align-self-center" *ngIf="fixCost.data.disabled">
 															{{'GENERAL.IS DISABLED' | translate}}
 														</div>
 													</div>
@@ -222,20 +222,20 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="row">
-											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.E-PROCUREMENT ENABLED' | translate}}</div>
-											<div class="col-sm-6 vcenter">
+											<div class="col-sm-4 align-self-center">{{'SUPPLIER.LABEL.E-PROCUREMENT ENABLED' | translate}}</div>
+											<div class="col-sm-6 align-self-center">
 												<gg-editor-boolean [content]="supplier.data.isEproc" (editSaved)="webShoppingEprocUpdated($event)"></gg-editor-boolean>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.SHOPPING ENABLED' | translate}}</div>
-											<div class="col-sm-6 vcenter">
+											<div class="col-sm-4 align-self-center">{{'SUPPLIER.LABEL.SHOPPING ENABLED' | translate}}</div>
+											<div class="col-sm-6 align-self-center">
 												<gg-editor-boolean [content]="supplier.data.webShopping && supplier.data.webShopping.isEnabled" (editSaved)="webShoppingUpdated($event)"></gg-editor-boolean>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.ALLOWED PRODUCTS' | translate}}</div>
-											<div class="col-sm-6 vcenter">
+											<div class="col-sm-4 align-self-center">{{'SUPPLIER.LABEL.ALLOWED PRODUCTS' | translate}}</div>
+											<div class="col-sm-6 align-self-center">
 												<gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
 												 (selectionOptionAdded)="categoryHasBeenAdded($event)"></gg-selector>
 											</div>
@@ -251,12 +251,12 @@
 									<div class="card">
 										<div class="card-body">
 											<div class="row">
-												<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.VOUCHERS AVAILABLE' | translate}}</div>
-												<div class="col-sm-6 vcenter">{{nbVouchersAvailable(category.id)}}</div>
+												<div class="col-sm-4 align-self-center">{{'SUPPLIER.LABEL.VOUCHERS AVAILABLE' | translate}}</div>
+												<div class="col-sm-6 align-self-center">{{nbVouchersAvailable(category.id)}}</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.VOUCHERS ORDERED' | translate}}</div>
-												<div class="col-sm-6 vcenter">
+												<div class="col-sm-4 align-self-center">{{'SUPPLIER.LABEL.VOUCHERS ORDERED' | translate}}</div>
+												<div class="col-sm-6 align-self-center">
 													<gg-editor-number [content]="nbVouchersOrdered(category.id)" [editMode]="true" (editSaved)="nbVouchersOrderedUpdated(category.id, $event)"></gg-editor-number>
 												</div>
 											</div>

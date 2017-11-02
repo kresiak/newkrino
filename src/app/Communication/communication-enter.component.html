@@ -33,19 +33,19 @@
                         <div class="card-body">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-sm-2 vcenter"><b>{{'COMMUNICATION.COLUMN.WHEN' | translate}}</b></div>
-                                    <div class="col-sm-2 vcenter"><b>{{'COMMUNICATION.COLUMN.ADMINISTRATOR' | translate}}</b></div>
-                                    <div class="col-sm-5 vcenter"><b>{{'COMMUNICATION.COLUMN.MESSAGE' | translate}}</b></div>
-                                    <div class="col-sm-2 vcenter"><b>{{'COMMUNICATION.COLUMN.DISABLED' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'COMMUNICATION.COLUMN.WHEN' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'COMMUNICATION.COLUMN.ADMINISTRATOR' | translate}}</b></div>
+                                    <div class="col-sm-5 align-self-center"><b>{{'COMMUNICATION.COLUMN.MESSAGE' | translate}}</b></div>
+                                    <div class="col-sm-2 align-self-center"><b>{{'COMMUNICATION.COLUMN.DISABLED' | translate}}</b></div>
                                 </div>
                                 <div *ngFor="let messageObject of messagesList">
                                     <div class="row">
-                                        <div class="col-sm-2 vcenter"><gg-date-pointer [date]="messageObject.data.createDate"></gg-date-pointer></div>
-                                        <div class="col-sm-2 vcenter">{{messageObject.annotation.user}}</div>
-                                        <div class="col-sm-5 vcenter">
+                                        <div class="col-sm-2 align-self-center"><gg-date-pointer [date]="messageObject.data.createDate"></gg-date-pointer></div>
+                                        <div class="col-sm-2 align-self-center">{{messageObject.annotation.user}}</div>
+                                        <div class="col-sm-5 align-self-center">
                                             <gg-editor [content]="messageObject.data.message" [showControls]="true" (editSaved)="messageUpdated($event, messageObject)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor>
                                         </div>
-                                        <div class="col-sm-2 vcenter">
+                                        <div class="col-sm-2 align-self-center">
                                             <gg-editor-boolean [content]="messageObject.data.isDisabled" (editSaved)="isDisabled($event, messageObject)" [readOnly]="!authorizationStatusInfo?.isAdministrator()"></gg-editor-boolean>
                                         </div>
                                     </div>
