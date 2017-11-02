@@ -1267,10 +1267,19 @@
         "ADD A SERVICE CATEGORY": "Add a service category"
       },
       "COLUMN": {
-
+        "SERVICE": "Service",
+        "CLIENT TYPE": "Client Type",
+        "CATEGORIES": "Categories",
+        "COST": "Cost",
+        "CURRENT": "Current",
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
       },
       "LABEL": {
-
+        "NAME OF SERVICE": "name of service",
+        "DESCRIPTION": "description",
+        "CATEGORY": "category",
+        "NAME OF CATEGORY": "name of category"
       },
       "DETAIL": {
         "MENU": {
@@ -1290,7 +1299,13 @@
 
         },
         "LABEL": {
-
+          "NAME": "Name",
+          "DESCRIPTION": "Description",
+          "CURRENT VERSION": "Current version",
+          "CATEGORY": "Category",
+          "CLIENT TYPE USED": "Client type used",
+          "BASED ON CURRENT SNAPSHOT": "Based on current snapshot",
+          "NAME OF NEW SERVICE": "name of new service"
         }
       }, 
       "STEP": {
@@ -1315,10 +1330,33 @@
           "REACTIVATE STEP": "Reactivate step"
         },
         "COLUMN": {
-
+          "SERVICE": "Service",
+          "CURRENT": "Current",
+          "NB OF UNITS USED": "Nb of units used",
+          "PRODUCT": "Product",
+          "PRICE PER UNIT": "Price per unit",
+          "NB OF UNITS IN PRODUCT": "Nb of units in product",
+          "TOTAL": "Total",
+          "LABOUR": "Labour",
+          "NB HOURS": "Nb Hours",
+          "RATE": "Rate",
+          "STEP": "Step",
+          "DESCRIPTION": "Description",
+          "MACHINE": "Machine",
+          "RUNTIME (IN H)": "Runtime (in h)",
+          "COST": "Cost",
+          "COST OF STEP": "Cost of step"
         },
         "LABEL": {
-
+          "NAME OF STEP": "Name of step",
+          "DESCRIPTION": "Description",
+          "USED MACHINE": "Used machine",
+          "RUNTIME (IN HOURS)": "Runtime (in hours)",
+          "EVALUATION OF COST": "Evaluation of cost",
+          "DESCRIPTION OF CONSOMMABLES": "Description of consommables",
+          "TOTAL": "Total",
+          "NAME OF SERVICE STEP": "name of service step",
+          "CHOOSE A MACHINE": "choose a machine"
         },
         "COST": {
           "MENU": {
@@ -1328,7 +1366,13 @@
 
           },
           "LABEL": {
-
+            "MACHINE COST OF RUN": "Machine cost of run",
+            "COST OF PRODUCTS": "Cost of products",
+            "COST OF CONSOMMABLES": "Cost of consommables",
+            "COST OF LABOUR": "Cost of labour",
+            "REDUCTION ON": "reduction on",
+            "TOTAL COST OF STEP": "Total cost of step",
+            "PRICE OF STEP": "Price of step"
           }
         }
       },
@@ -1337,13 +1381,28 @@
           "MSG1": "pme: search for snapshots having 'pme' in either version or description"
         },  
         "MENU": {
-
+          "INFO": "Info",
+          "SERVICE STEPS": "Service steps",
+          "PRICES": "Prices",
+          "DISABLE SNAPSHOT": "Disable snapshot",
+          "REACTIVATE SNAPSHOT": "Reactivate snapshot",
+          "PRODUCT ASSOCIATED": "Product associated"
         },
         "COLUMN": {
-
+          "CLIENT TYPE": "Client Type",
+          "COST": "Cost",
+          "STEP": "Step",
+          "DATE": "Date",
+          "VERSION": "Version",
+          "DESCRIPTION": "Description",
+          "SERVICE": "Service",
+          "COST (STANDARD)": "Cost (standard)"
         },
         "LABEL": {
-
+          "SERVICE NAME": "Service name",
+          "DESCRIPTION": "Description",
+          "VERSION": "Version",
+          "VERSION OF SNAPSHOT": "version of snapshot"
         }
       }
     },

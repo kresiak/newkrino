@@ -10,11 +10,11 @@
             <template ngbPanelTitle>
                 <div class="row">
                     <div class="col-sm-1" *ngIf="isForSelection"></div>
-                    <div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>Service</b></div>
-                    <div class="col-sm-2"><b>Client Type</b></div>
-                    <div class="col-sm-3"><b>Categories</b></div>
-                    <div class="col-sm-2"><b>Cost</b></div>
-                    <div class="col-sm-2"><b>Current</b></div>
+                    <div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>{{'PLATFORM.SERVICE.COLUMN.SERVICE' | translate}}</b></div>
+                    <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.COLUMN.CLIENT TYPE' | translate}}</b></div>
+                    <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.CATEGORIES' | translate}}</b></div>
+                    <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.COLUMN.COST' | translate}}</b></div>
+                    <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.COLUMN.CURRENT' | translate}}</b></div>
                 </div>
             </template>
         </ngb-panel>

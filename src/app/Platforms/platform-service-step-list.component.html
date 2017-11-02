@@ -9,11 +9,11 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-2"><b>Step</b></div>
-                                            <div class="col-sm-3"><b>Description</b></div>
-                                            <div class="col-sm-2"><b>Machine</b></div>
-                                            <div class="col-sm-2"><b>Runtime (in h)</b></div>
-                                            <div class="col-sm-2"><b>Cost {{clientType ? ' (' + clientType + ')' : ''}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.STEP' | translate}}</b></div>
+                                            <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.MACHINE' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RUNTIME (IN H)' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.COST' | translate}} {{clientType ? ' (' + clientType + ')' : ''}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
@@ -45,28 +45,28 @@
                         <div class="container-fluid">
                             <form [formGroup]="serviceStepForm" (ngSubmit)="save(serviceStepForm.value, serviceStepForm.valid)">
                                 <div class="form-group row">
-                                    <label for="name" class="col-sm-2 col-form-label col-xl-2">name of service step:</label>
+                                    <label for="name" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.STEP.LABEL.NAME OF SERVICE STEP' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="name" placeholder="name of service step">
+                                        <input type="text" class="form-control" formControlName="name" placeholder="{{'PLATFORM.SERVICE.STEP.LABEL.NAME OF SERVICE STEP' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="description" class="col-sm-2 col-form-label col-xl-2">description:</label>
+                                    <label for="description" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                        <input type="text" class="form-control" formControlName="description" id="description" placeholder="{{'PLATFORM.SERVICE.STEP.LABEL.DESCRIPTION' | translate}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label col-xl-2">used machine:</label>
+                                    <label class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.STEP.LABEL.USED MACHINE' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'choose a machine'"
+                                        <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'PLATFORM.SERVICE.STEP.LABEL.CHOOSE A MACHINE' | translate"
                                         (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="runtime" class="col-sm-2 col-form-label col-xl-2">runtime (in hours):</label>
+                                    <label for="runtime" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}:</label>
                                     <div class="col-sm-10">
-                                        <input type="number" min="0" step="any" class="form-control" formControlName="runtime" id="runtime" placeholder="runtime (in hours)">
+                                        <input type="number" min="0" step="any" class="form-control" formControlName="runtime" id="runtime" placeholder="{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}">
                                     </div>
                                 </div>                                
                                 <div class="row">
@@ -92,11 +92,11 @@
                                 <ngb-panel [disabled]="true">
                                     <template ngbPanelTitle>
                                         <div class="row">
-                                            <div class="col-sm-2"><b>Step</b></div>
-                                            <div class="col-sm-3"><b>Description</b></div>
-                                            <div class="col-sm-2"><b>Machine</b></div>
-                                            <div class="col-sm-2"><b>Runtime (in h)</b></div>
-                                            <div class="col-sm-2"><b>Cost of step</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.STEP' | translate}}</b></div>
+                                            <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.MACHINE' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RUNTIME (IN H)' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.COST OF STEP' | translate}}</b></div>
                                         </div>
                                     </template>
                                 </ngb-panel>
