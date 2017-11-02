@@ -4,19 +4,19 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3 vcenter"><b>Name</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceItem.data.name" [showControls]="true" (editSaved)="nameServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Description</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.DESCRIPTION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-editor [content]="serviceItem.data.description" [showControls]="true" (editSaved)="descriptionServiceUpdated($event, serviceItem)"></gg-editor>
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Current version</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CURRENT VERSION' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             {{serviceItem.annotation.currentSnapshot}}
                         </div>
-                        <div class="col-sm-3 vcenter"><b>Category</b></div>
+                        <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CATEGORY' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
                             <gg-selector [selectableData]="selectableCategoriesObservable" [selectedIds]="selectedCategoryIdsObservable" (selectionChanged)="categorySelectionChanged($event)"
                                 (selectionOptionAdded)="categoryHasBeenAdded($event)">
@@ -31,7 +31,7 @@
         <template ngbTabContent>
             <div class="card">
                 <div class="card-block">
-                    <div class="col-sm-3 vcenter"><b>Client type used</b></div>
+                    <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CLIENT TYPE USED' | translate}}</b></div>
                     <div class="col-sm-8 vcenter">
                         <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
                             (idChanged)="clientTypeChanged($event, serviceItem)"></gg-editor-autocomplete>
@@ -60,7 +60,7 @@
             <div class="card">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3 vcenter">Based on current snapshot:</div>
+                        <div class="col-sm-3 vcenter">{{'PLATFORM.SERVICE.DETAIL.LABEL.BASED ON CURRENT SNAPSHOT' | translate}}:</div>
                         <div class="col-sm-8 vcenter">
                             {{serviceItem.annotation.currentSnapshot}}
                         </div>
@@ -105,15 +105,15 @@
                     <div class="container-fluid">
                         <form [formGroup]="cloneForm" (ngSubmit)="cloneService(serviceItem, cloneForm.value, cloneForm.valid)">
                             <div class="form-group row">
-                                <label for="nameOfService" class="col-sm-3 col-form-label col-xl-3">name of new service:</label>
+                                <label for="nameOfService" class="col-sm-3 col-form-label col-xl-3">{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME OF NEW SERVICE' | translate}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" formControlName="nameOfService" id="nameOfService" placeholder="name of service">
+                                    <input type="text" class="form-control" formControlName="nameOfService" id="nameOfService" placeholder="{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME OF NEW SERVICE' | translate}}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="description" class="col-sm-3 col-form-label col-xl-3">description:</label>
+                                <label for="description" class="col-sm-3 col-form-label col-xl-3">{{'PLATFORM.SERVICE.DETAIL.LABEL.DESCRIPTION' | translate}}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="description">
+                                    <input type="text" class="form-control" formControlName="description" id="description" placeholder="{{'PLATFORM.SERVICE.DETAIL.LABEL.DESCRIPTION' | translate}}">
                                 </div>
                             </div>
                             <div class="row">
