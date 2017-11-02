@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <div class="container-fluid" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">
             <form [formGroup]="signinEnterForm" (ngSubmit)="login(signinEnterForm.value, signinEnterForm.valid)">
                 <div class="form-group row">

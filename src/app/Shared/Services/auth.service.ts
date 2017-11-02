@@ -3,7 +3,7 @@ import { DataStore } from './data.service'
 import { AdminService } from './admin.service'
 import { Observable, BehaviorSubject, ReplaySubject, Subscription } from 'rxjs/Rx'
 import { SelectableData } from './../Classes/selectable-data'
-import {TranslateService} from 'ng2-translate'
+import {TranslateService} from '@ngx-translate/core'
 
 // helper class
 // ============

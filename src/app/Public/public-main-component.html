@@ -1,35 +1,35 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         
         <ngb-tabset>
             <ngb-tab [title]="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn ? ('Signed in as ' + authorizationStatusInfo.getCurrentUserName()) : 'Identification'" id="tabIdentification">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <ngb-tabset>
                                 <ngb-tab [title]="authorizationStatusInfo && authorizationStatusInfo.isLoggedIn ? 'Sign out' : 'Sign in'" id="tabSignin">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <gg-signin-enter></gg-signin-enter>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'PUBLIC.MENU.REGISTER AS A USER' | translate}}" id="tabRegister">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <gg-register-enter></gg-register-enter>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PUBLIC.MENU.MARCHÉS ULG' | translate}}" id="tabMarchés" *ngIf="authorizationStatusInfo?.isLoggedIn">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-markets-main></gg-markets-main>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
     </div>

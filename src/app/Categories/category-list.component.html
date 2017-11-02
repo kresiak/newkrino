@@ -5,7 +5,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.CATEGORY' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.SUPPLIER EXAMPLE' | translate}}</b></div>
@@ -14,12 +14,12 @@
 					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.GROUP MARCHANDISE' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'CATEGORY.COLUMN.LABO SPECIFIC' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
-			</template>
+			</ng-template>
+			<ng-template ngbPanelContent>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let category of categories" [id]="category.data._id">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row" id="{{category.data._id}}">
 					<div class="col-sm-2" [style.font-weight]="category.data._id === state.openPanelId ? 'bold' : 'lighter'">{{category.data.name}}</div>
 					<div class="col-sm-2">{{category.annotation.supplierNames.length === 0 ? '' : category.annotation.supplierNames[0] }}</div>
@@ -30,11 +30,11 @@
 					<div class="col-sm-2">{{category.data.groupMarch }}</div>
 					<div class="col-sm-2">{{getIsLaboText(category) | translate }}</div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-category-detail [categoryObservable]="getCategoryObservable(category.data._id)" [state]="state[category.data._id]" [path]="path+'|P:'+category.data._id"
 				 (stateChanged)="childStateChanged($event, category.data._id)"></gg-category-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 </gg-search-box>

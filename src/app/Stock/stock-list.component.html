@@ -5,7 +5,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-3"><b>{{'STOCK.COLUMN.PRODUCT' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'STOCK.COLUMN.CATALOG NR' | translate}}</b></div>
@@ -13,12 +13,12 @@
 					<div class="col-sm-2"><b>{{'STOCK.COLUMN.AVAILABLE' | translate}}</b></div>
 					<div *ngIf="accentOnOrdering" class="col-sm-2"><b>{{'STOCK.COLUMN.RESERVED BY MYSELF' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
-			</template>
+			</ng-template>
+			<ng-template ngbPanelContent>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let product of products" [id]="product.key">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-3">{{product.values[0].annotation.product}} <span [style.color]="'red'">{{hasManualChanges(product.key) ? '(with manual changes!!)' : ''}}</span></div>
 					<div class="col-sm-2">{{product.values[0].annotation.catalogNr}}</div>
@@ -26,12 +26,12 @@
 					<div class="col-sm-2">{{nbAvailable(product)}}</div>
 					<div *ngIf="accentOnOrdering" class="col-sm-2">{{product.values[0].annotation.nbReservedByMe}}</div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 
 				<gg-stock-detail [productObservable]="getProductObservable(product.key)" [state]="state[product.key]" [path]="path+'|P:'+product.key"
 				 (stateChanged)="childStateChanged($event, product.key)"></gg-stock-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

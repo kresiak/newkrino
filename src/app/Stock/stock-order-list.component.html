@@ -6,7 +6,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-2"><b>{{'STOCK.COLUMN.WHEN' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'STOCK.COLUMN.WHO' | translate}}</b></div>
@@ -15,12 +15,12 @@
 					<div class="col-sm-2"><b>{{'STOCK.COLUMN.QUANTITY' | translate}}</b></div>
 					<div class="col-sm-1"><b>{{'STOCK.COLUMN.PROCESSED' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
-			</template>
+			</ng-template>
+			<ng-template ngbPanelContent>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let order of orders" [id]="order.data._id">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-2">
 						<gg-date-pointer [date]="order.data.createDate"></gg-date-pointer>
@@ -31,11 +31,11 @@
 					<div class="col-sm-2">{{order.data.quantity}}</div>
 					<div class="col-sm-1" [style.color]="order.data.isProcessed ? 'magenta' : 'black'">{{order.data.isProcessed ? 'processed' : 'no'}}</div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-stock-order-detail [orderObservable]="getOrderObservable(order.data._id)" [state]="state[order.data._id]" [path]="path+'|P:'+order.data._id"
 				 (stateChanged)="childStateChanged($event, order.data._id)"></gg-stock-order-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

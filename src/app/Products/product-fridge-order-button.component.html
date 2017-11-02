@@ -1,4 +1,4 @@
-<template #mymodal let-c="close" let-d="dismiss">
+<ng-template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
@@ -7,7 +7,7 @@
 	</div>
 	<div class="modal-body">
 		<div class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-3">{{'PRODUCT.FRIDGE.LABEL.YOU WILL ORDER' | translate}}:</div>
 					<div class="col-sm-8">{{product.data.name}}  {{product.data.package}}</div>
@@ -40,6 +40,6 @@
 			</div>
 		</div>		
 	</div>
-</template>
+</ng-template>
 
 <a class="imgSearch" [ngbTooltip]="'PRODUCT.ACTIONS.CLICK HERE ORDER PRODUCT FROM FRIDGE' | translate" (click)="openModal(mymodal)"> <img *ngIf="product.data.isFrigo" height="25" width="25" src="../../images/refrigator.png" /> </a>

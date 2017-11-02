@@ -1,25 +1,25 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
             <ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.REQUESTED VOUCHERS' | translate}}" id="tabRequestedVouchers">
-                <template ngbTabContent>                   
+                <ng-template ngbTabContent>                   
                    <gg-voucher-request-list></gg-voucher-request-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.VOUCHERS BY CREATION DATE' | translate}}" id="tabRecentVouchers">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="vouchersObservable" ></gg-voucher-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.USED VOUCHERS BY DATE' | translate}}" id="tabUsedVouchers">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="usedVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.USED VOUCHERS READY FOR SAP' | translate}}" id="tabReadyVouchersForSap" *ngIf="((vouchersReadyForSapObservable |async) || []).length>0">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="vouchersReadyForSapObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
     </div>

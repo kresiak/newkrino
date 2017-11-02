@@ -1,4 +1,4 @@
-<template #mymodal let-c="close" let-d="dismiss">
+<ng-template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
@@ -7,7 +7,7 @@
 	</div>
 	<div class="modal-body">
 		<div class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-6" *ngFor="let item of selectableData | async">
 						<div class="row">
@@ -42,7 +42,7 @@
 
 		
 	</div>
-</template>
+</ng-template>
 
 <div class="editor__output" *ngIf="content" >{{content}}</div>
 <div class="editor__output" *ngIf="!content" >{{'GENERAL.NOT SET YET' | translate}}</div>

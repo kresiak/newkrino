@@ -2,9 +2,9 @@
 
 <ngb-tabset #tabset *ngIf="supplier" (tabChange)="beforeTabChange($event)" >
 	<ngb-tab title="{{'SUPPLIER.MENU.INFO' | translate}}" id="tabInfo">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<gg-supplier-info [supplier]="supplier"></gg-supplier-info>
 
 					<div class="row" *ngIf="!configService.isProduction()">
@@ -14,12 +14,12 @@
 
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.INCLUDE KRINO' | translate}}" id="tabKrino">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div *ngIf="krinoSupplier">
 						<h6>{{supplier.name}} is already in Krino</h6> <br>
 						<gg-supplier-detail [supplierId]="krinoSupplier.data._id" [initialTab]="'tabInfo'"></gg-supplier-detail>
@@ -32,6 +32,6 @@
 					</div>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 </ngb-tabset>

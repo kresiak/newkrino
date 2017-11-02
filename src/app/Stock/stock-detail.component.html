@@ -1,18 +1,18 @@
 <ngb-tabset #tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
     <!--TABSET-->
     <ngb-tab title="{{'STOCK.MENU.ORDER PRODUCTS' | translate}}" id="tabOrder">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-stock-product-enter [productObservable]="productObservable"></gg-stock-product-enter>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'STOCK.MENU.DETAILS' | translate}} {{hasManualChanges() ? ' (has manual changes!!!)' : ''}}" id="tabLots" *ngIf="authorizationStatusInfo?.isAdministrator()">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-2 vcenter"><b>{{'STOCK.COLUMN.PACKAGE' | translate}}</b></div>
                         <div class="col-sm-1 vcenter"><b>{{'STOCK.COLUMN.DIVISION FACTOR' | translate}}</b></div>
@@ -50,9 +50,9 @@
                             <ngb-tabset>
                                 <!--TABSET-->
                                 <ngb-tab title="{{'STOCK.MENU.QUANTITIES RECEIVED DELIVERY' | translate}}">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
 
                                                 <div class="col-sm-12 col-md-12">
                                                     <div class="card">
@@ -86,12 +86,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'STOCK.MENU.QUANTITIES LOST SALES' | translate}}">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
 
                                                 <div class="col-sm-12 col-md-12">
                                                     <div class="card">
@@ -101,7 +101,7 @@
                                                             <div class="col-sm-2 col-md-2 vcenter">{{'STOCK.COLUMN.HOW MANY BOUGHT' | translate}}</div>
                                                         </div>
                                                                             <div class="card" *ngIf="(stockProduct.data.sales || []).length === 0">
-                                                                                <div class="card-block">
+                                                                                <div class="card-body">
                                                                                     <div class="centertextbox">{{'STOCK.LABEL.NO SALE YET' | translate}}</div>
                                                                                 </div>
                                                                             </div>
@@ -123,19 +123,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'STOCK.MENU.MANUAL CORRECTIONS QUANTITIES' | translate}} {{(stockProduct.data.manualChanges || []).length < 1 ? '' : (' (' + stockProduct.data.manualChanges.length + ')') }}">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
 
                                                 <ngb-tabset>
                                                     <!--TABSET-->
                                                     <ngb-tab title="{{'STOCK.MENU.HISTORY MANUAL CORRECTIONS' | translate}}">
-                                                        <template ngbTabContent>
+                                                        <ng-template ngbTabContent>
                                                             <div class="card">
-                                                                <div class="card-block">
+                                                                <div class="card-body">
                                                                     <div class="col-sm-12 col-md-12">
                                                                         <div class="card">
                                                                             <div class="row">
@@ -145,7 +145,7 @@
                                                                                 <div class="col-sm-4 vcenter">{{'STOCK.COLUMN.WHY' | translate}}</div>
                                                                             </div>
                                                                             <div class="card" *ngIf="(stockProduct.data.manualChanges || []).length === 0">
-                                                                                <div class="card-block">
+                                                                                <div class="card-body">
                                                                                     <div class="centertextbox">{{'STOCK.LABEL.NO MANUAL CHANGE YET' | translate}}</div>
                                                                                 </div>
                                                                             </div>
@@ -169,12 +169,12 @@
 
                                                                 </div>
                                                             </div>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-tab>
                                                     <ngb-tab title="{{'STOCK.MENU.ENTER MANUAL CORRECTION' | translate}}">
-                                                        <template ngbTabContent>
+                                                        <ng-template ngbTabContent>
                                                             <div class="card">
-                                                                <div class="card-block">
+                                                                <div class="card-body">
 
 
                                                                     <form [formGroup]="manualQuantityForm" (ngSubmit)="saveQuantityForm(stockProduct, manualQuantityForm.value, manualQuantityForm.valid)">
@@ -206,14 +206,14 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-tab>
                                                 </ngb-tabset>
 
                                             </div>
                                         </div>
 
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
 
 
@@ -227,6 +227,6 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
 </ngb-tabset>

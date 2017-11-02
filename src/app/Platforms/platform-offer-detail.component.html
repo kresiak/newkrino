@@ -1,8 +1,8 @@
 <ngb-tabset>
     <ngb-tab title="{{'PLATFORM.OFFER.MENU.INFO' | translate}}" id="tabInfo">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="row" *ngIf="isSnapshot">
                         <div class="col-sm-3 vcenter"><b>{{'PLATFORM.OFFER.LABEL.SNAPSHOT REASON' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
@@ -50,12 +50,12 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.OFFER.MENU.OPERATIONS' | translate}}" id="tabOperations" *ngIf="!isSnapshot">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="row">
                         {{'PLATFORM.OFFER.LABEL.THESE OPERATION WILL CREATE NEW VERSION' | translate}}
                     </div>
@@ -77,17 +77,17 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.OFFER.MENU.SERVICES' | translate}}" id="tabServices">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-tabset>
                         <ngb-tab title="{{'PLATFORM.OFFER.MENU.ORDERED SERVICES' | translate}}" id="tabUsedServices" *ngIf="offerItem.annotation.services && offerItem.annotation.services.length > 0">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-2 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.SERVICE' | translate}}</b></div>
                                             <div class="col-sm-1 vcenter"><b>{{'PLATFORM.OFFER.COLUMN.QUANTITY' | translate}}</b></div>
@@ -150,35 +150,35 @@
                                         </div>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                         <ngb-tab title="{{'PLATFORM.OFFER.MENU.SELECT SERVICES' | translate}}" id="tabSelectServices" *ngIf="!isSnapshot">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <gg-platform-service-list [isForSelection]="true" [servicesObservable]="servicesObservable" [selectedServiceIds]="getServicesIdsSelected()"
                                             (servicesSelected)="servicesChanged($event)"></gg-platform-service-list>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.OFFER.MENU.VERSIONS' | translate}}" id="tabSnapshots" *ngIf="!isSnapshot">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-tabset>
                         <ngb-tab title="{{'PLATFORM.OFFER.MENU.ALL VERSIONS' | translate}}" id="tabAllVersions" *ngIf="offerItem.annotation.hasSnapshots">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
                                             <ngb-panel [disabled]="true">
-                                                <template ngbPanelTitle>
+                                                <ng-template ngbPanelTitle>
                                                     <div class="row">
                                                         <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.DATE' | translate}}</b></div>
                                                         <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.NUMERO' | translate}}</b></div>
@@ -186,10 +186,10 @@
                                                         <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.PRICE' | translate}}</b></div>
                                                         <div class="col-sm-3"><b>{{'PLATFORM.OFFER.COLUMN.PRODUCTS' | translate}}</b></div>
                                                     </div>
-                                                </template>
+                                                </ng-template>
                                             </ngb-panel>
                                             <ngb-panel *ngFor="let snapshot of snapshotList" [id]="snapshot._id">
-                                                <template ngbPanelTitle>
+                                                <ng-template ngbPanelTitle>
                                                     <div class="row" id="{{offerItem._id}}">
                                                         <div class="col-sm-2">{{snapshot.createDate | fullDate}}</div>
                                                         <div class="col-sm-2" [style.font-weight]="snapshot._id === state.openPanelId ? 'bold' : 'lighter'">{{snapshot.annotation.numero}}</div>
@@ -198,20 +198,20 @@
                                                         <div class="col-sm-3">{{snapshot.annotation.serviceTxt}}</div>
                                                         <div class="col-sm-1"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
                                                     </div>
-                                                </template>
-                                                <template ngbPanelContent>
+                                                </ng-template>
+                                                <ng-template ngbPanelContent>
                                                     <gg-platform-offer-detail [offerItem]="snapshot" [isSnapshot]="true"></gg-platform-offer-detail>
-                                                </template>
+                                                </ng-template>
                                             </ngb-panel>
                                         </ngb-accordion>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                         <ngb-tab title="{{'PLATFORM.OFFER.MENU.SAVE CURRENT VERSION' | translate}}" id="tabSaveVersion">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="container-fluid">
                                             <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(snapshotForm.value, snapshotForm.valid)">
                                                 <div class="form-group row">
@@ -233,12 +233,12 @@
 
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
 
 

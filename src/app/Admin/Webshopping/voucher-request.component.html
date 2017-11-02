@@ -1,13 +1,13 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <div class="row">
             <div class="col-sm-12" [innerHTML]="'ADMINISTRATION.WEB SHOPPING.TEXT.USER NEEDS VOUCHERS' | translate:{user:openRequest.userName, quantity:openRequest.quantity, supplier:openRequest.supplierName, category:openRequest.categoryName}"></div>
         </div> <br/>
         <ngb-tabset>
             <ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.CREATE A VOUCHER' | translate}}">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="container-fluid">
                                 <form [formGroup]="voucherForm" (ngSubmit)="save(voucherForm.value, voucherForm.valid)">
                                     <div class="form-group row">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
 

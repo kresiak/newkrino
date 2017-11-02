@@ -1,40 +1,40 @@
 <div id="GGTOP"></div>
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
             <ngb-tab title="{{'USER.MENU.VIEW USERS' | translate}}" id="tabView">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
 
                     <gg-user-list [state]="state" [usersObservable]="usersObservable"></gg-user-list>
 
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'USER.MENU.ADMINISTRATORS' | translate}}" id="tabAdministrators">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
 
                     <gg-user-list [state]="state" [usersObservable]="adminsObservable"></gg-user-list>
 
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'USER.MENU.CREATE A USER' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             
 							<gg-user-enter></gg-user-enter>
 							
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'USER.MENU.CURRENT USER' | translate}}" id="tabCurrentUser">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-user-detail [userObservable]="currentUserObservable"></gg-user-detail>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>

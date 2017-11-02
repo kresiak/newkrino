@@ -11,7 +11,7 @@ import { MenuService } from './Shared/Services/menu.service'
 import { DataStore } from './Shared/Services/data.service'
 import { WebSocketService } from './Shared/Services/websocket.service';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser"
-import {TranslateService} from 'ng2-translate'
+import {TranslateService} from '@ngx-translate/core'
 
 @Component({
     //moduleId: module.id,

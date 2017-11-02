@@ -1,11 +1,11 @@
 <div class="card" *ngIf="supplier">
-	<div class="card-block">
+	<div class="card-body">
 		<h5 class="card-title">{{'ORDER.BASKET.CHECKOUT AT' | translate}} {{supplier.name}}</h5>
 		<ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
 			<ngb-tab title="{{'ORDER.MENU.SHOPPING BASKET' | translate}}">
-				<template ngbTabContent>
+				<ng-template ngbTabContent>
 					<div class="card">
-						<div class="card-block">
+						<div class="card-body">
 							<div class="row">
 								<gg-product-grid-basket [productsObservable]="productsBasketObservable" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()"></gg-product-grid-basket>
 							</div>
@@ -26,25 +26,25 @@
 							</div>
 						</div>
 					</div>
-				</template>
+				</ng-template>
 			</ngb-tab>
 			<ngb-tab title="{{'ORDER.MENU.INFO ABOUT' | translate}} {{supplier.name}}">
-				<template ngbTabContent>
+				<ng-template ngbTabContent>
 					<div class="card">
-						<div class="card-block">
+						<div class="card-body">
 							<gg-supplier-info [supplier]="supplier"></gg-supplier-info>
 						</div>
 					</div>
-				</template>		
+				</ng-template>		
 			</ngb-tab>
 			<ngb-tab title="{{'ORDER.MENU.BUDGET CURRENT USER' | translate}}" *ngIf="false">
-				<template ngbTabContent>
+				<ng-template ngbTabContent>
 					<div class="card">
-						<div class="card-block">
+						<div class="card-body">
 							<h4>Work hard, but don't spend too much!!!</h4>
 						</div>
 					</div>
-				</template>
+				</ng-template>
 			</ngb-tab>
 		</ngb-tabset>
 		<h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>

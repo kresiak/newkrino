@@ -1,78 +1,78 @@
 <div id="GGTOP"></div>
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
             <ngb-tab title="{{'EQUIPE.MENU.VIEW EQUIPES' | translate}}" id="tabView">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-equipe-list [equipesObservable]="equipesObservable" [state]="state"></gg-equipe-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'EQUIPE.MENU.CREATE AN EQUIPE' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo?.isAdministrator()">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-equipe-enter></gg-equipe-enter>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'EQUIPE.MENU.GROUPS' | translate}}" id="tabGroups">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <ngb-tabset>
                                 <ngb-tab title="{{'EQUIPE.MENU.VIEW GROUPS' | translate}}" id="tabViewGroup">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <gg-equipe-group-list [state]="state"></gg-equipe-group-list>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'EQUIPE.MENU.CREATE GROUP' | translate}}" id="tabCreateGroup" *ngIf="authorizationStatusInfo.isAdministrator()">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <gg-equipe-group-enter></gg-equipe-group-enter>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'EQUIPE.MENU.GIFTS'  | translate}}" id="tabGifts">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <ngb-tabset>
                                 <ngb-tab title="{{'EQUIPE.MENU.VIEW GIFTS' | translate}}" id="tabViewGift" *ngIf="authorizationStatusInfo.isAdministrator()">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <gg-equipe-gift-grid [equipeGiftsObservable]="annotatedGiftsObservable"></gg-equipe-gift-grid>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'EQUIPE.MENU.ENTER A GIFT' | translate}}" id="tabCreateGift" *ngIf="authorizationStatusInfo.isAdministrator()">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <gg-equipe-gift-enter></gg-equipe-gift-enter>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'EQUIPE.MENU.CURRENT EQUIPE' | translate}}" id="tabCurrentEquipe" *ngIf="authorizationStatusInfo.hasEquipeId()">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             
                             <gg-equipe-detail [equipeObservable]="equipeObservable"></gg-equipe-detail>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>

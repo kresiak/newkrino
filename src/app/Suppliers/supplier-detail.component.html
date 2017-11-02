@@ -1,6 +1,6 @@
-<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
+<ng-template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</ng-template>
 
-<template #sapIdResultPopup let-c="close" let-d="dismiss">
+<ng-template #sapIdResultPopup let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<h4 class="modal-title">{{'SUPPLIER.MSG.YOUR WEB PURCHASE HAS BEEN REGISTERED' | translate}}</h4>
 		<button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -13,14 +13,14 @@
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="c('Close click')">{{'GENERAL.CLOSE' | translate}}</button>
 	</div>
-</template>
+</ng-template>
 
 
 <ngb-tabset #tabset *ngIf="supplier" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
 	<ngb-tab title="{{'SUPPLIER.MENU.INFO' | translate}}" id="tabInfo">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<gg-supplier-info [supplier]="supplier.data"></gg-supplier-info>
 
 					<div class="row" *ngIf="!configService.isProduction()">
@@ -30,19 +30,19 @@
 
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 
 	<ngb-tab title="{{'SUPPLIER.MENU.FIX COSTS' | translate}} ({{(fixCosts && fixCosts.length>0) ? fixCosts.length : 0}})" id="tabFixCosts"
 	 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<ngb-tabset>
 						<ngb-tab title="{{'SUPPLIER.MENU.FIX COSTS' | translate}}" id="tabFixCosts" *ngIf="fixCosts && fixCosts.length>0">
-							<template ngbTabContent>
+							<ng-template ngbTabContent>
 								<div class="card">
-									<div class="card-block">
+									<div class="card-body">
 										<div class="container-fluid">
 											<div class="row">
 												<div class="col-sm-3 vcenter"><b>{{'SUPPLIER.COLUMN.DESCRIPTION' | translate}}</b></div>
@@ -71,12 +71,12 @@
 										</div>
 									</div>
 								</div>
-							</template>
+							</ng-template>
 						</ngb-tab>
 						<ngb-tab title="{{'SUPPLIER.MENU.ADD FIX COST' | translate}}" id="tabAddFixCost" *ngIf="authorizationStatusInfo?.isAdministrator()">
-							<template ngbTabContent>
+							<ng-template ngbTabContent>
 								<div class="card">
-									<div class="card-block">
+									<div class="card-body">
 										<div class="container-fluid">
 											<form [formGroup]="fixCostsForm" (ngSubmit)="saveFixCosts(fixCostsForm.value, fixCostsForm.valid)">
 												<div class="form-group row">
@@ -103,36 +103,36 @@
 										</div>
 									</div>
 								</div>
-							</template>
+							</ng-template>
 						</ngb-tab>
 					</ngb-tabset>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 
 	<ngb-tab title="{{'SUPPLIER.MENU.PRODUCTS' | translate}}" id="tabProducts" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<gg-product-grid [path]="path+'|O:Products'" [productsObservable]="productsObservable"></gg-product-grid>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.ORDERS' | translate}}" *ngIf="anyOrder && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()"
 	 id="tabOrders">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<gg-order-list [ordersObservable]="ordersObservable" [config]="{skip:['supplier']}" [path]="path+'|O:Orders'" [state]="state.Orders"
 			 (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.USERS' | translate}}" id="tabUsers">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<gg-user-list [state]="state.Users" [usersObservable]="usersObservable" [path]="path+'|O:Users'" (stateChanged)="childUsersStateChanged($event)"></gg-user-list>
-		</template>
+		</ng-template>
 	</ngb-tab>	
 	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING BASKET' | translate}}" *ngIf="isThereABasket && authorizationStatusInfo && !authorizationStatusInfo.isPassiveUser()"
 	 id="tabBasket">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<gg-product-grid-basket [path]="path+'|O:Basket'" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()" [productsObservable]="productsBasketObservable"
 						 [config]="{skip:['otp']}"></gg-product-grid-basket>
@@ -142,48 +142,48 @@
 					</div>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.SHOPPING NON URGENT' | translate}}" *ngIf='isThereAGroupedBasket && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser() && !authorizationStatusInfo.isPassiveUser()'
 	 id="tabGroupedBasket">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<gg-product-grid-basket [path]="path+'|O:GroupedBasket'" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable"
 						 [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.ADD PRODUCT' | translate}}" id="tabAddProduct" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<gg-product-enter [supplierId]="supplier.data._id"></gg-product-enter>
 					</div>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 
 
 	<ngb-tab title="{{'SUPPLIER.MENU.E-PROCUREMENT' | translate}}" id="tabEProc" *ngIf="supplier.data.isEproc && authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<ngb-tabset #tabsetEProc [activeId]="tabEprocSelected">
 						<ngb-tab title="{{'SUPPLIER.MENU.NEW EPROC' | translate}}" id="tabEprocAdd">
-							<template ngbTabContent>
+							<ng-template ngbTabContent>
 								<gg-supplier-eproc-shopping [supplier]="supplier" (isDone)="tabsetEProc.select('tabEprocList')" ></gg-supplier-eproc-shopping>
-							</template>
+							</ng-template>
 						</ngb-tab>
 						<ngb-tab title="{{'SUPPLIER.MENU.LIST EPROC' | translate}}" id="tabEprocList">
-							<template ngbTabContent>
+							<ng-template ngbTabContent>
 								<div class="card">
-									<div class="card-block">
+									<div class="card-body">
 										<div class="row" *ngFor="let order of (eprocOrders|async).slice(0, 50)">
 											<div class="col-sm-3">
 												{{order.data.createDate | fullDate}}
@@ -204,23 +204,23 @@
 										</div>
 									</div>
 								</div>
-							</template>
+							</ng-template>
 						</ngb-tab>
 					</ngb-tabset>
 				</div>
 			</div>
 
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab title="{{'SUPPLIER.MENU.WEB SHOPPING' | translate}}" id="tabWebShopping" *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isGroupOrdersUser()">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<ngb-tabset (tabChange)="beforeWebShoppingTabChange($event)" [activeId]="state.selectedWebShoppingTabId">
 						<ngb-tab title="{{'SUPPLIER.MENU.ADMINISTRATION' | translate}}" id="tabWebShoppingAdmin" *ngIf="showAdminWebShoppingTab">
-							<template ngbTabContent>
+							<ng-template ngbTabContent>
 								<div class="card">
-									<div class="card-block">
+									<div class="card-body">
 										<div class="row">
 											<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.E-PROCUREMENT ENABLED' | translate}}</div>
 											<div class="col-sm-6 vcenter">
@@ -242,14 +242,14 @@
 										</div>
 									</div>
 								</div>
-							</template>
+							</ng-template>
 						</ngb-tab>
 						<div *ngIf="supplier.data.webShopping && supplier.data.webShopping.categoryIds && supplier.data.webShopping.categoryIds.length > 0">
 							<ngb-tab *ngFor="let category of supplier.annotation.webShopping.categories" title="{{'SUPPLIER.MENU.VOUCHERS' | translate}} {{category.name}}"
 							 id="tabWebShoppingVoucher{{category.id}}">
-								<template ngbTabContent>
+								<ng-template ngbTabContent>
 									<div class="card">
-										<div class="card-block">
+										<div class="card-body">
 											<div class="row">
 												<div class="col-sm-4 vcenter">{{'SUPPLIER.LABEL.VOUCHERS AVAILABLE' | translate}}</div>
 												<div class="col-sm-6 vcenter">{{nbVouchersAvailable(category.id)}}</div>
@@ -267,7 +267,7 @@
 												</p>
 												<div id="collapseExample" [ngbCollapse]="!showUseVoucherForm">
 													<div class="card">
-														<div class="card-block">
+														<div class="card-body">
 															<div [innerHtml]="'SUPPLIER.MSG.FILL THIS FORM WEBSHOPPING' | translate:{supplier:supplier.data.name}"></div><br/>
 															<form [formGroup]="useVoucherForm" (ngSubmit)="save(useVoucherForm.value, useVoucherForm.valid, supplier.data._id, category.id)">
 																<div class="form-group row">
@@ -306,21 +306,21 @@
 											</div>
 										</div>
 									</div>
-								</template>
+								</ng-template>
 							</ngb-tab>
 						</div>
 					</ngb-tabset>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 	<ngb-tab id="tabMax">
-		<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-		<template ngbTabContent></template>
+		<ng-template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></ng-template>
+		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		<template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
-		<template ngbTabContent></template>
+		<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></ng-template>
+		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 
 </ngb-tabset>

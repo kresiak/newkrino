@@ -1,24 +1,24 @@
 <div id="GGTOP"></div>
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset *ngIf="authorizationStatusInfo?.isLoggedIn">
             <ngb-tab title="{{'CATEGORY.MENU.VIEW CATEGORIES' | translate}}" id="tabView">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
 
                     <gg-category-list [categoryObservable]="categoryObservable" [state]="state"></gg-category-list>
 
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'CATEGORY.MENU.CREATE CATEGORY' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo.isAdministrator()">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             
 							<gg-category-enter></gg-category-enter>
 							
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="authorizationStatusInfo && !authorizationStatusInfo.isLoggedIn">{{'ERROR.NO LOGIN' | translate}}</h4>

@@ -1,9 +1,9 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <ngb-tab *ngIf="correctionList && correctionList.length !== 0" title="{{'PLATFORM.CORRECTION.MENU.LIST OF CORRECTION TYPES' | translate}}" id="tabListOfCorrectionTypes">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.CORRECTION TYPE' | translate}}</b></div>
                             <div class="col-sm-2 vcenter"><b>{{'PLATFORM.CORRECTION.COLUMN.SHORTCUT' | translate}}</b></div>
@@ -36,12 +36,12 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.CORRECTION.MENU.ADD A CORRECTION TYPE' | translate}}" id="tabAddACorrectionType">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="correctionForm" (ngSubmit)="save(correctionForm.value, correctionForm.valid)">
                                 <div class="form-group row">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>

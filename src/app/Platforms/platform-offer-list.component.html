@@ -10,7 +10,7 @@
 
     <ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" [activeIds]="state.openPanelId" (panelChange)="beforeAccordionChange($event)">
         <ngb-panel [disabled]="true">
-            <template ngbPanelTitle>
+            <ng-template ngbPanelTitle>
                 <div class="row">
                     <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.NUMERO' | translate}}</b></div>
                     <div class="col-sm-3"><b>{{'PLATFORM.OFFER.COLUMN.CLIENT' | translate}}</b></div>
@@ -18,10 +18,10 @@
                     <div class="col-sm-2"><b>{{'PLATFORM.OFFER.COLUMN.PRICE' | translate}}</b></div>
                     <div class="col-sm-3"><b>{{'PLATFORM.OFFER.COLUMN.PRODUCTS' | translate}}</b></div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-panel>
         <ngb-panel *ngFor="let offerItem of offersList" [id]="offerItem.data._id">
-            <template ngbPanelTitle>
+            <ng-template ngbPanelTitle>
                 <div class="row" id="{{offerItem._id}}">
                     <div class="col-sm-2" [style.font-weight]="offerItem.data._id === state.openPanelId ? 'bold' : 'lighter'">{{offerItem.annotation.numero}}</div>
                     <div class="col-sm-3">
@@ -31,10 +31,10 @@
                     <div class="col-sm-2 gg-price">{{offerItem.annotation.total | currency:'EUR':true:'1.2-2'}}</div>
                     <div class="col-sm-3">{{offerItem.annotation.serviceTxt}}</div>
                 </div>
-            </template>
-            <template ngbPanelContent>
+            </ng-template>
+            <ng-template ngbPanelContent>
                 <gg-platform-offer-detail [offerItem]="offerItem"></gg-platform-offer-detail>
-            </template>
+            </ng-template>
         </ngb-panel>
     </ngb-accordion>
 

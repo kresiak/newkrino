@@ -1,8 +1,8 @@
 <ngb-tabset>
     <ngb-tab title="{{'OTP.PERIOD.MENU.INFO' | translate}}" id="tabInfo">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block gg-line-height">
+                <div class="card-body gg-line-height">
                     <div class="row">
                         <div class="col-sm-4 vcenter">{{'OTP.PERIOD.LABEL.INITIAL BUDGET' | translate}}</div>
                         <div class="col-sm-6 vcenter">
@@ -48,17 +48,17 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'OTP.PERIOD.MENU.BUDGET CHANGES' | translate}}" id="tabChanges">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-tabset>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.HISTORY BUDGET' | translate}}" id="tabHistoryOfBudget" *ngIf="budgetPeriod.budgetHistory && budgetPeriod.budgetHistory.length > 0">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
@@ -86,14 +86,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BUDGET CHANGE' | translate}}" id="tabAddBudgetChange" *ngIf="authorizationStatusInfo?.isAdministrator()">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="budgetChangeForm" (ngSubmit)="SaveBudgetChange(budgetChangeForm.value, budgetChangeForm.valid)">
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="form-group row">
                                                     <label for="budgetChange" class="col-sm-3 col-form-label col-xl-3">{{'OTP.PERIOD.LABEL.BUDGET INCREMENT' | translate}}</label>
                                                     <div class="col-sm-7">
@@ -124,23 +124,23 @@
                                         </div>
                                     </form>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
 
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'OTP.PERIOD.MENU.BLOCKED AMOUNTS' | translate}}" id="tabBlocked">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-tabset>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.LIST BLOCKED AMOUNT' | translate}}" id="tabListOfBlocked" *ngIf="budgetPeriod.blockedAmounts && budgetPeriod.blockedAmounts.length > 0">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
@@ -164,14 +164,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ADD BLOCKED AMOUNT' | translate}}" id="tabAddBlockAmount" *ngIf="authorizationStatusInfo?.isAdministrator()">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="blockedAmountForm" (ngSubmit)="saveBlockedAmount(blockedAmountForm.value, blockedAmountForm.valid)">
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.AMOUNT BLOCKED' | translate}}:</div>
                                                     <div class="col-sm-7 vcenter">
@@ -196,23 +196,23 @@
                                         </div>
                                     </form>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
 
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'OTP.PERIOD.MENU.CREANCES' | translate}}" id="tabCreances">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-tabset>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.LIST DE CREANCES' | translate}}" id="tabListDeCreances" *ngIf="budgetPeriod.creances && budgetPeriod.creances.length > 0">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
-                                    <div class="card-block">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="container-fluid">
                                                 <div class="row">
@@ -247,14 +247,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                         <ngb-tab title="{{'OTP.PERIOD.MENU.ENTER UNE NOUVELLE CREANCE' | translate}}" id="tabEnterNouvelleCreance" *ngIf="authorizationStatusInfo?.isAdministrator()">
-                            <template ngbTabContent>
+                            <ng-template ngbTabContent>
                                 <div class="card">
                                     <form [formGroup]="nouvelleCreanceForm" (ngSubmit)="SaveNouvelleCreance(nouvelleCreanceForm.value, nouvelleCreanceForm.valid)"> 
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="form-group row">
                                                     <div class="col-sm-3 vcenter">{{'OTP.PERIOD.LABEL.DATE DE LA CREANCE' | translate}}</div>
                                                     <div class="col-sm-7 vcenter">
@@ -288,11 +288,11 @@
                                         </div>
                                     </form>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
 </ngb-tabset>

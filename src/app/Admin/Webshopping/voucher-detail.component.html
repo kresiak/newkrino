@@ -1,8 +1,8 @@
 <ngb-tabset *ngIf="voucher"  (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
 	<ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.INFO' | translate}}" id="tabInfo">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.CREATION DATE VOUCHER' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.dateCreation | fullDate}}
@@ -52,24 +52,24 @@
 					</div>
 				</div>
 			</div>
-		</template>
+		</ng-template>
 	</ngb-tab>
 
 	<ngb-tab id="tabComments">
-		<template ngbTabTitle>
+		<ng-template ngbTabTitle>
 			<gg-comments-tab-title [data]="voucher.data"></gg-comments-tab-title>
-		</template>
-		<template ngbTabContent>
+		</ng-template>
+		<ng-template ngbTabContent>
 			<gg-comments-tab [data]="voucher.data" [dbTable]="'orders.vouchers'"></gg-comments-tab>
-		</template>
+		</ng-template>
 	</ngb-tab>
 
 
 
 	<ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.PURCHASE' | translate}}" id="tabPurchase" *ngIf="voucher.annotation.isUsed">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-4 vcenter">{{'ADMINISTRATION.WEB SHOPPING.LABEL.USING DATE' | translate}}</div>
 						<div class="col-sm-6 vcenter">{{voucher.data.shopping.date | fullDate}}</div>
@@ -94,13 +94,13 @@
 					
 				</div>
 			</div>			
-		</template>
+		</ng-template>
 	</ngb-tab>	
 
 	<ngb-tab title="{{'ADMINISTRATION.WEB SHOPPING.MENU.DELIVERY' | translate}}" id="tabDelivery" *ngIf="voucher.annotation.isUsed">
-		<template ngbTabContent>
+		<ng-template ngbTabContent>
 			<div class="card">
-				<div class="card-block">
+				<div class="card-body">
 					<div class="row">
 						<div class="col-sm-2">{{'ADMINISTRATION.WEB SHOPPING.LABEL.NO DELIVERY YET' | translate}}</div>
 						<div class="col-sm-2"><input type="radio" name="radioDeliveryGroup" [checked]="!voucher.data.delivery || voucher.data.delivery==='nothing'" (change)="deliveryChanged('nothing')"/> </div>
@@ -115,7 +115,7 @@
 					</div>
 				</div>
 			</div>			
-		</template>
+		</ng-template>
 	</ngb-tab>	
 
 

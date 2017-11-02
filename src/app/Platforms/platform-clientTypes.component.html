@@ -1,34 +1,34 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <ngb-tab *ngIf="clientList && clientList.length !== 0" title="{{'PLATFORM.CLIENT TYPE.MENU.LIST OF CLIENT TYPES' | translate}}" id="tabListOfClientType">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
 
                         <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                             <ngb-panel [disabled]="true">
-                                <template ngbPanelTitle>
+                                <ng-template ngbPanelTitle>
                                     <div class="row">
                                         <div class="col-sm-3"><b>{{'PLATFORM.CLIENT TYPE.COLUMN.NAME' | translate}}</b></div>
                                         <div class="col-sm-5"><b>{{'PLATFORM.CLIENT TYPE.COLUMN.DESCRIPTION' | translate}}</b></div>
                                         <div class="col-sm-2"><b>{{'PLATFORM.CLIENT TYPE.COLUMN.IS INTERNAL CLIENT' | translate}}</b></div>
                                     </div>
-                                </template>
+                                </ng-template>
                             </ngb-panel>
                             <ngb-panel *ngFor="let clientItem of clientList">
-                                <template ngbPanelTitle>
+                                <ng-template ngbPanelTitle>
                                     <div class="row" id="{{clientItem._id}}">
                                         <div class="col-sm-3">{{clientItem.name}}</div>
                                         <div class="col-sm-5">{{clientItem.description}}</div>
                                         <div class="col-sm-2">{{clientItem.isInternalClient ? 'yes' : ''}}</div>
                                     </div>
-                                </template>
-                                <template ngbPanelContent>
+                                </ng-template>
+                                <ng-template ngbPanelContent>
                                     <ngb-tabset>
                                         <ngb-tab title="{{'PLATFORM.CLIENT TYPE.MENU.INFO' | translate}}" id="tabInfo">
-                                            <template ngbTabContent>
+                                            <ng-template ngbTabContent>
                                                 <div class="card">
-                                                    <div class="card-block">
+                                                    <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-sm-3 vcenter"><b>{{'PLATFORM.CLIENT TYPE.LABEL.NAME' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
@@ -45,12 +45,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </template>
+                                            </ng-template>
                                         </ngb-tab>
                                         <ngb-tab title="{{'PLATFORM.CLIENT TYPE.MENU.SPECIFIC CORRECTIONS' | translate}}" id="tabCorrections">
-                                            <template ngbTabContent>
+                                            <ng-template ngbTabContent>
                                                 <div class="card">
-                                                    <div class="card-block">
+                                                    <div class="card-body">
                                                         <div class="row">
                                                             <div *ngFor="let correctionItem of fnGetCorrectionsForClient(clientItem._id)">
                                                                 <div class="row">
@@ -68,20 +68,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </template>
+                                            </ng-template>
                                         </ngb-tab>
                                     </ngb-tabset>
-                                </template>
+                                </ng-template>
                             </ngb-panel>
                         </ngb-accordion>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.CLIENT TYPE.MENU.ADD A CLIENT TYPE' | translate}}" id="tabAddAClientType">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="clientForm" (ngSubmit)="save(clientForm.value, clientForm.valid)">
                                 <div class="form-group row">
@@ -108,12 +108,12 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.CLIENT TYPE.MENU.CORRECTION FACTORS' | translate}}" id="tabCorrections">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-2 vcenter"></div>
                             <div *ngFor="let correctionItem of correctionList" class="col-sm-1 vcenter"><b>{{correctionItem.shortcut}}</b></div>
@@ -132,7 +132,7 @@
 
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
 
     </ngb-tabset>

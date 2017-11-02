@@ -1,15 +1,15 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
             <ngb-tab title="Refresh from database" id="tabRefreshFromDb">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-editor-autocomplete [selectableData]="dbCollectionsObservable" [selectedId]="collectionSelected" (idChanged)="dbChanged($event)" ></gg-editor-autocomplete>
                             <button class="link" (click)="refresh()">refresh</button>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
     </div>

@@ -1,10 +1,10 @@
 <div class="card" *ngIf="labo && labo.data">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset>
             <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.MENU.GENERAL' | translate}}" id="tabGeneral">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.LABEL.NAME OF LABORATORY' | translate}}</div>
                                 <div class="col-sm-6 vcenter">
@@ -38,12 +38,12 @@
 
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.MENU.ORDER VALIDATION' | translate}}" id="tabValidation">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="row" *ngFor="let step of labo.annotation.validationSteps; let isFirst=first; let isLast=last; let index=index">
 
                                 <div class="col-sm-1 vcenter">
@@ -69,17 +69,17 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.MENU.DELIVERY' | translate}}" id="tabDelivery">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <ngb-tabset>
                                 <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.MENU.ADRESSES' | translate}}" id="tabAdresses">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="container-fluid">
                                                     <div class="row">
                                                         <div class="col-sm-2 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.COLUMN.NAME OF DELIVERY' | translate}}</b></div>
@@ -110,12 +110,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.LIVRAISON.MENU.ADD ADDRESS' | translate}}" id="tabAddAddress">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="container-fluid">
                                                     <form [formGroup]="addAddressForm" (ngSubmit)="save(addAddressForm.value, addAddressForm.valid)">
                                                         <div class="form-group row">
@@ -160,22 +160,22 @@
 			        							</div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>                
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.MENU.SAP' | translate}}" id="tabSap">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <ngb-tabset>
                                 <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.SAP.MENU.GENERAL' | translate}}" id="tabGeneral">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.MAXIMAL AMOUNT ORDER' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
@@ -196,17 +196,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.SAP.MENU.FIRST IDS' | translate}}" id="tabFirstIds">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <ngb-tabset>
                                                     <ngb-tab *ngIf="labo.data.sapFirstIdList && labo.data.sapFirstIdList.length > 0" title="{{'ADMINISTRATION.LABOCONFIG.SAP.MENU.LIST OF FIRST ID SAP' | translate}}" id="tabListOfFirstIdSap">
-                                                        <template ngbTabContent>
+                                                        <ng-template ngbTabContent>
                                                             <div class="card">
-                                                                <div class="card-block">
+                                                                <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.SAP.COLUMN.NUMBER OF CHARACTERS' | translate}}</b></div>
                                                                         <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.SAP.COLUMN.STARTING WITH' | translate}}</b></div>
@@ -227,12 +227,12 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-tab>
                                                     <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.SAP.MENU.ADD FIRST ID' | translate}}" id="tabAddFirstId">
-                                                        <template ngbTabContent>
+                                                        <ng-template ngbTabContent>
                                                             <div class="card">
-                                                                <div class="card-block">
+                                                                <div class="card-body">
                                                                     <div class="container-fluid">
                                                                         <form [formGroup]="addFirstIdsForm" (ngSubmit)="saveFirstIds(addFirstIdsForm.value, addFirstIdsForm.valid)">
                                                                             <div class="form-group row">
@@ -265,17 +265,17 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-tab>
                                                 </ngb-tabset>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                                 <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.SAP.MENU.OTP WARNING' | translate}}" id="tabOtpWarning">
-                                    <template ngbTabContent>
+                                    <ng-template ngbTabContent>
                                         <div class="card">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-sm-3 vcenter">{{'ADMINISTRATION.LABOCONFIG.SAP.LABEL.MONTHS BEFORE END' | translate}}</div>
                                                     <div class="col-sm-6 vcenter">
@@ -296,17 +296,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-tab>
                             </ngb-tabset>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>        
             <ngb-tab title="{{'ADMINISTRATION.LABOCONFIG.MENU.PLATFORM' | translate}}" id="tabPlatform">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3 vcenter"><b>{{'ADMINISTRATION.LABOCONFIG.PLATFORM.LABEL.SELLING SERVICES AS SUPPLIER' | translate}}</b></div>
                                 <div class="col-sm-8 vcenter">
@@ -321,7 +321,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>        
         </ngb-tabset>
     </div>

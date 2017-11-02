@@ -10,19 +10,19 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-3"><b>{{'SUPPLIER.COLUMN.SUPPLIER' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.CITY' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.COUNTRY' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'SUPPLIER.COLUMN.VOUCHERS' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
-			</template>
+			</ng-template>
+			<ng-template ngbPanelContent>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let supplier of suppliers" [id]="supplier.data._id">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row" id="{{supplier.data._id}}">
 					<div class="col-sm-3" [style.font-weight]="supplier.data._id === state.openPanelId ? 'bold' : 'lighter'">{{supplier.data.name}}</div>
 					<div class="col-sm-2">{{supplier.data.city}}</div>
@@ -31,11 +31,11 @@
 						? ' (' + supplier.annotation.webShopping.nbVouchersOrdered + ' pending)' : '' ) : 'no web' }}</div>
 					<div class="col-sm-1" *ngIf="supplier.annotation.hasBasket"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-supplier-detail [supplierId]="supplier.data._id" [state]="state[supplier.data._id]" [initialTab]="initialTabInSupplierDetail"
 				 [path]="path+'|P:'+supplier.data._id" (stateChanged)="childStateChanged($event, supplier.data._id)"></gg-supplier-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

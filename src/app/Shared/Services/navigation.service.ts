@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core'
 import { Observable, Subscription } from 'rxjs/Rx'
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router'
-import { SimplePageScrollService } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
-
+/*import { SimplePageScrollService } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
+*/
 
 class NavStackElement {
     public lastPosition: number = -1
@@ -70,7 +70,7 @@ class Path2StateHelper {
 export class NavigationService {
 
     private navStack: NavStackElement[] = []
-    constructor(private router: Router, private route: ActivatedRoute, private simplePageScrollService: SimplePageScrollService) { }
+    constructor(private router: Router, private route: ActivatedRoute) { }    //, private simplePageScrollService: SimplePageScrollService
 
     private addStackElement(lastPosition: number, path: string) {
         let element = new NavStackElement(lastPosition, path)
@@ -135,13 +135,13 @@ export class NavigationService {
                 if (helper.isForDetailView()) return
                 var state = helper.getState()
                 if (state['openPanelId']) {
-                    this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0)  //in every list component, in the html, we put a  id 
+                    //this.simplePageScrollService.scrollToElement('#' + state['openPanelId'], 0)  //in every list component, in the html, we put a  id 
                 }
             }
         })
     }
 
     jumpToTop() {
-        this.simplePageScrollService.scrollToElement('#GGTOP', 0) 
+        //this.simplePageScrollService.scrollToElement('#GGTOP', 0) 
     }
 }

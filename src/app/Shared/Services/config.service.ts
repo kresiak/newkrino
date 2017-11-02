@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core'
-import { TranslateService, LangChangeEvent } from 'ng2-translate'
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core'
 import { Observable} from 'rxjs/Rx'
 
 Injectable()

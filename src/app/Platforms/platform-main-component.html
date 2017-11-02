@@ -1,77 +1,77 @@
 <div class="card" *ngIf="authorizationStatusInfo?.isLoggedIn && authorizationStatusInfo?.isPlatformAdminstrator()">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset>
             <ngb-tab title="{{'PLATFORM.MENU.SERVICES' | translate}}" id="tabServices">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-services></gg-platform-services>
 				        </div>
 			        </div>
-		        </template>
+		        </ng-template>
 	        </ngb-tab>  
             <ngb-tab title="{{'PLATFORM.MENU.MACHINES' | translate}}" id="tabMachines">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-machines></gg-platform-machines>
 				        </div>
 			        </div>
-		        </template>
+		        </ng-template>
 	        </ngb-tab>  
             <ngb-tab title="{{'PLATFORM.MENU.LABOUR TYPES' | translate}}" id="tabLabourTypes">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-labour></gg-platform-labour>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PLATFORM.MENU.CLIENT TYPES' | translate}}" id="tabClientTypes">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-client></gg-platform-client>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PLATFORM.MENU.CORRECTION TYPES' | translate}}" id="tabCorrectionTypes">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-correction></gg-platform-correction>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PLATFORM.MENU.ENTERPRISES' | translate}}" id="tabEnterprises">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-enterprises></gg-platform-enterprises>                            
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PLATFORM.MENU.CLIENTS' | translate}}" id="tabClients">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-clients></gg-platform-clients>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'PLATFORM.MENU.OFFERS' | translate}}" id="tabOffer">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <gg-platform-offers></gg-platform-offers>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
 
         </ngb-tabset> 

@@ -22,7 +22,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-1" (click)="setSortKey(SortKey.SapId)"><b>{{'SAP.COLUMN.SAP ID' | translate}}<span *ngIf="isSortKeySet(SortKey.SapId)">!</span> </b></div>
 					<div class="col-sm-1" (click)="setSortKey(SortKey.OurRef)"><b>{{'SAP.COLUMN.OUR REF' | translate}}<span *ngIf="isSortKeySet(SortKey.OurRef)">!</span></b></div>
@@ -35,13 +35,13 @@
 					<div class="col-sm-2"><b>{{'SAP.COLUMN.OTP' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'SAP.COLUMN.EQUIPE' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 
-			</template>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let sap of saps" [id]="sap.mainData.data.sapId.toString()">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row" id="{{sap.mainData.data.sapId}}">
 					<div class="col-sm-1" [style.font-weight]="sap.mainData.data.sapId === state.openPanelId ? 'bold' : 'lighter'">{{sap.mainData.data.sapId}}</div>
 					<div class="col-sm-1">{{sap.mainData.data.ourRef}}</div>
@@ -61,11 +61,11 @@
 						<gg-text-compact [text]="sap.equipeInfo || ''" [extraTooltipText]="sap.extraEquipeInfo"></gg-text-compact>
 					</div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-sap-detail [sapObservable]="getSapObservable(sap.mainData.data.sapId)" [state]="state[sap.mainData.data.sapId]" [path]="path+'|P:'+sap.mainData.data.sapId"
 				 (stateChanged)="childStateChanged($event, sap.mainData.data.sapId)"></gg-sap-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

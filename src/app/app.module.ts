@@ -3,35 +3,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChartistModule, ChartistComponent } from 'angular2-chartist';
+/*import { ChartistModule, ChartistComponent } from 'angular2-chartist';*/
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ImageUploadModule } from "angular2-image-upload"
 
-import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';
+/*import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';*/
 
-import { BasicServicesModule } from'./Shared/Services/modules/basic.services.module'
+import { BasicServicesModule } from './Shared/Services/modules/basic.services.module'
 
-import { PlatformModule } from'./Platforms/modules/platform.module'
+import { PlatformModule } from './Platforms/modules/platform.module'
 
-import { UiModule } from'./ui/modules/ui.module'
+import { UiModule } from './ui/modules/ui.module'
 
-import { ProductsModule } from'./products/modules/products.module'
+import { ProductsModule } from './products/modules/products.module'
 
-import { OrdersModule } from'./Orders/modules/orders.module'
+import { OrdersModule } from './Orders/modules/orders.module'
 
-import { CommentsModule } from'./Comments/modules/comments.module'
+import { CommentsModule } from './Comments/modules/comments.module'
 
-import { XeniaModule } from'./Xenia/modules/xenia.module'
+import { XeniaModule } from './Xenia/modules/xenia.module'
 
-import { XeniaMainComponent } from'./Xenia/xenia-main.component'
-import { XeniaWelcomeMainComponent } from'./Xenia/xenia-welcome-main.component'
-import { XeniaWelcomeIntroComponent } from'./Xenia/welcome/welcome-intro.component'
-import { XeniaWelcomeNameComponent } from'./Xenia/welcome/welcome-name.component'
-import { XeniaWelcomeNameConfirmComponent } from'./Xenia/welcome/welcome-name-confirm.component'
-import { XeniaWelcomeEmailComponent } from'./Xenia/welcome/welcome-email.component'
-import { XeniaWelcomePiComponent } from'./Xenia/welcome/welcome-pi.component'
-import { XeniaWelcomeFinalComponent } from'./Xenia/welcome/welcome-final.component'
+import { XeniaMainComponent } from './Xenia/xenia-main.component'
+import { XeniaWelcomeMainComponent } from './Xenia/xenia-welcome-main.component'
+import { XeniaWelcomeIntroComponent } from './Xenia/welcome/welcome-intro.component'
+import { XeniaWelcomeNameComponent } from './Xenia/welcome/welcome-name.component'
+import { XeniaWelcomeNameConfirmComponent } from './Xenia/welcome/welcome-name-confirm.component'
+import { XeniaWelcomeEmailComponent } from './Xenia/welcome/welcome-email.component'
+import { XeniaWelcomePiComponent } from './Xenia/welcome/welcome-pi.component'
+import { XeniaWelcomeFinalComponent } from './Xenia/welcome/welcome-final.component'
 
 import { AppComponent } from './app.component'
 import { HomeComponent } from './home.component'
@@ -158,27 +159,34 @@ import { AuthAnoynmousService } from './Shared/Services/auth-anonymous.service'
 
 import { RainbowDirective } from './Shared/Directives/test.directive'
 
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate'
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '/krino/i18n/', ".json");
+}
 
 @NgModule({
   imports: [
     UiModule, ProductsModule, CommentsModule, OrdersModule, XeniaModule,
     BasicServicesModule.forRoot(),
     PlatformModule.forRoot(),
-    ChartistModule,
+    //ChartistModule,
     BrowserModule,
     FormsModule, ReactiveFormsModule,
+    HttpClientModule,
     HttpModule,
     Ng2AutoCompleteModule,
     NgbModule.forRoot(),
-    Ng2SimplePageScrollModule.forRoot(),
+    //Ng2SimplePageScrollModule.forRoot(),
     ImageUploadModule.forRoot(),
     TranslateModule.forRoot(
       {
-        provide: TranslateLoader,
-        useFactory: (http: Http) => new TranslateStaticLoader(http, '/krino/i18n', '.json'),
-        deps: [Http]
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
       }
     ),
     RouterModule.forRoot([
@@ -211,8 +219,8 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
       { path: 'communication', component: CommunicationEnterComponent },
       { path: 'platform', component: PlatformMainComponent },
       { path: 'public', component: PublicMainComponent },
-      { 
-        path: 'xenia', 
+      {
+        path: 'xenia',
         component: XeniaMainComponent,
         children: [
           {
@@ -224,13 +232,13 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
                 pathMatch: 'full',
                 redirectTo: 'intro'
               },
-              {                
+              {
                 path: 'intro',
-                component: XeniaWelcomeIntroComponent                  
+                component: XeniaWelcomeIntroComponent
               },
               {
                 path: 'name',
-                component: XeniaWelcomeNameComponent             
+                component: XeniaWelcomeNameComponent
               },
               {
                 path: 'nameConfirm',
@@ -238,20 +246,20 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
               },
               {
                 path: 'email',
-                component: XeniaWelcomeEmailComponent            
+                component: XeniaWelcomeEmailComponent
               },
               {
                 path: 'pi',
-                component: XeniaWelcomePiComponent                  
+                component: XeniaWelcomePiComponent
               },
               {
                 path: 'final',
                 component: XeniaWelcomeFinalComponent
-              }                            
+              }
             ]
           }
         ]
-      },      
+      },
       { path: '**', redirectTo: '/home' }
     ])
   ],
@@ -272,14 +280,14 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     EquipeGiftGridComponent, EquipeBilanComponent, EquipeDebtDetailsComponent,
     PreOrderComponent, OrderComponentRoutable, BasketRoutableComponent, OrderListComponentRoutable, OrderFridgeListComponent,
     SapComponentRoutable, SapDetailComponent, SapSheetComponent, SapListComponentRoutable, SapListComponent, SapListBySapIdsComponent,
-    
+
     SupplierSapDetailComponent, SupplierSapListComponent,
     PublicMainComponent, MarketsMainComponent, MarketsEnterComponent, SigninEnterComponent, RegisterEnterComponent,
     RainbowDirective,
   ],
-  providers: [NavigationService, OtpChoiceService,  SupplierService, OrderService, UserService, ChartService, MenuService,
+  providers: [NavigationService, OtpChoiceService, SupplierService, OrderService, UserService, ChartService, MenuService,
     SapService, OtpService, EquipeService, StockService, VoucherService, BasketService, NotificationService, AuthAnoynmousService
-    ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

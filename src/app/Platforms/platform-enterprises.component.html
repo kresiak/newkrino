@@ -1,13 +1,13 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <ngb-tab *ngIf="enterprisesList && enterprisesList.length > 0" title="{{'PLATFORM.ENTERPRISE.MENU.LIST OF ENTERPRISES' | translate}}" id="tabListOfEnterprises">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                             <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                                 <ngb-panel [disabled]="true">
-                                    <template ngbPanelTitle>
+                                    <ng-template ngbPanelTitle>
                                         <div class="row">
                                             <div class="col-sm-3"><b>{{'PLATFORM.ENTERPRISE.COLUMN.NAME' | translate}}</b></div>
                                             <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TELEPHONE' | translate}}</b></div>
@@ -15,10 +15,10 @@
                                             <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.WEB' | translate}}</b></div>
                                             <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TYPE' | translate}}</b></div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-panel>
                                 <ngb-panel *ngFor="let enterpriseItem of enterprisesList">
-                                    <template ngbPanelTitle>
+                                    <ng-template ngbPanelTitle>
                                         <div class="row" id="{{enterpriseItem._id}}">
                                             <div class="col-sm-3">{{enterpriseItem.data.name}}</div>
                                             <div class="col-sm-2">{{enterpriseItem.data.telephone}}</div>
@@ -26,13 +26,13 @@
                                             <div class="col-sm-2">{{enterpriseItem.data.web}}</div>
                                             <div class="col-sm-2">{{enterpriseItem.annotation.clientType}}</div>
                                         </div>
-                                    </template>
-                                    <template ngbPanelContent>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
                                     <ngb-tabset>
                                         <ngb-tab title="{{'PLATFORM.ENTERPRISE.MENU.INFO' | translate}}" id="tabInfo">
-                                            <template ngbTabContent>
+                                            <ng-template ngbTabContent>
                                                 <div class="card">
-                                                    <div class="card-block">
+                                                    <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-sm-3 vcenter"><b>{{'PLATFORM.ENTERPRISE.LABEL.NAME' | translate}}</b></div>
                                                             <div class="col-sm-8 vcenter">
@@ -58,22 +58,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </template>
+                                            </ng-template>
                                         </ngb-tab>
                                         
                                     </ngb-tabset>
-		                            </template>
+		                            </ng-template>
 				                </ngb-panel>
 			                </ngb-accordion>
 		                </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.ENTERPRISE.MENU.ADD AN ENTERPRISE' | translate}}" id="tabAddEnterprise">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="enterprisesForm" (ngSubmit)="save(enterprisesForm.value, enterprisesForm.valid)">
                                 <div class="form-group row">
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>

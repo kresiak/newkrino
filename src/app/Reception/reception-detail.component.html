@@ -1,10 +1,10 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset>
             <ngb-tab title="{{'RECEPTION.MENU.NEW PACKET' | translate}}" id="newPacket">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="container-fluid">
                                 <form [formGroup]="receptionForm" (ngSubmit)="save(receptionForm.value, receptionForm.valid)">
                                     <div class="form-group row">
@@ -44,12 +44,12 @@
                             </div>
 				        </div>
 			        </div>
-		        </template>
+		        </ng-template>
 	        </ngb-tab>  
             <ngb-tab title="{{'RECEPTION.MENU.LIST OF PACKET' | translate}}" id="listOfPacket">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <div class="container-fluid">
         						<div class="row">
                                     <div class="col-sm-2 vcenter"><b>{{'RECEPTION.COLUMN.WHEN' | translate}}</b></div>
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
     </div>

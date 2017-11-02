@@ -1,7 +1,7 @@
 <br/>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12 hidden-sm-down">
+		<div class="col-md-12 d-none d-md-block">
 			<div class="jumbotron ">
 				<h1 style="text-align: center;">κρίνω: {{'HOME.KRINO.GREEK' | translate}}</h1><br/>
 				<h4 style="text-align: center;">Redesign of Krino: component oriented in order to allow better customization and maintenance.</h4> <br/>
@@ -28,12 +28,12 @@
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-			<div class="card text-xs-center card-outline-success">
+			<div class="card text-xs-center border-success">
 				<div class="card-header">
 					{{'HOME.CARD HEADER.YOUR BUDGET' | translate}}
 				</div>
 				<!--				<img class="card-img-top" src="../../images/GIGAlogo.png" alt="Card image cap">-->
-				<div class="card-block ">
+				<div class="card-body ">
 					<h4 class="card-title">{{'HOME.CARD TITLE.STATISTICS' | translate}}</h4>
 					<img class="card-img img-fluid" src="../images/chart.png" alt="Card image">
 					<br/>
@@ -45,11 +45,11 @@
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="messageList && messageList.length > 0">
-			<div class="card text-xs-center card-outline-primary">
+			<div class="card text-xs-center border-primary">
 				<div class="card-header">
 					{{'HOME.CARD HEADER.INFORMATION' | translate}}
 				</div>
-				<div class="card-block">
+				<div class="card-body">
 					<h4 class="card-title">{{'HOME.CARD TITLE.NEW MESSAGES' | translate}}</h4>
 					<ul class="card-text text-xs-left mail">
 						<li *ngFor="let message of messageList"><gg-date-pointer [date]="message.data.createDate"></gg-date-pointer>: from {{message.annotation.user}} says '{{message.data.message}}'</li>
@@ -58,11 +58,11 @@
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngIf="receptionList && receptionList.length > 0">
-			<div class="card text-xs-center card-outline-warning">
+			<div class="card text-xs-center border-warning">
 				<div class="card-header">
 					{{'HOME.CARD HEADER.FROM RECEPTION' | translate}}
 				</div>
-				<div class="card-block">
+				<div class="card-body">
 					<h4 class="card-title">{{'HOME.CARD TITLE.NEW DELIVERIES' | translate}}</h4>
 					<ul class="card-text text-xs-left package_at_reception">
 						<li *ngFor="let reception of receptionList"><gg-date-pointer [date]="reception.data.createDate"></gg-date-pointer>: from {{reception.annotation.supplier}} with reference {{reception.data.reference}} can be found in {{reception.data.position}}</li>

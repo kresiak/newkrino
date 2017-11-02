@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from 'ng2-translate'
+import { TranslateModule } from '@ngx-translate/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { UiModule } from'../../ui/modules/ui.module'

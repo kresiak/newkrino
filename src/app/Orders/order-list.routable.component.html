@@ -1,36 +1,36 @@
 <div id="GGTOP"></div>
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <ngb-tabset [activeId]="state.selectedTabId" *ngIf="laboName">
             <ngb-tab title="{{'ORDER.MENU.VIEW ORDERS' | translate}}" id="tabView">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-order-list [state]="state" [ordersObservable]="ordersObservable"></gg-order-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ORDER.MENU.VIEW FRIDGE ORDERS' | translate}}" id="tabViewFridge">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-order-fridge-list [path]="'orders|O:ViewFridge'" [fridgeOrdersObservable]="fridgeOrdersObservable"></gg-order-fridge-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ORDER.MENU.VIEW STOCK ORDERS' | translate}}" id="tabViewStock">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-stock-order-list [path]="'orders|O:ViewStock'" [state]="state.ViewStock" [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ORDER.MENU.VIEW WEB ORDERS' | translate}}" id="tabUsedVouchers" *ngIf="((webVouchersObservable |async) || []).length>0">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
-                </template>
+                </ng-template>
             </ngb-tab>
             <ngb-tab title="{{'ORDER.MENU.CREATE AN ORDER' | translate}}" id="tabCreate" *ngIf="authorizationStatusInfo?.isLoggedIn">
-                <template ngbTabContent>
+                <ng-template ngbTabContent>
                     <div class="card">
-                        <div class="card-block">
+                        <div class="card-body">
                             <h6>Choose the supplier you want to order from</h6>
                             <gg-supplier-list [suppliersObservable]="suppliersObservable" [initialTabInSupplierDetail]="'tabProducts'"></gg-supplier-list>
                         </div>
                     </div>
-                </template>
+                </ng-template>
             </ngb-tab>
         </ngb-tabset>
         <h4 *ngIf="!laboName">sorry: choose a labo first</h4>

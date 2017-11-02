@@ -1,10 +1,10 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <!-- (tabChange)="beforeTabChange($event)" [activeId]="initTabId"-->
         <ngb-tab title="List of products" id="tabListOfProducts">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
 
                         <gg-search-box [objectTypeTranslationKey]="'MARKET PRODUCTS'" [objectsObservable]="productsObservable" [fnFilterObjects]="fnFilterProduct"
                             (listChanged)="productsList = $event">
@@ -16,7 +16,7 @@
                             </ul>
 
                             <div accordion class="card">
-                                <div class="card-block">
+                                <div class="card-body">
 
                                     <div class="row">
                                         <div class="col-sm-2 vcenter">
@@ -74,29 +74,29 @@
                                                             </div>
                                                             <div class="row" [ngbCollapse]="!item.annotation.isClosed" *ngIf="(item.data.documents || []).length > 0">
                                                                 <div class="card">
-                                                                    <div class="card-block">
+                                                                    <div class="card-body">
                                                                         <ngb-tabset>
                                                                             <ngb-tab title="{{'PUBLIC.MARKET.MENU.CAROUSEL' | translate}}">
-                                                                                <template ngbTabContent>
+                                                                                <ng-template ngbTabContent>
                                                                                     <div class="card">
-                                                                                        <div class="card-block">
+                                                                                        <div class="card-body">
                                                                                             <ngb-carousel>
                                                                                                 <div *ngFor="let document of (item.data.documents || [])">
-                                                                                                    <template ngbSlide>
+                                                                                                    <ng-template ngbSlide>
                                                                                                         <img [src]="dataStore.getPictureUrl(document.filename)">
                                                                                                         <div class="carousel-caption">
                                                                                                         </div>
-                                                                                                    </template>
+                                                                                                    </ng-template>
                                                                                                 </div>
                                                                                             </ngb-carousel>
                                                                                         </div>
                                                                                     </div>
-                                                                                </template>
+                                                                                </ng-template>
                                                                             </ngb-tab>
                                                                             <ngb-tab title="{{'PUBLIC.MARKET.MENU.DELETE DOC' | translate}}">
-                                                                                <template ngbTabContent>
+                                                                                <ng-template ngbTabContent>
                                                                                     <div class="card">
-                                                                                        <div class="card-block">
+                                                                                        <div class="card-body">
                                                                                             <div class="row" *ngFor="let document of (item.data.documents || []); let docPos = index">
                                                                                                 <!--FOR-->
                                                                                                 <div class="col-sm-3 vcenter">
@@ -108,18 +108,18 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </template>
+                                                                                </ng-template>
                                                                             </ngb-tab>
                                                                             <ngb-tab title="{{'PUBLIC.MARKET.MENU.ADD DOC' | translate}}"  *ngIf="isUser(item)">
-                                                                                <template ngbTabContent>
+                                                                                <ng-template ngbTabContent>
                                                                                     <div class="card">
-                                                                                        <div class="card-block">
+                                                                                        <div class="card-body">
                                                                                             <image-upload [url]="dataStore.getUploadUrl()" [max]="1" (uploadFinished)="onUploadFinished(product, itemPos,$event)"
                                                                                                 [buttonCaption]="'PUBLIC.MARKET.SELECT IMAGES' | translate" [dropBoxMessage]="'PUBLIC.MARKET.DROP YOUR IMAGES HERE' | translate" [clearButtonCaption]="'PUBLIC.MARKET.CLEAR' | translate">
                                                                                             </image-upload>
                                                                                         </div>
                                                                                     </div>
-                                                                                </template>
+                                                                                </ng-template>
                                                                             </ngb-tab>
                                                                         </ngb-tabset>
                                                                     </div>
@@ -138,12 +138,12 @@
                         </gg-search-box>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="Enter new product" id="tabEnterNewProduct">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <gg-enter-market-product></gg-enter-market-product>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>

@@ -5,7 +5,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-3"><b>{{'EQUIPE.COLUMN.EQUIPE' | translate}}</b></div>
 					<div class="col-sm-2"><b>{{'EQUIPE.COLUMN.AVAILABLE' | translate}}</b></div>
@@ -13,13 +13,13 @@
 					<div class="col-sm-2"><b>{{'EQUIPE.COLUMN.DEBT' | translate}}</b></div>
 					<div class="col-sm-2"><b></b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 
-			</template>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let equipe of equipes" [id]="equipe.data._id">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row" id="{{equipe.data._id}}">
 					<div class="col-sm-3" [style.font-weight]="equipe.data._id === state.openPanelId ? 'bold' : 'lighter'">{{equipe.data.name}}</div>
 					<div class="col-sm-2">{{equipe.annotation.amountAvailable | currency:'EUR':true:'1.2-2'}}</div>
@@ -27,11 +27,11 @@
 					<div class="col-sm-2" [style.color]="equipe.annotation.owing - equipe.annotation.owed > 0 ? 'red' : 'green'">{{(equipe.annotation.owing - equipe.annotation.owed) | currency:'EUR':true:'1.2-2'}}</div>
 					<div class="col-sm-2" [style.color]="'red'">{{ equipe.data.isBlocked ? 'Blocked ' : '' }}</div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-equipe-detail [equipeObservable]="getEquipeObservable(equipe.data._id)" [initialTab]="initialTabInEquipeDetail" [state]="state[equipe.data._id]"
 				 [path]="path+'|P:'+equipe.data._id" (stateChanged)="childStateChanged($event, equipe.data._id)"></gg-equipe-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

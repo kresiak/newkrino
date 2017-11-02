@@ -1,6 +1,6 @@
-<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
+<ng-template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</ng-template>
 
-<template #mymodal let-c="close" let-d="dismiss">
+<ng-template #mymodal let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<button type="button" class="close" (click)="d('Cross click')">
             <span >&times;</span>
@@ -9,7 +9,7 @@
 	</div>
 	<div class="modal-body">
 		<div class="card">
-			<div class="card-block">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-sm-4"><b>{{'ORDER.COLUMN.PRODUCT' | translate}}</b></div>
 					<div class="col-sm-1"><b>{{'ORDER.COLUMN.ORDERED' | translate}}</b></div>
@@ -49,14 +49,14 @@
 			</div>
 		</div>
 	</div>
-</template>
+</ng-template>
 
 <div class="orderDetailClass">
 	<ngb-tabset *ngIf="order" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
 		<ngb-tab title="{{'ORDER.MENU.DETAILS' | translate}}" id="tabDetails">
-			<template ngbTabContent>
+			<ng-template ngbTabContent>
 				<div class="card">
-					<div class="card-block">
+					<div class="card-body">
 						<br><br>
 						<div class="container-fluid">
 							<div class="row">
@@ -195,23 +195,23 @@
 						</div>
 					</div>
 				</div>
-			</template>
+			</ng-template>
 		</ngb-tab>
 
 		<ngb-tab id="tabComments">
-			<template ngbTabTitle>
+			<ng-template ngbTabTitle>
 				<gg-comments-tab-title [data]="order.data"></gg-comments-tab-title>
-			</template>
-			<template ngbTabContent>
+			</ng-template>
+			<ng-template ngbTabContent>
 				<gg-comments-tab [data]="order.data" [dbTable]="'orders'" [urlPart]="'order'"></gg-comments-tab>
-			</template>
+			</ng-template>
 		</ngb-tab>
 
 
 		<ngb-tab title="{{'ORDER.MENU.REPARTITION' | translate}}" id="tabRepartition" *ngIf="order.annotation.equipes">
-			<template ngbTabContent>
+			<ng-template ngbTabContent>
 				<div class="card">
-					<div class="card-block">
+					<div class="card-body">
 						<div class="row">
 							<div class="row">
 								<div class="col-sm-4 vcenter"><b>Member equipe</b></div>
@@ -224,17 +224,17 @@
 						</div>
 					</div>
 				</div>
-			</template>
+			</ng-template>
 		</ngb-tab>
 		<ngb-tab title="{{'ORDER.MENU.DELIVERIES' | translate}}" id="tabDeliveries">
-			<template ngbTabContent>
+			<ng-template ngbTabContent>
 				<div class="card">
-					<div class="card-block">
+					<div class="card-body">
 						<ngb-tabset>
 							<ngb-tab title="{{'ORDER.MENU.ADD DELIVERIES' | translate}}" id="tabDeliveriesAdd">
-								<template ngbTabContent>
+								<ng-template ngbTabContent>
 									<div class="card">
-										<div class="card-block">
+										<div class="card-body">
 
 
 											<br/><br/>
@@ -284,12 +284,12 @@
 											</div>
 										</div>
 									</div>
-								</template>
+								</ng-template>
 							</ngb-tab>
 							<ngb-tab title="{{'ORDER.MENU.ALL DELIVERIES DETAILS' | translate}}" id="tabDeliveriesList" *ngIf="order.annotation.anyDeliveredByNewKrino">
-								<template ngbTabContent>
+								<ng-template ngbTabContent>
 									<div class="card">
-										<div class="card-block">
+										<div class="card-body">
 											<div class="row">
 												<div class="col-sm-2 "><b>{{'ORDER.COLUMN.WHEN' | translate}}</b></div>
 												<div class="col-sm-2 "><b>{{'ORDER.COLUMN.WHO' | translate}}</b></div>
@@ -317,20 +317,20 @@
 											</div>
 										</div>
 									</div>
-								</template>
+								</ng-template>
 							</ngb-tab>
 						</ngb-tabset>
 					</div>
 				</div>
-			</template>
+			</ng-template>
 		</ngb-tab>
 		<ngb-tab id="tabMax">
-			<template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-			<template ngbTabContent></template>
+			<ng-template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></ng-template>
+			<ng-template ngbTabContent></ng-template>
 		</ngb-tab>
 		<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-			<template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
-			<template ngbTabContent></template>
+			<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></ng-template>
+			<ng-template ngbTabContent></ng-template>
 		</ngb-tab>
 
 	</ngb-tabset>

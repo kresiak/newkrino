@@ -1,36 +1,36 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <ngb-tab *ngIf="machinesList && machinesList.length !== 0" title="{{'PLATFORM.MACHINE.MENU.LIST OF MACHINES' | translate}}"
             id="tabListOfMachines">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                             <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
                                 <ngb-panel [disabled]="true">
-                                    <template ngbPanelTitle>
+                                    <ng-template ngbPanelTitle>
                                         <div class="row">
                                             <div class="col-sm-3"><b>{{'PLATFORM.MACHINE.COLUMN.NAME' | translate}}</b></div>
                                             <div class="col-sm-4"><b>{{'PLATFORM.MACHINE.COLUMN.DESCRIPTION' | translate}}</b></div>
                                             <div class="col-sm-2"><b>{{'PLATFORM.MACHINE.COLUMN.COST PER HOUR' | translate}}</b></div>
                                         </div>
-                                    </template>
+                                    </ng-template>
                                 </ngb-panel>
                                 <ngb-panel *ngFor="let machineItem of machinesList">
-                                    <template ngbPanelTitle>
+                                    <ng-template ngbPanelTitle>
                                         <div class="row" id="{{machineItem._id}}">
                                             <div class="col-sm-3">{{machineItem.data.name}}</div>
                                             <div class="col-sm-4">{{machineItem.data.description}}</div>
                                             <div class="col-sm-2 gg-price">{{machineItem.annotation.costOfHour | currency:'EUR':true:'1.2-2'}}</div>
                                             <div class="col-sm-2" [style.color]="'red'" *ngIf="!machineItem.annotation.isOK">Error in occupancy!!!</div>
                                         </div>
-                                    </template>
-                                    <template ngbPanelContent>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
                                         <ngb-tabset>
                                             <ngb-tab title="{{'PLATFORM.MACHINE.MENU.INFO' | translate}}" id="tabInfo">
-                                                <template ngbTabContent>
+                                                <ng-template ngbTabContent>
                                                     <div class="card">
-                                                        <div class="card-block">
+                                                        <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
@@ -73,12 +73,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </template>
+                                                </ng-template>
                                             </ngb-tab>
                                             <ngb-tab title="{{'PLATFORM.MACHINE.MENU.COST' | translate}}" id="tabCost">
-                                                <template ngbTabContent>
+                                                <ng-template ngbTabContent>
                                                     <div class="card">
-                                                        <div class="card-block">
+                                                        <div class="card-body">
                                                             <div class="row gg-line-height">
                                                                 <div class="col-sm-3 vcenter"><b>{{'PLATFORM.MACHINE.LABEL.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-8 vcenter">
@@ -103,21 +103,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </template>
+                                                </ng-template>
                                             </ngb-tab>
                                         </ngb-tabset>
-                                    </template>
+                                    </ng-template>
                                 </ngb-panel>
                             </ngb-accordion>
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.MACHINE.MENU.ADD A MACHINE' | translate}}" id="tabAddMachine">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="machineForm" (ngSubmit)="save(machineForm.value, machineForm.valid)">
                                 <div class="form-group row">
@@ -191,7 +191,7 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>

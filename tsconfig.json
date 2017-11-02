@@ -6,13 +6,14 @@
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
     "lib": ["es7", "dom"],
     "noImplicitAny": false,
-    "allowSyntheticDefaultImports": true,
      "suppressImplicitAnyIndexErrors": true
   },
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true // Allows other loaders to be chained to awesome-typescript-loader. 
-  }
+  },
+  "exclude": [
+        "node_modules/*"
+    ]
 }

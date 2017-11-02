@@ -3,7 +3,7 @@
 
 	<ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
 		<ngb-panel [disabled]="true">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row">
 					<div class="col-sm-1" *ngIf="isForSelection"></div>
 					<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>{{'PRODUCT.COLUMN.PRODUCT' | translate}}</b></div>
@@ -14,13 +14,13 @@
 					<div class="col-sm-1"><b>{{'PRODUCT.COLUMN.FRIGO' | translate}}</b></div>
 					<div class="col-sm-1"><b>{{'PRODUCT.COLUMN.DISABLED' | translate}}</b></div>
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 
-			</template>
+			</ng-template>
 		</ngb-panel>
 		<ngb-panel *ngFor="let product of products" [id]="product.data._id">
-			<template ngbPanelTitle>
+			<ng-template ngbPanelTitle>
 				<div class="row" id="{{product.data._id}}">
 					<div class="col-sm-1" *ngIf="isForSelection">
 						<img ngbTooltip="select product" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" (click)="productSelectedInList($event, product, false)"
@@ -47,11 +47,11 @@
 					<div class="col-sm-1" *ngIf="product.data.disabled"><img height="25" width="25" src="../../images/closed.png" /></div>
 
 				</div>
-			</template>
-			<template ngbPanelContent>
+			</ng-template>
+			<ng-template ngbPanelContent>
 				<gg-product-detail [productObservable]="getProductObservable(product.data._id)" [path]="path+'|P:'+product.data._id" [state]="state[product.data._id]"
 				 (stateChanged)="childStateChanged($event, product.data._id)"></gg-product-detail>
-			</template>
+			</ng-template>
 		</ngb-panel>
 	</ngb-accordion>
 

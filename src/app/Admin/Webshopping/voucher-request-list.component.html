@@ -1,31 +1,31 @@
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <div class="row">
             <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
                 <ngb-panel [disabled]="true">
-                    <template ngbPanelTitle>
+                    <ng-template ngbPanelTitle>
                         <div class="row">
                             <div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.WEB SUPPLIER' | translate}}</b></div>
                             <div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.CATEGORY' | translate}}</b></div>
                             <div class="col-sm-3"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.USER' | translate}}</b></div>
                             <div class="col-sm-2"><b>{{'ADMINISTRATION.WEB SHOPPING.COLUMN.NB OF REQUESTED VOUCHERS' | translate}}</b></div>
                         </div>
-                    </template>
-                    <template ngbPanelContent>
-                    </template>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                    </ng-template>
                 </ngb-panel>
                 <ngb-panel *ngFor="let request of openRequestsObservable | async" [id]="request.userId+'|'+request.supplierId+'|'+request.categoryId">
-                    <template ngbPanelTitle>
+                    <ng-template ngbPanelTitle>
                         <div class="row">
                             <div class="col-sm-3">{{request.supplierName}}</div>
                             <div class="col-sm-3">{{request.categoryName}}</div>
                             <div class="col-sm-3">{{request.userName}}</div>
                             <div class="col-sm-2">{{request.quantity}}</div>
                         </div>
-                    </template>
-                    <template ngbPanelContent>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
                         <gg-voucher-request [openRequest]="request"></gg-voucher-request>
-                    </template>
+                    </ng-template>
                 </ngb-panel>
             </ngb-accordion>
         </div>

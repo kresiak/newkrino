@@ -1,16 +1,16 @@
-<template #searchPopContent>
+<ng-template #searchPopContent>
     <ng-content select="[searchHelp]"></ng-content>
-</template>
+</ng-template>
 
-<template #tipSearchLoupe>
+<ng-template #tipSearchLoupe>
     <div style="font-size: 70%;"> {{'GENERAL.CLICK HERE TO' | translate}} <br/> {{'GENERAL.SEARCH SPECIFIC' | translate}} {{'GENERAL.' + objectTypeTranslationKey
         | translate}}</div>
-</template>
+</ng-template>
 
 
 
 <div class="card">
-    <div class="card-block">
+    <div class="card-body">
         <div class="row">
             <div [formGroup]="searchForm">
                 <img src="../../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
@@ -25,12 +25,12 @@
 
 
         <div class="card" *ngIf="(objects || []).length === 0">
-            <div class="card-block">
+            <div class="card-body">
                 <div class="centertextbox">{{'GENERAL.HITS.NO HIT TEXT' | translate:{param:objectTypeText} }}</div>
             </div>
         </div>
 
-        <div class="row" *ngIf="(objects || []).length > 0">
+        <div  *ngIf="(objects || []).length > 0">
             <ng-content select="[accordion]"></ng-content>
         </div>
 

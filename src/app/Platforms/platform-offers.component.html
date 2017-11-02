@@ -1,14 +1,14 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset>
         <ngb-tab *ngIf="offersList && offersList.length > 0" title="{{'PLATFORM.OFFER.MENU.LIST OF OFFERS' | translate}}" id="tabListOfOffers">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <gg-platform-offer-list [offersObservable]="offersObservable"></gg-platform-offer-list>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.OFFER.MENU.ADD AN OFFER' | translate}}" id="tabAddAnOffer">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="offerForm" (ngSubmit)="save(offerForm.value, offerForm.valid)">
                                 <div class="form-group row">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>

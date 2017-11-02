@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ImageUploadModule } from "angular2-image-upload"
 
-import { TranslateModule } from 'ng2-translate'
+import { TranslateModule } from '@ngx-translate/core'
 
 import { UiModule } from'../../ui/modules/ui.module'
 import { ProductsModule } from'../../products/modules/products.module'

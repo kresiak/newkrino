@@ -1,11 +1,11 @@
-<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
+<ng-template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</ng-template>
 
 <div>
     <ngb-tabset *ngIf="sapObj" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
         <ngb-tab title="{{'SAP.MENU.SUMMARY' | translate}}" id="tabDetails">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row" *ngIf="sapItem.data.isNoEngag">
                             <div class="col-sm-2">{{'SAP.LABEL.TYPE' | translate}}</div>
                             <div class="col-sm-8"><b>Pièce sans engagement</b> {{sapObj.typesPiece}}</div>
@@ -68,22 +68,22 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'SAP.MENU.ENGAGED' | translate}}" id="tabEngaged" *ngIf="sapEngage">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <gg-sap-sheet [isFacture]="false" [sapItem]="sapEngage.data"></gg-sap-sheet>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'SAP.MENU.INVOICED' | translate}}" id="tabInvoiced" *ngIf="sapFacture">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <gg-sap-sheet [isFacture]="true" [sapItem]="sapFacture.data"></gg-sap-sheet>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'SAP.MENU.ATTRIBUTION ÉQUIPES' | translate}}" id="tabEquipes">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-2 vcenter">{{'SAP.LABEL.EQUIPE' | translate}}:</div>
                             <div class="col-sm-6 vcenter">
@@ -100,15 +100,15 @@
                         </div>-->
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab id="tabMax">
-            <template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></template>
-            <template ngbTabContent></template>
+            <ng-template ngbTabTitle><img src="../../images/maximize.png" [ngbPopover]="popContent" triggers="mouseenter:mouseleave" /></ng-template>
+            <ng-template ngbTabContent></ng-template>
         </ngb-tab>
         <ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		    <template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
-            <template ngbTabContent></template>
+		    <ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></ng-template>
+            <ng-template ngbTabContent></ng-template>
         </ngb-tab>
 
     </ngb-tabset>
