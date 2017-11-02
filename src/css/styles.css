@@ -272,7 +272,7 @@ ul.spending{
 
 /*alex: this is removing the select focus on accordeon titles: https://stackoverflow.com/questions/30237114/how-to-remove-outline-appeared-on-click-in-bootstrap-ui-accordion */
 
-html * {outline: 0 !important;}
+html * {outline: 0 !important; text-decoration: none !important;}
 
 body, html {
     box-sizing: border-box;
