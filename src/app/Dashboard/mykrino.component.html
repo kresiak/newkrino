@@ -3,11 +3,7 @@
 		<ngb-tabset (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
 			<ngb-tab title="{{'MYKRINO.MENU.MY ACCOUNT' | translate}}" id='tabMyAccount'>
 				<ng-template ngbTabContent>
-					<div class="card">
-						<div class="card-body">
-							<gg-user-info [user]="currentUser"></gg-user-info>
-						</div>
-					</div>
+					<gg-user-info [user]="currentUser"></gg-user-info>
 				</ng-template>
 			</ngb-tab>
 			<ngb-tab title="{{'MYKRINO.MENU.MY NOTES' | translate}}" id="tabNotes">
@@ -20,15 +16,16 @@
 					<div class="card">
 						<div class="card-body">
 							<ngb-tabset>
-								<ngb-tab title="{{'MYKRINO.MENU.MY BASKET(S)' | translate}}" id="tabBaskets"  *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
+								<ngb-tab title="{{'MYKRINO.MENU.MY BASKET(S)' | translate}}" id="tabBaskets" *ngIf="((suppliersWithBasketObservable |async) || []).length>0">
 									<ng-template ngbTabContent>
-										<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)" [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
+										<gg-supplier-list [path]="'mykrino|O:Baskets'" [state]="state.Baskets" (stateChanged)="childBasketsStateChanged($event)"
+										 [suppliersObservable]="suppliersWithBasketObservable" [initialTabInSupplierDetail]="'tabBasket'"></gg-supplier-list>
 									</ng-template>
 								</ngb-tab>
-								<ngb-tab title="{{'MYKRINO.MENU.NON URGENT BASKET(S)' | translate}}" id="tabNonUrgentBaskets"  *ngIf="((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
+								<ngb-tab title="{{'MYKRINO.MENU.NON URGENT BASKET(S)' | translate}}" id="tabNonUrgentBaskets" *ngIf="((suppliersWithNonUrgentBasketObservable |async) || []).length>0">
 									<ng-template ngbTabContent>
-										<gg-supplier-list [path]="'mykrino|O:NonUrgentBaskets'" [state]="state.NonUrgentBaskets" (stateChanged)="childNonUrgentBasketsStateChanged($event)" 
-															[suppliersObservable]="suppliersWithNonUrgentBasketObservable" [initialTabInSupplierDetail]="'tabGroupedBasket'"></gg-supplier-list>
+										<gg-supplier-list [path]="'mykrino|O:NonUrgentBaskets'" [state]="state.NonUrgentBaskets" (stateChanged)="childNonUrgentBasketsStateChanged($event)"
+										 [suppliersObservable]="suppliersWithNonUrgentBasketObservable" [initialTabInSupplierDetail]="'tabGroupedBasket'"></gg-supplier-list>
 									</ng-template>
 								</ngb-tab>
 							</ngb-tabset>
@@ -42,15 +39,17 @@
 					<div class="card">
 						<div class="card-body">
 							<ngb-tabset>
-								<ngb-tab id="tabOrderVouchers" >
-									<ng-template ngbTabTitle>{{'MYKRINO.MENU.MY AVAILABLE VOUCHERS' | translate}} <gg-help-pointer [helpText]="'MYKRINO.HELP.NEW VOUCHERS' | translate"></gg-help-pointer></ng-template>
+								<ngb-tab id="tabOrderVouchers">
+									<ng-template ngbTabTitle>{{'MYKRINO.MENU.MY AVAILABLE VOUCHERS' | translate}}
+										<gg-help-pointer [helpText]="'MYKRINO.HELP.NEW VOUCHERS' | translate"></gg-help-pointer>
+									</ng-template>
 									<ng-template ngbTabContent>
 										<gg-supplier-list [suppliersObservable]="webSuppliersObservable" [initialTabInSupplierDetail]="'tabWebShopping'"></gg-supplier-list>
 									</ng-template>
 								</ngb-tab>
 								<ngb-tab title="{{'MYKRINO.MENU.MY USED VOUCHERS' | translate}}" id="tabUsedVouchers">
 									<ng-template ngbTabContent>
-										<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
+										<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
 									</ng-template>
 								</ngb-tab>
 							</ngb-tabset>
@@ -60,34 +59,34 @@
 			</ngb-tab>
 			<ngb-tab title="{{'MYKRINO.MENU.MY ORDERED PRODUCTS'  | translate}}" id="tabProducts" *ngIf="((productsObservable |async) || []).length>0">
 				<ng-template ngbTabContent>
-					<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="'mykrino|O:Products'"  (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
+					<gg-product-list [productsObservable]="productsObservable" [state]="state.Products" [path]="'mykrino|O:Products'" (stateChanged)="childProductsStateChanged($event)"></gg-product-list>
 				</ng-template>
 			</ngb-tab>
-			<ngb-tab title="{{'MYKRINO.MENU.MY ORDERS'  | translate}}" id="tabOrders" >
+			<ngb-tab title="{{'MYKRINO.MENU.MY ORDERS'  | translate}}" id="tabOrders">
 				<ng-template ngbTabContent>
 					<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="'mykrino|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 				</ng-template>
 			</ngb-tab>
-			<ngb-tab title="{{'MYKRINO.MENU.MY STOCK ORDERS' | translate}}" id="tabStockOrders" >
+			<ngb-tab title="{{'MYKRINO.MENU.MY STOCK ORDERS' | translate}}" id="tabStockOrders">
 				<ng-template ngbTabContent>
 					<gg-stock-order-list [state]="state.StockOrders" [path]="'mykrino|O:StockOrders'" [ordersObservable]="stockOrdersObservable"></gg-stock-order-list>
 				</ng-template>
 			</ngb-tab>
-			<ngb-tab title="{{'MYKRINO.MENU.MY FRIDGE ORDERS' | translate}}" id="tabFridgeOrders" >
+			<ngb-tab title="{{'MYKRINO.MENU.MY FRIDGE ORDERS' | translate}}" id="tabFridgeOrders">
 				<ng-template ngbTabContent>
-					<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="'mykrino|O:FridgeOrders'" ></gg-order-fridge-list>
+					<gg-order-fridge-list [fridgeOrdersObservable]="fridgeOrdersObservable" [path]="'mykrino|O:FridgeOrders'"></gg-order-fridge-list>
 				</ng-template>
 			</ngb-tab>
-			<ngb-tab title="{{'MYKRINO.MENU.MY VOUCHER ORDERS' | translate}}" id="tabVoucherOrders" >
+			<ngb-tab title="{{'MYKRINO.MENU.MY VOUCHER ORDERS' | translate}}" id="tabVoucherOrders">
 				<ng-template ngbTabContent>
-					<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true" ></gg-voucher-list>
+					<gg-voucher-list [vouchersObservable]="webVouchersObservable" [focusOnVoucherUsage]="true"></gg-voucher-list>
 				</ng-template>
 			</ngb-tab>
 			<ngb-tab title="{{'MYKRINO.MENU.MY EQUIPES' | translate}}" id="tabEquipes">
 				<ng-template ngbTabContent>
 					<gg-equipe-list [equipesObservable]="equipesObservable" [state]="state.Equipes" [path]="'mykrino|O:Equipes'" (stateChanged)="childEquipesStateChanged($event)"></gg-equipe-list>
 				</ng-template>
-			</ngb-tab>			
+			</ngb-tab>
 		</ngb-tabset>
 	</div>
 </div>
