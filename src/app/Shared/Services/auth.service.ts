@@ -184,7 +184,7 @@ export class AuthService {
                 this.setLoggedIn()
             }
             else {
-                this.authInfo.isLoginError = true
+                if (user) this.authInfo.isLoginError = true
                 this.setLoggedOut()
             }
         })

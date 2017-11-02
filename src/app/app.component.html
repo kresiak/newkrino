@@ -10,21 +10,15 @@
 
 <ng-template #passwordModal let-c="close" let-d="dismiss">
 	<div class="modal-header" style="padding:2px;background-color:lightblue">
-		<div class="row">
-			<h6 class="modal-title col-sm-10">{{laboName}}</h6>
-			<button type="button" class="close col-sm-2" aria-label="Close" (click)="d('Cross click')">
+		<h6 class="modal-title col-sm-10">{{laboName}}</h6>
+		<button type="button" class="close col-sm-2" aria-label="Close" (click)="d('Cross click')">
 			<span aria-hidden="true">&times;</span>
 			</button>
-		</div>
 	</div>
 	<div class="modal-body">
-		<div class="card">
+		<div class="card" style="border:none">
 			<div class="card-body">
-				<div class="form-group">
-					<div class="col-sm-12">
 						<input type="password" [(ngModel)]="password" style="height:32px;font-size:12px;" class="form-control" placeholder="{{'LOGIN.PWDWIN.LABEL' | translate}}">
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
