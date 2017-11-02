@@ -1,39 +1,38 @@
 <div class="card-body">
     <ngb-tabset>
-        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.LIST OF STEPS' | translate}}" *ngIf="serviceStepsList && serviceStepsList.length>0" id="tabListOfServices">
+        <ngb-tab title="{{'PLATFORM.SERVICE.STEP.MENU.LIST OF STEPS' | translate}}" *ngIf="serviceStepsList && serviceStepsList.length>0"
+            id="tabListOfServices">
             <ng-template ngbTabContent>
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion"  (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-                                <ngb-panel [disabled]="true">
-                                    <ng-template ngbPanelTitle>
-                                        <div class="row">
-                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.STEP' | translate}}</b></div>
-                                            <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.DESCRIPTION' | translate}}</b></div>
-                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.MACHINE' | translate}}</b></div>
-                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RUNTIME (IN H)' | translate}}</b></div>
-                                            <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.COST' | translate}} {{clientType ? ' (' + clientType + ')' : ''}}</b></div>
-                                        </div>
-                                    </ng-template>
-                                </ngb-panel>
-                                <ngb-panel *ngFor="let serviceStep of serviceStepsList" [id]="serviceStep.data._id">
-                                    <ng-template ngbPanelTitle>
-                                        <div class="row" id="{{serviceStep.data._id}}">
-                                            <div class="col-sm-2" [style.font-weight]="serviceStep.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceStep.data.name}}</div>
-                                            <div class="col-sm-3">{{serviceStep.data.description}}</div>
-                                            <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
-                                            <div class="col-sm-2">{{serviceStep.data.runtime}}</div>
-                                            <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost) | currency:'EUR':true:'1.2-2'}}</div>
-                                            <div class="col-sm-1" *ngIf="isSnapshot">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template ngbPanelContent>
-                                        <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot" ></gg-platform-service-step-detail>
-		                            </ng-template>
-				                </ngb-panel>
-			                </ngb-accordion>
-		                </div>
+                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+                            <ngb-panel [disabled]="true">
+                                <ng-template ngbPanelTitle>
+                                    <div class="row">
+                                        <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.STEP' | translate}}</b></div>
+                                        <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                        <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.MACHINE' | translate}}</b></div>
+                                        <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.RUNTIME (IN H)' | translate}}</b></div>
+                                        <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.COST' | translate}} {{clientType ? ' (' + clientType + ')' : ''}}</b></div>
+                                    </div>
+                                </ng-template>
+                            </ngb-panel>
+                            <ngb-panel *ngFor="let serviceStep of serviceStepsList" [id]="serviceStep.data._id">
+                                <ng-template ngbPanelTitle>
+                                    <div class="row" id="{{serviceStep.data._id}}">
+                                        <div class="col-sm-2" [style.font-weight]="serviceStep.data._id === state.openPanelId ? 'bold' : 'lighter'">{{serviceStep.data.name}}</div>
+                                        <div class="col-sm-3">{{serviceStep.data.description}}</div>
+                                        <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
+                                        <div class="col-sm-2">{{serviceStep.data.runtime}}</div>
+                                        <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost) | currency:'EUR':true:'1.2-2'}}</div>
+                                        <div class="col-sm-1" *ngIf="isSnapshot"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template ngbPanelContent>
+                                    <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot"></gg-platform-service-step-detail>
+                                </ng-template>
+                            </ngb-panel>
+                        </ngb-accordion>
                     </div>
                 </div>
             </ng-template>
@@ -60,7 +59,7 @@
                                     <label class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.STEP.LABEL.USED MACHINE' | translate}}:</label>
                                     <div class="col-sm-10">
                                         <gg-editor-autocomplete [selectableData]="machineListObservable" [emptyContentText]="'PLATFORM.SERVICE.STEP.LABEL.CHOOSE A MACHINE' | translate"
-                                        (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
+                                            (idChanged)="machineChanged($event)"></gg-editor-autocomplete>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -68,15 +67,15 @@
                                     <div class="col-sm-10">
                                         <input type="number" min="0" step="any" class="form-control" formControlName="runtime" id="runtime" placeholder="{{'PLATFORM.SERVICE.STEP.LABEL.RUNTIME (IN HOURS)' | translate}}">
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-3 col-md-2 col-lg-2">
                                         <button class="btn btn-success" type="submit" [disabled]="!serviceStepForm.valid">{{'FORM.SUBMIT' | translate}}</button>
                                     </div>
                                     <div class="col-sm-3 col-md-2 col-lg-2">
-                                        <button class="btn btn-info"  [disabled]="serviceStepForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
+                                        <button class="btn btn-info" [disabled]="serviceStepForm.pristine" (click)="reset()">{{'FORM.RESET' | translate}}</button>
                                     </div>
-                                </div>                                
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion"  (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
                                 <ngb-panel [disabled]="true">
                                     <ng-template ngbPanelTitle>
                                         <div class="row">
@@ -107,16 +106,17 @@
                                             <div class="col-sm-3">{{serviceStep.data.description}}</div>
                                             <div class="col-sm-2">{{serviceStep.annotation.machineName}}</div>
                                             <div class="col-sm-2">{{serviceStep.data.runtime}}</div>
-                                            <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost) | currency:'EUR':true:'1.2-2'}}</div>
-                                            <div class="col-sm-1" *ngIf="isSnapshot">	<img height="25" width="25" src="../../images/snapshot.png"  />  </div>
+                                            <div class="col-sm-2 gg-price">{{(serviceStep.annotation.grandTotalCost || serviceStep.annotation.totalCost)
+                                                | currency:'EUR':true:'1.2-2'}}</div>
+                                            <div class="col-sm-1" *ngIf="isSnapshot"> <img height="25" width="25" src="../../images/snapshot.png" /> </div>
                                         </div>
                                     </ng-template>
                                     <ng-template ngbPanelContent>
-                                        <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot" ></gg-platform-service-step-detail>
-		                            </ng-template>
-				                </ngb-panel>
-			                </ngb-accordion>
-		                </div>
+                                        <gg-platform-service-step-detail [serviceStepId]="isSnapshot ? serviceStep._id : serviceStep.data._id" [isSnapshot]="isSnapshot"></gg-platform-service-step-detail>
+                                    </ng-template>
+                                </ngb-panel>
+                            </ngb-accordion>
+                        </div>
                     </div>
                 </div>
             </ng-template>

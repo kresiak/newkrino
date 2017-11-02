@@ -14,42 +14,40 @@
                                 <ng-template ngbTabContent>
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row">
-                                                <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
-                                                    <ngb-panel [disabled]="true">
-                                                        <ng-template ngbPanelTitle>
-                                                            <div class="row">
-                                                                <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
-                                                                <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
-                                                            </div>
-                                                        </ng-template>
-                                                    </ngb-panel>
-                                                    <ngb-panel *ngFor="let categoryItem of categoryList" [id]="categoryItem._id">
-                                                        <!--FOR-->
-                                                        <ng-template ngbPanelTitle>
-                                                            <div class="row">
-                                                                <div class="col-sm-3" [style.font-weight]="categoryItem._id === state.openPanelId ? 'bold' : 'lighter'">{{categoryItem.name}}</div>
-                                                                <div class="col-sm-3">{{categoryItem.description}}</div>
-                                                            </div>
-                                                        </ng-template>
-                                                        <ng-template ngbPanelContent>
-                                                            <ngb-tabset>
-                                                                <ngb-tab title="{{'PLATFORM.SERVICE.MENU.INFO' | translate}}" id="tabInfo">
-                                                                    <ng-template ngbTabContent>
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <div class="row">
-                                                                                    <gg-platform-service-list [servicesObservable]="getServiceObservableByCategory(categoryItem._id)"></gg-platform-service-list>
-                                                                                </div>
+                                            <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
+                                                <ngb-panel [disabled]="true">
+                                                    <ng-template ngbPanelTitle>
+                                                        <div class="row">
+                                                            <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
+                                                            <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
+                                                        </div>
+                                                    </ng-template>
+                                                </ngb-panel>
+                                                <ngb-panel *ngFor="let categoryItem of categoryList" [id]="categoryItem._id">
+                                                    <!--FOR-->
+                                                    <ng-template ngbPanelTitle>
+                                                        <div class="row">
+                                                            <div class="col-sm-3" [style.font-weight]="categoryItem._id === state.openPanelId ? 'bold' : 'lighter'">{{categoryItem.name}}</div>
+                                                            <div class="col-sm-3">{{categoryItem.description}}</div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template ngbPanelContent>
+                                                        <ngb-tabset>
+                                                            <ngb-tab title="{{'PLATFORM.SERVICE.MENU.INFO' | translate}}" id="tabInfo">
+                                                                <ng-template ngbTabContent>
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <gg-platform-service-list [servicesObservable]="getServiceObservableByCategory(categoryItem._id)"></gg-platform-service-list>
                                                                             </div>
                                                                         </div>
-                                                                    </ng-template>
-                                                                </ngb-tab>
-                                                            </ngb-tabset>
-                                                        </ng-template>
-                                                    </ngb-panel>
-                                                </ngb-accordion>
-                                            </div>
+                                                                    </div>
+                                                                </ng-template>
+                                                            </ngb-tab>
+                                                        </ngb-tabset>
+                                                    </ng-template>
+                                                </ngb-panel>
+                                            </ngb-accordion>
                                         </div>
                                     </div>
                                 </ng-template>
@@ -81,7 +79,7 @@
                                     <label for="categoryId" class="col-sm-2 col-form-label col-xl-2">{{'PLATFORM.SERVICE.LABEL.CATEGORY' | translate}}:</label>
                                     <div class="col-sm-10">
                                         <gg-selector #categoriesSelector [selectableData]="selectableCategoriesObservable" (selectionChanged)="categorySelectionChanged($event)"
-                                        (selectionOptionAdded)="categoryHasBeenAdded($event)">
+                                            (selectionOptionAdded)="categoryHasBeenAdded($event)">
 
                                         </gg-selector>
                                     </div>
