@@ -133,7 +133,7 @@
 		<ng-template ngbTabContent>
 			<div class="card">
 				<div class="card-body">
-					<div class="row">
+					<div>
 						<gg-product-grid-basket [path]="path+'|O:Basket'" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()" [productsObservable]="productsBasketObservable"
 						 [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>
@@ -149,7 +149,7 @@
 		<ng-template ngbTabContent>
 			<div class="card">
 				<div class="card-body">
-					<div class="row">
+					<div >
 						<gg-product-grid-basket [path]="path+'|O:GroupedBasket'" [isGroupedBasket]="true" [productsObservable]="productsGroupedBasketObservable"
 						 [config]="{skip:['otp']}"></gg-product-grid-basket>
 					</div>

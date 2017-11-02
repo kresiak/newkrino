@@ -6,23 +6,26 @@
 				<ng-template ngbTabContent>
 					<div class="card">
 						<div class="card-body">
-							<div class="row">
+							<div>
 								<gg-product-grid-basket [productsObservable]="productsBasketObservable" [isGroupedBasket]="authorizationStatusInfo.isGroupOrdersUser()"></gg-product-grid-basket>
 							</div>
 							<div class="row" *ngIf="authorizationStatusInfo.isAdministrator()">
-								<div class="col-sm-2 vcenter">{{'ORDER.BASKET.ATTRIBUTE TO GROUP OF EQUIPES' | translate}} </div>
-								<div class="col-sm-6 vcenter">
+								<div class="col-sm-2 align-self-center">{{'ORDER.BASKET.ATTRIBUTE TO GROUP OF EQUIPES' | translate}} </div>
+								<div class="col-sm-6 align-self-center">
 									<gg-editor-autocomplete [selectableData]="groupsForSelectionObservable" [emptyContentText]="'ORDER.BASKET.USE THE EQUIPE OF THE USER' | translate"
 									 (idChanged)="equipeGroupChanged($event)"></gg-editor-autocomplete>
 								</div>
 							</div>
 							<div class="row">
-								<button *ngIf="(authorizationStatusInfo.hasEquipeId() || authorizationStatusInfo.isGroupOrdersUser()) && isSubmitButtonFree && isOtpOk && nbLinesNonDisabled && (authorizationStatusInfo.isAdministrator() || ((isEnoughBudget || isGroupOrdersUser) && isTotalUnderLimit))" class="btn btn-warning" (click)="createOrder()">{{'ORDER.BASKET.PASS THE ORDER' | translate}}</button>
-								<h6 *ngIf="!authorizationStatusInfo.hasEquipeId() && !authorizationStatusInfo.isGroupOrdersUser()">{{'ORDER.BASKET.NO EQUIPE MSG' | translate}}</h6>
-								<h6 *ngIf="!isEnoughBudget && !isGroupOrdersUser">{{'ORDER.BASKET.NOT ENOUGH BUDGET MSG' | translate}}</h6>
-								<h6 *ngIf="!isOtpOk">{{'ORDER.BASKET.OTP PROBLEM MSG' | translate}}</h6>
-								<h6 *ngIf="!isTotalUnderLimit">{{'ORDER.BASKET.OVER LIMIT MSG' | translate}}</h6>
-								<h6 *ngIf="!nbLinesNonDisabled">{{'ORDER.BASKET.ALL DISABLED MSG' | translate}}</h6>
+									<div class="col-sm-12">
+										<button  *ngIf="(authorizationStatusInfo.hasEquipeId() || authorizationStatusInfo.isGroupOrdersUser()) && isSubmitButtonFree && isOtpOk && nbLinesNonDisabled && (authorizationStatusInfo.isAdministrator() || ((isEnoughBudget || isGroupOrdersUser) && isTotalUnderLimit))"
+											 class="btn btn-warning" (click)="createOrder()">{{'ORDER.BASKET.PASS THE ORDER' | translate}}</button>
+									</div>
+									<h6 class="col-sm-12" *ngIf="!authorizationStatusInfo.hasEquipeId() && !authorizationStatusInfo.isGroupOrdersUser()">{{'ORDER.BASKET.NO EQUIPE MSG' | translate}}</h6>
+									<h6 class="col-sm-12" *ngIf="!isEnoughBudget && !isGroupOrdersUser">{{'ORDER.BASKET.NOT ENOUGH BUDGET MSG' | translate}}</h6>
+									<h6 class="col-sm-12" *ngIf="!isOtpOk">{{'ORDER.BASKET.OTP PROBLEM MSG' | translate}}</h6>
+									<h6 class="col-sm-12" *ngIf="!isTotalUnderLimit">{{'ORDER.BASKET.OVER LIMIT MSG' | translate}}</h6>
+									<h6 class="col-sm-12" *ngIf="!nbLinesNonDisabled">{{'ORDER.BASKET.ALL DISABLED MSG' | translate}}</h6>
 							</div>
 						</div>
 					</div>
@@ -35,7 +38,7 @@
 							<gg-supplier-info [supplier]="supplier"></gg-supplier-info>
 						</div>
 					</div>
-				</ng-template>		
+				</ng-template>
 			</ngb-tab>
 			<ngb-tab title="{{'ORDER.MENU.BUDGET CURRENT USER' | translate}}" *ngIf="false">
 				<ng-template ngbTabContent>
