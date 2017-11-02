@@ -66,7 +66,7 @@ export class OtpListComponent implements OnInit {
             return otp.annotation.currentPeriodAnnotation && otp.annotation.currentPeriodAnnotation.datNextCreance
         }
 
-        return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt)
+        return otp.data.name.toUpperCase().includes(txt) || otp.annotation.equipe.toUpperCase().includes(txt) || otp.annotation.classification.toUpperCase().includes(txt)
     }
 
     calculateTotal(otps): number {

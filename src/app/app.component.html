@@ -89,12 +89,12 @@
 	</div>
 	<div class="gg-scroll-text row" *ngIf="showScrollText && labManagerMessages && labManagerMessages.nbTotal > 0 && authorizationStatusInfo && authorizationStatusInfo.isAdministrator()">
 		<div class="col-sm-10 imgSearch" (click)="disableScrolling()">
-			<span>Please check your dashboard: you have {{labManagerMessages.nbTotal}} new orders waiting</span>
+			<span [innerHtml]="'DASHBOARD.ALERTS.PLEASE CHECK YOUR DASHBOARD' | translate:{nbTotal:labManagerMessages.nbTotal}"></span>
 		</div>
 	</div>
 	<div class="gg-scroll-text row" *ngIf="showScrollText && labManagerMessages && labManagerMessages.validableOrders.length > 0 && authorizationStatusInfo && authorizationStatusInfo.isLoggedIn && !authorizationStatusInfo.isAdministrator()">
 		<div class="col-sm-10 imgSearch" (click)="disableScrolling()">
-			<span>Please check your dashboard: you have {{labManagerMessages.validableOrders.length}} new orders waiting</span>
+			<span [innerHtml]="'DASHBOARD.ALERTS.PLEASE CHECK YOUR DASHBOARD' | translate:{nbTotal:labManagerMessages.validableOrders.length}"></span>
 		</div>
 	</div>
 

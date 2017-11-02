@@ -57,7 +57,7 @@ import { SupplierEprocShoppingComponent } from './Suppliers/supplier-eproc-shopp
 
 import { ProductDetailComponentRoutable } from './products/product-detail.routable.component'
 import { ProductListComponentRoutable } from './products/product-list.routable.component'
-
+import { ProductGridBasketComponent } from './products/product-grid-basket.component';
 
 import { SupplierSapDetailComponent } from './Suppliers/supplier-sap-detail.component'
 import { SupplierSapListComponent } from './Suppliers/supplier-sap-list.component'
@@ -78,6 +78,7 @@ import { OtpEnterComponent } from './Otps/otp-enter.component';
 import { OtpSapByDateComponent } from './Otps/otp-sap-date.component';
 import { OtpPeriodDetailComponent } from './Otps/otp-period-detail.component';
 import { OtpCheckerComponent } from './Otps/otp-checker.component'
+import { OtpCandidatesComponent } from './Otps/otp-candidates.component'
 
 import { PlatformMainComponent } from './Platforms/platform-main-component'
 
@@ -259,8 +260,8 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
     AdminMainComponent, AdminWebShoppingComponent, AdminWebShoppingVoucherRequestListComponent, AdminWebShoppingVoucherRequestComponent, AdminAK, AdminLabo,
     LaboratoryEnterComponent,
     SupplierListComponent, SupplierDetailComponent, SupplierListComponentRoutable, SupplierDetailComponentRoutable, SupplierInfoComponent, SupplierEprocShoppingComponent,
-    ProductListComponentRoutable, ProductDetailComponentRoutable,
-    OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent,
+    ProductListComponentRoutable, ProductDetailComponentRoutable, ProductGridBasketComponent,
+    OtpListComponent, OtpDetailComponent, OtpDetailComponentRoutable, OtpListComponentRoutable, OtpEnterComponent, OtpSapByDateComponent, OtpPeriodDetailComponent, OtpCheckerComponent, OtpCandidatesComponent,
 
     CategoryListComponent, CategoryDetailComponent, CategoryListComponentRoutable, CategoryEnterComponent, CategoryDetailComponentRoutable,
     ReceptionDetailComponent, CommunicationEnterComponent,

@@ -1,4 +1,4 @@
-<template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
+<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
 
 <div>
     <ngb-tabset *ngIf="sapObj" (tabChange)="beforeTabChange($event)" [activeId]="state.selectedTabId">
@@ -107,7 +107,7 @@
             <template ngbTabContent></template>
         </ngb-tab>
         <ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-            <template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
+		    <template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
             <template ngbTabContent></template>
         </ngb-tab>
 

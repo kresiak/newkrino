@@ -1,9 +1,9 @@
-<template #popContent>{{isRoot ? 'Click here to go back to last view' : 'Click here to get a detail view'}}</template>
+<template #popContent>{{(isRoot ? 'GENERAL.ACTION.CLICK HERE TO GO BACK TO LAST VIEW' : 'GENERAL.ACTION.CLICK HERE TO GET A DETAIL VIEW') | translate}}</template>
 
-<template #tipContentFrigo>Click to desactivate frigo</template>
+<template #tipContentFrigo>{{'PRODUCT.ACTIONS.CLICK TO DESACTIVATE FRIGO' | translate}}</template>
 
 <template #tipAddToBasket>
-	<div style="font-size: 70%;">Click here to <br/> add one unity of this product <br/> into the basket. <br/> Click and wait for a second to update!</div>
+	<div style="font-size: 70%;" [innerHtml]="'PRODUCT.ACTIONS.CLICK HERE TO ADD PRODUCT' | translate" ></div>
 </template>
 
 <template #validationModal let-c="close" let-d="dismiss">
@@ -309,7 +309,7 @@
 		<template ngbTabContent></template>
 	</ngb-tab>
 	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		<template ngbTabTitle><img src="../../images/gototop.png" ngbPopover="Goto top of the page" triggers="mouseenter:mouseleave" /></template>
+		<template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></template>
 		<template ngbTabContent></template>
 	</ngb-tab>
 

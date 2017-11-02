@@ -4,6 +4,7 @@
     "NO": "non",
     "EMPTY": "",
     "CLICK HERE": "clicker ici",    
+    "CLOSE": "Fermer",    
     "NOT SET YET" : "(pas encore choisi)",    
     "CHOOSE AN EQUIPE": "choisir une équipe",    
     "TOGGLE DETAILS": "Voir/cacher détails",
@@ -35,6 +36,9 @@
     "SERVICES": "service(s)", 
     "SNAPSHOTS": "snapshot(s)",    
     "OFFERS": "offre(s)",       
+    "ENTER NEW CHOICE": "Entrer une nouvelle option...", 
+    "PLEASE CHOOSE": "Veuillez choisir",       
+    "ADD THE CHOICE": "Ajouter l'option",    
     "HOW TO SEARCH": "Comment chercher: exemples",     
     "HITS": {
       "NB HITS TXT": "visible actuellement: {{nbHitsShown}} sur {{nbHits}} entrée(s)",
@@ -69,7 +73,10 @@
     "ACTION": {
       "DISABLE": "désactiver",
       "REACTIVATE": "réactiver",
-      "DELETE": "supprimer"
+      "DELETE": "supprimer",
+      "CLICK HERE TO GET A DETAIL VIEW": "Cliquer ici pour obtenir une vue détaillée",
+      "CLICK HERE TO GO BACK TO LAST VIEW" : "Cliquer ici pour retourner à la vue précédente",
+      "GOTO TOP OF THE PAGE": "Aller au début de la page"
     }
   },
   "UI": {
@@ -184,8 +191,9 @@
         "PREFERENCE": "Préférence",
         "OTP": "Otp",
         "EQUIPE": "Equipe",
-        "EXPIRES": "Expire le",
-        "AVAILABLE": "Disponible"
+        "EXPIRES": "Echéance",
+        "AVAILABLE": "Disponible",
+        "PRIORTY": "Priorité"
       }
     },
     "CLASSIFICATION": {
@@ -319,7 +327,7 @@
       "CREANCE": "(créance)"
     },
     "SEARCH HELP": {
-      "MSG1": "RWAL: si l'OTP ou l'équipe associée contient 'RWAL'",
+      "MSG1": "RWAL: si l'OTP, sa classification ou l'équipe associée contient 'RWAL'",
       "MSG2": "#DE: si l'OTP est supprimé",
       "MSG3": "#BL: si l'OTP est bloqué",
       "MSG4": "#CL: si l'OTP est fermé",
@@ -374,6 +382,7 @@
       "SUPER ADMINISTRATOR?": "Super administrateur?"
     },
     "HELP": {
+      "ALLOWED CHANGE OTP TIP": "Réservé aux utiliseurs qui connaissent le concept d'otp. Ils ne pourront que choisir un otp valide selon Krino.",      
       "SUPER ADMINISTRATOR": "Le super administrateur a le droit de changer les données publiques (des produits, ...) et de créer d'autres labos. A utiliser en connaissance de cause!!"
     },
     "SEARCH HELP": {
@@ -394,6 +403,7 @@
       "IS KRINO PROGRAMMER": "programmeur:",
       "IS PLATFORM ADMINISTRATOR": "adminsitrateur de platforme:",
       "USER IS NOT ALLOWED TO ORDER PRODUCTS": "utilisateur interdit de commande:",
+      "ALLOWED CHANGE OTP": "utilisateur peut changer l'otp dans le panier de commande:",
       "SUPER ADMINISTRATOR": "super administrateur:",
       "NAME OF THE USER PHOLDER": "nom de l'utilisateur",
       "FIRST NAME OF THE USER PHOLDER": "prénom de l'utilisateur"
@@ -418,7 +428,12 @@
     "MSG": {
       "EPROC INTRO": "Pour acheter chez {{param}}  via e-procurement, veuillez remplir ce formulaire de manière aussi exacte que possible et vérifiez que vous recevez un OK de Krino avant de passer la commande dans e-procurement. Si vous recevez un OK, alors (et alors seulement) passez votre commande via e-procurement. Quand c'est fait appuyez sur le bouton ci-dessous.",
       "EPROC STATUS": "Permission pour faire l'achat sur e-procurement:",
-      "EPROC BUTTON": "J'ai passé la commande sur e-procurement"
+      "EPROC BUTTON": "J'ai passé la commande sur e-procurement",
+      "YOUR WEB PURCHASE HAS BEEN REGISTERED": "Votre commande web a été enregistrée",
+      "USE FOLLOWING PURCHASE ID": "Veuillez utiliser le numéro de commande suivant sur le site web du fournisseur:",
+      "USE A VOUCHER": "utilisation d'un coupon de type {{category}}",
+      "FILL THIS FORM WEBSHOPPING": "Veuillez remplir ce formulaire correctement; vous recevrez le numéro de bon de commande Sap dont vous avez besoin pour placer la commande sur la platforme webshopping de {{supplier}}.",
+      "THE INFORMATION ENTERED WEBSHOPPING IS CORRECT": "L'information que j'ai entrée est correcte et correspond à ce que j'ai entré sur le site de {{supplier}}."
     },
     "SEARCH HELP": {
       "MSG1": "bru: liste des fournisseurs dont le nom ou la ville ou le pays contient 'bru'",
@@ -459,6 +474,8 @@
     },
     "LABEL": {
       "DESCRIPTION": "description:",
+      "DESCRIPTION OF PRODUCT PHOLDER": "description du produit",  
+      "TOTAL PRICE OF WEB SHOPPING PHOLDER": "prix total de l'achat web (TVA compris)",          
       "PRICE": "prix:",
       "E-PROCUREMENT ENABLED": "e-procurement activé:",
       "SHOPPING ENABLED": "web shopping activé:",
@@ -509,8 +526,8 @@
       "FROM": "Depuis",
       "TO": "Jusque",
       "WHAT": "Quoi?",
-      "QTY IN BASKET": "Qté dans panier",
-      "TOTAL": "Total:",
+      "QTY IN BASKET": "Qté",
+      "TOTAL": "Total",
       "EQUIPE": "Equipe",
       "HOW MANY": "Combien",
       "CATEGORY": "Catégorie",
@@ -558,10 +575,17 @@
         "REASK VALIDATION MODAL TITLE": "Demander (peut-être à nouveau) la validation du produit",
         "REASK VALIDATION MODAL FOOTER": "Expliquer ce qui a changé qui vous amène à refaire la demande. Après l'ajout du commentaire la demande de validation sera actée. Si vous ne voulez pas redemander la validation, fermer la fenêtre via la croix en haut." ,
         "SET AS NOT URGENT": "Non urgent: grouper l'achat",
-        "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que l'achat de ce produit n'est pas urgent et qu'il peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info."
+        "SET AS NOT URGENT TIP": "En clickant ici, vous déclarez que l'achat de ce produit n'est pas urgent et qu'il peut-être postposé afin d'être groupé avec d'autres achats du labo. Cela permet d'économiser des frais de transport. Contactez votre lab manager pour plus d'info.",
+        "CHOOSE OTP TITLE": "Changez l'otp pour '{{product}}' en clickant sur un des otp ci-dessous",
+        "CHOOSE OTP BUTTON": "Fermer",
+        "CLICK TO DESACTIVATE FRIGO": "Cliquer pour désactiver frigo",
+        "CLICK HERE ORDER PRODUCT FROM FRIDGE": "Cliquer ici pour commander ce produit du frigo.",
+        "CLICK HERE TO ADD PRODUCT": "Cliquer ici pour <br/> ajouter une unité du produit <br/> dans le panier. <br/> Cliquer et attendre une seconde pour que l'écran se rafraîchisse!"
     },
     "HELP": {
-      "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue."
+      "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue.",
+      "OTP DESCRIPTION IS": "Description de cet otp",
+      "CHOOSE OTP TIP": "Vous pouvez choisir un autre otp en clickant ici"
     },
     "SEARCH HELP": {
       "MSG1": "liquid : produits dont le nom ou le nom du fournisseur contient le texte 'liquid'",
@@ -776,7 +800,7 @@
     },
     "COLUMN": {
       "PRODUCT": "Produit",
-      "ORDERED": "Commandé",
+      "ORDERED": "Qté",
       "ALREADY": "Livré",
       "TODAY": "Aujourd'hui",
       "NO LOT": "Numéro de lot",
@@ -820,7 +844,7 @@
       "NO EQUIPE MSG": "Vous ne pouvez passer la commande, vu que vous vous êtes connecté sans équipe. Reconnectez vous!",
       "NOT ENOUGH BUDGET MSG": "Désolé, il ne vous reste pas assez de budget!",
       "OTP PROBLEM MSG" : "Il y a un problème de séelection d'Otp. Contactez votre administrateur!",
-      "OVER LIMIT MSG" : "Votre commande dépasse la limite de dépense pour une seule commande. Faites plusieurs plus petites commandes ou contactez votre administrateur!",
+      "OVER LIMIT MSG" : "Votre commande dépasse la limite de dépense pour une seule commande. Contactez votre administrateur!",
       "ALL DISABLED MSG" : "Tous les produits dans le panier sont des produits désactivés par votre Lab Manager.",
       "PROCEED TO CHECKOUT": "Passer à la 'caisse'"
     },
@@ -838,6 +862,11 @@
       "MSG10": "#>5: commandes avec au moins 5 lignes de commande",
       "MSG12": "#enzym: commande avec un produit contenant 'enzym'",
       "MSG13": "#2755: commande avec un produit dont le numéro de catalogue contient '2755'"
+    },
+    "ACTION": {
+      "PLEASE ENTER THE DELIVERY": "Veuillez encoder la livraison",
+      "SAVE DELIVERY": "Enregistrer la livraison",
+      "ADD DELIVERY": "Ajouter une livraison"
     }
   },
   "RECEPTION": {
@@ -1196,7 +1225,8 @@
     },
     "ALERTS": {
       "EXPIRING OTPS": "Des otps vont expirer! ",
-      "PRIVATE MSGS": "Vous avez des messages! "
+      "PRIVATE MSGS": "Vous avez des messages! ",
+      "PLEASE CHECK YOUR DASHBOARD" : "Veuillez consulter votre tableau de bord: vous avez {{nbTotal}} nouvelles commandes en attente"
     },
     "MESSAGE PARTS": {
       "ORDER": "commande",
@@ -1234,7 +1264,7 @@
         "INFO": "Info",
         "ADD A SERVICE": "Ajouter un service",
         "CATEGORIES": "Catégories",
-        "LIST OF CATEGORIES": "Liste des catégorieS",
+        "LIST OF CATEGORIES": "Liste des catégories",
         "ADD A SERVICE CATEGORY": "Ajouter une catégorie de services"
       },
       "COLUMN": {

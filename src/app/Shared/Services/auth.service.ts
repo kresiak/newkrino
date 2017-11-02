@@ -54,6 +54,10 @@ export class AuthenticationStatusInfo {
         return this.annotatedUser && this.annotatedUser.data.isSuperAdmin
     }
 
+    isOtpAwareUser() {
+        return this.annotatedUser && this.annotatedUser.data.isOtpAware
+    }
+
     isRightAdministrator(accessingPublicRessource: boolean= false) {
         return this.annotatedUser && ((accessingPublicRessource && this.annotatedUser.data.isSuperAdmin) || (!accessingPublicRessource && this.annotatedUser.data.isAdmin)) 
     }

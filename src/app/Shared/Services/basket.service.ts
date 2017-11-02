@@ -84,9 +84,12 @@ export class BasketService {
                 var items = basketItems.filter(item => productsMap.has(item.produit)).map(basketItemFiltered => {
                     var otpNeededForThisProduct: boolean = otpNeeded && !basketItemFiltered.isFixCost
                     let product = productsMap.get(basketItemFiltered.produit)
+                    let productCategories: string[] = product.categoryIds ? product.categoryIds : []
+                    let productClassificationId = classifications.filter(c => c.categoryIds && c.categoryIds.filter(catId => productCategories.includes(catId)).length > 0).map(c => c._id)[0]
                     return {
                         data: product,
                         annotation: {
+                            classificationId: productClassificationId,
                             isFixCost: basketItemFiltered.isFixCost,
                             basketId: basketItemFiltered._id,
                             basketData: basketItemFiltered,

@@ -42,4 +42,4 @@
 	</div>
 </template>
 
-<a class="imgSearch" ngbTooltip="Click here to order this product from the fridge." (click)="openModal(mymodal)"> <img *ngIf="product.data.isFrigo" height="25" width="25" src="../../images/refrigator.png" /> </a>
+<a class="imgSearch" [ngbTooltip]="'PRODUCT.ACTIONS.CLICK HERE ORDER PRODUCT FROM FRIDGE' | translate" (click)="openModal(mymodal)"> <img *ngIf="product.data.isFrigo" height="25" width="25" src="../../images/refrigator.png" /> </a>

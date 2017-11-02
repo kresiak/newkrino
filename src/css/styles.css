@@ -1,5 +1,10 @@
 /*trick to force height to be equal to width http://www.mademyday.de/css-height-equals-width-with-pure-css.html*/
 
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
 .nounderline{text-decoration: none !important }
 
 .centertextbox {

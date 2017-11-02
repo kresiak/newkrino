@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { ProductListHelpComponent } from '../product-list-help.component';
 import { ProductGridComponent } from '../product-grid.component';
-import { ProductGridBasketComponent } from '../product-grid-basket.component';
+/*import { ProductGridBasketComponent } from '../product-grid-basket.component';*/
 import { ProductListComponent } from '../product-list.component';
 import { ProductEnterComponent } from '../product-enter.component'
 import { ProductDetailComponent } from '../product-detail.component'
@@ -23,12 +23,14 @@ import { OrdersModule } from'../../Orders/modules/orders.module'
     FormsModule, ReactiveFormsModule, UiModule, CommentsModule, OrdersModule
   ],
   declarations: [
-    ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductDetailComponent, 
+    ProductGridComponent,  ProductEnterComponent, ProductListComponent, ProductDetailComponent, 
     ProductFridgeOrderButtonComponent, ProductListHelpComponent, 
+    //ProductGridBasketComponent,
   ],
   exports: [
-    ProductGridComponent, ProductGridBasketComponent, ProductEnterComponent, ProductListComponent, ProductDetailComponent, 
-    ProductFridgeOrderButtonComponent, ProductListHelpComponent, 
+    ProductGridComponent, ProductEnterComponent, ProductListComponent, ProductDetailComponent, 
+    ProductFridgeOrderButtonComponent, ProductListHelpComponent
+    //ProductGridBasketComponent, 
   ],
   providers: [
     ],

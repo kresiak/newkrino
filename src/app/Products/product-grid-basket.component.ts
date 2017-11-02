@@ -8,7 +8,7 @@ import { SelectableData } from './../Shared/Classes/selectable-data'
 import { Editor } from './../ui/editor/editor'
 import { DataStore } from './../Shared/Services/data.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component(
     {
@@ -28,7 +28,7 @@ export class ProductGridBasketComponent implements OnInit {
     private total: number= 0
 
     constructor(private dataStore: DataStore, private navigationService: NavigationService, private productService: ProductService, private authService: AuthService,
-        private basketService: BasketService, private router: Router) {
+        private basketService: BasketService, private router: Router, private modalService: NgbModal) {
     }
 
     @ViewChildren(Editor) priceChildren: QueryList<Editor>;
@@ -59,6 +59,30 @@ export class ProductGridBasketComponent implements OnInit {
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
+
+
+    private classificationIdForModalW
+    private amountForModalW
+    private equipeIdForModalW
+    private productForModalW
+
+    openModal(template, product) {
+        this.equipeIdForModalW= this.authorizationStatusInfo.currentEquipeId
+        this.amountForModalW= product.annotation.totalPrice
+        this.classificationIdForModalW= product.annotation.classificationId
+        this.productForModalW= product
+
+        var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
+        var promise = ref.result;
+        promise.then((data) => {
+        }, (res) => {
+        });
+        promise.catch((err) => {
+        });
+    }
+
+
+
 
     setProducts(products) {
         this.products = products
@@ -119,6 +143,7 @@ export class ProductGridBasketComponent implements OnInit {
     otpUpdated(newOtpId, product): void {
         if (newOtpId && newOtpId.length > 0) {
             this.basketService.doBasketOtpUpdate(product, newOtpId)
+            //product.annotation.otp._id= newOtpId
         }
     }
 
