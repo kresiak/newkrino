@@ -1,17 +1,17 @@
 <ngb-tabset [activeId]="state.selectedTabId">
     <ngb-tab title="List of snapshots" id="tabListOfSnapshots" *ngIf=" observableSnapshots && ((observableSnapshots |async) || []).length > 0">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-snapshot-list [observableSnapshots]="observableSnapshots"></gg-platform-service-snapshot-list>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="Make a snapshot" id="tabMakeSnapshot">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="container-fluid">
                         <form [formGroup]="snapshotForm" (ngSubmit)="snapshotService(snapshotForm.value, snapshotForm.valid)">
                             <div class="form-group row">
@@ -37,17 +37,17 @@
 
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="Disabled snapshot(s)" id="tabDisabledSnapshots" *ngIf=" observableDisabledSnapshots && ((observableDisabledSnapshots |async) || []).length > 0">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="row">
                              <gg-platform-service-snapshot-list [observableSnapshots]="observableDisabledSnapshots"></gg-platform-service-snapshot-list>
 		                </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
 </ngb-tabset>

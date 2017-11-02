@@ -7,7 +7,7 @@
     <ngb-accordion accordion *ngIf="servicesList" [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)"
         [activeIds]="state.openPanelId">
         <ngb-panel [disabled]="true">
-            <template ngbPanelTitle>
+            <ng-template ngbPanelTitle>
                 <div class="row">
                     <div class="col-sm-1" *ngIf="isForSelection"></div>
                     <div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection"><b>{{'PLATFORM.SERVICE.COLUMN.SERVICE' | translate}}</b></div>
@@ -16,11 +16,11 @@
                     <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.COLUMN.COST' | translate}}</b></div>
                     <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.COLUMN.CURRENT' | translate}}</b></div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-panel>
         <ngb-panel *ngFor="let serviceItem of servicesList" [id]="serviceItem.data._id">
             <!--FOR-->
-            <template ngbPanelTitle>
+            <ng-template ngbPanelTitle>
                 <div class="row" id="{{serviceItem.data._id}}">
                     <div class="col-sm-1" *ngIf="isForSelection">
                         <img ngbTooltip="select service" *ngIf="!isServiceSelected(serviceItem)" height="25" width="25" src="../../images/add.png"
@@ -38,10 +38,10 @@
                     <div class="col-sm-2 gg-price">{{fnGetCostByService(serviceItem.data._id) | currency:'EUR':true:'1.2-2'}}</div>
                     <div class="col-sm-2">{{serviceItem.annotation.currentSnapshot}}</div>
                 </div>
-            </template>
-            <template ngbPanelContent>
+            </ng-template>
+            <ng-template ngbPanelContent>
                 <gg-platform-service-detail [serviceItem]="serviceItem" [serviceToCompareToId]="serviceToCompareToId"></gg-platform-service-detail>
-            </template>
+            </ng-template>
         </ngb-panel>
     </ngb-accordion>
 

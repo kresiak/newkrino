@@ -1,8 +1,8 @@
 <ngb-tabset *ngIf="snapshot">
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.INFO' | translate}}" id="tabInfo">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block gg-line-height">
+                <div class="card-body gg-line-height">
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.SNAPSHOT.LABEL.SERVICE NAME' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">{{snapshot.data.name}}</div>
@@ -13,95 +13,95 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.SERVICE STEPS' | translate}}" id="tabSteps">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-step-list [clientType]="'standard'" [serviceId]="snapshot._id" [isSnapshot]="true"></gg-platform-service-step-list>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.PRICES' | translate}}" id="tabPrices">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <ngb-accordion [closeOthers]="true">
                         <ngb-panel [disabled]="true">
-                            <template ngbPanelTitle>
+                            <ng-template ngbPanelTitle>
                                 <div class="row">
                                     <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.SNAPSHOT.COLUMN.CLIENT TYPE' | translate}}</b></div>
                                     <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.SNAPSHOT.COLUMN.COST' | translate}}</b></div>
                                 </div>
-                            </template>
+                            </ng-template>
                         </ngb-panel>
                         <ngb-panel *ngFor="let clientType of clientListObservable |async">
                             <!--FOR-->
-                            <template ngbPanelTitle>
+                            <ng-template ngbPanelTitle>
                                 <div class="row">
                                     <div class="col-sm-3">{{clientType.name}}</div>
                                     <div class="col-sm-2 gg-price">{{getTotalForClientTypeId(clientType.id) | currency:'EUR':true:'1.2-2'}}</div>
                                 </div>
-                            </template>
-                            <template ngbPanelContent>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
                                 <ngb-accordion [closeOthers]="true">
                                     <ngb-panel [disabled]="true">
-                                        <template ngbPanelTitle>
+                                        <ng-template ngbPanelTitle>
                                             <div class="row">
                                                 <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.SNAPSHOT.COLUMN.STEP' | translate}}</b></div>
                                                 <div class="col-sm-2"><b>{{'PLATFORM.SERVICE.SNAPSHOT.COLUMN.COST' | translate}}</b></div>
                                             </div>
-                                        </template>
+                                        </ng-template>
                                     </ngb-panel>
                                     <ngb-panel *ngFor="let step of snapshotSteps">
                                         <!--FOR-->
-                                        <template ngbPanelTitle>
+                                        <ng-template ngbPanelTitle>
                                             <div class="row">
                                                 <div class="col-sm-3">{{step.data.name}}</div>
                                                 <div class="col-sm-2 gg-price">{{getTotalForStepAndClientTypeId(step, clientType.id) | currency:'EUR':true:'1.2-2'}}</div>
                                             </div>
-                                        </template>
-                                        <template ngbPanelContent>
+                                        </ng-template>
+                                        <ng-template ngbPanelContent>
                                             <gg-platform-service-step-client-type-cost [serviceStep]="step" [clientType]="getInfoForStepAndClientTypeId(step, clientType.id)"></gg-platform-service-step-client-type-cost>
-                                        </template>
+                                        </ng-template>
                                     </ngb-panel>
                                 </ngb-accordion>
 
-                            </template>
+                            </ng-template>
                         </ngb-panel>
                     </ngb-accordion>
 
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.DISABLE SNAPSHOT' | translate}}" id="tabDisableSnapshot" *ngIf="!snapshot.isDisabled">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-button-action-confirm (doAction)="enableDisableSnapshot(true, snapshot)" [typeObjectKey]="'GENERAL.OBJECT.SNAPSHOT'" [typeActionKey]="'GENERAL.ACTION.DISABLE'"></gg-button-action-confirm>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.REACTIVATE SNAPSHOT' | translate}}" id="tabReactivateStep" *ngIf="snapshot.isDisabled">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-button-action-confirm (doAction)="enableDisableSnapshot(false, snapshot)" [typeObjectKey]="'GENERAL.OBJECT.SNAPSHOT'" [typeActionKey]="'GENERAL.ACTION.REACTIVATE'"></gg-button-action-confirm>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.SNAPSHOT.MENU.PRODUCT ASSOCIATED' | translate}}" id="tabLinkToProduct" *ngIf="snapshot.productId">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-product-detail [productObservable]="getAnnotatedProductsById(snapshot.productId)"></gg-product-detail>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
 </ngb-tabset>

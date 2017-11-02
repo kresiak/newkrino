@@ -1,8 +1,8 @@
 <ngb-tabset>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.INFO' | translate}}" id="tabInfo">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.NAME' | translate}}</b></div>
                         <div class="col-sm-8 vcenter">
@@ -25,12 +25,12 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.CORRECTION FACTORS' | translate}}" id="tabCorrFactors">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.DETAIL.LABEL.CLIENT TYPE USED' | translate}}</b></div>
                     <div class="col-sm-8 vcenter">
                         <gg-editor-autocomplete [selectableData]="clientListObservable" [emptyContentText]="'default correction'" [selectedId]="serviceItem.data.clientTypeId"
@@ -53,12 +53,12 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.CURRENT PRICES' | translate}}" id="tabCurrentPrices" *ngIf="serviceItem.annotation.currentSnapshot">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3 vcenter">{{'PLATFORM.SERVICE.DETAIL.LABEL.BASED ON CURRENT SNAPSHOT' | translate}}:</div>
                         <div class="col-sm-8 vcenter">
@@ -78,30 +78,30 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.SERVICE STEPS' | translate}}" id="tabSteps">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-step-list [serviceId]="serviceItem.data._id" [clientType]="serviceItem.annotation.clientType"></gg-platform-service-step-list>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.SNAPSHOTS' | translate}}" id="tabSnapshotList2">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-snapshots [serviceId]="serviceItem.data._id"></gg-platform-service-snapshots>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.CLONE THIS SERVICE' | translate}}" id="tabClone">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <div class="container-fluid">
                         <form [formGroup]="cloneForm" (ngSubmit)="cloneService(serviceItem, cloneForm.value, cloneForm.valid)">
                             <div class="form-group row">
@@ -128,52 +128,52 @@
                     </div>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.IDENTICAL SERVICES' | translate}}" id="tabIdenticalServices" *ngIf="!serviceToCompareToId">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-list [servicesObservable]="servicesIdenticalObservable" [serviceToCompareToId]="serviceItem.data._id"></gg-platform-service-list>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.SIMILAR SERVICES' | translate}}" id="tabSimilarServices" *ngIf="!serviceToCompareToId">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-list [servicesObservable]="servicesSimilarObservable" [serviceToCompareToId]="serviceItem.data._id"></gg-platform-service-list>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.COMPARE SERVICES' | translate}}" id="tabCompareServices" *ngIf="serviceToCompareToId">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-platform-service-compare [service1Id]="serviceItem.data._id" [service2Id]="serviceToCompareToId"></gg-platform-service-compare>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.DISABLE' | translate}}" id="tabDisableService" *ngIf="!serviceItem.data.isDisabled">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-button-action-confirm (doAction)="enableDisableService(true)" [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" [typeActionKey]="'GENERAL.ACTION.DISABLE'"></gg-button-action-confirm>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
     <ngb-tab title="{{'PLATFORM.SERVICE.DETAIL.MENU.REACTIVATE' | translate}}" id="tabEnableService" *ngIf="serviceItem.data.isDisabled">
-        <template ngbTabContent>
+        <ng-template ngbTabContent>
             <div class="card">
-                <div class="card-block">
+                <div class="card-body">
                     <gg-button-action-confirm (doAction)="enableDisableService(false)" [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" [typeActionKey]="'GENERAL.ACTION.REACTIVATE'"></gg-button-action-confirm>
                 </div>
             </div>
-        </template>
+        </ng-template>
     </ngb-tab>
 
 </ngb-tabset>

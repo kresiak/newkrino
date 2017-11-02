@@ -1,68 +1,68 @@
-<div class="card-block">
+<div class="card-body">
     <ngb-tabset [activeId]="state.selectedTabId">
         <ngb-tab title="{{'PLATFORM.SERVICE.MENU.LIST OF SERVICES' | translate}}" id="tabListOfServices">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <ngb-tabset (tabChange)="beforeTabChange($event)">
                             <ngb-tab title="{{'PLATFORM.SERVICE.MENU.ALL SERVICES' | translate}}" id="tabListAllServices">
-                                <template ngbTabContent>
+                                <ng-template ngbTabContent>
                                     <gg-platform-service-list [servicesObservable]="servicesObservable"></gg-platform-service-list>
-                                </template>
+                                </ng-template>
                             </ngb-tab>
                             <ngb-tab title="{{'PLATFORM.SERVICE.MENU.BY CATEGORIES' | translate}}" id="tabListServicesByCategory">
-                                <template ngbTabContent>
+                                <ng-template ngbTabContent>
                                     <div class="card">
-                                        <div class="card-block">
+                                        <div class="card-body">
                                             <div class="row">
                                                 <ngb-accordion [closeOthers]="true" #acc="ngbAccordion" (panelChange)="beforeAccordionChange($event)" [activeIds]="state.openPanelId">
                                                     <ngb-panel [disabled]="true">
-                                                        <template ngbPanelTitle>
+                                                        <ng-template ngbPanelTitle>
                                                             <div class="row">
                                                                 <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-3"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
                                                             </div>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-panel>
                                                     <ngb-panel *ngFor="let categoryItem of categoryList" [id]="categoryItem._id">
                                                         <!--FOR-->
-                                                        <template ngbPanelTitle>
+                                                        <ng-template ngbPanelTitle>
                                                             <div class="row">
                                                                 <div class="col-sm-3" [style.font-weight]="categoryItem._id === state.openPanelId ? 'bold' : 'lighter'">{{categoryItem.name}}</div>
                                                                 <div class="col-sm-3">{{categoryItem.description}}</div>
                                                             </div>
-                                                        </template>
-                                                        <template ngbPanelContent>
+                                                        </ng-template>
+                                                        <ng-template ngbPanelContent>
                                                             <ngb-tabset>
                                                                 <ngb-tab title="{{'PLATFORM.SERVICE.MENU.INFO' | translate}}" id="tabInfo">
-                                                                    <template ngbTabContent>
+                                                                    <ng-template ngbTabContent>
                                                                         <div class="card">
-                                                                            <div class="card-block">
+                                                                            <div class="card-body">
                                                                                 <div class="row">
                                                                                     <gg-platform-service-list [servicesObservable]="getServiceObservableByCategory(categoryItem._id)"></gg-platform-service-list>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </template>
+                                                                    </ng-template>
                                                                 </ngb-tab>
                                                             </ngb-tabset>
-                                                        </template>
+                                                        </ng-template>
                                                     </ngb-panel>
                                                 </ngb-accordion>
                                             </div>
                                         </div>
                                     </div>
-                                </template>
+                                </ng-template>
                             </ngb-tab>
                         </ngb-tabset>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.SERVICE.MENU.ADD A SERVICE' | translate}}" id="tabAddService">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
                             <form [formGroup]="serviceForm" (ngSubmit)="addService(serviceForm.value, serviceForm.valid)">
                                 <div class="form-group row">
@@ -98,19 +98,19 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
         <ngb-tab title="{{'PLATFORM.SERVICE.MENU.CATEGORIES' | translate}}" id="tabAddCategoryOfService">
-            <template ngbTabContent>
+            <ng-template ngbTabContent>
                 <div class="card">
-                    <div class="card-block">
+                    <div class="card-body">
                         <div class="container-fluid">
-                            <div class="card-block">
+                            <div class="card-body">
                                 <ngb-tabset>
                                     <ngb-tab title="{{'PLATFORM.SERVICE.MENU.LIST OF CATEGORIES' | translate}}" id="tabListOfCategory" *ngIf="categoryList && categoryList.length > 0">
-                                        <template ngbTabContent>
+                                        <ng-template ngbTabContent>
                                             <div class="card">
-                                                <div class="card-block">
+                                                <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-sm-3 vcenter"><b>{{'PLATFORM.SERVICE.COLUMN.NAME' | translate}}</b></div>
                                                         <div class="col-sm-7 vcenter"><b>{{'PLATFORM.SERVICE.COLUMN.DESCRIPTION' | translate}}</b></div>
@@ -127,12 +127,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </template>
+                                        </ng-template>
                                     </ngb-tab>
                                     <ngb-tab title="{{'PLATFORM.SERVICE.MENU.ADD A SERVICE CATEGORY' | translate}}" id="tabAddCategory">
-                                        <template ngbTabContent>
+                                        <ng-template ngbTabContent>
                                             <div class="card">
-                                                <div class="card-block">
+                                                <div class="card-body">
                                                     <div class="container-fluid">
                                                         <form [formGroup]="categoryForm" (ngSubmit)="saveCategoryForm(categoryForm.value, categoryForm.valid)">
                                                             <div class="form-group row">
@@ -159,14 +159,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </template>
+                                        </ng-template>
                                     </ngb-tab>
                                 </ngb-tabset>
                             </div>
                         </div>
                     </div>
                 </div>
-            </template>
+            </ng-template>
         </ngb-tab>
     </ngb-tabset>
 </div>
