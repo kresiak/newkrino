@@ -109,7 +109,7 @@ export class VoucherService {
 
     public createVoucher(record): Observable<any> {
         this.dataStore.setLaboNameOnRecord(record)
-        var obs = this.apiService.callWebService('createVoucher', record).map(res => res.json());
+        var obs = this.apiService.callWebService('createVoucher', record);
 
         obs.subscribe(res => {
             //this.dataStore.triggerDataNext('users.krino');
@@ -128,7 +128,7 @@ export class VoucherService {
             description: description
         }
 
-        var obs = this.apiService.callWebService('useVoucher', record).map(res => res.json());
+        var obs = this.apiService.callWebService('useVoucher', record)
 
         obs.subscribe(res => {
             //if (!res.error)                this.dataStore.triggerDataNext('orders.vouchers');

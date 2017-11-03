@@ -298,7 +298,7 @@ export class BasketService {
 
     private passCommand(record): Observable<any> {
         this.dataStore.setLaboNameOnRecord(record.data)
-        var obs = this.apiService.callWebService('passOrder', record).map(res => res.json());
+        var obs = this.apiService.callWebService('passOrder', record);
 
         obs.combineLatest(this.dataStore.getDataObservable('products'), (res, products) => {
             record.data._id = res._id
