@@ -30,7 +30,7 @@
                     *ngIf="showSearch" src="../../../images/close.png" (click)="resetSearchControl()" />
                 <span *ngIf="nbHits && moneyTotal" class="gg-price">{{'  ' + moneyTotal | currency:'EUR':true:'1.2-2'}} {{'GENERAL.IN' | translate}}</span>
                 <span *ngIf="nbHits" class="gg-price">{{nbHits}} {{'GENERAL.' + objectTypeTranslationKey | translate}}	</span>&nbsp;
-                <span *ngIf="explainedComplexQuery" [innerHtml]="explainedComplexQuery">	</span>
+                <span *ngIf="explainedComplexQuery" [ngbTooltip]="'GENERAL.SEARCH HELP.EXPLAINED COMPLEXQUERY TIP' | translate" [innerHtml]="explainedComplexQuery">	</span>
             </div>
         </div>
 

@@ -52,7 +52,8 @@
     },
     "SEARCH HELP": {
       "INTERPRETED AS": "va être cherché comme ceci",
-      "COMPLEX QUERIES": "On peut formuler des requêtes complexes à l'aide des mots-clés 'and', 'or', 'not' (voir les exemples ci-dessous)"
+      "COMPLEX QUERIES": "On peut formuler des requêtes complexes à l'aide des mots-clés 'and', 'or', 'not' (voir les exemples ci-dessous)",
+      "EXPLAINED COMPLEXQUERY TIP": "Ceci met en évidence de quelle manière les mot-clés 'and', 'or', 'not' vont être interprétés lors de la recherche. Le mot-clé 'not' a une priorité associative supérieure à celle de 'and' qui lui-même est prioritaire par rapport à 'or'"
     },    
     "COMMENTS": {
       "TAB TITLE": "Commentaires",  
