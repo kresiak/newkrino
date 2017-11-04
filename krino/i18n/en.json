@@ -5,7 +5,7 @@
     "EMPTY": "",
     "CLICK HERE": "click here",
     "CLOSE": "Close",
-    "NOT SET YET" : "(not set yet)",
+    "NOT SET YET": "(not set yet)",
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
     "IS DISABLED": "disabled",
@@ -49,8 +49,12 @@
       "OTPS REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked/Deleted otps will be added at the end of the file.",
       "PRODUCTS REPORT TIP": "A report with all the {{nbHits}} hit(s) will be downloaded. Blocked products will be added at the end of the file.",
       "NO HIT TEXT": "No {{param}} yet in the database for this query"
-    },    
-   "COMMENTS": {
+    },
+    "SEARCH HELP": {
+      "INTERPRETED AS": "will be searched as",
+      "COMPLEX QUERIES": "Complex queries can be done by using 'and', 'or', 'not' (see examples below)"
+    },
+    "COMMENTS": {
       "TAB TITLE": "Comments",
       "TAB TITLE TIP": "Here there are probably messages waiting that have explicitely been addressed to you",
       "ADD NEW COMMENT": "Add new comment",
@@ -77,7 +81,7 @@
       "REACTIVATE": "reactivate",
       "DELETE": "delete",
       "CLICK HERE TO GET A DETAIL VIEW": "Click here to get a detail view",
-      "CLICK HERE TO GO BACK TO LAST VIEW" : "Click here to go back to last view",
+      "CLICK HERE TO GO BACK TO LAST VIEW": "Click here to go back to last view",
       "GOTO TOP OF THE PAGE": "Goto top of the page"
     }
   },
@@ -88,7 +92,7 @@
       "OBJECT": "object",
       "CLICK HERE TO SELECT THE": "click here to select the",
       "FOR DELETION": "for deletion",
-      "CAREFUL THIS WILL" : "Careful! This will delete the selected",
+      "CAREFUL THIS WILL": "Careful! This will delete the selected",
       "IF YOU ARE SURE": "and can't be undone. Click here if you are sure you want to delete it.",
       "DELETE": "Delete",
       "CANCEL": "Cancel"
@@ -163,7 +167,7 @@
     "COMMUNICATION": "Communication",
     "PLATFORM": "Platform",
     "PARTICIPATE": "Participate",
-    "XENIA": "Xenia"    
+    "XENIA": "Xenia"
   },
   "FORM": {
     "SUBMIT": "Submit",
@@ -309,7 +313,7 @@
       "SPENT INVOICES": "amount spent in invoices",
       "BUDGET": "budget",
       "FROM": "from",
-      "TO": "to"  
+      "TO": "to"
     },
     "COLUMN": {
       "OTP": "OTP",
@@ -413,7 +417,7 @@
     "MENU": {
       "INFO": "Info",
       "ADMINISTRATION": "Administration",
-      "PHOTO": "Picture",      
+      "PHOTO": "Picture",
       "COMMENTS": "Comments",
       "EQUIPES": "Projects",
       "ORDERS": "Orders",
@@ -442,7 +446,7 @@
       "MSG4": "$w: the supplier is web shopping enabled",
       "MSG5": "$c: the supplier has fix costs entered",
       "MSG6": "$ep: the supplier is a e-procurement supplier",
-      "MSG7": "04897: the sap ID of the supplier contains '04897"      
+      "MSG7": "04897: the sap ID of the supplier contains '04897"
     },
     "MENU": {
       "INFO": "Info",
@@ -564,25 +568,25 @@
       "PRICE PER UNIT PHOLDER": "price per unit (without VAT)"
     },
     "ACTIONS": {
-        "ATTENTE VALIDATION TEXT": "waiting for validation:",
-        "ACCEPTER VALIDATION BUTON": "accept",
-        "REFUSER VALIDATION BUTON": "refuse",
-        "ACCEPTER VALIDATION TIP": "Don't forget to activate the product before. If you are super administrator you can also make the product public (non labo specific)",
-        "REFUSER VALIDATION TIP": "In this case DON'T activate the product before.",
-        "REFUSER VALIDATION MSG": "The creation of one of your product has been refused.",
-        "REASK VALIDATION TIP": "Be sure that you delivered the requested information before re-asking for validation. Read the comments in the Comments tab, if you are unsure",
-        "REASK VALIDATION BUTON": "Ask again for validation",
-        "REFUSER VALIDATION MODAL TITLE": "Refuse the validation of the product",
-        "REFUSER VALIDATION MODAL FOOTER": "Explain why you are refusing the validation. Adding the comment will perform the validation. Otherwise cancel with the cross in the header.",
-        "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
-        "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header.",
-        "SET AS NOT URGENT": "Set as not urgent",
-        "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info.",
-        "CHOOSE OTP TITLE": "You can change the OTP for '{{product}}' by clicking on one of the otp below",
-        "CHOOSE OTP BUTTON": "Close",
-        "CLICK TO DESACTIVATE FRIGO": "Click to desactivate frigo",
-        "CLICK HERE ORDER PRODUCT FROM FRIDGE": "Click here to order this product from the fridge.",
-        "CLICK HERE TO ADD PRODUCT": "Click here to <br/> add one unity of this product <br/> into the basket. <br/> Click and wait for a second to update!"
+      "ATTENTE VALIDATION TEXT": "waiting for validation:",
+      "ACCEPTER VALIDATION BUTON": "accept",
+      "REFUSER VALIDATION BUTON": "refuse",
+      "ACCEPTER VALIDATION TIP": "Don't forget to activate the product before. If you are super administrator you can also make the product public (non labo specific)",
+      "REFUSER VALIDATION TIP": "In this case DON'T activate the product before.",
+      "REFUSER VALIDATION MSG": "The creation of one of your product has been refused.",
+      "REASK VALIDATION TIP": "Be sure that you delivered the requested information before re-asking for validation. Read the comments in the Comments tab, if you are unsure",
+      "REASK VALIDATION BUTON": "Ask again for validation",
+      "REFUSER VALIDATION MODAL TITLE": "Refuse the validation of the product",
+      "REFUSER VALIDATION MODAL FOOTER": "Explain why you are refusing the validation. Adding the comment will perform the validation. Otherwise cancel with the cross in the header.",
+      "REASK VALIDATION MODAL TITLE": "Ask (maybe again) for the validation of the product",
+      "REASK VALIDATION MODAL FOOTER": "Explain what changed that makes you ask again for validation. Adding the comment will issue the request. Otherwise cancel with the cross in the header.",
+      "SET AS NOT URGENT": "Set as not urgent",
+      "SET AS NOT URGENT TIP": "By clicking here, you declare that your purchase is NOT URGENT and that it can be GROUPED with other's user purchase. This will reduce the global transport costs. Contact your lab manager for more info.",
+      "CHOOSE OTP TITLE": "You can change the OTP for '{{product}}' by clicking on one of the otp below",
+      "CHOOSE OTP BUTTON": "Close",
+      "CLICK TO DESACTIVATE FRIGO": "Click to desactivate frigo",
+      "CLICK HERE ORDER PRODUCT FROM FRIDGE": "Click here to order this product from the fridge.",
+      "CLICK HERE TO ADD PRODUCT": "Click here to <br/> add one unity of this product <br/> into the basket. <br/> Click and wait for a second to update!"
     },
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number.",
@@ -698,13 +702,13 @@
     "SEARCH HELP": {
       "MSG1": "RWAL: if the name of the project contains 'RWAL'",
       "MSG2": "RWAL: if the name of the group of  projects contains 'RWAL'"
-    }  
+    }
   },
   "STOCK": {
     "SEARCH HELP": {
       "MSG1": "tip: the product's name, supplier or catalog Nr contains the string 'tip'",
       "MSG2": "john: the order has been made by a user or a project team containing 'john'",
-      "MSG3": "tip: the product ordered (or its catalog number) contains 'tip'"      
+      "MSG3": "tip: the product ordered (or its catalog number) contains 'tip'"
     },
     "MENU": {
       "ORDER PRODUCTS": "Order products",
@@ -835,8 +839,7 @@
       "WITH COMMENT TXT": "w. comments",
       "NON URGENT ORDER": "non urgent order"
     },
-    "LABEL": {
-    },
+    "LABEL": {},
     "BASKET": {
       "CHECKOUT AT": "Checkout at",
       "ATTRIBUTE TO GROUP OF EQUIPES": "Attribute to group of projects:",
@@ -844,9 +847,9 @@
       "PASS THE ORDER": "Pass the order",
       "NO EQUIPE MSG": "You cannot pass order, as you entered without selecting a project team. Please login again!",
       "NOT ENOUGH BUDGET MSG": "Sorry, you don't have enough budget available",
-      "OTP PROBLEM MSG" : "Sorry, there is an Otp problem. Contact your administrator!",
-      "OVER LIMIT MSG" : "Sorry, you are over the maximal limit for an order. Contact your administrator!",
-      "ALL DISABLED MSG" : "All products that you have in your basket are disabled. You can't pass such an order!",
+      "OTP PROBLEM MSG": "Sorry, there is an Otp problem. Contact your administrator!",
+      "OVER LIMIT MSG": "Sorry, you are over the maximal limit for an order. Contact your administrator!",
+      "ALL DISABLED MSG": "All products that you have in your basket are disabled. You can't pass such an order!",
       "PROCEED TO CHECKOUT": "Proceed to Checkout"
     },
     "SEARCH HELP": {
@@ -966,9 +969,7 @@
         "OTP": "Otp",
         "EQUIPE": "Project"
       },
-      "LABEL": {
-
-      },
+      "LABEL": {},
       "ACTION": {
         "SHOW/HIDE OTP": "Show/hide otp"
       }
@@ -980,9 +981,7 @@
         "LAST PIECE ID": "Last piece Id",
         "NB": "Total number"
       },
-      "LABEL": {
-        
-      }
+      "LABEL": {}
     },
     "BY SAPIDS": {
       "COLUMN": {
@@ -1022,13 +1021,10 @@
       "ALL LABORATORIES": "All laboratories",
       "WEB SHOPPING": "Web Shopping",
       "MONITORING": "Monitoring",
-      "LABORATORY": "Laboratory"      
+      "LABORATORY": "Laboratory"
     },
-    "COLUMN": {
-    },
-    "LABEL": {
-
-    },
+    "COLUMN": {},
+    "LABEL": {},
     "WEB SHOPPING": {
       "MENU": {
         "REQUESTED VOUCHERS": "Requested Vouchers",
@@ -1077,9 +1073,7 @@
       }
     },
     "MONITORING": {
-      "MENU": {
-
-      },
+      "MENU": {},
       "COLUMN": {
         "FOCUS ON": "Focus on",
         "THRESHOLD": "Threshold",
@@ -1097,15 +1091,13 @@
     },
     "LABOCONFIG": {
       "MENU": {
-          "GENERAL": "General",
-          "ORDER VALIDATION": "Order validation",
-          "DELIVERY": "Delivery",
-          "SAP": "Sap",
-          "PLATFORM": "Platform"
+        "GENERAL": "General",
+        "ORDER VALIDATION": "Order validation",
+        "DELIVERY": "Delivery",
+        "SAP": "Sap",
+        "PLATFORM": "Platform"
       },
-      "COLUMN": {
-
-      },
+      "COLUMN": {},
       "LABEL": {
         "NAME OF LABORATORY": "name of laboratory:",
         "START OF KRINO": "start of Krino:",
@@ -1114,12 +1106,8 @@
         "GROUPED ORDERS USER PASSWORD": "grouped orders user password:"
       },
       "VALIDATION": {
-        "MENU": {
-
-        },
-        "COLUMN": {
-
-        },
+        "MENU": {},
+        "COLUMN": {},
         "LABEL": {
           "HEAD OF EQUIPE": "Head of project team",
           "EXECUTIVE SECRETARY": "Executive secretary",
@@ -1166,12 +1154,8 @@
         }
       },
       "PLATFORM": {
-        "MENU": {
-
-        },
-        "COLUMN": {
-
-        },
+        "MENU": {},
+        "COLUMN": {},
         "LABEL": {
           "SELLING SERVICES AS SUPPLIER": "selling services as supplier",
           "SERVICES PRODUCT CATEGORY": "services product category"
@@ -1222,12 +1206,12 @@
       "IN WAIT FOR VALIDATION": "In wait for validation",
       "SOON EXPIRING": "Soon expiring",
       "FOLLOWING ORDERS": "Following orders",
-      "PRIVATE MESSAGES": "Check them"      
+      "PRIVATE MESSAGES": "Check them"
     },
     "ALERTS": {
       "EXPIRING OTPS": "There are expiring otp! ",
       "PRIVATE MSGS": "There are private messages! ",
-      "PLEASE CHECK YOUR DASHBOARD" : "Please check your dashboard: you have {{nbTotal}} new orders waiting"
+      "PLEASE CHECK YOUR DASHBOARD": "Please check your dashboard: you have {{nbTotal}} new orders waiting"
     },
     "MESSAGE PARTS": {
       "ORDER": "order",
@@ -1297,9 +1281,7 @@
           "DISABLE": "Disable the service",
           "REACTIVATE": "Reactivate the service"
         },
-        "COLUMN": {
-
-        },
+        "COLUMN": {},
         "LABEL": {
           "NAME": "Name",
           "DESCRIPTION": "Description",
@@ -1309,7 +1291,7 @@
           "BASED ON CURRENT SNAPSHOT": "Based on current snapshot",
           "NAME OF NEW SERVICE": "name of new service"
         }
-      }, 
+      },
       "STEP": {
         "MENU": {
           "LIST OF STEPS": "List of steps",
@@ -1361,12 +1343,8 @@
           "CHOOSE A MACHINE": "choose a machine"
         },
         "COST": {
-          "MENU": {
-
-          },
-          "COLUMN": {
-
-          },
+          "MENU": {},
+          "COLUMN": {},
           "LABEL": {
             "MACHINE COST OF RUN": "Machine cost of run",
             "COST OF PRODUCTS": "Cost of products",
@@ -1381,7 +1359,7 @@
       "SNAPSHOT": {
         "SEARCH HELP": {
           "MSG1": "pme: search for snapshots having 'pme' in either version or description"
-        },  
+        },
         "MENU": {
           "INFO": "Info",
           "SERVICE STEPS": "Service steps",
@@ -1498,7 +1476,7 @@
     "ENTERPRISE": {
       "SEARCH HELP": {
         "MSG1": "cardio: search for labs or enterprises having 'cardio' in their name"
-      },         
+      },
       "MENU": {
         "LIST OF ENTERPRISES": "List of enterprises",
         "INFO": "Info",
@@ -1518,14 +1496,13 @@
         "WEB": "Web",
         "CLIENT TYPE": "Client type",
         "CHOOSE A CLIENT TYPE PHOLDER": "choose a client type"
-
       }
     },
     "CLIENT": {
       "SEARCH HELP": {
         "MSG1": "john: search for clients having 'john' in their name",
         "MSG2": "'molecular': search for clients having 'molecular' in their enterprise name"
-      },      
+      },
       "MENU": {
         "LIST OF CLIENTS": "List of clients",
         "INFO": "Info",
@@ -1607,7 +1584,7 @@
       }
     }
   },
-  "PUBLIC": {    
+  "PUBLIC": {
     "MENU": {
       "REGISTER AS A USER": "Register as a user",
       "MARCHÉS ULG": "Marchés Ulg"
@@ -1623,17 +1600,17 @@
       }
     },
     "MARKET": {
-      "DOCUMENT": "document", 
+      "DOCUMENT": "document",
       "SELECT IMAGES": "Select scanned document",
       "DROP YOUR IMAGES HERE": "drop your images here",
-      "CLEAR": "clear all",      
+      "CLEAR": "clear all",
       "SEARCH HELP": {
         "MSG1": "tip: list of products with a name containing 'tip'",
         "MSG2": "10 ml: list of products with a packaging containing '10 ml'",
         "MSG3": "145-6: list of products with a catalog number containing '145-6'",
         "MSG4": "vwr: list of products of supplier the name of which is containing 'vwr'"
       },
-      "ACTION":{
+      "ACTION": {
         "SUBMIT NEW PROD AND AGAIN SAME": "Submit and enter another offer for the same product",
         "SHOW/HIDE DOCS": "Show/Hide documents"
       },

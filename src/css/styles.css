@@ -1,5 +1,9 @@
 /*trick to force height to be equal to width http://www.mademyday.de/css-height-equals-width-with-pure-css.html*/
 
+.popover {
+    max-width: 550px;
+}
+
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;

@@ -1,5 +1,15 @@
 <ng-template #searchPopContent>
-    <ng-content select="[searchHelp]"></ng-content>
+    <div style="max-width: 100%">
+        <ul>
+            <li>{{'GENERAL.SEARCH HELP.COMPLEX QUERIES' | translate}}</li>
+        </ul>
+        <ng-content select="[searchHelp]"></ng-content>
+        <ul>
+            <li>smith and not vwr or jane :  {{'GENERAL.SEARCH HELP.INTERPRETED AS' | translate}} '(smith and (not vwr)) or jane' </li>
+            <li>smith and vwr or jane : {{'GENERAL.SEARCH HELP.INTERPRETED AS' | translate}} '(smith and vwr) or jane' </li>
+            <li>smith and vwr or jane and vwr : {{'GENERAL.SEARCH HELP.INTERPRETED AS' | translate}} '(smith and vwr) or (jane and vwr)' </li>
+        </ul>
+    </div>
 </ng-template>
 
 <ng-template #tipSearchLoupe>
@@ -15,11 +25,12 @@
             <div [formGroup]="searchForm">
                 <img src="../../../images/search.png" (click)="showSearch= !showSearch" class="imgSearch" placement="bottom" [ngbTooltip]="tipSearchLoupe"
                 />
-                <input *ngIf="showSearch" style="width: 600px;" type="search" [formControl]="searchControl" formControlName="searchControl" [ngbPopover]="searchPopContent"
-                    placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img
+                <input *ngIf="showSearch" style="width: 600px;" type="search" [formControl]="searchControl" formControlName="searchControl"
+                    [ngbPopover]="searchPopContent" placement="bottom" triggers="mouseenter:mouseleave" popoverTitle="{{'GENERAL.HOW TO SEARCH' | translate}}"><img
                     *ngIf="showSearch" src="../../../images/close.png" (click)="resetSearchControl()" />
                 <span *ngIf="nbHits && moneyTotal" class="gg-price">{{'  ' + moneyTotal | currency:'EUR':true:'1.2-2'}} {{'GENERAL.IN' | translate}}</span>
-                <span *ngIf="nbHits" class="gg-price">{{nbHits}} {{'GENERAL.' + objectTypeTranslationKey | translate}}	</span>
+                <span *ngIf="nbHits" class="gg-price">{{nbHits}} {{'GENERAL.' + objectTypeTranslationKey | translate}}	</span>&nbsp;
+                <span *ngIf="explainedComplexQuery" [innerHtml]="explainedComplexQuery">	</span>
             </div>
         </div>
 
@@ -30,29 +41,30 @@
             </div>
         </div>
 
-        <div  *ngIf="(objects || []).length > 0">
+        <div *ngIf="(objects || []).length > 0">
             <ng-content select="[accordion]"></ng-content>
         </div>
 
-		<div class="row">
-			<div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
-				<div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
-			</div>
+        <div class="row">
+            <div class="col-sm-2" *ngIf="nbHitsShown < nbHits">
+                <div class="btn btn-sm btn-info" (click)="moreHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">{{'GENERAL.SHOW MORE' | translate}}</div>
+            </div>
 
-			<div class="col-sm-2" *ngIf="false && nbHitsShown < nbHits && nbHits <= 1000">  <!--todo-->
-				<div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS WARNING TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
-			</div>
-            
-			<div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
-				{{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
-			</div>
-			<div class="col-sm-2" *ngIf="hasReport && nbHits > 0">
-				<div class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.' + objectTypeTranslationKey + ' REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
-			</div>
-			<div class="col-sm-2" *ngIf="nbHits > 1">
-				<div class="btn btn-sm btn-info" (click)="reverseHits()" [ngbTooltip]="'GENERAL.REVERSE SORT TIP' | translate">{{'GENERAL.REVERSE SORT' | translate}}</div>
-			</div>
-		</div>
+            <div class="col-sm-2" *ngIf="false && nbHitsShown < nbHits && nbHits <= 1000">
+                <!--todo-->
+                <div class="btn btn-sm btn-info" (click)="allHits()" [ngbTooltip]="'GENERAL.HITS.NB HITS WARNING TXT' | translate:{nbHitsShown:nbHitsShown, nbHits:nbHits}">show all</div>
+            </div>
+
+            <div class="col-sm-2" *ngIf="nbHitsShown >= nbHits && nbHits > 6">
+                {{nbHits}} {{'GENERAL.HITS SHOWN' | translate}}
+            </div>
+            <div class="col-sm-2" *ngIf="hasReport && nbHits > 0">
+                <div class="btn btn-sm btn-info" (click)="createReport()" [ngbTooltip]="'GENERAL.HITS.' + objectTypeTranslationKey + ' REPORT TIP' | translate:{nbHits:nbHits}">{{'GENERAL.GET A REPORT' | translate}}</div>
+            </div>
+            <div class="col-sm-2" *ngIf="nbHits > 1">
+                <div class="btn btn-sm btn-info" (click)="reverseHits()" [ngbTooltip]="'GENERAL.REVERSE SORT TIP' | translate">{{'GENERAL.REVERSE SORT' | translate}}</div>
+            </div>
+        </div>
 
     </div>
 </div>

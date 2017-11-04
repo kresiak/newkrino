@@ -50,6 +50,10 @@
       "PRODUCTS REPORT TIP": "Un rapport avec toutes les  {{nbHits}} entrée(s) va être téléchargé. Les produits bloqués seront ajoutés en fin de fichier.",
       "NO HIT TEXT": "Pas encore de {{param}} dans la base de données pour cette requête"      
     },
+    "SEARCH HELP": {
+      "INTERPRETED AS": "va être cherché comme ceci",
+      "COMPLEX QUERIES": "On peut formuler des requêtes complexes à l'aide des mots-clés 'and', 'or', 'not' (voir les exemples ci-dessous)"
+    },    
     "COMMENTS": {
       "TAB TITLE": "Commentaires",  
       "TAB TITLE TIP": "Ici il y a des messages qui vous attendent. Veuillez les lire.",          
