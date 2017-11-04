@@ -22,7 +22,9 @@
     "ORDERS": "commande(s)",
     "OTPS": "otp(s)",    
     "PRODUCTS": "produit(s)",  
-    "USERS": "utilisateur(s)",     
+    "USERS": "utilisateur(s)",
+    "CLIENTS": "clients",     
+    "ENTERPRISES": "enterprises/labos",        
     "EQUIPES": "équipes",
     "EQUIPE GROUPS": "groupes d'équipes",    
     "CATEGORIES": "catégorie(s)",    
@@ -1495,6 +1497,9 @@
       }
     },
     "ENTERPRISE": {
+      "SEARCH HELP": {
+        "MSG1": "cardio: liste des entreprises ou labos qui contiennent 'cardio' dans leur nom"
+      },   
       "MENU": {
         "LIST OF ENTERPRISES": "Liste d'enterprises",
         "INFO": "Info",
@@ -1517,6 +1522,10 @@
       }
     },
     "CLIENT": {
+      "SEARCH HELP": {
+        "MSG1": "john: liste des clients qui contiennent 'john' dans leur nom",
+        "MSG2": "'molecular': liste des clients qui contiennent 'molecular' dans leur enterprise"
+      },   
       "MENU": {
         "LIST OF CLIENTS": "Liste de clients",
         "INFO": "Info",
@@ -1533,6 +1542,8 @@
         "NAME": "nom",
         "FIRST NAME": "prénom",
         "EMAIL": "e-mail",
+        "LABO": "laboratoire, département",
+        "WEB PAGE": "page web",                
         "TELEPHONE": "téléphone",
         "ENTERPRISE": "entreprise",
         "ENTERPRISE OF CLIENT": "entreprise du client",

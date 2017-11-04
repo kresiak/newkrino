@@ -12,14 +12,23 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformClientsComponent implements OnInit {
-    constructor (private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
-private clientsForm: FormGroup
-private clientsList: any
-private isPageRunning: boolean = true
-private entrepriseListObservable
-private enterpriseId: string
+    private clientsForm: FormGroup
+    private clientsList: any= []
+    private isPageRunning: boolean = true
+    private entrepriseListObservable
+    private enterpriseId: string
+
+    fnFilter(user, txt) {
+        if (txt.trim() === '') return true;
+        return (user.data.name || '').toUpperCase().includes(txt.toUpperCase()) || (user.data.firstName || '').toUpperCase().includes(txt.toUpperCase()) || (user.data.labo || '').toUpperCase().includes(txt.toUpperCase()) || (user.annotation.enterprise || '').toUpperCase().includes(txt.toUpperCase())
+    }
+
+    setClients(clients) {
+        this.clientsList= clients.sort((a, b) => a.annotation.fullName < b.annotation.fullName ? -1 : 1)
+    }
 
     ngOnInit(): void {
         const emailRegex = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i;
@@ -31,23 +40,18 @@ private enterpriseId: string
             telephone: ['', Validators.required]
         })
 
-        this.platformService.getAnnotatedClients().takeWhile(() => this.isPageRunning).subscribe(clients => {
-            if (!comparatorsUtils.softCopy(this.clientsList, clients))
-                this.clientsList= comparatorsUtils.clone(clients)            
-        })
-        
         this.entrepriseListObservable = this.dataStore.getDataObservable('platform.enterprises').takeWhile(() => this.isPageRunning).map(enterprises => enterprises.map(enterprise => {
-                return {
-                    id: enterprise._id,
-                    name: enterprise.name
-                }
-            }))
+            return {
+                id: enterprise._id,
+                name: enterprise.name
+            }
+        }))
 
     }
 
     enterpriseChanged(enterpriseId) {
         this.enterpriseId = enterpriseId
-    }
+    }    
 
     save(formValue, isValid) {
         this.dataStore.addData('platform.clients', {
@@ -56,14 +60,12 @@ private enterpriseId: string
             email: formValue.email,
             telephone: formValue.telephone,
             enterpriseId: this.enterpriseId
-        }).subscribe(res =>
-        {
+        }).subscribe(res => {
             this.reset()
         })
     }
 
-    reset()
-    {
+    reset() {
         this.clientsForm.reset()
     }
 
@@ -96,5 +98,4 @@ private enterpriseId: string
         this.dataStore.updateData('platform.clients', clientItem.data._id, clientItem.data)
     }
 
-   
 }

@@ -12,14 +12,23 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class PlatformEnterprisesComponent implements OnInit {
-    constructor (private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
+    constructor(private formBuilder: FormBuilder, private dataStore: DataStore, private platformService: PlatformService) {
     }
 
-private enterprisesForm: FormGroup
-private enterprisesList: any
-private isPageRunning: boolean = true
-private clientTypeId: string
-private clientTypeListObservable
+    private enterprisesForm: FormGroup
+    private enterprisesList: any
+    private isPageRunning: boolean = true
+    private clientTypeId: string
+    private clientTypeListObservable
+
+    fnFilter(e, txt) {
+        if (txt.trim() === '') return true;
+        return (e.data.name || '').toUpperCase().includes(txt.toUpperCase()) 
+    }
+
+    setEnterprises(enterprisesList) {
+        this.enterprisesList= enterprisesList.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+    }
 
     ngOnInit(): void {
         this.enterprisesForm = this.formBuilder.group({
@@ -31,16 +40,16 @@ private clientTypeListObservable
 
         this.platformService.getAnnotatedEnterprises().takeWhile(() => this.isPageRunning).subscribe(enterprises => {
             if (!comparatorsUtils.softCopy(this.enterprisesList, enterprises))
-                this.enterprisesList = comparatorsUtils.clone(enterprises)            
+                this.enterprisesList = comparatorsUtils.clone(enterprises)
         })
-        
+
         this.clientTypeListObservable = this.dataStore.getDataObservable('platform.client.types').takeWhile(() => this.isPageRunning).map(clientTypes => clientTypes.map(clientType => {
-                return {
-                    id: clientType._id,
-                    name: clientType.name
-                }
-            }))
-        
+            return {
+                id: clientType._id,
+                name: clientType.name
+            }
+        }))
+
     }
 
     save(formValue, isValid) {
@@ -50,14 +59,12 @@ private clientTypeListObservable
             fax: formValue.fax,
             web: formValue.web,
             clientTypeId: this.clientTypeId
-        }).subscribe(res =>
-        {
+        }).subscribe(res => {
             this.reset()
         })
     }
 
-    reset()
-    {
+    reset() {
         this.enterprisesForm.reset()
     }
 
@@ -93,6 +100,6 @@ private clientTypeListObservable
         enterpriseItem.data.clientTypeId = clientTypeId
         this.dataStore.updateData('platform.enterprises', enterpriseItem.data._id, enterpriseItem.data)
     }
-   
-   
+
+
 }

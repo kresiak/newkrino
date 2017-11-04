@@ -1,70 +1,75 @@
 <div class="card-body">
     <ngb-tabset>
-        <ngb-tab *ngIf="enterprisesList && enterprisesList.length > 0" title="{{'PLATFORM.ENTERPRISE.MENU.LIST OF ENTERPRISES' | translate}}"
-            id="tabListOfEnterprises">
+        <ngb-tab title="{{'PLATFORM.ENTERPRISE.MENU.LIST OF ENTERPRISES' | translate}}" id="tabListOfEnterprises">
             <ng-template ngbTabContent>
                 <div class="card">
                     <div class="card-body">
-                        <ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
-                            <ngb-panel [disabled]="true">
-                                <ng-template ngbPanelTitle>
-                                    <div class="row">
-                                        <div class="col-sm-3"><b>{{'PLATFORM.ENTERPRISE.COLUMN.NAME' | translate}}</b></div>
-                                        <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TELEPHONE' | translate}}</b></div>
-                                        <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.FAX' | translate}}</b></div>
-                                        <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.WEB' | translate}}</b></div>
-                                        <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TYPE' | translate}}</b></div>
-                                    </div>
-                                </ng-template>
-                            </ngb-panel>
-                            <ngb-panel *ngFor="let enterpriseItem of enterprisesList">
-                                <ng-template ngbPanelTitle>
-                                    <div class="row" id="{{enterpriseItem._id}}">
-                                        <div class="col-sm-3">{{enterpriseItem.data.name}}</div>
-                                        <div class="col-sm-2">{{enterpriseItem.data.telephone}}</div>
-                                        <div class="col-sm-2">{{enterpriseItem.data.fax}}</div>
-                                        <div class="col-sm-2">{{enterpriseItem.data.web}}</div>
-                                        <div class="col-sm-2">{{enterpriseItem.annotation.clientType}}</div>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent>
-                                    <ngb-tabset>
-                                        <ngb-tab title="{{'PLATFORM.ENTERPRISE.MENU.INFO' | translate}}" id="tabInfo">
-                                            <ng-template ngbTabContent>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.NAME' | translate}}</b></div>
-                                                            <div class="col-sm-8 align-self-center">
-                                                                <gg-editor [content]="enterpriseItem.data.name" [showControls]="true" (editSaved)="nameEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.TELEPHONE' | translate}}</b></div>
-                                                            <div class="col-sm-8 align-self-center">
-                                                                <gg-editor [content]="enterpriseItem.data.telephone" [showControls]="true" (editSaved)="telephoneEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.FAX' | translate}}</b></div>
-                                                            <div class="col-sm-8 align-self-center">
-                                                                <gg-editor [content]="enterpriseItem.data.fax" [showControls]="true" (editSaved)="faxEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.WEB' | translate}}</b></div>
-                                                            <div class="col-sm-8 align-self-center">
-                                                                <gg-editor [content]="enterpriseItem.data.web" [showControls]="true" (editSaved)="webEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
-                                                            </div>
-                                                            <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.CLIENT TYPE' | translate}}</b></div>
-                                                            <div class="col-sm-8 align-self-center">
-                                                                <gg-editor-autocomplete [selectableData]="clientTypeListObservable" [emptyContentText]="'PLATFORM.ENTERPRISE.LABEL.CHOOSE A CLIENT TYPE PHOLDER' | translate"
-                                                                    [selectedId]="enterpriseItem.data.clientTypeId" (idChanged)="clientTypeUpdated($event, enterpriseItem)"></gg-editor-autocomplete>
+
+                        <gg-search-box [objectTypeTranslationKey]="'ENTERPRISES'" [objectsObservable]="platformService.getAnnotatedEnterprises()" [fnFilterObjects]="fnFilter"
+                            (listChanged)="setEnterprises($event)">
+                            <ul searchHelp>
+                                <li>{{'PLATFORM.ENTERPRISE.SEARCH HELP.MSG1' | translate}}</li>
+                            </ul>
+
+                            <ngb-accordion accordion [closeOthers]="true" #acc="ngbAccordion">
+                                <ngb-panel [disabled]="true">
+                                    <ng-template ngbPanelTitle>
+                                        <div class="row">
+                                            <div class="col-sm-6"><b>{{'PLATFORM.ENTERPRISE.COLUMN.NAME' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TELEPHONE' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.FAX' | translate}}</b></div>
+                                            <div class="col-sm-2"><b>{{'PLATFORM.ENTERPRISE.COLUMN.TYPE' | translate}}</b></div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-panel>
+                                <ngb-panel *ngFor="let enterpriseItem of enterprisesList">
+                                    <ng-template ngbPanelTitle>
+                                        <div class="row" id="{{enterpriseItem._id}}">
+                                            <div class="col-sm-6">{{enterpriseItem.data.name}}</div>
+                                            <div class="col-sm-2">{{enterpriseItem.data.telephone}}</div>
+                                            <div class="col-sm-2">{{enterpriseItem.data.fax}}</div>
+                                            <div class="col-sm-2">{{enterpriseItem.annotation.clientType}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
+                                        <ngb-tabset>
+                                            <ngb-tab title="{{'PLATFORM.ENTERPRISE.MENU.INFO' | translate}}" id="tabInfo">
+                                                <ng-template ngbTabContent>
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.NAME' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
+                                                                    <gg-editor [content]="enterpriseItem.data.name" [showControls]="true" (editSaved)="nameEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.TELEPHONE' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
+                                                                    <gg-editor [content]="enterpriseItem.data.telephone" [showControls]="true" (editSaved)="telephoneEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.FAX' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
+                                                                    <gg-editor [content]="enterpriseItem.data.fax" [showControls]="true" (editSaved)="faxEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.WEB' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
+                                                                    <gg-editor [content]="enterpriseItem.data.web" [showControls]="true" (editSaved)="webEnterpriseUpdated($event, enterpriseItem)"></gg-editor>
+                                                                </div>
+                                                                <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.ENTERPRISE.LABEL.CLIENT TYPE' | translate}}</b></div>
+                                                                <div class="col-sm-8 align-self-center">
+                                                                    <gg-editor-autocomplete [selectableData]="clientTypeListObservable" [emptyContentText]="'PLATFORM.ENTERPRISE.LABEL.CHOOSE A CLIENT TYPE PHOLDER' | translate"
+                                                                        [selectedId]="enterpriseItem.data.clientTypeId" (idChanged)="clientTypeUpdated($event, enterpriseItem)"></gg-editor-autocomplete>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </ng-template>
-                                        </ngb-tab>
+                                                </ng-template>
+                                            </ngb-tab>
 
-                                    </ngb-tabset>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
+                                        </ngb-tabset>
+                                    </ng-template>
+                                </ngb-panel>
+                            </ngb-accordion>
+                        </gg-search-box>
                     </div>
                 </div>
             </ng-template>

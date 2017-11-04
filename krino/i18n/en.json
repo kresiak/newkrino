@@ -22,6 +22,8 @@
     "OTPS": "otps",
     "PRODUCTS": "products",
     "USERS": "users",
+    "CLIENTS": "clients",
+    "ENTERPRISES": "enterprises/labs",
     "EQUIPES": "projects",
     "EQUIPE GROUPS": "groups of projects",
     "CATEGORIES": "categories",
@@ -1494,6 +1496,9 @@
       }
     },
     "ENTERPRISE": {
+      "SEARCH HELP": {
+        "MSG1": "cardio: search for labs or enterprises having 'cardio' in their name"
+      },         
       "MENU": {
         "LIST OF ENTERPRISES": "List of enterprises",
         "INFO": "Info",
@@ -1517,6 +1522,10 @@
       }
     },
     "CLIENT": {
+      "SEARCH HELP": {
+        "MSG1": "john: search for clients having 'john' in their name",
+        "MSG2": "'molecular': search for clients having 'molecular' in their enterprise name"
+      },      
       "MENU": {
         "LIST OF CLIENTS": "List of clients",
         "INFO": "Info",
@@ -1533,6 +1542,8 @@
         "NAME": "name",
         "FIRST NAME": "first name",
         "EMAIL": "email",
+        "LABO": "laboratory, department",
+        "WEB PAGE": "web page",
         "TELEPHONE": "telephone",
         "ENTERPRISE": "Enterprise",
         "ENTERPRISE OF CLIENT": "enterprise of client",
