@@ -495,7 +495,7 @@ export class PlatformService {
                         clientType: type ? type.name : 'unknown type'
                     }
                 }
-            })
+            }).sort((a, b) => a.data.name < b.data.name ? -1 : 1)
         })
     }
 
@@ -557,12 +557,13 @@ export class PlatformService {
                     return {
                         data: client,
                         annotation: {
+                            fullNameInverted: client.name + ' ' + client.firstName,                            
                             fullName: client.firstName + ' ' + client.name,
                             enterprise: enterprise ? enterprise.name : 'unknown enterprise',
                             clientType: type ? type.name : 'unknown type'
                         }
                     }
-                })
+                }).sort((a, b) => a.annotation.fullNameInverted < b.annotation.fullNameInverted ? -1 : 1)
             })
     }
 

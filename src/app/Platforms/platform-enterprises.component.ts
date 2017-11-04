@@ -27,7 +27,7 @@ export class PlatformEnterprisesComponent implements OnInit {
     }
 
     setEnterprises(enterprisesList) {
-        this.enterprisesList= enterprisesList.sort((a, b) => a.data.name < b.data.name ? -1 : 1)
+        this.enterprisesList= enterprisesList
     }
 
     ngOnInit(): void {

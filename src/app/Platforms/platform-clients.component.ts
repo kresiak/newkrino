@@ -27,7 +27,7 @@ export class PlatformClientsComponent implements OnInit {
     }
 
     setClients(clients) {
-        this.clientsList= clients.sort((a, b) => a.annotation.fullName < b.annotation.fullName ? -1 : 1)
+        this.clientsList= clients
     }
 
     ngOnInit(): void {
