@@ -608,7 +608,8 @@
       "MSG11": "$PR : private products (can be seen only by this labo)",
       "MSG12": "$PU : public products (can be seen by all labo)",
       "MSG13": "$V : products waiting for validation",
-      "MSG14": "$OR : products that already have been ordered"
+      "MSG14": "$OR : products that already have been ordered",
+      "MSG15": "$FR : products that are in the fridge"
     },
     "FRIDGE": {
       "LABEL": {

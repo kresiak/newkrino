@@ -310,6 +310,10 @@ export class ProductService {
                 return product.annotation.productFrequence;
             }
 
+            if (txt.startsWith('$FR')) {
+                return product.data.isFrigo;
+            }
+
             if (txt.startsWith('$V')) {
                 return product.data.onCreateValidation;
             }

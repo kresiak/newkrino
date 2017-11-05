@@ -608,7 +608,8 @@
       "MSG11": "$PR : produits privés (peuvent être vus/utilisés seulement par les membres de VOTRE labo)",
       "MSG12": "$PU : produits publics (peuvent être vus/utilisés seulement par les membres de TOUS les labos)",
       "MSG13": "$V : produits en attente de validation",
-      "MSG14": "$OR : produits qui ont déjà été commandés dans votre labo"
+      "MSG14": "$OR : produits qui ont déjà été commandés dans votre labo",
+      "MSG15": "$FR : produits frigos"
     },
     "FRIDGE": {
       "LABEL": {
