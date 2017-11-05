@@ -508,6 +508,7 @@
   "PRODUCT": {
     "MENU": {
       "INFO": "Infos",
+      "CLONE": "Créer un produit similaire",
       "PUT INTO BASKET": "Mettre dans panier",
       "PERMISSIONS": "Permissions",
       "COMMENTS": "Commentaires",

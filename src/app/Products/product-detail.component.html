@@ -3,7 +3,7 @@
 <ng-template #tipContentFrigo>{{'PRODUCT.ACTIONS.CLICK TO DESACTIVATE FRIGO' | translate}}</ng-template>
 
 <ng-template #tipAddToBasket>
-	<div style="font-size: 70%;" [innerHtml]="'PRODUCT.ACTIONS.CLICK HERE TO ADD PRODUCT' | translate" ></div>
+	<div style="font-size: 70%;" [innerHtml]="'PRODUCT.ACTIONS.CLICK HERE TO ADD PRODUCT' | translate"></div>
 </ng-template>
 
 <ng-template #validationModal let-c="close" let-d="dismiss">
@@ -187,6 +187,15 @@
 			</div>
 		</ng-template>
 	</ngb-tab>
+	<ngb-tab title="{{'PRODUCT.MENU.CLONE' | translate}}" id="tabClone">
+		<ng-template ngbTabContent>
+			<div class="card">
+				<div class="card-body">
+					<gg-product-enter [supplierId]="product.data.supplierId" [productToClone]="product"></gg-product-enter>
+				</div>
+			</div>
+		</ng-template>
+	</ngb-tab>
 	<ngb-tab id="tabDoubleProducts" *ngIf="hasProductDoubles">
 		<ng-template ngbTabTitle><span style="color: indianred">{{'PRODUCT.MENU.DUPLICATE CATALOG NR' | translate}}</span>
 			<gg-help-pointer [helpText]="'PRODUCT.HELP.DUPLICATE CATALOG NR MENU TIP' | translate"></gg-help-pointer>
@@ -309,7 +318,8 @@
 		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 	<ngb-tab id="gotoTop" *ngIf="!isRoot && path!=='dashboard'">
-		<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave" /></ng-template>
+		<ng-template ngbTabTitle><img src="../../images/gototop.png" [ngbPopover]="'GENERAL.ACTION.GOTO TOP OF THE PAGE' | translate" triggers="mouseenter:mouseleave"
+			/></ng-template>
 		<ng-template ngbTabContent></ng-template>
 	</ngb-tab>
 

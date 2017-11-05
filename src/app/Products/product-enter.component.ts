@@ -18,8 +18,8 @@ export class ProductEnterComponent implements OnInit {
 
     }
 
-    @Input() supplierId: string;
-
+    @Input() supplierId: string
+    @Input() productToClone: any= {data: {}, annotation: {}}
 
     private categoryData: SelectableData[]
     private categories
@@ -52,15 +52,15 @@ export class ProductEnterComponent implements OnInit {
         const priceRegEx = `^\\d+(.\\d*)?$`;
 
         this.productForm = this.formBuilder.group({
-            nameOfProduct: ['', [Validators.required, Validators.minLength(5)]],
-            description: [''],
+            nameOfProduct: [this.productToClone.data.name || '', [Validators.required, Validators.minLength(5)]],
+            description: [this.productToClone.data.description || ''],
             price: ['', [Validators.required, Validators.pattern(priceRegEx)]],
-            package: ['', Validators.required],
+            package: [this.productToClone.data.package || '', Validators.required],
             category: ['-1', this.isCategoryIdSelected],
-            catalogNr: ['', Validators.required],
-            noarticle: ['', Validators.required],
-            groupMarch: ['', Validators.required],
-            tva: ['', Validators.required],
+            catalogNr: [this.productToClone.data.catalogNr || '', Validators.required],
+            noarticle: [this.productToClone.data.noArticle || '', Validators.required],
+            groupMarch: [this.productToClone.data.groupMarch || '', Validators.required],
+            tva: [this.productToClone.data.tva || '', Validators.required],
             disabled: [''],
             isStock: [''],
             needsLotNumber: [''],
