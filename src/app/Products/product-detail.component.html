@@ -62,9 +62,9 @@
 						<div class="col-sm-6 align-self-center">
 							<gg-editor [content]="product.data.name" [showControls]="true" (editSaved)="nameUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>
 						</div>
-						<div class="col-sm-1 align-self-center" *ngIf="!authorizationStatusInfo.isPassiveUser() && product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled"
+						<div class="col-sm-1" *ngIf="!authorizationStatusInfo.isPassiveUser() && product.annotation.hasCurrentUserPermissionToShop && !product.data.isFrigo && !product.data.disabled"
 						 placement="right" [ngbTooltip]="tipAddToBasket">
-							<img class="card-img img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()"><span>{{product.annotation.quantity}}</span>
+							<img class="img-fluid imgSearch" src="../../images/addToBasket.png" (click)="quantityBasketIncremented()"><span>{{product.annotation.quantity}}</span>
 						</div>
 						<div class="col-sm-1 align-self-center" *ngIf="product.data.isFrigo">
 							<gg-product-fridge-order-button *ngIf="product.data.isFrigo" [productObservable]="productObservable"></gg-product-fridge-order-button>+
