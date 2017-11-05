@@ -43,6 +43,16 @@ export class ProductListComponent implements OnInit {
 
     private basketPorductsMap: Map<string, any> = new Map<string, any>()
 
+    private logHistory(product, event: string, oldValue, newValue) {
+        if (!product.data.history) product.data.history = []
+        product.data.history.push({
+            date: dateUtils.nowFormated(),
+            userId: this.authorizationStatusInfo.getCurrentUserName(),
+            event: event,
+            oldValue: oldValue,
+            newValue: newValue
+        })
+    }
 
     getFilterFn() {
         var self = this
@@ -68,6 +78,11 @@ export class ProductListComponent implements OnInit {
         if (this.basketPorductsMap)
             this.productService.setBasketInformationOnProducts(this.basketPorductsMap, this.products)
     }
+
+    isProductReadOnly(product) {
+        return !this.authorizationStatusInfo || !this.authorizationStatusInfo.isRightAdministrator(product.annotation.isPublic)
+    }
+
 
     private isPageRunning: boolean = true
     ngOnDestroy(): void {
@@ -102,6 +117,7 @@ export class ProductListComponent implements OnInit {
         event.stopPropagation()
 
         this.notificationService.checkForConfirmation(isFrigo ? 'PRODUCT.HELP.SET FRIDGE IN MODAL' : 'PRODUCT.HELP.UNSET FRIDGE IN MODAL', () => {
+            this.logHistory(product, 'is Frigo change', product.data.isFrigo, isFrigo);
             product.data.isFrigo = isFrigo;
             this.dataStore.updateData('products', product.data._id, product.data);
         })

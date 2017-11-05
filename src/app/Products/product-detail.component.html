@@ -169,11 +169,11 @@
 					<div class="row">
 						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.FRIGO' | translate}}:</div>
 						<div class="col-sm-6 align-self-center">
-							<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && authorizationStatusInfo.isAdministrator()" height="25"
+							<img [ngbTooltip]="tipContentFrigo" *ngIf="product.data.isFrigo && !isProductReadOnly()" height="25"
 							 width="25" src="../../images/refrigator.png" (click)="saveFrigoProperty($event, product, false)" />
-							<img *ngIf="product.data.isFrigo && !authorizationStatusInfo.isAdministrator()" height="25" width="25" src="../../images/refrigator.png"
+							<img *ngIf="product.data.isFrigo && isProductReadOnly()" height="25" width="25" src="../../images/refrigator.png"
 							/>
-							<img *ngIf="!product.data.isFrigo && authorizationStatusInfo.isAdministrator()" class="invisible-without-hover" height="25"
+							<img *ngIf="!product.data.isFrigo && !isProductReadOnly()" class="invisible-without-hover" height="25"
 							 width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" />
 						</div>
 					</div>

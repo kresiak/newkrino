@@ -94,12 +94,12 @@ export class ProductDetailComponent implements OnInit {
 
     openModal(template, type: string) {
         if (type === 'REFUSE') {
-            this.headerKey="PRODUCT.ACTIONS.REFUSER VALIDATION MODAL TITLE"
-            this.footerKey="PRODUCT.ACTIONS.REFUSER VALIDATION MODAL FOOTER"
+            this.headerKey = "PRODUCT.ACTIONS.REFUSER VALIDATION MODAL TITLE"
+            this.footerKey = "PRODUCT.ACTIONS.REFUSER VALIDATION MODAL FOOTER"
         }
         else if (type === 'REASK') {
-            this.headerKey="PRODUCT.ACTIONS.REASK VALIDATION MODAL TITLE"
-            this.footerKey="PRODUCT.ACTIONS.REASK VALIDATION MODAL FOOTER"
+            this.headerKey = "PRODUCT.ACTIONS.REASK VALIDATION MODAL TITLE"
+            this.footerKey = "PRODUCT.ACTIONS.REASK VALIDATION MODAL FOOTER"
         }
         var ref = this.modalService.open(template, { keyboard: false, backdrop: "static", size: "lg" });
         var promise = ref.result;
@@ -206,8 +206,8 @@ export class ProductDetailComponent implements OnInit {
     validationReask() {
         this.logHistory('validation asked again', '', '')
         this.product.data.onCreateValidation = true;
-        this.product.data.creatingUserId= this.authorizationStatusInfo.currentUserId
-        this.dataStore.updateData('products', this.product.data._id, this.product.data);        
+        this.product.data.creatingUserId = this.authorizationStatusInfo.currentUserId
+        this.dataStore.updateData('products', this.product.data._id, this.product.data);
     }
 
     validationDone() {
@@ -218,7 +218,7 @@ export class ProductDetailComponent implements OnInit {
 
     validationRefuse() {
         this.logHistory('validation refused', '', '')
-        this.product.data.onCreateValidation = false        
+        this.product.data.onCreateValidation = false
         this.dataStore.updateData('products', this.product.data._id, this.product.data)
         this.notificationService.sendPrivateObjectMessage(this.product.data.creatingUserId, 'product', this.product.data._id, 'PRODUCT.ACTIONS.REFUSER VALIDATION MSG')
     }
@@ -296,9 +296,12 @@ export class ProductDetailComponent implements OnInit {
     private saveFrigoProperty(event, product, isFrigo: boolean) {
         event.preventDefault()
         event.stopPropagation()
-        this.logHistory('is Frigo change', this.product.data.isFrigo, isFrigo)
-        product.data.isFrigo = isFrigo;
-        this.dataStore.updateData('products', product.data._id, product.data);
+
+        this.notificationService.checkForConfirmation(isFrigo ? 'PRODUCT.HELP.SET FRIDGE IN MODAL' : 'PRODUCT.HELP.UNSET FRIDGE IN MODAL', () => {
+            this.logHistory('is Frigo change', this.product.data.isFrigo, isFrigo);
+            product.data.isFrigo = isFrigo;
+            this.dataStore.updateData('products', product.data._id, product.data);
+        })
     }
 
     descriptionUpdated(description) {
