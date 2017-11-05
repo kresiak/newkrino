@@ -57,6 +57,8 @@
                                             <div class="col-sm-3 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.SERVICE' | translate}}</b></div>
                                             <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.CURRENT' | translate}}</b></div>
                                             <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.NB OF UNITS USED' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.PRICE PER UNIT' | translate}}</b></div>
+                                            <div class="col-sm-2 align-self-center"><b>{{'PLATFORM.SERVICE.STEP.COLUMN.TOTAL' | translate}}</b></div>
                                         </div>
                                         <div *ngFor="let service of (serviceStep.annotation.services || []); let pos = index">
                                             <!--FOR  -->
@@ -70,7 +72,13 @@
                                                 <div class="col-sm-2 align-self-center">
                                                     <gg-editor-number [readOnly]="isSnapshot" [content]="service.data.quantity" (editSaved)="serviceQuantityUpdated(pos, $event)"></gg-editor-number>
                                                 </div>
-                                                <div class="col-sm-2 align-self-center" *ngIf="!isSnapshot">
+                                                <div class="col-sm-2 align-self-center">
+                                                    {{service.annotation.costPerUnit ? (service.annotation.costPerUnit | currency:'EUR':true:'1.2-2') : '?'}}
+                                                </div>
+                                                <div class="col-sm-2 align-self-center">
+                                                    {{service.annotation.costPerUnit ? ((service.annotation.costPerUnit * service.data.quantity) | currency:'EUR':true:'1.2-2') : '?'}}
+                                                </div>
+                                                <div class="col-sm-1 align-self-center" *ngIf="!isSnapshot">
                                                     <gg-checkbox-delete [typeObjectKey]="'GENERAL.OBJECT.SERVICE'" (doDelete)="deleteService(pos)"></gg-checkbox-delete>
                                                 </div>
                                             </div>

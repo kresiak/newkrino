@@ -1286,7 +1286,7 @@
       "LABEL": {
         "NAME OF SERVICE": "nom du service",
         "DESCRIPTION": "description",
-        "CATEGORY": "catögorie",
+        "CATEGORY": "catégorie",
         "NAME OF CATEGORY": "nom de la catégorie"
       },
       "DETAIL": {
@@ -1358,7 +1358,7 @@
         "LABEL": {
           "NAME OF STEP": "nom de l'étape",
           "DESCRIPTION": "description",
-          "USED MACHINE": "machin utilisée",
+          "USED MACHINE": "machine utilisée",
           "RUNTIME (IN HOURS)": "exécution (en h)",
           "EVALUATION OF COST": "evaluation du coût",
           "DESCRIPTION OF CONSOMMABLES": "description des consommables",

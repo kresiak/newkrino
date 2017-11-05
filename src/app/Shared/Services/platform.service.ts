@@ -182,11 +182,13 @@ export class PlatformService {
                 services: (serviceStep.services || []).map(s => {
                     let theService = services.filter(service => s.id === service._id)[0]
                     let snapshotInfo = stepServicesInfos.filter(si => si.id === s.id)[0]
+                    let currentClientTypeId= (service || {}).clientTypeId
                     return {
                         data: s,
                         annotation: {
                             service: theService ? theService.name : 'unknown service',
-                            currentSnapshot: snapshotInfo ? snapshotInfo.snapshot : ''
+                            currentSnapshot: snapshotInfo ? snapshotInfo.snapshot : '',
+                            costPerUnit: (snapshotInfo && snapshotInfo.costMap && snapshotInfo.costMap.has(currentClientTypeId)) ? snapshotInfo.costMap.get(currentClientTypeId) : undefined
                         }
                     }
                 })
