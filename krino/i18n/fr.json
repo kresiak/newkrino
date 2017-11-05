@@ -452,7 +452,8 @@
       "MSG4": "$w: liste des fournisseurs activés web shopping",
       "MSG5": "$c: liste des fournisseurs pour lesquels on a entré des frais de transports",
       "MSG6": "$ep: liste des fournisseurs activés e-procurement",
-      "MSG7": "04897: liste des fournisseurs  dont le sap ID contient '04897"
+      "MSG7": "04897: liste des fournisseurs dont le sap ID contient '04897",
+      "MSG8": "$o: liste des fournisseurs chez qui on a déjà commandé"
     },
     "MENU": {
       "INFO": "Infos",
@@ -482,7 +483,8 @@
       "CITY": "Ville",
       "COUNTRY": "Pays",
       "SAP ID": "Sap ID",
-      "VOUCHERS": "Coupons"
+      "VOUCHERS": "Coupons",
+      "NB ORDERS": "Nb de commandes"      
     },
     "LABEL": {
       "DESCRIPTION": "description:",

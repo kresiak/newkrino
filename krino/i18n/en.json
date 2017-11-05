@@ -452,7 +452,8 @@
       "MSG4": "$w: the supplier is web shopping enabled",
       "MSG5": "$c: the supplier has fix costs entered",
       "MSG6": "$ep: the supplier is a e-procurement supplier",
-      "MSG7": "04897: the sap ID of the supplier contains '04897"
+      "MSG7": "04897: the sap ID of the supplier contains '04897",
+      "MSG8": "$o: the supplier has been ordered from already"
     },
     "MENU": {
       "INFO": "Info",
@@ -482,7 +483,8 @@
       "CITY": "City",
       "COUNTRY": "Country",
       "SAP ID": "Sap Id",
-      "VOUCHERS": "Vouchers"
+      "VOUCHERS": "Vouchers",
+      "NB ORDERS": "Nb of orders"
     },
     "LABEL": {
       "DESCRIPTION": "Description:",

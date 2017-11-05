@@ -23,8 +23,8 @@ import * as comparatorsUtils from './../Shared/Utils/comparators'
     }
 )
 export class SupplierDetailComponent implements OnInit {
-        usersObservable: Observable<any>;
-        eprocOrders: Observable<any>;
+    usersObservable: Observable<any>;
+    eprocOrders: Observable<any>;
     fixCosts: any;
     constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private dataStore: DataStore, private productService: ProductService, private orderService: OrderService,
         private router: Router, private authService: AuthService, private navigationService: NavigationService, private supplierService: SupplierService,
@@ -81,7 +81,7 @@ export class SupplierDetailComponent implements OnInit {
 
         this.productsObservable = this.productService.getAnnotatedProductsBySupplier(this.supplierId);
 
-        this.eprocOrders= this.orderService.getAnnotedEprocOrders()
+        this.eprocOrders = this.orderService.getAnnotedEprocOrders()
 
         this.productService.getAnnotatedProductsBySupplier(this.supplierId).map(products => products.filter(p => p.data.isFixCost)).takeWhile(() => this.isPageRunning).subscribe(prods =>
             this.fixCosts = prods
@@ -240,24 +240,24 @@ export class SupplierDetailComponent implements OnInit {
     costsPriceUpdated(costObject, price) {
         this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
             if (!product || !product.data) return
-            product.data.price= +price
-            this.dataStore.updateData('products', product.data._id, product.data);           
+            product.data.price = +price
+            this.dataStore.updateData('products', product.data._id, product.data);
         })
     }
 
     costsDescriptionUpdated(costObject, description) {
         this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
             if (!product || !product.data) return
-            product.data.name= description
-            this.dataStore.updateData('products', product.data._id, product.data);           
+            product.data.name = description
+            this.dataStore.updateData('products', product.data._id, product.data);
         })
     }
 
     deleteFixCost(costObject) {
         this.productService.getAnnotatedProductsById(costObject.data._id).first().subscribe(product => {
             if (!product || !product.data) return
-            product.data.disabled= true
-            this.dataStore.updateData('products', product.data._id, product.data);           
+            product.data.disabled = true
+            this.dataStore.updateData('products', product.data._id, product.data);
         })
     }
 
