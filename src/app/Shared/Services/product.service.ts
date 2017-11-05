@@ -269,7 +269,7 @@ export class ProductService {
 
     getIsProductOKForListFn(self) {
         return function(product, txt) {
-            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return true
+            if (txt === '' || txt === '!' || txt === '$' || txt === '$>' || txt === '$<') return !product.data.disabled
 
             if (txt.startsWith('$S/')) {
                 let txt2 = txt.slice(3);
