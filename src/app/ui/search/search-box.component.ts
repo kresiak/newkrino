@@ -72,7 +72,7 @@ export class SearchBoxComponent implements OnInit {
         if (this.explainedComplexQuery.trim().toUpperCase() === txt.trim().toUpperCase()) this.explainedComplexQuery = ''      // hide it if it doesn't bring any extra info
 
         return object => {
-            if (!orList || orList.length === 0) return true
+            if (!orList || orList.length === 0) return this.fnFilterObjects(object, '')
             return orList.reduce((isOrListOkSoFar, andList: any[]) => {
                 if (isOrListOkSoFar) return true
                 var isThisOk: boolean = andList.reduce((isAndListOkSoFar, tokenTxt: string) => {
