@@ -5,6 +5,7 @@
     "EMPTY": "",
     "CLICK HERE": "clicker ici",    
     "CLOSE": "Fermer",    
+    "CANCEL": "Annuler",        
     "NOT SET YET" : "(pas encore choisi)",    
     "CHOOSE AN EQUIPE": "choisir une équipe",    
     "TOGGLE DETAILS": "Voir/cacher détails",
@@ -104,6 +105,10 @@
       "THE": "le/la",
       "ARE YOU SURE": "Etes vous certain de vouloir faire cela? Si oui, clicker le bouton ci-dessous.",
       "NOW I WILL": "Maintenant on va"
+    },
+    "MODAL": {
+      "DEFAULT TITLE": "Confirmation",
+      "DEFAULT QUESTION": "Etes-vous certain? En cas de doute, veuillez annuler."
     }
   },  
   "HOME": {
@@ -593,7 +598,10 @@
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Ici vous pouvez voir les produits qui ont le même numéro catalogue.",
       "OTP DESCRIPTION IS": "Description de cet otp",
-      "CHOOSE OTP TIP": "Vous pouvez choisir un autre otp en clickant ici"
+      "CHOOSE OTP TIP": "Vous pouvez choisir un autre otp en clickant ici",
+      "ACTIVATE FRIDGE": "En cliquant ici, vous spécifiez que ce produit est/n'est pas un produit frigo",
+      "SET FRIDGE IN MODAL": "Vous voulez donc faire de ce produit un produit frigo: un produit que les utilisateurs pouront prendre directement dans le frigo.",
+      "UNSET FRIDGE IN MODAL": "Ce produit est un produit frigo: un produit que les utilisateurs peuvent prendre directement dans le frigo. Vous voulez donc changer cela et en faire un produit classique."
     },
     "SEARCH HELP": {
       "MSG1": "liquid : produits dont le nom ou le nom du fournisseur contient le texte 'liquid'",

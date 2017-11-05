@@ -27,7 +27,7 @@ import { FullDatePipe } from '../../Shared/Pipes/fulldate.pipe'
 import { ShortDatePipe } from '../../Shared/Pipes/shortdate.pipe'
 import { FromNowPipe } from '../../Shared/Pipes/fromnow.pipe'
 
-
+import { ModalConfirmComponent } from '../modal/modal-confirm.component'
 
 @NgModule({
   imports: [
@@ -37,15 +37,19 @@ import { FromNowPipe } from '../../Shared/Pipes/fromnow.pipe'
   declarations: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
-    FullDatePipe, ShortDatePipe, FromNowPipe
+    FullDatePipe, ShortDatePipe, FromNowPipe, ModalConfirmComponent
   ],
   exports: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
-    FullDatePipe, ShortDatePipe, FromNowPipe
+    FullDatePipe, ShortDatePipe, FromNowPipe,
+    ModalConfirmComponent
   ],
   providers: [
     ],
+  entryComponents: [
+    ModalConfirmComponent
+  ],
   bootstrap: []
 })
 export class UiModule { }

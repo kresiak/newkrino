@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx'
 import { ProductService } from './../Shared/Services/product.service'
 import { BasketService } from './../Shared/Services/basket.service'
 import { ConfigService } from './../Shared/Services/config.service'
+import { NotificationService } from './../Shared/Services/notification.service'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationStatusInfo, AuthService } from '../Shared/Services/auth.service'
@@ -34,7 +35,8 @@ export class ProductListComponent implements OnInit {
 
     private products;
 
-    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService, private configService: ConfigService) {
+    constructor(private dataStore: DataStore, private authService: AuthService, private productService: ProductService, private basketService: BasketService,
+        private configService: ConfigService, private notificationService: NotificationService) {
     }
 
     private authorizationStatusInfo: AuthenticationStatusInfo
@@ -98,8 +100,11 @@ export class ProductListComponent implements OnInit {
     private saveFrigoProperty(event, product, isFrigo: boolean) {
         event.preventDefault()
         event.stopPropagation()
-        product.data.isFrigo = isFrigo;
-        this.dataStore.updateData('products', product.data._id, product.data);
+
+        this.notificationService.checkForConfirmation(isFrigo ? 'PRODUCT.HELP.SET FRIDGE IN MODAL' : 'PRODUCT.HELP.UNSET FRIDGE IN MODAL', () => {
+            product.data.isFrigo = isFrigo;
+            this.dataStore.updateData('products', product.data._id, product.data);
+        })
     }
 
     private selectedProductIdsMap: Set<string>
@@ -123,7 +128,7 @@ export class ProductListComponent implements OnInit {
             return {
                 Name: product.data.name,
                 Supplier: product.annotation.supplierName,
-                Package: product.data.package,
+                Package: product.data.package,  
                 CatalogNr: product.data.catalogNr,
                 Price: (+product.data.price).toLocaleString('fr-BE', {useGrouping: false}),
                 Frigo: product.data.isFrigo,

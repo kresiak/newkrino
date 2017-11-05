@@ -5,6 +5,7 @@
     "EMPTY": "",
     "CLICK HERE": "click here",
     "CLOSE": "Close",
+    "CANCEL": "Cancel",    
     "NOT SET YET": "(not set yet)",
     "CHOOSE AN EQUIPE": "choose a project team",
     "TOGGLE DETAILS": "Show/hide details",
@@ -104,6 +105,10 @@
       "THE": "the",
       "ARE YOU SURE": "Are you sure you want to do that? If yes, click the button below.",
       "NOW I WILL": "Now I will"
+    },
+    "MODAL": {
+      "DEFAULT TITLE": "Confirmation",
+      "DEFAULT QUESTION": "Are you sure? If not, please cancel"
     }
   },
   "HOME": {
@@ -593,7 +598,10 @@
     "HELP": {
       "DUPLICATE CATALOG NR MENU TIP": "Here you can see the other products with the same catalog number.",
       "OTP DESCRIPTION IS": "Description of this Otp",
-      "CHOOSE OTP TIP": "You can choose an other Otp by clicking here"
+      "CHOOSE OTP TIP": "You can choose an other Otp by clicking here",
+      "ACTIVATE FRIDGE": "By clicking here, you will set/unset this product as a fridge product",
+      "SET FRIDGE IN MODAL": "You are about to make this product a fridge product: a product that can be taken from the fridge.",
+      "UNSET FRIDGE IN MODAL": "This product is a fridge product: a product that can be taken from the fridge. You are about to change that and make this product a regular product."
     },
     "SEARCH HELP": {
       "MSG1": "liquid : if the product or the supplier contains the string 'liquid'",

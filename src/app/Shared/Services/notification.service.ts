@@ -7,8 +7,12 @@ import { StockService } from './stock.service'
 import { VoucherService } from './voucher.service'
 import { ProductService } from './product.service'
 import { Observable, Subscription, ConnectableObservable } from 'rxjs/Rx'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from "moment"
 import * as utilsDate from './../Utils/dates'
+
+import {ModalConfirmComponent} from './../../ui/modal/modal-confirm.component'
+
 
 Injectable()
 export class NotificationService {
@@ -16,7 +20,7 @@ export class NotificationService {
     constructor( @Inject(DataStore) private dataStore: DataStore, @Inject(AuthService) private authService: AuthService,
         @Inject(OrderService) private orderService: OrderService, @Inject(OtpService) private otpService: OtpService,
         @Inject(StockService) private stockService: StockService, @Inject(VoucherService) private voucherService: VoucherService,
-        @Inject(ProductService) private productService: ProductService) {
+        @Inject(ProductService) private productService: ProductService, @Inject(NgbModal) private modalService: NgbModal ) {
 
     }
 
@@ -204,5 +208,16 @@ export class NotificationService {
             }
             this.dataStore.addData('messages', data)
         })
+    }
+
+    // utilities
+    // =========
+
+    checkForConfirmation(explicationKey: string= undefined, fnCloseAction= undefined) {
+        var modalRef = this.modalService.open(ModalConfirmComponent)
+        if (explicationKey)
+            modalRef.componentInstance.explicationKey= explicationKey
+        if (fnCloseAction) 
+            modalRef.componentInstance.fnCloseAction= fnCloseAction
     }
 }
