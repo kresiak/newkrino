@@ -453,7 +453,7 @@
       "MSG5": "$c: the supplier has fix costs entered",
       "MSG6": "$ep: the supplier is a e-procurement supplier",
       "MSG7": "04897: the sap ID of the supplier contains '04897",
-      "MSG8": "$o: the supplier has been ordered from already"
+      "MSG8": "$OR: the supplier has been ordered from already"
     },
     "MENU": {
       "INFO": "Info",

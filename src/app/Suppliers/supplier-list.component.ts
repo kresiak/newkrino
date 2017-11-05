@@ -53,7 +53,7 @@ export class SupplierListComponent implements OnInit {
             return supplier.data.isEproc
         }
 
-        if (txt.toUpperCase().startsWith('$O')) {
+        if (txt.toUpperCase().startsWith('$OR')) {
             return supplier.annotation.supplierFrequence
         }
 
