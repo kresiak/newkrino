@@ -119,7 +119,11 @@ export class SupplierService {
     }
 
     getAnnotatedSuppliersByFrequence(): Observable<any> {
-        return this.getAnnotatedSuppliers().map(prods => prods.sort((a, b) => b.annotation.supplierFrequence - a.annotation.supplierFrequence));
+        return this.getAnnotatedSuppliers().map(prods => prods.sort((a, b) => {
+            return b.annotation.supplierFrequence !== a.annotation.supplierFrequence ? (b.annotation.supplierFrequence - a.annotation.supplierFrequence) :
+              (a.data.name < b.data.name ? -1 : 1)
+            
+        }));
     }
 
 

@@ -16,9 +16,11 @@ export class ProductService {
         this.initProductDoubleObservable()
 
         this.allProductsObservable = new SharedObservable(this.getAnnotatedProducts(this.dataStore.getDataObservable('products')).map(prods =>
-            prods.sort((a, b) => b.annotation.productFrequence - a.annotation.productFrequence))
+            prods.sort((a, b) => {
+                return b.annotation.productFrequence === a.annotation.productFrequence ? (a.data.name.replace('"', '').trim() < b.data.name.replace('"', '').trim() ? - 1 : 1) :
+                    (b.annotation.productFrequence < a.annotation.productFrequence) ? -1 : 1
+            }))
         )
-
     }
 
 
