@@ -7,7 +7,7 @@
 			</div>
 			<!--<p *ngIf="productForm.controls.description.errors">This field is required!</p>-->
 		</div>
-		<div class="form-group row" ngbTooltip="Enter here a text of description." >
+		<div class="form-group row" [ngbTooltip]="'PRODUCT.LABEL.ENTER HERE A TEXT OF DESCRIPTION TIP' | translate" >
 			<label for="description" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.DESCRIPTION' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" formControlName="description" id="description" placeholder="{{'PRODUCT.LABEL.DESCRIPTION' | translate}}">
@@ -70,26 +70,26 @@
 				<input type="checkbox" class="form-control" formControlName="disabled" id="disabled" class="isCheckbox">
 			</div>
 		</div>
-		<div class="form-group row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
+		<div class="form-group row" [ngbTooltip]="'PRODUCT.LABEL.DEFINE HERE IF ENCODING TIP' | translate">
 			<label for="needsLotNumber" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}</label>
 			<div class="col-md-1 align-self-center">
 				<input type="checkbox" class="form-control" formControlName="needsLotNumber" id="needsLotNumber" class="isCheckbox">
 			</div>
 		</div>
-		<div class="form-group row" ngbTooltip="Define here if this product might potentially be resold from the stock">
+		<div class="form-group row" [ngbTooltip]="'PRODUCT.LABEL.DEFINE HERE IF THIS PRODUCT TIP' | translate">
 			<label for="isStock" class="col-sm-2 col-form-label col-xl-2 align-self-center">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}</label>
 			<div class="col-md-1 align-self-center">
 				<input type="checkbox" class="form-control" formControlName="isStock" id="isStock" class="isCheckbox" #showhideStockDetail >
 			</div>
 		</div>
 	<div *ngIf="showhideStockDetail && showhideStockDetail.checked" >	
-		<div class="form-group row" ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
+		<div class="form-group row" [ngbTooltip]="'PRODUCT.LABEL.IF FOR EXAMPLE YOU BUY A BOX TIP' | translate">
 			<label for="divisionFactor" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}</label>
 			<div class="col-sm-10">
 				<input type="number" min="0" max="100" step="any" class="form-control" formControlName="divisionFactor" id="divisionFactor" placeholder="{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}" #divisionFactor>
 			</div>
 		</div>
-		<div class="form-group row" [style.color]="divisionFactor.value==='1' ? 'black' : 'red'" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1" >
+		<div class="form-group row" [style.color]="divisionFactor.value==='1' ? 'black' : 'red'" [ngbTooltip]="'PRODUCT.LABEL.ENTER HERE A TEXT TIP' | translate" >
 			<label for="stockPackage" class="col-sm-2 col-form-label col-xl-2">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}} {{divisionFactor.value==='1' ? '' : 'enter this!!!'}}</label>
 			<div class="col-sm-10">
 				<input type="text" min="1" step="any" class="form-control" formControlName="stockPackage" id="stockPackage" placeholder="{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}">

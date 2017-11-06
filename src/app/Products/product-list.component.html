@@ -23,10 +23,10 @@
 			<ng-template ngbPanelTitle>
 				<div class="row" id="{{product.data._id}}">
 					<div class="col-sm-1" *ngIf="isForSelection">
-						<img ngbTooltip="select product" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" (click)="productSelectedInList($event, product, false)"
+						<img [ngbTooltip]="'PRODUCT.LABEL.SELECT PRODUCT TIP' | translate" *ngIf="!isProductSelected(product)" height="25" width="25" src="../../images/add.png" (click)="productSelectedInList($event, product, false)"
 						/>
 
-						<img ngbTooltip="unselect product" *ngIf="isProductSelected(product)" height="25" width="25" src="../../images/remove.png"
+						<img [ngbTooltip]="'PRODUCT.LABEL.UNSELECT PRODUCT TIP' | translate" *ngIf="isProductSelected(product)" height="25" width="25" src="../../images/remove.png"
 						 (click)="productSelectedInList($event, product, true)" />
 					</div>
 					<div [class.col-sm-3]="!isForSelection" [class.col-sm-2]="isForSelection" [style.font-weight]="product.data._id === state.openPanelId ? 'bold' : 'lighter'">{{product.data.name}}</div>

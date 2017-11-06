@@ -219,7 +219,10 @@
         "DESCRIPTION": "description",
         "PRODUCT CATEGORIES": "types de produits",
         "NAME CREATE": "nom:",
-        "DESCRIPTION CREATE": "description:"
+        "DESCRIPTION CREATE": "description:",
+        "CONSIDER ONLY ACTIVE OTPS THAT ARE OPEN TO ALL EQUIPES TIP": "Consider only active Otps that are open to all equipes XX",
+        "CONSIDER ONLY ACTIVE OTPS TIP": "Consider only active Otps that are limited to the equipe that is owning the otp XX",
+        "CONSIDER ALL OTPS TIP": "Consider all Otps, including deleted, blocked, ... XX"
       },
       "COLUMN": {
         "NAME": "Nom",
@@ -580,7 +583,16 @@
       "TOTAL": "total",
       "CATEGORY": "catégorie",
       "JUSTIFICATION": "justification",
-      "PRICE PER UNIT PHOLDER": "prix unitaire (sans TVA)"
+      "PRICE PER UNIT PHOLDER": "prix unitaire (sans TVA)",
+      "DEFINE HERE IF ENCODING THE LOT NUMBER TIP": "Define here if encoding the lot number might be needed at delivery for this product XX",
+      "DEFINE HERE IF THIS PRODUCT MIGHT POTENTIALLY TIP": "Define here if this product might potentially be resold from the stock XX",
+      "IF FOR EXAMPLE YOU BUY A BOX TIP": "If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1. XX",
+      "ENTER HERE A TEXT TIP": "Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1 XX",
+      "ENTER HERE A TEXT OF DESCRIPTION TIP": "Enter here a text of description. XX",
+      "DEFINE HERE IF ENCODING TIP": "Define here if encoding the lot number might be needed at delivery for this product XX",
+      "DEFINE HERE IF THIS PRODUCT TIP": "Define here if this product might potentially be resold from the stock XX",
+      "SELECT PRODUCT TIP": "select product XX",
+      "UNSELECT PRODUCT TIP": "unselect product XX"
     },
     "ACTIONS": {
         "ATTENTE VALIDATION TEXT": "en attente de validation:",
@@ -1306,7 +1318,9 @@
         "NAME OF SERVICE": "nom du service",
         "DESCRIPTION": "description",
         "CATEGORY": "catégorie",
-        "NAME OF CATEGORY": "nom de la catégorie"
+        "NAME OF CATEGORY": "nom de la catégorie",
+        "SELECT SERVICE TIP": "select service XX",
+        "UNSELECT SERVICE TIP": "unselect service XX"
       },
       "DETAIL": {
         "MENU": {

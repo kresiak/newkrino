@@ -219,7 +219,10 @@
         "DESCRIPTION": "Description",
         "PRODUCT CATEGORIES": "Product categories",
         "NAME CREATE": "name:",
-        "DESCRIPTION CREATE": "description:"
+        "DESCRIPTION CREATE": "description:",
+        "CONSIDER ONLY ACTIVE OTPS THAT ARE OPEN TO ALL EQUIPES TIP": "Consider only active Otps that are open to all equipes",
+        "CONSIDER ONLY ACTIVE OTPS TIP": "Consider only active Otps that are limited to the equipe that is owning the otp",
+        "CONSIDER ALL OTPS TIP": "Consider all Otps, including deleted, blocked, ..."
       },
       "COLUMN": {
         "NAME": "Name",
@@ -580,7 +583,16 @@
       "TOTAL": "Total",
       "CATEGORY": "Category",
       "JUSTIFICATION": "justification",
-      "PRICE PER UNIT PHOLDER": "price per unit (without VAT)"
+      "PRICE PER UNIT PHOLDER": "price per unit (without VAT)",
+      "DEFINE HERE IF ENCODING THE LOT NUMBER TIP": "Define here if encoding the lot number might be needed at delivery for this product",
+      "DEFINE HERE IF THIS PRODUCT MIGHT POTENTIALLY TIP": "Define here if this product might potentially be resold from the stock",
+      "IF FOR EXAMPLE YOU BUY A BOX TIP": "If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.",
+      "ENTER HERE A TEXT TIP": "Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1",
+      "ENTER HERE A TEXT OF DESCRIPTION TIP": "Enter here a text of description.",
+      "DEFINE HERE IF ENCODING TIP": "Define here if encoding the lot number might be needed at delivery for this product",
+      "DEFINE HERE IF THIS PRODUCT TIP": "Define here if this product might potentially be resold from the stock",
+      "SELECT PRODUCT TIP": "select product"      ,
+      "UNSELECT PRODUCT TIP": "unselect product"
     },
     "ACTIONS": {
       "ATTENTE VALIDATION TEXT": "waiting for validation:",
@@ -1285,7 +1297,9 @@
         "NAME OF SERVICE": "name of service",
         "DESCRIPTION": "description",
         "CATEGORY": "category",
-        "NAME OF CATEGORY": "name of category"
+        "NAME OF CATEGORY": "name of category",
+        "SELECT SERVICE TIP": "select service",
+        "UNSELECT SERVICE TIP": "unselect service"
       },
       "DETAIL": {
         "MENU": {

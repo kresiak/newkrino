@@ -23,10 +23,10 @@
             <ng-template ngbPanelTitle>
                 <div class="row" id="{{serviceItem.data._id}}">
                     <div class="col-sm-1" *ngIf="isForSelection">
-                        <img ngbTooltip="select service" *ngIf="!isServiceSelected(serviceItem)" height="25" width="25" src="../../images/add.png"
+                        <img [ngbTooltip]="'PLATFORM.SERVICE.SELECT SERVICE TIP' | translate" *ngIf="!isServiceSelected(serviceItem)" height="25" width="25" src="../../images/add.png"
                             (click)="serviceSelectedInList($event, serviceItem, false)" />
 
-                        <img ngbTooltip="unselect service" *ngIf="isServiceSelected(serviceItem)" height="25" width="25" src="../../images/remove.png"
+                        <img [ngbTooltip]="'PLATFORM.SERVICE.UNSELECT SERVICE TIP' | translate"  *ngIf="isServiceSelected(serviceItem)" height="25" width="25" src="../../images/remove.png"
                             (click)="serviceSelectedInList($event, serviceItem, true)" />
                     </div>
 

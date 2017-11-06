@@ -140,26 +140,26 @@
 							<gg-editor-boolean [content]="product.data.disabled" (editSaved)="disablUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row" ngbTooltip="Define here if encoding the lot number might be needed at delivery for this product">
+					<div class="row" [ngbTooltip]="'PRODUCT.LABEL.DEFINE HERE IF ENCODING THE LOT NUMBER TIP' | translate">
 						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.MAY ENCODING NUMBER' | translate}}:</div>
 						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.needsLotNumber" (editSaved)="needsLotNumberUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
-					<div class="row" ngbTooltip="Define here if this product might potentially be resold from the stock">
+					<div class="row" [ngbTooltip]="'PRODUCT.LABEL.DEFINE HERE IF THIS PRODUCT MIGHT POTENTIALLY TIP' | translate">
 						<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.MAY RESOLD STOCK' | translate}}:</div>
 						<div class="col-sm-6 align-self-center">
 							<gg-editor-boolean [content]="product.data.isStock" (editSaved)="isStockUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-boolean>
 						</div>
 					</div>
 					<div *ngIf="product.data.isStock == true">
-						<div class="row" ngbTooltip="If for example you buy a box with 80 unities... But from the stock,it is resold by 10 unities... Then the division factor will be 8. The default is: 1.">
+						<div class="row" [ngbTooltip]="'PRODUCT.LABEL.IF FOR EXAMPLE YOU BUY A BOX TIP' | translate">
 							<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.DIVISION FACTOR STOCK' | translate}}:</div>
 							<div class="col-sm-6 align-self-center">
 								<gg-editor-number [content]="product.data.divisionFactor" (editSaved)="divisionFactorUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor-number>
 							</div>
 						</div>
-						<div class="row" [style.color]="product.data.divisionFactor===1 || product.data.stockPackage ? 'black' : 'red'" ngbTooltip="Enter here a text that the user will see when buying from the stock. For example: '10 unities' Needed in particular when the division factor is different from 1">
+						<div class="row" [style.color]="product.data.divisionFactor===1 || product.data.stockPackage ? 'black' : 'red'" [ngbTooltip]="'PRODUCT.LABEL.ENTER HERE A TEXT TIP' | translate">
 							<div class="col-sm-3 align-self-center">{{'PRODUCT.LABEL.STOCK PACKAGING' | translate}}:</div>
 							<div class="col-sm-6 align-self-center">
 								<gg-editor [content]="product.data.stockPackage" [showControls]="true" (editSaved)="stockPackageUpdated($event)" [readOnly]="isProductReadOnly()"></gg-editor>

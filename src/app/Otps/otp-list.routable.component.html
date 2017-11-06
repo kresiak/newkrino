@@ -46,9 +46,9 @@
                                                             <div class="row">
                                                                 <div class="col-sm-2"><b>{{'OTP.CLASSIFICATION.COLUMN.NAME' | translate}}</b></div>
                                                                 <div class="col-sm-4"><b>{{'OTP.CLASSIFICATION.COLUMN.CATEGORIES' | translate}}</b></div>
-                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are open to all equipes"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE UNRESTRICTED' | translate}}</b></div>
-                                                                <div class="col-sm-2" ngbTooltip="Consider only active Otps that are limited to the equipe that is owning the otp"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE RESTRICTED' | translate}}</b></div>
-                                                                <div class="col-sm-1" ngbTooltip="Consider all Otps, including deleted, blocked, ..."><b>{{'OTP.CLASSIFICATION.COLUMN.NUMBER OTPS' | translate}}</b></div>
+                                                                <div class="col-sm-2" [ngbTooltip]="'OTP.CLASSIFICATION.CONSIDER ONLY ACTIVE OTPS THAT ARE OPEN TO ALL EQUIPES TIP' | translate"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE UNRESTRICTED' | translate}}</b></div>
+                                                                <div class="col-sm-2" [ngbTooltip]="'OTP.CLASSIFICATION.CONSIDER ONLY ACTIVE OTPS TIP' | translate"><b>{{'OTP.CLASSIFICATION.COLUMN.AVAILABLE RESTRICTED' | translate}}</b></div>
+                                                                <div class="col-sm-1" [ngbTooltip]="'OTP.CLASSIFICATION.CONSIDER ALL OTPS TIP' | translate"><b>{{'OTP.CLASSIFICATION.COLUMN.NUMBER OTPS' | translate}}</b></div>
                                                             </div>
                                                         </ng-template>
                                                     </ngb-panel>
