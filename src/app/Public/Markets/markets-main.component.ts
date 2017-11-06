@@ -2,7 +2,6 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../../Shared/Services/data.service'
 import { AuthAnoynmousService, SignedInStatusInfo } from './../../Shared/Services/auth-anonymous.service'
-import { UploadMetadata, FileHolder, ImageUploadComponent } from "angular2-image-upload";
 
 @Component(
     {
@@ -16,7 +15,7 @@ export class MarketsMainComponent implements OnInit {
     isPageRunning: boolean = true;
     private productsList: any[]
 
-    @ViewChild(ImageUploadComponent) imageUploadComponent: ImageUploadComponent;
+    @ViewChild('uploader') imageUploadComponent;
 
     constructor(private dataStore: DataStore, private authAnoynmousService: AuthAnoynmousService) {
     }
@@ -103,18 +102,14 @@ export class MarketsMainComponent implements OnInit {
         return filename
     }
 
-    onUploadFinished(product, itemPos, res) {
-        var filename = this.getServerFileName(res)
-
+    onUploadFinished(product, itemPos, newDocuments) {
         var documents = product.data.items[itemPos].documents
-        if (!documents) documents = []
-        documents.push({
-            file: this.createOurFileObj(res.file),
-            filename: filename
-        })
-        this.dataStore.updateData('products.market', product.data._id, product.data).subscribe(res => {
-            this.imageUploadComponent.deleteAll()
-        })
+        if (newDocuments && newDocuments.length === 1) {
+            documents.push(newDocuments[0])
+            this.dataStore.updateData('products.market', product.data._id, product.data).subscribe(res => {
+                this.imageUploadComponent.clearPictures()
+            })
+        }
     }
 
     isUser(item): boolean {

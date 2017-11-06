@@ -4,7 +4,6 @@ import { DataStore } from './../../Shared/Services/data.service'
 import { AuthAnoynmousService } from './../../Shared/Services/auth-anonymous.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import * as utilsdate from './../../Shared/Utils/dates'
-import { UploadMetadata, FileHolder, ImageUploadComponent  } from "angular2-image-upload";
 
 @Component(
     {
@@ -16,11 +15,10 @@ export class MarketsEnterComponent implements OnInit {
     isPageRunning: boolean = true;
     private marketsEnterForm: FormGroup
 
-    @ViewChild(ImageUploadComponent) imageUploadComponent: ImageUploadComponent;
+    @ViewChild('uploader') imageUploadComponent;
 
     constructor(private dataStore: DataStore, private formBuilder: FormBuilder, private authAnoynmousService: AuthAnoynmousService) {
     }
-
 
     ngOnInit(): void {
 
@@ -78,59 +76,14 @@ export class MarketsEnterComponent implements OnInit {
         this.marketsEnterForm.controls['price'].setValue('')
         this.marketsEnterForm.controls['justification'].setValue('')
         this.fileDocuments = []
-        this.imageUploadComponent.deleteAll()
+        this.imageUploadComponent.clearPictures()
     }
 
     ngOnDestroy(): void {
         this.isPageRunning = false
     }
 
-    private createOurFileObj(file) {
-        return {
-            name: file.name,
-            size: file.size,
-            lastModified: file.lastModified
-        }
-    }
-
-    private getServerFileName(res) {
-        var x = JSON.parse(res.serverResponse._body)
-        var filename = x ? x.filename : 'unknown'
-        return filename
-    }
-
-    onUploadFinished(res) {
-        var filename = this.getServerFileName(res)
-
-        this.fileDocuments.push(
-            {
-                file: this.createOurFileObj(res.file),
-                filename: filename
-            }
-        )
-    }
-
-    onBeforeUpload = (metadata: UploadMetadata) => {
-        if (!metadata || !metadata.file) {
-            metadata.abort = true
-            return metadata
-        }
-        var ab = this.createOurFileObj(metadata.file)
-        var x = JSON.stringify(ab)
-        if (this.fileDocuments.map(f => JSON.stringify(f.file)).includes(x))
-            metadata.abort = true
-
-        return metadata;
-    };
-
-    onRemoved(res: FileHolder) {
-        var filename = this.getServerFileName(res)
-        var theFile=  this.fileDocuments.filter(fn => fn.filename===filename)[0]
-        if (theFile) {
-            var index = this.fileDocuments.indexOf(theFile)
-            if (index > -1) {
-                this.fileDocuments.splice(index, 1)
-            }
-        }
+    onUploadFinished(documents) {
+        this.fileDocuments= documents
     }
 }

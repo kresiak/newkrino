@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { ImageUploadModule } from "angular2-image-upload"
 
 import { TranslateModule } from '@ngx-translate/core'
 

@@ -11,10 +11,8 @@
 			<div class="card">
 				<div class="card-body">
 					<div class="row">
-						<div class="col-sm-3">file:</div>
-						<div class="col-sm-6">
-							<image-upload [url]="dataStore.getUploadUrl()" (uploadFinished)="onUploadFinished($event)">
-							</image-upload>
+						<div class="col-sm-12">
+							<gg-image-uploader #uploader [maxNbOfFiles]="1" (imagesChanged)="onUploadFinished($event)"></gg-image-uploader>
 						</div>
 					</div>
 				</div>

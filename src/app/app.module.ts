@@ -6,7 +6,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 /*import { ChartistModule, ChartistComponent } from 'angular2-chartist';*/
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { ImageUploadModule } from "angular2-image-upload"
+
 
 /*import { Ng2SimplePageScrollModule } from 'ng2-simple-page-scroll/ng2-simple-page-scroll';*/
 
@@ -176,8 +176,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     Ng2AutoCompleteModule,
     NgbModule.forRoot(),
-    //Ng2SimplePageScrollModule.forRoot(),
-    ImageUploadModule.forRoot(),
+    //Ng2SimplePageScrollModule.forRoot(),    
     TranslateModule.forRoot(
       {
         loader: {

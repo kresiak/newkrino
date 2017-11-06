@@ -4,6 +4,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { ImageUploadModule } from "angular2-image-upload"
 
 import { Editor } from '../editor/editor'
 import { EditorAutocomplete } from '../editor/editor-autocomplete'
@@ -29,21 +30,24 @@ import { FromNowPipe } from '../../Shared/Pipes/fromnow.pipe'
 
 import { ModalConfirmComponent } from '../modal/modal-confirm.component'
 
+import { ImageUploaderComponent } from '../upload/image-uploader.component'
+
 @NgModule({
   imports: [
+    ImageUploadModule.forRoot(),
     Ng2AutoCompleteModule, NgbModule, CommonModule, TranslateModule,
     FormsModule, ReactiveFormsModule    
   ],
   declarations: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
-    FullDatePipe, ShortDatePipe, FromNowPipe, ModalConfirmComponent
+    FullDatePipe, ShortDatePipe, FromNowPipe, ModalConfirmComponent, ImageUploaderComponent
   ],
   exports: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
     FullDatePipe, ShortDatePipe, FromNowPipe,
-    ModalConfirmComponent
+    ModalConfirmComponent, ImageUploaderComponent
   ],
   providers: [
     ],

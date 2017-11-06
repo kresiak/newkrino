@@ -109,6 +109,11 @@
     "MODAL": {
       "DEFAULT TITLE": "Confirmation",
       "DEFAULT QUESTION": "Etes-vous certain? En cas de doute, veuillez annuler."
+    }, 
+    "UPLOAD": {
+      "SELECT IMAGES": "Choisir le fichier du scan de document",   
+      "DROP YOUR IMAGES HERE": "faites glisser vos images dans cette zone", 
+      "CLEAR": "enlever tout"
     }
   },  
   "HOME": {
@@ -1641,9 +1646,6 @@
     },
     "MARKET": {
       "DOCUMENT": "document",   
-      "SELECT IMAGES": "Choisir le fichier du scan de document",   
-      "DROP YOUR IMAGES HERE": "faites glisser vos images dans cette zone", 
-      "CLEAR": "enlever tout",
       "SEARCH HELP": {
         "MSG1": "tip: trouver les produits dont le nom contient 'tip'",
         "MSG2": "10 ml: trouver les produits dont le conditionnement contient '10 ml'",

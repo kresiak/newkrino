@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs/Rx'
 import { DataStore } from './../Shared/Services/data.service'
 import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +23,8 @@ export class UserDetailComponent implements OnInit {
     constructor(private dataStore: DataStore, private authService: AuthService, private navigationService: NavigationService, private orderService: OrderService, 
                 private voucherService: VoucherService, private equipeService: EquipeService, private stockService: StockService, private configService: ConfigService) {
     }
+
+    @ViewChild('uploader') imageUploadComponent;
 
     @Input() userObservable: Observable<any>;
     @Input() state;
@@ -147,10 +149,11 @@ export class UserDetailComponent implements OnInit {
         this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
     }
 
-    onUploadFinished(res) {
-        var x = JSON.parse(res.serverResponse._body)
-        var filename= x ? x.filename : 'unknown'
-        this.user.data.pictureFile= filename
-        this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+    onUploadFinished(documents) {
+        if (documents && documents.length>0) {
+            this.user.data.pictureFile= documents[0].filename
+            this.dataStore.updateData('users.krino', this.user.data._id, this.user.data);
+            this.imageUploadComponent.clearPictures()
+        }
     }
 }

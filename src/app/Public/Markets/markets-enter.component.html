@@ -41,9 +41,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-xl-2">documents:</label>
                     <div class="col-sm-10">
-							<image-upload [url]="dataStore.getUploadUrl()" (uploadFinished)="onUploadFinished($event)" [beforeUpload]="onBeforeUpload" (removed)="onRemoved($event)" 
-                                [buttonCaption]="'PUBLIC.MARKET.SELECT IMAGES' | translate" [dropBoxMessage]="'PUBLIC.MARKET.DROP YOUR IMAGES HERE' | translate" [clearButtonCaption]="'PUBLIC.MARKET.CLEAR' | translate">
-							</image-upload>                        
+                            <gg-image-uploader #uploader [maxNbOfFiles]="5" (imagesChanged)="onUploadFinished($event)"></gg-image-uploader>                        
                     </div>
                 </div>
                 <div class="row">

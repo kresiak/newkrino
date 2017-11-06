@@ -109,6 +109,11 @@
     "MODAL": {
       "DEFAULT TITLE": "Confirmation",
       "DEFAULT QUESTION": "Are you sure? If not, please cancel"
+    }, 
+    "UPLOAD": {
+      "SELECT IMAGES": "Select scanned document",
+      "DROP YOUR IMAGES HERE": "drop your images here",
+      "CLEAR": "clear all"      
     }
   },
   "HOME": {
@@ -1614,9 +1619,6 @@
     },
     "MARKET": {
       "DOCUMENT": "document",
-      "SELECT IMAGES": "Select scanned document",
-      "DROP YOUR IMAGES HERE": "drop your images here",
-      "CLEAR": "clear all",
       "SEARCH HELP": {
         "MSG1": "tip: list of products with a name containing 'tip'",
         "MSG2": "10 ml: list of products with a packaging containing '10 ml'",
