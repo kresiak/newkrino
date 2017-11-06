@@ -1,5 +1,16 @@
 /*trick to force height to be equal to width http://www.mademyday.de/css-height-equals-width-with-pure-css.html*/
 
+ngb-accordion .text-muted     /*will work only for accordion headers because they are disabled and thus text-muted*/
+{
+  background-color: transparent !important;
+  color:deepskyblue !important;
+}
+
+ngb-accordion .card-header {    /*as asked by Wouter, make accordions more compact*/
+    padding: 0.33rem 0.60rem
+}
+
+
 .popover {
     max-width: 550px;
 }
