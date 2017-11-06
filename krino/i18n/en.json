@@ -531,7 +531,8 @@
       "DUPLICATE CATALOG NR": "Duplicate Catalog Nr",
       "VIEW PRODUCTS": "View products",
       "VIEW PRIVATE PRODUCTS": "View private products",
-      "CREATE A PRODUCT": "Create a Product"
+      "CREATE A PRODUCT": "Create a Product",
+      "DOCUMENTS": "Documents"
     },
     "COLUMN": {
       "PRODUCT": "Product",

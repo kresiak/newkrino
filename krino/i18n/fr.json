@@ -531,7 +531,8 @@
       "DUPLICATE CATALOG NR": "No catalogue déjà utilisé",
       "VIEW PRODUCTS": "Voir produits",
       "VIEW PRIVATE PRODUCTS": "Voir produits privés",
-      "CREATE A PRODUCT": "Créer un produit"
+      "CREATE A PRODUCT": "Créer un produit",
+      "DOCUMENTS": "Documents"
     },
     "COLUMN": {
       "PRODUCT": "Produit",

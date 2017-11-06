@@ -253,6 +253,11 @@
 			<gg-order-list [ordersObservable]="ordersObservable" [state]="state.Orders" [path]="path+'|O:Orders'" (stateChanged)="childOrdersStateChanged($event)"></gg-order-list>
 		</ng-template>
 	</ngb-tab>
+	<ngb-tab title="{{('PRODUCT.MENU.DOCUMENTS' | translate) + ' (' + (product.data.documents || []).length + ')'}}" id="tabDocuments">
+		<ng-template ngbTabContent>
+			<gg-image-uploader-viewer [canUserChange]="!isProductReadOnly()" [documents]="product.data.documents || []" (imagesChanged)="documentsChanged($event)"></gg-image-uploader-viewer>
+		</ng-template>
+	</ngb-tab>
 	<ngb-tab title="{{'PRODUCT.MENU.SERVICE SNAPSHOT ASSOCIATED' | translate}}" id="tabServiceSnapshot" *ngIf="serviceSnapshot">
 		<ng-template ngbTabContent>
 			<div class="card">
