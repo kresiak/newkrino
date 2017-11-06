@@ -15,8 +15,6 @@ export class MarketsMainComponent implements OnInit {
     isPageRunning: boolean = true;
     private productsList: any[]
 
-    @ViewChild('uploader') imageUploadComponent;
-
     constructor(private dataStore: DataStore, private authAnoynmousService: AuthAnoynmousService) {
     }
 
@@ -61,12 +59,6 @@ export class MarketsMainComponent implements OnInit {
         this.isPageRunning = false
     }
 
-    deleteDocument(product, itemPos, docPos) {
-        product.data.items[itemPos].documents.splice(docPos, 1)
-        this.dataStore.updateData('products.market', product.data._id, product.data)
-    }
-
-
     supplierChanged(newValue, product, itemPos) {
         product.data.items[itemPos].supplier = newValue
         this.dataStore.updateData('products.market', product.data._id, product.data)
@@ -87,29 +79,11 @@ export class MarketsMainComponent implements OnInit {
         this.dataStore.updateData('products.market', product.data._id, product.data)
     }
 
-
-    private createOurFileObj(file) {
-        return {
-            name: file.name,
-            size: file.size,
-            lastModified: file.lastModified
-        }
-    }
-
-    private getServerFileName(res) {
-        var x = JSON.parse(res.serverResponse._body)
-        var filename = x ? x.filename : 'unknown'
-        return filename
-    }
-
-    onUploadFinished(product, itemPos, newDocuments) {
-        var documents = product.data.items[itemPos].documents
-        if (newDocuments && newDocuments.length === 1) {
-            documents.push(newDocuments[0])
-            this.dataStore.updateData('products.market', product.data._id, product.data).subscribe(res => {
-                this.imageUploadComponent.clearPictures()
-            })
-        }
+    imagesChanged(product, itemPos, newDocuments) {
+        product.data.items[itemPos].documents = newDocuments
+        this.dataStore.updateData('products.market', product.data._id, product.data).subscribe(res => {
+            
+        })
     }
 
     isUser(item): boolean {

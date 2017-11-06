@@ -31,6 +31,7 @@ import { FromNowPipe } from '../../Shared/Pipes/fromnow.pipe'
 import { ModalConfirmComponent } from '../modal/modal-confirm.component'
 
 import { ImageUploaderComponent } from '../upload/image-uploader.component'
+import { ImageUploaderViewerComponent } from '../upload/image-uploader-viewer.component'
 
 @NgModule({
   imports: [
@@ -41,13 +42,13 @@ import { ImageUploaderComponent } from '../upload/image-uploader.component'
   declarations: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
-    FullDatePipe, ShortDatePipe, FromNowPipe, ModalConfirmComponent, ImageUploaderComponent
+    FullDatePipe, ShortDatePipe, FromNowPipe, ModalConfirmComponent, ImageUploaderComponent, ImageUploaderViewerComponent
   ],
   exports: [
     Editor, EditorNumber, EditorDate, EditorBoolean, Checkbox, CheckboxDelete, ButtonActionConfirm, SelectorComponent, EditorAutocomplete, EditorAutocompleteText,
     HelpPointerComponent, DatePointerComponent, TextCompactComponent,  SearchBoxComponent,
     FullDatePipe, ShortDatePipe, FromNowPipe,
-    ModalConfirmComponent, ImageUploaderComponent
+    ModalConfirmComponent, ImageUploaderComponent, ImageUploaderViewerComponent
   ],
   providers: [
     ],

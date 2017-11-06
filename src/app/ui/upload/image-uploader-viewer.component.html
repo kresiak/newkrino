@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-body">
+        <ngb-tabset>
+            <ngb-tab title="{{'PUBLIC.MARKET.MENU.CAROUSEL' | translate}}">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <ngb-carousel>
+                                <div *ngFor="let document of (documents || [])">
+                                    <ng-template ngbSlide>
+                                        <img [src]="dataStore.getPictureUrl(document.filename)">
+                                        <div class="carousel-caption">
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </ngb-carousel>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="{{'PUBLIC.MARKET.MENU.DELETE DOC' | translate}}">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row" *ngFor="let document of (documents || []); let docPos = index">
+                                <!--FOR-->
+                                <div class="col-sm-3 align-self-center">
+                                    <img style="max-width:50%;max-height:50%" [src]="dataStore.getPictureUrl(document.filename)">
+                                </div>
+                                <div class="col-sm-2 align-self-center" *ngIf="canUserChange">
+                                    <gg-checkbox-delete [typeObjectKey]="'PUBLIC.MARKET.DOCUMENT'" (doDelete)="deleteDocument(docPos)"></gg-checkbox-delete>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="{{'PUBLIC.MARKET.MENU.ADD DOC' | translate}}" *ngIf="canUserChange">
+                <ng-template ngbTabContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <gg-image-uploader #uploader [maxNbOfFiles]="1" (imagesChanged)="onUploadFinished($event)"></gg-image-uploader>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>
