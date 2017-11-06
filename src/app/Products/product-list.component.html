@@ -43,8 +43,10 @@
 						<img *ngIf="!product.data.isFrigo && !isProductReadOnly(product)" class="invisible-without-hover" height="25"
 						 width="25" src="../../images/ok.png" (click)="saveFrigoProperty($event, product, true)" [ngbTooltip]="'PRODUCT.HELP.ACTIVATE FRIDGE' | translate"/>
 					</div>
-					<div class="col-sm-1" *ngIf="product.annotation.hasBasket"><img height="25" width="25" src="../../images/shopping-basket-info-icon.png" /></div>
-					<div class="col-sm-1" *ngIf="product.data.disabled"><img height="25" width="25" src="../../images/closed.png" /></div>
+					<div class="col-sm-1" >
+						<img height="25" width="25" src="../../images/shopping-basket-info-icon.png" *ngIf="product.annotation.hasBasket" />
+						<img height="25" width="25" src="../../images/closed.png" *ngIf="product.data.disabled"/>
+					</div>
 
 				</div>
 			</ng-template>

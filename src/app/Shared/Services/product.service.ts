@@ -298,7 +298,11 @@ export class ProductService {
                 return !product.data.disabled && product.annotation.multipleOccurences;
             }
 
-            if (txt.startsWith('$D')) {
+            if (txt.startsWith('$DO')) {
+                return product.data.documents && product.data.documents.length > 0
+            }
+
+            if (txt.startsWith('$DI')) {
                 return product.data.disabled;
             }
 

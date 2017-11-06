@@ -621,12 +621,13 @@
       "MSG7": "$T6 : produit avec une TVA à 6%",
       "MSG8": "$T0 : produit avec une TVA à 0%",
       "MSG9": "$M : produit présent plusieurs fois dans la base de données avec le même numéro de catalogue",
-      "MSG10": "$D : produits désactivés",
+      "MSG10": "$DI : produits désactivés",
       "MSG11": "$PR : produits privés (peuvent être vus/utilisés seulement par les membres de VOTRE labo)",
       "MSG12": "$PU : produits publics (peuvent être vus/utilisés seulement par les membres de TOUS les labos)",
       "MSG13": "$V : produits en attente de validation",
       "MSG14": "$OR : produits qui ont déjà été commandés dans votre labo",
-      "MSG15": "$FR : produits frigos"
+      "MSG15": "$FR : produits frigos",
+      "MSG16": "$DO : produits qui ont des documents associés"
     },
     "FRIDGE": {
       "LABEL": {

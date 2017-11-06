@@ -621,12 +621,13 @@
       "MSG7": "$T6 : product with 6% VAT",
       "MSG8": "$T0 : product with 0% VAT",
       "MSG9": "$M : product presents several times with the same CatalogNr",
-      "MSG10": "$D : disabled products",
+      "MSG10": "$DI : disabled products",
       "MSG11": "$PR : private products (can be seen only by this labo)",
       "MSG12": "$PU : public products (can be seen by all labo)",
       "MSG13": "$V : products waiting for validation",
       "MSG14": "$OR : products that already have been ordered",
-      "MSG15": "$FR : products that are in the fridge"
+      "MSG15": "$FR : products that are in the fridge",
+      "MSG16": "$DO : products that have documents associated"
     },
     "FRIDGE": {
       "LABEL": {
