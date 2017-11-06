@@ -37,7 +37,7 @@ export class DataStore { // contains one observable property by database table/c
 
     private laboFieldName: string = 'laboName'
 
-    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications', 'sap.fusion', 'sap.supplier', 'users.public']
+    private universalTables: string[] = ['products', 'suppliers', 'categories', 'labos.list', 'otp.product.classifications', 'sap.fusion', 'sap.supplier', 'users.public', 'products.market']
 
     //public laboName= 'demo' 
     //public laboName = 'michel'
